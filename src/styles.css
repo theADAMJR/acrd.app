@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+    --font: #F4F2F3;
+
+    --primary: #46828D;
+    --secondary: #276C8A;
+    --tertiary: #36E2CA;
+
+    --background-primary: #15244B;
+    --background-secondary: #0d245e;
+    --background-tertiary: #081536;
+}
+
+body {
+    color: var(--font);
+    background: #4c429c;
+    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%);
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+}

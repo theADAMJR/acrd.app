@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "twopg-dashboard": {
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "twopg-dashboard"
+    }
+  },
+  "defaultProject": "twopg-dashboard",
+  "cli": {
+    "analytics": "6e350057-1306-4152-b868-7ccc4b4c4614"
+  }
 }
