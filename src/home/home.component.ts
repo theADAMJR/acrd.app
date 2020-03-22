@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.title = '2PG - Discord Bot';
   }
 
 }

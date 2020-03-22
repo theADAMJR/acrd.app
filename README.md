@@ -1,4 +1,24 @@
-# TwopgDashboard
+# 2PG Dashboard
+
+## Config
+`config.json` example:
+```
+{
+    "bot": {
+        "id": "yourBotId"
+  }
+}
+```
+
+## Discord Bot Setup
+Make sure you have redirects set to the /auth link you will be using.
+This will be used in the final step of the OAuth2 login.
+  
+![Redirects](https://i.ibb.co/5TC6Yn3/redirects.png)
+
+---
+
+# Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
 

@@ -1,0 +1,49 @@
+.guild-icon {
+    border-radius: 50%;
+
+    margin: 5px;
+    width: 64px;
+    height: 64px;
+
+    background-color: var(--background-primary);
+    transition: all .35s;
+
+    cursor: pointer;
+}
+
+.guild-icon img:hover, .guild-icon:hover, .guild-icon span:hover {
+    border-radius: 25%;
+}
+
+.guild-icon span {
+    position: absolute;
+    text-align: center;
+
+    font-size: 20px;
+
+    width: 64px;
+    height: 48px;
+    padding-top: 16px;
+
+    transition: all .35s;
+}
+
+.guild-icon img {
+    max-width: 64px;
+    border-radius: 50%;
+
+    transition: all .35s;
+}
+
+button {
+    background: transparent;
+    border: none;
+    color: var(--font);
+
+    font-size: 32px;
+}
+
+mat-sidenav {
+    height: 100vh;
+    background-color: var(--background-tertiary);
+}

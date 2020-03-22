@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CommandsService } from '../services/commands.service';
+import * as $ from 'jquery';
+import 'datatables.net';
 
 @Component({
   selector: 'app-commands',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommandsComponent implements OnInit {
 
-  constructor() { }
+  commands: any[] = [
+    {
+      name: 'ping',
+      summary: 'Greatest command',
+      module: 'General',
+      usage: ''
+    }
+  ];
 
-  ngOnInit(): void {
+  constructor(private service: CommandsService) {}
+
+  async ngOnInit() {
+    this.commands = await this.service.get()
+    this.commands = this.commands.sort(a => a.name)
+
+    document.title = '2PG - Commands';
+
+    $(document).ready(() => $('table').DataTable());
   }
-
 }

@@ -1,9 +1,24 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" routerLink="/">2PG</a>
     <div class="nav navbar-nav">
-        <a class="nav-item nav-link" routerLink="/commands">Commands</a>
+        <a class="nav-item nav-link" routerLink="/commands"><i class="fa fa-code" aria-hidden="true"></i> Commands</a>
     </div>
     <div class="nav navbar-nav ml-auto">
-        <a class="nav-item nav-link btn btn-success btn-sm" routerLink="/login">Login</a>
+        <div *ngIf="!user">
+            <a class="nav-item nav-link" routerLink="/login"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+        </div>
+        <div *ngIf="user">
+            <div class="dropdown">
+                <a class="nav-item nav-link dropdown-toggle"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img [src]="user.displayAvatarURL"> {{ user.username }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" routerLink="/dashboard">Dashboard</a>
+                    <hr class="m-1">
+                    <a class="dropdown-item" routerLink="/logout">Logout</a>
+                </div>
+            </div>
+        </div>
     </div>
 </nav>
