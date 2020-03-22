@@ -15,10 +15,10 @@
     --background-tertiary: #081536;
 }
 
-body {
+body, mat-sidenav-content {
     color: var(--font);
-    background: #4c429c;
-    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%);
+    background: black;
+    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%) !important;
     
     overflow-x: hidden;
 }

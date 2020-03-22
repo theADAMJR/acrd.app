@@ -9,7 +9,8 @@ import { AuthService } from './auth.service';
 export class DashboardAuthGuard implements CanActivate {
   constructor(private auth: AuthService) {}
 
-  canActivate() {
+  async canActivate() {
+    await this.auth.updateUser();
     return Boolean(this.auth.user);
   }  
 }

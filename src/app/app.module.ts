@@ -16,11 +16,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { GuildComponent } from './guild/guild.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    HomeComponent,
     CommandsComponent,
     AuthComponent,
     LoginComponent,
