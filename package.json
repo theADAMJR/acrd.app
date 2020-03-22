@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "cd api && ts-node server.ts",
     "start:api": "cd api && nodemon --exec ts-node server.ts --watch * -e ts,js",
     "build": "ng build",
     "test": "ng test",
