@@ -43,7 +43,33 @@ button {
     font-size: 32px;
 }
 
+.guilds {
+    background-color: var(--background-tertiary);
+    float: left;
+    height: inherit;
+}
+
+.options {
+    background-color: var(--background-primary) !important;
+
+    width: 300px;
+    height: inherit;
+}
+
+.toggle {
+    visibility: visible;
+
+    margin: 50px 0 0 15px;
+}
+
 mat-sidenav {
     height: 100vh;
     background-color: var(--background-tertiary);
+}
+
+/* sm */
+@media (min-width: 576px) {
+    .toggle {
+        visibility: hidden;
+    }
 }

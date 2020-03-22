@@ -27,3 +27,20 @@ footer {
     position: fixed;
     bottom: 0;
 }
+
+.side-nav img {
+    background-color: var(--background-tertiary);
+
+    max-width: 96px;
+    border-radius: 50%;
+
+    padding-bottom: 5px;
+}
+
+.side-nav .header {
+    width: inherit;
+
+    text-align: center;
+
+    padding-top: 25px;
+}

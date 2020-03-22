@@ -1,6 +1,12 @@
-<mat-sidenav-container class="example-container">
+<mat-sidenav-container fullscreen>
     <mat-sidenav #drawer mode="side" opened>
         <div class="guilds">
+            <div class="user">
+                <div routerLink="/dashboard" class="guild-icon">
+                    <img [src]="user.displayAvatarURL" alt="{{ user.username }}">
+                </div>
+                <hr>
+            </div>
             <div *ngFor="let guild of guilds" [routerLink]="['/servers/' + guild.id]"
                 class="guild-icon">
                 <img *ngIf="guild.iconURL"
@@ -8,12 +14,16 @@
                 <span *ngIf="!guild.iconURL">{{ guild.nameAcronym }}</span>
             </div>
         </div>
-        <div class="options">            
+        <div class="options">
+            <ng-content select=".side-nav"></ng-content>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
-        <button mat-raised-button (click)="drawer.toggle()">
+        <navbar></navbar>
+        <button mat-raised-button (click)="drawer.toggle()"
+            class="toggle">
             <i class="fa fa-bars" aria-hidden="true"></i>
-        </button>        
+        </button>
+        <ng-content select="#content"></ng-content>
     </mat-sidenav-content>
 </mat-sidenav-container>

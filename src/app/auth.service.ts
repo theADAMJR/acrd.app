@@ -35,4 +35,8 @@ export class AuthService implements OnInit {
   async authenticate(code: string) {
     return this.http.get(`${this.endpoint}/auth?code=${code}`).toPromise() as Promise<string>;
   }
+
+  getGuild(id: string) {    
+    return this.guilds.find(g => g.id === id);
+  }
 }

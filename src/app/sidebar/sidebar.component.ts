@@ -8,6 +8,7 @@ import { AuthService } from '../auth.service';
 })
 export class SidebarComponent implements OnInit {
   get guilds() { return this.auth.guilds; }
+  get user() { return this.auth.user; }
 
   constructor(private auth: AuthService) { }
 
