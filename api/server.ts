@@ -22,6 +22,12 @@ bot.login(config.bot.token);
 app.use(cors());
 app.use('/api', apiRoutes);
 
+const path = '/app/dist/twopg-dashboard';
+app.use(express.static(path)); // use only for production
+
+app.all('*', (req, res) =>
+    res.status(200).sendFile(path + '/index.html'));
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`API is live on port ${port}`));
 
