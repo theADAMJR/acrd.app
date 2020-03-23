@@ -7,7 +7,7 @@ import config from 'config.json';
   styleUrls: ['./invite.component.css']
 })
 export class InviteComponent implements OnInit {
-  url = `https://discordapp.com/api/oauth2/authorize?client_id=${config.bot.id}&permissions=8&scope=bot`;
+  url = `https://discordapp.com/api/oauth2/authorize?client_id=${config.bot.id}&redirect_uri=${config.url}/dashboard&permissions=8&scope=bot`;
 
   ngOnInit() {
     window.location.assign(this.url);

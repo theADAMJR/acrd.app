@@ -44,3 +44,7 @@ footer {
 
     padding-top: 25px;
 }
+
+table.dataTable tbody tr {
+    background-color: inherit;
+}
