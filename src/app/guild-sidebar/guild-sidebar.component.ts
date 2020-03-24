@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service';
 import config from 'config.json';
 
 @Component({
-  selector: 'app-guild',
-  templateUrl: './guild.component.html',
-  styleUrls: ['./guild.component.css']
+  selector: 'guild-sidebar',
+  templateUrl: './guild-sidebar.component.html',
+  styleUrls: ['./guild-sidebar.component.css']
 })
-export class GuildComponent implements OnInit {
+export class GuildSidebarComponent implements OnInit {
   modules = config.modules;
   otherModules = config.otherModules;
 

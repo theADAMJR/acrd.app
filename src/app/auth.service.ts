@@ -37,6 +37,6 @@ export class AuthService implements OnInit {
   }
 
   getGuild(id: string) {    
-    return this.guilds.find(g => g.id === id);
+    return this.guilds?.find(g => g.id === id);
   }
 }

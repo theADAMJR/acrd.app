@@ -1,12 +1,1 @@
-<sidebar>
-    <div class="side-nav">
-        <div class="header">
-            <img *ngIf="guild.iconURL"
-                [src]="guild.iconURL" [alt]="guild.name">
-            <span *ngIf="!guild.iconURL">{{ guild.nameAcronym }}</span>
-            <h4>{{ guild.name }}</h4></div>
-        </div>
-    <div id="content">
-        Coming soon...
-    </div>
-</sidebar>
+<guild-sidebar></guild-sidebar>

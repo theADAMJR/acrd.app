@@ -2,7 +2,9 @@
   "bot": {
       "id": "685867703352819720",
       "secret": "T_YS2QXCP1Q432eEzBB-I6SXn_sb17Mz",
-      "token": "Njg1ODY3NzAzMzUyODE5NzIw.Xncclg.oj_RN5ApRQ_KEWSHuCT_kMCCe0Q"
+      "token": "Njg1ODY3NzAzMzUyODE5NzIw.XnojHQ.kZXfLsyxWt-dFVtnXMovpbpFAoI"
   },
-  "url": "https://2pg.xyz"
+  "modules": ["Announce", "Auto-mod", "Commands", "General", "Music", "XP"],
+  "otherModules": ["Log", "Settings"],
+  "url": "http://localhost:4200"
 }
