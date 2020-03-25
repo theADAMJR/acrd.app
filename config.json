@@ -4,6 +4,9 @@
       "secret": "T_YS2QXCP1Q432eEzBB-I6SXn_sb17Mz",
       "token": "Njg1ODY3NzAzMzUyODE5NzIw.XnojHQ.kZXfLsyxWt-dFVtnXMovpbpFAoI"
   },
+  "dashboard": {
+    "managerPermission": "MANAGE_GUILD" 
+  },
   "modules": ["Announce", "Auto-mod", "Commands", "General", "Music", "XP"],
   "otherModules": ["Log", "Settings"],
   "url": "http://localhost:4200"

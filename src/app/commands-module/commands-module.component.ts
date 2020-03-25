@@ -35,9 +35,6 @@ export class CommandsModuleComponent implements OnInit {
       const config = this.commandConfigs.find(c => c.name === command.name);
       this.form.addControl(command.name, new FormControl(config?.enabled ?? true));
     }
-
-    // this.form.valueChanges
-      // .subscribe(() => confirm('Unsaved changes!'));
   }
 
   onChange(control: any) {
