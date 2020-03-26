@@ -9,8 +9,5 @@ a {
 
 img {
     padding: 0;
-}
-
-i {
-    padding-right: 5px;
+    background: var(--background-tertiary);
 }

@@ -30,6 +30,9 @@ import { SettingsModuleComponent } from './settings-module/settings-module.compo
 import { XPModuleComponent } from './xp-module/xp-module.component';
 import { GuildSidebarComponent } from './guild-sidebar/guild-sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LeaderboardModuleComponent } from './leaderboard-module/leaderboard-module.component';
+import { XPCardComponent } from './xp-card/xp-card.component';
+import { DashboardSidebarComponent } from './dashboard-sidebar/dashboard-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LogModuleComponent,
     SettingsModuleComponent,
     XPModuleComponent,
-    GuildSidebarComponent
+    GuildSidebarComponent,
+    LeaderboardModuleComponent,
+    XPCardComponent,
+    DashboardSidebarComponent
   ],
   imports: [
     AppRoutingModule,

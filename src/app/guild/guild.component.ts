@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
-import config from 'config.json';
 
 @Component({
   selector: 'app-guild',
@@ -9,9 +8,6 @@ import config from 'config.json';
   styleUrls: ['./guild.component.css']
 })
 export class GuildComponent implements OnInit {
-  modules = config.modules;
-  otherModules = config.otherModules;
-
   get guild() {
     const id = this.route.snapshot.paramMap.get('id');    
     return this.auth.getGuild(id);
@@ -22,5 +18,6 @@ export class GuildComponent implements OnInit {
     private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    
   }
 }

@@ -8,11 +8,39 @@
         </div>
             <hr>
             <div class="navbar-nav">
-                <a *ngFor="let module of modules" [routerLink]="['/servers/' + guild.id + '/' + module.toLowerCase()]"
-                    class="nav-item nav-link">{{ module }}</a>
-                <hr>
-                <a *ngFor="let module of otherModules" [routerLink]="['/servers/' + guild.id + '/' + module.toLowerCase()]"
-                class="nav-item nav-link">{{ module }}</a>
+                <a [routerLink]="['/servers/' + guild.id + '/announce']"
+                    class="nav-item nav-link">
+                    <i class="fa fa-bullhorn"></i> Announce</a>
+                <a [routerLink]="['/servers/' + guild.id + '/auto-mod']"
+                    class="nav-item nav-link">
+                    <i class="fa fa-gavel"></i> Auto-mod</a>
+                <a [routerLink]="['/servers/' + guild.id + '/commands']"
+                    class="nav-item nav-link">
+                    <i class="fa fa-code"></i> Commands</a>
+                <a [routerLink]="['/servers/' + guild.id + '/general']"
+                    class="nav-item nav-link">
+                    <i class="fa fa-terminal"></i> General</a>
+                <a [routerLink]="['/servers/' + guild.id + '/music']"
+                    class="nav-item nav-link">
+                    <i class="fa fa-music"></i> Music</a>
+                <a [routerLink]="['/servers/' + guild.id + '/xp']"
+                    class="nav-item nav-link">
+                    <i class="fa fa-star"></i> XP</a>
+            </div>
+            <hr>
+            <div class="navbar-nav">
+                <a [routerLink]="['/servers/' + guild.id + '/leaderboard']"
+                    class="nav-item nav-link">
+                    <i class="fa fa-trophy"></i> Leaderboard</a>
+                <a [routerLink]="['/servers/' + guild.id + '/log']"
+                    class="nav-item nav-link">
+                    <i class="fa fa-file-text"></i> Log</a>
+            </div>
+            <hr>
+            <div class="navbar-nav">
+                <a [routerLink]="['/servers/' + guild.id + '/settings']"
+                    class="nav-item nav-link">
+                    <i class="fa fa-cog"></i> Settings</a>
             </div>
         </div>
     <div id="content">

@@ -4,7 +4,7 @@
             <h1 class="display-3">Commands</h1>
             <hr>
         </div>
-        <form #f="ngForm" [formGroup]="form" (ngSubmit)="submit(f.value)">
+        <form #f="ngForm" [formGroup]="form" (ngSubmit)="onSubmit(f.value)">
             <div class="row">
                 <div *ngFor="let command of commands"
                     class="col-lg-6 col-md-12">
@@ -15,8 +15,7 @@
                             </span>
                             <div class="float-right">
                                 <mat-slide-toggle
-                                    [formControlName]="command.name"
-                                    (change)="onChange($event)"></mat-slide-toggle>
+                                    [formControlName]="command.name"></mat-slide-toggle>
                             </div>
                         </div>
                     </div>

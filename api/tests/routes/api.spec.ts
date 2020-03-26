@@ -59,6 +59,27 @@ describe('routes/api', () => {
                 .end(done);
         });
     });
+    
+    describe('GET /guilds/:id/users', () => {
+        const url = '/api/guilds/123/users';
+
+        it('unknown guild, returns 404', (done) => {
+            request(app).get(url)
+                .expect(404)
+                .end(done);
+        });
+    });
+    
+    describe('GET /public-guilds/:id', () => {
+        const url = '/api/public-guilds/123';
+
+        it('unknown guild, returns 200', (done) => {
+            request(app).get(url)
+                .expect(200)
+                .expect(null)
+                .end(done);
+        });
+    });
 
     it('any url returns 404', (done) => {
         request(app).get('/api/a')

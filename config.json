@@ -7,7 +7,5 @@
   "dashboard": {
     "managerPermission": "MANAGE_GUILD" 
   },
-  "modules": ["Announce", "Auto-mod", "Commands", "General", "Music", "XP"],
-  "otherModules": ["Log", "Settings"],
   "url": "http://localhost:4200"
 }

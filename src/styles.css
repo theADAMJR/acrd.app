@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
-@import 'https://raw.githubusercontent.com/ConnorAtherton/loaders.css/master/loaders.min.css';
+@import '~font-awesome/css/font-awesome.min.css';
+@import 'assets/css/loaders.min.css';
 
 :root {
     --font: #F4F2F3;
