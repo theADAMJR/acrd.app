@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsModuleComponent } from './settings-module.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from '../app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('SettingsModuleComponent', () => {
   let component: SettingsModuleComponent;
@@ -10,7 +12,12 @@ describe('SettingsModuleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SettingsModuleComponent ],
-      imports: [ HttpClientModule ]
+      imports: [ 
+        HttpClientModule, 
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule
+      ]
     })
     .compileComponents();
   }));

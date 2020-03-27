@@ -7,8 +7,6 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'twopg-dashboard';
-
   constructor(private auth: AuthService) {}
 
   async ngOnInit() {

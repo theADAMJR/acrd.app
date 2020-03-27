@@ -3,6 +3,7 @@ import { By } from '@angular/platform-browser';
 
 import { LeaderboardModuleComponent } from './leaderboard-module.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from '../app-routing.module';
 
 describe('LeaderboardModuleComponent', () => {
   let component: LeaderboardModuleComponent;
@@ -11,7 +12,7 @@ describe('LeaderboardModuleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LeaderboardModuleComponent ],
-      imports: [ HttpClientModule ]
+      imports: [ HttpClientModule, AppRoutingModule ]
     })
     .compileComponents();
   }));
@@ -25,16 +26,4 @@ describe('LeaderboardModuleComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should render total votes', () => {
-    component.members = [{
-      username: 'ADAMJR'
-    }];
-    component.guild = {};
-
-    const debugEl = fixture.debugElement.query(By.css('.rank'));
-    const el: HTMLElement = debugEl.nativeElement;
-    
-    expect(el.innerText).toContain('1');
-  })
 });

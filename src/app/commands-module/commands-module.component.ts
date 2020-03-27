@@ -13,7 +13,7 @@ import { ModuleConfig } from '../module-config';
   styleUrls: ['./commands-module.component.css']
 })
 export class CommandsModuleComponent extends ModuleConfig {
-  commands: any[];
+  commands: any[] = [];
   commandConfigs: CommandConfig[];
   form = new FormGroup({});
 

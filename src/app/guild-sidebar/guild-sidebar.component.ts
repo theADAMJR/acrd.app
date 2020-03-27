@@ -10,7 +10,7 @@ import { AuthService } from '../auth.service';
 export class GuildSidebarComponent implements OnInit {
   get guild() {
     const id = this.route.snapshot.paramMap.get('id');    
-    return this.auth.getGuild(id);
+    return this.auth.getGuild(id) || {};
   }
 
   constructor(

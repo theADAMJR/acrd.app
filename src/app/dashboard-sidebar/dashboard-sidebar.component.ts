@@ -7,7 +7,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./dashboard-sidebar.component.css']
 })
 export class DashboardSidebarComponent implements OnInit {
-  get user() { return this.auth.user; }
+  get user() { return this.auth.user ?? {}; }
 
   constructor(private auth: AuthService) {
     document.title = '2PG - Dashboard';

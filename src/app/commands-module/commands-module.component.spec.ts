@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommandsModuleComponent } from './commands-module.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from '../app-routing.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 describe('CommandsModuleComponent', () => {
   let component: CommandsModuleComponent;
@@ -10,7 +12,12 @@ describe('CommandsModuleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CommandsModuleComponent ],
-      imports: [ HttpClientModule ]
+      imports: [ 
+        HttpClientModule, 
+        AppRoutingModule, 
+        FormsModule, 
+        ReactiveFormsModule 
+      ]
     })
     .compileComponents();
   }));
