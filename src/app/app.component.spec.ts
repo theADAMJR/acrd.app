@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'twopg-dashboard'`, () => {
+  it(`should have as title '2PG - Discord Bot'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('twopg-dashboard');
+    expect(app.title).toEqual('2PG - Discord Bot');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('twopg-dashboard app is running!');
+    expect(compiled.querySelector('title').textContent).toContain('2PG - Discord Bot');
   });
 });

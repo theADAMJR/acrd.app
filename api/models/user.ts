@@ -4,6 +4,7 @@ export class XPCard {
     backgroundURL = '';
     primary = '';
     secondary = '';
+    tertiary = '';
 }
 
 const userSchema = new Schema({

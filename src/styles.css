@@ -76,3 +76,7 @@ table.dataTable tbody tr {
         color-stop(0.72, var(--primary)),
         color-stop(0.86, var(--secondary)));
 }
+
+a {
+    transition: all .25s;
+}

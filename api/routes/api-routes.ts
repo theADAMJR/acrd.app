@@ -107,24 +107,37 @@ router.get('/guilds/:guildId/members/:memberId/xp-card', async (req, res) => {
 
     try 
     {
-        SavedUser.create();
         const { guildId, memberId } = req.params;
-        console.log(memberId);        
         
-        const user = await SavedUser.findById(memberId);
-        if (!user)
+        const savedUser = await getOrCreateSavedUser(memberId);
+        if (!savedUser)
             return res.status(404).send("User not found");
 
         const rank = 1;//Ranks.getUserRank(user, users);
-        const generator = new XPCardGenerator(user, rank);
-
+        const generator = new XPCardGenerator(savedUser, rank);
+        
         const member = await SavedMember.findOne({ id: memberId, guildId });
         const image = await generator.generate(member);
         
-        res.set({'Content-Type': 'image/png'});
-        res.send(image);
+        res.set({'Content-Type': 'image/png'}).send(image);
     }
-    catch (error) { res.status(400).send(error); }
+    catch (error) { res.status(400).send(error);
+console.log(error);
+ }
 });
+
+async function getOrCreateSavedUser(id: string) {
+    const user = bot.users.cache.get(id);
+    if (!user)
+        throw new Error('Invalid user');
+
+    let savedUser = await SavedUser.findById(id);
+    if (!savedUser) {
+        savedUser = new SavedUser();
+        savedUser._id = id;
+        savedUser.save();
+    }
+    return savedUser;
+}
 
 router.get('*', (req, res) => res.status(404).json({ code: 404 }));

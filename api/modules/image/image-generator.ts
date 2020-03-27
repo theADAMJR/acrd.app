@@ -7,17 +7,19 @@ export default class ImageGenerator
         // TODO: add custom font        
     }
 
-    async addBackgroundToCanvas(context, canvas, backgroundURL) {
+    async addBackgroundToCanvas(context, canvas, backgroundURL: string) {
         if (backgroundURL && backgroundURL.includes('api'))
             throw Error('I don\'t think that\'s a good idea... 🤔');
 
         let background = null;
-        try { background = await loadImage(backgroundURL || 'image/wallpaper.png') }
+        try {
+          background = await loadImage(backgroundURL || 'modules/image/wallpaper.png') 
+        }
         catch { return; }
         
         context.drawImage(background, 0, 0, canvas.width, canvas.height);
     }
-    async addImageToCanvas(context, imageURL) 
+    async addAvatarToCanvas(context, imageURL: string) 
     {
         context.beginPath();
         context.arc(125, 125, 100, 0, Math.PI * 2, true);
@@ -27,7 +29,7 @@ export default class ImageGenerator
         const avatar = await loadImage(imageURL);
         context.drawImage(avatar, 25, 25, 200, 200);
     }
-    applyText(canvas: Canvas, text, sizeOverride)
+    applyText(canvas: Canvas, text, sizeOverride?: any)
     {
         const context = canvas.getContext('2d');
         let fontSize = sizeOverride || 70;

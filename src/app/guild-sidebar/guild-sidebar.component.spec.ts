@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GuildSidebarComponent } from './guild-sidebar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('GuildSidebarComponent', () => {
   let component: GuildSidebarComponent;
@@ -8,7 +9,8 @@ describe('GuildSidebarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GuildSidebarComponent ]
+      declarations: [ GuildSidebarComponent ],
+      imports: [ HttpClientModule ]
     })
     .compileComponents();
   }));

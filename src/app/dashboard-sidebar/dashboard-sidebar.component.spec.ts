@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardSidebarComponent } from './dashboard-sidebar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('DashboardSidebarComponent', () => {
   let component: DashboardSidebarComponent;
@@ -8,7 +9,8 @@ describe('DashboardSidebarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardSidebarComponent ]
+      declarations: [ DashboardSidebarComponent ],
+      imports: [ HttpClientModule ]
     })
     .compileComponents();
   }));

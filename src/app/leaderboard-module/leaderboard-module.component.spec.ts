@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { LeaderboardModuleComponent } from './leaderboard-module.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('LeaderboardModuleComponent', () => {
   let component: LeaderboardModuleComponent;
@@ -9,7 +10,8 @@ describe('LeaderboardModuleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LeaderboardModuleComponent ]
+      declarations: [ LeaderboardModuleComponent ],
+      imports: [ HttpClientModule ]
     })
     .compileComponents();
   }));
