@@ -1,9 +1,0 @@
-{
-  "bot": {
-    "id": "685867703352819720"
-  },
-  "dashboard": {
-    "managerPermission": "MANAGE_GUILD" 
-  },
-  "url": "http://localhost:4200"
-}
