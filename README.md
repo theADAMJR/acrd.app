@@ -6,8 +6,6 @@
 {
     "bot": {
         "id": "yourBotId",
-        "token": "yourBotToken",
-        "secret": "yourBotSecret"
     },
     "url": "https://2pg.xyz"
 }

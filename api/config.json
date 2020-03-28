@@ -1,7 +1,8 @@
 {
   "bot": {
     "id": "685867703352819720",
-    "secret": "T_YS2QXCP1Q432eEzBB-I6SXn_sb17Mz",
+    "secret": "BtaYO6DJq5FlFv_IgqwzyBtoUUkHpAYg",
     "token": "Njg1ODY3NzAzMzUyODE5NzIw.XnojHQ.kZXfLsyxWt-dFVtnXMovpbpFAoI"
-  }
+  },
+  "url": "http://localhost:4200"
 }
