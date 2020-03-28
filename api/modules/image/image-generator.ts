@@ -24,10 +24,10 @@ export default class ImageGenerator
         const avatar: any = await loadImage(imageURL);
         context.drawImage(avatar, 25, 25, 200, 200);
     }
-    applyText(canvas: Canvas, text: string, sizeOverride?: any)
+    applyText(canvas: Canvas, text: string)
     {
         const context = canvas.getContext('2d');
-        let fontSize = sizeOverride || 70;
+        let fontSize = 70;
 
         do {
           context.font = `${fontSize -= 8}px Roboto, sans-serif`;
