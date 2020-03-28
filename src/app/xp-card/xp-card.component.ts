@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-xpcard',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./xp-card.component.css']
 })
 export class XPCardComponent implements OnInit {
+  xpCardURL = '';
 
-  constructor() {}
+  get user() { return this.auth.user; }
 
-  ngOnInit(): void {
+  constructor(private auth: AuthService) {}
+
+  async ngOnInit() {
+    this.xpCardURL = this.auth.xpCardPreviewURL;
   }
-
 }

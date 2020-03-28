@@ -70,8 +70,8 @@ describe('routes/api', () => {
         });
     });
     
-    describe('GET /public-guilds/:id', () => {
-        const url = '/api/public-guilds/123';
+    describe('GET /guilds/:id/public', () => {
+        const url = '/api/guilds/123/public';
 
         it('unknown guild, returns 200', (done) => {
             request(app).get(url)

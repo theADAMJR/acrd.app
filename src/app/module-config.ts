@@ -8,14 +8,16 @@ export abstract class ModuleConfig implements OnInit {
 
     unsaved = false;
     guild: any;
+    savedGuild: any;
   
     constructor(
         private auth: AuthService,
         private route: ActivatedRoute) {}
 
     async ngOnInit() {
-        const guildId = this.route.snapshot.paramMap.get('id');
-        this.guild = await this.auth.getGuild(guildId);
+        const id = this.route.snapshot.paramMap.get('id');
+        this.guild = await this.auth.getGuild(id);
+        this.savedGuild = await this.auth.getSavedGuild(id);
         
         this.form.valueChanges
             .subscribe(value => this.onChange());

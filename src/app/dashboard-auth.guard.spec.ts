@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { DashboardAuthGuard } from './dashboard-auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 describe('DashboardAuthGuard', () => {
   let guard: DashboardAuthGuard;
@@ -10,10 +11,39 @@ describe('DashboardAuthGuard', () => {
     TestBed.configureTestingModule({
       imports: [ HttpClientModule ]
     });
-    guard = TestBed.inject(DashboardAuthGuard);
   });
 
   it('should be created', () => {
+    const fakeAuth = {
+      updateUser: () => {},
+      user: null
+    } as any;
+    guard = new DashboardAuthGuard(fakeAuth);
+
     expect(guard).toBeTruthy();
+  });
+
+  it('null user is denied', async () => {
+    const fakeAuth = {
+      updateUser: () => {},
+      user: null
+    } as any;
+    guard = new DashboardAuthGuard(fakeAuth);
+
+    const result = await guard.canActivate();
+
+    expect(result).toBeFalsy();
+  });
+
+  it('existing user is not denied', async () => {
+    const fakeAuth = {
+      updateUser: () => {},
+      user: {}
+    } as any;
+    guard = new DashboardAuthGuard(fakeAuth);
+
+    const result = await guard.canActivate();
+
+    expect(result).toBeTruthy();
   });
 });

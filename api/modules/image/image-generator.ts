@@ -2,11 +2,6 @@ import { registerFont, loadImage, Canvas } from 'canvas';
 
 export default class ImageGenerator 
 {
-    constructor() {
-        // registerFont('./public/Roboto-Regular.ttf', { family: 'Roboto' });
-        // TODO: add custom font        
-    }
-
     async addBackgroundToCanvas(context, canvas, backgroundURL: string) {
         if (backgroundURL && backgroundURL.includes('api'))
             throw Error('I don\'t think that\'s a good idea... 🤔');
@@ -19,17 +14,17 @@ export default class ImageGenerator
         
         context.drawImage(background, 0, 0, canvas.width, canvas.height);
     }
-    async addAvatarToCanvas(context, imageURL: string) 
+    async addAvatarToCanvas(context: CanvasRenderingContext2D, imageURL: string) 
     {
         context.beginPath();
         context.arc(125, 125, 100, 0, Math.PI * 2, true);
         context.closePath();
         context.clip();
 
-        const avatar = await loadImage(imageURL);
+        const avatar: any = await loadImage(imageURL);
         context.drawImage(avatar, 25, 25, 200, 200);
     }
-    applyText(canvas: Canvas, text, sizeOverride?: any)
+    applyText(canvas: Canvas, text: string, sizeOverride?: any)
     {
         const context = canvas.getContext('2d');
         let fontSize = sizeOverride || 70;

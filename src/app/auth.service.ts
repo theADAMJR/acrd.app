@@ -17,6 +17,14 @@ export class AuthService implements OnInit {
   private _publicGuilds: any;
   get publicGuilds() { return this._publicGuilds; }
 
+  private get key() {
+    return localStorage.getItem('key');
+  }
+
+  get xpCardPreviewURL() {
+    return `${this.endpoint}/user/xp-card-preview?key=${this.key}`;
+  }
+
   constructor(private http: HttpClient) {}
 
   async ngOnInit() {
@@ -24,15 +32,13 @@ export class AuthService implements OnInit {
   }
 
   async updateUser() {
-    const key = localStorage.getItem('key');
-    this._user = (key) ? 
-      await this.http.get(`${this.endpoint}/user?key=${key}`).toPromise() : null;
+    this._user = (this.key) ? 
+      await this.http.get(`${this.endpoint}/user?key=${this.key}`).toPromise() : null;
   }
 
   async updateGuilds() {
-    const key = localStorage.getItem('key');
-    this._guilds = (key) ? 
-      await this.http.get(`${this.endpoint}/guilds?key=${key}`).toPromise() : null;
+    this._guilds = (this.key) ? 
+      await this.http.get(`${this.endpoint}/guilds?key=${this.key}`).toPromise() : null;
   }
 
   authenticate(code: string) {
@@ -43,11 +49,15 @@ export class AuthService implements OnInit {
     return this.guilds?.find(g => g.id === id);
   }
 
-  getPublicGuild(id: string) {
-    return this.http.get(`${this.endpoint}/public-guilds/${id}`).toPromise();
+  getPublicGuild(id: string): Promise<any> {
+    return this.http.get(`${this.endpoint}/guilds/${id}/public`).toPromise();
   }
 
   getMembers(guildId: string) {
-    return this.http.get(`${this.endpoint}/guilds/${guildId}/members`).toPromise();
+    return this.http.get(`${this.endpoint}/guilds/${guildId}/members`).toPromise() as Promise<any[]>;
+  }
+
+  getSavedGuild(id: string): Promise<any> {
+    return this.http.get(`${this.endpoint}/guilds/${id}/config?key=${this.key}`).toPromise();
   }
 }
