@@ -11,6 +11,9 @@ export class AuthService implements OnInit {
   private _user: any;
   get user() { return this._user; }
   
+  private _savedUser: any;
+  get savedUser() { return this._savedUser; }
+  
   private _guilds: any;
   get guilds() { return this._guilds; }
 
@@ -32,7 +35,12 @@ export class AuthService implements OnInit {
   }
 
   async updateUser() {
-    this._user = (this.key) ? 
+    this._user = (this.key) ?
+      await this.http.get(`${this.endpoint}/user?key=${this.key}`).toPromise() : null;
+  }
+
+  async updateSavedUser() {
+    this._savedUser = (this.key) ? 
       await this.http.get(`${this.endpoint}/user?key=${this.key}`).toPromise() : null;
   }
 
@@ -60,4 +68,20 @@ export class AuthService implements OnInit {
   getSavedGuild(id: string): Promise<any> {
     return this.http.get(`${this.endpoint}/guilds/${id}/config?key=${this.key}`).toPromise();
   }
+
+  getXPCardPreviewURL(xpCard: XPCard) {
+    const { primary, secondary, tertiary, backgroundURL } = xpCard;
+    return `${this.endpoint}/user/xp-card-preview?key=${this.key}` +
+      `&primary=${primary}` +
+      `&secondary=${secondary}` +
+      `&tertiary=${tertiary}` +
+      `&backgroundURL=${backgroundURL}`;
+  }
+}
+
+export interface XPCard {
+  primary: string;
+  secondary: string;
+  tertiary: string;
+  backgroundURL: string;
 }

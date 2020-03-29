@@ -11,12 +11,16 @@ import { AuthService } from '../auth.service';
 })
 export class SettingsModuleComponent extends ModuleConfig implements OnInit {
   form = new FormGroup({
-    privateLeaderboard: new FormControl()
+    privateLeaderboard: new FormControl('')
   });
 
   constructor(
     auth: AuthService,
     route: ActivatedRoute) {
     super(auth, route);
+  }
+
+  async ngOnInit() {
+    
   }
 }

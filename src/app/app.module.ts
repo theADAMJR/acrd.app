@@ -5,6 +5,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -33,6 +36,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LeaderboardModuleComponent } from './leaderboard-module/leaderboard-module.component';
 import { XPCardComponent } from './xp-card/xp-card.component';
 import { DashboardSidebarComponent } from './dashboard-sidebar/dashboard-sidebar.component';
+import { CustomizeXPCardComponent } from './customize-xp-card/customize-xp-card.component';
+import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
+import { MaterialModule } from './material.module';
+
 
 @NgModule({
   declarations: [
@@ -60,6 +67,7 @@ import { DashboardSidebarComponent } from './dashboard-sidebar/dashboard-sidebar
     GuildSidebarComponent,
     LeaderboardModuleComponent,
     XPCardComponent,
+    CustomizeXPCardComponent,
     DashboardSidebarComponent
   ],
   imports: [
@@ -67,14 +75,12 @@ import { DashboardSidebarComponent } from './dashboard-sidebar/dashboard-sidebar
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    MatSidenavModule,
-    MatSlideToggleModule,
-    MatDialogModule,
-    MatCheckboxModule,
-    BrowserAnimationsModule
+    MaterialModule
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

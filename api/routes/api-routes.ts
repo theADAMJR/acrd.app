@@ -30,8 +30,16 @@ router.get('/user', async (req, res) => {
     } catch { res.status(400).send('Bad Request'); }
 });
 
-router.get('/user/xp-card-preview', async (req, res) => {
+router.get('/user/saved', async (req, res) => {
     try {        
+        const { id } = await getUser(req.query.key);
+        const user = await getOrCreateSavedUser(id);
+        res.json(user);
+    } catch { res.status(400).send('Bad Request'); }
+});
+
+router.get('/user/xp-card-preview', async (req, res) => {
+    try {
         const user = await getUser(req.query.key);
         const savedUser = await getOrCreateSavedUser(user.id);
         if (!savedUser)
@@ -43,7 +51,10 @@ router.get('/user/xp-card-preview', async (req, res) => {
         const member = new SavedMember();
         member.xpMessages = 50;
         
-        const image = await generator.generate(member);
+        delete req.query.key;
+        console.log(req.query);
+        
+        const image = await generator.generate(member, req.query);
         
         res.set({'Content-Type': 'image/png'}).send(image);
     } catch { res.status(400).send('Bad Request'); }

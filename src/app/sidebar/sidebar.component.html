@@ -7,11 +7,12 @@
                 </div>
                 <hr>
             </div>
-            <div *ngFor="let guild of guilds" [routerLink]="['/servers/' + guild.id]"
+            <div cdkDropList (cdkDropListDropped)="drop($event)"
+                *ngFor="let guild of guilds" [routerLink]="['/servers/' + guild.id]"
                 class="guild-icon">
-                <img *ngIf="guild.iconURL"
+                <img cdkDrag *ngIf="guild.iconURL"
                     [src]="guild.iconURL" [alt]="guild.name">
-                <span *ngIf="!guild.iconURL">{{ guild.nameAcronym }}</span>
+                <span cdkDrag *ngIf="!guild.iconURL">{{ guild.nameAcronym }}</span>
             </div>
             <div routerLink="/invite" 
                 class="guild-icon">

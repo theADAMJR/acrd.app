@@ -72,7 +72,7 @@ mat-sidenav {
     padding-top: 0px;
 }
 
-.guild-icon:hover {
+.guild-icon:hover:not(.cdk-drag:hover) {
     background-color: var(--tertiary);    
 }
 
@@ -158,4 +158,12 @@ button:focus {
 #nav-icon1 {
     max-width: 50%;
     max-height: 50%;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drag {
+  border-radius: 50%;
 }

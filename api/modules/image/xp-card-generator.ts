@@ -3,11 +3,10 @@ import ImageGenerator from './image-generator';
 import { Canvas, createCanvas } from 'canvas';
 import { User } from 'discord.js';
 import { MemberDocument } from '../../models/member';
-import { UserDocument } from '../../models/user';
+import { UserDocument, XPCard } from '../../models/user';
 import Leveling from '../leveling';
 
-export class XPCardGenerator extends ImageGenerator 
-{
+export class XPCardGenerator extends ImageGenerator {
     colors = {
         primary: '#F4F2F3',
         secondary: '#46828D',
@@ -27,8 +26,10 @@ export class XPCardGenerator extends ImageGenerator
             throw Error('Bots don\'t have XP cards!');
     }
 
-    async generate(savedMember: MemberDocument)
-    {
+    async generate(savedMember: MemberDocument, preview?: XPCard) {
+        if (preview)
+            this.user.xpCard = preview;            
+        
         if (!savedMember)
             throw new Error('Guild user cannot be null!');
 
@@ -43,11 +44,10 @@ export class XPCardGenerator extends ImageGenerator
 
         return canvas.toBuffer();
     }
-    private addUserText(context, canvas: Canvas) 
-    {
+    private addUserText(context, canvas: Canvas) {
         let card = this.user.xpCard;
 
-        context.fillStyle = card.secondary || this.colors.secondary;
+        context.fillStyle = card.tertiary || this.colors.tertiary;
         context.font = '32px Roboto, sans-serif';
 
         const rank = `#${this.rank}`;
@@ -62,8 +62,7 @@ export class XPCardGenerator extends ImageGenerator
 
         context.fillText(`#${this.discordUser.discriminator}`, canvas.width / 2.7 + context.measureText(this.discordUser.username), canvas.height / 1.6);
     }
-    private async addXPBar(context, canvas, member: MemberDocument)
-    {
+    private async addXPBar(context, canvas, member: MemberDocument) {
         let card = this.user.xpCard;
 
         const sizeOffset = 325;
@@ -79,16 +78,17 @@ export class XPCardGenerator extends ImageGenerator
         context.fillRect(position.x, position.y, 
             (canvas.width - sizeOffset) * (info.exp / (info.exp + nextLevelEXP)), height);
 
-        context.fillStyle = card.primary || this.colors.primary;
+        context.fillStyle = card.secondary || this.colors.secondary;
         context.font = '16px Roboto, sans-serif';
         context.fillText(info.exp, canvas.width / 2.5, canvas.height / 1.175);
         
         context.fillStyle = '#0F0F0F';
         context.fillText(`/`, canvas.width / 2.5 + context.measureText(info.exp).width, canvas.height / 1.175);
 
-        context.fillStyle = card.primary || this.colors.primary;
+        context.fillStyle = card.tertiary || this.colors.tertiary;
         context.fillText(`${nextLevelEXP}XP`, canvas.width / 2.5 + context.measureText(`${info.exp}/`).width, canvas.height / 1.175);
         
+        context.fillStyle = card.primary || this.colors.primary;
         context.fillText(`LEVEL ${info.level}`, canvas.width / 2.5, canvas.height / 1.35);
     }
 }

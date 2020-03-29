@@ -1,0 +1,10 @@
+:root {
+    --background-primary: #15244B;
+    --background-secondary: #0c1c42;
+}
+
+body {
+    color: transparent;
+    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%) !important;
+    height: 100vh;
+}

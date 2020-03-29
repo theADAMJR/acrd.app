@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { CustomizeXPCardComponent } from '../customize-xp-card/customize-xp-card.component';
 
 @Component({
   selector: 'app-xpcard',

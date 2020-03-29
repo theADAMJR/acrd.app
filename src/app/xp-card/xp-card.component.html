@@ -1,6 +1,20 @@
 <dashboard-sidebar>
     <section class="container">
+        <customize-xp-card #customize
+            hidden></customize-xp-card>
         <h2 class="display-3">XP Card</h2>
-        <img [src]="xpCardURL" alt="">    
+        <hr>
+        <div class="float-none">
+            <img [src]="xpCardURL" alt="">
+        </div>
+        <div class="config" title="Customize">
+            <button data-toggle="modal" data-target="#customize">
+                <i class="fa fa-paint-brush" aria-hidden="true"></i>
+            </button>
+        </div>
     </section>
 </dashboard-sidebar>
+    
+<div class="modal fade" id="customize" tabindex="-1" role="dialog" aria-labelledby="customize" aria-hidden="true">
+    <customize-xp-card></customize-xp-card>
+</div>
