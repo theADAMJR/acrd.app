@@ -45,15 +45,13 @@ router.get('/user/xp-card-preview', async (req, res) => {
         if (!savedUser)
             return res.status(404).send("User not found");
 
-        const rank = 1;//Ranks.getUserRank(user, users);
+        const rank = 1;
         const generator = new XPCardGenerator(savedUser, rank);
 
         const member = new SavedMember();
         member.xpMessages = 50;
         
-        delete req.query.key;
-        console.log(req.query);
-        
+        delete req.query.key;        
         const image = await generator.generate(member, req.query);
         
         res.set({'Content-Type': 'image/png'}).send(image);

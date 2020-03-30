@@ -7,26 +7,18 @@ import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
-  guilds: any[];
+export class SidebarComponent {
+  get guilds() { return this.auth.guilds || []; }
   get user() { return this.auth.user || {}; }
 
   constructor(private auth: AuthService) {}
 
-  async ngOnInit() {
-    await this.auth.updateGuilds();
-    this.guilds = this.auth.guilds;
-  }
-
   toggle(el: HTMLElement) {
-    el.classList.toggle('open');    
+    const icon = (el.tagName !== 'DIV') ? el.parentElement : el;
+    icon.classList.toggle('open');
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    console.log(this.guilds);
-    
+  drop(event: CdkDragDrop<string[]>) { // does not rearrange guilds
     moveItemInArray(this.guilds, event.previousIndex, event.currentIndex);
-    console.log(this.guilds);
-
   }
 }

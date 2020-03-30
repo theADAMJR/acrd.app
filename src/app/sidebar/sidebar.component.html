@@ -25,9 +25,9 @@
     </mat-sidenav>
     <mat-sidenav-content>
         <navbar></navbar>
-        <button mat-raised-button (click)="drawer.toggle()"
-            class="toggle">
+        <button class="toggle">
             <div id="nav-icon1" class="open"
+                (click)="drawer.toggle()"
                 (click)="toggle($event.target)">
                 <span></span>
                 <span></span>
