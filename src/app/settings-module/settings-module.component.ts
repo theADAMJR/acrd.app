@@ -3,6 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ModuleConfig } from '../module-config';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { GuildService } from '../guild.service';
 
 @Component({
   selector: 'app-settings-module',
@@ -16,11 +18,13 @@ export class SettingsModuleComponent extends ModuleConfig implements OnInit {
 
   constructor(
     auth: AuthService,
-    route: ActivatedRoute) {
-    super(auth, route);
+    guildService: GuildService,
+    route: ActivatedRoute,
+    saveChanges: MatSnackBar) {
+    super(auth, guildService, route, saveChanges);
   }
 
   async ngOnInit() {
-    
+    await super.init();
   }
 }

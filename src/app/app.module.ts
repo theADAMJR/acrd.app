@@ -1,13 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -38,8 +31,9 @@ import { XPCardComponent } from './xp-card/xp-card.component';
 import { DashboardSidebarComponent } from './dashboard-sidebar/dashboard-sidebar.component';
 import { CustomizeXPCardComponent } from './customize-xp-card/customize-xp-card.component';
 import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
-import { MaterialModule } from './material.module';
-
+import { MaterialModule } from './material-module';
+import { PremiumDirective } from './premium.directive';
+import { SaveChangesComponent } from './save-changes/save-changes.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +62,9 @@ import { MaterialModule } from './material.module';
     LeaderboardModuleComponent,
     XPCardComponent,
     CustomizeXPCardComponent,
-    DashboardSidebarComponent
+    DashboardSidebarComponent,
+    PremiumDirective,
+    SaveChangesComponent
   ],
   imports: [
     AppRoutingModule,
@@ -79,6 +75,7 @@ import { MaterialModule } from './material.module';
     HttpClientModule,
     MaterialModule
   ],
+  exports: [PremiumDirective],
   providers: [
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
   bootstrap: [AppComponent]

@@ -8,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./guild.component.css']
 })
 export class GuildComponent implements OnInit {
+  botNeedsPerms = false;
+
   get guild() {
     const id = this.route.snapshot.paramMap.get('id');    
     return this.auth.getGuild(id);
@@ -18,6 +20,10 @@ export class GuildComponent implements OnInit {
     private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    
+    this.setBotStatus();
+  }
+
+  private setBotStatus() {
+        
   }
 }

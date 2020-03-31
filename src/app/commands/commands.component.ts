@@ -10,14 +10,7 @@ import 'datatables.net';
 })
 export class CommandsComponent implements OnInit {
 
-  commands: any[] = [
-    {
-      name: 'ping',
-      summary: 'Greatest command',
-      module: 'General',
-      usage: ''
-    }
-  ];
+  commands: any[] = [];
 
   constructor(private service: CommandsService) {}
 

@@ -1,1 +1,35 @@
-<p>announce-module works!</p>
+<guild-sidebar>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-3">Announce</h1>
+            <hr>
+        </div>
+        <form #f="ngForm" [formGroup]="form" (ngSubmit)="onSubmit(f.value)">
+            <h3>Events</h3>
+            <p class="desc">Send messages to a channel when the event is triggered</p>
+            <hr>
+            <div class="row">
+                <div *ngFor="let event of events" class="col-lg-6 col-sm-12">
+                    <div class="event">
+                        <span class="d-flex justify-content-between">
+                            <strong>{{ event }}</strong>
+                            <mat-slide-toggle></mat-slide-toggle>
+                        </span>
+                        <hr>
+                        <mat-form-field appearance="outline">                                
+                            <mat-label>Message</mat-label>
+                            <textarea matInput>{{ getEvent(event)?.message }}</textarea>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Channel</mat-label>
+                            <mat-select>
+                                <mat-option *ngFor="let channel of channels" 
+                                    [value]="channel.id">#{{ channel.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</guild-sidebar>

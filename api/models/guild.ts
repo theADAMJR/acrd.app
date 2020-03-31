@@ -29,7 +29,6 @@ export enum MessageFilter { Words, Links }
 
 export class GeneralModule extends Module {
     prefix = '/';
-    isPrivate = false;
     ignoredChannels: string[] = [];
     autoRoles: string[] = [];
 }

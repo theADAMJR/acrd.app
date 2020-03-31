@@ -58,6 +58,20 @@ router.get('/user/xp-card-preview', async (req, res) => {
     } catch { res.status(400).send('Bad Request'); }
 });
 
+router.put('/user/xp-card', async (req, res) => {        
+    try {
+        console.log(req);
+        
+        const { id } = await getUser(req.query.key);
+        const savedUser = await getOrCreateSavedUser(id);
+
+        await savedUser.replaceOne(req.body);
+        await savedUser.save();
+        
+        res.send(savedUser);
+    } catch { res.status(400).send('Bad Request'); }
+});
+
 async function getUser(key: string) {
     const { id } = await AuthClient.getUser(key);
     return bot.users.cache.get(id);

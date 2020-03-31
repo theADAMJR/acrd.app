@@ -6,6 +6,9 @@
 
 :root {
     --font: #F4F2F3;
+    --premium: gold;
+
+    --danger: darkred;
 
     --primary: #46828D;
     --secondary: #276C8A;
@@ -79,4 +82,17 @@ table.dataTable tbody tr {
 
 a {
     transition: all .25s;
+}
+
+[premium] ~ span > label {
+    color: var(--premium) !important;
+}
+
+h3 {
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+.desc {
+    color: var(--secondary); 
 }

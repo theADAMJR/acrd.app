@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { UserService } from '../user.service';
+import { XPCard } from 'api/models/user';
 
 @Component({
   selector: 'customize-xp-card',
@@ -8,34 +10,55 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./customize-xp-card.component.css']
 })
 export class CustomizeXPCardComponent implements OnInit {
+  colors = {
+      primary: '#F4F2F3',
+      secondary: '#46828D',
+      tertiary: '#36E2CA'
+  }
+
   xpCardPreviewURL: string;
 
-  get savedUser() { return this.auth.savedUser; }
+  get savedUser() { return this.auth.savedUser || {}; }
+
+  get primary() { return this.form.get('primary'); }
+  get secondary() { return this.form.get('secondary'); }
+  get tertiary() { return this.form.get('tertiary'); }
+  get backgroundURL() { return this.form.get('backgroundURL'); }
 
   form = new FormGroup({
     primary: new FormControl(''),
     secondary: new FormControl(''),
     tertiary: new FormControl(''),
-    backgroundURL: new FormControl('')
+    backgroundURL: new FormControl('', Validators.required)
   });
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    private auth: AuthService,
+    private userService: UserService) {}
 
   async ngOnInit() {
     this.form.valueChanges.subscribe(() => this.updatePreview());
     this.updatePreview();
+
+    this.initFormValues();
   }
 
-  submit(value: any) {
-    // send
-    console.log(value);    
+  initFormValues() {
+    this.primary.setValue(this.savedUser.primary ?? this.colors.primary);
+    this.secondary.setValue(this.savedUser.secondary ?? this.colors.secondary);
+    this.tertiary.setValue(this.savedUser.tertiary ?? this.colors.tertiary);
+    this.backgroundURL.setValue(this.savedUser.backgroundURL);
+  }
+
+  async submit(form: XPCard) {
+    await this.userService.updateXPCard(form);
   }
 
   updatePreview() {    
-    const primary = this.hexToRGB(this.form.get('primary').value);
-    const secondary = this.hexToRGB(this.form.get('secondary').value);  
-    const tertiary = this.hexToRGB(this.form.get('tertiary').value);  
-    const backgroundURL = this.hexToRGB(this.form.get('backgroundURL').value);  
+    const primary = this.hexToRGB(this.primary.value);
+    const secondary = this.hexToRGB(this.secondary.value );  
+    const tertiary = this.hexToRGB(this.tertiary.value);  
+    const backgroundURL = this.hexToRGB(this.backgroundURL.value);  
 
     this.xpCardPreviewURL = this.auth.getXPCardPreviewURL({ primary, secondary, tertiary, backgroundURL });
   }

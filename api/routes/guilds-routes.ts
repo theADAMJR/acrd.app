@@ -73,6 +73,20 @@ router.get('/:id/members', async (req, res) => {
     } catch { res.status(404).send('Not Found'); }
 });
 
+router.post('/:id', async (req, res) => {
+    try {
+        const guilds = await getManagableGuilds(req.query.key);
+        if (!guilds.has(req.params.id))
+            throw Error();
+
+        var oldGuild = await SavedGuild.findById(req.params.id);
+        oldGuild.replaceOne(req.body);
+        oldGuild.save();
+
+        res.json(req.body);
+    } catch { res.status(400).send('Bad Request'); }
+});
+
 async function getManagableGuilds(key: string) {
     let userGuilds = await AuthClient.getGuilds(key);
     

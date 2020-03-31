@@ -72,12 +72,12 @@ mat-sidenav {
     padding-top: 0px;
 }
 
-.guild-icon:hover:not(.cdk-drag:hover) {
+.invite:hover {
     background-color: var(--tertiary);    
 }
 
-/* sm */
-@media (min-width: 576px) {
+/* md */
+@media (min-width: 768px) {
     .toggle {
         visibility: hidden;
     }

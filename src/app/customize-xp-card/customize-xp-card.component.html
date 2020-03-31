@@ -12,30 +12,31 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <label>Primary:</label>
-                        <input type="color"
+                        <input type="color" matInput
                             formControlName="primary">
                     </div>
                     <div>
                         <label>Secondary:</label>
-                        <input type="color"
-                            formControlName="secondary">
+                        <input type="color" matInput
+                            formControlName="secondary" [value]="savedUser.secondary">
                     </div>
                     <div>
                         <label>Tertiary:</label>
                         <input type="color" matInput
-                            formControlName="tertiary">
+                            formControlName="tertiary" [value]="savedUser.tertiary">
                     </div>
                 </div>
                 <hr>
-                <mat-form-field>
+                <mat-form-field appearance="outline">
                     <mat-label>Background URL:</mat-label>
-                    <input type="url" matInput
-                        formControlName="tertiary">
-                </mat-form-field>                
+                    <input type="url" matInput premium
+                        formControlName="backgroundURL">
+                </mat-form-field>
+                <p>or choose from these</p>   
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="submit" type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal" mat-button>Close</button>
+                <button id="submit" type="submit" class="btn btn-primary" mat-button>Save</button>
             </div>
         </form>
     </div>

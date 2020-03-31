@@ -43,5 +43,5 @@ describe('CustomizeXPCardComponent', () => {
     de.nativeElement.click();
 
     expect(component.submit).toHaveBeenCalled();
-  })
+  });
 });
