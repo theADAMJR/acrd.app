@@ -18,31 +18,25 @@ export abstract class ModuleConfig {
     roles: any = [];
   
     constructor(
-        protected auth: AuthService,
         protected guildService: GuildService,
         protected route: ActivatedRoute,
-        private snackBar: MatSnackBar) {}
+        protected saveChanges: MatSnackBar) {}
 
     async init() {
         const id = this.route.snapshot.paramMap.get('id');
 
-        this.guild = await this.auth.getGuild(id);
+        this.guild = await this.guildService.getGuild(id);
         this.channels = await this.guildService.getChannels(this.guild?.id);
         this.roles = await this.guildService.getRoles(this.guild?.id);
 
-        this.savedGuild = await this.auth.getSavedGuild(id);
+        this.savedGuild = await this.guildService.getSavedGuild(id);
 
         this.form.valueChanges
             .subscribe(this.openSaveChanges);
     }
 
-    openSaveChanges(value: any) {
-        if (this.unsaved) return;
-        this.unsaved = true;
-        
-        this.snackBar.openFromComponent(SaveChangesComponent, {
-            duration: 3000
-        });
+    openSaveChanges(value?: any) {        
+        this.saveChanges.openFromComponent(SaveChangesComponent);
     }
 
     onSubmit(value: any) {

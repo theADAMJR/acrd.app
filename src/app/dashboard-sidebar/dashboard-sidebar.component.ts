@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'dashboard-sidebar',
@@ -7,9 +8,9 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./dashboard-sidebar.component.css']
 })
 export class DashboardSidebarComponent implements OnInit {
-  get user() { return this.auth.user ?? {}; }
+  get user() { return this.userService.user ?? {}; }
 
-  constructor(private auth: AuthService) {
+  constructor(private userService: UserService) {
     document.title = '2PG - Dashboard';
   }
 

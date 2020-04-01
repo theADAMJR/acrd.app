@@ -19,21 +19,33 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
     events: new FormControl('')
   });
 
+  eventConfigs = [];
+
   constructor(
-    auth: AuthService,
     guildService: GuildService,
     route: ActivatedRoute,
     saveChanges: MatSnackBar) {
-    super(auth, guildService, route, saveChanges);
+    super(guildService, route, saveChanges);
   }
 
   async ngOnInit() {
     await super.init();
+    
+    this.eventConfigs = this.guild.announce.events;
   }
 
   getEvent(eventName: string) {
-    this.guild?.announce.events
+    this.eventConfigs
       .find(e => e.event.toString() === eventName);
+  }
+
+  toggle(eventName: any) {
+    const event = this.getEvent(eventName);
+    // (!event) ? this.createEvent() : removeEvent();
+  }
+
+  private createEvent(name: string) {
+    
   }
 }
 

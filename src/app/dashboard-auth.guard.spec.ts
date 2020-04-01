@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 
 import { DashboardAuthGuard } from './dashboard-auth.guard';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './auth.service';
 
 describe('DashboardAuthGuard', () => {
   let guard: DashboardAuthGuard;

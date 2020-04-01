@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { UserService } from '../user.service';
-import { XPCard } from 'api/models/user';
+import { UserService, XPCard } from '../user.service';
 
 @Component({
   selector: 'customize-xp-card',
@@ -18,7 +17,7 @@ export class CustomizeXPCardComponent implements OnInit {
 
   xpCardPreviewURL: string;
 
-  get savedUser() { return this.auth.savedUser || {}; }
+  get savedUser() { return this.userService.savedUser || {}; }
 
   get primary() { return this.form.get('primary'); }
   get secondary() { return this.form.get('secondary'); }
@@ -33,7 +32,6 @@ export class CustomizeXPCardComponent implements OnInit {
   });
 
   constructor(
-    private auth: AuthService,
     private userService: UserService) {}
 
   async ngOnInit() {
@@ -60,7 +58,8 @@ export class CustomizeXPCardComponent implements OnInit {
     const tertiary = this.hexToRGB(this.tertiary.value);  
     const backgroundURL = this.hexToRGB(this.backgroundURL.value);  
 
-    this.xpCardPreviewURL = this.auth.getXPCardPreviewURL({ primary, secondary, tertiary, backgroundURL });
+    this.xpCardPreviewURL = this.userService.getXPCardPreviewURL(
+      { primary, secondary, tertiary, backgroundURL });
   }
 
   private hexToRGB(hex: string) {

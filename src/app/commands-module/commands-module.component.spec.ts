@@ -4,6 +4,7 @@ import { CommandsModuleComponent } from './commands-module.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('CommandsModuleComponent', () => {
   let component: CommandsModuleComponent;
@@ -16,7 +17,8 @@ describe('CommandsModuleComponent', () => {
         HttpClientModule, 
         AppRoutingModule, 
         FormsModule, 
-        ReactiveFormsModule 
+        ReactiveFormsModule,
+        MatSnackBarModule 
       ]
     })
     .compileComponents();

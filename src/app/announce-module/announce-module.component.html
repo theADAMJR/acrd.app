@@ -10,10 +10,11 @@
             <hr>
             <div class="row">
                 <div *ngFor="let event of events" class="col-lg-6 col-sm-12">
-                    <div class="event">
+                    <div class="event" #name="event">
                         <span class="d-flex justify-content-between">
                             <strong>{{ event }}</strong>
-                            <mat-slide-toggle></mat-slide-toggle>
+                            <mat-slide-toggle
+                                (click)="toggle(name)"></mat-slide-toggle>
                         </span>
                         <hr>
                         <mat-form-field appearance="outline">                                

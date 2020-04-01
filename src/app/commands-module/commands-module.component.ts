@@ -20,12 +20,11 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
   form = new FormGroup({});
 
   constructor(
-    auth: AuthService,
     guildService: GuildService,
     route: ActivatedRoute,
     saveChanges: MatSnackBar,
     private service: CommandsService) {
-    super(auth, guildService, route, saveChanges);
+    super(guildService, route, saveChanges);
   }
 
   async ngOnInit() {

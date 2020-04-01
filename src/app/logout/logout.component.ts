@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { GuildService } from '../guild.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-logout',
@@ -9,14 +11,15 @@ import { AuthService } from '../auth.service';
 })
 export class LogoutComponent implements OnInit {
   constructor(
-    private auth: AuthService,
-    private router: Router) {}
+    private guildService: GuildService,
+    private router: Router,
+    private userService: UserService) {}
 
   async ngOnInit() {
     localStorage.removeItem('key');
     
-    await this.auth.updateUser();
-    await this.auth.updateGuilds();
+    await this.userService.updateUser();
+    await this.guildService.updateGuilds();
 
     this.router.navigate(['/']);
   }

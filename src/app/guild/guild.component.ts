@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { GuildService } from '../guild.service';
 
 @Component({
   selector: 'app-guild',
@@ -12,11 +13,11 @@ export class GuildComponent implements OnInit {
 
   get guild() {
     const id = this.route.snapshot.paramMap.get('id');    
-    return this.auth.getGuild(id);
+    return this.guildService.getGuild(id);
   }
 
   constructor(
-    private auth: AuthService,
+    private guildService: GuildService,
     private route: ActivatedRoute) {}
 
   ngOnInit(): void {

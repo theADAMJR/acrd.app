@@ -4,6 +4,8 @@ import { SettingsModuleComponent } from './settings-module.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SettingsModuleComponent', () => {
   let component: SettingsModuleComponent;
@@ -16,7 +18,9 @@ describe('SettingsModuleComponent', () => {
         HttpClientModule, 
         AppRoutingModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        BrowserAnimationsModule
       ]
     })
     .compileComponents();

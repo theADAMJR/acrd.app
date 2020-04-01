@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { GuildService } from '../guild.service';
 
 @Component({
   selector: 'guild-sidebar',
@@ -10,11 +11,11 @@ import { AuthService } from '../auth.service';
 export class GuildSidebarComponent implements OnInit {
   get guild() {
     const id = this.route.snapshot.paramMap.get('id');    
-    return this.auth.getGuild(id) || {};
+    return this.guildService.getGuild(id) || {};
   }
 
   constructor(
-    private auth: AuthService,
+    private guildService: GuildService,
     private route: ActivatedRoute,
     private router: Router) {
       document.title = '2PG - Dashboard';
@@ -23,7 +24,7 @@ export class GuildSidebarComponent implements OnInit {
   async ngOnInit() {
     if (this.guild) return;
     
-    await this.auth.updateGuilds();
+    await this.guildService.updateGuilds();
     if (!this.guild) {
       this.router.navigate(['/dashboard']);
     }

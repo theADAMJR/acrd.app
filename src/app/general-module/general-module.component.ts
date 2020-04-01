@@ -22,11 +22,10 @@ export class GeneralModuleComponent extends ModuleConfig implements OnInit {
   });
 
   constructor(
-    auth: AuthService,
     guildService: GuildService,
     route: ActivatedRoute,
     saveChanges: MatSnackBar) {
-    super(auth, guildService, route, saveChanges);
+    super(guildService, route, saveChanges);
   }
 
   async ngOnInit() {

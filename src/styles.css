@@ -96,3 +96,12 @@ h3 {
 .desc {
     color: var(--secondary); 
 }
+
+.mat-snack-bar-container {
+    background-color: rgba(0,0,0,0.8) !important;
+    color: var(--font);
+    width: 75vw;
+}
+.cdk-overlay-pane {
+    /* width: 75vw;     */
+}

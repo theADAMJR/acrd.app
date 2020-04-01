@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GuildService } from '../guild.service';
+import { SaveChangesComponent } from '../save-changes/save-changes.component';
 
 @Component({
   selector: 'app-settings-module',
@@ -17,11 +18,10 @@ export class SettingsModuleComponent extends ModuleConfig implements OnInit {
   });
 
   constructor(
-    auth: AuthService,
     guildService: GuildService,
     route: ActivatedRoute,
     saveChanges: MatSnackBar) {
-    super(auth, guildService, route, saveChanges);
+    super(guildService, route, saveChanges);
   }
 
   async ngOnInit() {

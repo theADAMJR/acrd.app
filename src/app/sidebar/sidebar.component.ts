@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { UserService } from '../user.service';
+import { GuildService } from '../guild.service';
 
 @Component({
   selector: 'sidebar',
@@ -8,10 +10,12 @@ import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  get guilds() { return this.auth.guilds || []; }
-  get user() { return this.auth.user || {}; }
+  get guilds() { return this.guildService.guilds || []; }
+  get user() { return this.userService.user || {}; }
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    private guildService: GuildService,
+    private userService: UserService) {}
 
   toggle(el: HTMLElement) {
     const icon = (el.tagName !== 'DIV') ? el.parentElement : el;

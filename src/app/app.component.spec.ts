@@ -22,6 +22,7 @@ describe('AppComponent', () => {
 
   it('should have a router outlet', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.debugElement.query(By.directive(RouterOutlet));  
+    const routerOutlet = fixture.debugElement.query(By.directive(RouterOutlet));  
+    expect(routerOutlet.nativeElement).toBeTruthy();
   });
 });
