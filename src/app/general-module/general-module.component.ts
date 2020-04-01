@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute } from '@angular/router';
@@ -35,6 +35,8 @@ export class GeneralModuleComponent extends ModuleConfig implements OnInit {
   }
 
   private initFormValues() {
+    console.log(super.guild);    
+    
     this.form.get('prefix').setValue(super.guild.prefix);
     this.form.get('ignoredRoles').setValue(super.guild.ignoredRoles);
     this.form.get('autoRoles').setValue(super.guild.autoRoles);

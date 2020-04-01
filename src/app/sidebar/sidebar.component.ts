@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { UserService } from '../user.service';
 import { GuildService } from '../guild.service';

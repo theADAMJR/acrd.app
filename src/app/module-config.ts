@@ -1,6 +1,6 @@
 import { AuthService } from './auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { OnInit, TemplateRef } from '@angular/core';
+import { OnInit, TemplateRef, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaveChangesComponent } from './save-changes/save-changes.component';
@@ -29,13 +29,17 @@ export abstract class ModuleConfig {
         this.channels = await this.guildService.getChannels(this.guild?.id);
         this.roles = await this.guildService.getRoles(this.guild?.id);
 
-        this.savedGuild = await this.guildService.getSavedGuild(id);
+        try {            
+            this.savedGuild = await this.guildService.getSavedGuild(id);
+        } catch { alert('An error occurred loading the saved guild'); }
 
         this.form.valueChanges
-            .subscribe(this.openSaveChanges);
+            .subscribe((formValue) => this.openSaveChanges(formValue));
     }
 
-    openSaveChanges(value?: any) {        
+    openSaveChanges(formValue?: any) {
+        if (!this.form.valid || this.saveChanges._openedSnackBarRef) return;
+
         this.saveChanges.openFromComponent(SaveChangesComponent);
     }
 

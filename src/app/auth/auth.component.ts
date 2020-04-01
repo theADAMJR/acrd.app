@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { GuildService } from '../guild.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,18 +11,20 @@ import { GuildService } from '../guild.service';
 })
 export class AuthComponent implements OnInit {
   constructor(
+    private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private guildService: GuildService) {}
+    private guildService: GuildService,
+    private userService: UserService) {}
 
   async ngOnInit() {
     const code = this.route.snapshot.queryParamMap.get('code');
     try {
-      const key = await this.guildService.authenticate(code);
+      const key = await this.auth.authenticate(code);
   
       localStorage.setItem('key', key);
     
-      await this.guildService.updateUser();
+      await this.userService.updateUser();
       await this.guildService.updateGuilds();
       
       this.router.navigate(['/dashboard']);

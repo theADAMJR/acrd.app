@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { GuildService } from '../guild.service';
@@ -24,7 +24,6 @@ export class GuildSidebarComponent implements OnInit {
   async ngOnInit() {
     if (this.guild) return;
     
-    await this.guildService.updateGuilds();
     if (!this.guild) {
       this.router.navigate(['/dashboard']);
     }

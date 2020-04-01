@@ -15,12 +15,12 @@ export class LeaderboardAuthGuard implements CanActivate {
 
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const id = next.paramMap.get('id');
-    const guildConfig = await this.guildService.getSavedGuild(id);
-
-    if (guildConfig?.settings.privateLeaderboard) {
+    // const guildConfig = await this.guildService.getSavedGuild(id);
+    return true;
+    /*if (guildConfig?.settings.privateLeaderboard) {
       const members = await this.guildService.getMembers(id);
       return members.some(m => m.id === this.userService.user.id);
     }    
     return !guildConfig || !guildConfig.settings.privateLeaderboard;
-  }
+  */}
 }

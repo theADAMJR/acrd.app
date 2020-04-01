@@ -12,19 +12,23 @@ describe('LeaderboardAuthGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
 
-    const fakeAuth = new class {
+    const fakeGuildService = new class {
       getSavedGuild() {
         return guildConfig;
       }
       getMembers() {
         return members;
       }
+    } as any;
+
+    const fakeUserService = new class {
+      
       get user() {
         return { id: '123' };
       }
     } as any;
 
-    guard = new LeaderboardAuthGuard(fakeAuth);
+    guard = new LeaderboardAuthGuard(fakeGuildService, fakeUserService);
     guildConfig = {};
     members = [];
   });

@@ -59,9 +59,7 @@ router.get('/user/xp-card-preview', async (req, res) => {
 });
 
 router.put('/user/xp-card', async (req, res) => {        
-    try {
-        console.log(req);
-        
+    try {        
         const { id } = await getUser(req.query.key);
         const savedUser = await getOrCreateSavedUser(id);
 

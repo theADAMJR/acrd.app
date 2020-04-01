@@ -28,7 +28,7 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
   }
 
   async ngOnInit() {
-    super.init();
+    await super.init();
     this.commands = await this.service.get();
 
     this.commandConfigs = super.guild.commands || [];

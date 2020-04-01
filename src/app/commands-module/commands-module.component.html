@@ -1,5 +1,5 @@
 <guild-sidebar>
-    <div class="container">
+    <div *ngIf="guild" class="container">
         <div class="jumbotron">
             <h1 class="display-3">Commands</h1>
             <hr>
@@ -23,5 +23,8 @@
             </div>
             <button type="submit">Submit</button>
         </form>
+    </div>
+    <div *ngIf="!guild">
+        <spinner></spinner>
     </div>
 </guild-sidebar>
