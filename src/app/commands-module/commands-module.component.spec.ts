@@ -33,4 +33,14 @@ describe('CommandsModuleComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+  it('reset should return object to initial state', () => {
+    const previousValue = component.form.value;
+
+    component.savedGuild = { commands: { configs: [] }};
+    component.form.setValue({ configs: [] });
+    component.reset();
+
+    expect(component.form.value).toEqual(previousValue);
+  });
 });

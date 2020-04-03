@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandsService } from '../services/commands.service';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { Observable, combineLatest } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { ModuleConfig } from '../module-config';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GuildService } from '../services/guild.service';
@@ -15,11 +12,15 @@ import { GuildService } from '../services/guild.service';
   styleUrls: ['./commands-module.component.css']
 })
 export class CommandsModuleComponent extends ModuleConfig implements OnInit {
-  commands: any[] = [];
-  commandConfigs: CommandConfig[];
+  moduleName = 'commands';
+
+  commands = [];
+  commandConfigs: CommandConfig[] = [];
+
   form = new FormGroup({
-    commands: new FormGroup({})
+    configs: new FormArray([])
   });
+  get commandsFormArray() { return this.form.get('configs') as FormArray; }
 
   constructor(
     guildService: GuildService,
@@ -30,16 +31,22 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
   }
 
   async ngOnInit() {
-    await super.init();
     this.commands = await this.service.get();
+    for (const command of this.commands)
+      this.commandsFormArray.push(new FormGroup({
+        name: new FormControl(command.name),
+        enabled: new FormControl(true)
+      }));
 
-    this.commandConfigs = super.guild.commands || [];
+    await super.init();
   }
   
   protected initFormValues() {
-    for (const { name, enabled } of this.commandConfigs) {
-      this.form.get('commands').get(name)
-        .setValue({ name, enabled });
+    this.commandConfigs = this.savedGuild.commands.configs || [];    
+
+    for (const config of this.commandConfigs) {
+      const index = this.commandConfigs.indexOf(config);
+      this.commandsFormArray.get(index.toString())?.setValue(config);
     }
   }
 }

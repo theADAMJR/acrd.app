@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnnounceModuleComponent } from './announce-module.component';
+import { AnnounceModuleComponent, AnnounceEvent, EventType } from './announce-module.component';
 import { By } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -30,24 +30,44 @@ describe('AnnounceModuleComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    component.ngOnInit = async () => {};
-    component.guild = { announce: { events: {}}};
+    component.init = async() => {};
+    component.savedGuild = { announce: { events: {}}};
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('enable event, adds config to events array', () => {
-    const toggleButton = fixture.debugElement.query(By.css('mat-slide-toggle'));
-    const spy = spyOn(component, 'toggle');
+  it('saved guild overwrites default input values', () => {
+    const events = [
+    {
+      event: EventType.MemberJoin,
+      channel: '123',
+      message: 'a'
+    } as AnnounceEvent ];
+    component.savedGuild = { announce: { events }};
+    component.guildId = '123';
 
-    toggleButton.nativeElement.click();
+    const result = component.eventsFormArray.get('0').value;
 
-    expect(spy).toHaveBeenCalled();
+    expect(result).toEqual(events[0]);
   });
 
-  it('disable event, removes config from events array', () => {
-    
+  it('submitting removes enabled property', () => {
+    component = new AnnounceModuleComponent({} as any, {} as any, {} as any);
+    const events = [
+    {
+      event: EventType.MemberJoin,
+      channel: '123',
+      enabled: false,
+      message: 'a'
+    } as AnnounceEvent ];
+
+    component.form.setValue({ events });
+    component.submit();
+
+    const result = component.form.get('events').get('0').value.enabled;
+
+    expect(result).toBeUndefined();;
   });
 });

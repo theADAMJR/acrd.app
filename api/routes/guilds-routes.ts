@@ -22,14 +22,19 @@ router.get('/', async (req, res) => {
     } catch { res.status(400).send('Bad Request'); }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id/:module', async (req, res) => {
     try {
-        console.log(req.body);
-          
+        const isValidModule = config.modules
+            .some(m => m.toLowerCase() === req.params.module);
+        if (!isValidModule)
+            throw new TypeError();
+        
         const id = req.params.id;
-        validateGuildManager(req.query.key, id);
+        validateGuildManager(req.query.key, id);        
 
-        const updatedGuild = await SavedGuild.findByIdAndUpdate(id, req.body).lean();
+        const updatedGuild = await SavedGuild.findById(id);
+        updatedGuild[req.params.module] = req.body;       
+        await updatedGuild.save();        
         
         res.json(updatedGuild);
     } catch { res.status(400).send('Bad Request'); }
@@ -80,19 +85,6 @@ router.get('/:id/members', async (req, res) => {
     
         res.json(rankedMembers);
     } catch { res.status(404).send('Not Found'); }
-});
-
-router.post('/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        validateGuildManager(req.query.key, id);
-
-        var oldGuild = await SavedGuild.findById(req.params.id);
-        oldGuild.replaceOne(req.body);
-        oldGuild.save();
-
-        res.json(req.body);
-    } catch { res.status(400).send('Bad Request'); }
 });
 
 async function getManagableGuilds(key: string) {

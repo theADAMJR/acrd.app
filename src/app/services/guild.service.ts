@@ -41,8 +41,8 @@ export class GuildService {
     return this.http.get(`${this.endpoint}/${id}/config?key=${this.key}`).toPromise();
   }
 
-  saveGuild(id: string, value: any) {    
-    return this.http.put(`${this.endpoint}/${id}?key=${this.key}`, value).toPromise();
+  saveGuild(id: string, module: string, value: any): Promise<any> {    
+    return this.http.put(`${this.endpoint}/${id}/${module}?key=${this.key}`, value).toPromise();
   }
 
   async getChannels(id: string): Promise<any> {

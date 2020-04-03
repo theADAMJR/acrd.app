@@ -1,6 +1,6 @@
 import express from 'express';
 import { connect } from 'mongoose';
-import config from './config.json';
+import config from './api-config.json';
 import cors from 'cors';
 import OAuthClient from 'disco-oauth';
 import { Client } from 'discord.js';

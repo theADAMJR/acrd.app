@@ -5,23 +5,22 @@
             <hr>
         </div>
         <form #f="ngForm" [formGroup]="form">
-            <div class="row">
-                <div *ngFor="let command of commands"
+            <div formArrayName="configs" class="row">
+                <div [formGroupName]="i" *ngFor="let command of commands; index as i"
                     class="col-lg-6 col-md-12">
                     <div class="card d-flex justify-content-between">
-                        <div [formGroup]="commands" class="card-body">
+                        <div class="card-body">
                             <span>
+                                <input type="hidden" formControlName="name">
                                 {{ command.name }}
                             </span>
-                            <div class="float-right" formControlName="commands">
-                                <mat-slide-toggle
-                                    formControlName="enabled"></mat-slide-toggle>
+                            <div class="float-right">
+                                <mat-slide-toggle formControlName="enabled"></mat-slide-toggle>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button type="submit">Submit</button>
         </form>
     </div>
 </guild-sidebar>

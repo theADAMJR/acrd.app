@@ -8,22 +8,22 @@
             <h3>Events</h3>
             <p class="desc">Send messages to a channel when the event is triggered</p>
             <hr>
-            <div class="row">
-                <div *ngFor="let event of events" class="col-lg-6 col-sm-12">
-                    <div class="event">
+            <div formArrayName="events" class="row">
+                <div *ngFor="let event of events; index as i" class="col-lg-6 col-sm-12">
+                    <div [formGroupName]="i" class="event">
+                        <input type="hidden" formControlName="event">
                         <span class="d-flex justify-content-between">
-                            <strong>{{ event }}</strong>
-                            <mat-slide-toggle
-                                (click)="toggle(event)"></mat-slide-toggle>
+                            <strong>{{ EventType[i] }}</strong>
+                            <mat-slide-toggle formControlName="enabled"></mat-slide-toggle>
                         </span>
                         <hr>
                         <mat-form-field appearance="outline">                                
                             <mat-label>Message</mat-label>
-                            <textarea matInput>{{ getEvent(event)?.message }}</textarea>
+                            <textarea formControlName="message" matInput>{{ getEvent(event)?.message }}</textarea>
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Channel</mat-label>
-                            <mat-select>
+                            <mat-select formControlName="channel">
                                 <mat-option *ngFor="let channel of textChannels" 
                                     [value]="channel.id">#{{ channel.name }}</mat-option>
                             </mat-select>

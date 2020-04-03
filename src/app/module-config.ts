@@ -1,45 +1,46 @@
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, AbstractControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaveChangesComponent } from './save-changes/save-changes.component';
 import { GuildService } from './services/guild.service';
+import { Input } from '@angular/core';
 
 export abstract class ModuleConfig {
     abstract form: FormGroup;
+    abstract moduleName: string;
 
     unsaved = false;
 
-    originalSavedGuild: any;
-    savedGuild: any;    
-    guild: any;
+    savedGuild: any;
+    guildId: string;
 
     textChannels: any = [];
     roles: any = [];
+    
+    private originalSavedGuild: any;
   
     constructor(
         protected guildService: GuildService,
         protected route: ActivatedRoute,
         protected saveChanges: MatSnackBar) {}
 
-    async init() {        
-        const id = this.route.snapshot.paramMap.get('id');
+    async init() {
+        this.guildId = this.route.snapshot.paramMap.get('id');
 
-        this.guild = await this.guildService.getGuild(id);
-
-        const channels = await this.guildService.getChannels(this.guild?.id);
+        const channels = await this.guildService.getChannels(this.guildId);
         this.textChannels = channels.filter(c => c.type === 'text');
 
-        this.roles = await this.guildService.getRoles(this.guild?.id);
+        this.roles = await this.guildService.getRoles(this.guildId);
 
-        try {            
-            this.savedGuild = await this.guildService.getSavedGuild(id);
+        try {
+            this.savedGuild = await this.guildService.getSavedGuild(this.guildId);
             this.originalSavedGuild = this.savedGuild;            
         } catch { alert('An error occurred loading the saved guild'); }
         
         this.initFormValues(this.savedGuild);
 
         this.form.valueChanges
-            .subscribe((formValue) => this.openSaveChanges(formValue));
+            .subscribe((formValue) => this.openSaveChanges(formValue));            
     }
 
     protected abstract initFormValues(savedGuild: any): void;
@@ -57,7 +58,7 @@ export abstract class ModuleConfig {
     }
 
     async submit() {
-        await this.guildService.saveGuild(this.guild.id, this.form.value);
+        await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
     }
 
     reset() {

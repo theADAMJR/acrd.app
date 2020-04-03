@@ -25,6 +25,10 @@ export class AutoModModule extends Module {
     autoWarnUsers = true;
 }
 
+export class CommandsModule {
+    configs: CommandConfig[]
+}
+
 export enum MessageFilter { Words, Links }
 
 export class GeneralModule extends Module {
@@ -62,11 +66,11 @@ const guildSchema = new Schema({
     _id: String,
     announce: { type: Object, default: new AnnounceModule() }, 
     autoMod: { type: Object, default: new AutoModModule() }, 
+    commands: { type: Object, default: new CommandsModule() },
     general: { type: Object, default: new GeneralModule() },
     music: { type: Object, default: new MusicModule },
     xp: { type: Object, default: new XPModule() },
-    settings: { type: Object, default: new DashboardSettings() },
-    commands: { type: Array, default: [] }
+    settings: { type: Object, default: new DashboardSettings() }
 });
 
 export interface GuildDocument extends Document {
@@ -76,7 +80,7 @@ export interface GuildDocument extends Document {
     general: GeneralModule;
     music: MusicModule;
     xp: XPModule;
-    commands: CommandConfig[];
+    commands: CommandsModule;
     settings: DashboardSettings;
 }
 

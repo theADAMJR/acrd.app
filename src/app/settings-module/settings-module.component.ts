@@ -13,6 +13,8 @@ import { SaveChangesComponent } from '../save-changes/save-changes.component';
   styleUrls: ['./settings-module.component.css']
 })
 export class SettingsModuleComponent extends ModuleConfig implements OnInit {
+  moduleName = 'settings';
+
   form = new FormGroup({
     privateLeaderboard: new FormControl('')
   });
@@ -29,6 +31,8 @@ export class SettingsModuleComponent extends ModuleConfig implements OnInit {
   }
   
   protected initFormValues() {
-    throw new Error("Method not implemented.");
+    const settings = this.savedGuild.settings;
+    console.log(settings);    
+    this.form.controls.privateLeaderboard.setValue(settings.privateLeaderboard);
   }
 }

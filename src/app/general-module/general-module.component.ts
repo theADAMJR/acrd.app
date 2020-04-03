@@ -12,6 +12,8 @@ import { GuildService } from '../services/guild.service';
   styleUrls: ['./general-module.component.css']
 })
 export class GeneralModuleComponent extends ModuleConfig implements OnInit {
+  moduleName = 'general';
+
   get general() { return this.savedGuild.general; }
 
   form = new FormGroup({
@@ -19,8 +21,8 @@ export class GeneralModuleComponent extends ModuleConfig implements OnInit {
       Validators.required, 
       Validators.maxLength(5) 
     ]),
-    ignoredChannels: new FormControl(''),
-    autoRoles: new FormControl('')
+    ignoredChannels: new FormControl(),
+    autoRoles: new FormControl()
   });
 
   constructor(
@@ -37,7 +39,7 @@ export class GeneralModuleComponent extends ModuleConfig implements OnInit {
   protected initFormValues(savedGuild: any) {
     const general = savedGuild.general;
     this.form.controls.prefix.setValue(general.prefix);
-    this.form.controls.ignoredChannels.setValue(general.ignoredRoles);
+    this.form.controls.ignoredChannels.setValue(general.ignoredChannels);
     this.form.controls.autoRoles.setValue(general.autoRoles);
   }
 }
