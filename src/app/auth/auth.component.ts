@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { GuildService } from '../guild.service';
-import { UserService } from '../user.service';
+import { AuthService } from '../services/auth.service';
+import { GuildService } from '../services/guild.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-auth',

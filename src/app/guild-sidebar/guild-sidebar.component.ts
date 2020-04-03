@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { GuildService } from '../guild.service';
+import { GuildService } from '../services/guild.service';
 
 @Component({
   selector: 'guild-sidebar',
@@ -9,6 +8,8 @@ import { GuildService } from '../guild.service';
   styleUrls: ['./guild-sidebar.component.css']
 })
 export class GuildSidebarComponent implements OnInit {
+  @Input('waitFor') loading = true;
+
   get guild() {
     const id = this.route.snapshot.paramMap.get('id');    
     return this.guildService.getGuild(id) || {};

@@ -3,6 +3,7 @@
     padding-bottom: 15px;
 }
 #save {
+    margin-left: 5px;
     background-color: var(--success);
 }
 

@@ -1,10 +1,10 @@
-<guild-sidebar>
-    <div *ngIf="guild" class="container">
+<guild-sidebar [waitFor]="savedGuild">
+    <div class="container">
         <div class="jumbotron">
             <h1 class="display-3">Announce</h1>
             <hr>
         </div>
-        <form #f="ngForm" [formGroup]="form" (ngSubmit)="onSubmit(f.value)">
+        <form #f="ngForm" [formGroup]="form">
             <h3>Events</h3>
             <p class="desc">Send messages to a channel when the event is triggered</p>
             <hr>
@@ -24,7 +24,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Channel</mat-label>
                             <mat-select>
-                                <mat-option *ngFor="let channel of channels" 
+                                <mat-option *ngFor="let channel of textChannels" 
                                     [value]="channel.id">#{{ channel.name }}</mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -32,8 +32,5 @@
                 </div>
             </div>
         </form>
-    </div>
-    <div *ngIf="!guild">
-        <spinner></spinner> 
     </div>
 </guild-sidebar>

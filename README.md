@@ -19,6 +19,13 @@ This will be used in the final step of the OAuth2 login.
 
 ---
 
+## Further Notes
+- Channels and roles of a specific guild are publically available through the API
+  - Used to provide more user-friendly select options
+  - This is to also to avoid rate limiting
+
+---
+
 # Angular
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.

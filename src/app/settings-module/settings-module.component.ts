@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ModuleConfig } from '../module-config';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { GuildService } from '../guild.service';
+import { GuildService } from '../services/guild.service';
 import { SaveChangesComponent } from '../save-changes/save-changes.component';
 
 @Component({
@@ -26,5 +26,9 @@ export class SettingsModuleComponent extends ModuleConfig implements OnInit {
 
   async ngOnInit() {
     await super.init();
+  }
+  
+  protected initFormValues() {
+    throw new Error("Method not implemented.");
   }
 }

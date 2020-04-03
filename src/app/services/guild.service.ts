@@ -33,7 +33,7 @@ export class GuildService {
     return this.http.get(`${this.endpoint}/${id}/public`).toPromise();
   }
 
-  getMembers(guildId: string) {
+  getMembers(guildId: string): Promise<any> {
     return this.http.get(`${this.endpoint}/${guildId}/members`).toPromise() as Promise<any[]>;
   }
 
@@ -41,23 +41,15 @@ export class GuildService {
     return this.http.get(`${this.endpoint}/${id}/config?key=${this.key}`).toPromise();
   }
 
-  async getChannels(id: string) {
-    return [{
-      id: '123',
-      name: 'general',
-      type: 'text'
-    }];
+  saveGuild(id: string, value: any) {    
+    return this.http.put(`${this.endpoint}/${id}?key=${this.key}`, value).toPromise();
   }
 
-  async getRoles(id: string) {
-    return [
-    {
-      name: 'Admin',
-      color: '0F0F0F'
-    },
-    {
-      name: 'Member',
-      color: '000000'
-    }];
+  async getChannels(id: string): Promise<any> {
+    return this.http.get(`${this.endpoint}/${id}/channels`).toPromise();
+  }
+
+  async getRoles(id: string): Promise<any> {
+    return this.http.get(`${this.endpoint}/${id}/roles`).toPromise();
   }
 }

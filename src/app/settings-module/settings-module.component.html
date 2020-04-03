@@ -1,10 +1,10 @@
-<guild-sidebar>
+<guild-sidebar [waitFor]="savedGuild">
     <div *ngIf="guild" class="container">
         <div class="jumbotron">
             <h1 class="display-3">Settings</h1>
             <hr>
         </div>
-        <form #f="ngForm" [formGroup]="form" (ngSubmit)="onSubmit(f.value)">
+        <form #f="ngForm" [formGroup]="form">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
                     <label>Private Leaderboard</label>
@@ -15,8 +15,5 @@
                 </div>
             </div>
         </form>
-    </div>
-    <div *ngIf="!guild">
-        <spinner></spinner>
     </div>
 </guild-sidebar>

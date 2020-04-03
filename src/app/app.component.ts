@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GuildService } from './guild.service';
-import { UserService } from './user.service';
+import { GuildService } from './services/guild.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
     private guildService: GuildService,
     private userService: UserService) {}
 
-  async ngOnInit() {    
+  async ngOnInit() {
     await this.userService.updateUser();
     try {
       await this.guildService.updateGuilds();

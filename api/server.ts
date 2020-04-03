@@ -4,6 +4,7 @@ import config from './config.json';
 import cors from 'cors';
 import OAuthClient from 'disco-oauth';
 import { Client } from 'discord.js';
+import bodyParser from 'body-parser';
 
 import { router as apiRoutes } from './routes/api-routes';
 
@@ -20,6 +21,7 @@ bot.on('ready', () => console.log('Webapp bot is live!'));
 bot.login(config.bot.token);
 
 app.use(cors());
+app.use(bodyParser.json());
 app.use('/api', apiRoutes);
 
 const path = '/app/dist/twopg-dashboard';

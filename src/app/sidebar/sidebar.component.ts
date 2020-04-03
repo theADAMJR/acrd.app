@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
-import { UserService } from '../user.service';
-import { GuildService } from '../guild.service';
+import { UserService } from '../services/user.service';
+import { GuildService } from '../services/guild.service';
 
 @Component({
   selector: 'sidebar',

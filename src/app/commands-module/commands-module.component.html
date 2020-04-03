@@ -1,21 +1,21 @@
-<guild-sidebar>
-    <div *ngIf="guild" class="container">
+<guild-sidebar [waitFor]="savedGuild">
+    <div class="container">
         <div class="jumbotron">
             <h1 class="display-3">Commands</h1>
             <hr>
         </div>
-        <form #f="ngForm" [formGroup]="form" (ngSubmit)="onSubmit(f.value)">
+        <form #f="ngForm" [formGroup]="form">
             <div class="row">
                 <div *ngFor="let command of commands"
                     class="col-lg-6 col-md-12">
                     <div class="card d-flex justify-content-between">
-                        <div class="card-body">
+                        <div [formGroup]="commands" class="card-body">
                             <span>
                                 {{ command.name }}
                             </span>
-                            <div class="float-right">
+                            <div class="float-right" formControlName="commands">
                                 <mat-slide-toggle
-                                    [formControlName]="command.name"></mat-slide-toggle>
+                                    formControlName="enabled"></mat-slide-toggle>
                             </div>
                         </div>
                     </div>
@@ -23,8 +23,5 @@
             </div>
             <button type="submit">Submit</button>
         </form>
-    </div>
-    <div *ngIf="!guild">
-        <spinner></spinner>
     </div>
 </guild-sidebar>

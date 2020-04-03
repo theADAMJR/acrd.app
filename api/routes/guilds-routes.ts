@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request } from "express";
 import config from '../../config.json';
 import { SavedUser } from "../models/user";
 import { SavedGuild } from '../models/guild';
@@ -6,6 +6,7 @@ import { SavedMember } from '../models/member';
 import Leveling from '../modules/leveling';
 import { AuthClient, bot } from '../server';
 import { XPCardGenerator } from '../modules/image/xp-card-generator';
+import { Guild } from "discord.js";
 
 export const router = Router();
 
@@ -21,32 +22,40 @@ router.get('/', async (req, res) => {
     } catch { res.status(400).send('Bad Request'); }
 });
 
-router.post('/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
-        const guilds = await getManagableGuilds(req.query.key);
-
+        console.log(req.body);
+          
         const id = req.params.id;
-        if (!guilds.has(id))
-            throw Error();
+        validateGuildManager(req.query.key, id);
 
         const updatedGuild = await SavedGuild.findByIdAndUpdate(id, req.body).lean();
         
-        res.status(200).json(updatedGuild);
+        res.json(updatedGuild);
     } catch { res.status(400).send('Bad Request'); }
 });
 
 router.get('/:id/config', async (req, res) => {
     try {
-        const guilds = await getManagableGuilds(req.query.key);
-        
-        const id = req.params.id;
-        if (!guilds.has(id))
-            throw Error();
-        
+        const id = req.params.id;        
         const savedGuild = await SavedGuild.findById(id).lean();
         res.json(savedGuild);
     } catch { res.status(400).send('Bad Request'); }
-})
+});
+
+router.get('/:id/channels', async (req, res) => {
+    try {
+        const guild = bot.guilds.cache.get(req.params.id);
+        res.send(guild.channels.cache);        
+    } catch { res.status(404).send('Not Found'); }
+});
+
+router.get('/:id/roles', async (req, res) => {
+    try {
+        const guild = bot.guilds.cache.get(req.params.id);
+        res.send(guild.roles.cache.filter(r => r.name !== '@everyone'));        
+    } catch { res.status(404).send('Not Found'); }
+});
 
 router.get('/:id/members', async (req, res) => {
     try {
@@ -75,9 +84,8 @@ router.get('/:id/members', async (req, res) => {
 
 router.post('/:id', async (req, res) => {
     try {
-        const guilds = await getManagableGuilds(req.query.key);
-        if (!guilds.has(req.params.id))
-            throw Error();
+        const id = req.params.id;
+        validateGuildManager(req.query.key, id);
 
         var oldGuild = await SavedGuild.findById(req.params.id);
         oldGuild.replaceOne(req.body);
@@ -90,24 +98,21 @@ router.post('/:id', async (req, res) => {
 async function getManagableGuilds(key: string) {
     let userGuilds = await AuthClient.getGuilds(key);
     
+    const guilds = new Map<string, Guild>();
     for (const id of userGuilds.keys()) {
-        const guild = userGuilds.get(id);
-        const hasManager = guild._permissions
+        const authGuild = userGuilds.get(id);
+        const hasManager = authGuild._permissions
             .some(p => p === config.dashboard.managerPermission);
 
         if (!hasManager)
-            userGuilds.delete(id);
+            userGuilds.delete(id);      
     }
-    
     return bot.guilds.cache
-        .filter(g => userGuilds.has(g.id));  
+        .filter(g => userGuilds.has(g.id));
 }
 
 router.get('/:guildId/members/:memberId/xp-card', async (req, res) => {
-    // validateInternalRequest(req, "/user", "/leaderboard/players");
-
-    try 
-    {
+    try {
         const { guildId, memberId } = req.params;
         
         const savedUser = await getOrCreateSavedUser(memberId);
@@ -137,4 +142,11 @@ async function getOrCreateSavedUser(id: string) {
         savedUser.save();
     }
     return savedUser;
+}
+
+async function validateGuildManager(key: string, id: string) {
+    const guilds = await getManagableGuilds(key);        
+        
+    if (!guilds.has(id))
+        throw Error();
 }

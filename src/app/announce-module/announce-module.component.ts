@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModuleConfig } from '../module-config';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { GuildService } from '../guild.service';
+import { GuildService } from '../services/guild.service';
 
 @Component({
   selector: 'app-announce-module',
@@ -32,6 +32,10 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
     await super.init();
     
     this.eventConfigs = this.guild.announce.events;
+  }
+  
+  protected initFormValues() {
+    throw new Error("Method not implemented.");
   }
 
   getEvent(eventName: string) {

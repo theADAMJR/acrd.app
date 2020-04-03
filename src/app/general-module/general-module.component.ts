@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModuleConfig } from '../module-config';
-import { GuildService } from '../guild.service';
+import { GuildService } from '../services/guild.service';
 
 @Component({
   selector: 'app-general-module',
@@ -12,6 +12,8 @@ import { GuildService } from '../guild.service';
   styleUrls: ['./general-module.component.css']
 })
 export class GeneralModuleComponent extends ModuleConfig implements OnInit {
+  get general() { return this.savedGuild.general; }
+
   form = new FormGroup({
     prefix: new FormControl('', [
       Validators.required, 
@@ -30,15 +32,12 @@ export class GeneralModuleComponent extends ModuleConfig implements OnInit {
 
   async ngOnInit() {
     await super.init();
-
-    this.initFormValues();
   }
-
-  private initFormValues() {
-    console.log(super.guild);    
-    
-    this.form.get('prefix').setValue(super.guild.prefix);
-    this.form.get('ignoredRoles').setValue(super.guild.ignoredRoles);
-    this.form.get('autoRoles').setValue(super.guild.autoRoles);
+  
+  protected initFormValues(savedGuild: any) {
+    const general = savedGuild.general;
+    this.form.controls.prefix.setValue(general.prefix);
+    this.form.controls.ignoredChannels.setValue(general.ignoredRoles);
+    this.form.controls.autoRoles.setValue(general.autoRoles);
   }
 }

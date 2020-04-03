@@ -44,6 +44,11 @@
             </div>
         </div>
     <div id="content">
-        <ng-content [guild]="guild"></ng-content>
+        <div *ngIf="loading">
+            <ng-content></ng-content>
+        </div>
+        <div *ngIf="!loading">
+            <spinner></spinner>
+        </div>
     </div>
 </sidebar>

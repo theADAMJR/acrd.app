@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
-import { GuildService } from '../guild.service';
+import { GuildService } from '../services/guild.service';
 
 @Component({
   selector: 'app-leaderboard-module',
