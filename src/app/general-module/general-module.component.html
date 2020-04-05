@@ -1,0 +1,39 @@
+<guild-sidebar [waitFor]="savedGuild && general">
+    <div *ngIf="form" class="container">
+        <div class="jumbotron">
+            <h1 class="display-3">General</h1>
+            <hr>
+        </div>
+        <form #f="ngForm" [formGroup]="form">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Prefix</mat-label>
+                        <input matInput
+                            formControlName="prefix" type="text">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ignored Channels</mat-label>
+                        <mat-select multiple
+                            formControlName="ignoredChannels">
+                            <mat-option *ngFor="let channel of textChannels" 
+                                [value]="channel.id">#{{ channel.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Auto Roles</mat-label>
+                        <mat-select multiple
+                            formControlName="autoRoles">
+                            <mat-option *ngFor="let role of roles" 
+                                [value]="role.id">@{{ role.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+</guild-sidebar>

@@ -1,0 +1,15 @@
+.text {
+    text-align: left;
+    padding-bottom: 15px;
+}
+#save {
+    margin-left: 5px;
+    background-color: var(--success);
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .text {
+        text-align: center;
+    }
+}

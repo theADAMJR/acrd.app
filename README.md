@@ -29,13 +29,15 @@ This will be used in the final step of the OAuth2 login.
 ---
 
 ## Further Notes
-- Channels and roles of a specific guild are publically available through the API
+- **Channels and roles are publically available through the API**
   - Used to provide more user-friendly select options
   - This is to also to avoid rate limiting
-- Keep the API, Server, and bot isolated to avoid extra bundle size, or your bot tokens being bundled on the client side (not good)
+- **Everything within the /src folder is public**
+  - Keep the API, Server, and bot isolated to avoid extra bundle size, or your bot tokens being bundled on the client side (not good)
   - Just avoid associating any tokens or secrets with the webapp itself
   - This also applies to the bot
-  - **Everything within the /src folder is public**
+- **If renaming config files, make sure to .gitignore them**
+ - This is done by default, but I've made this mistake many times
 
 ---
 

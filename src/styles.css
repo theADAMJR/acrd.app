@@ -1,0 +1,107 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~font-awesome/css/font-awesome.min.css';
+@import 'assets/css/loaders.min.css';
+
+:root {
+    --font: #F4F2F3;
+    --premium: gold;
+
+    --danger: darkred;
+
+    --primary: #46828D;
+    --secondary: #276C8A;
+    --tertiary: #36E2CA;
+
+    --background-primary: #15244B;
+    --background-secondary: #0c1c42;
+    --background-tertiary: #081536;
+}
+
+body, mat-sidenav-content {
+    color: var(--font);
+    background: black;
+    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%) !important;
+    
+    overflow-x: hidden;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+}
+
+.side-nav img {
+    background-color: var(--background-tertiary);
+
+    max-width: 96px;
+    border-radius: 50%;
+
+    padding-bottom: 5px;
+}
+
+.side-nav .header {
+    width: inherit;
+
+    text-align: center;
+
+    padding-top: 25px;
+}
+
+table.dataTable tbody tr {
+    background-color: inherit;
+}
+
+.jumbotron {
+    background-color: transparent;
+}
+
+/* scrollbar */
+::-webkit-scrollbar-track
+{
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: transparent;
+    border-radius: 10px;
+}
+::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: transparent;
+}
+::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear,
+        left bottom,
+        left top,
+        color-stop(0.72, var(--primary)),
+        color-stop(0.86, var(--secondary)));
+}
+
+a {
+    transition: all .25s;
+}
+
+[premium] ~ span > label {
+    color: var(--premium) !important;
+}
+
+h3 {
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+.desc {
+    color: var(--secondary); 
+}
+
+.mat-snack-bar-container {
+    background-color: rgba(0,0,0,0.8) !important;
+    color: var(--font);
+    width: 75vw;
+}
+.cdk-overlay-pane {
+    /* width: 75vw;     */
+}

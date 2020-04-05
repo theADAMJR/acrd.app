@@ -1,0 +1,14 @@
+.jumbotron {
+    background: none;
+    text-align: center;
+    margin-top: 15vh;
+}
+
+img {
+    max-width: 192px;
+    margin-bottom: 5px;
+}
+
+p:not(.lead) {
+    color: var(--secondary);
+}

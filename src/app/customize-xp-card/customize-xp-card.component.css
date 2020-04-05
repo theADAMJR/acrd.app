@@ -1,0 +1,8 @@
+img {
+    max-width: 470px;
+    padding-bottom: 15px;
+}
+
+.modal-content {
+    background-color: var(--background-secondary);
+}

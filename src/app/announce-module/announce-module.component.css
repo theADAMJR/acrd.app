@@ -1,0 +1,19 @@
+.row > div {
+    padding: 5px;
+}
+
+.event {
+    padding: 25px;
+    border-radius: 3px;
+
+    background-color: var(--background-tertiary);
+}
+
+mat-form-field {
+    padding: 5px;
+}
+
+.event mat-select {
+    padding-left: 5px;
+    float: left;
+}

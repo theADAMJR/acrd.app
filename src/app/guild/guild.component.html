@@ -1,0 +1,56 @@
+<guild-sidebar>
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <div class="stats">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    1 Messages
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div [class]="(botNeedsPerms) ? 'needPerms' : ''"
+                    class="stats">
+                    <div *ngIf="botNeedsPerms">
+                        <i class="fa fa-lock" aria-hidden="true"></i> Requires Administrator
+                    </div>
+                    <div *ngIf="!botNeedsPerms">
+                        <i class="fa fa-thumbs-up" aria-hidden="true"></i> Ready
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="stats">
+                    <i class="fa fa-user" aria-hidden="true"></i> 0 Online
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="stats">
+                    <i class="fa fa-user-o" aria-hidden="true"></i> {{ guild?.members.length }} Members
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <div class="large stats">
+                    a
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="large stats">
+                    b
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="large stats">
+                    c
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="large stats">
+                    d
+                </div>
+            </div>
+        </div>
+    </section>
+</guild-sidebar>

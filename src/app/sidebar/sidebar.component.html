@@ -1,0 +1,39 @@
+<mat-sidenav-container fullscreen>
+    <mat-sidenav #drawer mode="side" opened>
+        <div class="guilds">
+            <div class="user">
+                <div routerLink="/dashboard" class="guild-icon">
+                    <img [src]="user.displayAvatarURL" alt="{{ user.username }}">
+                </div>
+                <hr>
+            </div>
+            <div cdkDropList (cdkDropListDropped)="drop($event)"
+                *ngFor="let guild of guilds" [routerLink]="['/servers/' + guild.id]"
+                class="guild-icon">
+                <img cdkDrag *ngIf="guild.iconURL"
+                    [src]="guild.iconURL" [alt]="guild.name">
+                <span cdkDrag *ngIf="!guild.iconURL">{{ guild.nameAcronym }}</span>
+            </div>
+            <div routerLink="/invite" 
+                class="guild-icon invite">
+                <span class="add-guild">+</span>
+            </div>
+        </div>
+        <div class="options">
+            <ng-content select=".side-nav"></ng-content>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <navbar></navbar>
+        <button class="toggle">
+            <div id="nav-icon1" class="open"
+                (click)="drawer.toggle()"
+                (click)="toggle($event.target)">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+        </button>
+        <ng-content select="#content"></ng-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>

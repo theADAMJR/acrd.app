@@ -1,0 +1,17 @@
+mat-form-field {
+    padding: 5px;
+}
+
+.add, .remove {
+    height: 36px;
+    width: 36px;
+    padding: 0 !important;
+}
+
+.add {
+    background-color: var(--success);
+}
+
+.remove {
+    background-color: var(--danger);
+}
