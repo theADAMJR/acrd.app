@@ -4,16 +4,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaveChangesComponent } from './save-changes/save-changes.component';
 import { GuildService } from './services/guild.service';
 import { Input } from '@angular/core';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 export abstract class ModuleConfig {
-    abstract form: FormGroup;
+    MessageFilter = MessageFilter;
     abstract moduleName: string;
 
-    unsaved = false;
+    form: FormGroup;
 
-    savedGuild: any;
     guildId: string;
-
+    savedGuild: any;
     textChannels: any = [];
     roles: any = [];
     
@@ -37,15 +37,25 @@ export abstract class ModuleConfig {
             this.originalSavedGuild = this.savedGuild;            
         } catch { alert('An error occurred loading the saved guild'); }
         
+        this.form = await this.buildForm();
         this.initFormValues(this.savedGuild);
 
         this.form.valueChanges
-            .subscribe((formValue) => this.openSaveChanges(formValue));            
+            .subscribe(() => this.openSaveChanges());            
     }
 
+    /**
+     * Build the form to be used
+     * Called when on form init.
+     */
+    protected abstract buildForm(): FormGroup | Promise<FormGroup>;
+    /**
+     * Initialize all form values.
+     * Called on reset, and on init.
+     */
     protected abstract initFormValues(savedGuild: any): void;
-
-    openSaveChanges(formValue?: any) {
+    
+    private openSaveChanges() {
         const snackBarRef = this.saveChanges._openedSnackBarRef;
         if (!this.form.valid || snackBarRef) return;
 
@@ -53,15 +63,48 @@ export abstract class ModuleConfig {
         .subscribe(() => {
             const component = this.saveChanges._openedSnackBarRef.instance as SaveChangesComponent;
             component.onSave.subscribe(async() => await this.submit());
-            component.onReset.subscribe(() => this.reset());
+            component.onReset.subscribe(async() => await this.reset());
         });        
     }
 
-    async submit() {
-        await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
+    /**
+     * Send the form data to the API.
+     */
+    async submit() {     
+        console.log(this.form.value);
+           
+        // await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
     }
 
-    reset() {
+    /**
+     * Reset form values, and rebuild form.
+     */
+    async reset() {
+        this.form = await this.buildForm();
         this.initFormValues(this.originalSavedGuild);
     }
+
+    // input events
+
+    add(event: MatChipInputEvent, array: any[]) {        
+        const { value, input } = event;
+    
+        if ((value || '').trim())
+          array.push(value.trim());
+    
+        if (input) 
+          input.value = '';
+
+        this.openSaveChanges();
+    }
+    
+    remove(item: any, array: any[]) {
+        const index = array.indexOf(item);
+        if (index >= 0)
+            array.splice(index, 1);
+        
+        this.openSaveChanges();
+    }
 }
+
+export enum MessageFilter { Words, Links }

@@ -1,6 +1,15 @@
 # 2PG Dashboard
 
 ## Config
+`api-config.json` example:
+```
+{
+    "bot": {
+        "id": "yourBotId",
+    },
+    "url": "https://2pg.xyz"
+}
+
 `config.json` example:
 ```
 {
@@ -26,6 +35,7 @@ This will be used in the final step of the OAuth2 login.
 - Keep the API, Server, and bot isolated to avoid extra bundle size, or your bot tokens being bundled on the client side (not good)
   - Just avoid associating any tokens or secrets with the webapp itself
   - This also applies to the bot
+  - **Everything within the /src folder is public**
 
 ---
 
