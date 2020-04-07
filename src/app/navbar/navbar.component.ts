@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import config from 'config.json';
+import config from '../../../config.json';
 
 @Component({
   selector: 'navbar',
