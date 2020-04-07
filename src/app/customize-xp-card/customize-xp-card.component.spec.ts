@@ -37,11 +37,28 @@ describe('CustomizeXPCardComponent', () => {
 
   it('click button, submits form', () => {
     const spy = spyOn(component, 'submit').and.callThrough();
-
     const de = fixture.debugElement.query(By.css('#submit'));
     
     de.nativeElement.click();
 
-    expect(component.submit).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('click stock image, setBackground is called', () => {
+    const spy = spyOn(component, 'setBackground').and.callThrough();
+    const de = fixture.debugElement.query(By.css('.stock-image'));
+
+    de?.nativeElement.click();
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('click stock image, updatePreview is called', () => {
+    const spy = spyOn(component, 'updatePreview').and.callThrough();
+    const de = fixture.debugElement.query(By.css('.stock-image'));
+
+    de?.nativeElement.click();
+
+    expect(spy).toHaveBeenCalled();
   });
 });

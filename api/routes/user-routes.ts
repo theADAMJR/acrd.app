@@ -22,7 +22,9 @@ router.get('/saved', async (req, res) => {
 });
 
 router.get('/xp-card-preview', async (req, res) => {
-    try {
+    try {        
+        delete req.query.cache;
+
         const user = await getUser(req.query.key);
         const savedUser = await getOrCreateSavedUser(user.id);
         if (!savedUser)
@@ -35,7 +37,7 @@ router.get('/xp-card-preview', async (req, res) => {
         member.xpMessages = 50;
         
         delete req.query.key;        
-        const image = await generator.generate(member, req.query);
+        const image = await generator.generate(member, { ...savedUser.xpCard, ...req.query });
         
         res.set({'Content-Type': 'image/png'}).send(image);
     } catch { res.status(400).send('Bad Request'); }
@@ -43,12 +45,10 @@ router.get('/xp-card-preview', async (req, res) => {
 
 router.put('/xp-card', async (req, res) => {        
     try {
-        
         const { id } = await getUser(req.query.key);
-        const savedUser = await getOrCreateSavedUser(id);
 
+        const savedUser = await getOrCreateSavedUser(id);
         savedUser.xpCard = req.body;
-        
         await savedUser.save();
         
         res.send(savedUser);

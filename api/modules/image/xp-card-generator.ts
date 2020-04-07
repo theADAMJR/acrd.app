@@ -36,7 +36,7 @@ export class XPCardGenerator extends ImageGenerator {
         const canvas = createCanvas(700, 250);
         const context = canvas.getContext('2d');
 
-        const backgroundURL = '';
+        const backgroundURL = this.user.xpCard.backgroundURL;
         await super.addBackgroundToCanvas(context, canvas, backgroundURL);
         await this.addXPBar(context, canvas, savedMember);
         this.addUserText(context, canvas);

@@ -19,10 +19,12 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSnackBarModule} from '@angular/material/snack-bar'
 import {MatSelectModule} from '@angular/material/select';
+import {ColorPickerModule} from 'ngx-color-picker';
 
 @NgModule({
   exports: [
     A11yModule,
+    ColorPickerModule,
     DragDropModule,
     MatAutocompleteModule,
     MatButtonModule,

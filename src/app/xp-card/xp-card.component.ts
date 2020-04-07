@@ -16,6 +16,11 @@ export class XPCardComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   async ngOnInit() {
-    this.xpCardURL = this.userService.xpCardPreviewURL;
+    this.updateXPCard();
+  }
+
+  updateXPCard() {
+    const randomString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    this.xpCardURL = this.userService.xpCardPreviewURL + `&cache=${randomString}`;
   }
 }

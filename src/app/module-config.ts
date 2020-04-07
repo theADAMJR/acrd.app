@@ -7,23 +7,27 @@ import { Input } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 export abstract class ModuleConfig {
-    MessageFilter = MessageFilter;
     abstract moduleName: string;
 
     form: FormGroup;
 
     guildId: string;
     savedGuild: any;
+    private originalSavedGuild: any;
+
     textChannels: any = [];
     roles: any = [];
-    
-    private originalSavedGuild: any;
+
+    MessageFilter = MessageFilter;    
   
     constructor(
         protected guildService: GuildService,
         protected route: ActivatedRoute,
         protected saveChanges: MatSnackBar) {}
 
+    /**
+     * Load all required data for the form, and hook events.
+     */
     async init() {
         this.guildId = this.route.snapshot.paramMap.get('id');
 
@@ -70,10 +74,8 @@ export abstract class ModuleConfig {
     /**
      * Send the form data to the API.
      */
-    async submit() {     
-        console.log(this.form.value);
-           
-        // await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
+    async submit() {
+        await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
     }
 
     /**

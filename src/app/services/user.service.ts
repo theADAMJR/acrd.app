@@ -31,7 +31,7 @@ export class UserService {
 
   async updateSavedUser() {
     this._savedUser = (this.key) ? 
-      await this.http.get(`${this.endpoint}?key=${this.key}`).toPromise() : null;
+      await this.http.get(`${this.endpoint}/saved?key=${this.key}`).toPromise() : null;
   }
 
   updateXPCard(xpCard: XPCard) {

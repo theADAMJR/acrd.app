@@ -9,8 +9,8 @@ import { InviteComponent } from './invite/invite.component';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GuildComponent } from './guild/guild.component';
-import { DashboardAuthGuard } from './dashboard-auth.guard';
-import { GuildAuthGuard } from './guild-auth.guard';
+import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
+import { GuildAuthGuard } from './guards/guild-auth.guard';
 import { GeneralModuleComponent } from './general-module/general-module.component';
 import { XPModuleComponent } from './xp-module/xp-module.component';
 import { MusicModuleComponent } from './music-module/music-module.component';
@@ -20,7 +20,7 @@ import { LogModuleComponent } from './log-module/log-module.component';
 import { SettingsModuleComponent } from './settings-module/settings-module.component';
 import { CommandsModuleComponent } from './commands-module/commands-module.component';
 import { LeaderboardModuleComponent } from './leaderboard-module/leaderboard-module.component';
-import { LeaderboardAuthGuard } from './leaderboard-auth.guard';
+import { LeaderboardAuthGuard } from './guards/leaderboard-auth.guard';
 import { XPCardComponent } from './xp-card/xp-card.component';
 
 const routes: Routes = [

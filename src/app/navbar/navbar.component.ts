@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import config from 'config.json';
 
 @Component({
   selector: 'navbar',
@@ -8,6 +8,8 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  get githubURL() { return config.githubURL; }
+
   get user() { return this.userService.user; }
 
   constructor(private userService: UserService) {}

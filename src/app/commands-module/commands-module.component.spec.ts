@@ -4,7 +4,7 @@ import { CommandsModuleComponent } from './commands-module.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 describe('CommandsModuleComponent', () => {
   let component: CommandsModuleComponent;
@@ -13,8 +13,8 @@ describe('CommandsModuleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CommandsModuleComponent ],
-      imports: [ 
-        HttpClientModule, 
+      imports: [
+        HttpClientModule,
         AppRoutingModule, 
         FormsModule, 
         ReactiveFormsModule,
@@ -26,7 +26,7 @@ describe('CommandsModuleComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CommandsModuleComponent);
-    component = fixture.componentInstance;
+    // component = new CommandsModuleComponent();
     fixture.detectChanges();
   });
 
@@ -34,7 +34,9 @@ describe('CommandsModuleComponent', () => {
     expect(component).toBeTruthy();
   });
   
-  it('reset should return object to initial state', () => {
+  it('reset should return object to initial state', async(done) => {
+    // await component.init();
+    
     const previousValue = component.form.value;
 
     component.savedGuild = { commands: { configs: [] }};
@@ -42,5 +44,6 @@ describe('CommandsModuleComponent', () => {
     component.reset();
 
     expect(component.form.value).toEqual(previousValue);
+    done();
   });
 });

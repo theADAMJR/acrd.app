@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormArray } from '@angular/forms';
 
 describe('AnnounceModuleComponent', () => {
   let component: AnnounceModuleComponent;
@@ -48,7 +48,7 @@ describe('AnnounceModuleComponent', () => {
     component.savedGuild = { announce: { events }};
     component.guildId = '123';
 
-    const result = component.eventsFormArray.get('0').value;
+    const result = (component.form.get('events') as FormArray).get('0').value;
 
     expect(result).toEqual(events[0]);
   });
@@ -68,6 +68,6 @@ describe('AnnounceModuleComponent', () => {
 
     const result = component.form.get('events').get('0').value.enabled;
 
-    expect(result).toBeUndefined();;
+    expect(result).toBeUndefined();
   });
 });

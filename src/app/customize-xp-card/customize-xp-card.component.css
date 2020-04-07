@@ -6,3 +6,25 @@ img {
 .modal-content {
     background-color: var(--background-secondary);
 }
+
+mat-form-field {
+    margin: 5px;
+}
+
+.stock-image img {
+    width: 196px;
+    height: 98px;
+    padding: 0;
+
+    object-fit: fill;
+    border-radius: 3px;
+    transition: all .5s;
+    
+    cursor: pointer;
+}
+
+.stock-image img:hover {
+    -webkit-box-shadow: 0px 0px 10px 0px var(--tertiary);
+    -moz-box-shadow: 0px 0px 10px 0px var(--tertiary);
+    box-shadow: 0px 0px 10px 0px var(--tertiary);
+}

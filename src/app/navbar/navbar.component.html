@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" routerLink="/">2PG</a>
     <div class="nav navbar-nav">
-        <a class="nav-item nav-link" routerLink="/commands"><i class="fa fa-code" aria-hidden="true"></i> Commands</a>
+        <a class="nav-item nav-link" routerLink="/commands"><i class="fa fa-code" aria-hidden="true"></i></a>
+        <a class="nav-item nav-link" routerLink="/docs"><i class="fa fa-book" aria-hidden="true"></i></a>
+        <a class="nav-item nav-link" [href]="githubURL"><i class="fa fa-github" aria-hidden="true"></i></a>
     </div>
     <div class="nav navbar-nav ml-auto">
         <div *ngIf="!user">

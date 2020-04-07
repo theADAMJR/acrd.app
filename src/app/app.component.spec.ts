@@ -1,8 +1,9 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -23,6 +24,6 @@ describe('AppComponent', () => {
   it('should have a router outlet', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const routerOutlet = fixture.debugElement.query(By.directive(RouterOutlet));  
-    expect(routerOutlet.nativeElement).toBeTruthy();
+    expect(routerOutlet?.nativeElement).toBeTruthy();
   });
 });

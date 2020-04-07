@@ -2,7 +2,6 @@
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~font-awesome/css/font-awesome.min.css';
-@import 'assets/css/loaders.min.css';
 
 :root {
     --font: #F4F2F3;
@@ -88,6 +87,10 @@ a {
     color: var(--premium) !important;
 }
 
+[premium] ~ span > label::before {
+    content: "👑 ";
+}
+
 h3 {
     color: var(--primary);
     text-transform: uppercase;
@@ -102,6 +105,7 @@ h3 {
     color: var(--font);
     width: 75vw;
 }
-.cdk-overlay-pane {
-    /* width: 75vw;     */
+
+customize-xp-card .mat-form-field-infix {
+    width: inherit !important;
 }

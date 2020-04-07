@@ -16,9 +16,6 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
   moduleName = 'announce';
 
   events = [ EventType.MemberJoin, EventType.MemberLeave, EventType.MessageDeleted ];
-
-  get eventsFormArray () { return this.form.get('events') as FormArray; }
-
   eventConfigs: AnnounceEvent[] = [];
 
   constructor(
@@ -48,12 +45,15 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
     return formGroup;
   }
   
-  protected initFormValues() {
+  protected initFormValues(savedGuild: any) {    
     for (const event of this.events) {
-      const config = this.getEvent(event);
+      const config = savedGuild.announce.events.find(e => e.event === event);
       if (!config) continue;
       
-      this.eventsFormArray.get(config.event.toString())?.setValue({
+      const eventControl = (this.form.get('events') as FormArray)
+        .get(config.event.toString());
+      
+      eventControl?.setValue({
         event: new FormControl(event),
         enabled: new FormControl(Boolean(config)),
         channel: new FormControl(config.channel),
@@ -63,8 +63,7 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
   }
 
   getEvent(eventType: EventType) {
-    return this.eventConfigs
-      .find(e => e.event === eventType);
+    return this.eventConfigs.find(e => e.event === eventType);
   }
 
   async submit() {

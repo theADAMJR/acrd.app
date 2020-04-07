@@ -10,11 +10,6 @@ import { Guild } from "discord.js";
 
 export const router = Router();
 
-router.get('/:id/public', (req, res) => {
-    const guild = bot.guilds.cache.get(req.params.id);
-    res.json(guild);
-});
-
 router.get('/', async (req, res) => {
     try {
         const guilds = await getManagableGuilds(req.query.key);
@@ -23,7 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 router.put('/:id/:module', async (req, res) => {
-    try {
+    try {        
         const isValidModule = config.modules
             .some(m => m.toLowerCase() === req.params.module);
         if (!isValidModule)
@@ -53,6 +48,11 @@ router.get('/:id/channels', async (req, res) => {
         const guild = bot.guilds.cache.get(req.params.id);
         res.send(guild.channels.cache);        
     } catch { res.status(404).send('Not Found'); }
+});
+
+router.get('/:id/public', (req, res) => {
+    const guild = bot.guilds.cache.get(req.params.id);
+    res.json(guild);
 });
 
 router.get('/:id/roles', async (req, res) => {
@@ -113,6 +113,9 @@ router.get('/:guildId/members/:memberId/xp-card', async (req, res) => {
 
         const rank = 1;//Ranks.getUserRank(user, users);
         const generator = new XPCardGenerator(savedUser, rank);
+
+        console.log(savedUser);
+        
         
         const member = await SavedMember.findOne({ id: memberId, guildId });
         const image = await generator.generate(member);

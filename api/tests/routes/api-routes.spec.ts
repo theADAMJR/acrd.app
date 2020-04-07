@@ -40,47 +40,6 @@ describe('routes/api', () => {
         });
     });
     
-    describe('GET /guilds', () => {
-        const url = '/api/guilds';
-
-        it('no key, returns 400', (done) => {
-            request(app).get(url)
-                .expect(400)
-                .end(done);
-        });
-    });
-    
-    describe('POST /guilds', () => {
-        const url = '/api/guilds';
-
-        it('no key, returns 400', (done) => {
-            request(app).get(url)
-                .expect(400)
-                .end(done);
-        });
-    });
-    
-    describe('GET /guilds/:id/users', () => {
-        const url = '/api/guilds/123/users';
-
-        it('unknown guild, returns 404', (done) => {
-            request(app).get(url)
-                .expect(404)
-                .end(done);
-        });
-    });
-    
-    describe('GET /guilds/:id/public', () => {
-        const url = '/api/guilds/123/public';
-
-        it('unknown guild, returns 200', (done) => {
-            request(app).get(url)
-                .expect(200)
-                .expect(null)
-                .end(done);
-        });
-    });
-
     it('any url returns 404', (done) => {
         request(app).get('/api/a')
             .expect(404)
