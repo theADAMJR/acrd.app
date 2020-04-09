@@ -45,7 +45,6 @@ DRIBBBLE: https://dribbble.com/shots/4330167-404-Page-Lost-In-Space
 }
 
 .spin-earth-on-hover{
-    
     transition: ease 200s !important;
     transform: rotate(-3600deg) !important;
 }
@@ -67,8 +66,7 @@ body {
     background-size: cover;
     background-position: left top;
     height: 100%;
-    overflow: hidden;
-    
+    overflow: hidden;    
 }
 
 .btn-go-home{
@@ -138,6 +136,14 @@ body {
     transform: rotate(0deg);
     transition: transform ease-in 99999999999s;
 */
+}
+
+.object_mars {
+    position: absolute;
+    width: 150px;
+    right: 20%;
+    top: 35%;
+    transform: rotate(-11deg);
 }
 
 .object_astronaut{

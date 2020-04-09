@@ -14,7 +14,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Primary</mat-label>
                             <input matInput
-                                (colorPickerChange)="updatePreview($event)" 
+                                (cpSliderDragEnd)="updatePreview()" 
                                 [value]="colorPickers[0]" 
                                 [(colorPicker)]="colorPickers[0]" 
                                 formControlName="primary">
@@ -24,7 +24,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Secondary</mat-label>
                             <input matInput
-                                (colorPickerChange)="updatePreview($event)" 
+                                (cpSliderDragEnd)="updatePreview()" 
                                 [value]="colorPickers[1]" 
                                 [(colorPicker)]="colorPickers[1]"
                                 formControlName="secondary">                            
@@ -34,7 +34,7 @@
                         <mat-form-field appearance="outline">
                             <mat-label>Tertiary</mat-label>
                             <input matInput
-                                (colorPickerChange)="updatePreview($event)" 
+                                (cpSliderDragEnd)="updatePreview()" 
                                 [value]="colorPickers[2]"
                                 [(colorPicker)]="colorPickers[2]"
                                 formControlName="tertiary">                            

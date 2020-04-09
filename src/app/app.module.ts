@@ -34,6 +34,8 @@ import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/materi
 import { MaterialModule } from './material-module';
 import { PremiumDirective } from './premium.directive';
 import { SaveChangesComponent } from './save-changes/save-changes.component';
+import { RouterModule } from '@angular/router';
+import { NotFoundComponent } from './not-found/not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +65,8 @@ import { SaveChangesComponent } from './save-changes/save-changes.component';
     CustomizeXPCardComponent,
     DashboardSidebarComponent,
     PremiumDirective,
-    SaveChangesComponent
+    SaveChangesComponent,
+    NotFoundComponent
   ],
   imports: [
     AppRoutingModule,

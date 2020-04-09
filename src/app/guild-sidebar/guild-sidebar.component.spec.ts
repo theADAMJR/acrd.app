@@ -25,4 +25,7 @@ describe('GuildSidebarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('if no guild naviate to dashboard', () => {
+  });
 });

@@ -1,24 +1,29 @@
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { FormGroup, AbstractControl, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaveChangesComponent } from './save-changes/save-changes.component';
 import { GuildService } from './services/guild.service';
-import { Input } from '@angular/core';
+import {  OnDestroy } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { Subscription } from 'rxjs';
 
-export abstract class ModuleConfig {
+
+export abstract class ModuleConfig implements OnDestroy {
     abstract moduleName: string;
 
     form: FormGroup;
 
     guildId: string;
     savedGuild: any;
-    private originalSavedGuild: any;
+    originalSavedGuild: any;
 
     textChannels: any = [];
     roles: any = [];
 
-    MessageFilter = MessageFilter;    
+    MessageFilter = MessageFilter;
+
+    private saveChanges$: Subscription;  
+    private valueChanges$: Subscription;  
   
     constructor(
         protected guildService: GuildService,
@@ -38,18 +43,21 @@ export abstract class ModuleConfig {
 
         try {
             this.savedGuild = await this.guildService.getSavedGuild(this.guildId);
-            this.originalSavedGuild = this.savedGuild;            
+            this.originalSavedGuild = JSON.parse(JSON.stringify(this.savedGuild));            
         } catch { alert('An error occurred loading the saved guild'); }
         
         this.form = await this.buildForm();
+        this.form.addControl('enabled',
+                new FormControl(this.savedGuild[this.moduleName].enabled));
+
         this.initFormValues(this.savedGuild);
 
-        this.form.valueChanges
+        this.valueChanges$ = this.form.valueChanges
             .subscribe(() => this.openSaveChanges());            
     }
 
     /**
-     * Build the form to be used
+     * Build the form to be used.
      * Called when on form init.
      */
     protected abstract buildForm(): FormGroup | Promise<FormGroup>;
@@ -63,7 +71,7 @@ export abstract class ModuleConfig {
         const snackBarRef = this.saveChanges._openedSnackBarRef;
         if (!this.form.valid || snackBarRef) return;
 
-        this.saveChanges.openFromComponent(SaveChangesComponent).afterOpened()
+        this.saveChanges$ = this.saveChanges.openFromComponent(SaveChangesComponent).afterOpened()
         .subscribe(() => {
             const component = this.saveChanges._openedSnackBarRef.instance as SaveChangesComponent;
             component.onSave.subscribe(async() => await this.submit());
@@ -72,18 +80,31 @@ export abstract class ModuleConfig {
     }
 
     /**
+     * Clean up subscriptions - to prevent memory leak.
+     */    
+    ngOnDestroy() {        
+        this.valueChanges$?.unsubscribe();
+        this.saveChanges$?.unsubscribe();
+    }
+
+    /**
      * Send the form data to the API.
      */
     async submit() {
-        await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
+        if (this.form.valid)
+            await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
     }
 
     /**
      * Reset form values, and rebuild form.
      */
     async reset() {
+        this.savedGuild = JSON.parse(JSON.stringify(this.originalSavedGuild));
         this.form = await this.buildForm();
-        this.initFormValues(this.originalSavedGuild);
+        
+        this.initFormValues(this.savedGuild);
+        this.form.valueChanges
+            .subscribe(() => this.openSaveChanges()); 
     }
 
     // input events

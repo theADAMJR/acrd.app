@@ -36,8 +36,10 @@ export class AutoModModuleComponent extends ModuleConfig implements OnInit {
   
   protected initFormValues(savedGuild: any) {
     const autoMod = savedGuild.autoMod;
+    this.form.controls.enabled.setValue(autoMod.enabled);
     this.form.controls.banWords.setValue(autoMod.banWords);
     this.form.controls.banLinks.setValue(autoMod.banLinks);
     this.form.controls.filters.setValue(autoMod.filters);
+    this.form.controls.autoWarnUsers.setValue(autoMod.autoWarnUsers);
   }
 }

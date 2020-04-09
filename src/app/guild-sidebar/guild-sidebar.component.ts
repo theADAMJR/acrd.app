@@ -23,8 +23,6 @@ export class GuildSidebarComponent implements OnInit {
     }
 
   async ngOnInit() {
-    if (this.guild) return;
-    
     if (!this.guild) {
       this.router.navigate(['/dashboard']);
     }

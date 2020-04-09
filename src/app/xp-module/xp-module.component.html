@@ -1,54 +1,45 @@
 <guild-sidebar [waitFor]="savedGuild">
     <div *ngIf="form" class="container">
-        <div class="jumbotron">
-            <h1 class="display-3">XP</h1>
-            <hr>
-        </div>
         <form #f="ngForm" [formGroup]="form">
+            <div class="jumbotron">
+                <div class="d-flex justify-content-between">
+                    <h1 class="display-3">XP</h1>
+                    <mat-slide-toggle formControlName="enabled"
+                        class="float-right mt-5"></mat-slide-toggle>
+                </div>
+                <hr>
+            </div>
             <h3>Level Roles</h3>
             <p class="desc">Reward users with roles when leveling up</p>
             <hr>
             <div formArrayName="levelRoles" class="row">
-                <div *ngIf="savedGuild.xp.levelRoles.length < 1">
-                    <div [formGroupName]="0" class="role">
-                        <input type="hidden" formControlName="event">
-                        <mat-form-field appearance="outline">                                
-                            <mat-label>Level</mat-label>                            
-                            <input type="number" formControlName="level" matInput value="1" min="1">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">                                
-                            <mat-label>Role</mat-label>
-                            <mat-select multiple
-                                formControlName="autoRoles">
-                                <mat-option *ngFor="let role of roles" 
-                                    [value]="role.id">@{{ role.name }}</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
+                <div *ngIf="savedGuild.xp.levelRoles.length < 1" class="mx-4 text-muted">
+                    No roles added...
                 </div>
                 <div *ngFor="let role of savedGuild.xp.levelRoles; index as i" class="col-lg-6 col-sm-12">
                     <div [formGroupName]="i" class="role">
-                        <input type="hidden" formControlName="event">
+                        <input type="hidden" formControlName="level">
                         <mat-form-field appearance="outline">                                
                             <mat-label>Level</mat-label>                            
                             <input type="number" formControlName="level" matInput>
                         </mat-form-field>
                         <mat-form-field appearance="outline">                                
                             <mat-label>Role</mat-label>
-                            <mat-select multiple
-                                formControlName="autoRoles">
+                            <mat-select
+                                formControlName="level">
                                 <mat-option *ngFor="let role of roles" 
-                                    [value]="role.id">@{{ role.name }}</mat-option>
+                                    [value]="role.id"
+                                    [style.color]="'#' + role.color">@{{ role.name }}</mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <button *ngIf="i > 0" class="remove" mat-button>-</button>
+                        <button (click)="removeLevelRole(i)"
+                            class="remove" mat-button>-</button>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <button (click)="addLevelRole()" 
-                        class="add" mat-button>+</button>
-                </div>
+                <button (click)="addLevelRole()" 
+                    class="add ml-3" mat-button>+</button>
             </div>
+            <hr>
         </form>
     </div>
 </guild-sidebar>

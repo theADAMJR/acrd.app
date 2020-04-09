@@ -50,15 +50,16 @@ export class CustomizeXPCardComponent implements OnInit {
     await this.userService.updateSavedUser();
 
     this.initFormValues();
-    this.updatePreview()
-    // this.form.valueChanges.subscribe(() => this.updatePreview());
+    this.updatePreview();
   }
 
   initFormValues() {
     const xpCard = this.savedUser.xpCard;
-    this.primary.setValue(xpCard.primary ?? this.colors.primary);
-    this.secondary.setValue(xpCard.secondary ?? this.colors.secondary);
-    this.tertiary.setValue(xpCard.tertiary ?? this.colors.tertiary);
+    this.colorPickers = [
+      xpCard.primary ?? this.colors.primary,
+      xpCard.secondary ?? this.colors.secondary,
+      xpCard.tertiary ?? this.colors.tertiary
+    ];    
     this.backgroundURL.setValue(xpCard.backgroundURL);
   }
 
@@ -67,14 +68,14 @@ export class CustomizeXPCardComponent implements OnInit {
     this.xpCardUpdate.emit();
   }
 
-  updatePreview(color?) {    
+  updatePreview() {    
     this.setValues();
 
     const primary = this.hexToRGB(this.primary.value);
     const secondary = this.hexToRGB(this.secondary.value);  
     const tertiary = this.hexToRGB(this.tertiary.value);  
-    const backgroundURL = this.hexToRGB(this.backgroundURL.value);  
-
+    const backgroundURL = this.backgroundURL.value;
+    
     this.xpCardPreviewURL = this.userService.getXPCardPreviewURL(
       { primary, secondary, tertiary, backgroundURL });
   }
