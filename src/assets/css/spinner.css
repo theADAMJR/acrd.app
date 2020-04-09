@@ -1,6 +1,7 @@
 .spinner {
     width: 40px;
     height: 40px;
+    border-radius: 5px;
     background-color: var(--font);
 
     margin: 100px auto;
