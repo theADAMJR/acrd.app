@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import config from '../../../config.json';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +7,7 @@ import config from '../../../config.json';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  url = `https://discordapp.com/api/oauth2/authorize?client_id=${config.bot.id}&redirect_uri=${config.url}/auth&response_type=code&scope=identify%20guilds`;
+  url = `${environment.endpoint}/login`;
 
   ngOnInit() {
     window.location.assign(this.url);

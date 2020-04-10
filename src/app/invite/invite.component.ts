@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import config from '../../../config.json';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-invite',
@@ -7,7 +7,7 @@ import config from '../../../config.json';
   styleUrls: ['./invite.component.css']
 })
 export class InviteComponent {
-  url = `https://discordapp.com/api/oauth2/authorize?client_id=${config.bot.id}&redirect_uri=${config.url}/dashboard&permissions=8&scope=bot`;
+  url = `${environment.endpoint}/invite`;
 
   constructor() {
     window.location.assign(this.url);

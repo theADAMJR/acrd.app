@@ -1,25 +1,5 @@
 # 2PG Dashboard
 
-## Config
-`api-config.json` example:
-```
-{
-    "bot": {
-        "id": "yourBotId",
-    },
-    "url": "https://2pg.xyz"
-}
-
-`config.json` example:
-```
-{
-    "bot": {
-        "id": "yourBotId",
-    },
-    "url": "https://2pg.xyz"
-}
-```
-
 ## Discord Bot Setup
 Make sure you have redirects set to the /auth link you will be using.
 This will be used in the final step of the OAuth2 login.

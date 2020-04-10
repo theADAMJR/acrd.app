@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModuleConfig } from '../module-config';
 import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from '../services/guild.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { GuildConfigValidators } from '../validators/guild-config.validators';
+import { ModuleConfig } from '../module-config';
 
 @Component({
   selector: 'app-xp-module',
