@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/twopg-dashboard",
+            "outputPath": "dist/twopg-dashboard/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -25,7 +25,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/animations.css"
+              "src/assets/css/animations.css",
+              "node_modules/highlight.js/styles/vs2015.css"
             ],
             "scripts": []
           },
@@ -117,6 +118,53 @@
             "production": {
               "devServerTarget": "twopg-dashboard:serve:production"
             }
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/twopg-dashboard/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "twopg-dashboard:build",
+            "serverTarget": "twopg-dashboard:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "twopg-dashboard:build:production",
+              "serverTarget": "twopg-dashboard:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "twopg-dashboard:build:production",
+            "serverTarget": "twopg-dashboard:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }

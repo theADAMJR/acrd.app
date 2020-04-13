@@ -34,7 +34,6 @@ export class SettingsModuleComponent extends ModuleConfig implements OnInit {
   
   protected initFormValues() {
     const settings = this.savedGuild.settings;
-    console.log(settings);    
     this.form.controls.privateLeaderboard.setValue(settings.privateLeaderboard);
   }
 }

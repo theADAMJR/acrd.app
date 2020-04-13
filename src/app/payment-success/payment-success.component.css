@@ -1,0 +1,131 @@
+* {
+  --color-blue: #0094ff;
+  --color-white: #fff;
+  --curve: cubic-bezier(0.420, 0.000, 0.275, 1.155);
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+}
+
+.center {
+  position: absolute;
+  left: 45%;
+  top: 35%;
+}
+
+.star {
+  position: absolute;
+  animation: grow 3s infinite;
+  fill: var(--color-blue);
+  opacity: 0;
+}
+.star:nth-child(1) {
+  width: 12px;
+  height: 12px;
+  left: 12px;
+  top: 16px;
+}
+.star:nth-child(2) {
+  width: 18px;
+  height: 18px;
+  left: 168px;
+  top: 84px;
+}
+.star:nth-child(3) {
+  width: 10px;
+  height: 10px;
+  left: 32px;
+  top: 162px;
+}
+.star:nth-child(4) {
+  width: 20px;
+  height: 20px;
+  left: 82px;
+  top: -12px;
+}
+.star:nth-child(5) {
+  width: 14px;
+  height: 14px;
+  left: 125px;
+  top: 162px;
+}
+.star:nth-child(6) {
+  width: 10px;
+  height: 10px;
+  left: 16px;
+  top: 16px;
+}
+.star:nth-child(1) {
+  animation-delay: 1.5s;
+}
+.star:nth-child(2) {
+  animation-delay: 3s;
+}
+.star:nth-child(3) {
+  animation-delay: 4.5s;
+}
+.star:nth-child(4) {
+  animation-delay: 6s;
+}
+.star:nth-child(5) {
+  animation-delay: 7.5s;
+}
+.star:nth-child(6) {
+  animation-delay: 9s;
+}
+
+.checkmark {
+  position: absolute;
+  padding: 30px;
+  animation: checkmark 5m var(--curve) both;
+}
+.checkmark__check {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  transform: translate3d(-50%, -50%, 0);
+  fill: var(--color-white);
+}
+.checkmark__background {
+  fill: var(--color-blue);
+  animation: rotate 35s linear both infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes grow {
+  0%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes checkmark {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  10%, 50%, 90% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

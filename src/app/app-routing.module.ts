@@ -22,11 +22,15 @@ import { CommandsModuleComponent } from './commands-module/commands-module.compo
 import { LeaderboardModuleComponent } from './leaderboard-module/leaderboard-module.component';
 import { LeaderboardAuthGuard } from './guards/leaderboard-auth.guard';
 import { XPCardComponent } from './xp-card/xp-card.component';
+import { PaymentSuccessComponent } from './payment-success/payment-success.component';
+import { PlusComponent } from './plus/plus.component';
+import { DocsComponent } from './docs/docs.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'commands', component: CommandsComponent },
   { path: 'auth', component: AuthComponent },
+  { path: 'docs', component: DocsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'invite', component: InviteComponent },
@@ -44,11 +48,15 @@ const routes: Routes = [
   { path: 'servers/:id/log', component: LogModuleComponent, canActivate: [GuildAuthGuard] },
   { path: 'servers/:id/settings', component: SettingsModuleComponent, canActivate: [GuildAuthGuard] },
 
+  { path: 'plus', component: PlusComponent },
+  { path: 'payment-success', component: PaymentSuccessComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabled'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

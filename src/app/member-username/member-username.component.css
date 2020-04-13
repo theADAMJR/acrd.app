@@ -1,0 +1,15 @@
+img {
+    max-width: 48px;
+    border-radius: 50%;
+}
+
+.username {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.tag {
+    color: gray;
+    font-size: 20px;
+    padding-left: 2.5px;
+}

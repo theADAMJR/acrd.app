@@ -46,14 +46,20 @@ export abstract class ModuleConfig implements OnDestroy {
             this.originalSavedGuild = JSON.parse(JSON.stringify(this.savedGuild));            
         } catch { alert('An error occurred loading the saved guild'); }
         
-        this.form = await this.buildForm();
-        this.form.addControl('enabled',
-                new FormControl(this.savedGuild[this.moduleName].enabled));
+        await this.resetForm();
 
         this.initFormValues(this.savedGuild);
+        console.log(this.form);
+        
 
         this.valueChanges$ = this.form.valueChanges
             .subscribe(() => this.openSaveChanges());            
+    }
+
+    private async resetForm() {        
+        this.form = await this.buildForm();
+        this.form.addControl('enabled',
+                new FormControl(this.savedGuild[this.moduleName].enabled));
     }
 
     /**
@@ -91,6 +97,8 @@ export abstract class ModuleConfig implements OnDestroy {
      * Send the form data to the API.
      */
     async submit() {
+        console.log(this.form.value);
+        
         if (this.form.valid)
             await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
     }
@@ -99,8 +107,8 @@ export abstract class ModuleConfig implements OnDestroy {
      * Reset form values, and rebuild form.
      */
     async reset() {
+        await this.resetForm();
         this.savedGuild = JSON.parse(JSON.stringify(this.originalSavedGuild));
-        this.form = await this.buildForm();
         
         this.initFormValues(this.savedGuild);
         this.form.valueChanges

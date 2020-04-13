@@ -48,18 +48,18 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
   protected initFormValues(savedGuild: any) {    
     for (const event of this.events) {
       const config = savedGuild.announce.events.find(e => e.event === event);
-      if (!config) continue;
+      if (!config) continue;      
       
       const eventControl = (this.form.get('events') as FormArray)
         .get(config.event.toString());
       
       eventControl?.setValue({
-        event: new FormControl(event),
-        enabled: new FormControl(Boolean(config)),
-        channel: new FormControl(config.channel),
-        message: new FormControl(`\`${event}\` was trigged!`)
+        event,
+        enabled: Boolean(config),
+        channel: config.channel,
+        message: `\`${event}\` was triggered!`
       });
-    }
+    }    
   }
 
   getEvent(eventType: EventType) {

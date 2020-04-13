@@ -16,9 +16,8 @@
                 <div *ngIf="savedGuild.xp.levelRoles.length < 1" class="mx-4 text-muted">
                     No roles added...
                 </div>
-                <div *ngFor="let role of savedGuild.xp.levelRoles; index as i" class="col-lg-6 col-sm-12">
+                <div *ngFor="let i of levelRoleIndices" class="col-lg-6 col-sm-12">
                     <div [formGroupName]="i" class="role">
-                        <input type="hidden" formControlName="level">
                         <mat-form-field appearance="outline">                                
                             <mat-label>Level</mat-label>                            
                             <input type="number" formControlName="level" matInput>
@@ -26,20 +25,33 @@
                         <mat-form-field appearance="outline">                                
                             <mat-label>Role</mat-label>
                             <mat-select
-                                formControlName="level">
+                                formControlName="role">
                                 <mat-option *ngFor="let role of roles" 
                                     [value]="role.id"
-                                    [style.color]="'#' + role.color">@{{ role.name }}</mat-option>
+                                    [style.color]="role.hexColor || 'grey'">@{{ role.name }}</mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <button (click)="removeLevelRole(i)"
-                            class="remove" mat-button>-</button>
                     </div>
                 </div>
-                <button (click)="addLevelRole()" 
-                    class="add ml-3" mat-button>+</button>
             </div>
             <hr>
+            <mat-form-field appearance="outline">
+                <mat-label>Ignored Roles</mat-label>
+                <mat-select multiple
+                    formControlName="ignoredRoles">
+                    <mat-option *ngFor="let role of roles" 
+                        [value]="role.id"
+                        [style.color]="role.hexColor || 'grey'">@{{ role.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>XP Per Message</mat-label>
+                <input formControlName="xpPerMessage"
+                    type="number" matInput>
+            </mat-form-field>
+            <mat-label>XP Cooldown</mat-label>
+            <mat-slider formControlName="xpCooldown"
+                step="1" tickInterval="1" thumbLabel max="60"></mat-slider>
         </form>
     </div>
 </guild-sidebar>

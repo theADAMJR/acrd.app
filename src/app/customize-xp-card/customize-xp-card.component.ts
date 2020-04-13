@@ -96,5 +96,6 @@ export class CustomizeXPCardComponent implements OnInit {
 
   setBackground(url: string) {
     this.backgroundURL.setValue(url);
+    this.updatePreview();
   }
 }

@@ -19,22 +19,6 @@
     background-color: #CD7F32;
 }
 
-#leaderboard img {
-    max-width: 48px;
-    border-radius: 50%;
-}
-
-.username {
-    font-size: 24px;
-    margin-left: 10px;
-}
-
-.tag {
-    color: gray;
-    font-size: 20px;
-    padding-left: 2.5px;
-}
-
 .divider {
     padding: 0 5px;
     color: var(--background-primary);

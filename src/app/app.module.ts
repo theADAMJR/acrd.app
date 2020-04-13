@@ -36,6 +36,13 @@ import { PremiumDirective } from './premium.directive';
 import { SaveChangesComponent } from './save-changes/save-changes.component';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PaymentSuccessComponent } from './payment-success/payment-success.component';
+import { PlusComponent } from './plus/plus.component';
+import { DocsComponent } from './docs/docs.component';
+import { CleanDateTimePipe } from './pipes/clean-date-time.pipe';
+import { MemberUsernameComponent } from './member-username/member-username.component';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,20 +73,36 @@ import { NotFoundComponent } from './not-found/not-found.component';
     DashboardSidebarComponent,
     PremiumDirective,
     SaveChangesComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    PaymentSuccessComponent,
+    PlusComponent,
+    DocsComponent,
+    CleanDateTimePipe,
+    MemberUsernameComponent
   ],
   imports: [
     AppRoutingModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    HighlightModule
   ],
   exports: [PremiumDirective],
   providers: [
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: { languages: getHighlightLanguages() }
+    }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
+
+export function getHighlightLanguages() {
+  return {
+    json: () => import('highlight.js/lib/languages/json')
+  };
+}

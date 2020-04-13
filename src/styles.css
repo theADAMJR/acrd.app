@@ -2,10 +2,11 @@
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~font-awesome/css/font-awesome.min.css';
+@import '~highlight.js/styles/vs2015.css';
 
 :root {
     --font: #F4F2F3;
-    --premium: gold;
+    --plus: green;
 
     --danger: darkred;
 
@@ -84,11 +85,11 @@ a {
 }
 
 [premium] ~ span > label {
-    color: var(--premium) !important;
+    color: var(--plus) !important;
 }
 
 [premium] ~ span > label::before {
-    content: "👑 ";
+    content: "+ ";
 }
 
 h3 {
@@ -108,4 +109,28 @@ h3 {
 
 customize-xp-card .mat-form-field-infix {
     width: inherit !important;
+}
+
+thead {
+    background-color: var(--background-tertiary) !important;
+}
+
+table tbody tr {
+    background-color: var(--background-primary) !important;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: var(--background-secondary) !important;
+}
+
+.table td, .table th {    
+    border: none !important;
+}
+
+mat-paginator {
+    background-color: transparent !important;
+}
+
+.mat-standard-chip .mat-chip-remove.mat-icon {
+    font-size: 15px;
 }

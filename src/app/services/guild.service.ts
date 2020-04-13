@@ -41,15 +41,19 @@ export class GuildService {
     return this.http.get(`${this.endpoint}/${id}/config?key=${this.key}`).toPromise();
   }
 
+  getSavedLog(id: string): Promise<any> {
+    return this.http.get(`${this.endpoint}/${id}/log?key=${this.key}`).toPromise();
+  }
+
   saveGuild(id: string, module: string, value: any): Promise<any> {    
     return this.http.put(`${this.endpoint}/${id}/${module}?key=${this.key}`, value).toPromise();
   }
 
-  async getChannels(id: string): Promise<any> {
+  getChannels(id: string): Promise<any> {
     return this.http.get(`${this.endpoint}/${id}/channels`).toPromise();
   }
 
-  async getRoles(id: string): Promise<any> {
+  getRoles(id: string): Promise<any> {
     return this.http.get(`${this.endpoint}/${id}/roles`).toPromise();
   }
 }

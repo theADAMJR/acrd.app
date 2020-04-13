@@ -17,14 +17,19 @@ import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatSnackBarModule} from '@angular/material/snack-bar'
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
 import {ColorPickerModule} from 'ngx-color-picker';
+import {CdkTableModule} from '@angular/cdk/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   exports: [
     A11yModule,
     ColorPickerModule,
+    CdkTableModule,
     DragDropModule,
     MatAutocompleteModule,
     MatButtonModule,
@@ -37,10 +42,13 @@ import {ColorPickerModule} from 'ngx-color-picker';
     MatIconModule,
     MatListModule,
     MatMenuModule,
+    MatTableModule,
     MatNativeDateModule,
     MatPaginatorModule,
     MatRippleModule,
+    MatSortModule,
     MatSidenavModule,
+    MatSliderModule,
     MatSlideToggleModule,
     MatSelectModule,
     MatSnackBarModule,

@@ -11,6 +11,7 @@ import { ModuleConfig } from '../module-config';
   styleUrls: ['./xp-module.component.css']
 })
 export class XPModuleComponent extends ModuleConfig implements OnInit {
+  levelRoleIndices = [0,1,2,3,4,5,6,7];
   moduleName = 'xp';
 
   get levelRolesFormArray() { return this.form.get('levelRoles') as FormArray; }
@@ -31,44 +32,32 @@ export class XPModuleComponent extends ModuleConfig implements OnInit {
       levelRoles: new FormArray([]),
       ignoredRoles: new FormControl(),
       xpPerMessage: new FormControl(),
-      xpCooldown: new FormControl()
-    });
-
-    if (this.form)
-      for (let i = 0; i < this.levelRolesFormArray.length; i++)
-        this.removeLevelRole(i);
-
-    const levelRoles = this.savedGuild.xp.levelRoles;   
-    for (let i = 0; i < levelRoles.length; i++)
-      (formGroup.get('levelRoles') as FormArray)
-        .push(new FormControl(levelRoles[i]));
-      
+      xpCooldown: new FormControl('', [ Validators.min(0), Validators.max(60) ])
+    }); 
+    this.buildLevelRolesFormArray(formGroup);
     return formGroup;
+  }
+
+  private buildLevelRolesFormArray(formGroup: FormGroup) {
+    for (const i of this.levelRoleIndices) {
+      (formGroup.get('levelRoles') as FormArray)
+        .push(new FormGroup({
+          level: new FormControl(null, Validators.min(1)),
+          role: new FormControl('')
+        }));
+    }
   }
   
   protected initFormValues(savedGuild: any) {
     const xp = savedGuild.xp;
-    this.levelRolesFormArray.setValue(xp.levelRoles);
+
+    for (let i = 0; i < xp.levelRoles.length; i++)
+      this.levelRolesFormArray.controls[i]
+        .setValue(xp.levelRoles[i]);
+    
     this.form.controls.ignoredRoles.setValue(xp.ignoredRoles);
     this.form.controls.xpPerMessage.setValue(xp.xpPerMessage);
     this.form.controls.xpCooldown.setValue(xp.xpCooldown);    
-  }
-
-  // input methods
-
-  addLevelRole() {    
-    this.levelRolesFormArray.push(new FormGroup({
-      level: new FormControl(1, Validators.min(1)),
-      role: new FormControl('')
-    }));   
-
-    this.savedGuild.xp.levelRoles.push({ level: 1, role: '0' });
-  }
-
-  removeLevelRole(index: number) {
-    this.levelRolesFormArray.removeAt(index);
-    
-    this.savedGuild.xp.levelRoles.splice(index, 1);
   }
 }
 

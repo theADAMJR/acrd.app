@@ -11,9 +11,7 @@
             class="member">
             <span [class]="'rank-' + (members.indexOf(member) + 1)" 
                 class="rank">{{ members.indexOf(member) + 1 }}</span>
-            <img [src]="member.displayAvatarURL" alt="">
-            <span class="username">{{ member.username }}</span>
-            <span class="tag">{{ member.tag }}</span>
+            <member-username [member]="member"></member-username>
             <div class="float-right pt-2 d-md-block d-none">
                 <span class="info">
                     <strong>{{ member.xpMessages }} </strong>
