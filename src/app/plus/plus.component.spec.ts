@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlusComponent } from './plus.component';
 import { By } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('PlusComponent', () => {
   let component: PlusComponent;
@@ -9,7 +10,10 @@ describe('PlusComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlusComponent ]
+      declarations: [ PlusComponent ],
+      imports: [
+        HttpClientModule
+      ]
     })
     .compileComponents();
   }));
@@ -28,6 +32,7 @@ describe('PlusComponent', () => {
     const spy = spyOn(component, 'checkout');
     const de = fixture.debugElement.query(By.css('.checkout'));
     
+    (de.nativeElement as HTMLElement).setAttribute('type', 'button');
     de.nativeElement.click();
 
     await expectAsync(spy).toBeResolved();

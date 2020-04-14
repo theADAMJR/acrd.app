@@ -7,6 +7,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { ReactiveFormsModule, FormArray } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 describe('AnnounceModuleComponent', () => {
   let component: AnnounceModuleComponent;
@@ -28,6 +29,7 @@ describe('AnnounceModuleComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AnnounceModuleComponent);
     component = fixture.componentInstance;
+    component.guildId = environment.test.guildId;
     fixture.detectChanges();
 
     component.init = async() => {};

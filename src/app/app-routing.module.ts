@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'commands', component: CommandsComponent },
   { path: 'auth', component: AuthComponent },
   { path: 'docs', component: DocsComponent },
+  { path: 'docs/:page', component: DocsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'invite', component: InviteComponent },

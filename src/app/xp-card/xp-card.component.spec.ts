@@ -19,7 +19,11 @@ describe('XPCardComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(XPCardComponent);
-    component = fixture.componentInstance;
+    component = new XPCardComponent(new class {
+      updateXPCard(xpCard: any) {
+        return new Promise((resolve) => resolve());
+      }
+    } as any);
     fixture.detectChanges();
   });
 
@@ -32,7 +36,7 @@ describe('XPCardComponent', () => {
     const customizeComponent = fixture.debugElement.query(
         By.directive(CustomizeXPCardComponent))?.componentInstance as CustomizeXPCardComponent;
 
-    customizeComponent.xpCardUpdate.emit();
+    customizeComponent?.xpCardUpdate.emit();
 
     expect(spy).toHaveBeenCalled();
   });

@@ -9,6 +9,7 @@ import { PayService } from '../pay.service';
   styleUrls: ['./plus.component.css']
 })
 export class PlusComponent implements OnInit {
+  checkoutEndpoint = `${environment.endpoint}/pay`;
   stripe: Stripe;
 
   constructor(private pay: PayService) {}
