@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import marked from 'marked';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-docs',
@@ -11,19 +12,22 @@ import marked from 'marked';
 export class DocsComponent implements OnInit {
   defaultPage = 'setup';
 
-  get markdownPagePath() {
-    const page = this.route.snapshot.paramMap
-      .get('page')?.toLowerCase() || this.defaultPage;      
-    return `assets/docs/${page}.md`;
+  get markdownPagePath$() {
+    return this.route.paramMap.pipe(
+      map(paramMap => {
+        const page = paramMap.get('page')?.toLowerCase() || this.defaultPage;      
+        return `assets/docs/${page}.md`;
+    }));
   }
 
   constructor(
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
     router: Router) {
-    const page = route.snapshot.paramMap.get('page')?.toLowerCase();
-    if (!page)
-      router.navigate([`/docs/${this.defaultPage}`]);
+    route.paramMap.subscribe(paramMap => {      
+      const page = paramMap.get('page')?.toLowerCase();
+      if (!page)
+        router.navigate([`/docs/${this.defaultPage}`]);
+    });
   }
 
   async ngOnInit() {
@@ -31,9 +35,13 @@ export class DocsComponent implements OnInit {
   }
 
   async convertToMarkdown() {
-    const file = await fetch(this.markdownPagePath);
-    const md = await file.text();
-    
-    document.getElementById('doc').innerHTML = marked(md);
+    this.markdownPagePath$.subscribe(async(path) => {
+      console.log(path);
+      
+      const file = await fetch(path);
+      const md = await file.text();
+      
+      document.getElementById('doc').innerHTML = marked(md);
+    });
   }
 }
