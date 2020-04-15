@@ -1,5 +1,5 @@
 # Setup
-- this guide will show you how to setup 2PG and the dashboard to customize 2PG, using your own bot
+This guide will show you how to setup 2PG and the dashboard to customize 2PG, using your own bot.
 
 **Requirements**:
 - NodeJS (bot + webapp)
@@ -14,16 +14,20 @@
 -> TypeScript, ExpressJS
 
 ### Setup
-- guide to setting up 2PG, and starting the bot, and precompiled webapp
+Guide to setting up 2PG, and starting the bot, and precompiled webapp.
+
 1) `Fork` the [2PG Repo](https://github.com/theADAMJR/2pg), or download it
+
 2) Open the downloaded folder in terminal and type `npm i` to install required packages
-- This is done within the root of the folder
-- cd [appFolderPath] (windows/linux)
+  - This is done within the root of the folder
+  - cd [appFolderPath] (windows/linux)
+
 3) Create `config.json` within the same folder
-- This is also done within the root of the folder
-`config.json` example
-- Remove comments (// comment...)
-- Replace all values with 
+ - This is also done within the root of the folder
+ `config.json` example
+ - Remove comments (// comment...)
+ - Replace all values to meet your needs
+
 ```
 {
     "bot": {
@@ -55,16 +59,19 @@
     "modules": ["announce", "auto-mod", "general", "music", "xp"] // enabled modules used for validation in API
 }
 ```
-4) Type `mongod` to start the Mongo database server instance
-5) Type `npm run start:music` to start the music server instance
-5) Type `npm start` to start the bot
+
+1) Type `mongod` to start the Mongo database server instance
+
+2) Type `npm run start:music` to start the music server instance
+
+3) Type `npm start` to start the bot
 
 ### Notes
 - the `dist` folder contains the precompiled dashboard which is the product of `ng build --prod`
 - `http://localhost:3000` is the default webapp address
 
 ## Dashboard
-- the front end
--> TypeScript, Angular 9
+The front end; made with: TypeScript, Angular 9
+
 [!] All code, tokens etc. here is publically available as it is bundled with the webapp.
 - Angular is a front-end framework that allows you to build professional, single page web and mobile applications.

@@ -26,11 +26,12 @@ describe('SidebarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should close if clicked', () => {
-    let de = fixture.debugElement.query(By.css('#nav-icon1'));
-
-    component.toggle(de.nativeElement);
-
-    expect(de.classes).not.toContain('open');
+  it('toggle button click, should call toggle', () => {
+    const spy = spyOn(component, 'toggle');
+    let de = fixture.debugElement.query(By.css('button'));
+    
+    de.nativeElement.click();
+    
+    expect(spy).toHaveBeenCalled();
   })
 });

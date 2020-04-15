@@ -1,0 +1,19 @@
+mat-sidenav {
+    background-color: var(--background-primary);
+}
+
+[opened] {
+    width: 300px;
+}
+
+a {
+    margin: 0 25px;
+}
+
+img {
+    padding: 0;
+}
+
+i {
+    padding-right: 5px;
+}

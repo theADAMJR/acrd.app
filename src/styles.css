@@ -134,3 +134,7 @@ mat-paginator {
 .mat-standard-chip .mat-chip-remove.mat-icon {
     font-size: 15px;
 }
+
+:focus {
+    outline: none !important;
+}

@@ -26,7 +26,7 @@
             "styles": [
               "src/styles.css",
               "src/assets/css/animations.css",
-              "node_modules/highlight.js/styles/vs2015.css"
+              "src/assets/css/nav-icon.css"
             ],
             "scripts": []
           },

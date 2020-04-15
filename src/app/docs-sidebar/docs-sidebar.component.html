@@ -1,0 +1,27 @@
+<mat-sidenav-container fullscreen>
+    <mat-sidenav #drawer mode="side" opened>
+        <div class="side-nav navbar-dark">
+            <h2 class="m-4">2PG <i class="fa fa-book" aria-hidden="true"></i></h2>
+            <hr>
+            <div class="navbar-nav mt-5">
+                <a class="nav-link" 
+                    routerLink="/docs/setup" routerLinkActive="active">Setup</a>
+                <hr>
+                <a class="nav-link" 
+                    routerLink="/docs/2PG" routerLinkActive="active">2PG</a>
+            </div>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <navbar></navbar>
+        <button class="toggle">
+            <div id="nav-icon1" class="open"
+                (click)="toggle($event.target)">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+        </button>
+        <ng-content select="#content"></ng-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>

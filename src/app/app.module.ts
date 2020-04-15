@@ -12,7 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { InviteComponent } from './invite/invite.component';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from './dashboard/sidebar/sidebar.component';
 import { GuildComponent } from './dashboard/guild/guild.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HomeComponent } from './home/home.component';
@@ -42,6 +42,7 @@ import { DocsComponent } from './docs/docs.component';
 import { CleanDateTimePipe } from './pipes/clean-date-time.pipe';
 import { MemberUsernameComponent } from './member-username/member-username.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { DocsSidebarComponent } from './docs-sidebar/docs-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
     PlusComponent,
     DocsComponent,
     CleanDateTimePipe,
-    MemberUsernameComponent
+    MemberUsernameComponent,
+    DocsSidebarComponent
   ],
   imports: [
     AppRoutingModule,
