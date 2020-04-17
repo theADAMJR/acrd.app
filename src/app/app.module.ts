@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +31,6 @@ import { LeaderboardModuleComponent } from './dashboard/leaderboard-module/leade
 import { XPCardComponent } from './xp-card/xp-card.component';
 import { DashboardSidebarComponent } from './dashboard/dashboard-sidebar/dashboard-sidebar.component';
 import { CustomizeXPCardComponent } from './customize-xp-card/customize-xp-card.component';
-import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
 import { MaterialModule } from './material-module';
 import { PremiumDirective } from './premium.directive';
 import { SaveChangesComponent } from './dashboard/save-changes/save-changes.component';

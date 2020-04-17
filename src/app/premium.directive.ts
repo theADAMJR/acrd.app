@@ -1,4 +1,5 @@
 import { Directive, Component, ElementRef } from '@angular/core';
+import { UserService } from './services/user.service';
 
 @Directive({
   selector: '[premium]'
@@ -10,8 +11,6 @@ export class PremiumDirective {
     if (!elementRef) return;
 
     this.el = elementRef.nativeElement as HTMLInputElement;
-    // TODO: disable if user does not have premium    
-    this.el.setAttribute('readonly', '');
-    this.el.onclick = () => alert('plz pay for premium\n\n\n\nokthanksbye');
+    this.el.onclick = () => alert('plz pay for plus\n\n\n\nokthanksbye');
   }
 }

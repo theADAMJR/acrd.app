@@ -1,8 +1,6 @@
--> describe how the code works
-- remember to spelling check after
- - split between certain people to validate
+# Bot
 
-# Deps
+## Deps
 - dependencies used throughout the project
 - dependencies are built at the start
 + provides loose coupling
@@ -10,55 +8,55 @@
 
 ---
 
-# Saving Data
+## Saving Data
 - mongoose is used for linking the database to save documents
 
-## Models
+### Models
 
-### Command
+#### Command
 - saves command metadata for displaying on the webapp
 - each command is upserted in the `CommandHandler` on each bot start
 - publically accessible via the API
 
-### Guild
+#### Guild
 - saves guild config data to allow users to customize their guilds via the dashboard
 - represents a discord.js `Guild`
 - publically accessible via the API
 
-### Log
+#### Log
 - saves audit log data when a manager edits their guild configs via the dashboard
 - publically accessible via the API
 
-### Member
+#### Member
 - local guild member data which is used for storing XP data and warnings
 - represets a discord.js `GuildMember`
 - publically accessible via the API
 
-### User
+#### User
 - global user data which is used for storing XP card customization and votes
 - represents a discord.js `User`
 - publically accessible via the API
 
-## Data
+### Data
 
 `DBWrapper<InputType, OutputDocument>`
 - base class for getting and setting mongoose documents
 
-### Guilds
+#### Guilds
 - gets or creates a `GuildDocument`
 
-### Logs
+#### Logs
 - gets or creates a `LogsDocument`
 
-### Members
+#### Members
 - gets or creates a `MemberDocument`
 
-### Users
+#### Users
 - gets or creates a `UserDocument`
 
 ---
 
-# Commands
+## Commands
 - commands can be automatically added by just copy and pasting a class
 ```
 export default class TestCommand implements Command {

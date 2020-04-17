@@ -17,3 +17,11 @@ img {
 i {
     padding-right: 5px;
 }
+
+.category {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-left: 15px;
+
+    color: var(--secondary);
+}

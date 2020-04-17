@@ -9,6 +9,7 @@ export class PayService {
   constructor(private http: HttpClient) {}
 
   createSession(): Promise<any> {
-    return this.http.get(`${environment.endpoint}/pay`).toPromise();
+    const key = localStorage.getItem('key');
+    return this.http.get(`${environment.endpoint}/user/pay?key=${key}`).toPromise();
   }
 }

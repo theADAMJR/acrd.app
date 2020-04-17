@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { PayService } from '../pay.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-plus',
@@ -12,7 +13,9 @@ export class PlusComponent implements OnInit {
   checkoutEndpoint = `${environment.endpoint}/pay`;
   stripe: Stripe;
 
-  constructor(private pay: PayService) {}
+  constructor(
+    private pay: PayService,
+    private userService: UserService) {}
 
   async ngOnInit() {    
     this.stripe = await loadStripe(environment.stripePublicKey);

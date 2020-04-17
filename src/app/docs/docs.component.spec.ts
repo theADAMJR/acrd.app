@@ -35,7 +35,7 @@ describe('DocsComponent', () => {
   });
 
   it('no page route parameter, redirects to default page', () => {
-    const result = component.markdownPagePath;
+    const result = component.markdownPagePath$;
 
     expect(result).toContain(component.defaultPage);
   });

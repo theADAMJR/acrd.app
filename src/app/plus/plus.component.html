@@ -3,8 +3,18 @@
     <h1 class="display-3">2PG+</h1>
     <p class="lead">Support 2PG and help ADAMJR not be homeless</p>
     <hr class="my-2">
-    <form [action]="checkoutEndpoint" method="POST">
+    <form [action]="checkoutEndpoint" method="GET">
         <button (click)="checkout()"
             class="checkout btn-success" mat-button>Get <i class="fa fa-plus" aria-hidden="true"></i></button>
     </form>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    Customize XP Card Background                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-info">Donations are final and are unable to be refunded.</div>
 </div>

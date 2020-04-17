@@ -44,7 +44,11 @@
                 <hr>
                 <mat-form-field appearance="outline">
                     <mat-label>Background URL</mat-label>
-                    <input type="url" matInput premium readonly
+                    <input *ngIf="savedUser.premium"
+                        type="url" matInput
+                        formControlName="backgroundURL">
+                    <input *ngIf="!savedUser.premium"
+                        type="url" matInput premium readonly
                         formControlName="backgroundURL">
                 </mat-form-field>
                 <p>or choose from these...</p>

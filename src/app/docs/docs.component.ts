@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 import marked from 'marked';
 import { map } from 'rxjs/operators';
 
@@ -35,9 +34,7 @@ export class DocsComponent implements OnInit {
   }
 
   async convertToMarkdown() {
-    this.markdownPagePath$.subscribe(async(path) => {
-      console.log(path);
-      
+    this.markdownPagePath$.subscribe(async(path) => {      
       const file = await fetch(path);
       const md = await file.text();
       

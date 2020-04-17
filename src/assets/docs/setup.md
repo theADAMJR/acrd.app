@@ -7,20 +7,18 @@ This guide will show you how to setup 2PG and the dashboard to customize 2PG, us
 - Java (bot -> music server)
 - Angular (webapp)
 
-- ask people to test setup
-
 ## Bot
-- the backend
--> TypeScript, ExpressJS
+The backend; made with: TypeScript, ExpressJS
 
-### Setup
+### Bot and Webapp Setup
 Guide to setting up 2PG, and starting the bot, and precompiled webapp.
+This is without webapp customization.
 
 1) `Fork` the [2PG Repo](https://github.com/theADAMJR/2pg), or download it
 
 2) Open the downloaded folder in terminal and type `npm i` to install required packages
   - This is done within the root of the folder
-  - cd [appFolderPath] (windows/linux)
+  - `cd [appFolderPath]` (windows/linux)
 
 3) Create `config.json` within the same folder
  - This is also done within the root of the folder
@@ -40,7 +38,8 @@ Guide to setting up 2PG, and starting the bot, and precompiled webapp.
         "managerPermission": "MANAGE_GUILD" // required permission for managing dashboard 
         "defaultBackgroundPath": "api/modules/image/wallpaper.png", // default XP card background image
         "stripe": { // used for charging users $ for features
-            "apiKey": "stripeSecretKey"
+            "apiKey": "stripeSecretKey",
+            "endpointSecret": "stripeEndpointSecret"
         }
     },
     "webapp": {
@@ -66,11 +65,11 @@ Guide to setting up 2PG, and starting the bot, and precompiled webapp.
 
 3) Type `npm start` to start the bot
 
-### Notes
+#### Notes
 - the `dist` folder contains the precompiled dashboard which is the product of `ng build --prod`
 - `http://localhost:3000` is the default webapp address
 
-## Dashboard
+### Dashboard
 The front end; made with: TypeScript, Angular 9
 
 [!] All code, tokens etc. here is publically available as it is bundled with the webapp.
