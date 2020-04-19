@@ -32,7 +32,7 @@ import { XPCardComponent } from './xp-card/xp-card.component';
 import { DashboardSidebarComponent } from './dashboard/dashboard-sidebar/dashboard-sidebar.component';
 import { CustomizeXPCardComponent } from './customize-xp-card/customize-xp-card.component';
 import { MaterialModule } from './material-module';
-import { PremiumDirective } from './premium.directive';
+import { PremiumDirective } from './dashboard/directives/premium.directive';
 import { SaveChangesComponent } from './dashboard/save-changes/save-changes.component';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -43,6 +43,7 @@ import { CleanDateTimePipe } from './pipes/clean-date-time.pipe';
 import { MemberUsernameComponent } from './member-username/member-username.component';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { DocsSidebarComponent } from './docs-sidebar/docs-sidebar.component';
+import { ZippyComponent } from './zippy/zippy.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { DocsSidebarComponent } from './docs-sidebar/docs-sidebar.component';
     DocsComponent,
     CleanDateTimePipe,
     MemberUsernameComponent,
-    DocsSidebarComponent
+    DocsSidebarComponent,
+    ZippyComponent
   ],
   imports: [
     AppRoutingModule,

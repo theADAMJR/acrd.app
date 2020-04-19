@@ -1,0 +1,19 @@
+span { cursor: pointer; }
+
+.expanded { background-color: #f0f0f027; }
+.zippy {
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+}
+.zippy-heading
+{
+    font-weight: bold;
+    padding: 20px;
+    cursor: pointer;
+    transition: all .3s ease-in-out; 
+}
+.zippy-body 
+{ 
+    padding: 20px; 
+    overflow-y: hidden;
+}

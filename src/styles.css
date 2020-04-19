@@ -9,6 +9,7 @@
     --plus: green;
 
     --danger: darkred;
+    --muted: grey;
 
     --primary: #46828D;
     --secondary: #276C8A;
@@ -30,6 +31,10 @@ body, mat-sidenav-content {
 footer {
     position: fixed;
     bottom: 0;
+}
+
+table {
+    width: 100%;
 }
 
 .side-nav img {
@@ -62,8 +67,7 @@ table.dataTable tbody tr {
 {
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: transparent;
-    border-radius: 10px;
+    background-color: var(--background-primary);
 }
 ::-webkit-scrollbar
 {

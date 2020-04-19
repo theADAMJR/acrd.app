@@ -1,0 +1,16 @@
+<ng-container>
+    <div class="zippy">
+        <div class="zippy-heading"
+            [class.expanded]="expanded" 
+            (click)="toggle()">
+            {{ title }}
+            <span>
+                <i class="fa float-right"
+                [ngClass]="{ 'fa-chevron-up': expanded, 'fa-chevron-down': !expanded }"></i>
+            </span>
+        </div>
+        <div [hidden]="!expanded" class="zippy-body">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</ng-container>

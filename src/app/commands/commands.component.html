@@ -14,7 +14,7 @@
             <input matInput (keyup)="applyFilter($event)" placeholder="ping">
         </mat-form-field>
       
-      <div *ngIf="dataSource" class="mat-elevation-z8">
+      <div *ngIf="dataSource" class="mat-elevation-z8 my-5">
         <table mat-table [dataSource]="dataSource" matSort>
       
           <ng-container matColumnDef="name">

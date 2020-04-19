@@ -1,3 +1,7 @@
 pre {
-    margin: 5px;
+    margin: 15px;
+}
+
+.user {
+    transform: scale(0.65);
 }
