@@ -2,6 +2,7 @@ span { cursor: pointer; }
 
 .expanded { background-color: #f0f0f027; }
 .zippy {
+    margin: 15px 0;
     border: 1px solid #f0f0f0;
     border-radius: 5px;
 }
@@ -13,7 +14,7 @@ span { cursor: pointer; }
     transition: all .3s ease-in-out; 
 }
 .zippy-body 
-{ 
-    padding: 20px; 
+{
+    padding: 20px;
     overflow-y: hidden;
 }

@@ -9,7 +9,8 @@
                 [ngClass]="{ 'fa-chevron-up': expanded, 'fa-chevron-down': !expanded }"></i>
             </span>
         </div>
-        <div [hidden]="!expanded" class="zippy-body">
+        <div class="zippy-body"
+            [@expandCollapse]="(expanded) ? 'expanded' : 'collapsed'">
             <ng-content></ng-content>
         </div>
     </div>
