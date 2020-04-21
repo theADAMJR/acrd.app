@@ -15,7 +15,7 @@ export class PlusComponent implements OnInit {
 
   constructor(
     private pay: PayService,
-    private userService: UserService) {}
+    public userService: UserService) {}
 
   async ngOnInit() {    
     this.stripe = await loadStripe(environment.stripePublicKey);

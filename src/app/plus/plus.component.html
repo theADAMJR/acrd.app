@@ -1,8 +1,10 @@
 <navbar></navbar>
-<div class="jumbotron">
-    <h1 class="display-3">2PG+</h1>
-    <p class="lead">Support 2PG and help ADAMJR not be homeless</p>
-    <hr class="my-2">
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-3">2PG+</h1>
+        <p class="lead">Support 2PG and help ADAMJR not be homeless</p>
+        <hr class="my-2">
+    </div>
     <section id="benefits">
         <h2 class="mt-5">What can $5 do?</h2>
         <div class="row">
@@ -30,15 +32,18 @@
             <div class="col-md-6">
                 <div class="card text-dark">
                     <div class="card-body">
-                        <i class="fa fa-plus" aria-hidden="true"></i> More things benefits to come (probably)
+                        <i class="fa fa-plus" aria-hidden="true"></i> More benefits to come (probably)
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    
     <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
-        <button (click)="checkout()"
+        <button *ngIf="userService.user" (click)="checkout()"
             class="checkout btn-success my-3" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button *ngIf="!userService.user" routerLink="/login"
+            class="checkout btn-success my-3" mat-button>Login to Level Up</button>
     </form>
     <hr>
     <section id="faq">

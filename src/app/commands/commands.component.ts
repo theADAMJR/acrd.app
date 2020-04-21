@@ -11,11 +11,11 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class CommandsComponent implements OnInit {
   displayedColumns: string[] = ['name', 'module', 'summary', 'usage', 'permission'];
-  dataSource: MatTableDataSource<any>;
+  dataSource = new MatTableDataSource();
   commands: any[] = [];
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private service: CommandsService) {}
 

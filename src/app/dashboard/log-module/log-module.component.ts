@@ -14,7 +14,7 @@ export class LogModuleComponent implements OnInit {
   members: any[];
 
   displayedColumns: string[] = ['number', 'by', 'old', 'new', 'at'];
-  dataSource: MatTableDataSource<any>;
+  dataSource = new MatTableDataSource();
   changes: any[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
