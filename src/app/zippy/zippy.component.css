@@ -11,10 +11,17 @@ span { cursor: pointer; }
     font-weight: bold;
     padding: 20px;
     cursor: pointer;
-    transition: all .3s ease-in-out; 
 }
 .zippy-body 
 {
     padding: 20px;
     overflow-y: hidden;
+}
+
+.expanded i {
+    transform: rotate(180deg);
+}
+i {
+    transition: 300ms all ease;
+    transform: rotate(0deg);
 }
