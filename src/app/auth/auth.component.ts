@@ -29,8 +29,8 @@ export class AuthComponent implements OnInit {
       
       this.router.navigate(['/dashboard']);
     } catch {
-      alert('Invalid key');
-      this.router.navigate(['/']);      
+      alert('Invalid key - check console');
+      this.router.navigate(['/']);
     }
   }
 }

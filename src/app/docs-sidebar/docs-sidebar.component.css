@@ -26,3 +26,9 @@ i {
 
     color: var(--secondary);
 }
+
+.toggle {
+    visibility: visible;
+
+    margin: 50px 0 0 15px;
+}

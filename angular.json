@@ -25,6 +25,7 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/theme.scss",
               "src/assets/css/animations.css",
               "src/assets/css/nav-icon.css"
             ],
