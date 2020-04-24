@@ -66,12 +66,12 @@ export abstract class ModuleConfig implements OnDestroy {
      * Build the form to be used.
      * Called when on form init.
      */
-    protected abstract buildForm(): FormGroup | Promise<FormGroup>;
+    abstract buildForm(): FormGroup | Promise<FormGroup>;
     /**
      * Initialize all form values.
      * Called on reset, and on init.
      */
-    protected abstract initFormValues(savedGuild: any): void;
+    abstract initFormValues(savedGuild: any): void;
     
     private openSaveChanges() {
         const snackBarRef = this.saveChanges._openedSnackBarRef;

@@ -17,7 +17,7 @@ export class LeaderboardAuthGuard implements CanActivate {
     if (guildConfig?.settings.privateLeaderboard) {
       const members = await this.guildService.getMembers(id);
       return members.some(m => m.id === this.userService.user.id);
-    }    
+    }
     return !guildConfig || !guildConfig.settings.privateLeaderboard;
   }
 }

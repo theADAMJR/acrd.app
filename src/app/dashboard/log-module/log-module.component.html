@@ -39,7 +39,7 @@
                 <ng-container matColumnDef="new">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> New </th>
                     <td mat-cell *matCellDef="let row">
-                        <pre><code [highlight]="row.changes?.old | json">{{row.changes?.new | json }}</code></pre>
+                        <pre><code [highlight]="row.changes?.new | json">{{row.changes?.new | json }}</code></pre>
                     </td>
                 </ng-container>
                 

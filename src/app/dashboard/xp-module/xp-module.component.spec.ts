@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { XPModuleComponent } from './xp-module.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from '../../app-routing.module';
 import { environment } from 'src/environments/environment';
+import { AppModule } from 'src/app/app.module';
+import { FormGroup } from '@angular/forms';
 
 describe('XPModuleComponent', () => {
   let component: XPModuleComponent;
@@ -13,11 +12,7 @@ describe('XPModuleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ XPModuleComponent ],
-      imports: [
-        HttpClientModule,
-        AppRoutingModule,
-        MatSnackBarModule
-      ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   }));
@@ -32,4 +27,16 @@ describe('XPModuleComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('buildForm returns valid form group', () => {
+    expect(component.buildForm()).toBeInstanceOf(FormGroup);
+  });
+
+  it('initFormValues sets saved guild values', () => {
+    component.initFormValues({ xp: { ignoredRoles: ['1'] }});
+
+    const result = component.form.get('ignoredRoles').value;
+
+    expect(result).toBe(['1']);
+  })
 });

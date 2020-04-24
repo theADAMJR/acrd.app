@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, ActivatedRoute } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { GuildService } from '../services/guild.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GuildAuthGuard implements CanActivate {
-  constructor(private userService: UserService) {}
+  constructor(
+    private guildService: GuildService,
+    private router: Router) {}
 
   async canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot) {      
-      return true;
+    state: RouterStateSnapshot) {
+      const guildId = next.paramMap.get('id');
+      return this.guildService.guilds.some(g => g.id === guildId);
   }  
 }

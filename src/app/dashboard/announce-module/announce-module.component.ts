@@ -31,7 +31,7 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
     this.eventConfigs = this.savedGuild.announce.events;
   }
 
-  protected buildForm() {
+  buildForm() {
     const formGroup = new FormGroup({
       events: new FormArray([])
     });    
@@ -45,7 +45,7 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
     return formGroup;
   }
   
-  protected initFormValues(savedGuild: any) {    
+  initFormValues(savedGuild: any) {    
     for (const event of this.events) {
       const config = savedGuild.announce.events.find(e => e.event === event);
       if (!config) continue;      

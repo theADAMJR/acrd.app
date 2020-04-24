@@ -1,10 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommandsModuleComponent } from './commands-module.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from '../../app-routing.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { AppModule } from 'src/app/app.module';
 
 describe('CommandsModuleComponent', () => {
   let component: CommandsModuleComponent;
@@ -13,13 +10,7 @@ describe('CommandsModuleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CommandsModuleComponent ],
-      imports: [
-        HttpClientModule,
-        AppRoutingModule, 
-        FormsModule, 
-        ReactiveFormsModule,
-        MatSnackBarModule 
-      ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   }));

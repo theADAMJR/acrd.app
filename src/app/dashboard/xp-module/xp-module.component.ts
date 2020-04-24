@@ -27,7 +27,7 @@ export class XPModuleComponent extends ModuleConfig implements OnInit {
     await super.init();
   }
   
-  protected buildForm() {
+  buildForm() {
     const formGroup = new FormGroup({
       levelRoles: new FormArray([]),
       ignoredRoles: new FormControl(),
@@ -48,7 +48,7 @@ export class XPModuleComponent extends ModuleConfig implements OnInit {
     }
   }
   
-  protected initFormValues(savedGuild: any) {
+  initFormValues(savedGuild: any) {
     const xp = savedGuild.xp;
 
     for (let i = 0; i < xp.levelRoles.length; i++)

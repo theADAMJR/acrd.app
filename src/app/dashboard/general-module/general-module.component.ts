@@ -27,7 +27,7 @@ export class GeneralModuleComponent extends ModuleConfig implements OnInit {
     await super.init();
   }
 
-  protected buildForm() {
+  buildForm() {
     return new FormGroup({
       prefix: new FormControl('', [
         Validators.required, 
@@ -38,7 +38,7 @@ export class GeneralModuleComponent extends ModuleConfig implements OnInit {
     });
   }
   
-  protected initFormValues(savedGuild: any) {
+  initFormValues(savedGuild: any) {
     const general = savedGuild.general;
     this.form.controls.prefix.setValue(general.prefix);
     this.form.controls.ignoredChannels.setValue(general.ignoredChannels);

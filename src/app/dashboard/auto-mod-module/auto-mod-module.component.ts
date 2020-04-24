@@ -24,7 +24,7 @@ export class AutoModModuleComponent extends ModuleConfig implements OnInit {
     await super.init();
   }
   
-  protected buildForm() {
+  buildForm() {
     return new FormGroup({
       banWords: new FormControl(),
       autoDeleteMessages: new FormControl(),
@@ -34,7 +34,7 @@ export class AutoModModuleComponent extends ModuleConfig implements OnInit {
     });
   }
   
-  protected initFormValues(savedGuild: any) {
+  initFormValues(savedGuild: any) {
     const autoMod = savedGuild.autoMod;
     this.form.controls.enabled.setValue(autoMod.enabled);
     this.form.controls.banWords.setValue(autoMod.banWords);

@@ -26,13 +26,13 @@ export class SettingsModuleComponent extends ModuleConfig implements OnInit {
     await super.init();
   }
 
-  protected buildForm() {
+  buildForm() {
     return new FormGroup({
       privateLeaderboard: new FormControl('')
     });
   }
   
-  protected initFormValues() {
+  initFormValues() {
     const settings = this.savedGuild.settings;
     this.form.controls.privateLeaderboard.setValue(settings.privateLeaderboard);
   }

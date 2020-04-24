@@ -10,7 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./commands.component.css']
 })
 export class CommandsComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'module', 'summary', 'usage', 'permission'];
+  displayedColumns: string[] = ['usage', 'module', 'summary', 'permission'];
   dataSource = new MatTableDataSource();
   commands: any[] = [];
 
@@ -21,11 +21,10 @@ export class CommandsComponent implements OnInit {
 
   async ngOnInit() { 
     this.commands = await this.service.get();
-    this.commands.sort(a => a.name);
     
     this.dataSource = new MatTableDataSource(this.commands);
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;    
 
     document.title = '2PG - Commands';
   }

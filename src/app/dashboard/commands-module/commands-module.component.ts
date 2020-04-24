@@ -31,7 +31,7 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
     await super.init();
   }
 
-  protected async buildForm() { 
+  async buildForm() { 
     const formGroup = new FormGroup({
       configs: new FormArray([])
     });
@@ -45,7 +45,7 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
     return formGroup;
   }
   
-  protected initFormValues() {
+  initFormValues() {
     this.commandConfigs = this.savedGuild.commands.configs || [];    
 
     for (const config of this.commandConfigs) {
