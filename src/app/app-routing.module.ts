@@ -35,6 +35,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'invite', component: InviteComponent },
+  { path: 'leaderboard/:id', component: LeaderboardModuleComponent, canActivate: [LeaderboardAuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [DashboardAuthGuard] },
   { path: 'dashboard/xp-card', component: XPCardComponent, canActivate: [DashboardAuthGuard] },
 
@@ -45,7 +46,6 @@ const routes: Routes = [
   { path: 'servers/:id/general', component: GeneralModuleComponent, canActivate: [GuildAuthGuard] },
   { path: 'servers/:id/music', component: MusicModuleComponent, canActivate: [GuildAuthGuard] },
   { path: 'servers/:id/xp', component: XPModuleComponent, canActivate: [GuildAuthGuard] },
-  { path: 'servers/:id/leaderboard', component: LeaderboardModuleComponent, canActivate: [LeaderboardAuthGuard] },
   { path: 'servers/:id/log', component: LogModuleComponent, canActivate: [GuildAuthGuard] },
   { path: 'servers/:id/settings', component: SettingsModuleComponent, canActivate: [GuildAuthGuard] },
 

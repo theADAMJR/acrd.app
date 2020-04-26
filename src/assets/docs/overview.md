@@ -1,3 +1,0 @@
-# Suggestions
-
-## Have a suggestion?

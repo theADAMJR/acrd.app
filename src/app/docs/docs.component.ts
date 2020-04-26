@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./docs.component.css']
 })
 export class DocsComponent implements OnInit {
-  defaultPage = 'setup';
+  defaultPage = 'getting-started';
 
   get markdownPagePath$() {
     return this.route.paramMap.pipe(
@@ -38,7 +38,8 @@ export class DocsComponent implements OnInit {
       const file = await fetch(path);
       const md = await file.text();
       
-      document.getElementById('doc').innerHTML = marked(md);
+      document.getElementById('doc').innerHTML = marked(md, { breaks: true });
+      document.querySelector('h1').classList.add('display-3');
     });
   }
 }
