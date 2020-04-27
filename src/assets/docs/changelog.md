@@ -4,9 +4,9 @@
 
 # Beta
 
-![v0.0.2b Dashboard](assets/docs/img/dashboard-v0.0.2b.png)
+![v0.1.0b Dashboard](assets/docs/img/dashboard-v0.1.0b.png)
 
-## Bot v0.0.2b
+## Bot v0.1.0b
 + guild overview charts
 + leaderboard routes now -> `/leaderboard/:guildId`
 + added more documentation
@@ -16,7 +16,7 @@
 * localized image assets for safer loading
 * refactored command handler code
 
-## Dashboard v0.0.1b
+## Dashboard v0.1.0b
 
 ---
 
