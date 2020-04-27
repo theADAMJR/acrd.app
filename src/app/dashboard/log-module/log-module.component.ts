@@ -17,8 +17,8 @@ export class LogModuleComponent implements OnInit {
   dataSource = new MatTableDataSource();
   changes: any[] = [];
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,9 +27,10 @@ export class LogModuleComponent implements OnInit {
 
   async ngOnInit() { 
     const id = this.route.snapshot.paramMap.get('id');
-    const log = await this.service.getSavedLog(id);
 
+    const log = await this.service.getSavedLog(id);
     this.changes = log.changes.reverse();
+
     this.members = await this.guildService.getMembers(id);
     
     this.dataSource = new MatTableDataSource(this.changes);
@@ -45,7 +46,7 @@ export class LogModuleComponent implements OnInit {
       this.dataSource.paginator.firstPage();
   }
 
-  getMember(id: string) {           
+  getMember(id: string) {          
     return this.members.find(m => m.id === id) || {};
   }
 }

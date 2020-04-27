@@ -11,4 +11,9 @@
 
 p:not(.lead) {
     color: var(--secondary);
+    cursor: pointer;
+}
+
+footer {
+    z-index: 1 !important;
 }

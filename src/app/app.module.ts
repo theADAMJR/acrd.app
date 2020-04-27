@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
+import { ChartsModule } from 'ng2-charts';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +29,6 @@ import { LogModuleComponent } from './dashboard/log-module/log-module.component'
 import { SettingsModuleComponent } from './dashboard/settings-module/settings-module.component';
 import { XPModuleComponent } from './dashboard/xp-module/xp-module.component';
 import { GuildSidebarComponent } from './dashboard/guild-sidebar/guild-sidebar.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LeaderboardModuleComponent } from './dashboard/leaderboard-module/leaderboard-module.component';
 import { XPCardComponent } from './xp-card/xp-card.component';
 import { DashboardSidebarComponent } from './dashboard/dashboard-sidebar/dashboard-sidebar.component';
@@ -34,16 +36,17 @@ import { CustomizeXPCardComponent } from './customize-xp-card/customize-xp-card.
 import { MaterialModule } from './material-module';
 import { PremiumDirective } from './dashboard/directives/premium.directive';
 import { SaveChangesComponent } from './dashboard/save-changes/save-changes.component';
-import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PaymentSuccessComponent } from './payment-success/payment-success.component';
 import { PlusComponent } from './plus/plus.component';
 import { DocsComponent } from './docs/docs.component';
 import { CleanDateTimePipe } from './pipes/clean-date-time.pipe';
 import { MemberUsernameComponent } from './member-username/member-username.component';
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { DocsSidebarComponent } from './docs-sidebar/docs-sidebar.component';
 import { ZippyComponent } from './zippy/zippy.component';
+import { AuditLogWidgetComponent } from './dashboard/widgets/audit-log-widget/audit-log-widget.component';
+import { CommandsWidgetComponent } from './dashboard/widgets/commands-widget/commands-widget.component';
+import { MiniDatePipe } from './pipes/mini-date.pipe';
 
 @NgModule({
   declarations: [
@@ -82,7 +85,10 @@ import { ZippyComponent } from './zippy/zippy.component';
     CleanDateTimePipe,
     MemberUsernameComponent,
     DocsSidebarComponent,
-    ZippyComponent
+    ZippyComponent,
+    AuditLogWidgetComponent,
+    CommandsWidgetComponent,
+    MiniDatePipe
   ],
   imports: [
     AppRoutingModule,
@@ -92,7 +98,8 @@ import { ZippyComponent } from './zippy/zippy.component';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    HighlightModule
+    HighlightModule,
+    ChartsModule
   ],
   exports: [PremiumDirective],
   providers: [

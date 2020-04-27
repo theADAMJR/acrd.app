@@ -1,3 +1,3 @@
-<img [src]="member.displayAvatarURL" alt="">
+<img *ngIf="withAvatar" [src]="member.displayAvatarURL" alt="">
 <span class="username">{{ member.username }}</span>
 <span class="tag">{{ member.tag }}</span>

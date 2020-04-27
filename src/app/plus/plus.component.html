@@ -40,10 +40,12 @@
     </section>
     
     <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
-        <button *ngIf="userService.user" (click)="checkout()"
-            class="checkout btn-success my-3" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button *ngIf="userService.user && userService.savedUser?.premium" (click)="checkout()"
+            class="checkout my-3" color="success" mat-button>Donate Again <i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout()"
+            class="checkout my-3" color="success" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
         <button *ngIf="!userService.user" routerLink="/login"
-            class="checkout btn-success my-3" mat-button>Login to Level Up</button>
+            class="checkout my-3" color="success" mat-button>Login to Level Up</button>
     </form>
     <hr>
     <section id="faq">

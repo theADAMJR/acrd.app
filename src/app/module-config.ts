@@ -48,9 +48,7 @@ export abstract class ModuleConfig implements OnDestroy {
         
         await this.resetForm();
 
-        this.initFormValues(this.savedGuild);
-        console.log(this.form);
-        
+        this.initFormValues(this.savedGuild);        
 
         this.valueChanges$ = this.form.valueChanges
             .subscribe(() => this.openSaveChanges());            
@@ -96,9 +94,7 @@ export abstract class ModuleConfig implements OnDestroy {
     /**
      * Send the form data to the API.
      */
-    async submit() {
-        console.log(this.form.value);
-        
+    async submit() {        
         if (this.form.valid)
             await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
     }

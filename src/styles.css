@@ -3,6 +3,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~font-awesome/css/font-awesome.min.css';
 @import '~highlight.js/styles/vs2015.css';
+@import '~chart.js/dist/Chart.min.css';
 
 :root {
     --font: #F4F2F3;
@@ -41,6 +42,10 @@ footer p {
 
 table {
     width: 100%;
+}
+
+.rounded {
+    border-radius: 5px !important;
 }
 
 .side-nav img {
@@ -147,4 +152,9 @@ mat-paginator {
 
 :focus {
     outline: none !important;
+}
+
+#doc img {
+    max-height: 50vh;
+    max-width: 90vw;
 }

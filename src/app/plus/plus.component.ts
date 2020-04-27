@@ -17,7 +17,8 @@ export class PlusComponent implements OnInit {
     private pay: PayService,
     public userService: UserService) {}
 
-  async ngOnInit() {    
+  async ngOnInit() {
+    await this.userService.updateSavedUser();
     this.stripe = await loadStripe(environment.stripePublicKey);
   }
 

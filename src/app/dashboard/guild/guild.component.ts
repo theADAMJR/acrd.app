@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from '../../services/guild.service';
 
@@ -9,6 +8,7 @@ import { GuildService } from '../../services/guild.service';
   styleUrls: ['./guild.component.css']
 })
 export class GuildComponent implements OnInit {
+  commands: any[]
   botNeedsPerms = false;
 
   get guild() {
@@ -20,11 +20,8 @@ export class GuildComponent implements OnInit {
     private guildService: GuildService,
     private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.setBotStatus();
-  }
-
-  private setBotStatus() {
-        
+  async ngOnInit() {
+    const { commands } = await this.guildService.getSavedLog(this.guild.id);
+    this.commands = commands;
   }
 }

@@ -12,7 +12,8 @@
                 class="guild-icon">
                 <img cdkDrag *ngIf="guild.iconURL"
                     [src]="guild.iconURL" [alt]="guild.name">
-                <span cdkDrag *ngIf="!guild.iconURL">{{ guild.nameAcronym }}</span>
+                <span cdkDrag *ngIf="!guild.iconURL"
+                    class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
             </div>
             <div routerLink="/invite" 
                 class="guild-icon invite">

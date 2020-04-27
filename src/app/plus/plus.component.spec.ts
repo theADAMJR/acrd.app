@@ -37,5 +37,26 @@ describe('PlusComponent', () => {
 
     await expectAsync(spy).toBeResolved();
     done();
-  })
+  });
+
+  it('pay button, user not logged in, contains login text', () => {
+    const de = fixture.debugElement.query(By.css('button'));
+    const el = de.nativeElement as HTMLElement;
+
+    expect(el.innerText).toContain('Login');
+  });
+
+  it('pay button, user logged in and not premium, contains level up text', () => {
+    const de = fixture.debugElement.query(By.css('button'));
+    const el = de.nativeElement as HTMLElement;
+
+    expect(el.innerText).toContain('Level Up');
+  });
+
+  it('pay button, user logged in and premium, contains donate text', () => {
+    const de = fixture.debugElement.query(By.css('button'));
+    const el = de.nativeElement as HTMLElement;
+
+    expect(el.innerText).toContain('Donate');
+  });
 });

@@ -33,8 +33,8 @@ export class GuildService {
     return this.http.get(`${this.endpoint}/${id}/public`).toPromise();
   }
 
-  getMembers(guildId: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${guildId}/members`).toPromise() as Promise<any[]>;
+  getMembers(id: string): Promise<any> {
+    return this.http.get(`${this.endpoint}/${id}/members`).toPromise();
   }
 
   getSavedGuild(id: string): Promise<any> {

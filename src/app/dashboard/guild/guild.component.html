@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-lg-3 col-sm-6">
                 <div class="stats">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    1 Messages
+                    <i class="fa fa-code" aria-hidden="true"></i>
+                    Ran {{ commands?.length | number }} Commands
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
@@ -20,12 +20,12 @@
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="stats">
-                    <i class="fa fa-user" aria-hidden="true"></i> 0 Online
+                    <i class="fa fa-hashtag" aria-hidden="true"></i> {{ guild.channels?.length }} Channels
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="stats">
-                    <i class="fa fa-user-o" aria-hidden="true"></i> {{ guild?.members.length }} Members
+                    <i class="fa fa-user-o" aria-hidden="true"></i> {{ guild.memberCount | number }} Members
                 </div>
             </div>
         </div>
@@ -33,22 +33,12 @@
         <div class="row">
             <div class="col-lg-6 col-sm-12">
                 <div class="large stats">
-                    a
+                    <commands-widget></commands-widget>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12">
                 <div class="large stats">
-                    b
-                </div>
-            </div>
-            <div class="col-lg-6 col-sm-12">
-                <div class="large stats">
-                    c
-                </div>
-            </div>
-            <div class="col-lg-6 col-sm-12">
-                <div class="large stats">
-                    d
+                    <audit-log-widget></audit-log-widget>
                 </div>
             </div>
         </div>

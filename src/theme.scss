@@ -78,3 +78,10 @@ $warn: mat-palette($mat-yellow);
 $theme: mat-dark-theme($primary, $secondary, $warn);
 
 @include angular-material-theme($theme);
+
+// css styles
+
+.mat-success {
+    background-color: green;
+    color: #fff;
+}

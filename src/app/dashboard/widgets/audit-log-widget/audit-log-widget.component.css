@@ -1,0 +1,22 @@
+table {
+    color: var(--font);
+    max-width: 100%;
+}
+
+.user {
+    transform: scale(0.65);
+}
+
+.row {
+    min-height: 250px;
+}
+
+.col-md-3, .col-md-9 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h5 {
+    text-align: center;
+}

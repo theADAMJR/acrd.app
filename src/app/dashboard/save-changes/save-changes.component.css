@@ -2,6 +2,9 @@
     text-align: left;
     padding-bottom: 15px;
 }
+button, .text {
+    color: var(--font) !important;    
+}
 #save {
     margin-left: 5px;
     background-color: var(--success);

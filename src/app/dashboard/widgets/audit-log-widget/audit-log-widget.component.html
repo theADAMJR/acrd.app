@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-3">
+        <h5>Changes</h5>
+    </div>
+    <div class="col-md-9">
+        <table *ngIf="changes" class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th class="pl-5">By</th>
+                    <th>At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let change of changes; index as i">
+                    <td scope="row">
+                        {{ changeCount - i }}
+                    </td>
+                    <td class="user">
+                        <member-username [member]="getMember(change.by)"
+                            [withAvatar]="false"></member-username>
+                    </td>
+                    <td>{{ change.at | miniDate }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

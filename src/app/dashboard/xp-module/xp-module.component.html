@@ -13,9 +13,6 @@
             <p class="desc">Reward users with roles when leveling up</p>
             <hr>
             <div formArrayName="levelRoles" class="row">
-                <div *ngIf="savedGuild.xp.levelRoles.length < 1" class="mx-4 text-muted">
-                    No roles added...
-                </div>
                 <div *ngFor="let i of levelRoleIndices" class="col-lg-6 col-sm-12">
                     <div [formGroupName]="i" class="role">
                         <mat-form-field appearance="outline">                                
@@ -49,9 +46,11 @@
                 <input formControlName="xpPerMessage"
                     type="number" matInput>
             </mat-form-field>
-            <mat-label>XP Cooldown</mat-label>
-            <mat-slider formControlName="xpCooldown"
-                step="1" tickInterval="1" thumbLabel max="60"></mat-slider>
+            <div>
+                <mat-label>XP Cooldown</mat-label>
+                <mat-slider formControlName="xpCooldown"
+                    step="1" tickInterval="1" thumbLabel max="60"></mat-slider>
+            </div>
         </form>
     </div>
 </guild-sidebar>

@@ -35,16 +35,14 @@ This is without webapp customization.
     },
     "api": {
         "url": "https://2pg.xyz/api", // used for xp cards etc.
-        "managerPermission": "MANAGE_GUILD" // required permission for managing dashboard 
-        "defaultBackgroundPath": "api/modules/image/wallpaper.png", // default XP card background image
-        "stripe": { // used for charging users $ for features
-            "apiKey": "stripeSecretKey",
-            "endpointSecret": "stripeEndpointSecret"
+        "managerPermission": "MANAGE_GUILD" // required permission for managing dashboard ,
+        "stripe": { // used for payments/donations
+            "apiKey": "stripeAPIKey" // your https://stripe.com/dashboard API key
         }
     },
     "webapp": {
         "url": "https://2pg.xyz", // the URL of the dashboard
-        "distPath": "dist/twopg-dashboard" // the compiled webapp; contains index.html (created with 'ng build --prod' in webapp)
+        "distPath": "/Documents/Projects/twopg-dashboard/dist/twopg-dashboard" // the compiled webapp; contains index.html (created with 'ng build --prod' in webapp)
     },
     "lavalink": { // used for music server
         "password": "youshallnotpass"
@@ -68,9 +66,3 @@ This is without webapp customization.
 #### Notes
 - the `dist` folder contains the precompiled dashboard which is the product of `ng build --prod`
 - `http://localhost:3000` is the default webapp address
-
-### Dashboard
-The front end; made with: TypeScript, Angular 9
-
-[!] All code, tokens etc. here is publically available as it is bundled with the webapp.
-- Angular is a front-end framework that allows you to build professional, single page web and mobile applications.
