@@ -20,15 +20,13 @@ export abstract class ModuleConfig implements OnDestroy {
     textChannels: any = [];
     roles: any = [];
 
-    MessageFilter = MessageFilter;
-
     private saveChanges$: Subscription;  
     private valueChanges$: Subscription;  
   
     constructor(
         protected guildService: GuildService,
         protected route: ActivatedRoute,
-        protected saveChanges: MatSnackBar) {}
+        public saveChanges: MatSnackBar) {}
 
     /**
      * Load all required data for the form, and hook events.
@@ -94,9 +92,12 @@ export abstract class ModuleConfig implements OnDestroy {
     /**
      * Send the form data to the API.
      */
-    async submit() {        
-        if (this.form.valid)
-            await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
+    async submit() {
+        console.log(this.form.value);
+        try {
+            if (this.form.valid)
+                await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
+        } catch { alert('An error occurred when submitting the form - check console'); }
     }
 
     /**
@@ -133,5 +134,3 @@ export abstract class ModuleConfig implements OnDestroy {
         this.openSaveChanges();
     }
 }
-
-export enum MessageFilter { Words, Links }

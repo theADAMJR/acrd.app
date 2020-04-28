@@ -25,6 +25,7 @@ import { XPCardComponent } from './xp-card/xp-card.component';
 import { PaymentSuccessComponent } from './payment-success/payment-success.component';
 import { PlusComponent } from './plus/plus.component';
 import { DocsComponent } from './docs/docs.component';
+import { CanDeactivateDashboard } from './guards/can-deactivate-dashboard.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,15 +40,15 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [DashboardAuthGuard] },
   { path: 'dashboard/xp-card', component: XPCardComponent, canActivate: [DashboardAuthGuard] },
 
-  { path: 'servers/:id', component: GuildComponent, canActivate: [GuildAuthGuard] },
-  { path: 'servers/:id/announce', component: AnnounceModuleComponent, canActivate: [GuildAuthGuard] },
-  { path: 'servers/:id/auto-mod', component: AutoModModuleComponent, canActivate: [GuildAuthGuard] },
-  { path: 'servers/:id/commands', component: CommandsModuleComponent, canActivate: [GuildAuthGuard] },
-  { path: 'servers/:id/general', component: GeneralModuleComponent, canActivate: [GuildAuthGuard] },
-  { path: 'servers/:id/music', component: MusicModuleComponent, canActivate: [GuildAuthGuard] },
-  { path: 'servers/:id/xp', component: XPModuleComponent, canActivate: [GuildAuthGuard] },
-  { path: 'servers/:id/log', component: LogModuleComponent, canActivate: [GuildAuthGuard] },
-  { path: 'servers/:id/settings', component: SettingsModuleComponent, canActivate: [GuildAuthGuard] },
+  { path: 'servers/:id', component: GuildComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/announce', component: AnnounceModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/auto-mod', component: AutoModModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/commands', component: CommandsModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/general', component: GeneralModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/music', component: MusicModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/xp', component: XPModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/log', component: LogModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/settings', component: SettingsModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
 
   { path: 'plus', component: PlusComponent },
   { path: 'payment-success', component: PaymentSuccessComponent },

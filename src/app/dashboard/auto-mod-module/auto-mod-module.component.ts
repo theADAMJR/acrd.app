@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./auto-mod-module.component.css']
 })
 export class AutoModModuleComponent extends ModuleConfig implements OnInit {
+  MessageFilter = MessageFilter;
   moduleName = 'autoMod';
 
   constructor(
@@ -27,10 +28,11 @@ export class AutoModModuleComponent extends ModuleConfig implements OnInit {
   buildForm() {
     return new FormGroup({
       banWords: new FormControl(),
-      autoDeleteMessages: new FormControl(),
       banLinks: new FormControl(),
       filters: new FormControl(),
-      autoWarnUsers: new FormControl()
+      autoDeleteMessages: new FormControl(),
+      autoWarnUsers: new FormControl(),
+      ignoredRoles: new FormControl()
     });
   }
   
@@ -40,6 +42,10 @@ export class AutoModModuleComponent extends ModuleConfig implements OnInit {
     this.form.controls.banWords.setValue(autoMod.banWords);
     this.form.controls.banLinks.setValue(autoMod.banLinks);
     this.form.controls.filters.setValue(autoMod.filters);
+    this.form.controls.ignoredRoles.setValue(autoMod.ignoredRoles);
     this.form.controls.autoWarnUsers.setValue(autoMod.autoWarnUsers);
+    this.form.controls.autoDeleteMessages.setValue(autoMod.autoDeleteMessages);
   }
 }
+
+export enum MessageFilter { Words, Links }

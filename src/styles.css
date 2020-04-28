@@ -26,7 +26,7 @@ body, mat-sidenav-content {
     background: black;
     background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%) !important;
     
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 footer {
@@ -157,4 +157,11 @@ mat-paginator {
 #doc img {
     max-height: 50vh;
     max-width: 90vw;
+}
+
+/* sidebar */
+
+.mat-drawer-side, .mat-drawer-container {
+    background-color: var(--background-primary) !important;
+    border: none !important;
 }

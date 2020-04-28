@@ -21,3 +21,10 @@ button {
 button i {
     font-size: 32px;
 }
+
+/* < small devices */
+@media (max-width: 576px) {
+    img {
+        max-width: 83.5vw;
+    }
+}

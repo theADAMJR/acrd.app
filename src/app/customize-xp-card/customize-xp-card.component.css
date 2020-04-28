@@ -12,6 +12,8 @@ mat-form-field {
 }
 
 .stock-image img {
+    max-width: 38.5vw;
+
     width: 196px;
     height: 98px;
     padding: 0;
@@ -27,4 +29,11 @@ mat-form-field {
     -webkit-box-shadow: 0px 0px 10px 0px var(--tertiary);
     -moz-box-shadow: 0px 0px 10px 0px var(--tertiary);
     box-shadow: 0px 0px 10px 0px var(--tertiary);
+}
+
+/* < small devices */
+@media (max-width: 576px) {
+    img {
+        max-width: 83.5vw;
+    }
 }

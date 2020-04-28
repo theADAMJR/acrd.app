@@ -48,14 +48,28 @@
                         <mat-label>Filters</mat-label>
                         <mat-select multiple
                             formControlName="filters">
-                            <mat-option *ngFor="let filter of savedGuild.autoMod.filters" 
+                            <mat-option *ngFor="let filter of [ MessageFilter.Links, MessageFilter.Words ]" 
                                 [value]="filter">{{ MessageFilter[filter] }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ignored Roles</mat-label>
+                        <mat-select multiple
+                            formControlName="ignoredRoles">
+                            <mat-option *ngFor="let role of roles" 
+                            [value]="role.id">@{{ role.name }}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <label class="pr-3">Auto-warn Users</label>
                     <mat-checkbox formControlName="autoWarnUsers"></mat-checkbox>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <label class="pr-3">Auto-delete Messages</label>
+                    <mat-checkbox formControlName="autoDeleteMessages"></mat-checkbox>
                 </div>
             </div>
         </form>
