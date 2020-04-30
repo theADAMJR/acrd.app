@@ -38,9 +38,9 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
     for (const event of this.events)
       (formGroup.get('events') as FormArray).push(new FormGroup({
         event: new FormControl(event),
-        enabled: new FormControl(true),
+        enabled: new FormControl(false),
         channel: new FormControl(),
-        message: new FormControl(`\`${event}\` was triggered!`)
+        message: new FormControl(`\`${this.EventType[event]}\` was triggered!`)
       }));
     return formGroup;
   }
@@ -57,7 +57,7 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
         event,
         enabled: Boolean(config),
         channel: config.channel,
-        message: `\`${event}\` was triggered!`
+        message: `\`${this.EventType[event]}\` was triggered!`
       });
     }    
   }
