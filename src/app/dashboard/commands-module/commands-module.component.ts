@@ -46,7 +46,7 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
   }
   
   initFormValues() {
-    this.commandConfigs = this.savedGuild.commands.configs || [];    
+    this.commandConfigs = this.savedGuild.commands.configs || [];
 
     for (const config of this.commandConfigs) {
       const index = this.commandConfigs.indexOf(config);
