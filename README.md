@@ -1,5 +1,7 @@
 # 2PG Dashboard
 
+![Guild Dashboard](https://2pg.xyz/assets/docs/img/dashboard-v0.1.0b.png)
+
 ## Discord Bot Setup
 Make sure you have redirects set to the /auth link you will be using.
 This will be used in the final step of the OAuth2 login.
