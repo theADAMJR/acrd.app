@@ -1,5 +1,6 @@
 #leaderboard {
     background-color: var(--background-tertiary);
+    margin-bottom: 150px;
 }
 
 .rank {

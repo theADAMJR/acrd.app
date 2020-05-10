@@ -5,22 +5,6 @@
 @import '~highlight.js/styles/vs2015.css';
 @import '~chart.js/dist/Chart.min.css';
 
-:root {
-    --font: #F4F2F3;
-    --plus: green;
-
-    --danger: darkred;
-    --muted: grey;
-
-    --primary: #46828D;
-    --secondary: #276C8A;
-    --tertiary: #36E2CA;
-
-    --background-primary: #15244B;
-    --background-secondary: #0c1c42;
-    --background-tertiary: #081536;
-}
-
 body, mat-sidenav-content {
     color: var(--font);
     background: black;
