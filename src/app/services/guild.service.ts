@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
 })
 export class GuildService {
   endpoint = environment.endpoint + '/guilds';
+  
+  singleton = null;
 
   get guilds() { return JSON.parse(localStorage.getItem('guilds')); }
   get publicGuilds() { return JSON.parse(localStorage.getItem('publicGuilds')); }

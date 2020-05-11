@@ -34,22 +34,16 @@ export abstract class ModuleConfig implements OnDestroy {
     async init() {
         this.guildId = this.route.snapshot.paramMap.get('id');
 
-        const channels = await this.guildService.getChannels(this.guildId);
+        const channels = this.route.snapshot.data.channels;
         this.textChannels = channels.filter(c => c.type === 'text');
 
-        this.roles = await this.guildService.getRoles(this.guildId);
-
-        try {
-            this.savedGuild = await this.guildService.getSavedGuild(this.guildId);
-            this.originalSavedGuild = JSON.parse(JSON.stringify(this.savedGuild));            
-        } catch { alert('An error occurred loading the saved guild'); }
+        this.savedGuild = this.route.snapshot.data.savedGuild;
+        this.originalSavedGuild = JSON.parse(JSON.stringify(this.savedGuild));
         
-        await this.resetForm();
-
-        this.initFormValues(this.savedGuild);        
+        await this.resetForm();    
 
         this.valueChanges$ = this.form.valueChanges
-            .subscribe(() => this.openSaveChanges());            
+            .subscribe(() => this.openSaveChanges()); 
     }
 
     private async resetForm() {        

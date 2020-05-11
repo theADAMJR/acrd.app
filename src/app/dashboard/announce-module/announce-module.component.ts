@@ -26,7 +26,7 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
   }
 
   async ngOnInit() {
-    await super.init();
+    await super.init();    
 
     this.eventConfigs = this.savedGuild.announce.events;
   }

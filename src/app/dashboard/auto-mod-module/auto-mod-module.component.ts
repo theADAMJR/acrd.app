@@ -27,12 +27,12 @@ export class AutoModModuleComponent extends ModuleConfig implements OnInit {
   
   buildForm() {
     return new FormGroup({
-      banWords: new FormControl(),
-      banLinks: new FormControl(),
-      filters: new FormControl(),
-      autoDeleteMessages: new FormControl(),
-      autoWarnUsers: new FormControl(),
-      ignoredRoles: new FormControl()
+      banWords: new FormControl([]),
+      banLinks: new FormControl([]),
+      filters: new FormControl([]),
+      autoDeleteMessages: new FormControl(false),
+      autoWarnUsers: new FormControl(true),
+      ignoredRoles: new FormControl([])
     });
   }
   
