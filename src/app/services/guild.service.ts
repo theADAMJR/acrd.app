@@ -8,11 +8,8 @@ import { environment } from 'src/environments/environment';
 export class GuildService {
   endpoint = environment.endpoint + '/guilds';
 
-  private _guilds: any[];
-  get guilds() { return this._guilds; }
-
-  private _publicGuilds: any[];
-  get publicGuilds() { return this._publicGuilds; }
+  get guilds() { return JSON.parse(localStorage.getItem('guilds')); }
+  get publicGuilds() { return JSON.parse(localStorage.getItem('publicGuilds')); }
 
   private get key() {
     return localStorage.getItem('key');
@@ -21,8 +18,9 @@ export class GuildService {
   constructor(private http: HttpClient) {}  
 
   async updateGuilds() {
-    this._guilds = (this.key) ? 
+    const guilds = (this.key) ? 
       await this.http.get(`${this.endpoint}?key=${this.key}`).toPromise() as any : [];
+    localStorage.setItem('guilds', JSON.stringify(guilds));
   }
 
   getGuild(id: string) {

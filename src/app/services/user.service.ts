@@ -8,11 +8,8 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   endpoint = environment.endpoint + '/user';
 
-  private _user: any;
-  get user() { return this._user; }
-  
-  private _savedUser: any;
-  get savedUser() { return this._savedUser; }
+  get user() { return JSON.parse(localStorage.getItem('user')); }  
+  get savedUser() { return JSON.parse(localStorage.getItem('savedUser')); }
 
   get xpCardPreviewURL() {
     return `${this.endpoint}/xp-card-preview?key=${this.key}`;
@@ -25,13 +22,15 @@ export class UserService {
   }
 
   async updateUser() {
-    this._user = (this.key) ?
-      await this.http.get(`${this.endpoint}?key=${this.key}`).toPromise() : null;
+    const user = (this.key) ?
+      await this.http.get(`${this.endpoint}?key=${this.key}`).toPromise() : null
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   async updateSavedUser() {
-    this._savedUser = (this.key) ? 
+    const savedUser = (this.key) ? 
       await this.http.get(`${this.endpoint}/saved?key=${this.key}`).toPromise() : null;
+    localStorage.setItem('savedUser', JSON.stringify(savedUser));
   }
 
   updateXPCard(xpCard: XPCard) {
