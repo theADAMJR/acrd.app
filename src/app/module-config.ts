@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, AbstractControl, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaveChangesComponent } from './dashboard/save-changes/save-changes.component';
 import { GuildService } from './services/guild.service';
@@ -7,18 +7,18 @@ import {  OnDestroy } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 
-
 export abstract class ModuleConfig implements OnDestroy {
     abstract moduleName: string;
 
     form: FormGroup;
 
-    guildId: string;
     savedGuild: any;
     originalSavedGuild: any;
 
     textChannels: any = [];
     roles: any = [];
+
+    get guildId() { return this.route.snapshot.paramMap.get('id'); }
 
     private saveChanges$: Subscription;  
     private valueChanges$: Subscription;  
@@ -32,8 +32,6 @@ export abstract class ModuleConfig implements OnDestroy {
      * Load all required data for the form, and hook events.
      */
     async init() {
-        this.guildId = this.route.snapshot.paramMap.get('id');
-
         const channels = this.route.snapshot.data.channels;
         this.textChannels = channels.filter(c => c.type === 'text');
 
@@ -57,11 +55,6 @@ export abstract class ModuleConfig implements OnDestroy {
      * Called when on form init.
      */
     abstract buildForm(): FormGroup | Promise<FormGroup>;
-    /**
-     * Initialize all form values.
-     * Called on reset, and on init.
-     */
-    abstract initFormValues(savedGuild: any): void;
     
     private openSaveChanges() {
         const snackBarRef = this.saveChanges._openedSnackBarRef;
@@ -101,7 +94,6 @@ export abstract class ModuleConfig implements OnDestroy {
         await this.resetForm();
         this.savedGuild = JSON.parse(JSON.stringify(this.originalSavedGuild));
         
-        this.initFormValues(this.savedGuild);
         this.form.valueChanges
             .subscribe(() => this.openSaveChanges()); 
     }

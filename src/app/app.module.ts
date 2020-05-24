@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
@@ -47,6 +47,24 @@ import { ZippyComponent } from './zippy/zippy.component';
 import { AuditLogWidgetComponent } from './dashboard/widgets/audit-log-widget/audit-log-widget.component';
 import { CommandsWidgetComponent } from './dashboard/widgets/commands-widget/commands-widget.component';
 import { MiniDatePipe } from './pipes/mini-date.pipe';
+import { environment } from 'src/environments/environment';
+
+export class AlertErrorHandler implements ErrorHandler {
+  async handleError(error: Error | any) {
+    try {
+      alert(error?.rejection?.error ?? error?.message ?? error);
+
+      const key = localStorage.getItem('key');
+      await fetch(`${environment.endpoint}/error?key=${key}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: error.message })
+      });
+    } finally {
+      console.log(error);
+    }
+  }
+}
 
 @NgModule({
   declarations: [
@@ -103,6 +121,7 @@ import { MiniDatePipe } from './pipes/mini-date.pipe';
   ],
   exports: [PremiumDirective],
   providers: [
+    { provide: ErrorHandler, useClass: AlertErrorHandler },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
     {
       provide: HIGHLIGHT_OPTIONS,

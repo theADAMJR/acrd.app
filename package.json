@@ -27,7 +27,6 @@
     "@angular/platform-browser-dynamic": "~9.0.2",
     "@angular/platform-server": "~9.0.2",
     "@angular/router": "~9.0.2",
-    "@nguniversal/express-engine": "^9.0.2",
     "@popperjs/core": "^2.3.3",
     "@types/node": "^12.11.1",
     "bootstrap": "^4.4.1",

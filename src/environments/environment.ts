@@ -7,6 +7,7 @@ export const environment = {
   endpoint: 'http://localhost:3000/api',
   githubURL: 'https://github.com/theADAMJR/2PG',
   stripePublicKey: 'pk_test_rjQKo5c9pcHvDFjFe1mfdKib00Es3eJ831',
+  version: 'v0.1.1b',
   test: {
     guildId: '685862664223850497'
   }
