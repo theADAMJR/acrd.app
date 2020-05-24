@@ -11,6 +11,7 @@
 **Add**
 - more auto mod inputs
 - disabled navigation with unsaved changes
+- copy and pasted a lot of features from [3PG](https://3pg.xyz)
 
 **Change/Fix**
 - fix dashboard faulty data loading

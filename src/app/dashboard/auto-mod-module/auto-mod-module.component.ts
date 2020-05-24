@@ -39,7 +39,6 @@ export class AutoModModuleComponent extends ModuleConfig implements OnInit {
   }
 }
 
-
 export enum MessageFilter {
   Links = 'LINKS',
   MassCaps = 'MASS_CAPS',

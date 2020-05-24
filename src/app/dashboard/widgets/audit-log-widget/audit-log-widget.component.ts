@@ -19,12 +19,15 @@ export class AuditLogWidgetComponent implements OnInit {
     private guildService: GuildService) {}
 
   async ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.route.paramMap.subscribe(async(val) => {
+      const id = val.get('id');
 
-    this.members = await this.guildService.getMembers(id);
-    const { changes } = await this.guildService.getSavedLog(id);
-    this.changeCount = changes.length;
-    this.changes = changes.splice(changes.length - this.rows, changes.length);
+      this.members = await this.guildService.getMembers(id);
+  
+      const { changes } = await this.guildService.getSavedLog(id);
+      this.changeCount = changes.length;
+      this.changes = changes.splice(changes.length - this.rows, changes.length);
+    });
   }
 
   getMember(id: string) {          

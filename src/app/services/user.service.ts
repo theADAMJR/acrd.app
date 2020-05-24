@@ -25,15 +25,13 @@ export class UserService {
   }
 
   async updateUser() {
-    const user = (this.key) ?
+    this._user = (this.key) ?
       await this.http.get(`${this.endpoint}?key=${this.key}`).toPromise() : null
-    localStorage.setItem('user', JSON.stringify(user));
   }
 
   async updateSavedUser() {
-    const savedUser = (this.key) ? 
+    this._savedUser = (this.key) ? 
       await this.http.get(`${this.endpoint}/saved?key=${this.key}`).toPromise() : null;
-    localStorage.setItem('savedUser', JSON.stringify(savedUser));
   }
 
   updateXPCard(xpCard: XPCard) {

@@ -1,14 +1,35 @@
 <guild-sidebar [waitFor]="savedGuild">
     <div *ngIf="form" class="container">
         <form #f="ngForm" [formGroup]="form">
-            <div class="jumbotron">
+            <div>
                 <div class="d-flex justify-content-between">
-                    <h1 class="display-3">Auto-mod</h1>
+                    <h1 routerLink="/docs/auto-mod"
+                        class="display-3">Auto-mod</h1>
                     <mat-slide-toggle formControlName="enabled"
                         class="float-right mt-5"></mat-slide-toggle>
                 </div>
-                <hr>
             </div>
+            <hr>
+            <h3>Filters</h3>
+            <p class="desc">Filter message content, based on specific conditions</p>
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enabled Filters</mat-label>
+                        <mat-select multiple
+                            formControlName="filters">
+                            <mat-option *ngFor="let filter of filters" 
+                                [value]="filter">{{ filter | snakeToSentenceCase }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="ml-4">
+                    <label class="pr-1">Filter Threshold</label>
+                    <mat-slider formControlName="filterThreshold"
+                        step="1" tickInterval="1" thumbLabel min="1" max="20"></mat-slider>
+                </div>
+            </div>
+            <hr>
             <div class="row">
                 <div class="col-lg-4 col-sm-6">
                     <mat-form-field appearance="outline">
@@ -45,21 +66,6 @@
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <mat-form-field appearance="outline">
-                        <mat-label>Filters</mat-label>
-                        <mat-select multiple
-                            formControlName="filters">
-                            <mat-option *ngFor="let filter of filters" 
-                                [value]="filter">{{ filter | snakeToSentenceCase }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="ml-4">
-                    <label class="pr-1">Filter Threshold</label>
-                    <mat-slider formControlName="filterThreshold"
-                        step="1" tickInterval="1" thumbLabel min="1" max="20"></mat-slider>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <mat-form-field appearance="outline">
                         <mat-label>Ignored Roles</mat-label>
                         <mat-select multiple
                             formControlName="ignoredRoles">
@@ -69,11 +75,11 @@
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-sm-6">
-                    <label class="pr-3">Auto-warn Users</label>
+                    <label class="pr-1">Auto-warn Users</label>
                     <mat-checkbox formControlName="autoWarnUsers"></mat-checkbox>
                 </div>
                 <div class="col-lg-4 col-sm-6">
-                    <label class="pr-3">Auto-delete Messages</label>
+                    <label class="pr-1">Auto-delete Messages</label>
                     <mat-checkbox formControlName="autoDeleteMessages"></mat-checkbox>
                 </div>
             </div>

@@ -13,6 +13,7 @@ export abstract class ModuleConfig implements OnDestroy {
     form: FormGroup;
 
     savedGuild: any;
+    guild: any;
     originalSavedGuild: any;
 
     textChannels: any = [];
@@ -32,16 +33,20 @@ export abstract class ModuleConfig implements OnDestroy {
      * Load all required data for the form, and hook events.
      */
     async init() {
-        const channels = this.route.snapshot.data.channels;
-        this.textChannels = channels.filter(c => c.type === 'text');
+        const data = this.route.snapshot.data;
+        
+        this.guild = this.guildService.guilds.find(g => g.id === this.guildId);
 
-        this.savedGuild = this.route.snapshot.data.savedGuild;
+        this.roles = data.roles;
+        this.textChannels = data.channels.filter(c => c.type === 'text');
+
+        this.savedGuild = data.savedGuild;
         this.originalSavedGuild = JSON.parse(JSON.stringify(this.savedGuild));
         
-        await this.resetForm();    
+        await this.resetForm();
 
         this.valueChanges$ = this.form.valueChanges
-            .subscribe(() => this.openSaveChanges()); 
+            .subscribe(() => this.openSaveChanges());     
     }
 
     private async resetForm() {     

@@ -20,7 +20,7 @@ export class CommandsComponent implements OnInit {
   constructor(private service: CommandsService) {}
 
   async ngOnInit() { 
-    this.commands = await this.service.get();
+    this.commands = this.service.commands;
     
     this.dataSource = new MatTableDataSource(this.commands);
     this.dataSource.paginator = this.paginator;

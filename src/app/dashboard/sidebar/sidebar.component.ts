@@ -9,7 +9,7 @@ import { MatDrawer } from '@angular/material/sidenav';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer;
 
   get guilds() { return this.guildService.guilds || []; }
@@ -18,6 +18,11 @@ export class SidebarComponent {
   constructor(
     private guildService: GuildService,
     private userService: UserService) {}
+
+  async ngOnInit() {
+    if (this.guildService.guilds.length <= 0)
+      await this.guildService.updateGuilds();
+  }
 
   toggle(el: HTMLElement) {
     const icon = (el.tagName !== 'DIV') ? el.parentElement : el;

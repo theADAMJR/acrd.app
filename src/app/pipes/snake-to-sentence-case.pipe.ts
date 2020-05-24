@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'snakeToSentenceCase'
 })
 export class SnakeToSentenceCasePipe implements PipeTransform {
-  transform(word: string, ...args: unknown[]): unknown {
+  transform(word: string): unknown {
     return word
       ?.split('_')
       .map(w => w[0] + w.slice(1).toLowerCase())

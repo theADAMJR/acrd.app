@@ -31,7 +31,9 @@ export class MusicModuleComponent extends ModuleConfig implements OnInit {
   }
   
   buildForm({ music }) {
-    return new FormGroup({});
+    return new FormGroup({
+      enabled: new FormControl(music.enabled ?? true)
+    });
   }
 
   min(a: number, b: number) { return Math.min(a, b); }

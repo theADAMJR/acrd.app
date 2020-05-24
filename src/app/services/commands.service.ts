@@ -6,11 +6,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CommandsService {
+  private _commands = [];
+  get commands() { return this._commands ?? []; }
+
   private endpoint = environment.endpoint + '/commands';
 
   constructor(private http: HttpClient) {}
 
-  async get() {
-    return this.http.get(this.endpoint).toPromise() as Promise<any[]>;
+  async updateCommands() {
+    this._commands = await this.http.get(this.endpoint).toPromise() as any;
   }
 }
