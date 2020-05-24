@@ -31,12 +31,4 @@ describe('XPModuleComponent', () => {
   it('buildForm returns valid form group', () => {
     expect(component.buildForm()).toBeInstanceOf(FormGroup);
   });
-
-  it('initFormValues sets saved guild values', () => {
-    component.initFormValues({ xp: { ignoredRoles: ['1'] }});
-
-    const result = component.form.get('ignoredRoles').value;
-
-    expect(result).toBe(['1']);
-  })
 });

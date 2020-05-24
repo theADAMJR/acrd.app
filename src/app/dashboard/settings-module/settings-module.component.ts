@@ -26,14 +26,9 @@ export class SettingsModuleComponent extends ModuleConfig implements OnInit {
     await super.init();
   }
 
-  buildForm() {
+  buildForm({ settings }: any) {
     return new FormGroup({
-      privateLeaderboard: new FormControl('')
+      privateLeaderboard: new FormControl(settings.privateLeaderboard ?? false)
     });
-  }
-  
-  initFormValues() {
-    const settings = this.savedGuild.settings;
-    this.form.controls.privateLeaderboard.setValue(settings.privateLeaderboard);
   }
 }

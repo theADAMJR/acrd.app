@@ -27,21 +27,15 @@ export class GeneralModuleComponent extends ModuleConfig implements OnInit {
     await super.init();
   }
 
-  buildForm() {
-    return new FormGroup({
-      prefix: new FormControl('', [
+  buildForm({ general }: any) {
+    const formGroup = new FormGroup({
+      prefix: new FormControl(general.prefix ?? '', [
         Validators.required, 
         Validators.maxLength(5) 
       ]),
-      ignoredChannels: new FormControl(),
-      autoRoles: new FormControl()
+      ignoredChannels: new FormControl(general.ignoredChannels ?? []),
+      autoRoles: new FormControl(general.autoRoles ?? [])
     });
-  }
-  
-  initFormValues(savedGuild: any) {
-    const general = savedGuild.general;
-    this.form.controls.prefix.setValue(general.prefix);
-    this.form.controls.ignoredChannels.setValue(general.ignoredChannels);
-    this.form.controls.autoRoles.setValue(general.autoRoles);
+    return formGroup;
   }
 }

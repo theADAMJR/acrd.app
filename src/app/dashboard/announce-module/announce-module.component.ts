@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModuleConfig } from '../../module-config';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GuildService } from '../../services/guild.service';
@@ -31,35 +31,22 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
     this.eventConfigs = this.savedGuild.announce.events;
   }
 
-  buildForm() {
+  buildForm({ announce }: any) {
     const formGroup = new FormGroup({
       events: new FormArray([])
-    });    
-    for (const event of this.events)
+    });
+    for (let i = 0; i < this.events.length; i++) {
+      const event = this.events[i];
+      const config = announce.events.find(e => e.event === event); 
+
       (formGroup.get('events') as FormArray).push(new FormGroup({
         event: new FormControl(event),
-        enabled: new FormControl(false),
-        channel: new FormControl(),
-        message: new FormControl(`\`${this.EventType[event]}\` was triggered!`)
-      }));
+        enabled: new FormControl(Boolean(config?.channel && config?.message) ?? false),
+        channel: new FormControl(config?.channel ?? ''),
+        message: new FormControl(config?.message ?? `\`${event}\` was triggered in **[GUILD]**!`, Validators.maxLength(512))
+      }));     
+    }
     return formGroup;
-  }
-  
-  initFormValues(savedGuild: any) {    
-    for (const event of this.events) {
-      const config = savedGuild.announce.events.find(e => e.event === event);
-      if (!config) continue;      
-      
-      const eventControl = (this.form.get('events') as FormArray)
-        .get(config.event.toString());
-      
-      eventControl?.setValue({
-        event,
-        enabled: Boolean(config),
-        channel: config.channel,
-        message: `\`${this.EventType[event]}\` was triggered!`
-      });
-    }    
   }
 
   getEvent(eventType: EventType) {

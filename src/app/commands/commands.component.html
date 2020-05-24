@@ -34,7 +34,7 @@
           
           <ng-container matColumnDef="permission">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Permission </th>
-            <td mat-cell *matCellDef="let row"> {{row.precondition}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.precondition | snakeToSentenceCase}} </td>
           </ng-container>
       
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

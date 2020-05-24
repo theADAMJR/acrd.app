@@ -48,6 +48,9 @@ import { AuditLogWidgetComponent } from './dashboard/widgets/audit-log-widget/au
 import { CommandsWidgetComponent } from './dashboard/widgets/commands-widget/commands-widget.component';
 import { MiniDatePipe } from './pipes/mini-date.pipe';
 import { environment } from 'src/environments/environment';
+import { SnakeToSentenceCasePipe } from './pipes/snake-to-sentence-case.pipe';
+import { TruncatedPipe } from './pipes/truncated.pipe';
+import { DurationStringPipe } from './pipes/duration-string.pipe';
 
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
@@ -106,7 +109,10 @@ export class AlertErrorHandler implements ErrorHandler {
     ZippyComponent,
     AuditLogWidgetComponent,
     CommandsWidgetComponent,
-    MiniDatePipe
+    MiniDatePipe,
+    SnakeToSentenceCasePipe,
+    TruncatedPipe,
+    DurationStringPipe
   ],
   imports: [
     AppRoutingModule,

@@ -8,8 +8,11 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   endpoint = environment.endpoint + '/user';
 
-  get user() { return JSON.parse(localStorage.getItem('user')); }  
-  get savedUser() { return JSON.parse(localStorage.getItem('savedUser')); }
+  private _user: any;
+  get user() { return this._user; }
+
+  private _savedUser: any;
+  get savedUser() { return this._savedUser; }
 
   get xpCardPreviewURL() {
     return `${this.endpoint}/xp-card-preview?key=${this.key}`;

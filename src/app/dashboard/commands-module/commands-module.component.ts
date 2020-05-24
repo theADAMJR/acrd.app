@@ -31,27 +31,20 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
     await super.init();
   }
 
-  async buildForm() { 
+  async buildForm({ commands }: any) { 
     const formGroup = new FormGroup({
       configs: new FormArray([])
     });
 
-    this.commands = await this.service.get();
-    for (const command of this.commands)
-      (formGroup.get('configs') as FormArray).push(new FormGroup({
-        name: new FormControl(command.name),
-        enabled: new FormControl(true)
-      }));
-    return formGroup;
-  }
-  
-  initFormValues() {
-    this.commandConfigs = this.savedGuild.commands.configs || [];
-
-    for (const config of this.commandConfigs) {
-      const index = this.commandConfigs.indexOf(config);
-      this.commandsFormArray.get(index.toString())?.setValue(config);
+    for (let i = 0; i < this.commands.length; i++) {
+      const command = commands[i];
+      (formGroup.get('configs') as FormArray)
+        .setControl(i, new FormGroup({
+          name: new FormControl(this.commands[i].name ?? ''),
+          enabled: new FormControl(command?.enabled ?? true)
+        }));
     }
+    return formGroup;
   }
 }
 

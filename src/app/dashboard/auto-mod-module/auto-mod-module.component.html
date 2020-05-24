@@ -48,10 +48,15 @@
                         <mat-label>Filters</mat-label>
                         <mat-select multiple
                             formControlName="filters">
-                            <mat-option *ngFor="let filter of [ MessageFilter.Links, MessageFilter.Words ]" 
-                                [value]="filter">{{ MessageFilter[filter] }}</mat-option>
+                            <mat-option *ngFor="let filter of filters" 
+                                [value]="filter">{{ filter | snakeToSentenceCase }}</mat-option>
                         </mat-select>
                     </mat-form-field>
+                </div>
+                <div class="ml-4">
+                    <label class="pr-1">Filter Threshold</label>
+                    <mat-slider formControlName="filterThreshold"
+                        step="1" tickInterval="1" thumbLabel min="1" max="20"></mat-slider>
                 </div>
                 <div class="col-lg-4 col-sm-6">
                     <mat-form-field appearance="outline">

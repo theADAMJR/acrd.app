@@ -14,9 +14,11 @@ export class DashboardAuthGuard implements CanActivate {
     private guildService: GuildService) {}
 
   async canActivate() {
-    if (!this.guildService.guilds)
-      await this.guildService.updateGuilds();
-      
+    if (!this.userService.user)
+      await this.userService.updateUser();
+    if (!this.userService.savedUser)
+      await this.userService.updateSavedUser(); 
+        
     return Boolean(this.userService.user);
   }  
 }

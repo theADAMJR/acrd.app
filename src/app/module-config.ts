@@ -44,17 +44,18 @@ export abstract class ModuleConfig implements OnDestroy {
             .subscribe(() => this.openSaveChanges()); 
     }
 
-    private async resetForm() {        
-        this.form = await this.buildForm();
+    private async resetForm() {     
+        this.savedGuild = JSON.parse(JSON.stringify(this.originalSavedGuild));   
+        this.form = await this.buildForm(this.savedGuild);
         this.form.addControl('enabled',
-                new FormControl(this.savedGuild[this.moduleName].enabled));
+            new FormControl(this.savedGuild[this.moduleName].enabled));
     }
 
     /**
      * Build the form to be used.
      * Called when on form init.
      */
-    abstract buildForm(): FormGroup | Promise<FormGroup>;
+    abstract buildForm(savedGuild: any): FormGroup | Promise<FormGroup>;
     
     private openSaveChanges() {
         const snackBarRef = this.saveChanges._openedSnackBarRef;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { PayService } from '../pay.service';
+import { PayService } from '../services/pay.service';
 import { UserService } from '../services/user.service';
 
 @Component({

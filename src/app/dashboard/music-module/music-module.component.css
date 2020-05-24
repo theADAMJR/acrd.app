@@ -1,0 +1,29 @@
+.track {
+    background-color: var(--background-secondary);
+}
+
+.manager {
+    background-color: var(--background-tertiary);
+}
+
+.controls {
+    padding-left: 125px;
+}
+.player-bar mat-slider {
+    width: 75%;
+    margin-left: -50px;
+}
+
+/* <lg */
+@media (max-width: 992px) {
+    .player {
+        border-color: transparent !important;
+    }
+    .controls {
+        padding-left: 0;
+    }
+    .player-bar mat-slider {
+        width: 75%;
+        margin-left: 0;
+    }
+}
