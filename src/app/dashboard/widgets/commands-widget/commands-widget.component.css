@@ -1,5 +1,6 @@
 canvas {
-    min-width: 100%;
+    max-width: 100%;
+    height: auto;
     margin-left: 15px;
 }
 
