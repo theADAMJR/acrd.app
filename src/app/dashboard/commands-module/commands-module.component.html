@@ -1,9 +1,7 @@
 <guild-sidebar [waitFor]="savedGuild">
     <div *ngIf="form" class="container">
-        <div class="jumbotron">
-            <h1 class="display-3">Commands</h1>
-            <hr>
-        </div>
+        <h1 class="display-3">Commands</h1>
+        <hr>
         <form #f="ngForm" [formGroup]="form">
             <div formArrayName="configs" class="row">
                 <div [formGroupName]="i" *ngFor="let command of commands; index as i"

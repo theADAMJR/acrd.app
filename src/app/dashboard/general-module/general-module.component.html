@@ -1,14 +1,12 @@
 <guild-sidebar [waitFor]="savedGuild && general">
     <div *ngIf="form" class="container">
         <form #f="ngForm" [formGroup]="form">
-            <div class="jumbotron">
-                <div class="d-flex justify-content-between">
-                    <h1 class="display-3">General</h1>
-                    <mat-slide-toggle formControlName="enabled"
-                        class="float-right mt-5"></mat-slide-toggle>
-                </div>
-                <hr>
+            <div class="d-flex justify-content-between">
+                <h1 class="display-3">General</h1>
+                <mat-slide-toggle formControlName="enabled"
+                    class="float-right mt-5"></mat-slide-toggle>
             </div>
+            <hr>
             <div class="row">
                 <div class="col-lg-4 col-sm-6">
                     <mat-form-field appearance="outline">

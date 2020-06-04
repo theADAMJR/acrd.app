@@ -1,14 +1,12 @@
 <guild-sidebar [waitFor]="savedGuild && form">
     <div *ngIf="form" class="container">
         <form #f="ngForm" [formGroup]="form">
-            <div class="jumbotron">
-                <div class="d-flex justify-content-between">
-                    <h1 class="display-3">Announce</h1>
-                    <mat-slide-toggle formControlName="enabled"
-                        class="float-right mt-5"></mat-slide-toggle>
-                </div>
-                <hr>
+            <div class="d-flex justify-content-between">
+                <h1 class="display-3">Announce</h1>
+                <mat-slide-toggle formControlName="enabled"
+                    class="float-right mt-5"></mat-slide-toggle>
             </div>
+            <hr>
             <h3>Events</h3>
             <p class="desc">Send messages to a channel when the event is triggered</p>
             <hr>
