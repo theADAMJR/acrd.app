@@ -17,5 +17,25 @@ Type commands with the set prefix (default: `.`).
 
 ---
 
+# FAQ
+
+---
+
 ## What is the 2PG Dashboard?
 The 2PG dashboard is used for customizing saved settings for your Discord server (with 2PG)
+
+---
+
+# Technical Questions
+
+---
+
+## What is 2PG's server host?
+[Digital Ocean](https://m.do.co/c/be464b522714).
+
+*"Everyone you refer gets $100 in credit over 60 days."* as of `30/05/2020`.
+
+An uninterrupted and trustworthy service used by many developers.
+I have not had any issues with them over a year so far, and their billing system is extremely flexible.
+
+They have a Linux control panel to manage their servers, but as long as you know what you're doing, the experience should be smooth.

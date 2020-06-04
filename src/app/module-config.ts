@@ -53,7 +53,7 @@ export abstract class ModuleConfig implements OnDestroy {
         this.savedGuild = JSON.parse(JSON.stringify(this.originalSavedGuild));   
         this.form = await this.buildForm(this.savedGuild);
         this.form.addControl('enabled',
-            new FormControl(this.savedGuild[this.moduleName].enabled));
+            new FormControl(this.savedGuild[this.moduleName]?.enabled));
     }
 
     /**
