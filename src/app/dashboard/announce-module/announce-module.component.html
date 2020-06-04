@@ -29,7 +29,9 @@
                             <mat-label>Channel</mat-label>
                             <mat-select formControlName="channel">
                                 <mat-option *ngFor="let channel of textChannels" 
-                                    [value]="channel.id">#{{ channel.name }}</mat-option>
+                                    [value]="channel.id">#{{ channel.name }}
+                                    <span class="float-right text-muted">[{{ getChannel(channel.parentID)?.name || 'N/A' }}]</span>
+                                </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

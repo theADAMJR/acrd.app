@@ -3,7 +3,7 @@
         <form #f="ngForm" [formGroup]="form">
             <div class="jumbotron">
                 <div class="d-flex justify-content-between">
-                    <h1 class="display-3">XP</h1>
+                    <h1 class="display-3">Leveling</h1>
                     <mat-slide-toggle formControlName="enabled"
                         class="float-right mt-5"></mat-slide-toggle>
                 </div>
@@ -25,7 +25,7 @@
                                 formControlName="role">
                                 <mat-option *ngFor="let role of roles" 
                                     [value]="role.id"
-                                    [style.color]="role.hexColor || 'grey'">@{{ role.name }}</mat-option>
+                                    [style.color]="'#' + role.color?.toString(16)">@{{ role.name }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -38,7 +38,7 @@
                     formControlName="ignoredRoles">
                     <mat-option *ngFor="let role of roles" 
                         [value]="role.id"
-                        [style.color]="role.hexColor || 'grey'">@{{ role.name }}</mat-option>
+                        [style.color]="'#' + role.color?.toString(16)">@{{ role.name }}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline">

@@ -70,7 +70,8 @@
                         <mat-select multiple
                             formControlName="ignoredRoles">
                             <mat-option *ngFor="let role of roles" 
-                            [value]="role.id">@{{ role.name }}</mat-option>
+                            [value]="role.id"
+                            [style.color]="'#' + role.color?.toString(16)">@{{ role.name }}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

@@ -23,7 +23,9 @@
                         <mat-select multiple
                             formControlName="ignoredChannels">
                             <mat-option *ngFor="let channel of textChannels" 
-                                [value]="channel.id">#{{ channel.name }}</mat-option>
+                                [value]="channel.id">#{{ channel.name }}
+                                <span class="float-right text-muted">[{{ getChannel(channel.parentID)?.name || 'N/A' }}]</span>
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -33,7 +35,8 @@
                         <mat-select multiple
                             formControlName="autoRoles">
                             <mat-option *ngFor="let role of roles" 
-                                [value]="role.id">@{{ role.name }}</mat-option>
+                                [value]="role.id"
+                                [style.color]="'#' + role.color?.toString(16)">@{{ role.name }}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
