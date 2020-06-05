@@ -4,15 +4,17 @@ import { ActivatedRoute } from '@angular/router';
 import { GuildService } from '../../services/guild.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModuleConfig } from '../../module-config';
+import { slideUpDown } from './leveling-module.animations';
 
 @Component({
-  selector: 'app-xp-module',
-  templateUrl: './xp-module.component.html',
-  styleUrls: ['./xp-module.component.css']
+  selector: 'app-leveling-module',
+  templateUrl: './leveling-module.component.html',
+  styleUrls: ['./leveling-module.component.css'],
+  animations: [ slideUpDown ]
 })
-export class XPModuleComponent extends ModuleConfig implements OnInit {
+export class LevelingModuleComponent extends ModuleConfig implements OnInit {
   levelRoleIndices = [0,1,2,3,4,5,6,7];
-  moduleName = 'xp';
+  moduleName = 'leveling';
 
   get levelRolesFormArray() { return this.form.get('levelRoles') as FormArray; }
 
@@ -24,7 +26,7 @@ export class XPModuleComponent extends ModuleConfig implements OnInit {
   }
 
   async ngOnInit() {
-    await super.init();
+    await super.init();    
   }
   
   buildForm({ leveling }: any) {
@@ -39,7 +41,6 @@ export class XPModuleComponent extends ModuleConfig implements OnInit {
     this.buildLevelRolesFormArray(formGroup, leveling);
     return formGroup;
   }
-
   private buildLevelRolesFormArray(formGroup: FormGroup, leveling: any) {
     for (const i of this.levelRoleIndices)
       (formGroup.get('levelRoles') as FormArray)
@@ -48,6 +49,22 @@ export class XPModuleComponent extends ModuleConfig implements OnInit {
           level: new FormControl(leveling.levelRoles[i]?.level ?? 0, Validators.min(0)),
           role: new FormControl(leveling.levelRoles[i]?.role ?? '')
         })));
+  }
+
+  filterFormValue() {
+    this.form.value.levelRoles = this.form.value.levelRoles
+      .filter(c => c.level > 0);
+  }
+
+  getXPForLevel(level: any) {
+    level = Number(level);
+    return (75 * (level + 1)**2) + (75 * (level + 1)) - 150;
+  }
+
+  getHoursForLevel(level: number) {
+    const xpPerMinute = this.form.value.xpPerMessage * this.form.value.maxMessagesPerMinute;
+    const xpRequired = this.getXPForLevel(level);
+    return xpRequired / (xpPerMinute * 60);
   }
 }
 

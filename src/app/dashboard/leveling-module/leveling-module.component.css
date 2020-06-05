@@ -15,3 +15,9 @@ mat-form-field {
 .remove {
     background-color: var(--danger);
 }
+
+.role {
+    background-color: var(--background-tertiary);
+    padding-top: 25px;
+    margin: 5px;
+}

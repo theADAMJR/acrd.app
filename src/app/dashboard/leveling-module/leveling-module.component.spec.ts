@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { XPModuleComponent } from './xp-module.component';
+import { LevelingModuleComponent } from './leveling-module.component';
 import { environment } from 'src/environments/environment';
 import { AppModule } from 'src/app/app.module';
 import { FormGroup } from '@angular/forms';
 
-describe('XPModuleComponent', () => {
-  let component: XPModuleComponent;
-  let fixture: ComponentFixture<XPModuleComponent>;
+describe('LevelingModuleComponent', () => {
+  let component: LevelingModuleComponent;
+  let fixture: ComponentFixture<LevelingModuleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ XPModuleComponent ],
+      declarations: [ LevelingModuleComponent ],
       imports: [ AppModule ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(XPModuleComponent);
+    fixture = TestBed.createComponent(LevelingModuleComponent);
     component = fixture.componentInstance;
     component.guildId = environment.test.guildId;
     fixture.detectChanges();

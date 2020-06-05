@@ -12,7 +12,7 @@ import { GuildComponent } from './dashboard/guild/guild.component';
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { GuildAuthGuard } from './guards/guild-auth.guard';
 import { GeneralModuleComponent } from './dashboard/general-module/general-module.component';
-import { XPModuleComponent } from './dashboard/xp-module/xp-module.component';
+import { LevelingModuleComponent } from './dashboard/leveling-module/leveling-module.component';
 import { MusicModuleComponent } from './dashboard/music-module/music-module.component';
 import { AutoModModuleComponent } from './dashboard/auto-mod-module/auto-mod-module.component';
 import { AnnounceModuleComponent } from './dashboard/announce-module/announce-module.component';
@@ -47,7 +47,7 @@ const routes: Routes = [
   { path: 'servers/:id/commands', component: CommandsModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
   { path: 'servers/:id/general', component: GeneralModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
   { path: 'servers/:id/music', component: MusicModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
-  { path: 'servers/:id/leveling', component: XPModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/leveling', component: LevelingModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
   { path: 'servers/:id/log', component: LogModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
   { path: 'servers/:id/settings', component: SettingsModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
 

@@ -27,7 +27,7 @@ import { GeneralModuleComponent } from './dashboard/general-module/general-modul
 import { MusicModuleComponent } from './dashboard/music-module/music-module.component';
 import { LogModuleComponent } from './dashboard/log-module/log-module.component';
 import { SettingsModuleComponent } from './dashboard/settings-module/settings-module.component';
-import { XPModuleComponent } from './dashboard/xp-module/xp-module.component';
+import { LevelingModuleComponent } from './dashboard/leveling-module/leveling-module.component';
 import { GuildSidebarComponent } from './dashboard/guild-sidebar/guild-sidebar.component';
 import { LeaderboardModuleComponent } from './dashboard/leaderboard-module/leaderboard-module.component';
 import { XPCardComponent } from './xp-card/xp-card.component';
@@ -88,10 +88,10 @@ export class AlertErrorHandler implements ErrorHandler {
     AutoModModuleComponent,
     GeneralModuleComponent,
     MusicModuleComponent,
-    XPModuleComponent,
+    LevelingModuleComponent,
     LogModuleComponent,
     SettingsModuleComponent,
-    XPModuleComponent,
+    LevelingModuleComponent,
     GuildSidebarComponent,
     LeaderboardModuleComponent,
     XPCardComponent,
