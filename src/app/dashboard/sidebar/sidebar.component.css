@@ -49,7 +49,8 @@ button {
 }
 
 .options {
-    background-color: var(--background-primary) !important;
+    background-color: var(--background-secondary) !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 
     width: 300px;
     height: inherit;
@@ -59,6 +60,12 @@ button {
     visibility: visible;
 
     margin: 50px 0 0 15px;
+}
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .toggle {
+        visibility: hidden;
+    }
 }
 
 mat-sidenav {
@@ -74,13 +81,6 @@ mat-sidenav {
 
 .invite:hover {
     background-color: var(--tertiary);    
-}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    .toggle {
-        visibility: hidden;
-    }
 }
 
 .cdk-drag-animating {
