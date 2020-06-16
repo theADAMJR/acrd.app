@@ -1,7 +1,7 @@
 # 2PG Dashboard
 Dashboard to customize 2PG; made with TypeScript + Angular 9 -> https://2pg.xyz
 
-**Used by**: [3PG](https://3pg.xyz)
+**Used by**: [2PG](https://2pg.xyz), [3PG](https://3pg.xyz)
 
 ![Guild Dashboard](https://2pg.xyz/assets/docs/img/dashboard-v0.1.0b.png)
 
