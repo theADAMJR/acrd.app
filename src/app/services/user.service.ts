@@ -12,7 +12,9 @@ export class UserService {
   get user() { return this._user; }
 
   private _savedUser: any;
-  get savedUser() { return this._savedUser; }
+  get savedUser() {
+    return this._savedUser;
+  }
 
   get xpCardPreviewURL() {
     return `${this.endpoint}/xp-card-preview?key=${this.key}`;

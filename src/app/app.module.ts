@@ -55,7 +55,7 @@ import { DurationStringPipe } from './pipes/duration-string.pipe';
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
     try {
-      alert(error?.rejection?.error ?? error?.message ?? error);
+      console.log(error?.rejection?.error ?? error?.message ?? error);
 
       const key = localStorage.getItem('key');
       await fetch(`${environment.endpoint}/error?key=${key}`, {
