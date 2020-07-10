@@ -3,7 +3,7 @@
     padding-bottom: 15px;
 }
 button, .text {
-    color: var(--font) !important;    
+    color: var(--heading);    
 }
 #save {
     margin-left: 5px;

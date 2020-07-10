@@ -3,10 +3,6 @@ h4 {
     cursor: pointer;
 }
 
-a {
-    margin-left: 25px;
-}
-
 img {
     padding: 0;
     background: var(--background-tertiary);

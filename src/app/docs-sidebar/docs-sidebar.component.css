@@ -1,14 +1,9 @@
 mat-sidenav {
-    background-color: var(--background-primary);
+    background-color: var(--background-secondary) !important;
 }
 
 [opened] {
     width: 300px;
-}
-
-a {
-    margin: 0 25px;
-    padding: 0;
 }
 
 img {
@@ -17,14 +12,6 @@ img {
 
 i {
     padding-right: 5px;
-}
-
-.category {
-    text-transform: uppercase;
-    font-weight: bold;
-    margin: 15px 0 0 15px;
-
-    color: var(--secondary);
 }
 
 .toggle {

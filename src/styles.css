@@ -1,14 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import '~font-awesome/css/font-awesome.min.css';
 @import '~highlight.js/styles/vs2015.css';
 @import '~chart.js/dist/Chart.min.css';
 
 body, mat-sidenav-content {
     color: var(--font);
-    background: black;
-    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%) !important;
     
     overflow-x: hidden !important;
 }
@@ -146,6 +143,36 @@ mat-paginator {
 /* sidebar */
 
 .mat-drawer-side, .mat-drawer-container {
-    background-color: var(--background-primary) !important;
+    background-color: transparent !important;
     border: none !important;
+}
+
+mat-sidenav a {
+    margin: 2px 10px;
+    padding: 5px;
+    padding-left: 10px !important;
+
+    border-radius: 5px;
+}
+mat-sidenav a.active {
+    background-color: var(--background-primary) !important;
+}
+mat-sidenav a:hover {
+    color: var(--heading);
+    background-color: var(--background-primary) !important;
+}
+
+.category {
+    padding: 24px 0 4px 20px;
+
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    color: var(--muted);
+}
+.category:hover {
+    color: var(--heading);
+    
+    cursor: pointer;
 }

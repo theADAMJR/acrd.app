@@ -2,8 +2,8 @@
     border-radius: 50%;
 
     margin: 5px;
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
 
     background-color: var(--background-primary);
     transition: all .35s;
@@ -18,17 +18,17 @@
 .guild-icon span {
     text-align: center;
 
-    font-size: 20px;
+    font-size: 18px;
 
-    width: 64px;
+    width: 52px;
     height: 48px;
-    padding-top: 16px;
+    padding-top: 14px;
 
     transition: all .35s;
 }
 
 .guild-icon img {
-    max-width: 64px;
+    max-width: 52px;
     border-radius: 50%;
 
     transition: all .35s;
@@ -46,14 +46,17 @@ button {
     background-color: var(--background-tertiary);
     float: left;
     height: inherit;
+    padding-top: 12px;
 }
 
 .options {
     background-color: var(--background-secondary) !important;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 
-    width: 300px;
+    width: 275px;
     height: inherit;
+
+    margin-left: 75px;
 }
 
 .toggle {
@@ -75,18 +78,18 @@ mat-sidenav {
 
 .guild-icon .add-guild {
     font-size: 40px;
-    padding-left: 18px;
-    padding-top: 0px;
+
+    color: var(--secondary);
 }
 
 .invite:hover {
-    background-color: var(--tertiary);    
+    background-color: var(--tertiary);
 }
 
-.cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
+.guild-seperator {
+    height: 2px;
+    width: 32px;
+    border-radius: 1px;
 
-.cdk-drag {
-  border-radius: 50%;
+    border-color: var(--background-secondary);
 }

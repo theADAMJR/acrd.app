@@ -6,11 +6,13 @@
 @include mat-core();
 
 :root {
+    --heading: #FFFFFF;
     --font: #F4F2F3;
     --plus: green;
 
     --danger: darkred;
     --muted: grey;
+    --interactive-muted: #4f545c;
 
     --primary: #46828D;
     --secondary: #276C8A;
@@ -19,6 +21,24 @@
     --background-primary: #15244B;
     --background-secondary: #0a193a;
     --background-tertiary: #081536;
+}
+:root[theme=IONIC] body {    
+    background: black;
+    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%) !important;
+}
+
+:root[theme=DISCORD] {
+    --font: #99AAB5;
+
+    --danger: #B00000;
+    --muted: grey;
+    
+    --background-primary: #36393F;
+    --background-secondary: #2F3136;
+    --background-tertiary: #202225;
+}
+:root[theme=DISCORD] body { 
+    background-color: var(--background-primary) !important;
 }
 
 $primary-palette: (
@@ -95,9 +115,49 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
 
 @include angular-material-theme($theme);
 
-// css styles
+// utils
+
+.color-heading {
+    color: var(--heading) !important;
+}
+
+.color-primary {
+    color: var(--primary) !important;
+}
+
+.interactive-muted {
+    color: var(--interactive-muted) !important;    
+}
+
+// global
+
+h1,h2,h3,h4,h5 {
+    color: var(--heading) !important;
+}
+
+// other
 
 .mat-success {
     background-color: green;
     color: #fff;
 }
+.mat-select-panel, .mat-chip.mat-standard-chip {
+    background-color: var(--background-secondary);
+}
+
+// TODO: move to overrides.css, and import
+// overrides
+
+.color-picker {
+    background: var(--background-tertiary) !important;
+    border: none !important;
+}
+
+.color-picker input {
+    background: var(--background-secondary) !important;
+    color: var(--font) !important;
+    border: none !important;
+}
+
+// colours:
+// 4A3050 (bg-primary), 4D426C, 4C429C (primary), 493A77, 372224

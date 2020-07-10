@@ -1,7 +1,8 @@
 <navbar></navbar>
 <div class="container">
     <div class="jumbotron">
-        <img [src]="guild.iconURL" alt="{{ guild.name }} Leaderboard"
+        <img *ngIf="guild.iconURL"
+            [src]="guild.iconURL" alt="{{ guild.name }} Leaderboard"
             class="guild-icon">
         <h1 class="display-3">{{ guild.name }}</h1>
         <hr>

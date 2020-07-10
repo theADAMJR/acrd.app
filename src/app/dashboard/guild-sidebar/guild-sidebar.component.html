@@ -1,46 +1,66 @@
-<sidebar *ngIf="guild">
-    <div class="side-nav navbar-dark">
+<sidebar>
+    <div *ngIf="guild" class="side-nav navbar-dark">
         <div class="header">
-            <img *ngIf="guild.iconURL"
-                [src]="guild.iconURL" [alt]="guild.name">
-            <span *ngIf="!guild.iconURL">{{ guild.nameAcronym }}</span>
-            <h4 [routerLink]="['/servers/' + guild.id]">{{ guild.name }}</h4>
+            <div class="d-flex justify-content-center">
+                <img *ngIf="guild.iconURL"
+                    [src]="guild.iconURL" [alt]="guild.name">
+                <div *ngIf="!guild.iconURL"
+                    class="alt-name d-flex flex-column justify-content-center">
+                    <span>{{ guild.nameAcronym }}</span>
+                </div>
+            </div>
+            <h4 [routerLink]="['/servers/' + id]">{{ guild.name }}</h4>
         </div>
-            <hr>
-            <div class="navbar-nav">
-                <a [routerLink]="['/servers/' + guild.id + '/announce']" routerLinkActive="active"
+            <div class="category">Config</div>
+            <div *ngIf="guild && savedGuild"
+                class="navbar-nav">
+                <a [routerLink]="['/servers/' + id + '/announce']" routerLinkActive="active"
+                    [class.interactive-muted]="!savedGuild.announce.enabled"
+                    class="nav-item nav-link">                    
+                    <i class="text-muted fas fa-bullhorn"></i> Announce</a>
+
+                <a [routerLink]="['/servers/' + id + '/auto-mod']" routerLinkActive="active"
+                    [class.interactive-muted]="!savedGuild.autoMod.enabled"
                     class="nav-item nav-link">
-                    <i class="fa fa-bullhorn"></i> Announce</a>
-                <a [routerLink]="['/servers/' + guild.id + '/auto-mod']" routerLinkActive="active"
+                    <i class="text-muted fas fa-gavel"></i> Auto-mod</a>
+
+                <a [routerLink]="['/servers/' + id + '/commands']" routerLinkActive="active"
+                    [class.interactive-muted]="!savedGuild.commands.enabled"
                     class="nav-item nav-link">
-                    <i class="fa fa-gavel"></i> Auto-mod</a>
-                <a [routerLink]="['/servers/' + guild.id + '/commands']" routerLinkActive="active"
+                    <i class="text-muted fas fa-code"></i> Commands</a>
+
+                <a [routerLink]="['/servers/' + id + '/general']" routerLinkActive="active"
+                    [class.interactive-muted]="!savedGuild.general.enabled"
                     class="nav-item nav-link">
-                    <i class="fa fa-code"></i> Commands</a>
-                <a [routerLink]="['/servers/' + guild.id + '/general']" routerLinkActive="active"
+                    <i class="text-muted fas fa-terminal"></i> General</a>
+
+                <a [routerLink]="['/servers/' + id + '/leveling']" routerLinkActive="active"
+                    [class.interactive-muted]="!savedGuild.leveling.enabled"
                     class="nav-item nav-link">
-                    <i class="fa fa-terminal"></i> General</a>
-                <a [routerLink]="['/servers/' + guild.id + '/leveling']" routerLinkActive="active"
+                    <i class="text-muted fas fa-star"></i> Leveling</a>
+
+                <a [routerLink]="['/servers/' + id + '/music']" routerLinkActive="active"
+                    [class.interactive-muted]="!savedGuild.music.enabled"
                     class="nav-item nav-link">
-                    <i class="fa fa-star"></i> Leveling</a>
-                <a [routerLink]="['/servers/' + guild.id + '/music']" routerLinkActive="active"
-                    class="nav-item nav-link">
-                    <i class="fa fa-music"></i> Music</a>
+                    <i class="text-muted fas fa-music"></i> Music</a>
             </div>
-            <hr>
+
+            <div class="category">More</div>
             <div class="navbar-nav">
-                <a [routerLink]="['/leaderboard/' + guild.id]" routerLinkActive="active"
+                <a [routerLink]="['/leaderboard/' + id]" routerLinkActive="active"
                     class="nav-item nav-link">
-                    <i class="fa fa-trophy"></i> Leaderboard</a>
-                <a [routerLink]="['/servers/' + guild.id + '/log']" routerLinkActive="active"
+                    <i class="fas fa-trophy"></i> Leaderboard</a>
+                <a [routerLink]="['/servers/' + id + '/log']" routerLinkActive="active"
                     class="nav-item nav-link">
-                    <i class="fa fa-file-text"></i> Log</a>
+                    <i class="fas fa-file-alt"></i> Log</a>
             </div>
-            <hr>
+
+            <div class="category">Other</div>
             <div class="navbar-nav">
-                <a [routerLink]="['/servers/' + guild.id + '/settings']" routerLinkActive="active"
+                <a [routerLink]="['/servers/' + id + '/settings']" routerLinkActive="active"
                     class="nav-item nav-link">
-                    <i class="fa fa-cog"></i> Settings</a>
+                    <i class="fa fa-cog"></i> Settings
+                </a>
             </div>
         </div>
     <div id="content">
