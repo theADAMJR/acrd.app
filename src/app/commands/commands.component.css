@@ -11,3 +11,8 @@ li.active {
     background-color: var(--primary) !important;
     border: none;
 }
+
+#searchButton {
+    margin-left: 5px;
+    height: 64px;
+}

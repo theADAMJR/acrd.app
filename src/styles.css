@@ -102,6 +102,11 @@ customize-xp-card .mat-form-field-infix {
     width: inherit !important;
 }
 
+/* overrides */
+code {
+    color: var(--secondary) !important;
+}
+
 /* tables */
 
 thead {

@@ -26,15 +26,14 @@ export class CommandsComponent implements OnInit {
     this.commands = this.displayedCommands = this.service.commands;
 
     document.title = '2PG - Commands';
+
+    this.setModule('autoMod');
   }
 
   setModule(name: string) {
     this.selectedModule = name;
     this.displayedCommands = this.commands
-      .filter(c => kebabToCamelCase(c.module) === name);
-      
-    console.log(kebabToCamelCase('Auto-mod'));
-    
+      .filter(c => kebabToCamelCase(c.module) === name);    
   }
 
   search(query: string) {

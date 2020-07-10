@@ -1,16 +1,20 @@
 <navbar></navbar>
-<header class="container jumbotron text-center">
+<header class="container jumbotron text-center pb-2">
   <h1 class="display-3">Commands</h1>
   <p class="lead">View a list of 2PG's Discord chat commands</p>
 </header>
 <section class="container px-lg-5">
-  <mat-form-field
-    class="d-flex justify-content-center" appearance="outline">
-    <mat-label>Search</mat-label>
-    <input (keyup.enter)="search(searchInput.value)"
-      placeholder="ping"
-      matInput #searchInput>
-  </mat-form-field>
+  <div class="d-flex justify-content-center">
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input (keyup.enter)="search(searchInput.value)"
+        placeholder="ping"
+        matInput #searchInput>
+    </mat-form-field>
+    <button id="searchButton"
+      (click)="search(searchInput.value)" 
+      mat-button><i class="fas fa-search"></i></button>
+  </div>
 
   <div class="row">
     <div class="col-sm-3">
@@ -31,10 +35,13 @@
           class="my-1 rounded cursor-pointer"
           [class]="command.module">
           <zippy [title]="command.name">
-            {{ command.description }}
+            <p class="m-0"><strong>Usage</strong>: <code>{{ command.usage }}</code></p>
+            <p class="m-0"><strong>Summary</strong>: {{ command.summary }}</p>
           </zippy>
         </li>
       </ul>
+      <div *ngIf="displayedCommands.length <= 0"
+        class="pl-5">No commands found... <i class="fas fa-sad-cry"></i></div>
     </div>
   </div>
 </section>
