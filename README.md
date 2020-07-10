@@ -12,7 +12,7 @@ Dashboard to customize 2PG; made with TypeScript + Angular 9 -> https://2pg.xyz
 Make sure you have redirects set to the /auth link you will be using.
 This will be used in the final step of the OAuth2 login.
   
-![Redirects](https://i.ibb.co/5TC6Yn3/redirects.png)
+![Redirects](https://i.ibb.co/hyBCj9D/2pg-redirect.png)
 
 ---
 
