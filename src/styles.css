@@ -25,10 +25,6 @@ table {
     width: 100%;
 }
 
-.rounded {
-    border-radius: 5px !important;
-}
-
 .side-nav img {
     background-color: var(--background-tertiary);
 
@@ -83,7 +79,6 @@ a {
 [premium] ~ span > label {
     color: var(--plus) !important;
 }
-
 [premium] ~ span > label::before {
     content: "+ ";
 }
@@ -107,18 +102,17 @@ customize-xp-card .mat-form-field-infix {
     width: inherit !important;
 }
 
+/* tables */
+
 thead {
     background-color: var(--background-tertiary) !important;
 }
-
 table tbody tr {
     background-color: var(--background-primary) !important;
 }
-
 table tbody tr:nth-child(even) {
     background-color: var(--background-secondary) !important;
 }
-
 .table td, .table th {    
     border: none !important;
 }

@@ -27,7 +27,8 @@
               "src/styles.css",
               "src/theme.scss",
               "src/assets/css/animations.css",
-              "src/assets/css/nav-icon.css"
+              "src/assets/css/nav-icon.css",
+              "src/assets/css/utils.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

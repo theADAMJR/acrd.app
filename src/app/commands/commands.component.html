@@ -1,30 +1,40 @@
 <navbar></navbar>
-<header class="jumbotron text-center">
+<header class="container jumbotron text-center">
   <h1 class="display-3">Commands</h1>
-  <p class="lead">2PG's commands</p>
+  <p class="lead">View a list of 2PG's Discord chat commands</p>
 </header>
 <section class="container px-lg-5">
   <mat-form-field
     class="d-flex justify-content-center" appearance="outline">
     <mat-label>Search</mat-label>
-    <input (keyup)="search(search.value)"
+    <input (keyup.enter)="search(searchInput.value)"
       placeholder="ping"
-      matInput #search>
-
-      <div class="row">
-        <div class="col-sm-3"></div>
-          <ul class="list-group categories"></ul>
-              <li *ngFor="let mod of modules"
-                (click)="setCategory(mod.name)"
-                class="list-group-item my-1 border border-light rounded cursor-pointer"></li>
-                <i class="fas mr-1"
-                  [class]="mod.icon"></i>
-                <span>{{ mod.name | camelToSentenceCase }}</span>
-        <div class="col-sm-9"></div>
-          <ul class="list-group commands"></ul>
-              <li *ngFor="let commands of commands"
-                class="list-group-item my-1 border border-light rounded cursor-pointer"
-                [class]="command.module">{{ command.name }}</li>
-      </div>
+      matInput #searchInput>
   </mat-form-field>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <ul class="list-group categories">
+        <li *ngFor="let mod of modules"
+          (click)="setModule(mod.name)"
+          class="list-group-item my-1 rounded cursor-pointer"
+          [class.active]="mod.name === selectedModule">
+          <i class="fas mr-1"
+            [class]="mod.icon"></i>
+          <span>{{ mod.name | camelToSentenceCase }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-9">
+      <ul class="list-none commands">
+        <li *ngFor="let command of displayedCommands"
+          class="my-1 rounded cursor-pointer"
+          [class]="command.module">
+          <zippy [title]="command.name">
+            {{ command.description }}
+          </zippy>
+        </li>
+      </ul>
+    </div>
+  </div>
 </section>

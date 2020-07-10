@@ -51,6 +51,7 @@ import { environment } from 'src/environments/environment';
 import { SnakeToSentenceCasePipe } from './pipes/snake-to-sentence-case.pipe';
 import { TruncatedPipe } from './pipes/truncated.pipe';
 import { DurationStringPipe } from './pipes/duration-string.pipe';
+import { CamelToSentenceCasePipe } from './pipes/camel-to-sentence-case.pipe';
 
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
@@ -112,7 +113,8 @@ export class AlertErrorHandler implements ErrorHandler {
     MiniDatePipe,
     SnakeToSentenceCasePipe,
     TruncatedPipe,
-    DurationStringPipe
+    DurationStringPipe,
+    CamelToSentenceCasePipe
   ],
   imports: [
     AppRoutingModule,

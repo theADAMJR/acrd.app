@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandsService } from '../services/commands.service';
-import $ from 'jquery';
+import { sentenceToCamelCase, kebabToCamelCase } from '../utils';
 
 @Component({
   selector: 'app-commands',
@@ -9,30 +9,40 @@ import $ from 'jquery';
 })
 export class CommandsComponent implements OnInit {
   commands = [];
+  displayedCommands = [];
+  modules = [
+    { name: 'autoMod', icon: 'fa-gavel' },
+    { name: 'leveling', icon: 'fa-trophy' },
+    { name: 'general', icon: 'fa-star' },
+    { name: 'music', icon: 'fa-music' }
+  ];
+  selectedModule = '';
 
   constructor(private service: CommandsService) {}
 
-  async ngOnInit() { 
-    this.commands = this.service.commands;
+  async ngOnInit() {
+    await this.service.init();
+
+    this.commands = this.displayedCommands = this.service.commands;
 
     document.title = '2PG - Commands';
-
-    this.initCommands();
   }
 
-  initCommands() {
-    $('.categories li').on('click', function() {
-      $('.categories li').removeClass('active');
-      $(this).addClass('active');
-    });
-
-    this.setCategory('autoMod');
+  setModule(name: string) {
+    this.selectedModule = name;
+    this.displayedCommands = this.commands
+      .filter(c => kebabToCamelCase(c.module) === name);
+      
+    console.log(kebabToCamelCase('Auto-mod'));
+    
   }
 
-  setCategory(name: string) {
-    $('.commands li').attr('hidden', '');
-    $(`.commands .${name}`).removeAttr('hidden');
+  search(query: string) {
+    const empty = query.trim().length <= 0;
+    if (empty)
+      return this.setModule(this.modules[0].name);
 
-    $(`.commands .${name}`).addClass('active');
+    this.displayedCommands = this.service.search(query);
+    this.selectedModule = '';
   }
 }

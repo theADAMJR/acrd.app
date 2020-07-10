@@ -1,0 +1,33 @@
+.text-center {
+    text-align: center;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+/* border radius */
+.rounded {
+    border-radius: 5px !important;
+}
+
+.rounded-lg {
+    border-radius: 25px !important;
+}
+
+/* lists */
+.list-none {
+    list-style-type: none !important;
+    list-style: none !important;
+}
+
+/* shadow */
+.shadow	{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+.shadow-inner {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+.cursor-pointer {
+    cursor: pointer;
+}
