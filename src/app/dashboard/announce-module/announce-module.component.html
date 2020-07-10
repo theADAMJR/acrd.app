@@ -9,13 +9,12 @@
             <hr>
             <h3>Events</h3>
             <p class="desc">Send messages to a channel when the event is triggered</p>
-            <hr>
             <div formArrayName="events" class="row">
                 <div *ngFor="let event of events; index as i" class="col-lg-6 col-sm-12">
                     <div [formGroupName]="i" class="event">
                         <input type="hidden" formControlName="event">
                         <span class="d-flex justify-content-between">
-                            <strong>{{ EventType[i] }}</strong>
+                            <strong>{{ EventType[i] | camelToSentenceCase }}</strong>
                             <mat-slide-toggle formControlName="enabled"></mat-slide-toggle>
                         </span>
                         <hr>

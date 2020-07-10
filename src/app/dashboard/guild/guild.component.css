@@ -7,7 +7,7 @@
 }
 
 .stats {
-    background-color: var(--tertiary);
+    background-color: var(--secondary);
     border-radius: 3px;
     margin: 15px;
     padding: 25px;
