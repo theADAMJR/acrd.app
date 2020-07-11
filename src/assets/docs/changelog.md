@@ -6,7 +6,7 @@
 
 ---
 
-<!-- ![v0.1.2b Dashboard](assets/docs/img/dashboard-v0.1.2.png) -->
+![v0.2.0b Dashboard](assets/docs/img/dashboard-v0.2.0.png)
 
 ### v0.2.0b
 `11/07/2020`
@@ -14,11 +14,11 @@
 **Add**
 - themes -> 2PG ionic theme -> it sounds cool
 - themes -> Discord theme -> everything looks much more modern
-- guild -> administrator permission indicator
 - dashboard -> theme selector
+- docs -> better documentation for modules
 
 **Change**
-- 
+- guild -> implement administrator permission indicator
 
 ---
 
