@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from '../../services/guild.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-guild',
@@ -10,18 +11,22 @@ import { GuildService } from '../../services/guild.service';
 export class GuildComponent implements OnInit {
   commands: any[]
   botNeedsPerms = false;
-
-  get guild() {
-    const id = this.route.snapshot.paramMap.get('id');    
-    return this.guildService.getGuild(id);
-  }
+  guild: any;
 
   constructor(
     private guildService: GuildService,
     private route: ActivatedRoute) {}
 
   async ngOnInit() {
-    const { commands } = await this.guildService.getSavedLog(this.guild.id);
-    this.commands = commands;
+    this.route.paramMap.subscribe(async(paramMap) => {
+      const id = paramMap.get('id');
+      this.guild = this.guildService.getGuild(id);
+
+      const { commands } = await this.guildService.getSavedLog(this.guild.id);
+      this.commands = commands;
+
+      const { hasAdmin } = await this.guildService.getBotStatus(id);
+      this.botNeedsPerms = !hasAdmin;
+    });
   }
 }

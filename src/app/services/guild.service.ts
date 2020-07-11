@@ -55,4 +55,8 @@ export class GuildService {
   getRoles(id: string): Promise<any> {
     return this.http.get(`${this.endpoint}/${id}/roles`).toPromise();
   }
+
+  getBotStatus(id: string): Promise<any> {
+    return this.http.get(`${this.endpoint}/${id}/bot-status`).toPromise();
+  }
 }
