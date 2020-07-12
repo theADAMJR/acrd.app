@@ -3,7 +3,7 @@ Dashboard to customize 2PG; made with TypeScript + Angular 9 -> https://2pg.xyz
 
 **Used by**: [2PG](https://2pg.xyz), [3PG](https://3pg.xyz), [DBots](https://dbots.co)
 
-![Guild Dashboard](https://2pg.xyz/assets/docs/img/dashboard-v0.1.0b.png)
+![Guild Dashboard](https://2pg.xyz/assets/docs/img/dashboard-v0.2.0b.png)
 
 ## Prerequisites
 - Know how to use JavaScript, TypeScript, and Angular 9
