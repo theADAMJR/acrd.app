@@ -24,9 +24,13 @@ export class SidebarComponent implements OnInit {
       await this.guildService.updateGuilds();
   }
 
-  toggle(el: HTMLElement) {
-    const icon = (el.tagName !== 'DIV') ? el.parentElement : el;
+  toggle() {
+    const icon = document.querySelector('#nav-icon1');
     icon.classList.toggle('open');
     this.drawer.toggle();
+  }
+
+  identify(index, guild){
+    return guild.id; 
   }
 }

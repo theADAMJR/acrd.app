@@ -23,13 +23,15 @@
         </div>
         <div class="options">
             <ng-content select=".side-nav"></ng-content>
+            <span (click)="toggle()"
+                class="float-right d-sm-none d-block close">&times;</span>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <navbar></navbar>
         <button class="toggle">
             <div id="nav-icon1" class="open"
-                (click)="toggle($event.target)">
+                (click)="toggle()">
                 <span></span>
                 <span></span>
                 <span></span>

@@ -15,9 +15,7 @@
 
                 <ng-container matColumnDef="number">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
-                    <td mat-cell *matCellDef="let row; index as i">
-                        {{ changes.length - i }}
-                    </td>
+                    <td mat-cell *matCellDef="let row; index as i">{{ changes.length - i }}</td>
                 </ng-container>
             
                 <ng-container matColumnDef="by">

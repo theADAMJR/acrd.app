@@ -22,7 +22,6 @@ export class LogModuleComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private guildService: GuildService,
     private service: GuildService) {}
 
   async ngOnInit() { 

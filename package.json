@@ -35,6 +35,7 @@
     "font-awesome": "^4.7.0",
     "fuse.js": "^6.4.0",
     "highlight.js": "^9.18.1",
+    "jquery": "^3.5.1",
     "marked": "^0.8.2",
     "ng2-charts": "^2.3.0",
     "ngx-color-picker": "^9.0.0",
@@ -48,7 +49,6 @@
     "@angular/cli": "^9.1.7",
     "@angular/compiler-cli": "~9.1.9",
     "@angular/language-service": "~9.1.9",
-    "@nguniversal/builders": "^9.0.2",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/marked": "^0.7.4",
@@ -62,7 +62,7 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "protractor": "~5.4.3",
+    "protractor": "^7.0.0",
     "tslint": "~5.18.0"
   }
 }

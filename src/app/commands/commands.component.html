@@ -32,7 +32,7 @@
     <div class="col-sm-9">
       <ul class="list-none commands">
         <li *ngFor="let command of displayedCommands"
-          class="my-1 rounded cursor-pointer"
+          class="my-1 rounded"
           [class]="command.module">
           <zippy [title]="command.name">
             <p class="m-0"><strong>Usage</strong>: <code>{{ command.usage }}</code></p>
