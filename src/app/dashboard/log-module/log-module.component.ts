@@ -22,12 +22,12 @@ export class LogModuleComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private service: GuildService) {}
+    private guildService: GuildService) {}
 
   async ngOnInit() { 
     const id = this.route.snapshot.paramMap.get('id');
 
-    const log = await this.service.getSavedLog(id);
+    const log = await this.guildService.getSavedLog(id);
     this.changes = log.changes.reverse();
 
     this.members = await this.guildService.getMembers(id);

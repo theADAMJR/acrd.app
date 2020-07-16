@@ -185,3 +185,8 @@ mat-sidenav a:hover {
     
     cursor: pointer;
 }
+
+/* inputs */
+.mat-option {
+    height: inherit !important;
+}

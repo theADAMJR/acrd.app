@@ -5,7 +5,15 @@
 
 @include mat-core();
 
-:root {
+body {    
+    background: black;
+    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%) !important;
+}
+:root[theme=DISCORD] body { 
+    background-color: var(--background-primary) !important;
+}
+
+:root, :root[theme=IONIC] {
     --heading: #FFFFFF;
     --font: #F4F2F3;
     --plus: green;
@@ -22,23 +30,35 @@
     --background-secondary: #0a193a;
     --background-tertiary: #081536;
 }
-:root[theme=IONIC] body {    
-    background: black;
-    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%) !important;
-}
+:root[theme=CHOCOLATE] {
+    --heading: #FFFFFF;
+    --font: #FFFFFF;
 
+    --primary: #482F5D;
+    --secondary: #45377C;
+    --tertiary: #351F20;
+
+    --background-primary: #372224;
+    --background-secondary: #2c1518;
+    --background-tertiary: #251113;
+}
 :root[theme=DISCORD] {
     --font: #99AAB5;
-
-    --danger: #B00000;
-    --muted: grey;
     
     --background-primary: #36393F;
     --background-secondary: #2F3136;
     --background-tertiary: #202225;
 }
-:root[theme=DISCORD] body { 
-    background-color: var(--background-primary) !important;
+:root[theme=TWILIGHT] {
+    --font: #E3E7EA;
+
+    --primary: #757A89;
+    --secondary: #78839B;
+    --tertiary: #838B84;
+
+    --background-primary: #171F2C;
+    --background-secondary: #111720;
+    --background-tertiary: #10151d;
 }
 
 $primary-palette: (

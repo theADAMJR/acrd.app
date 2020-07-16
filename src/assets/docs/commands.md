@@ -11,6 +11,8 @@ When a command is in cooldown, its execution is ignored.
 ## Configs
 Customize existing commands, to your own preferences.
 
+---
+
 ### Name
 The name of the command.
 

@@ -44,7 +44,6 @@ export class MusicService {
 
     if (this.list.length === 1) {
       this._paused = false;
-      this._current = 0;
 
       clearInterval(this.refreshList);
       this.refreshList = window.setInterval(() => this.incrementPosition(id), 1 * 1000);
@@ -52,7 +51,7 @@ export class MusicService {
   }
 
   private async incrementPosition(id: string) {
-    if (this.paused) return;
+    if (this.paused || this.list.length <= 0) return;
 
     this._current++;
 

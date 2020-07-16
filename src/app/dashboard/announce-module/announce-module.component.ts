@@ -4,6 +4,8 @@ import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GuildService } from '../../services/guild.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-announce-module',
@@ -15,7 +17,17 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
 
   moduleName = 'announce';
 
-  events = [ EventType.MemberJoin, EventType.MemberLeave, EventType.MessageDeleted ];
+  events = [
+    EventType.Ban,
+    EventType.ConfigUpdate,
+    EventType.LevelUp,
+    EventType.MemberJoin,
+    EventType.MemberLeave,
+    EventType.MessageDeleted,
+    EventType.Unban,
+    EventType.Warn
+  ];
+
   eventConfigs: AnnounceEvent[] = [];
 
   constructor(
@@ -26,7 +38,7 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
   }
 
   async ngOnInit() {
-    await super.init();    
+    await super.init();
 
     this.eventConfigs = this.savedGuild.announce.events;
   }
@@ -43,7 +55,7 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
         event: new FormControl(event),
         enabled: new FormControl(Boolean(config?.channel && config?.message) ?? false),
         channel: new FormControl(config?.channel ?? ''),
-        message: new FormControl(config?.message ?? `\`${EventType[event]}\` was triggered in **[GUILD]**!`, Validators.maxLength(512))
+        message: new FormControl(config?.message ?? `\`${event}\` was triggered in **[GUILD]**!`, Validators.maxLength(512))
       }));     
     }
     return formGroup;
@@ -53,25 +65,33 @@ export class AnnounceModuleComponent extends ModuleConfig implements OnInit {
     return this.eventConfigs.find(e => e.event === eventType);
   }
 
-  async submit() {
-    const value = this.form.value;
-    this.filterFormEvents(value);
-    
-    await this.guildService.saveGuild(this.guildId, this.moduleName, value);
+  async submit() {    
+    await super.submit();
   }
 
-  private filterFormEvents(value: any) {
+  filterFormEvents(value: any) {
     const filteredEvents = [];
-    for (const event of value.events.filter(e => e.enabled)) {
-      const filtered = {...event};
-      delete filtered.enabled;
-      filteredEvents.push(filtered);
+    for (const event of value.events) {
+      const filtered = { ...event };
+      if (filtered.enabled) {        
+        delete filtered.enabled;
+        filteredEvents.push(filtered);
+      }
     }
     value.events = filteredEvents;
   }
 }
 
-export enum EventType { MemberJoin, MemberLeave, MessageDeleted }
+export enum EventType {
+  Ban = 'BAN', 
+  ConfigUpdate = 'CONFIG_UPDATE',
+  LevelUp = 'LEVEL_UP',
+  MessageDeleted = 'MESSAGE_DELETED',
+  MemberJoin = 'MEMBER_JOIN',
+  MemberLeave = 'MEMBER_LEAVE',
+  Unban = 'UNBAN', 
+  Warn ='WARN'
+}
 
 export interface AnnounceEvent {
   event: EventType;

@@ -1,0 +1,28 @@
+<div class="rounded flex-vertical whitney theme-dark">
+    <div class="rounded chat flex-vertical flex-spacer">
+        <div class="rounded content flex-spacer flex-horizontal">
+            <div class="rounded flex-spacer flex-vertical messages-wrapper">
+                <div class="scroller-wrap">
+                    <div class="scroller messages">
+                        <div class="message-group hide-overflow">
+                            <div class="avatar-large animate" [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
+                            <div class="comment">
+                                <div class="message first">
+                                    <h2 style="line-height: 16px;">
+                                        <span class="username-wrapper v-btm">
+                                            <strong class="user-name">{{ member.displayName }}</strong>
+                                            <span class="bot-tag">BOT</span>
+                                        </span>
+                                        <span class="highlight-separator"> - </span>
+                                        <span class="timestamp">{{ timestamp }}</span>
+                                    </h2>
+                                    <div [innerHtml]="processed" class="message-text"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

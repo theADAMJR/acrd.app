@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ThemeService {
-  readonly defaultTheme = 'CHOCOLATE';
+  readonly defaultTheme = 'IONIC';
 
   changeTheme(theme: string) {
     localStorage.setItem('theme', theme);

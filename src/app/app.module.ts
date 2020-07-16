@@ -52,6 +52,7 @@ import { SnakeToSentenceCasePipe } from './pipes/snake-to-sentence-case.pipe';
 import { TruncatedPipe } from './pipes/truncated.pipe';
 import { DurationStringPipe } from './pipes/duration-string.pipe';
 import { CamelToSentenceCasePipe } from './pipes/camel-to-sentence-case.pipe';
+import { MessagePreviewComponent } from './message-preview/message-preview.component';
 
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
@@ -114,7 +115,8 @@ export class AlertErrorHandler implements ErrorHandler {
     SnakeToSentenceCasePipe,
     TruncatedPipe,
     DurationStringPipe,
-    CamelToSentenceCasePipe
+    CamelToSentenceCasePipe,
+    MessagePreviewComponent
   ],
   imports: [
     AppRoutingModule,
