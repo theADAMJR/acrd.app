@@ -53,6 +53,7 @@ import { TruncatedPipe } from './pipes/truncated.pipe';
 import { DurationStringPipe } from './pipes/duration-string.pipe';
 import { CamelToSentenceCasePipe } from './pipes/camel-to-sentence-case.pipe';
 import { MessagePreviewComponent } from './message-preview/message-preview.component';
+import { ReactionRolesModuleComponent } from './dashboard/reaction-roles-module/reaction-roles-module.component';
 
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
@@ -116,7 +117,8 @@ export class AlertErrorHandler implements ErrorHandler {
     TruncatedPipe,
     DurationStringPipe,
     CamelToSentenceCasePipe,
-    MessagePreviewComponent
+    MessagePreviewComponent,
+    ReactionRolesModuleComponent
   ],
   imports: [
     AppRoutingModule,
@@ -133,15 +135,13 @@ export class AlertErrorHandler implements ErrorHandler {
   providers: [
     { provide: ErrorHandler, useClass: AlertErrorHandler },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: { languages: getHighlightLanguages() }
-    }],
+    { provide: HIGHLIGHT_OPTIONS, useValue: { languages: getHighlightLanguages() } }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
 
-export function getHighlightLanguages() {
+function getHighlightLanguages() {
   return {
     json: () => import('highlight.js/lib/languages/json')
   };

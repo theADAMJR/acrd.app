@@ -1,0 +1,67 @@
+<guild-sidebar [waitFor]="savedGuild && reactionRoles && reactionRoleMessages">
+  <div *ngIf="form" class="container">
+      <form #f="ngForm" [formGroup]="form">
+          <div>
+              <div class="d-flex justify-content-between">
+                  <h1 routerLink="/docs/reaction-roles"
+                      class="display-3">Reaction Roles</h1>
+                  <mat-slide-toggle formControlName="enabled"
+                      class="float-right mt-5"></mat-slide-toggle>
+              </div>
+              <hr>
+          </div>
+          <div class="row">
+              <div formArrayName="configs" class="row">
+                  <div *ngFor="let i of reactionRolesIndices"
+                    class="col-lg-6 col-md-12 my-3">
+                    <div [formGroupName]="i"
+                        class="rounded reaction-role">
+                        <mat-form-field appearance="outline" class="p-2">
+                            <mat-label>Channel</mat-label>
+                            <mat-select formControlName="channel">
+                                <mat-option *ngFor="let channel of textChannels" 
+                                    [value]="channel.id">#{{ channel.name }}
+                                    <span class="float-right text-muted">[{{ getChannel(channel.parentID)?.name || 'N/A' }}]</span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- message -->
+                        <mat-form-field appearance="outline" class="p-2">                                
+                            <mat-label>Message ID</mat-label>
+                            <input matInput formControlName="messageId" type="text">
+                        </mat-form-field>
+                        <!-- emote -->
+                        <mat-form-field appearance="outline" class="p-2">
+                            <mat-label>Emote</mat-label>
+                            <input matInput #emote
+                                formControlName="emote" type="text">
+                        </mat-form-field>
+                        <!-- role -->
+                        <mat-form-field appearance="outline" class="p-2">
+                            <mat-label>Role</mat-label>
+                            <mat-select
+                                formControlName="role">
+                                <mat-option *ngFor="let role of roles" 
+                                    [value]="role.id"
+                                    [style.color]="'#' + role.color?.toString(16)">@{{ role.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="px-4">
+                          <div *ngIf="reactionRoleMessages[i]">
+                              <message-preview
+                                  [author]="reactionRoleMessages[i].author"
+                                  [createdAt]="toDate(reactionRoleMessages[i].createdTimestamp)"
+                                  [content]="reactionRoleMessages[i].reactions.message.cleanContent"
+                                  [member]="reactionRoleMessages[i].member"></message-preview>
+                          </div>
+                          <div *ngIf="!reactionRoleMessages[i]">
+                              <message-preview content="Message not found."></message-preview>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
+</guild-sidebar>

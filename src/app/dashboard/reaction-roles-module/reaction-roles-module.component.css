@@ -1,0 +1,11 @@
+.reaction-role {
+  margin: 5px;
+  padding: 25px;
+  float: left;
+  
+  background-color: var(--background-tertiary);
+}
+
+.reaction-role mat-form-field {
+  padding-left: 25px !important;
+}

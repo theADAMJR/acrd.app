@@ -12,8 +12,8 @@ export class CommandsComponent implements OnInit {
   displayedCommands = [];
   modules = [
     { name: 'autoMod', icon: 'fa-gavel' },
-    { name: 'leveling', icon: 'fa-trophy' },
     { name: 'general', icon: 'fa-star' },
+    { name: 'leveling', icon: 'fa-trophy' },
     { name: 'music', icon: 'fa-music' }
   ];
   selectedModule = '';

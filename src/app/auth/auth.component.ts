@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 import { GuildService } from '../services/guild.service';
 import { UserService } from '../services/user.service';
 
@@ -11,17 +10,14 @@ import { UserService } from '../services/user.service';
 })
 export class AuthComponent implements OnInit {
   constructor(
-    private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private guildService: GuildService,
     private userService: UserService) {}
 
   async ngOnInit() {
-    const code = this.route.snapshot.queryParamMap.get('code');
     try {
-      const key = await this.auth.authenticate(code);
-  
+      const key = this.route.snapshot.queryParamMap.get('key');
       localStorage.setItem('key', key);
     
       await this.userService.updateUser();

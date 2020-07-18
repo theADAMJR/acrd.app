@@ -20,29 +20,34 @@
                     <i class="text-muted fas fa-bullhorn"></i> Announce</a>
 
                 <a [routerLink]="['/servers/' + id + '/auto-mod']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.autoMod.enabled"
+                    [class.interactive-muted]="!savedGuild.autoMod?.enabled"
                     class="nav-item nav-link">
                     <i class="text-muted fas fa-gavel"></i> Auto-mod</a>
 
                 <a [routerLink]="['/servers/' + id + '/commands']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.commands.enabled"
+                    [class.interactive-muted]="!savedGuild.commands?.enabled"
                     class="nav-item nav-link">
                     <i class="text-muted fas fa-code"></i> Commands</a>
 
                 <a [routerLink]="['/servers/' + id + '/general']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.general.enabled"
+                    [class.interactive-muted]="!savedGuild.general?.enabled"
                     class="nav-item nav-link">
                     <i class="text-muted fas fa-terminal"></i> General</a>
 
                 <a [routerLink]="['/servers/' + id + '/leveling']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.leveling.enabled"
+                    [class.interactive-muted]="!savedGuild.leveling?.enabled"
                     class="nav-item nav-link">
                     <i class="text-muted fas fa-star"></i> Leveling</a>
 
                 <a [routerLink]="['/servers/' + id + '/music']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.music.enabled"
+                    [class.interactive-muted]="!savedGuild.music?.enabled"
                     class="nav-item nav-link">
                     <i class="text-muted fas fa-music"></i> Music</a>
+
+                <a [routerLink]="['/servers/' + id + '/reaction-roles']" routerLinkActive="active"
+                    [class.interactive-muted]="!savedGuild.reactionRoles?.enabled"
+                    class="nav-item nav-link">
+                    <i class="fas fa-theater-masks"></i> Reaction Roles</a>
             </div>
 
             <div class="category">More</div>
