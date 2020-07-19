@@ -26,6 +26,7 @@ import { PaymentSuccessComponent } from './payment-success/payment-success.compo
 import { PlusComponent } from './plus/plus.component';
 import { DocsComponent } from './docs/docs.component';
 import { CanDeactivateDashboard } from './guards/can-deactivate-dashboard.guard';
+import { ReactionRolesModuleComponent } from './dashboard/reaction-roles-module/reaction-roles-module.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'servers/:id/music', component: MusicModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
   { path: 'servers/:id/leveling', component: LevelingModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
   { path: 'servers/:id/log', component: LogModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
+  { path: 'servers/:id/reaction-roles', component: ReactionRolesModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
   { path: 'servers/:id/settings', component: SettingsModuleComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
 
   { path: 'plus', component: PlusComponent },

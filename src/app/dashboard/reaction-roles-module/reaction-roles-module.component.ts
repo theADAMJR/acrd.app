@@ -25,7 +25,7 @@ export class ReactionRolesModuleComponent extends ModuleConfig implements OnInit
     route: ActivatedRoute,
     public userService: UserService,
     saveChanges: MatSnackBar) {
-    super(guildService, route, userService, saveChanges);
+    super(guildService, route, saveChanges);
   }
 
   async ngOnInit() {

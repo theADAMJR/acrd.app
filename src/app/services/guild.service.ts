@@ -59,4 +59,8 @@ export class GuildService {
   getBotStatus(id: string): Promise<any> {
     return this.http.get(`${this.endpoint}/${id}/bot-status`).toPromise();
   }
+
+  getMessage(id: string, channelId: string, messageId: string): Promise<any> {    
+    return this.http.get(`${this.endpoint}/${id}/channels/${channelId}/messages/${messageId}`).toPromise();
+  }
 }
