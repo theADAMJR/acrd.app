@@ -14,6 +14,7 @@ Make sure you have redirects set to the /auth link you will be using.
 This will be used in the final step of the OAuth2 login.
   
 ![Redirects](https://i.ibb.co/9pbfVwL/updated-redirects.png)
+
 If you change your redirects, **regen your application secret**.
 
 ---
