@@ -9,13 +9,10 @@ Dashboard to customize 2PG; made with TypeScript + Angular 9 -> https://2pg.xyz
 ## Prerequisites
 - Know how to use JavaScript, TypeScript, and Angular 9
 
-## Discord Bot Setup
-Make sure you have redirects set to the /auth link you will be using.
-This will be used in the final step of the OAuth2 login.
+## Redirect URIs
   
 ![Redirects](https://i.ibb.co/hyBCj9D/2pg-redirect.png)
 
----
 
 ## Further Notes
 - **Channels and roles are publically available through the API**

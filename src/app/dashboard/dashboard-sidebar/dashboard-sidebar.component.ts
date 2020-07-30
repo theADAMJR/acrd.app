@@ -17,7 +17,6 @@ export class DashboardSidebarComponent implements OnInit {
   form = new FormGroup({
     theme: new FormControl(localStorage.getItem('theme') ?? this.defaultTheme)
   });
-
   
   get user() { return this.userService.user ?? {}; }
 
@@ -32,5 +31,4 @@ export class DashboardSidebarComponent implements OnInit {
       this.service.changeTheme(
         this.form.get('theme').value));
   }
-
 }

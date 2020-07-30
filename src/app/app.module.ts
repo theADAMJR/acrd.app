@@ -21,7 +21,7 @@ import { GuildComponent } from './dashboard/guild/guild.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HomeComponent } from './home/home.component';
 import { CommandsModuleComponent } from './dashboard/commands-module/commands-module.component';
-import { AnnounceModuleComponent } from './dashboard/announce-module/announce-module.component';
+import { LogsModuleComponent } from './dashboard/announce-module/announce-module.component';
 import { AutoModModuleComponent } from './dashboard/auto-mod-module/auto-mod-module.component';
 import { GeneralModuleComponent } from './dashboard/general-module/general-module.component';
 import { MusicModuleComponent } from './dashboard/music-module/music-module.component';
@@ -87,12 +87,10 @@ export class AlertErrorHandler implements ErrorHandler {
     GuildComponent,
     SpinnerComponent,
     CommandsModuleComponent,
-    AnnounceModuleComponent,
     AutoModModuleComponent,
     GeneralModuleComponent,
     MusicModuleComponent,
     LevelingModuleComponent,
-    LogModuleComponent,
     SettingsModuleComponent,
     LevelingModuleComponent,
     GuildSidebarComponent,
@@ -118,6 +116,8 @@ export class AlertErrorHandler implements ErrorHandler {
     DurationStringPipe,
     CamelToSentenceCasePipe,
     MessagePreviewComponent,
+    LogModuleComponent,
+    LogsModuleComponent,
     ReactionRolesModuleComponent
   ],
   imports: [

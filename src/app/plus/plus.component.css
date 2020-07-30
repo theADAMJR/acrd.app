@@ -15,3 +15,7 @@
 zippy {
     margin: 15px 0;
 }
+
+.plus {
+    max-width: 128px;
+}

@@ -14,11 +14,6 @@
             <div class="category">Config</div>
             <div *ngIf="guild && savedGuild"
                 class="navbar-nav">
-                <a [routerLink]="['/servers/' + id + '/announce']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.announce.enabled"
-                    class="nav-item nav-link">                    
-                    <i class="text-muted fas fa-bullhorn"></i> Announce</a>
-
                 <a [routerLink]="['/servers/' + id + '/auto-mod']" routerLinkActive="active"
                     [class.interactive-muted]="!savedGuild.autoMod?.enabled"
                     class="nav-item nav-link">
@@ -38,6 +33,11 @@
                     [class.interactive-muted]="!savedGuild.leveling?.enabled"
                     class="nav-item nav-link">
                     <i class="text-muted fas fa-star"></i> Leveling</a>
+
+                <a [routerLink]="['/servers/' + id + '/logs']" routerLinkActive="active"
+                    [class.interactive-muted]="!savedGuild.logs?.enabled"
+                    class="nav-item nav-link">                    
+                    <i class="fas fa-clone"></i> Logs</a>
 
                 <a [routerLink]="['/servers/' + id + '/music']" routerLinkActive="active"
                     [class.interactive-muted]="!savedGuild.music?.enabled"

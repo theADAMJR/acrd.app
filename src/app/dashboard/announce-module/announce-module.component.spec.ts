@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnnounceModuleComponent, AnnounceEvent, EventType } from './announce-module.component';
+import { LogsModuleComponent, AnnounceEvent, EventType } from './announce-module.component';
 import { By } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -10,12 +10,12 @@ import { ReactiveFormsModule, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
 describe('AnnounceModuleComponent', () => {
-  let component: AnnounceModuleComponent;
-  let fixture: ComponentFixture<AnnounceModuleComponent>;
+  let component: LogsModuleComponent;
+  let fixture: ComponentFixture<LogsModuleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnnounceModuleComponent ],
+      declarations: [ LogsModuleComponent ],
       imports: [ 
         HttpClientModule,
         MatSnackBarModule, 
@@ -27,7 +27,7 @@ describe('AnnounceModuleComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AnnounceModuleComponent);
+    fixture = TestBed.createComponent(LogsModuleComponent);
     component = fixture.componentInstance;
     component.guildId = environment.test.guildId;
     fixture.detectChanges();
@@ -56,7 +56,7 @@ describe('AnnounceModuleComponent', () => {
   });
 
   it('submitting removes enabled property', () => {
-    component = new AnnounceModuleComponent({} as any, {} as any, {} as any);
+    component = new LogsModuleComponent({} as any, {} as any, {} as any);
     const events = [
     {
       event: EventType.MemberJoin,

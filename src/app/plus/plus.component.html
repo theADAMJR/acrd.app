@@ -36,6 +36,8 @@
             </div>
         </div>
     </section>
+
+    <img class="plus" src="assets/img/2pg-plus-avatar-transparent.jpg" alt="">
     
     <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
         <button *ngIf="userService.user && userService.savedUser?.premium" (click)="checkout()"
