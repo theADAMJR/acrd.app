@@ -6,6 +6,21 @@
 
 ---
 
+### v0.2.1b
+
+![v0.2.1b Dashboard](assets/docs/img/dashboard-v0.2.1.png)
+
+**Add**
+- debugging -> vscode testing support
+- plus -> icon
+
+**Change/Fix**
+- home -> smooth home page image
+
+**Remove**
+
+---
+
 ![v0.2.0b Dashboard](assets/docs/img/dashboard-v0.2.0.png)
 
 ### v0.2.0b

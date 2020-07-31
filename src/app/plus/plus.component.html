@@ -1,56 +1,30 @@
 <navbar></navbar>
 <div class="container">
-    <h1 class="display-3">2PG+</h1>
-    <p class="lead">Support 2PG and help ADAMJR not be homeless</p>
-    <hr class="my-2">
-    <section id="benefits">
-        <h2 class="mt-5">What can $5 do?</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card text-dark">
-                    <div class="card-body">
-                        <i class="fa fa-paint-brush" aria-hidden="true"></i> Customize XP Card Background
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card text-dark">
-                    <div class="card-body">
-                        <i class="fa fa-lightbulb-o" aria-hidden="true"></i> Double your IQ <span class="disclaimer">Disclaimer: just kidding lol</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card text-dark">
-                    <div class="card-body">
-                        <i class="fa fa-server" aria-hidden="true"></i> Help cover 2PG's Server Costs
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card text-dark">
-                    <div class="card-body">
-                        <i class="fa fa-plus" aria-hidden="true"></i> More benefits to come (probably)
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 class="display-3">2PG+</h1>
+            <p class="lead">Support 2PG and help 2PG development</p>
         </div>
+        <div class="col-sm-6">
+            <img class="float float-right plus" src="assets/img/2pg-plus-avatar-transparent.svg" alt="">
+        </div>
+    </div>
+    <section id="benefits" class="pt-4">
+        <plus-cards></plus-cards>
     </section>
-
-    <img class="plus" src="assets/img/2pg-plus-avatar-transparent.jpg" alt="">
     
-    <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
+    <!-- <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
         <button *ngIf="userService.user && userService.savedUser?.premium" (click)="checkout()"
             class="checkout my-3" color="success" mat-button>Donate Again <i class="fa fa-plus" aria-hidden="true"></i></button>
         <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout()"
             class="checkout my-3" color="success" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
         <button *ngIf="!userService.user" routerLink="/login"
             class="checkout my-3" color="success" mat-button>Login to Level Up</button>
-    </form>
+    </form> -->
     <hr>
     <section id="faq">
         <h2 class="py-2">Infrequently Asked Questions</h2>
-        <zippy title="Will my credit card details be stored?">
+        <zippy title="Will my credit card details be stored!?">
             No. We do not store anything to do with your money in our database.
         </zippy>
         <zippy title="Will 2PG+ really double my IQ?">

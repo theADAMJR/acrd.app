@@ -54,6 +54,7 @@ import { DurationStringPipe } from './pipes/duration-string.pipe';
 import { CamelToSentenceCasePipe } from './pipes/camel-to-sentence-case.pipe';
 import { MessagePreviewComponent } from './message-preview/message-preview.component';
 import { ReactionRolesModuleComponent } from './dashboard/reaction-roles-module/reaction-roles-module.component';
+import { PlusCardsComponent } from './plus-cards/plus-cards.component';
 
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
@@ -118,7 +119,8 @@ export class AlertErrorHandler implements ErrorHandler {
     MessagePreviewComponent,
     LogModuleComponent,
     LogsModuleComponent,
-    ReactionRolesModuleComponent
+    ReactionRolesModuleComponent,
+    PlusCardsComponent
   ],
   imports: [
     AppRoutingModule,

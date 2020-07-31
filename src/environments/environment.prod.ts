@@ -3,6 +3,6 @@ export const environment = {
   endpoint: '/api',
   discordInvite: 'https://discord.gg/24tycau',
   githubURL: 'https://github.com/theADAMJR/2PG-Dashboard',
-  version: 'v0.2.0b',
+  version: 'v0.2.1b',
   stripePublicKey: 'pk_live_kyJ00K40kgFhHMYzO7Bc9YjV00sVDW6IlV'
 };
