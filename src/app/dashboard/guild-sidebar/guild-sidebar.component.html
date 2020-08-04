@@ -37,7 +37,7 @@
                 <a [routerLink]="['/servers/' + id + '/logs']" routerLinkActive="active"
                     [class.interactive-muted]="!savedGuild.logs?.enabled"
                     class="nav-item nav-link">                    
-                    <i class="fas fa-clone"></i> Logs</a>
+                    <i class="text-muted fas fa-clone"></i> Logs</a>
 
                 <a [routerLink]="['/servers/' + id + '/music']" routerLinkActive="active"
                     [class.interactive-muted]="!savedGuild.music?.enabled"
@@ -47,24 +47,24 @@
                 <a [routerLink]="['/servers/' + id + '/reaction-roles']" routerLinkActive="active"
                     [class.interactive-muted]="!savedGuild.reactionRoles?.enabled"
                     class="nav-item nav-link">
-                    <i class="fas fa-theater-masks"></i> Reaction Roles</a>
+                    <i class="text-muted fas fa-theater-masks"></i> Reaction Roles</a>
             </div>
 
             <div class="category">More</div>
             <div class="navbar-nav">
                 <a [routerLink]="['/leaderboard/' + id]" routerLinkActive="active"
                     class="nav-item nav-link">
-                    <i class="fas fa-trophy"></i> Leaderboard</a>
+                    <i class="text-muted fas fa-trophy"></i> Leaderboard</a>
                 <a [routerLink]="['/servers/' + id + '/log']" routerLinkActive="active"
                     class="nav-item nav-link">
-                    <i class="fas fa-file-alt"></i> Log</a>
+                    <i class="text-muted fas fa-file-alt"></i> Log</a>
             </div>
 
             <div class="category">Other</div>
             <div class="navbar-nav">
                 <a [routerLink]="['/servers/' + id + '/settings']" routerLinkActive="active"
                     class="nav-item nav-link">
-                    <i class="fa fa-cog"></i> Settings
+                    <i class="text-muted fa fa-cog"></i> Settings
                 </a>
             </div>
         </div>

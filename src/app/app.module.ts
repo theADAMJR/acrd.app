@@ -55,6 +55,7 @@ import { CamelToSentenceCasePipe } from './pipes/camel-to-sentence-case.pipe';
 import { MessagePreviewComponent } from './message-preview/message-preview.component';
 import { ReactionRolesModuleComponent } from './dashboard/reaction-roles-module/reaction-roles-module.component';
 import { PlusCardsComponent } from './plus-cards/plus-cards.component';
+import { PlusPaywallComponent } from './dashboard/plus-paywall/plus-paywall.component';
 
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
@@ -120,7 +121,8 @@ export class AlertErrorHandler implements ErrorHandler {
     LogModuleComponent,
     LogsModuleComponent,
     ReactionRolesModuleComponent,
-    PlusCardsComponent
+    PlusCardsComponent,
+    PlusPaywallComponent
   ],
   imports: [
     AppRoutingModule,
