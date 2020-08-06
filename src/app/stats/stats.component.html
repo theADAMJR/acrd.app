@@ -2,7 +2,7 @@
 
 <div class="container jumbrotron text-center">
   <h1 class="display-3">Stats</h1>
-  <p class="lead">View the statistics of 2PG.</p>
+  <p class="lead">View the statistics of 2PG, updated every 30 minutes.</p>
 </div>
 
 <section *ngIf="stats"
@@ -41,12 +41,22 @@
   <div class="row">
       <div class="col-lg-6 col-sm-12">
           <div class="large stats">
-            
+            <popular-inputs-graph [stats]="stats"></popular-inputs-graph>
           </div>
       </div>
       <div class="col-lg-6 col-sm-12">
           <div class="large stats">
-            
+            <popular-inputs-graph [stats]="stats" [reversed]="true"></popular-inputs-graph>
+          </div>
+      </div>
+      <div class="col-lg-6 col-sm-12">
+          <div class="large stats">
+            <popular-commands-graph></popular-commands-graph>
+          </div>
+      </div>
+      <div class="col-lg-6 col-sm-12">
+          <div class="large stats">
+            <popular-commands-graph [stats]="stats" [reversed]="true"></popular-commands-graph>
           </div>
       </div>
   </div>

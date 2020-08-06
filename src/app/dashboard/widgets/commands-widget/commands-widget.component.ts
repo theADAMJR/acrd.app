@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GuildService } from 'src/app/services/guild.service';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { ActivatedRoute } from '@angular/router';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import pluginDataLabels from 'chartjs-plugin-datalabels';
+import { GuildService } from 'src/app/services/guild.service';
 
 @Component({
   selector: 'commands-widget',
@@ -15,7 +15,7 @@ export class CommandsWidgetComponent implements OnInit {
   chartReady = false;
   
   barChartOptions: ChartOptions = {
-    responsive: false,
+    responsive: true,
     scales: {
       yAxes: [{ display: false }],
       xAxes: [{ display: false }]

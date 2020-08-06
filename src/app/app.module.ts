@@ -58,6 +58,8 @@ import { PlusCardsComponent } from './plus-cards/plus-cards.component';
 import { PlusPaywallComponent } from './dashboard/plus-paywall/plus-paywall.component';
 import { PlusBadgeComponent } from './dashboard/plus-badge/plus-badge.component';
 import { StatsComponent } from './stats/stats.component';
+import { PopularInputsGraphComponent } from './stats/popular-inputs-graph/popular-inputs-graph.component';
+import { PopularCommandsGraphComponent } from './stats/popular-commands-graph/popular-commands-graph.component';
 
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
@@ -126,7 +128,9 @@ export class AlertErrorHandler implements ErrorHandler {
     PlusCardsComponent,
     PlusPaywallComponent,
     PlusBadgeComponent,
-    StatsComponent
+    StatsComponent,
+    PopularInputsGraphComponent,
+    PopularCommandsGraphComponent
   ],
   imports: [
     AppRoutingModule,

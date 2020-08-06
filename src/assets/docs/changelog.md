@@ -14,7 +14,7 @@
 **Add**
 - debugging -> vscode testing support
 - plus -> icon
-- stats
+- stats -> bot stats, updated every 30 minutes
 
 **Change/Fix**
 - home -> smooth home page image

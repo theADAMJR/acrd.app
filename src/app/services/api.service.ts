@@ -8,9 +8,11 @@ import { HttpClient } from '@angular/common/http';
 export class ApiService {
   endpoint = environment.endpoint;
 
+  get key() { return localStorage.getItem('key'); }
+
   constructor(private http: HttpClient) {}
 
   getStats(): Promise<any> {
-    return this.http.get(`${this.endpoint}/stats`).toPromise();
+    return this.http.get(`${this.endpoint}/stats?key=${this.key}`).toPromise();
   }
 }
