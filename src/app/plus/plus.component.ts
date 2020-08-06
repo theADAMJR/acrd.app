@@ -9,21 +9,6 @@ import { UserService } from '../services/user.service';
   templateUrl: './plus.component.html',
   styleUrls: ['./plus.component.css']
 })
-export class PlusComponent implements OnInit {
-  checkoutEndpoint = `${environment.endpoint}/pay`;
-  stripe: Stripe;
-
-  constructor(
-    private pay: PayService,
-    public userService: UserService) {}
-
-  async ngOnInit() {
-    await this.userService.updateSavedUser();
-    this.stripe = await loadStripe(environment.stripePublicKey);
-  }
-
-  async checkout() {
-    const { id } = await this.pay.createSession();
-    await this.stripe.redirectToCheckout({ sessionId: id });
-  }
+export class PlusComponent {
+  discordInvite = environment.discordInvite;
 }

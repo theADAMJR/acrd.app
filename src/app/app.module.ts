@@ -56,6 +56,8 @@ import { MessagePreviewComponent } from './message-preview/message-preview.compo
 import { ReactionRolesModuleComponent } from './dashboard/reaction-roles-module/reaction-roles-module.component';
 import { PlusCardsComponent } from './plus-cards/plus-cards.component';
 import { PlusPaywallComponent } from './dashboard/plus-paywall/plus-paywall.component';
+import { PlusBadgeComponent } from './dashboard/plus-badge/plus-badge.component';
+import { StatsComponent } from './stats/stats.component';
 
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
@@ -122,7 +124,9 @@ export class AlertErrorHandler implements ErrorHandler {
     LogsModuleComponent,
     ReactionRolesModuleComponent,
     PlusCardsComponent,
-    PlusPaywallComponent
+    PlusPaywallComponent,
+    PlusBadgeComponent,
+    StatsComponent
   ],
   imports: [
     AppRoutingModule,

@@ -47,7 +47,7 @@ export class CustomizeXPCardComponent implements OnInit {
     private userService: UserService) {}
 
   async ngOnInit() {
-    await this.userService.updateSavedUser();
+    await this.userService.init();
 
     this.initFormValues();
     this.updatePreview();

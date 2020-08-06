@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-plus-paywall',
+  selector: 'plus-paywall',
   templateUrl: './plus-paywall.component.html',
   styleUrls: ['./plus-paywall.component.css']
 })
-export class PlusPaywallComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class PlusPaywallComponent {
+  constructor(public userService: UserService) {}
 }

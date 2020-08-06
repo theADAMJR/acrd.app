@@ -1,1 +1,4 @@
-<p>plus-paywall works!</p>
+<div [class]="userService.savedUser.premium ? '' : 'paywall'"
+  class="paywall cursor-pointer" routerLink="/plus">
+  <ng-content></ng-content>
+</div>

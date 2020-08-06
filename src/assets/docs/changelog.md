@@ -14,10 +14,12 @@
 **Add**
 - debugging -> vscode testing support
 - plus -> icon
+- stats
 
 **Change/Fix**
 - home -> smooth home page image
 - dashboard -> commands -> commands are now sorted alphabetically
+- navbar -> added navigation tooltips
 
 **Remove**
 

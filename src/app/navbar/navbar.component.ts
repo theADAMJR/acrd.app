@@ -7,11 +7,16 @@ import { environment } from 'src/environments/environment';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
-  get githubURL() { return environment.githubURL; }
-  get discordInvite() { return environment.discordInvite; }
+export class NavbarComponent implements OnInit {
+  githubURL = environment.githubURL;
+  discordInvite = environment.discordInvite;
+  botOwnerId = environment.botOwnerId;
 
   get user() { return this.userService.user; }
 
   constructor(private userService: UserService) {}
+
+  async ngOnInit() {
+    await this.userService.init();
+  }
 }

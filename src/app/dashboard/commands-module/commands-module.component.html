@@ -6,7 +6,7 @@
             <div formArrayName="configs" class="row">
                 <div *ngFor="let command of commands; index as i"
                     [formGroupName]="i"
-                    class="col-lg-4 col-md-6">
+                    class="col-lg-3 col-md-6">
                     <div class="card d-flex justify-content-between">
                         <div class="card-body">
                             <span>
@@ -22,16 +22,13 @@
             </div>
 
             <hr>
-            <h3>Custom Commands</h3>
-            <span class="cursor-pointer uppercase float-right badge badge-success"
-                matTooltip="This is a 2PG+ feature.">
-                Plus
-            </span>
-            <p class="desc">Filter message content, based on specific conditions</p>
-
             <plus-paywall>
+                <h3>Custom Commands</h3>
+                <plus-badge></plus-badge>
+                <p class="desc">Filter message content, based on specific conditions</p>
+
                 <div formArrayName="custom" class="row">
-    
+                    <!-- <div *ngFor="let item of list" class="col-lg-4"></div> -->
                 </div>
             </plus-paywall>
         </form>

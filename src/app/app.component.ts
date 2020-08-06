@@ -19,6 +19,5 @@ export class AppComponent implements OnInit {
 
     await this.commandService.updateCommands();
     await this.userService.updateUser();
-    await this.userService.updateSavedUser();
   } 
 }

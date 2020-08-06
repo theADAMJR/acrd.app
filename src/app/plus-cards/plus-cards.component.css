@@ -17,7 +17,6 @@
   }
 }
 
-
 .price-sec .price-table{
 	margin:5px 0px;
 }
@@ -111,11 +110,11 @@
 	font-size: 16px;
 }
 
-.card a{
+.card button {
 	position: relative;
 	z-index: 2;
-	background: #fff;
-	color: #000;
+	background: var(--success);
+	color: var(--heading);
 	width:150px;
 	height: 40px;
 	line-height: 40px;
@@ -127,7 +126,6 @@
 	text-decoration: none;
 	border-radius: 40px;
 	box-shadow:0 5px 10px rgba(0, 0, 0, .2);
-
 }
 .card a:hover{
 	text-decoration: none;

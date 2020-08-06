@@ -16,12 +16,20 @@
                       <div class="option">
                           <ul>
                               <li><i class="fa fa-check"></i> Full XP Card Customization</li>
+                              <li><i class="fa fa-check"></i> Custom Commands</li>
                               <li><i class="fa fa-check"></i> Exclusive Discord Role</li>
                               <li><i class="fa fa-check"></i> Help 2PG's development</li>
                               <li><i class="fa fa-times"></i> Unlimited-time Features</li>
                           </ul>
                       </div>
-                      <a href="#">Order Now</a>
+                      <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
+                          <button *ngIf="userService.user && userService.savedUser?.premium"
+                            class="checkout my-3" color="success" mat-button disabled>You've Maxed Out</button>
+                          <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout('2PG+ [1 Month]')"
+                              class="checkout my-3" color="success" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
+                          <button *ngIf="!userService.user" routerLink="/login"
+                              class="checkout my-3" color="success" mat-button>Login to Level Up</button>
+                      </form>
                   </div>
                 </div>
                 <div class="col-sm-4 price-table">
@@ -36,12 +44,20 @@
                       <div class="option">
                           <ul>
                               <li><i class="fa fa-check"></i> Full XP Card Customization</li>
+                              <li><i class="fa fa-check"></i> Custom Commands</li>
                               <li><i class="fa fa-check"></i> Exclusive Discord Role</li>
                               <li><i class="fa fa-check"></i> Help 2PG's development</li>
                               <li><i class="fa fa-times"></i> Unlimited-time Features</li>
                           </ul>
                       </div>
-                      <a href="#">Order Now</a>
+                      <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
+                          <button *ngIf="userService.user && userService.savedUser?.premium"
+                            class="checkout my-3" color="success" mat-button disabled>You've Maxed Out</button>
+                          <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout('2PG+ [3 Months]')"
+                              class="checkout my-3" color="success" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
+                          <button *ngIf="!userService.user" routerLink="/login"
+                              class="checkout my-3" color="success" mat-button>Login to Level Up</button>
+                      </form>
                     </div>
                 </div>
                 <div class="col-sm-4 price-table">
@@ -56,12 +72,20 @@
                       <div class="option">
                           <ul>
                               <li><i class="fa fa-check"></i> Full XP Card Customization</li>
+                              <li><i class="fa fa-check"></i> Custom Commands</li>
                               <li><i class="fa fa-check"></i> Exclusive Discord Role</li>
                               <li><i class="fa fa-check"></i> Help 2PG's development</li>
                               <li><i class="fa fa-check"></i> Unlimited-time Features</li>
                           </ul>
                       </div>
-                      <a href="#">Order Now</a>
+                      <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
+                          <button *ngIf="userService.user && userService.savedUser?.premium"
+                            class="checkout my-3" color="success" mat-button disabled>You've Maxed Out</button>
+                          <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout('2PG+ [Forever]')"
+                              class="checkout my-3" color="success" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
+                          <button *ngIf="!userService.user" routerLink="/login"
+                              class="checkout my-3" color="success" mat-button>Login to Level Up</button>
+                      </form>
                   </div>
               </div>
           </div>

@@ -1,0 +1,8 @@
+.paywall {
+  opacity: 0.75;
+  transition: ease-in-out 0.25s;
+}
+
+.paywall:hover {
+  opacity: 0.5;
+}
