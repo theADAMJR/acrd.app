@@ -11,7 +11,9 @@ Dashboard to customize 2PG; made with TypeScript + Angular 9 -> https://2pg.xyz
 
 ## Redirect URIs
   
-![Redirects](https://i.ibb.co/hyBCj9D/2pg-redirect.png)
+![Redirects](https://i.ibb.co/9pbfVwL/updated-redirects.png)
+
+If you change your redirects, **regen your application secret**.
 
 
 ## Further Notes
