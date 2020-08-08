@@ -16,4 +16,11 @@ p:not(.lead) {
 
 footer {
     z-index: 1 !important;
+    background-color: var(--background-secondary) !important;
+}
+
+waves {
+    position: fixed;
+    bottom: 35px;
+    width: 100vw;
 }

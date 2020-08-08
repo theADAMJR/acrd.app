@@ -60,6 +60,7 @@ import { PlusBadgeComponent } from './dashboard/plus-badge/plus-badge.component'
 import { StatsComponent } from './stats/stats.component';
 import { PopularInputsGraphComponent } from './stats/popular-inputs-graph/popular-inputs-graph.component';
 import { PopularCommandsGraphComponent } from './stats/popular-commands-graph/popular-commands-graph.component';
+import { WavesComponent } from './waves/waves.component';
 
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
@@ -130,7 +131,8 @@ export class AlertErrorHandler implements ErrorHandler {
     PlusBadgeComponent,
     StatsComponent,
     PopularInputsGraphComponent,
-    PopularCommandsGraphComponent
+    PopularCommandsGraphComponent,
+    WavesComponent
   ],
   imports: [
     AppRoutingModule,

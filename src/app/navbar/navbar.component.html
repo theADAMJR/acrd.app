@@ -13,11 +13,6 @@
             matTooltip="Plus">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </a>
-        <a *ngIf="user?.id === botOwnerId"
-            class="nav-item nav-link" routerLink="/stats" routerLinkActive="active"
-            matTooltip="Stats">
-            <i class="fas fa-chart-line" aria-hidden="true"></i>
-        </a>
         <a class="nav-item nav-link" [href]="githubURL" routerLinkActive="active"
             matTooltip="GitHub">
             <i class="fab fa-github" aria-hidden="true"></i>
@@ -38,9 +33,17 @@
                     <img [src]="user.displayAvatarURL"> {{ user.username }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" routerLink="/dashboard">Dashboard</a>
+                    <a class="dropdown-item" routerLink="/dashboard"
+                        routerLinkActive="active">
+                        <i class="fas fa-cog"></i> Dashboard</a>
+                    <a *ngIf="user?.id === botOwnerId"
+                        class="dropdown-item" routerLink="/stats" routerLinkActive="active"
+                        matTooltip="Only bot owners can see this.">
+                        <i class="fas fa-chart-line" aria-hidden="true"></i> Bot Stats
+                    </a>
                     <hr class="m-1">
-                    <a class="dropdown-item" routerLink="/logout">Logout</a>
+                    <a class="dropdown-item" routerLink="/logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
         </div>
