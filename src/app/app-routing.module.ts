@@ -15,7 +15,7 @@ import { GeneralModuleComponent } from './dashboard/general-module/general-modul
 import { LevelingModuleComponent } from './dashboard/leveling-module/leveling-module.component';
 import { MusicModuleComponent } from './dashboard/music-module/music-module.component';
 import { AutoModModuleComponent } from './dashboard/auto-mod-module/auto-mod-module.component';
-import { LogsModuleComponent } from './dashboard/announce-module/announce-module.component';
+import { LogsModuleComponent } from './dashboard/logs-module/logs-module.component';
 import { LogModuleComponent } from './dashboard/log-module/log-module.component';
 import { SettingsModuleComponent } from './dashboard/settings-module/settings-module.component';
 import { CommandsModuleComponent } from './dashboard/commands-module/commands-module.component';

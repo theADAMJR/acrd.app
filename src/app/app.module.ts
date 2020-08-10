@@ -21,7 +21,7 @@ import { GuildComponent } from './dashboard/guild/guild.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HomeComponent } from './home/home.component';
 import { CommandsModuleComponent } from './dashboard/commands-module/commands-module.component';
-import { LogsModuleComponent } from './dashboard/announce-module/announce-module.component';
+import { LogsModuleComponent } from './dashboard/logs-module/logs-module.component';
 import { AutoModModuleComponent } from './dashboard/auto-mod-module/auto-mod-module.component';
 import { GeneralModuleComponent } from './dashboard/general-module/general-module.component';
 import { MusicModuleComponent } from './dashboard/music-module/music-module.component';

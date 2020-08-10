@@ -1,15 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LogsModuleComponent, AnnounceEvent, EventType } from './announce-module.component';
-import { By } from '@angular/platform-browser';
+import { LogsModuleComponent, AnnounceEvent, EventType } from './logs-module.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
 import { AppRoutingModule } from '../../app-routing.module';
 import { ReactiveFormsModule, FormArray } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
-describe('AnnounceModuleComponent', () => {
+describe('LogModuleComponent', () => {
   let component: LogsModuleComponent;
   let fixture: ComponentFixture<LogsModuleComponent>;
 

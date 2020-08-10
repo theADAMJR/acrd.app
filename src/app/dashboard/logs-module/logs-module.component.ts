@@ -7,8 +7,8 @@ import { GuildService } from '../../services/guild.service';
 
 @Component({
   selector: 'app-announce-module',
-  templateUrl: './announce-module.component.html',
-  styleUrls: ['./announce-module.component.css']
+  templateUrl: './logs-module.component.html',
+  styleUrls: ['./logs-module.component.css']
 })
 export class LogsModuleComponent extends ModuleConfig implements OnInit {
   EventType = EventType;
