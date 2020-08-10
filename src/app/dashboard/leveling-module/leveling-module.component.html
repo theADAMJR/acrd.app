@@ -41,7 +41,8 @@
             <h3>Level Roles</h3>
             <p class="desc">Reward users with roles when leveling up</p>
             <div formArrayName="levelRoles" class="row">
-                <div *ngFor="let i of levelRoleIndices" class="col-lg-6 col-sm-12">
+                <div *ngFor="let i of levelRoleIndices"
+                    class="col-lg-6 col-sm-12">
                     <div [formGroupName]="i" class="rounded role d-flex justify-content-around row">
                         <div class="col-sm-6">
                             <mat-form-field appearance="outline">                                

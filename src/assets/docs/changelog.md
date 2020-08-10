@@ -6,8 +6,17 @@
 
 ---
 
-### v0.2.1b
+### v0.2.2b
 `Upcoming`
+
+**Add**
+- commands -> custom commands
+- commands -> say
+
+---
+
+### v0.2.1b
+`07/08/2020`
 
 ![v0.2.1b Dashboard](assets/docs/img/dashboard-v0.2.1.png)
 
