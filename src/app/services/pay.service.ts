@@ -8,8 +8,8 @@ import { environment } from 'src/environments/environment';
 export class PayService {
   constructor(private http: HttpClient) {}
 
-  createSession(): Promise<any> {
+  createSession(plan: number): Promise<any> {
     const key = localStorage.getItem('key');
-    return this.http.get(`${environment.endpoint}/user/pay?key=${key}`).toPromise();
+    return this.http.get(`${environment.endpoint}/user/pay?key=${key}&plan=${plan}`).toPromise();
   }
 }

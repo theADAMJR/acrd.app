@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { environment } from 'src/environments/environment';
 import { Stripe, loadStripe } from '@stripe/stripe-js';
@@ -22,12 +22,8 @@ export class PlusCardsComponent {
     this.stripe = await loadStripe(environment.stripePublicKey);
   }
 
-  async checkout(plan: string) {
-    const { id } = await this.pay.createSession();
-    await this.stripe.redirectToCheckout({
-      sessionId: id,
-      submitType: 'donate',
-      items: [{ plan }]
-    });
+  async checkout(plan: number) {
+    const { id } = await this.pay.createSession(plan);
+    await this.stripe.redirectToCheckout({ sessionId: id });
   }
 }

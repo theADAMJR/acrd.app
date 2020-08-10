@@ -1,5 +1,3 @@
-
-
 <section class="price-sec">
   <div class="container-fluid">
       <div class="container">
@@ -25,7 +23,7 @@
                       <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
                           <button *ngIf="userService.user && userService.savedUser?.premium"
                             class="checkout my-3" color="success" mat-button disabled>You've Maxed Out</button>
-                          <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout('2PG+ [1 Month]')"
+                          <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout(0)"
                               class="checkout my-3" color="success" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
                           <button *ngIf="!userService.user" routerLink="/login"
                               class="checkout my-3" color="success" mat-button>Login to Level Up</button>
@@ -53,7 +51,7 @@
                       <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
                           <button *ngIf="userService.user && userService.savedUser?.premium"
                             class="checkout my-3" color="success" mat-button disabled>You've Maxed Out</button>
-                          <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout('2PG+ [3 Months]')"
+                          <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout(1)"
                               class="checkout my-3" color="success" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
                           <button *ngIf="!userService.user" routerLink="/login"
                               class="checkout my-3" color="success" mat-button>Login to Level Up</button>
@@ -81,7 +79,7 @@
                       <form class="d-flex justify-content-center" [action]="checkoutEndpoint" method="GET">
                           <button *ngIf="userService.user && userService.savedUser?.premium"
                             class="checkout my-3" color="success" mat-button disabled>You've Maxed Out</button>
-                          <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout('2PG+ [Forever]')"
+                          <button *ngIf="userService.user && !userService.savedUser?.premium" (click)="checkout(2)"
                               class="checkout my-3" color="success" mat-button>Level Up To <i class="fa fa-plus" aria-hidden="true"></i></button>
                           <button *ngIf="!userService.user" routerLink="/login"
                               class="checkout my-3" color="success" mat-button>Login to Level Up</button>
