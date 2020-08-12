@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService, XPCard } from '../services/user.service';
+import { UserService, XPCard } from '../../services/user.service';
 
 @Component({
   selector: 'customize-xp-card',

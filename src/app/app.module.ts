@@ -32,7 +32,7 @@ import { GuildSidebarComponent } from './dashboard/guild-sidebar/guild-sidebar.c
 import { LeaderboardModuleComponent } from './dashboard/leaderboard-module/leaderboard-module.component';
 import { XPCardComponent } from './xp-card/xp-card.component';
 import { DashboardSidebarComponent } from './dashboard/dashboard-sidebar/dashboard-sidebar.component';
-import { CustomizeXPCardComponent } from './customize-xp-card/customize-xp-card.component';
+import { CustomizeXPCardComponent } from './dashboard/customize-xp-card/customize-xp-card.component';
 import { MaterialModule } from './material-module';
 import { PremiumDirective } from './dashboard/directives/premium.directive';
 import { SaveChangesComponent } from './dashboard/save-changes/save-changes.component';

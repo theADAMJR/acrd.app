@@ -4,6 +4,6 @@ export const environment = {
   endpoint: '/api',
   githubURL: 'https://github.com/theADAMJR/2PG-Dashboard',
   production: true,
-  stripePublicKey: 'pk_live_kyJ00K40kgFhHMYzO7Bc9YjV00sVDW6IlV',
+  stripePublicKey: 'pk_live_Y4fYfqvEgZNsllNFo4TeFcmv005D0tNBWQ',
   version: 'v0.2.1b'
 };
