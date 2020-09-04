@@ -7,6 +7,7 @@ import {  OnDestroy } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 
+// TODO: Add Angular decorator.
 export abstract class ModuleConfig implements OnDestroy {
     abstract moduleName: string;
 

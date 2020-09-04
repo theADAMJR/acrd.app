@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, Injectable } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
@@ -62,6 +62,7 @@ import { PopularInputsGraphComponent } from './stats/popular-inputs-graph/popula
 import { PopularCommandsGraphComponent } from './stats/popular-commands-graph/popular-commands-graph.component';
 import { WavesComponent } from './waves/waves.component';
 
+@Injectable()
 export class AlertErrorHandler implements ErrorHandler {
   async handleError(error: Error | any) {
     try {
