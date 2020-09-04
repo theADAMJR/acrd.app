@@ -39,6 +39,7 @@
     "jquery": "^3.5.1",
     "markdown-to-text-emoji": "^1.1.0",
     "marked": "^0.8.2",
+    "ng-charts": "^1.0.0-alpha",
     "ng2-charts": "^2.3.0",
     "ngx-color-picker": "^9.0.0",
     "ngx-highlightjs": "^4.1.0-beta",
