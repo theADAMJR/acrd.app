@@ -58,6 +58,7 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
       (formGroup.get('custom') as FormArray)
         .setControl(i, new FormGroup({
           alias: new FormControl(config?.alias),
+          anywhere: new FormControl(config?.anywhere),
           command: new FormControl(config?.command)
         }));
     }

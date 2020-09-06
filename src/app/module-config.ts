@@ -3,11 +3,12 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaveChangesComponent } from './dashboard/save-changes/save-changes.component';
 import { GuildService } from './services/guild.service';
-import {  OnDestroy } from '@angular/core';
+import {  OnDestroy, Directive } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 
 // TODO: Add Angular decorator.
+@Directive()
 export abstract class ModuleConfig implements OnDestroy {
     abstract moduleName: string;
 
