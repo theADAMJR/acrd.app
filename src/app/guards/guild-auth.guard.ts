@@ -9,6 +9,7 @@ import { UserService } from '../services/user.service';
 export class GuildAuthGuard implements CanActivate {
   constructor(
     private guildService: GuildService,
+    private router: Router,
     private userService: UserService) {}
 
   async canActivate(
@@ -25,6 +26,11 @@ export class GuildAuthGuard implements CanActivate {
             roles: await this.guildService.getRoles(guildId),
             savedGuild: await this.guildService.getSavedGuild(guildId)
           };
-      return this.guildService.guilds?.some(g => g.id === guildId);
+          
+      const canActivate = this.guildService.guilds?.some(g => g.id === guildId); 
+      if (!canActivate)
+        this.router.navigate(['/dashboard']);
+
+      return canActivate;
   }  
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, ActivatedRouteSnapshot, RouterStateSnapshot, RouteReuseStrategy } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CommandsComponent } from './commands/commands.component';
@@ -7,7 +7,7 @@ import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './login/login.component';
 import { InviteComponent } from './invite/invite.component';
 import { LogoutComponent } from './logout/logout.component';
-import { DashboardComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
+import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
 import { GuildComponent } from './dashboard/guild/guild.component';
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { GuildAuthGuard } from './guards/guild-auth.guard';
@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'invite', component: InviteComponent },
   { path: 'leaderboard/:id', component: LeaderboardModuleComponent, canActivate: [LeaderboardAuthGuard] },
 
-  { path: 'dashboard', component: DashboardComponent, canActivate: [DashboardAuthGuard] },
+  { path: 'dashboard', component: DashboardOverviewComponent, canActivate: [DashboardAuthGuard] },
   { path: 'dashboard/xp-card', component: XPCardComponent, canActivate: [DashboardAuthGuard] },
 
   { path: 'servers/:id', component: GuildComponent, canActivate: [GuildAuthGuard], canDeactivate: [CanDeactivateDashboard] },
@@ -64,4 +64,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { initialNavigation: 'enabled' })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

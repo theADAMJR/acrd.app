@@ -15,7 +15,7 @@ import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './login/login.component';
 import { InviteComponent } from './invite/invite.component';
 import { LogoutComponent } from './logout/logout.component';
-import { DashboardComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
+import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
 import { SidebarComponent } from './dashboard/sidebar/sidebar.component';
 import { GuildComponent } from './dashboard/guild/guild.component';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -90,7 +90,7 @@ export class AlertErrorHandler implements ErrorHandler {
     LoginComponent,
     InviteComponent,
     LogoutComponent,
-    DashboardComponent,
+    DashboardOverviewComponent,
     SidebarComponent,
     GuildComponent,
     SpinnerComponent,

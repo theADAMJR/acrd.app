@@ -7,11 +7,19 @@
 ---
 
 ### v0.2.2b
-`Upcoming`
+`08/09/2020`
+
+![v0.2.2b Dashboard](assets/docs/img/dashboard-v0.2.2.png)
 
 **Add**
-- commands -> custom commands
-- commands -> say
+- `/commands` -> custom commands
+- `/commands` -> say
+- `/dashboard` -> dlist.xyz and dbots.co integration
+- `/dashboard` -> cosmic theme
+- `/commands` -> add custom command "executable anywhere" option
+
+**Change/Fix**:
+- `*` -> update to Angular 10
 
 ---
 
