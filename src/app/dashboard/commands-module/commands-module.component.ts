@@ -19,7 +19,6 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
   customCommandIndices = toIterable(10);
 
   commands = [];
-  commandConfigs: CommandConfig[] = [];
 
   get commandsFormArray() { return this.form.get('configs') as FormArray; }
 
@@ -64,9 +63,4 @@ export class CommandsModuleComponent extends ModuleConfig implements OnInit {
     }
     return formGroup;
   }
-}
-
-export interface CommandConfig {
-  name: string;
-  enabled: boolean;
 }

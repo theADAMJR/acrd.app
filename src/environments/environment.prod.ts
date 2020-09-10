@@ -5,5 +5,5 @@ export const environment = {
   githubURL: 'https://github.com/theADAMJR/2PG-Dashboard',
   production: true,
   stripePublicKey: 'pk_live_Y4fYfqvEgZNsllNFo4TeFcmv005D0tNBWQ',
-  version: 'v0.2.1b'
+  version: 'v0.2.2b'
 };
