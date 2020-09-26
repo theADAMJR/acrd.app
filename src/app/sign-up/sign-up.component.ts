@@ -48,11 +48,7 @@ export class SignUpComponent implements OnInit {
     }
 
     async updateTakenUsernames() {
-        const users = await this.users.get();
-        const usernames: string[] = [];
-        for (const user of users) {
-            usernames.push(user.username);
-        }
-        UsernameValidators.takenUsernames = usernames;
+        const users = await this.users.getAll();
+        UsernameValidators.takenUsernames = users.map(u => u.username);
     }
 }

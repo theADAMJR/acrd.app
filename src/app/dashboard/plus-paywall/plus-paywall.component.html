@@ -1,6 +1,0 @@
-<div [ngClass]="{
-    'paywall': !userService.savedUser.premium,
-    'cursor-pointer': !userService.savedUser.premium
-  }" [routerLink]="!userService.savedUser.premium ? '/plus' : null">
-  <ng-content></ng-content>
-</div>

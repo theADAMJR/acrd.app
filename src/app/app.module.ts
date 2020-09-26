@@ -9,10 +9,8 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CommandsComponent } from './commands/commands.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './login/login.component';
-import { InviteComponent } from './invite/invite.component';
 import { LogoutComponent } from './logout/logout.component';
 import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashboard-overview.component';
 import { SidebarComponent } from './dashboard/sidebar/sidebar.component';
@@ -21,13 +19,9 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { HomeComponent } from './home/home.component';
 import { CommandsModuleComponent } from './dashboard/commands-module/commands-module.component';
 import { LogsModuleComponent } from './dashboard/logs-module/logs-module.component';
-import { AutoModModuleComponent } from './dashboard/auto-mod-module/auto-mod-module.component';
-import { GeneralModuleComponent } from './dashboard/general-module/general-module.component';
 import { LogModuleComponent } from './dashboard/log-module/log-module.component';
 import { SettingsModuleComponent } from './dashboard/settings-module/settings-module.component';
-import { LevelingModuleComponent } from './dashboard/leveling-module/leveling-module.component';
 import { GuildSidebarComponent } from './dashboard/guild-sidebar/guild-sidebar.component';
-import { LeaderboardModuleComponent } from './dashboard/leaderboard-module/leaderboard-module.component';
 import { DashboardSidebarComponent } from './dashboard/dashboard-sidebar/dashboard-sidebar.component';
 import { MaterialModule } from './material-module';
 import { PremiumDirective } from './dashboard/directives/premium.directive';
@@ -45,10 +39,8 @@ import { TruncatedPipe } from './pipes/truncated.pipe';
 import { DurationStringPipe } from './pipes/duration-string.pipe';
 import { CamelToSentenceCasePipe } from './pipes/camel-to-sentence-case.pipe';
 import { MessagePreviewComponent } from './message-preview/message-preview.component';
-import { ReactionRolesModuleComponent } from './dashboard/reaction-roles-module/reaction-roles-module.component';
-import { PlusPaywallComponent } from './dashboard/plus-paywall/plus-paywall.component';
-import { PlusBadgeComponent } from './dashboard/plus-badge/plus-badge.component';
 import { WavesComponent } from './waves/waves.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -73,25 +65,17 @@ export class AlertErrorHandler implements ErrorHandler {
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    CommandsComponent,
     AuthComponent,
     LoginComponent,
-    InviteComponent,
     LogoutComponent,
     DashboardOverviewComponent,
     SidebarComponent,
     GuildComponent,
     SpinnerComponent,
     CommandsModuleComponent,
-    AutoModModuleComponent,
-    GeneralModuleComponent,
-    LevelingModuleComponent,
     SettingsModuleComponent,
-    LevelingModuleComponent,
     GuildSidebarComponent,
-    LeaderboardModuleComponent,
     DashboardSidebarComponent,
-    PremiumDirective,
     SaveChangesComponent,
     NotFoundComponent,
     DocsComponent,
@@ -107,10 +91,9 @@ export class AlertErrorHandler implements ErrorHandler {
     MessagePreviewComponent,
     LogModuleComponent,
     LogsModuleComponent,
-    ReactionRolesModuleComponent,
-    PlusPaywallComponent,
-    PlusBadgeComponent,
-    WavesComponent
+    WavesComponent,
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     AppRoutingModule,
