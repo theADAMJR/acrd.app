@@ -9,6 +9,7 @@
             </div>
             <div *ngFor="let guild of guilds"
                 [routerLink]="'/channels/' + guild._id"
+                routerLinkActive="active"
                 class="guild-icon"
                 [matTooltip]="guild.name">
                 <img *ngIf="guild.iconURL"

@@ -13,6 +13,7 @@ import { SettingsModuleComponent } from './dashboard/settings-module/settings-mo
 import { DocsComponent } from './docs/docs.component';
 import { CanDeactivateDashboard } from './guards/can-deactivate-dashboard.guard';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { TextChannelComponent } from './dashboard/text-channel/text-channel.component';
 
 const routes: Routes = [
   {
@@ -61,7 +62,7 @@ const routes: Routes = [
   },
   {
     path: 'channels/:guildId/:channelId',
-    component: GuildComponent,
+    component: TextChannelComponent,
     canActivate: [GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard]
   },

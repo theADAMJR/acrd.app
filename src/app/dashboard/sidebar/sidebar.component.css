@@ -124,3 +124,8 @@ mat-sidenav {
     width: 32px;
     height: 32px;
 }
+
+.guilds .active {
+    background-color: var(--primary);
+    border-radius: 15px !important;
+}

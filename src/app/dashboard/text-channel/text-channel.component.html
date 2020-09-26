@@ -1,0 +1,12 @@
+<guild-sidebar>
+  <div class="messages">
+
+  </div>
+  <div class="footer">
+    <mat-form-field (keyup.enter)="chat(message.value)"
+      appearance="outline">
+      <mat-label>Message #{{ channel.name }}</mat-label>
+      <input id="chatBox" type="text" matInput #message>
+    </mat-form-field>
+  </div>
+</guild-sidebar>

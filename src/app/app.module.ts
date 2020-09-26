@@ -42,6 +42,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { DashboardNavbarComponent } from './dashboard/dashboard-navbar/dashboard-navbar.component';
 import { CreateGuildModalComponent } from './dashboard/create-guild-modal/create-guild-modal.component';
+import { TextChannelComponent } from './dashboard/text-channel/text-channel.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -95,7 +96,8 @@ export class AlertErrorHandler implements ErrorHandler {
     LoginComponent,
     SignUpComponent,
     DashboardNavbarComponent,
-    CreateGuildModalComponent
+    CreateGuildModalComponent,
+    TextChannelComponent
   ],
   imports: [
     AppRoutingModule,

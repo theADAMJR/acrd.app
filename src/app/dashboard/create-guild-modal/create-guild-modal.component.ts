@@ -26,7 +26,8 @@ export class CreateGuildModalComponent {
     if (this.form.invalid) return;
 
     const { _id } = await this.guildService.createGuild(this.form.value);
-    console.log(_id);    
+    await this.guildService.updateGuilds();
+
     this.router.navigate([`/channels/${_id}`]);
   }
 }
