@@ -27,7 +27,6 @@ import { PlusComponent } from './plus/plus.component';
 import { DocsComponent } from './docs/docs.component';
 import { CanDeactivateDashboard } from './guards/can-deactivate-dashboard.guard';
 import { ReactionRolesModuleComponent } from './dashboard/reaction-roles-module/reaction-roles-module.component';
-import { StatsComponent } from './stats/stats.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,7 +36,6 @@ const routes: Routes = [
   { path: 'docs/:page', component: DocsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'stats', component: StatsComponent },
   { path: 'invite', component: InviteComponent },
   { path: 'leaderboard/:id', component: LeaderboardModuleComponent, canActivate: [LeaderboardAuthGuard] },
 

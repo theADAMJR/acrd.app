@@ -1,10 +1,10 @@
-# 2PG Dashboard
-Dashboard to customize 2PG; made with TypeScript + Angular 9 -> https://2pg.xyz
+# DClone Dashboard
+Dashboard to customize DClone; made with TypeScript + Angular 9 -> https://DClone.xyz
 
-**Used by**: [2PG](https://2pg.xyz), [3PG](https://github.com/3PG), [6PG](https://github.com/theADAMJR/6PG), [DBots](https://github.com/DBots-co), [DList](https://github.com/DList-xyz)
+**Used by**: [DClone](https://DClone.xyz), [3PG](https://github.com/3PG), [6PG](https://github.com/theADAMJR/6PG), [DBots](https://github.com/DBots-co), [DList](https://github.com/DList-xyz)
 
 ![Guild Dashboard](https://i.ibb.co/n3D80Dx/2-PG-Dashboard.png)
-![Audit Log](https://2pg.xyz/assets/docs/img/dashboard-v0.2.0b.png)
+![Audit Log](https://DClone.xyz/assets/docs/img/dashboard-v0.2.0b.png)
 
 ## Prerequisites
 - Know how to use JavaScript, TypeScript, and Angular 9

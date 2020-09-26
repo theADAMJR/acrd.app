@@ -1,5 +1,5 @@
 # API
-- Interact with 2PG through HTTP requests
+- Interact with DClone through HTTP requests
 
 ## Uses
 - Bot interaction for webapp

@@ -48,7 +48,7 @@
 `11/07/2020`
 
 **Add**
-- themes -> 2PG ionic theme -> it sounds cool
+- themes -> DClone ionic theme -> it sounds cool
 - themes -> Discord theme -> everything looks much more modern
 - dashboard -> theme selector
 - docs -> better documentation for modules

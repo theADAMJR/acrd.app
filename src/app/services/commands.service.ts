@@ -21,5 +21,4 @@ export class CommandsService {
   async updateCommands() {
     this._commands = await this.http.get(this.endpoint).toPromise() as any;
   }
-  }
 }

@@ -56,9 +56,6 @@ import { ReactionRolesModuleComponent } from './dashboard/reaction-roles-module/
 import { PlusCardsComponent } from './plus-cards/plus-cards.component';
 import { PlusPaywallComponent } from './dashboard/plus-paywall/plus-paywall.component';
 import { PlusBadgeComponent } from './dashboard/plus-badge/plus-badge.component';
-import { StatsComponent } from './stats/stats.component';
-import { PopularInputsGraphComponent } from './stats/popular-inputs-graph/popular-inputs-graph.component';
-import { PopularCommandsGraphComponent } from './stats/popular-commands-graph/popular-commands-graph.component';
 import { WavesComponent } from './waves/waves.component';
 
 @Injectable()
@@ -129,9 +126,6 @@ export class AlertErrorHandler implements ErrorHandler {
     PlusCardsComponent,
     PlusPaywallComponent,
     PlusBadgeComponent,
-    StatsComponent,
-    PopularInputsGraphComponent,
-    PopularCommandsGraphComponent,
     WavesComponent
   ],
   imports: [

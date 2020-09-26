@@ -10,6 +10,6 @@ export class HomeComponent {
   version = environment.version;
 
   constructor() {
-    document.title = '2PG - Discord Bot';
+    document.title = 'DClone - Discord Bot';
   }
 }

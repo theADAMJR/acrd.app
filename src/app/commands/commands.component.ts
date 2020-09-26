@@ -25,7 +25,7 @@ export class CommandsComponent implements OnInit {
 
     this.commands = this.displayedCommands = this.service.commands;
 
-    document.title = '2PG - Commands';
+    document.title = 'DClone - Commands';
 
     this.setModule('autoMod');
   }

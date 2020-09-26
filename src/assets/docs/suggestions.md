@@ -1,4 +1,4 @@
 # Suggestions
 
 ## Have a suggestion?
-Join the 2PG Discord server to post suggestions
+Join the DClone Discord server to post suggestions

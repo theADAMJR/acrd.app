@@ -18,7 +18,7 @@ export class GuildSidebarComponent implements OnInit {
     private guildService: GuildService,
     private route: ActivatedRoute,
     private router: Router) {
-      document.title = '2PG - Dashboard';
+      document.title = 'DClone - Dashboard';
     }
 
   async ngOnInit() {

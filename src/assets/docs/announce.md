@@ -1,7 +1,7 @@
 # Logs
 Receive messages when something happens.
 
-[i] Ensure 2PG has access to the channel to be able to send messages.
+[i] Ensure DClone has access to the channel to be able to send messages.
 
 ---
 

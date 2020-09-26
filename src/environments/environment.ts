@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   endpoint: 'http://localhost:3000/api',
   discordInvite: 'https://discord.gg/24tycau',
-  githubURL: 'https://github.com/theADAMJR/2PG',
+  githubURL: 'https://github.com/theADAMJR/DClone',
   stripePublicKey: 'pk_test_rjQKo5c9pcHvDFjFe1mfdKib00Es3eJ831',
   version: 'v0.2.2b',
   botOwnerId: '218459216145285121',

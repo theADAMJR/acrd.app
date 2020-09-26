@@ -23,7 +23,7 @@ export class DashboardSidebarComponent implements OnInit {
   constructor(
     private service: ThemeService,
     private userService: UserService) {
-    document.title = '2PG - Dashboard';
+    document.title = 'DClone - Dashboard';
   }
   ngOnInit() {
     this.service.updateTheme();

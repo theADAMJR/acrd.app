@@ -10,6 +10,6 @@ export class DashboardOverviewComponent {
   get user() { return this.userService.user; }
 
   constructor(private userService: UserService) {
-    document.title = '2PG - Dashboard';
+    document.title = 'DClone - Dashboard';
   }
 }
