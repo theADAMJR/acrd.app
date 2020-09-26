@@ -12,7 +12,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 export class DashboardSidebarComponent implements OnInit {
   @ViewChild('themeSelect') themeSelect: MatSelect;
 
-  defaultTheme = 'IONIC';
+  defaultTheme = 'DISCORD';
 
   form = new FormGroup({
     theme: new FormControl(localStorage.getItem('theme') ?? this.defaultTheme)

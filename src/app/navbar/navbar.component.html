@@ -1,25 +1,13 @@
 <nav class="navbar navbar-expand navbar-dark">
     <a class="navbar-brand" routerLink="/">DClone</a>
     <div class="nav navbar-nav">
-        <a class="nav-item nav-link" routerLink="/commands" routerLinkActive="active"
-            matTooltip="Commands">
-            <i class="fa fa-code" aria-hidden="true"></i>
-        </a>
         <a class="nav-item nav-link" routerLink="/docs" routerLinkActive="active"
             matTooltip="Docs">
             <i class="fa fa-book" aria-hidden="true"></i>
         </a>
-        <a class="nav-item nav-link" routerLink="/plus" routerLinkActive="active"
-            matTooltip="Plus">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-        </a>
         <a class="nav-item nav-link" [href]="githubURL" routerLinkActive="active"
             matTooltip="GitHub">
             <i class="fab fa-github" aria-hidden="true"></i>
-        </a>
-        <a class="nav-item nav-link" [href]="discordInvite" routerLinkActive="active"
-            matTooltip="Support">
-            <i class="fab fa-discord"></i>
         </a>
     </div>
     <div class="nav navbar-nav ml-auto">
@@ -36,11 +24,6 @@
                     <a class="dropdown-item" routerLink="/dashboard"
                         routerLinkActive="active">
                         <i class="fas fa-cog"></i> Dashboard</a>
-                    <a *ngIf="user?.id === botOwnerId"
-                        class="dropdown-item" routerLink="/stats" routerLinkActive="active"
-                        matTooltip="Only bot owners can see this.">
-                        <i class="fas fa-chart-line" aria-hidden="true"></i> Bot Stats
-                    </a>
                     <hr class="m-1">
                     <a class="dropdown-item" routerLink="/logout">
                     <i class="fas fa-sign-out-alt"></i> Logout</a>
