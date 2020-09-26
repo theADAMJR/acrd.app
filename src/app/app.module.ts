@@ -23,7 +23,6 @@ import { CommandsModuleComponent } from './dashboard/commands-module/commands-mo
 import { LogsModuleComponent } from './dashboard/logs-module/logs-module.component';
 import { AutoModModuleComponent } from './dashboard/auto-mod-module/auto-mod-module.component';
 import { GeneralModuleComponent } from './dashboard/general-module/general-module.component';
-import { MusicModuleComponent } from './dashboard/music-module/music-module.component';
 import { LogModuleComponent } from './dashboard/log-module/log-module.component';
 import { SettingsModuleComponent } from './dashboard/settings-module/settings-module.component';
 import { LevelingModuleComponent } from './dashboard/leveling-module/leveling-module.component';
@@ -86,7 +85,6 @@ export class AlertErrorHandler implements ErrorHandler {
     CommandsModuleComponent,
     AutoModModuleComponent,
     GeneralModuleComponent,
-    MusicModuleComponent,
     LevelingModuleComponent,
     SettingsModuleComponent,
     LevelingModuleComponent,

@@ -1,1 +1,24 @@
-<spinner></spinner>
+<section class="container">
+    <h2 class="display-3">Login</h2>
+    <form #f="ngForm" [formGroup]="form" (ngSubmit)="login(f.value)">
+        <div *ngIf="form.errors" class="alert alert-danger">The username or password is invalid.</div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input formControlName="username"
+                id="username" type="text" class="form-control" autocomplete="username">
+            <div *ngIf="username.pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</div>
+            <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+                <div *ngIf="username.errors.required">Username is required.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input formControlName="password"
+                id="password" type="password" class="form-control" autocomplete="current-password">
+            <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                Password is required.
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+</section>
