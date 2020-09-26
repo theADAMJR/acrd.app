@@ -1,37 +1,3 @@
 <guild-sidebar>
-    <section class="container">
-        <div class="row color-heading">
-            <div class="col-lg-3 col-sm-6">
-                <div class="stats cursor-pointer">
-                    <i class="fa fa-code" aria-hidden="true"></i>
-                    Ran {{ commands?.length | number }} Commands
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div [class]="botNeedsPerms ? 'needPerms' : ''"
-                    [matTooltip]="botNeedsPerms
-                        ? 'Bot requires \'ADMINISTRATOR\' to allow all functionality.'
-                        : 'Bot has \'ADMINISTRATOR\' and can perform to its full potential.'"
-                    class="stats cursor-pointer">
-                    <div *ngIf="botNeedsPerms">
-                        <i class="fa fa-lock" aria-hidden="true"></i> Missing Permissions
-                    </div>
-                    <div *ngIf="!botNeedsPerms">
-                        <i class="fa fa-thumbs-up" aria-hidden="true"></i> Ready
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="stats cursor-pointer">
-                    <i class="fa fa-hashtag" aria-hidden="true"></i> {{ guild.channels?.length }} Channels
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="stats cursor-pointer">
-                    <i class="fa fa-user-o" aria-hidden="true"></i> {{ guild.memberCount | number }} Members
-                </div>
-            </div>
-        </div>
-        <hr>
-    </section>
+    <section class="container"></section>
 </guild-sidebar>

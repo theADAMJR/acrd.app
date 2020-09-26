@@ -17,14 +17,17 @@ export class GuildAuthGuard implements CanActivate {
       await this.userService.init();
       await this.guildService.init();
 
+      
       const guildId = next.paramMap.get('id');                
+      const guild = await this.guildService.getPublicGuild(guildId);
+
       this.guildService.singleton = next.data =
         (guildId === this.guildService.singleton?.guildId) 
           ? this.guildService.singleton : {
             guildId,
-            channels: await this.guildService.getChannels(guildId),
-            roles: await this.guildService.getRoles(guildId),
-            savedGuild: await this.guildService.getSavedGuild(guildId)
+            channels: guild.channels,
+            roles: guild.roles,
+            guild
           };
           
       const canActivate = this.guildService.guilds?.some(g => g.id === guildId); 

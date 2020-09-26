@@ -28,7 +28,9 @@
 }
 
 .guild-icon img {
-    max-width: 52px;
+    width: 52px;
+    height: 52px;
+    
     border-radius: 50%;
 
     transition: all .35s;
@@ -79,11 +81,11 @@ mat-sidenav {
 .guild-icon .add-guild {
     font-size: 40px;
 
-    color: var(--secondary);
+    color: var(--tertiary);
 }
 
 .invite:hover {
-    background-color: var(--tertiary);
+    background-color: var(--primary);
 }
 
 .guild-seperator {
@@ -103,4 +105,19 @@ mat-sidenav {
 
     color: var(--primary);
     text-shadow: none;
+}
+
+.footer {    
+    background-color: var(--background-tertiary);
+
+    position: absolute;
+    bottom: 0;
+
+    margin-left: 0px;
+    padding: 10px;
+    width: 275px;
+}
+.footer img {
+    width: 32px;
+    height: 32px;
 }

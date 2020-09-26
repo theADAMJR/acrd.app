@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 })
 export class GuildService {
   endpoint = environment.endpoint + '/guilds';
-  
   singleton = null;
 
   private _guilds = [];
@@ -26,7 +25,9 @@ export class GuildService {
 
   async updateGuilds() {
     this._guilds = (this.key) ? 
-      await this.http.get(`${this.endpoint}?key=${this.key}`).toPromise() as any : [];
+      await this.http.get(`${this.endpoint}`, { headers: { Authorization: this.key }}).toPromise() as any : [];
+    console.log(this._guilds);
+    
   }
 
   getGuild(id: string) {
@@ -34,38 +35,18 @@ export class GuildService {
   }
 
   getPublicGuild(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}/public`).toPromise();
+    return this.http.get(`${this.endpoint}/${id}/public`, { headers: { Authorization: this.key } }).toPromise();
   }
-
-  getMembers(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}/members`).toPromise();
-  }
-
-  getSavedGuild(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}/config?key=${this.key}`).toPromise();
-  }
-
+  
   getSavedLog(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}/log?key=${this.key}`).toPromise();
+    return this.http.get(`${this.endpoint}/${id}/log`).toPromise();
   }
 
   saveGuild(id: string, module: string, value: any): Promise<any> {    
-    return this.http.put(`${this.endpoint}/${id}/${module}?key=${this.key}`, value).toPromise();
+    return this.http.put(`${this.endpoint}/${id}/${module}`, value).toPromise();
   }
 
-  getChannels(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}/channels`).toPromise();
-  }
-
-  getRoles(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}/roles`).toPromise();
-  }
-
-  getBotStatus(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}/bot-status`).toPromise();
-  }
-
-  getMessage(id: string, channelId: string, messageId: string): Promise<any> {    
-    return this.http.get(`${this.endpoint}/${id}/channels/${channelId}/messages/${messageId}`).toPromise();
+  async createGuild(data: any): Promise<any> {
+    return this.http.post(this.endpoint, data, { headers: { Authorization: this.key } }).toPromise();
   }
 }

@@ -15,6 +15,10 @@
     border-radius: 25px !important;
 }
 
+.round {
+    border-radius: 50% !important;
+}
+
 /* lists */
 .list-none {
     list-style-type: none !important;

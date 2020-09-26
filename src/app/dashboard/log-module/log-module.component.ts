@@ -30,7 +30,7 @@ export class LogModuleComponent implements OnInit {
     const log = await this.guildService.getSavedLog(id);
     this.changes = log.changes.reverse();
 
-    this.members = await this.guildService.getMembers(id);
+    this.members = this.guildService.getGuild(id)?.members;
     
     this.dataSource = new MatTableDataSource(this.changes);
     this.dataSource.paginator = this.paginator;

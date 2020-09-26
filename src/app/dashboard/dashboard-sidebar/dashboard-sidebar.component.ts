@@ -22,9 +22,8 @@ export class DashboardSidebarComponent implements OnInit {
 
   constructor(
     private service: ThemeService,
-    private userService: UsersService) {
-    document.title = 'DClone - Dashboard';
-  }
+    private userService: UsersService) {}
+    
   ngOnInit() {
     this.service.updateTheme();
     this.form.valueChanges.subscribe(() => 

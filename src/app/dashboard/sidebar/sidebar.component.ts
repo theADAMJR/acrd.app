@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { UsersService } from '../../services/users.service';
 import { GuildService } from '../../services/guild.service';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -20,17 +19,12 @@ export class SidebarComponent implements OnInit {
     private userService: UsersService) {}
 
   async ngOnInit() {
-    if (this.guildService.guilds.length <= 0)
-      await this.guildService.updateGuilds();
+    await this.guildService.init();
   }
 
   toggle() {
     const icon = document.querySelector('#nav-icon1');
     icon.classList.toggle('open');
     this.drawer.toggle();
-  }
-
-  identify(index, guild){
-    return guild.id; 
   }
 }

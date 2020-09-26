@@ -6,14 +6,10 @@
 @include mat-core();
 
 body {    
-    background: black;
-    background: radial-gradient(circle, var(--background-primary) 0%, var(--background-secondary) 100%) !important;
-}
-:root[theme=DISCORD] body { 
     background-color: var(--background-primary) !important;
 }
 
-:root, :root[theme=IONIC] {
+:root[theme=IONIC] {
     --heading: #FFFFFF;
     --font: #F4F2F3;
     --plus: green;
@@ -54,7 +50,12 @@ body {
     --background-secondary: #070d1a;
     --background-tertiary: #060b18;
 }
-:root[theme=DISCORD] {
+:root, :root[theme=DISCORD] {
+    --primary: #7289DA;
+    --secondary: white;
+    --tertiary: #99AAB5;
+
+    --heading: black;
     --font: #99AAB5;
     
     --background-primary: #36393F;

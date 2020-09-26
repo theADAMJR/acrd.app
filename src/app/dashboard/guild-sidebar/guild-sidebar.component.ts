@@ -25,7 +25,6 @@ export class GuildSidebarComponent implements OnInit {
     this.route.paramMap.subscribe(async(paramMap) => {
       this.id = paramMap.get('id');
 
-      this.savedGuild = await this.guildService.getSavedGuild(this.id);
       this.guild = this.guildService.getGuild(this.id);
       
       if (!this.guild)

@@ -25,23 +25,6 @@ table {
     width: 100%;
 }
 
-.side-nav img {
-    background-color: var(--background-tertiary);
-
-    max-width: 96px;
-    border-radius: 50%;
-
-    padding-bottom: 5px;
-}
-
-.side-nav .header {
-    width: inherit;
-
-    text-align: center;
-
-    padding-top: 25px;
-}
-
 table.dataTable tbody tr {
     background-color: inherit;
 }
@@ -85,7 +68,6 @@ a {
 
 h3 {
     color: var(--primary);
-    text-transform: uppercase;
 }
 
 .desc {
@@ -151,6 +133,27 @@ mat-paginator {
 
 /* sidebar */
 
+.side-nav img {
+    background-color: var(--background-tertiary);
+
+    max-width: 96px;
+    border-radius: 50%;
+
+    padding-bottom: 5px;
+}
+
+.side-nav .header {
+    width: inherit;
+    height: 53px;
+
+    text-align: center;
+
+    padding-top: 25px;
+    margin-bottom: 10px;
+    
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
 .mat-drawer-side, .mat-drawer-container {
     background-color: transparent !important;
     border: none !important;
@@ -167,7 +170,7 @@ mat-sidenav a.active {
     background-color: var(--background-primary) !important;
 }
 mat-sidenav a:hover {
-    color: var(--heading);
+    color: var(--secondary);
     background-color: var(--background-primary) !important;
 }
 
@@ -181,7 +184,7 @@ mat-sidenav a:hover {
     color: var(--muted);
 }
 .category:hover {
-    color: var(--heading);
+    color: var(--secondary);
     
     cursor: pointer;
 }
@@ -189,4 +192,10 @@ mat-sidenav a:hover {
 /* inputs */
 .mat-option {
     height: inherit !important;
+}
+
+/* modal */
+
+.modal-backdrop {
+    z-index: -1 !important;
 }

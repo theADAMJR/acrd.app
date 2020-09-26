@@ -9,63 +9,11 @@
                     <span>{{ guild.nameAcronym }}</span>
                 </div>
             </div>
-            <h4 [routerLink]="['/servers/' + id]">{{ guild.name }}</h4>
+            <h4 [routerLink]="['/channels/' + id]">{{ guild.name }}</h4>
         </div>
-            <div class="category">Config</div>
-            <div *ngIf="guild && savedGuild"
+            <div class="category">Channels</div>
+            <div *ngIf="guild"
                 class="navbar-nav">
-                <a [routerLink]="['/servers/' + id + '/auto-mod']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.autoMod?.enabled"
-                    class="nav-item nav-link">
-                    <i class="text-muted fas fa-gavel"></i> Auto-mod</a>
-
-                <a [routerLink]="['/servers/' + id + '/commands']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.commands?.enabled"
-                    class="nav-item nav-link">
-                    <i class="text-muted fas fa-code"></i> Commands</a>
-
-                <a [routerLink]="['/servers/' + id + '/general']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.general?.enabled"
-                    class="nav-item nav-link">
-                    <i class="text-muted fas fa-terminal"></i> General</a>
-
-                <a [routerLink]="['/servers/' + id + '/leveling']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.leveling?.enabled"
-                    class="nav-item nav-link">
-                    <i class="text-muted fas fa-star"></i> Leveling</a>
-
-                <a [routerLink]="['/servers/' + id + '/logs']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.logs?.enabled"
-                    class="nav-item nav-link">                    
-                    <i class="text-muted fas fa-clone"></i> Logs</a>
-
-                <a [routerLink]="['/servers/' + id + '/music']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.music?.enabled"
-                    class="nav-item nav-link">
-                    <i class="text-muted fas fa-music"></i> Music</a>
-
-                <a [routerLink]="['/servers/' + id + '/reaction-roles']" routerLinkActive="active"
-                    [class.interactive-muted]="!savedGuild.reactionRoles?.enabled"
-                    class="nav-item nav-link">
-                    <i class="text-muted fas fa-theater-masks"></i> Reaction Roles</a>
-            </div>
-
-            <div class="category">More</div>
-            <div class="navbar-nav">
-                <a [routerLink]="['/leaderboard/' + id]" routerLinkActive="active"
-                    class="nav-item nav-link">
-                    <i class="text-muted fas fa-trophy"></i> Leaderboard</a>
-                <a [routerLink]="['/servers/' + id + '/log']" routerLinkActive="active"
-                    class="nav-item nav-link">
-                    <i class="text-muted fas fa-file-alt"></i> Log</a>
-            </div>
-
-            <div class="category">Other</div>
-            <div class="navbar-nav">
-                <a [routerLink]="['/servers/' + id + '/settings']" routerLinkActive="active"
-                    class="nav-item nav-link">
-                    <i class="text-muted fa fa-cog"></i> Settings
-                </a>
             </div>
         </div>
     <div id="content">

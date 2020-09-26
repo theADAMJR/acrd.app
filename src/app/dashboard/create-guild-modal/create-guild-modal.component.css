@@ -1,0 +1,16 @@
+#joinGuildButton {
+  width: 100%;
+}
+
+.modal-content div {
+  border: none !important;
+  color: black !important;
+}
+
+.modal-footer {
+  display: inline !important;
+}
+
+button {
+  color: var(--secondary) !important;
+}

@@ -40,6 +40,8 @@ import { MessagePreviewComponent } from './message-preview/message-preview.compo
 import { WavesComponent } from './waves/waves.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { DashboardNavbarComponent } from './dashboard/dashboard-navbar/dashboard-navbar.component';
+import { CreateGuildModalComponent } from './dashboard/create-guild-modal/create-guild-modal.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -91,7 +93,9 @@ export class AlertErrorHandler implements ErrorHandler {
     LogsModuleComponent,
     WavesComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    DashboardNavbarComponent,
+    CreateGuildModalComponent
   ],
   imports: [
     AppRoutingModule,

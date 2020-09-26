@@ -10,7 +10,6 @@ import { GuildComponent } from './dashboard/guild/guild.component';
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { GuildAuthGuard } from './guards/guild-auth.guard';
 import { SettingsModuleComponent } from './dashboard/settings-module/settings-module.component';
-import { LeaderboardAuthGuard } from './guards/leaderboard-auth.guard';
 import { DocsComponent } from './docs/docs.component';
 import { CanDeactivateDashboard } from './guards/can-deactivate-dashboard.guard';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -53,6 +52,12 @@ const routes: Routes = [
     path: 'channels/@me/:userId',
     component: DashboardOverviewComponent,
     canActivate: [DashboardAuthGuard]
+  },
+  {
+    path: 'channels/:guildId',
+    component: GuildComponent,
+    canActivate: [GuildAuthGuard],
+    canDeactivate: [CanDeactivateDashboard]
   },
   {
     path: 'channels/:guildId/:channelId',
