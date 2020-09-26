@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { HighlightModule } from 'ngx-highlightjs';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,14 +17,12 @@ import { SidebarComponent } from './dashboard/sidebar/sidebar.component';
 import { GuildComponent } from './dashboard/guild/guild.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HomeComponent } from './home/home.component';
-import { CommandsModuleComponent } from './dashboard/commands-module/commands-module.component';
 import { LogsModuleComponent } from './dashboard/logs-module/logs-module.component';
 import { LogModuleComponent } from './dashboard/log-module/log-module.component';
 import { SettingsModuleComponent } from './dashboard/settings-module/settings-module.component';
 import { GuildSidebarComponent } from './dashboard/guild-sidebar/guild-sidebar.component';
 import { DashboardSidebarComponent } from './dashboard/dashboard-sidebar/dashboard-sidebar.component';
 import { MaterialModule } from './material-module';
-import { PremiumDirective } from './dashboard/directives/premium.directive';
 import { SaveChangesComponent } from './dashboard/save-changes/save-changes.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DocsComponent } from './docs/docs.component';
@@ -41,6 +39,7 @@ import { CamelToSentenceCasePipe } from './pipes/camel-to-sentence-case.pipe';
 import { MessagePreviewComponent } from './message-preview/message-preview.component';
 import { WavesComponent } from './waves/waves.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -72,7 +71,6 @@ export class AlertErrorHandler implements ErrorHandler {
     SidebarComponent,
     GuildComponent,
     SpinnerComponent,
-    CommandsModuleComponent,
     SettingsModuleComponent,
     GuildSidebarComponent,
     DashboardSidebarComponent,
@@ -105,18 +103,10 @@ export class AlertErrorHandler implements ErrorHandler {
     MaterialModule,
     HighlightModule
   ],
-  exports: [PremiumDirective],
   providers: [
     { provide: ErrorHandler, useClass: AlertErrorHandler },
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
-    { provide: HIGHLIGHT_OPTIONS, useValue: { languages: getHighlightLanguages() } }
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
-
-function getHighlightLanguages() {
-  return {
-    json: () => import('highlight.js/lib/languages/json')
-  };
-}

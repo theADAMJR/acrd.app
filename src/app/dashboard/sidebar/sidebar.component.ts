@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
-import { UserService } from '../../services/user.service';
+import { UsersService } from '../../services/users.service';
 import { GuildService } from '../../services/guild.service';
 import { MatDrawer } from '@angular/material/sidenav';
 
@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private guildService: GuildService,
-    private userService: UserService) {}
+    private userService: UsersService) {}
 
   async ngOnInit() {
     if (this.guildService.guilds.length <= 0)

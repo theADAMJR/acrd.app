@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { UsersService } from '../../services/users.service';
 import { MatSelect } from '@angular/material/select';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ThemeService } from 'src/app/services/theme.service';
@@ -22,7 +22,7 @@ export class DashboardSidebarComponent implements OnInit {
 
   constructor(
     private service: ThemeService,
-    private userService: UserService) {
+    private userService: UsersService) {
     document.title = 'DClone - Dashboard';
   }
   ngOnInit() {

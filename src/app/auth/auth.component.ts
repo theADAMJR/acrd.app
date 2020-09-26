@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GuildService } from '../services/guild.service';
-import { UserService } from '../services/user.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private guildService: GuildService,
-    private userService: UserService) {}
+    private userService: UsersService) {}
 
   async ngOnInit() {
     try {
@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
       await this.userService.updateUser();
       await this.guildService.updateGuilds();
       
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/channels/@me']);
     } catch {
       alert('Invalid key - check console');
       this.router.navigate(['/']);

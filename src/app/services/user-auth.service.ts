@@ -3,26 +3,27 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { UsersService } from './users.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UserAuthService {
-  user: User;
-  endpoint = environment.api;
+  endpoint = environment.endpoint;
 
-  get loggedIn() { return new JwtHelperService().isTokenExpired(this.token); }
-  get token() { return localStorage.getItem('token'); }
+  get loggedIn() { return this.usersService.user && !(new JwtHelperService().isTokenExpired(this.key)); }
+  get key() { return localStorage.getItem('key'); }
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.getCurrentUser().then(user => this.user = user); }
+  constructor(
+    private jwt: JwtHelperService,
+    private http: HttpClient,
+    private router: Router,
+    private usersService: UsersService) {}
 
   async signUp(user: Credentials) {
-    const res: any = await this.http.post(`${this.endpoint}/sign-up`, user).toPromise();
+    const res: any = await this.http.post(`${this.endpoint}/users`, user).toPromise();
 
     if (res) {
-      localStorage.setItem('token', res);
-      await this.updateUser();
+      localStorage.setItem('key', res);
+      await this.usersService.updateUser();
     }
     return Boolean(res);
   }
@@ -31,41 +32,11 @@ export class UserAuthService {
     const res: any = await this.http.post(`${this.endpoint}/login`, user).toPromise();
 
     if (res) {
-      localStorage.setItem('token', res);
-      await this.updateUser();
+      localStorage.setItem('key', res);
+      await this.usersService.updateUser();
     }
     return Boolean(res);
   }
-
-  logout() {
-    localStorage.removeItem('token');
-    this.user = null;
-  }
-
-  async updateUser() {
-    this.user = await this.getCurrentUser();
-  }
-
-  async getUser(id: string) {
-    return this.http.get(`${this.endpoint}/users/${id}`).toPromise() as Promise<User>;
-  }
-
-  private async getCurrentUser() {
-    const id = (this.token) ? new JwtHelperService().decodeToken(this.token)._id : null;
-    try {
-      return await this.getUser(id);
-    } catch { return null; }
-  }
-}
-
-export interface User {
-  _id: string;
-  username: string;
-  bio: string;
-  following: string[];
-  followers: string[];
-  tags: string[];
-  createdAt: Date;
 }
 
 export interface Credentials {

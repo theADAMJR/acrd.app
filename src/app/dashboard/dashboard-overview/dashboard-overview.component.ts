@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +9,7 @@ import { UserService } from '../../services/user.service';
 export class DashboardOverviewComponent {
   get user() { return this.userService.user; }
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UsersService) {
     document.title = 'DClone - Dashboard';
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
-import { UserService } from '../services/user.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'message-preview',
@@ -22,7 +22,7 @@ export class MessagePreviewComponent {
   }
   @Input() createdAt = new Date();
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UsersService) {}
 
   get timestamp() {
     const timestamp = this.createdAt.toLocaleTimeString('en-US', {

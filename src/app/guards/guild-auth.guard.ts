@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { GuildService } from '../services/guild.service';
-import { UserService } from '../services/user.service';
+import { UsersService } from '../services/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class GuildAuthGuard implements CanActivate {
   constructor(
     private guildService: GuildService,
     private router: Router,
-    private userService: UserService) {}
+    private userService: UsersService) {}
 
   async canActivate(
     next: ActivatedRouteSnapshot) {
@@ -29,7 +29,7 @@ export class GuildAuthGuard implements CanActivate {
           
       const canActivate = this.guildService.guilds?.some(g => g.id === guildId); 
       if (!canActivate)
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/channels/@me']);
 
       return canActivate;
   }  

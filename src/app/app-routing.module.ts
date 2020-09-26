@@ -13,6 +13,7 @@ import { SettingsModuleComponent } from './dashboard/settings-module/settings-mo
 import { LeaderboardAuthGuard } from './guards/leaderboard-auth.guard';
 import { DocsComponent } from './docs/docs.component';
 import { CanDeactivateDashboard } from './guards/can-deactivate-dashboard.guard';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
   {
@@ -36,12 +37,20 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'sign-up',
+    component: SignUpComponent
+  },
+  {
     path: 'logout',
     component: LogoutComponent
   },
-
   {
-    path: 'channels',
+    path: 'channels/@me',
+    component: DashboardOverviewComponent,
+    canActivate: [DashboardAuthGuard]
+  },
+  {
+    path: 'channels/@me/:userId',
     component: DashboardOverviewComponent,
     canActivate: [DashboardAuthGuard]
   },

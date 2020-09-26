@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Credentials, User, UserAuthService } from '../services/user-auth.service';
+import { Credentials, UserAuthService } from '../services/user-auth.service';
 import { UsersService } from '../services/users.service';
 import { PasswordValidators } from './password.validators';
 import { UsernameValidators } from './username.validators';
@@ -48,7 +48,8 @@ export class SignUpComponent implements OnInit {
     }
 
     async updateTakenUsernames() {
-        const users = await this.users.getAll();
-        UsernameValidators.takenUsernames = users.map(u => u.username);
+        // FIXME: make it work
+        // const users = await this.users.get();
+        // UsernameValidators.takenUsernames = users.map(u => u.username);
     }
 }

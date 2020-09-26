@@ -29,7 +29,7 @@ export class GuildSidebarComponent implements OnInit {
       this.guild = this.guildService.getGuild(this.id);
       
       if (!this.guild)
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/channels/@me']);
     });
   }
 }

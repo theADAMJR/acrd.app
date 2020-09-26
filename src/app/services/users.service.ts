@@ -1,20 +1,36 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { UserAuthService } from './user-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
   endpoint = `${environment.endpoint}/users`;
+  
+  private _user: any;
+  get user() { return this._user; }
+
+
+  get key() {
+    return localStorage.getItem('key');
+  }
 
   constructor(
-    private http: HttpClient,
-    private auth: UserAuthService) {}
+    private http: HttpClient) {}
 
-  getAll(): Promise<any> {
-    return this.http.get(`${this.endpoint}`).toPromise();
+  async init() {
+    if (!this.user)
+      await this.updateUser();
+  }
+
+  async updateUser() {
+    this._user = (this.key) ?
+      await this.http.get(this.endpoint, { headers: { Authorization: this.key }}).toPromise() : null;
+  }
+
+  get(id: string): Promise<any> {
+    return this.http.get(`${this.endpoint}/${id}`, { headers: { Authorization: this.key } }).toPromise();
   }
 
   update(id: string, newItem: any, extraOptions?: any) {
@@ -22,12 +38,12 @@ export class UsersService {
       { ...extraOptions, headers: this.buildHeaders() }).toPromise();
   }
 
-  follow(id: string) {
+  addFriend(id: string) {
     return this.http.get(`${this.endpoint}/${id}/add-friend`,
       { headers: this.buildHeaders() }).toPromise();
   }
 
-  unfollow(id: string) {
+  removeFriend(id: string) {
     return this.http.get(`${this.endpoint}/${id}/remove-friend`,
       { headers: this.buildHeaders() }).toPromise();
   }
@@ -44,6 +60,6 @@ export class UsersService {
   }
 
   private buildHeaders() {
-    return new HttpHeaders({ Authorization: `${this.auth.token}` });
+    return new HttpHeaders({ Authorization: `${this.key}` });
   }
 }

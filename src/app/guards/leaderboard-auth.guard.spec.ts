@@ -21,14 +21,14 @@ describe('LeaderboardAuthGuard', () => {
       }
     } as any;
 
-    const fakeUserService = new class {
+    const fakeUsersService = new class {
       
       get user() {
         return { id: '123' };
       }
     } as any;
 
-    guard = new LeaderboardAuthGuard(fakeGuildService, fakeUserService);
+    guard = new LeaderboardAuthGuard(fakeGuildService, fakeUsersService);
     guildConfig = {};
     members = [];
   });

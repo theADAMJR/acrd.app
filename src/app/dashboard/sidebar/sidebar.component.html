@@ -2,8 +2,8 @@
     <mat-sidenav #drawer mode="side" opened>
         <div class="guilds px-2">
             <div class="user">
-                <div routerLink="/dashboard" class="guild-icon">
-                    <img [src]="user.displayAvatarURL" alt="{{ user.username }}">
+                <div routerLink="/channels/@me" class="guild-icon">
+                    <img [src]="user.avatarURL" alt="{{ user.username }}">
                 </div>
                 <hr class="guild-seperator">
             </div>

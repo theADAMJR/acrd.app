@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { GuildService } from '../services/guild.service';
-import { UserService } from '../services/user.service';
+import { UsersService } from '../services/users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { UserService } from '../services/user.service';
 export class LeaderboardAuthGuard implements CanActivate {
   constructor(
     private guildService: GuildService,
-    private userService: UserService) {}
+    private userService: UsersService) {}
 
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const id = next.paramMap.get('id');
