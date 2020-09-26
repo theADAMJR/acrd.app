@@ -25,7 +25,7 @@ export class LogModuleComponent implements OnInit {
     private guildService: GuildService) {}
 
   async ngOnInit() { 
-    const id = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('guildId');
 
     const log = await this.guildService.getSavedLog(id);
     this.changes = log.changes.reverse();
@@ -46,6 +46,6 @@ export class LogModuleComponent implements OnInit {
   }
 
   getMember(id: string) {          
-    return this.members.find(m => m.id === id) || {};
+    return this.members.find(m => m._id === id) || {};
   }
 }

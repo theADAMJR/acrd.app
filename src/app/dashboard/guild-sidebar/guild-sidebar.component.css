@@ -22,3 +22,10 @@ i {
 .alt-name span {
     font-size: 32px;
 }
+
+.header h1 {
+    font-size: large;
+    color: var(--secondary) !important;
+
+    padding: 16px 20px;
+}

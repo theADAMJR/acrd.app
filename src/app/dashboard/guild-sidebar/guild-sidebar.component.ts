@@ -23,7 +23,7 @@ export class GuildSidebarComponent implements OnInit {
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
-      this.id = paramMap.get('id');
+      this.id = paramMap.get('guildId');
 
       this.guild = this.guildService.getGuild(this.id);
       

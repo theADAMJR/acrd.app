@@ -7,7 +7,8 @@
                 </div>
                 <hr class="guild-seperator">
             </div>
-            <div *ngFor="let guild of guilds" [routerLink]="['/guilds/' + guild._id]"
+            <div *ngFor="let guild of guilds"
+                [routerLink]="'/channels/' + guild._id"
                 class="guild-icon"
                 [matTooltip]="guild.name">
                 <img *ngIf="guild.iconURL"
@@ -33,7 +34,6 @@
         <create-guild-modal></create-guild-modal>
     </mat-sidenav>
     <mat-sidenav-content>
-        <dashboard-navbar></dashboard-navbar>
         <button class="toggle">
             <div id="nav-icon1" class="open"
                 (click)="toggle()">

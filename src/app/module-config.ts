@@ -22,7 +22,7 @@ export abstract class ModuleConfig implements OnDestroy {
     textChannels: any = [];
     roles: any = [];
 
-    get guildId() { return this.route.snapshot.paramMap.get('id'); }
+    get guildId() { return this.route.snapshot.paramMap.get('guildId'); }
 
     private saveChanges$: Subscription;  
     private valueChanges$: Subscription;  

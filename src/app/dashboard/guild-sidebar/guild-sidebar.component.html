@@ -1,25 +1,19 @@
 <sidebar>
     <div *ngIf="guild" class="side-nav navbar-dark">
         <div class="header">
-            <div class="d-flex justify-content-center">
-                <img *ngIf="guild.iconURL"
-                    [src]="guild.iconURL" [alt]="guild.name">
-                <div *ngIf="!guild.iconURL"
-                    class="alt-name d-flex flex-column justify-content-center">
-                    <span>{{ guild.nameAcronym }}</span>
-                </div>
-            </div>
-            <h4 [routerLink]="['/channels/' + id]">{{ guild.name }}</h4>
+            <h1><strong>{{ guild.name }}</strong></h1>
         </div>
             <div class="category">Channels</div>
             <div *ngIf="guild"
                 class="navbar-nav">
+                
             </div>
         </div>
+        
     <div id="content">
+        <dashboard-navbar>Friends</dashboard-navbar>
         <div *ngIf="loaded">
             <ng-content></ng-content>
-            <div class="mt-5 pt-2"></div>
         </div>
         <div *ngIf="!loaded">
             <spinner></spinner>

@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 })
 export class GuildService {
   endpoint = environment.endpoint + '/guilds';
-  singleton = null;
 
   private _guilds = [];
   get guilds() { return this._guilds; }
@@ -26,16 +25,10 @@ export class GuildService {
   async updateGuilds() {
     this._guilds = (this.key) ? 
       await this.http.get(`${this.endpoint}`, { headers: { Authorization: this.key }}).toPromise() as any : [];
-    console.log(this._guilds);
-    
   }
 
   getGuild(id: string) {
-    return this.guilds?.find(g => g.id === id);
-  }
-
-  getPublicGuild(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}/public`, { headers: { Authorization: this.key } }).toPromise();
+    return this.guilds?.find(g => g._id === id);
   }
   
   getSavedLog(id: string): Promise<any> {

@@ -16,7 +16,7 @@ export class GuildComponent implements OnInit {
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
-      const id = paramMap.get('id');
+      const id = paramMap.get('guildId');
       this.guild = this.guildService.getGuild(id);
     });
   }
