@@ -12,7 +12,6 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
-import {ColorPickerModule} from 'ngx-color-picker';
 import {CdkTableModule} from '@angular/cdk/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSliderModule} from '@angular/material/slider';
@@ -20,7 +19,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   exports: [
-    ColorPickerModule,
     CdkTableModule,
     MatButtonModule,
     MatButtonToggleModule,

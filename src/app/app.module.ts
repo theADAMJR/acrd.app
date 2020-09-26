@@ -3,7 +3,6 @@ import { NgModule, ErrorHandler, Injectable } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
-import { ChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
@@ -143,8 +142,7 @@ export class AlertErrorHandler implements ErrorHandler {
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    HighlightModule,
-    ChartsModule
+    HighlightModule
   ],
   exports: [PremiumDirective],
   providers: [

@@ -4,18 +4,6 @@
   <p class="lead">View a list of 2PG's Discord chat commands</p>
 </header>
 <section class="container px-lg-5">
-  <div class="d-flex justify-content-center">
-    <mat-form-field appearance="outline">
-      <mat-label>Search</mat-label>
-      <input (keyup.enter)="search(searchInput.value)"
-        placeholder="ping"
-        matInput #searchInput>
-    </mat-form-field>
-    <button id="searchButton"
-      (click)="search(searchInput.value)" 
-      mat-button><i class="fas fa-search"></i></button>
-  </div>
-
   <div class="row">
     <div class="col-sm-3">
       <ul class="list-group categories">

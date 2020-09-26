@@ -35,13 +35,4 @@ export class CommandsComponent implements OnInit {
     this.displayedCommands = this.commands
       .filter(c => kebabToCamelCase(c.module) === name);    
   }
-
-  search(query: string) {
-    const empty = query.trim().length <= 0;
-    if (empty)
-      return this.setModule(this.modules[0].name);
-
-    this.displayedCommands = this.service.search(query);
-    this.selectedModule = '';
-  }
 }
