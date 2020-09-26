@@ -62,6 +62,9 @@ button {
 }
 
 .toggle {
+    position: absolute;
+    bottom: 0;
+
     visibility: visible;
 
     margin: 50px 0 0 15px;

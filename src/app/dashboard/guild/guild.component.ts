@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GuildService } from '../../services/guild.service';
 
 @Component({
@@ -11,13 +11,18 @@ export class GuildComponent implements OnInit {
   guild: any;
 
   constructor(
+    private route: ActivatedRoute,
     private guildService: GuildService,
-    private route: ActivatedRoute) {}
+    private router: Router) {}
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
       const id = paramMap.get('guildId');
       this.guild = this.guildService.getGuild(id);
+      
+      const defaultChannel = this.guild.channels[0];
+      if (defaultChannel)
+        this.router.navigate([`/channels/${id}/${defaultChannel._id}`]);
     });
   }
 }

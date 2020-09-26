@@ -6,12 +6,23 @@
             <div class="category">Channels</div>
             <div *ngIf="guild"
                 class="navbar-nav">
-                
+                <a *ngFor="let channel of guild.channels"
+                    [routerLink]="'/channels/' + guild._id + '/' + channel._id"
+                    routerLinkActive="active"
+                    class="nav-item nav-link">
+                    <i class="fas text-muted" [ngClass]="{
+                        'fa-hashtag': channel.type === 'TEXT',
+                        'fa-volume-up': channel.type === 'VOICE'
+                    }"></i>
+                    {{ channel.name }}</a>
             </div>
         </div>
         
     <div id="content">
-        <dashboard-navbar>Friends</dashboard-navbar>
+        <dashboard-navbar *ngIf="selectedChannel">
+            <i class="fas fa-hashtag text-muted pr-2"></i>
+            <strong>{{ selectedChannel.name }}</strong>
+        </dashboard-navbar>
         <div *ngIf="loaded">
             <ng-content></ng-content>
         </div>

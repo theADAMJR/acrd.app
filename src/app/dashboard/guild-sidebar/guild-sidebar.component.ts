@@ -12,7 +12,7 @@ export class GuildSidebarComponent implements OnInit {
   
   id: string;
   guild: any;
-  savedGuild: any;
+  selectedChannel: any;
 
   constructor(
     private guildService: GuildService,
@@ -24,8 +24,11 @@ export class GuildSidebarComponent implements OnInit {
   async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
       this.id = paramMap.get('guildId');
+      const channelId = paramMap.get('channelId');
 
       this.guild = this.guildService.getGuild(this.id);
+      this.selectedChannel = this.guild.channels
+        .find(c => c._id === channelId);
       
       if (!this.guild)
         this.router.navigate(['/channels/@me']);
