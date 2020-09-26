@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
-import io from 'socket.io-client';
-import { environment } from 'src/environments/environment';
 import { UsersService } from 'src/app/services/users.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { WSService } from 'src/app/services/ws.service';
@@ -16,7 +14,6 @@ export class TextChannelComponent implements OnInit {
   channel: any;
   guild: any;
   messages = [];
-  socket: SocketIOClient.Socket;
 
   chatBox = new FormControl();
 
@@ -38,7 +35,7 @@ export class TextChannelComponent implements OnInit {
     
     document.title = `#${this.channel.name}`;
 
-    this.io();
+    this.ws.socket.on('MESSAGE_CREATE', (message) => this.messages.push(message));
 
     this.messages = await this.guildService.getMessages(guildId, channelId);
   }
@@ -48,15 +45,11 @@ export class TextChannelComponent implements OnInit {
     
     (document.querySelector('#chatBox') as HTMLInputElement).value = '';
     
-    this.socket.emit('MESSAGE_CREATE', {
+    this.ws.socket.emit('MESSAGE_CREATE', {
       author: this.userService.user,
       channel: this.channel,
       content,
       guild: this.guild
     });
-  }
-
-  io() {
-    this.ws.socket.on('MESSAGE_CREATE', (message) => this.messages.push(message));
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { GuildService } from '../services/guild.service';
 import { UsersService } from '../services/users.service';
 import { WSService } from '../services/ws.service';
@@ -14,20 +14,20 @@ export class GuildAuthGuard implements CanActivate {
     private userService: UsersService,
     private ws: WSService) {}
 
-  async canActivate(
-    next: ActivatedRouteSnapshot) {
+  async canActivate(next: ActivatedRouteSnapshot) {
       await this.userService.init();
       await this.guildService.init();
       
       const guildId = next.paramMap.get('guildId');
-      const canActivate = Boolean(this.guildService.getGuild(guildId));
+      const guild = this.guildService.getGuild(guildId);
+      const canActivate = Boolean(guild);
       
       if (!canActivate) {
         this.router.navigate(['/channels/@me']);
         return true;
       }
 
-      this.ws.socket.emit('VIEW_GUILD', this.userService.user);
+      this.ws.socket.emit('VIEW_GUILD', guild, this.userService.user);
       
       return true;
   }  

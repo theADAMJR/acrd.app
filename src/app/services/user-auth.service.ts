@@ -13,7 +13,6 @@ export class UserAuthService {
   get key() { return localStorage.getItem('key'); }
 
   constructor(
-    private jwt: JwtHelperService,
     private http: HttpClient,
     private router: Router,
     private usersService: UsersService) {}

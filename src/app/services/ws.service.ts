@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { EventEmitter } from 'events';
+import io from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root'

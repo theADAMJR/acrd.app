@@ -44,7 +44,7 @@ export class GuildService {
   }
 
   getMessages(guildId: string, channelId: string): Promise<any> {
-    return this.http.get(`${environment.endpoint}/${guildId}/${channelId}`,
+    return this.http.get(`${environment.endpoint}/channels/${guildId}/${channelId}`,
       { headers: { Authorization: this.key } }).toPromise();
   }
 }

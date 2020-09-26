@@ -11,7 +11,6 @@ export class UsersService {
   private _user: any;
   get user() { return this._user; }
 
-
   get key() {
     return localStorage.getItem('key');
   }
