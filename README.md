@@ -1,7 +1,7 @@
 # 2PG Dashboard
 Dashboard to customize 2PG; made with TypeScript + Angular 9 -> https://2pg.xyz
 
-**Used by**: [2PG](https://2pg.xyz), [3PG](https://3pg.xyz), [6PG](https://github.com/theADAMJR/6PG), [DBots](https://dbots.co)
+**Used by**: [2PG](https://2pg.xyz), [3PG](https://github.com/3PG), [6PG](https://github.com/theADAMJR/6PG), [DBots](https://github.com/DBots-co), [DList](https://github.com/DList-xyz)
 
 ![Guild Dashboard](https://i.ibb.co/n3D80Dx/2-PG-Dashboard.png)
 ![Audit Log](https://2pg.xyz/assets/docs/img/dashboard-v0.2.0b.png)
