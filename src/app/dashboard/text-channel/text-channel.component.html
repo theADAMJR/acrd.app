@@ -1,12 +1,17 @@
 <guild-sidebar>
-  <div class="messages">
-
+  <div *ngIf="channel">
+    <div class="messages">
+      <message-preview *ngFor="let message of messages" [message]="message"></message-preview>
+    </div>
+    <div class="footer">
+      <mat-form-field (keyup.enter)="chat(message.value)"
+        appearance="outline">
+        <mat-label>Message #{{ channel.name }}</mat-label>
+        <input id="chatBox" type="text" matInput #message>
+      </mat-form-field>
+    </div>
   </div>
-  <div class="footer">
-    <mat-form-field (keyup.enter)="chat(message.value)"
-      appearance="outline">
-      <mat-label>Message #{{ channel.name }}</mat-label>
-      <input id="chatBox" type="text" matInput #message>
-    </mat-form-field>
+  <div *ngIf="!channel">
+    <spinner></spinner>
   </div>
 </guild-sidebar>

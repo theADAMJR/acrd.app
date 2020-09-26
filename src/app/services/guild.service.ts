@@ -42,4 +42,9 @@ export class GuildService {
   async createGuild(data: any): Promise<any> {
     return this.http.post(this.endpoint, data, { headers: { Authorization: this.key } }).toPromise();
   }
+
+  getMessages(guildId: string, channelId: string): Promise<any> {
+    return this.http.get(`${environment.endpoint}/${guildId}/${channelId}`,
+      { headers: { Authorization: this.key } }).toPromise();
+  }
 }

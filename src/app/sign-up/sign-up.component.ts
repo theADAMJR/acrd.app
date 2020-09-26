@@ -12,7 +12,10 @@ import { UsernameValidators } from './username.validators';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-    constructor(private router: Router, private users: UsersService, private auth: UserAuthService) {}
+    constructor(
+        private router: Router,
+        private users: UsersService,
+        private auth: UserAuthService) {}
 
     get username() { return this.form.get('username'); }
     get password() { return this.form.get('password'); }

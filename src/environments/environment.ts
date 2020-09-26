@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   endpoint: 'http://localhost:3000/api',
+  rootEndpoint: 'http://localhost:3000',
   githubURL: 'https://github.com/theADAMJR/DClone',
   version: 'v0.0.1a'
 };

@@ -5,13 +5,12 @@
                 <div class="scroller-wrap">
                     <div class="scroller messages">
                         <div class="message-group hide-overflow">
-                            <div class="avatar-large animate" [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
+                            <div class="avatar-large animate" [style.backgroundImage]="'url(' + message.author.avatarURL + ')'"></div>
                             <div class="comment">
                                 <div class="message first">
                                     <h2 style="line-height: 16px;">
                                         <span class="username-wrapper v-btm">
-                                            <strong class="user-name">{{ member.displayName }}</strong>
-                                            <span class="bot-tag">BOT</span>
+                                            <strong class="user-name">{{ message.author.username }}</strong>
                                         </span>
                                         <span class="highlight-separator"> - </span>
                                         <span class="timestamp">{{ timestamp }}</span>
