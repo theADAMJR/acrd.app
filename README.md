@@ -5,3 +5,4 @@ Discord clone website built from the [2PG Dashboard](https://github.com/theADAMJ
 
 ## Subsidiaries
 + WebSocket Text Chat - https://github.com/theADAMJR/discord-chat
++ WebSocket Voice Chat - https://github.com/theADAMJR/discord-voice-chat
