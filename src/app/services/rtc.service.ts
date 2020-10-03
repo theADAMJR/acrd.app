@@ -16,6 +16,6 @@ export class RtcService {
     if (!this.userService.user._id) return;
     
     this._peer = new Peer(this.userService.user._id);
-    console.log(`Peer connected as ${this.userService.user._id}`);
+    console.log(`Peer connected with ID: ${this.userService.user._id}`);
   }
 }

@@ -129,3 +129,14 @@ mat-sidenav {
     background-color: var(--primary);
     border-radius: 15px !important;
 }
+
+#disconnectButton {
+    width: 32px;
+    height: 32px;
+
+    font-size: medium;
+}
+
+.connected-to {
+    font-size: small;
+}

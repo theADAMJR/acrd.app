@@ -30,6 +30,11 @@ export class GuildService {
   getGuild(id: string) {
     return this.guilds?.find(g => g._id === id);
   }
+
+  getChannel(guildId: string, channelId: string) {
+    const guild = this.getGuild(guildId);
+    return guild?.channels.find(c => c._id === channelId);
+  }
   
   getSavedLog(id: string): Promise<any> {
     return this.http.get(`${this.endpoint}/${id}/log`).toPromise();
