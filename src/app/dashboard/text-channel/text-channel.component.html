@@ -16,7 +16,8 @@
       </div>
     </div>
     <div class="messages">
-      <message-preview *ngFor="let message of messages" [message]="message"></message-preview>
+      <message-preview *ngFor="let message of messages"
+        [message]="message"></message-preview>
     </div>
     <div class="footer">
       <mat-form-field (keyup.enter)="chat(message.value)"

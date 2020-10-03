@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
 import { UsersService } from 'src/app/services/users.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { WSService } from 'src/app/services/ws.service';
 
 @Component({
@@ -21,8 +21,6 @@ export class TextChannelComponent implements OnInit {
     return this.guild.members.filter(m => m.user.status !== 'OFFLINE');
   }
   get offlineMembers() {
-    console.log(this.guild);
-    
     return this.guild.members.filter(m => m.user.status === 'OFFLINE');
   }
 
@@ -48,6 +46,7 @@ export class TextChannelComponent implements OnInit {
     this.ws.socket.on('MESSAGE_CREATE', (message) => this.messages.push(message));
 
     this.messages = await this.guildService.getMessages(guildId, channelId);
+    debugger;
   }
 
   chat(content: string) {

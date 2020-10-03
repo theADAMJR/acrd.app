@@ -20,6 +20,7 @@
         <dashboard-navbar *ngIf="selectedChannel">
             <i class="fas fa-hashtag text-muted pr-2"></i>
             <strong>{{ selectedChannel.name }}</strong>
+            
         </dashboard-navbar>
         <div *ngIf="loaded">
             <ng-content></ng-content>

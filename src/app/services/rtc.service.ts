@@ -4,7 +4,7 @@ import { UsersService } from './users.service';
 
 @Injectable({ providedIn: 'root' })
 export class RtcService {
-  _peer: Peer;
+  private _peer: Peer;
   get peer() {
     return this._peer;
   }
@@ -13,6 +13,8 @@ export class RtcService {
 
   async init() {
     await this.userService.init();
+    if (!this.userService.user) return;
+    
     this._peer = new Peer(this.userService.user.id);
   }
 }
