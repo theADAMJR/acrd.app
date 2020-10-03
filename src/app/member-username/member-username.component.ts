@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./member-username.component.css']
 })
 export class MemberUsernameComponent {
-  @Input() member;
+  @Input() user;
+  @Input() guild;
   @Input() withAvatar = true;
 }

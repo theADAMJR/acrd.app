@@ -202,11 +202,11 @@
 	min-width: 0
 }
 
-.theme-dark .message-group h2 strong {
+.message-group h2 strong {
 	color: #fff
 }
 
-.theme-dark .message-group h2 span {
+.message-group h2 span {
 	color: hsla(0, 0%, 100%, .2)
 }
 
@@ -246,25 +246,33 @@
 	flex: 1
 }
 
-.theme-dark .chat {
-	background-color: #36393e
-}
-
-.theme-dark .chat>.content,
-.theme-dark .messages-wrapper {
-	background-color: #36393e
-}
-
-.theme-dark .messages-wrapper .scroller-wrap::-webkit-scrollbar-thumb {
-	background-color: #1e2124;
-	border-color: #36393e
-}
-
-.theme-dark .messages-wrapper .scroller-wrap::-webkit-scrollbar-track-piece {
-	background-color: #2e3136;
-	border-color: #36393e
-}
-
 .user-name {
 	padding-bottom: 5px
+}
+
+/* embed */
+.embed {
+	border-radius: 5px;
+	background-color: rgba(46,48,54,.3);
+	border-left: 5px solid gray;
+
+	margin-top: 5px;
+	padding: 10px;
+}
+.embed .title {
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+.embed .description {
+	padding-bottom: 5px;	
+}
+.embed img, .embed video {
+	max-width: 450px;
+	border-radius: 5px;
+
+	outline: none !important;
+}
+.embed a {
+	color: #7289da;
+	text-decoration: none;
 }

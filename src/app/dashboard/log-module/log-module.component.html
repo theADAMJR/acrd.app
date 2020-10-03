@@ -21,7 +21,7 @@
                 <ng-container matColumnDef="by">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> By </th>
                     <td class="user" mat-cell *matCellDef="let row">
-                        <member-username [member]="getMember(row.by)"></member-username>
+                        <member-username [user]="getMember(row.by)"></member-username>
                     </td>
                 </ng-container>
             

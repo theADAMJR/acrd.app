@@ -3,22 +3,18 @@
         <div class="header">
             <h1><strong>{{ guild.name }}</strong></h1>
         </div>
-            <div class="category">Channels</div>
-            <div *ngIf="guild"
-                class="navbar-nav">
-                <a *ngFor="let channel of textChannels"
-                    [routerLink]="'/channels/' + guild._id + '/' + channel._id"
-                    routerLinkActive="active"
-                    class="nav-item nav-link">
-                    <i class="fas fa-hashtag text-muted"></i> {{ channel.name }}</a>
-                <!-- TODO: make voice channel component -->
-                <voice-channel *ngFor="let channel of voiceChannels" [channel]="channel"></voice-channel>
-                <a *ngFor="let channel of voiceChannels"
-                    routerLinkActive="active"
-                    class="nav-item nav-link">
-                    <i class="fas fa-volume-up text-muted"></i> {{ channel.name }}</a>
-            </div>
+        <div class="category">Channels</div>
+        <div *ngIf="guild"
+            class="navbar-nav">
+            <a *ngFor="let channel of textChannels"
+                [routerLink]="'/channels/' + guild._id + '/' + channel._id"
+                routerLinkActive="active"
+                class="nav-item nav-link">
+                <i class="fas fa-hashtag text-muted"></i> {{ channel.name }}</a>
+            <voice-channel *ngFor="let channel of voiceChannels"
+                [channel]="channel" [guild]="guild"></voice-channel>
         </div>
+    </div>
         
     <div id="content">
         <dashboard-navbar *ngIf="selectedChannel">

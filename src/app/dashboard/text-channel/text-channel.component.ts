@@ -17,13 +17,21 @@ export class TextChannelComponent implements OnInit {
 
   chatBox = new FormControl();
 
+  get onlineMembers() {
+    return [];
+  }
+  get offlineMembers() {
+    return [];
+  }
+
   constructor(
     private route: ActivatedRoute,
     private guildService: GuildService,
-    private userService: UsersService,
+    public userService: UsersService,
     private ws: WSService) {}
 
   async ngOnInit() {
+    await this.userService.init();
     await this.guildService.init();
 
     const guildId = this.route.snapshot.paramMap.get('guildId');

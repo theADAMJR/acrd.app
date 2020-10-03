@@ -1,15 +1,31 @@
+div {
+    padding: 5px 10px;
+    border-radius: 5px;
+
+    width: 225px;
+}
+div:hover {
+    background-color: var(--background-primary);
+}
+
 img {
-    max-width: 48px;
-    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+
     margin-right: 10px;
 }
 
 .username {
-    font-size: 24px;
+    font-size: 16px;
+}
+.crown {
+    color: gold;
+    font-size: small;
 }
 
-.tag {
-    color: gray;
-    font-size: 20px;
-    padding-left: 2.5px;
+.offline {
+    opacity: 0.5;
+}
+.offline:hover {
+    opacity: 1;
 }

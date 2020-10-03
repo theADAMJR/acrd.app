@@ -5,3 +5,15 @@
   padding: 15px;
   width: 100%;
 }
+
+.member-list {
+  background-color: var(--background-secondary);
+
+  width: 250px;
+  height: 95vh;
+  padding-right: 16px;
+}
+
+.offline {
+  opacity: 0.5;
+}

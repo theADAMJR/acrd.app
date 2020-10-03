@@ -7,7 +7,7 @@ body,
 mat-sidenav-content {
   color: var(--font);
 
-  overflow-x: hidden !important;
+  overflow: hidden !important;
   font-family: ​Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 

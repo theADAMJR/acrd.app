@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UsersService } from 'src/app/services/users.service';
+import { WSService } from 'src/app/services/ws.service';
 
 @Component({
-  selector: 'app-voice-channel',
+  selector: 'voice-channel',
   templateUrl: './voice-channel.component.html',
   styleUrls: ['./voice-channel.component.css']
 })
-export class VoiceChannelComponent implements OnInit {
+export class VoiceChannelComponent {
+  @Input() channel;
+  @Input() guild;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    private userService: UsersService,
+    private ws: WSService) {}
+  
+  join() {
+    alert('joined channel');
+    this.ws.socket.emit('JOIN_VC', {
+      channel: this.channel,
+      guild: this.guild,
+      user: this.userService.user
+    });
   }
-
 }

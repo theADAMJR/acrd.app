@@ -1,6 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
+import got from 'got';
+
+const metascraper = require('metascraper')([
+  require('metascraper-description')(),
+  require('metascraper-image')(),
+  require('metascraper-title')(),
+  require('metascraper-url')()
+]);
 
 @Component({
   selector: 'message-preview',
@@ -10,6 +18,8 @@ import { textEmoji } from 'markdown-to-text-emoji';
 export class MessagePreviewComponent {
   @Input() message: any;
   @Input() createdAt = new Date();
+
+  embed: MessageEmbed;
 
   get timestamp() {
     const timestamp = this.createdAt.toLocaleTimeString('en-US', {
@@ -40,4 +50,23 @@ export class MessagePreviewComponent {
   get processed() {
     return toHTML(textEmoji(this.message.content));
   }
+
+  async setEmbed() {
+    const containsURL = /([https://].*)/.test(this.message.content);
+    if (containsURL) {
+      try {
+        const targetUrl = /([https://].*)/.exec(this.message.content)[0];
+        const { body: html, url } = await got(targetUrl);
+  
+        this.embed = await metascraper({ html, url });
+      } catch {}
+    }
+  }
+}
+
+interface MessageEmbed {
+  title: string;
+  description: string;
+  image: string;
+  url: string;
 }
