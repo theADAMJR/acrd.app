@@ -11,14 +11,14 @@
         <h4 class="text-center">Create a Guild</h4>
         <div class="d-flex justify-content-center">
             <form #f="ngForm" [formGroup]="form" (submit)="submit()">
-              <label class="ml-5 pl-3">Server Name</label>
-              <input formControlName="name"
-                class="form-control" type="text">
-              <div *ngIf="form.get('name').invalid"
-                class="alert alert-danger">Required, and should be less than 32 characters.</div>
-                <div class="d-flex justify-content-center">
-                  <button class="btn btn-success mt-2">Create</button>
-                </div>
+              <mat-form-field appearance="outline">
+                <mat-label class="ml-5 pl-3">Server Name</mat-label>
+                <input formControlName="name" type="text" matInput>
+                <mat-error *ngIf="form.get('name').invalid">Required, and should be less than 32 characters.</mat-error>
+              </mat-form-field>
+              <div class="d-flex justify-content-center">
+                <button class="btn btn-success mt-2">Create</button>
+              </div>
             </form>
         </div>
       </div>

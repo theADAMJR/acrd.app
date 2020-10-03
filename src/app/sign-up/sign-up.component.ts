@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Credentials, UserAuthService } from '../services/user-auth.service';
-import { UsersService } from '../services/users.service';
 import { PasswordValidators } from './password.validators';
 import { UsernameValidators } from './username.validators';
+import { hacker } from 'faker';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'sign-up',
@@ -12,24 +13,19 @@ import { UsernameValidators } from './username.validators';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-    constructor(
-        private router: Router,
-        private users: UsersService,
-        private auth: UserAuthService) {}
 
     get username() { return this.form.get('username'); }
     get password() { return this.form.get('password'); }
     get confirmPassword() { return this.form.get('confirmPassword'); }
 
     form = new FormGroup({
-        username: new FormControl('',
-        [
+        username: new FormControl(`${hacker.adjective()} ${hacker.noun()}`, [
             Validators.required,
-            Validators.minLength(3),
-            Validators.pattern(/^[\w-|_]+$/)
+            Validators.minLength(2),
+            Validators.maxLength(32),
+            Validators.pattern(/(^(?! |^everyone$|^here$|^discordtag$)[A-Za-z\d\-\_\! ]+(?<! )$)/)
         ], UsernameValidators.shouldBeUnique),
-        password: new FormControl('',
-        [
+        password: new FormControl('', [
             Validators.required,
             Validators.minLength(8),
             Validators.pattern(/(?=.*[a-z])/gm),
@@ -39,6 +35,11 @@ export class SignUpComponent implements OnInit {
         ]),
         confirmPassword: new FormControl('', Validators.required)
     }, { validators: PasswordValidators.passwordsShouldMatch });
+
+    constructor(
+        private router: Router,
+        private auth: UserAuthService,
+        private users: UsersService) {}
 
     async ngOnInit() {
         await this.updateTakenUsernames();
@@ -51,8 +52,7 @@ export class SignUpComponent implements OnInit {
     }
 
     async updateTakenUsernames() {
-        // FIXME: make it work
-        // const users = await this.users.get();
-        // UsernameValidators.takenUsernames = users.map(u => u.username);
+        const { usernames } = await this.users.getUsernames();
+        UsernameValidators.takenUsernames = usernames;
     }
 }

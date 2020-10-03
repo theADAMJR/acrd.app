@@ -1,43 +1,45 @@
-<section class="container">
-    <h2 class="display-3">Sign Up</h2>
+<navbar></navbar>
+<section class="container text-center">
     <form #f="ngForm" [formGroup]="form" (ngSubmit)="signUp(f.value)">
+        <h2 class="display-4 mb-2">Sign Up</h2>
         <div class="form-group">
-            <label for="username">Username</label>
-            <input formControlName="username"
-                id="username" type="text" class="form-control" autocomplete="username">
-            <div *ngIf="username.pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</div>
-            <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
-                <div *ngIf="username.errors.required">Username is required.</div>
-                <div *ngIf="username.errors.minlength">Username should be minimum {{ username.errors.minlength.requiredLength }} characters</div>
-                <div *ngIf="username.errors.shouldBeUnique">Username is already taken.</div>
-                <div *ngIf="username.errors.pattern">Username should be alphanumeric and can contain dashes or underscores.</div>
-            </div>
+            <mat-form-field appearance="outline">
+                <mat-label for="username">Username</mat-label>
+                <input formControlName="username"
+                    id="username" type="text" autocomplete="username" matInput>
+                <mat-hint *ngIf="username.pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</mat-hint>
+                <mat-error *ngIf="username.errors?.required">Username is required.</mat-error>
+                <mat-error *ngIf="username.errors?.minlength">Username should be minimum {{ username.errors.minlength.requiredLength }} characters.</mat-error>
+                <mat-error *ngIf="username.errors?.shouldBeUnique">Username is already taken.</mat-error>
+                <mat-error *ngIf="username.errors?.pattern">Username should follow Discord username rules.</mat-error>
+            </mat-form-field>
         </div>
+
         <div class="form-group">
-            <label for="password">Password</label>
-            <input formControlName="password"
-                id="password" type="password" class="form-control" autocomplete="new-password">
-            <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
-                <div *ngIf="password.errors.required">Password is required.</div>
-                <div *ngIf="password.errors.minlength">Password should be minimum {{ password.errors.minlength.requiredLength }} characters.</div>
-                <div *ngIf="password.errors.pattern?.requiredPattern === '/(?=.*[a-z])/gm'">Password should include lowercase characters.</div>
-                <div *ngIf="password.errors.pattern?.requiredPattern === '/(?=.*[A-Z])/gm'">Password should include uppercase characters.</div>
-                <div *ngIf="password.errors.pattern?.requiredPattern === '/(?=.*[0-9])/gm'">Password should include numbers.</div>
-                <div *ngIf="password.errors.pattern?.requiredPattern === '/(?=.*[!@#$%^&*])/gm'">Password should include symbols.</div>
-            </div>
+            <mat-form-field appearance="outline">
+                <mat-label for="password">Password</mat-label>
+                <input formControlName="password"
+                    id="password" type="password" autocomplete="new-password" matInput>
+                <mat-hint>Minimum 8 characters.</mat-hint>
+                <mat-error *ngIf="password.errors?.required">Password is required.</mat-error>
+                <mat-error *ngIf="password.errors?.minlength">Password should be minimum {{ password.errors.minlength.requiredLength }} characters.</mat-error>
+                <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[a-z])/gm'">Password should include lowercase characters.</mat-error>
+                <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[A-Z])/gm'">Password should include uppercase characters.</mat-error>
+                <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[0-9])/gm'">Password should include numbers.</mat-error>
+                <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[!@#$%^&*])/gm'">Password should include symbols.</mat-error>
+            </mat-form-field>
         </div>
+
         <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input formControlName="confirmPassword"
-                id="confirmPassword" type="password" class="form-control" autocomplete="new-password">
-            <div *ngIf="confirmPassword.touched && confirmPassword.invalid" class="alert alert-danger">
-                <div *ngIf="confirmPassword.errors.required">Confirm Password is required.</div>
-            </div>
-            <div *ngIf="confirmPassword.touched && f.errors?.passwordsDoNotMatch" class="alert alert-danger">
-                Passwords should match.
-            </div>
+            <mat-form-field appearance="outline">
+                <mat-label for="confirmPassword">Confirm Password</mat-label>
+                <input formControlName="confirmPassword"
+                    id="confirmPassword" type="password"  autocomplete="new-password" matInput>
+                <mat-hint>Repeat password.</mat-hint>
+                <mat-error *ngIf="confirmPassword.errors?.required">Confirm Password is required.</mat-error>
+                <mat-error *ngIf="confirmPassword.touched && f.errors?.passwordsDoNotMatch">Passwords should match.</mat-error>
+            </mat-form-field>
         </div>
-        <!-- TODO: add confirm password -->
-        <button class="btn btn-primary" type="submit">Sign Up</button>
+        <button class="bg-primary" type="submit" mat-button>Sign Up</button>
     </form>
 </section>

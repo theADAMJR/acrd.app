@@ -14,6 +14,13 @@ export class GuildSidebarComponent implements OnInit {
   guild: any;
   selectedChannel: any;
 
+  get textChannels() {
+    return this.guild.channels.filter(c => c.type === 'TEXT');
+  }
+  get voiceChannels() {
+    return this.guild.channels.filter(c => c.type === 'VOICE');
+  }
+
   constructor(
     private guildService: GuildService,
     private route: ActivatedRoute,

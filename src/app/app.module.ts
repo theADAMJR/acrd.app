@@ -43,6 +43,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { DashboardNavbarComponent } from './dashboard/dashboard-navbar/dashboard-navbar.component';
 import { CreateGuildModalComponent } from './dashboard/create-guild-modal/create-guild-modal.component';
 import { TextChannelComponent } from './dashboard/text-channel/text-channel.component';
+import { VoiceChannelComponent } from './dashboard/voice-channel/voice-channel.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -97,7 +98,8 @@ export class AlertErrorHandler implements ErrorHandler {
     SignUpComponent,
     DashboardNavbarComponent,
     CreateGuildModalComponent,
-    TextChannelComponent
+    TextChannelComponent,
+    VoiceChannelComponent
   ],
   imports: [
     AppRoutingModule,

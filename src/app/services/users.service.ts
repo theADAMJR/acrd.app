@@ -2,9 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UsersService {
   endpoint = `${environment.endpoint}/users`;
   
@@ -56,6 +54,10 @@ export class UsersService {
     return this.http
       .post(`${this.endpoint}/upload-avatar`, { avatar }, { headers })
       .toPromise();
+  }
+
+  getUsernames(): Promise<any> {
+    return this.http.get(`${this.endpoint}/usernames`).toPromise();
   }
 
   private buildHeaders() {
