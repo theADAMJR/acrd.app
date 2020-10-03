@@ -20,19 +20,33 @@ export class VoiceChannelComponent implements OnInit {
   async ngOnInit() {
     await this.rtc.init();
     await this.userService.init();
+
+    this.hookEvents();
+  }
+
+  hookEvents() {
+    this.ws.socket.on('VOICE_CHANNEL_UPDATE', ({ channel, guild, user }) => {
+      if (this.channel._id !== channel._id) return;
+
+      this.channel = channel;
+      this.guild = guild;
+      this.userService.user = user;
+    });
   }
   
-  join() {
-    console.log(this.channel);
-    
+  join() {    
     for (const member of this.channel.members) {
-      if (member.id === this.userService.user.id) continue;
+      if (member.user._id === this.userService.user._id) continue;
   
       navigator.getUserMedia({ video: false, audio: true },
-        (stream) => this.rtc.peer.call(member.id, stream), (err) => console.log(err));
-      }
+        (stream) => this.rtc.peer.call(member._id, stream), (err) => console.log(err));
+    }
+    
+    const selfMember = this.guild.members
+      .find(m => m.user._id === this.userService.user._id);
+    this.channel.members.push(selfMember);
 
-    this.ws.socket.emit('JOIN_VC', {
+    this.ws.socket.emit('VOICE_CHANNEL_UPDATE', {
       channel: this.channel,
       guild: this.guild,
       user: this.userService.user

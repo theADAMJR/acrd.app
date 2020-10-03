@@ -27,6 +27,8 @@ export class CreateGuildModalComponent {
 
     const { _id } = await this.guildService.createGuild(this.form.value);
     await this.guildService.updateGuilds();
+    
+    document.querySelector('.modal-backdrop')?.remove();
 
     this.router.navigate([`/channels/${_id}`]);
   }

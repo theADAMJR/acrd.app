@@ -1,8 +1,9 @@
-<div [class]="user.status?.toLowerCase()">
+<div *ngIf="user"
+  [class]="user.status?.toLowerCase()">
   <img *ngIf="withAvatar"
     [src]="user.avatarURL" [alt]="user.username + ' Avatar'"
     class="round">
   <span class="username">{{ user.username }}</span>
-  <span *ngIf="user._id === guild.owner._id"
+  <span *ngIf="user._id === guild?.owner._id"
     class="crown pl-1"><i class="fas fa-crown"></i></span>
 </div>

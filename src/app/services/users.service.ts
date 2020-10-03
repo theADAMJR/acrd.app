@@ -6,8 +6,7 @@ import { environment } from 'src/environments/environment';
 export class UsersService {
   endpoint = `${environment.endpoint}/users`;
   
-  private _user: any;
-  get user() { return this._user; }
+  user: any;
 
   get key() {
     return localStorage.getItem('key');
@@ -22,7 +21,7 @@ export class UsersService {
   }
 
   async updateUser() {
-    this._user = (this.key) ?
+    this.user = (this.key) ?
       await this.http.get(this.endpoint, { headers: { Authorization: this.key }}).toPromise() : null;
   }
 

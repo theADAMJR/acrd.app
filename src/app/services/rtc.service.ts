@@ -13,8 +13,9 @@ export class RtcService {
 
   async init() {
     await this.userService.init();
-    if (!this.userService.user) return;
+    if (!this.userService.user._id) return;
     
-    this._peer = new Peer(this.userService.user.id);
+    this._peer = new Peer(this.userService.user._id);
+    console.log(`Peer connected as ${this.userService.user._id}`);
   }
 }

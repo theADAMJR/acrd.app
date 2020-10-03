@@ -46,7 +46,6 @@ export class TextChannelComponent implements OnInit {
     this.ws.socket.on('MESSAGE_CREATE', (message) => this.messages.push(message));
 
     this.messages = await this.guildService.getMessages(guildId, channelId);
-    debugger;
   }
 
   chat(content: string) {

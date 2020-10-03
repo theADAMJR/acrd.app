@@ -27,8 +27,10 @@
             <ng-content select=".side-nav"></ng-content>
             <span (click)="toggle()"
                 class="float-right d-sm-none d-block close">&times;</span>
-            <div *ngIf="user"
-                class="footer">
+            <div *ngIf="user.voice.channelId">
+                connected
+            </div>
+            <div class="footer">
                 <img class="round" [src]="user.avatarURL"> {{ user.username }}</div>
         </div>
 
