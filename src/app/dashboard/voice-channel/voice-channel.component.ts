@@ -26,6 +26,10 @@ export class VoiceChannelComponent implements OnInit {
 
   hookEvents() {
     this.ws.socket.on('VOICE_CHANNEL_UPDATE', ({ channel, guild, user }) => {
+      const wasConnectedHere = user.voice.channelId === this.channel._id;
+      if (wasConnectedHere)
+        this.removeSelfMember();
+
       if (this.channel._id !== channel._id) return;
 
       this.channel = channel;
@@ -34,22 +38,37 @@ export class VoiceChannelComponent implements OnInit {
     });
   }
   
-  join() {    
+  join() {
+    const isSelfConnected = this.channel.members
+      .some(m => m.user._id === this.userService.user._id);    
+    if (isSelfConnected) return;
+
     for (const member of this.channel.members) {
       if (member.user._id === this.userService.user._id) continue;
   
       navigator.getUserMedia({ video: false, audio: true },
         (stream) => this.rtc.peer.call(member._id, stream), (err) => console.log(err));
     }
-    
-    const selfMember = this.guild.members
-      .find(m => m.user._id === this.userService.user._id);
-    this.channel.members.push(selfMember);
+
+    this.addSelfMember();
 
     this.ws.socket.emit('VOICE_CHANNEL_UPDATE', {
       channel: this.channel,
       guild: this.guild,
       user: this.userService.user
     });
+  }
+
+  addSelfMember() {
+    const selfMember = this.guild.members
+      .find(m => m.user._id === this.userService.user._id);
+    this.channel.members.push(selfMember);
+  }
+
+  removeSelfMember() {
+    const selfMember = this.guild.members
+      .find(m => m.user._id === this.userService.user._id);
+    const index = this.channel.members.indexOf(selfMember);
+    this.channel.members.splice(index, 1);
   }
 }

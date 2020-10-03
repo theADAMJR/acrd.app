@@ -44,6 +44,7 @@ import { DashboardNavbarComponent } from './dashboard/dashboard-navbar/dashboard
 import { CreateGuildModalComponent } from './dashboard/create-guild-modal/create-guild-modal.component';
 import { TextChannelComponent } from './dashboard/text-channel/text-channel.component';
 import { VoiceChannelComponent } from './dashboard/voice-channel/voice-channel.component';
+import { InviteModalComponent } from './dashboard/invite-modal/invite-modal.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -99,7 +100,8 @@ export class AlertErrorHandler implements ErrorHandler {
     DashboardNavbarComponent,
     CreateGuildModalComponent,
     TextChannelComponent,
-    VoiceChannelComponent
+    VoiceChannelComponent,
+    InviteModalComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UsersService } from 'src/app/services/users.service';
+import { WSService } from 'src/app/services/ws.service';
 import { GuildService } from '../../services/guild.service';
+import { InviteModalComponent } from '../invite-modal/invite-modal.component';
 
 @Component({
   selector: 'guild-sidebar',
@@ -9,6 +12,7 @@ import { GuildService } from '../../services/guild.service';
 })
 export class GuildSidebarComponent implements OnInit {
   @Input('waitFor') loaded = true;
+  @ViewChild('inviteModal') inviteModal: InviteModalComponent;
   
   id: string;
   guild: any;
@@ -24,7 +28,9 @@ export class GuildSidebarComponent implements OnInit {
   constructor(
     private guildService: GuildService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private usersService: UsersService,
+    private ws: WSService) {
       document.title = 'DClone - Dashboard';
     }
 
@@ -39,6 +45,25 @@ export class GuildSidebarComponent implements OnInit {
       
       if (!this.guild)
         this.router.navigate(['/channels/@me']);
+    });
+
+    this.hookWSEvents();
+  }
+
+  hookWSEvents() {
+    this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {
+      const guildMember = this.guild.members.find(m => m.user._id === user?._id)
+      if (!guildMember) return;
+
+      guildMember.user = user;
+    });
+
+    this.ws.socket.on('GUILD_MEMBER_ADD', async ({ guild, member }) => {
+      if (guild._id === this.guild._id)
+        this.guild = guild;
+
+      if (member.user._id === this.usersService.user._id)
+        await this.guildService.updateGuilds();
     });
   }
 }

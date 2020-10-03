@@ -29,3 +29,22 @@ img {
 .offline:hover {
     opacity: 1;
 }
+
+.status {
+    z-index: 1;
+    
+    width: 10px;
+    height: 10px;
+}
+.status.online {
+    color: green;
+    border-color: green;
+}
+.status.idle {
+    color: orange;
+    border-color: orange;
+}
+.status.dnd {
+    color: red;
+    border-color: red;
+}

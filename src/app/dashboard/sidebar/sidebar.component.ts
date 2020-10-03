@@ -22,6 +22,16 @@ export class SidebarComponent implements OnInit {
 
   async ngOnInit() {
     await this.guildService.init();
+
+    this.hookWSEvents();
+  }
+
+  hookWSEvents() {
+    this.ws.socket.on('VOICE_STATE_UPDATE', ({ user }) => {
+      if (this.user._id !== user._id) return;
+
+      this.user.voice = user.voice;
+    });
   }
 
   toggle() {
@@ -40,8 +50,13 @@ export class SidebarComponent implements OnInit {
     this.user.voice.channelId = null;
     this.user.voice.guildId = null;
 
-    
     this.ws.socket.emit('VOICE_CHANNEL_UPDATE', { channel, guild, user: this.user })
+    this.ws.socket.emit('VOICE_STATE_UPDATE', { user: this.user });
+  }
+
+  mute() {
+    this.user.voice.selfMuted = !this.user.voice.selfMuted;
+
     this.ws.socket.emit('VOICE_STATE_UPDATE', { user: this.user });
   }
 }

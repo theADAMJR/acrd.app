@@ -1,6 +1,11 @@
 <sidebar>
     <div *ngIf="guild" class="side-nav navbar-dark">
         <div class="header">
+            <div (click)="inviteModal.open()"
+                class="float-right cursor-pointer m-3" color="primary"
+                data-toggle="modal" data-target="#createInviteModal">
+                <i class="fas fa-user-plus"></i>
+            </div>
             <h1><strong>{{ guild.name }}</strong></h1>
         </div>
         <div class="category">Channels</div>
@@ -30,3 +35,5 @@
         </div>
     </div>
 </sidebar>
+
+<invite-modal [guild]="guild" #inviteModal></invite-modal>

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -12,8 +13,7 @@ export class UsersService {
     return localStorage.getItem('key');
   }
 
-  constructor(
-    private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   async init() {
     if (!this.user)

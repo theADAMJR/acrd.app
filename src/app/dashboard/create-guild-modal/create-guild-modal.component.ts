@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
 import { UsersService } from 'src/app/services/users.service';
+import { WSService } from 'src/app/services/ws.service';
 
 @Component({
   selector: 'create-guild-modal',
@@ -10,6 +11,10 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./create-guild-modal.component.css']
 })
 export class CreateGuildModalComponent {
+  @ViewChild('inviteInput') inviteInput: ElementRef;
+
+  creating = false;
+
   form = new FormGroup({
     name: new FormControl(`${this.userService.user.username}'s Guild`, [
       Validators.required,
@@ -20,10 +25,13 @@ export class CreateGuildModalComponent {
   constructor(
     private guildService: GuildService,
     private router: Router,
-    private userService: UsersService) {}
+    private userService: UsersService,
+    private ws: WSService) {}
 
   async submit() {
     if (this.form.invalid) return;
+
+    this.creating = true;
 
     const { _id } = await this.guildService.createGuild(this.form.value);
     await this.guildService.updateGuilds();
@@ -31,5 +39,10 @@ export class CreateGuildModalComponent {
     document.querySelector('.modal-backdrop')?.remove();
 
     this.router.navigate([`/channels/${_id}`]);
+  }
+
+  joinGuild() {    
+    this.ws.socket.emit('GUILD_MEMBER_ADD',
+      ({ inviteCode: this.inviteInput.nativeElement.value, user: this.userService.user }));
   }
 }

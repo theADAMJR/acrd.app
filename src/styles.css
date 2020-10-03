@@ -196,6 +196,11 @@ mat-sidenav a:hover {
   cursor: pointer;
 }
 
+/* buttons */
+/* .mat-ripple, .mat-button-focus-overlay {
+  max-width: 100% !important;
+} */
+
 /* inputs */
 .mat-option {
   height: inherit !important;

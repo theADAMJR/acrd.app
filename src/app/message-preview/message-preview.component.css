@@ -250,6 +250,10 @@
 	padding-bottom: 5px
 }
 
+.content:hover {
+	background-color: rgba(46,48,54,.3) !important;
+}
+
 /* embed */
 .embed {
 	border-radius: 5px;
