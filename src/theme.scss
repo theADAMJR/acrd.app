@@ -9,22 +9,17 @@ body {
     background-color: var(--background-primary) !important;
 }
 
-:root[theme=IONIC] {
-    --heading: #FFFFFF;
-    --font: #F4F2F3;
-    --plus: green;
+:root, :root[theme=CLONE] {
+    --primary: #6E8481;
+    --secondary: #A2B6AD;
+    --tertiary: #576067;
 
-    --danger: darkred;
-    --muted: grey;
-    --interactive-muted: #4f545c;
-
-    --primary: #46828D;
-    --secondary: #276C8A;
-    --tertiary: #36E2CA;
-
-    --background-primary: #15244B;
-    --background-secondary: #0a193a;
-    --background-tertiary: #081536;
+    --heading: black;
+    --font: #CACBCD;
+    
+    --background-primary: #414244;
+    --background-secondary: #37373a;
+    --background-tertiary: #323335;
 }
 :root[theme=CHOCOLATE] {
     --heading: #FFFFFF;
@@ -50,7 +45,7 @@ body {
     --background-secondary: #070d1a;
     --background-tertiary: #060b18;
 }
-:root, :root[theme=DISCORD] {
+:root[theme=DISCORD] {
     --primary: #7289DA;
     --secondary: white;
     --tertiary: #99AAB5;
@@ -61,6 +56,23 @@ body {
     --background-primary: #36393F;
     --background-secondary: #2F3136;
     --background-tertiary: #202225;
+}
+:root[theme=IONIC] {
+    --heading: #FFFFFF;
+    --font: #F4F2F3;
+    --plus: green;
+
+    --danger: darkred;
+    --muted: grey;
+    --interactive-muted: #4f545c;
+
+    --primary: #46828D;
+    --secondary: #276C8A;
+    --tertiary: #36E2CA;
+
+    --background-primary: #15244B;
+    --background-secondary: #0a193a;
+    --background-tertiary: #081536;
 }
 :root[theme=TWILIGHT] {
     --font: #E3E7EA;
@@ -75,20 +87,20 @@ body {
 }
 
 $primary-palette: (
-    50 : #e9f0f1,
-    100 : #c7d9dd,
-    200 : #a2c0c6,
-    300 : #7da7af,
-    400 : #61949d,
-    500 : #45818c,
-    600 : #3e7984,
-    700 : #366e79,
-    800 : #2e646f,
-    900 : #1f515c,
-    A100 : #9cecff,
-    A200 : #69e3ff,
-    A400 : #36d9ff,
-    A700 : #1dd4ff,
+    50 : #eef0f0,
+    100 : #d4dad9,
+    200 : #b7c2c0,
+    300 : #9aa9a7,
+    400 : #849694,
+    500 : #6e8481,
+    600 : #667c79,
+    700 : #5b716e,
+    800 : #516764,
+    900 : #3f5451,
+    A100 : #affef3,
+    A200 : #7dfeeb,
+    A400 : #48ffe5,
+    A700 : #2fffe1,
     contrast: (
         50 : #000000,
         100 : #000000,
@@ -108,35 +120,35 @@ $primary-palette: (
 );
 
 $secondary-palette: (
-    50 : #e5edf1,
-    100 : #bed3dc,
-    200 : #93b6c5,
-    300 : #6898ad,
-    400 : #47829c,
-    500 : #276c8a,
-    600 : #236482,
-    700 : #1d5977,
-    800 : #174f6d,
-    900 : #0e3d5a,
-    A100 : #90d0ff,
-    A200 : #5dbbff,
-    A400 : #2aa5ff,
-    A700 : #109bff,
+    50 : #f4f6f5,
+    100 : #e3e9e6,
+    200 : #d1dbd6,
+    300 : #beccc6,
+    400 : #b0c1b9,
+    500 : #a2b6ad,
+    600 : #9aafa6,
+    700 : #90a69c,
+    800 : #869e93,
+    900 : #758e83,
+    A100 : #ffffff,
+    A200 : #dffef0,
+    A400 : #abffda,
+    A700 : #91ffce,
     contrast: (
         50 : #000000,
         100 : #000000,
         200 : #000000,
         300 : #000000,
-        400 : #ffffff,
-        500 : #ffffff,
-        600 : #ffffff,
-        700 : #ffffff,
-        800 : #ffffff,
-        900 : #ffffff,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
         A100 : #000000,
         A200 : #000000,
         A400 : #000000,
-        A700 : #ffffff,
+        A700 : #000000,
     )
 );
 

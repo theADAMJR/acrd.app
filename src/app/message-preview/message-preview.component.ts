@@ -11,6 +11,8 @@ export class MessagePreviewComponent {
   @Input() message: any;
   @Input() createdAt = new Date();
 
+  embed: MessageEmbed;
+
   get timestamp() {
     const timestamp = this.createdAt.toLocaleTimeString('en-US', {
       hour: 'numeric',
@@ -40,4 +42,21 @@ export class MessagePreviewComponent {
   get processed() {
     return toHTML(textEmoji(this.message.content));
   }
+
+  async setEmbed() {
+    const containsURL = /([https://].*)/.test(this.message.content);
+    if (containsURL) {
+      try {
+        const url = /([https://].*)/.exec(this.message.content)[0];  
+        this.embed = null;//await getPreview(url);
+      } catch {}
+    }
+  }
+}
+
+interface MessageEmbed {
+  title: string;
+  description: string;
+  image: string;
+  url: string;
 }

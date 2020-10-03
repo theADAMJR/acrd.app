@@ -1,7 +1,23 @@
 <guild-sidebar>
   <div *ngIf="channel">
+    <div class="float-right member-list">
+      <div class="category">Online-{{ onlineMembers.length }}</div>
+      <div>
+        <member-username *ngFor="let member of onlineMembers"
+          class="nav-item nav-link cursor-pointer"
+          [user]="member.user" [guild]="guild"></member-username>
+      </div>
+
+      <div class="category">Offline-{{ offlineMembers.length }}</div>
+      <div>
+        <member-username *ngFor="let member of offlineMembers"
+          class="nav-item nav-link cursor-pointer"
+          [user]="member.user" [guild]="guild"></member-username>
+      </div>
+    </div>
     <div class="messages">
-      <message-preview *ngFor="let message of messages" [message]="message"></message-preview>
+      <message-preview *ngFor="let message of messages"
+        [message]="message"></message-preview>
     </div>
     <div class="footer">
       <mat-form-field (keyup.enter)="chat(message.value)"

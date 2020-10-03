@@ -7,7 +7,7 @@ body,
 mat-sidenav-content {
   color: var(--font);
 
-  overflow-x: hidden !important;
+  overflow: hidden !important;
   font-family: ​Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
@@ -195,6 +195,11 @@ mat-sidenav a:hover {
 
   cursor: pointer;
 }
+
+/* buttons */
+/* .mat-ripple, .mat-button-focus-overlay {
+  max-width: 100% !important;
+} */
 
 /* inputs */
 .mat-option {

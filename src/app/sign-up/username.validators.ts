@@ -7,7 +7,8 @@ export class UsernameValidators {
 
     static async shouldBeUnique(control: AbstractControl): Promise<ValidationErrors> | null {
         return new Promise(resolve => {
-            const isTaken = UsernameValidators.takenUsernames.some(u => u.toLowerCase() === control.value.toLowerCase());
+            const isTaken = UsernameValidators.takenUsernames
+                .some(u => u.toLowerCase() === control.value.toLowerCase());
             resolve(isTaken ? { shouldBeUnique: true } : null);
         });
     }

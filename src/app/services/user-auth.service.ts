@@ -14,7 +14,6 @@ export class UserAuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private usersService: UsersService) {}
 
   async signUp(user: Credentials) {

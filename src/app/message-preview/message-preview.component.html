@@ -1,7 +1,7 @@
-<div class="rounded flex-vertical whitney theme-dark">
-    <div class="rounded chat flex-vertical flex-spacer">
-        <div class="rounded content flex-spacer flex-horizontal">
-            <div class="rounded flex-spacer flex-vertical messages-wrapper">
+<div class="flex-vertical">
+    <div class="chat flex-vertical flex-spacer">
+        <div class="content flex-spacer flex-horizontal bg-transparent">
+            <div class="flex-spacer flex-vertical messages-wrapper">
                 <div class="scroller-wrap">
                     <div class="scroller messages">
                         <div class="message-group hide-overflow">
@@ -17,6 +17,12 @@
                                     </h2>
                                     <div [innerHtml]="processed" class="message-text"></div>
                                 </div>
+                                <div *ngIf="embed" class="embed">
+                                    <a class="title" [href]="embed.url">{{ embed.title || 'Untitled' }}</a>
+                                    <div *ngIf="embed.description"
+                                        class="description">{{ embed.description }}</div>
+                                    <img *ngIf="embed.image"
+                                        [src]="embed.image" onerror="this.onerror=null;this.hidden = true">
                             </div>
                         </div>
                     </div>

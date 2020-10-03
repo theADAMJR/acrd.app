@@ -9,6 +9,6 @@ export class WSService {
   readonly socket: SocketIOClient.Socket;
 
   constructor() {
-    this.socket = io.connect(environment.rootEndpoint);
+    this.socket = this.socket ?? io.connect(environment.rootEndpoint);
   }
 }

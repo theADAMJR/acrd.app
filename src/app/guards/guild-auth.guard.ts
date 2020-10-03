@@ -4,9 +4,7 @@ import { GuildService } from '../services/guild.service';
 import { UsersService } from '../services/users.service';
 import { WSService } from '../services/ws.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class GuildAuthGuard implements CanActivate {
   constructor(
     private guildService: GuildService,
@@ -27,7 +25,7 @@ export class GuildAuthGuard implements CanActivate {
         return true;
       }
 
-      this.ws.socket.emit('VIEW_GUILD', guild, this.userService.user);
+      this.ws.socket.emit('READY', { guild, user: this.userService.user });
       
       return true;
   }  

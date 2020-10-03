@@ -1,22 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { WSService } from './ws.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UsersService {
   endpoint = `${environment.endpoint}/users`;
   
-  private _user: any;
-  get user() { return this._user; }
+  user: any;
 
   get key() {
     return localStorage.getItem('key');
   }
 
-  constructor(
-    private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   async init() {
     if (!this.user)
@@ -24,7 +21,7 @@ export class UsersService {
   }
 
   async updateUser() {
-    this._user = (this.key) ?
+    this.user = (this.key) ?
       await this.http.get(this.endpoint, { headers: { Authorization: this.key }}).toPromise() : null;
   }
 
@@ -56,6 +53,10 @@ export class UsersService {
     return this.http
       .post(`${this.endpoint}/upload-avatar`, { avatar }, { headers })
       .toPromise();
+  }
+
+  getUsernames(): Promise<any> {
+    return this.http.get(`${this.endpoint}/usernames`).toPromise();
   }
 
   private buildHeaders() {

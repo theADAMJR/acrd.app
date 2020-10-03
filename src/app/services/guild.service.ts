@@ -24,11 +24,16 @@ export class GuildService {
 
   async updateGuilds() {
     this._guilds = (this.key) ? 
-      await this.http.get(`${this.endpoint}`, { headers: { Authorization: this.key }}).toPromise() as any : [];
+      await this.http.get(this.endpoint, { headers: { Authorization: this.key }}).toPromise() as any : [];
   }
 
   getGuild(id: string) {
     return this.guilds?.find(g => g._id === id);
+  }
+
+  getChannel(guildId: string, channelId: string) {
+    const guild = this.getGuild(guildId);
+    return guild?.channels.find(c => c._id === channelId);
   }
   
   getSavedLog(id: string): Promise<any> {

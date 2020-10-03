@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
 import { UsersService } from 'src/app/services/users.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { WSService } from 'src/app/services/ws.service';
 
 @Component({
@@ -17,13 +17,21 @@ export class TextChannelComponent implements OnInit {
 
   chatBox = new FormControl();
 
+  get onlineMembers() {
+    return this.guild.members.filter(m => m.user.status !== 'OFFLINE');
+  }
+  get offlineMembers() {
+    return this.guild.members.filter(m => m.user.status === 'OFFLINE');
+  }
+
   constructor(
     private route: ActivatedRoute,
     private guildService: GuildService,
-    private userService: UsersService,
+    public userService: UsersService,
     private ws: WSService) {}
 
   async ngOnInit() {
+    await this.userService.init();
     await this.guildService.init();
 
     const guildId = this.route.snapshot.paramMap.get('guildId');

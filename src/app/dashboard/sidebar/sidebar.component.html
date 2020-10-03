@@ -1,5 +1,5 @@
 <mat-sidenav-container fullscreen>
-    <mat-sidenav #drawer mode="side" opened>
+    <mat-sidenav mode="side" opened #drawer>
         <div class="guilds px-2">
             <div class="user">
                 <div routerLink="/channels/@me" class="guild-icon">
@@ -18,7 +18,7 @@
                     class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
             </div>
             <div data-toggle="modal" data-target="#addGuildModal"
-                class="guild-icon invite"
+                class="guild-icon invite bg-transparent"
                 matTooltip="Add a Guild">
                 <span class="add-guild pt-0 d-flex justify-content-center flex-column">+</span>
             </div>
@@ -27,9 +27,28 @@
             <ng-content select=".side-nav"></ng-content>
             <span (click)="toggle()"
                 class="float-right d-sm-none d-block close">&times;</span>
-            <div *ngIf="user"
-                class="footer">
-                <img class="round" [src]="user.avatarURL"> {{ user.username }}</div>
+            <div class="footer">
+            <div *ngIf="user.voice.channelId">
+                <button (click)="disconnect()"
+                    id="disconnectButton" class="float-right bg-danger"
+                    matTooltip="Disconnect" mat-button>
+                    <i class="fas fa-phone-slash pb-1"></i>
+                </button>
+                <span class="text-success">Voice Connected</span>
+                <span class="text-muted d-block connected-to">{{ guildService.getChannel(user.voice.guildId, user.voice.channelId)?.name }} /
+                    {{ guildService.getGuild(user.voice.guildId)?.name }}</span>
+                <hr>
+            </div>
+            <div class="float-right">
+                <button (click)="mute()"
+                    id="muteButton" mat-button>
+                    <i class="fas pb-1" [ngClass]="{
+                        'fa-microphone': !user.voice.selfMuted,
+                        'fa-microphone-slash': user.voice.selfMuted
+                    }"></i>                    
+                </button>
+            </div>
+            <img class="round" [src]="user.avatarURL"> {{ user.username }}</div>
         </div>
 
         <create-guild-modal></create-guild-modal>
