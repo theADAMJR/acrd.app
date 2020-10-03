@@ -1,14 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
-import got from 'got';
-
-const metascraper = require('metascraper')([
-  require('metascraper-description')(),
-  require('metascraper-image')(),
-  require('metascraper-title')(),
-  require('metascraper-url')()
-]);
 
 @Component({
   selector: 'message-preview',
@@ -55,10 +47,8 @@ export class MessagePreviewComponent {
     const containsURL = /([https://].*)/.test(this.message.content);
     if (containsURL) {
       try {
-        const targetUrl = /([https://].*)/.exec(this.message.content)[0];
-        const { body: html, url } = await got(targetUrl);
-  
-        this.embed = await metascraper({ html, url });
+        const url = /([https://].*)/.exec(this.message.content)[0];  
+        this.embed = null;//await getPreview(url);
       } catch {}
     }
   }

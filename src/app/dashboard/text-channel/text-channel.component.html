@@ -3,15 +3,16 @@
     <div class="float-right member-list">
       <div class="category">Online-{{ onlineMembers.length }}</div>
       <div>
-        <member-username class="nav-item nav-link cursor-pointer" [user]="userService.user" [guild]="guild"></member-username>
         <member-username *ngFor="let member of onlineMembers"
-          class="nav-item nav-link cursor-pointer" [user]="member.user" [guild]="guild"></member-username>
+          class="nav-item nav-link cursor-pointer"
+          [user]="member.user" [guild]="guild"></member-username>
       </div>
 
       <div class="category">Offline-{{ offlineMembers.length }}</div>
       <div>
         <member-username *ngFor="let member of offlineMembers"
-          class="nav-item nav-link cursor-pointer" [user]="member.user" [guild]="guild"></member-username>
+          class="nav-item nav-link cursor-pointer"
+          [user]="member.user" [guild]="guild"></member-username>
       </div>
     </div>
     <div class="messages">

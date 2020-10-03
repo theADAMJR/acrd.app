@@ -1,6 +1,9 @@
-<div (click)="join()"
-  class="cursor-pointer">
-  <!-- <div *ngFor="let member of channel.members">
-    {{ member.json }}
-  </div> -->
+<div>
+  <a (click)="join()"
+      routerLinkActive="active"
+      class="nav-item nav-link">
+      <i class="fas fa-volume-up text-muted"></i> {{ channel.name }}</a>
+    <div *ngFor="let member of channel.members">
+      <member-username>{{ member.json }}</member-username>
+    </div>
 </div>

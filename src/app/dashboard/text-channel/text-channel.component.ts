@@ -18,10 +18,12 @@ export class TextChannelComponent implements OnInit {
   chatBox = new FormControl();
 
   get onlineMembers() {
-    return [];
+    return this.guild.members.filter(m => m.user.status !== 'OFFLINE');
   }
   get offlineMembers() {
-    return [];
+    console.log(this.guild);
+    
+    return this.guild.members.filter(m => m.user.status === 'OFFLINE');
   }
 
   constructor(
