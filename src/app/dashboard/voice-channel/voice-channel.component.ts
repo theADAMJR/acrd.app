@@ -25,41 +25,50 @@ export class VoiceChannelComponent implements OnInit {
   }
 
   hookEvents() {
-    this.ws.socket.on('VOICE_CHANNEL_UPDATE', ({ channel, guild, user }) => {
-      const wasConnectedHere = user.voice.channelId === this.channel._id;
-      if (wasConnectedHere)
-        this.removeSelfMember();
+    this.ws.socket.on('VOICE_CHANNEL_UPDATE', ({ channel, user }) => {
+      console.log('GET VOICE_CHANNEL_UPDATE');
 
       if (this.channel._id !== channel._id) return;
 
       this.channel = channel;
-      this.guild = guild;
-      this.userService.user = user;
+
+      const selfUpdate = this.userService.user._id === user._id;      
+      const currentChannel = user.voice.channelId === this.channel._id;
+
+      if (selfUpdate && currentChannel && !user.voice.connected)
+        this.removeSelfMember();
     });
   }
   
   join() {
     const isSelfConnected = this.channel.members
-      .some(m => m.user._id === this.userService.user._id);    
+      .some(m => m.user._id === this.userService.user._id);
     if (isSelfConnected) return;
 
-    for (const member of this.channel.members) {
-      if (member.user._id === this.userService.user._id) continue;
-  
-      navigator.getUserMedia({ video: false, audio: true },
-        (stream) => this.rtc.peer.call(member._id, stream), (err) => console.log(err));
-    }
+    this.callChannelMembers();
+    this.addSelfToChannel();
 
-    this.addSelfMember();
+    this.userService.user.voice.channelId = this.channel._id;
+    this.userService.user.voice.guildId = this.guild._id;
+    this.userService.user.voice.connected = true;
 
+    console.log('SEND VOICE_CHANNEL_UPDATE');
     this.ws.socket.emit('VOICE_CHANNEL_UPDATE', {
       channel: this.channel,
       guild: this.guild,
       user: this.userService.user
     });
   }
+  callChannelMembers() {
+    for (const member of this.channel.members) {
+      if (member.user._id === this.userService.user._id) continue;
 
-  addSelfMember() {
+      navigator.getUserMedia({ video: false, audio: true },
+        (stream) => this.rtc.peer.call(member._id, stream), (err) => console.log(err));
+    }
+  }
+
+  addSelfToChannel() {
     const selfMember = this.guild.members
       .find(m => m.user._id === this.userService.user._id);
     this.channel.members.push(selfMember);

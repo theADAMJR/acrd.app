@@ -16,8 +16,12 @@
       </div>
     </div>
     <div class="messages">
-      <message-preview *ngFor="let message of messages"
-        [message]="message"></message-preview>
+      <div *ngFor="let message of messages">
+        <message-preview *ngIf="!isSameAuthor(message)"
+          [message]="message"></message-preview>
+        <div *ngIf="isSameAuthor(message)"
+          class="extra-message">{{ message.content }}</div>
+      </div>
     </div>
     <div class="footer">
       <mat-form-field (keyup.enter)="chat(message.value)"

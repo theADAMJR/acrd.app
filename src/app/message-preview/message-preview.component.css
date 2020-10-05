@@ -143,7 +143,7 @@
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	padding: 20px 0;
+	padding-top: 20px;
 	margin-left: 20px;
 	margin-right: 6px;
 	border-bottom: 1px solid #eceeef;

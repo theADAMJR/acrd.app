@@ -14,8 +14,10 @@ export class TextChannelComponent implements OnInit {
   channel: any;
   guild: any;
   messages = [];
-
+  
   chatBox = new FormControl();
+  
+  private lastMessage: any;
 
   get onlineMembers() {
     return this.guild.members.filter(m => m.user.status !== 'OFFLINE');
@@ -46,6 +48,12 @@ export class TextChannelComponent implements OnInit {
     this.ws.socket.on('MESSAGE_CREATE', (message) => this.messages.push(message));
 
     this.messages = await this.guildService.getMessages(guildId, channelId);
+  }
+
+  isSameAuthor(message) {
+    const isSameAuthor = message.author._id === this.lastMessage?.author._id;
+    this.lastMessage = message;
+    return isSameAuthor;
   }
 
   chat(content: string) {

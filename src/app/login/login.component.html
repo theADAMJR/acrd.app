@@ -1,6 +1,7 @@
 <navbar></navbar>
 <section class="container text-center">
-    <h2 class="display-4 mb-2">Login</h2>
+    <div class="py-2 my-5"></div>
+    <h2 class="display-4 mb-4">Login</h2>
     <form #f="ngForm" [formGroup]="form" (ngSubmit)="login(f.value)">
         <div class="form-group">
             <mat-form-field appearance="outline">
@@ -8,7 +9,7 @@
                 <input formControlName="username"
                     id="username" type="text" autocomplete="username" matInput>
                 <mat-hint *ngIf="username.pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</mat-hint>
-                <mat-error *ngIf="username.errors.required">Username is required.</mat-error>
+                <mat-error *ngIf="username.errors?.required">Username is required.</mat-error>
             </mat-form-field>
         </div>
         <div class="form-group">
@@ -16,10 +17,10 @@
                 <mat-label for="password">Password</mat-label>
                 <input formControlName="password"
                     id="password" type="password" autocomplete="current-password" matInput>
-                <mat-error *ngIf="password.touched && password.invalid">Password is required.</mat-error>
+                <mat-error *ngIf="password.errors">Password is required.</mat-error>
             </mat-form-field>
         </div>
-        <div *ngIf="form.errors" class="alert alert-danger">The username or password is invalid.</div>
-        <button class="bg-primary" type="submit" mat-button>Login</button>
+        <div *ngIf="form.errors" class="text-danger">The username or password is invalid.</div>
+        <button class="bg-primary mt-3" type="submit" mat-button>Login</button>
     </form>
 </section>

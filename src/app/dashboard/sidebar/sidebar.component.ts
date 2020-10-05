@@ -22,16 +22,6 @@ export class SidebarComponent implements OnInit {
 
   async ngOnInit() {
     await this.guildService.init();
-
-    this.hookWSEvents();
-  }
-
-  hookWSEvents() {
-    this.ws.socket.on('VOICE_STATE_UPDATE', ({ user }) => {
-      if (this.user._id !== user._id) return;
-
-      this.user.voice = user.voice;
-    });
   }
 
   toggle() {
@@ -47,10 +37,9 @@ export class SidebarComponent implements OnInit {
 
     const guild = this.guildService.getGuild(this.user.voice.guildId);
 
-    this.user.voice.channelId = null;
-    this.user.voice.guildId = null;
+    this.user.voice.connected = false;
 
-    this.ws.socket.emit('VOICE_CHANNEL_UPDATE', { channel, guild, user: this.user })
+    this.ws.socket.emit('VOICE_CHANNEL_UPDATE', { channel, guild, user: this.user });
     this.ws.socket.emit('VOICE_STATE_UPDATE', { user: this.user });
   }
 

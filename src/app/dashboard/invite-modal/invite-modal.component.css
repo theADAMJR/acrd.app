@@ -1,0 +1,7 @@
+.modal-content {
+  background-color: var(--background-primary);
+}
+
+.modal-content div {
+  border: none !important;
+}

@@ -25,7 +25,7 @@ export class GuildAuthGuard implements CanActivate {
         return true;
       }
 
-      this.ws.socket.emit('READY', { guild, user: this.userService.user });
+      this.ws.socket.emit('READY', { user: this.userService.user });
       
       return true;
   }  

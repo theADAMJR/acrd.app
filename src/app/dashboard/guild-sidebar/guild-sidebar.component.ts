@@ -51,8 +51,8 @@ export class GuildSidebarComponent implements OnInit {
   }
 
   hookWSEvents() {
-    this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {
-      const guildMember = this.guild.members.find(m => m.user._id === user?._id)
+    this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {      
+      const guildMember = this.guild.members.find(m => m.user._id === user?._id);
       if (!guildMember) return;
 
       guildMember.user = user;

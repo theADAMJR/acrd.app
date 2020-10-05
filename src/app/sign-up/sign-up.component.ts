@@ -46,13 +46,15 @@ export class SignUpComponent implements OnInit {
     }
 
     async signUp(user: Credentials) {
+        if (this.form.invalid) return;
+
         await this.auth.signUp(user);
         await this.auth.login(user);
         await this.router.navigate(['/']);
     }
 
     async updateTakenUsernames() {
-        const { usernames } = await this.users.getUsernames();
-        UsernameValidators.takenUsernames = usernames;
+        const usernames = await this.users.getUsernames();
+        UsernameValidators.takenUsernames = usernames ?? [];
     }
 }

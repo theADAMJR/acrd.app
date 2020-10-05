@@ -14,21 +14,24 @@ export class LoginComponent {
     private route: ActivatedRoute,
     private router: Router) {}
 
-  form = new FormGroup(
-  {
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+  form = new FormGroup({
+    username: new FormControl('', [ Validators.required ]),
+    password: new FormControl('', [ Validators.required] )
   });
 
   get username() { return this.form.get('username'); }
   get password() { return this.form.get('password'); }
 
   async login(user: Credentials) {
-    let login = false;
-    try { login = await this.auth.login(user); } catch { this.form.setErrors({ invalidLogin: true }); }
-    if (login) {
+    if (this.form.invalid) return;
+
+    try {
+      await this.auth.login(user);
+
       const redirect = this.route.snapshot.queryParamMap.get('redirect');
-      this.router.navigate([redirect || '/']);
+      this.router.navigate([ redirect || '/' ]);
+    } catch {
+      this.form.setErrors({ invalidLogin: true });
     }
   }
 }

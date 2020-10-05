@@ -17,3 +17,11 @@
 .offline {
   opacity: 0.5;
 }
+
+.extra-message {
+  color: white;
+  padding-left: 80px;
+}
+.extra-message:hover {
+	background-color: rgba(46,48,54,.3);
+}

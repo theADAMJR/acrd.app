@@ -2,15 +2,18 @@
   width: 100%;
 }
 
+.modal-content {
+  background-color: var(--background-tertiary);
+}
+
 .modal-content div {
   border: none !important;
-  color: black !important;
 }
 
 .modal-footer {
   display: inline !important;
 }
 
-button {
-  color: var(--secondary) !important;
+.close {
+  color: var(--heading);
 }

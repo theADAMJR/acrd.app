@@ -1,7 +1,8 @@
 <navbar></navbar>
 <section class="container text-center">
+    <div class="py-2 my-5"></div>
     <form #f="ngForm" [formGroup]="form" (ngSubmit)="signUp(f.value)">
-        <h2 class="display-4 mb-2">Sign Up</h2>
+        <h2 class="display-4 mb-4">Sign Up</h2>
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label for="username">Username</mat-label>
@@ -11,7 +12,7 @@
                 <mat-error *ngIf="username.errors?.required">Username is required.</mat-error>
                 <mat-error *ngIf="username.errors?.minlength">Username should be minimum {{ username.errors.minlength.requiredLength }} characters.</mat-error>
                 <mat-error *ngIf="username.errors?.shouldBeUnique">Username is already taken.</mat-error>
-                <mat-error *ngIf="username.errors?.pattern">Username should follow Discord username rules.</mat-error>
+                <mat-error *ngIf="username.errors?.pattern">Username should follow the <a routerLink="/docs/usernames">username rules</a>.</mat-error>
             </mat-form-field>
         </div>
 
