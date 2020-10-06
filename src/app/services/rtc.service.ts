@@ -18,4 +18,9 @@ export class RtcService {
     this._peer = this._peer ?? new Peer(this.userService.user._id);
     console.log(`Peer connected with ID: ${this.userService.user._id}`);
   }
+
+  call(id: string) {
+    navigator.getUserMedia({ video: false, audio: true },
+      (stream) => this.peer.call(id, stream), (err) => console.log(err));
+  }
 }

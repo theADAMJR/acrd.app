@@ -59,9 +59,6 @@ export class GuildSidebarComponent implements OnInit {
     });
 
     this.ws.socket.on('GUILD_MEMBER_ADD', async ({ guild, member }) => {
-      if (guild._id === this.guild._id)
-        this.guild = guild;
-
       if (member.user._id === this.usersService.user._id)
         await this.guildService.updateGuilds();
     });

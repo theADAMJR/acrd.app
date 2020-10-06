@@ -3,6 +3,7 @@
   bottom: 0;
   
   padding: 15px;
+  padding-bottom: 0;
   width: 100%;
 }
 
@@ -11,17 +12,25 @@
 
   width: 250px;
   height: 95vh;
+  padding-left: 10px;
   padding-right: 16px;
+}
+.member-list .category {
+  padding-left: 10px;
 }
 
 .offline {
   opacity: 0.5;
 }
 
-.extra-message {
-  color: white;
-  padding-left: 80px;
+.messages {
+  overflow-y: auto;
+
+  padding-bottom: 1vh;
+  max-height: 85vh;
 }
-.extra-message:hover {
-	background-color: rgba(46,48,54,.3);
+
+.typing {
+  font-size: small;
+  margin-top: -3px;
 }

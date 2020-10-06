@@ -36,15 +36,15 @@ import { SnakeToSentenceCasePipe } from './pipes/snake-to-sentence-case.pipe';
 import { TruncatedPipe } from './pipes/truncated.pipe';
 import { DurationStringPipe } from './pipes/duration-string.pipe';
 import { CamelToSentenceCasePipe } from './pipes/camel-to-sentence-case.pipe';
-import { MessagePreviewComponent } from './message-preview/message-preview.component';
+import { MessagePreviewComponent } from './messages/message-preview/message-preview.component';
 import { WavesComponent } from './waves/waves.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { DashboardNavbarComponent } from './dashboard/dashboard-navbar/dashboard-navbar.component';
 import { CreateGuildModalComponent } from './dashboard/create-guild-modal/create-guild-modal.component';
 import { TextChannelComponent } from './dashboard/text-channel/text-channel.component';
 import { VoiceChannelComponent } from './dashboard/voice-channel/voice-channel.component';
 import { InviteModalComponent } from './dashboard/invite-modal/invite-modal.component';
+import { MessageEmbedComponent } from './messages/message-embed/message-embed.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -101,7 +101,8 @@ export class AlertErrorHandler implements ErrorHandler {
     CreateGuildModalComponent,
     TextChannelComponent,
     VoiceChannelComponent,
-    InviteModalComponent
+    InviteModalComponent,
+    MessageEmbedComponent
   ],
   imports: [
     AppRoutingModule,

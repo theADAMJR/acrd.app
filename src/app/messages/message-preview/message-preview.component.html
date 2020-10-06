@@ -1,4 +1,4 @@
-<div class="flex-vertical">
+<div *ngIf="!isExtra; else extraMessage" class="flex-vertical">
     <div class="chat flex-vertical flex-spacer">
         <div class="content flex-spacer flex-horizontal bg-transparent">
             <div class="flex-spacer flex-vertical messages-wrapper">
@@ -16,13 +16,10 @@
                                         <span class="timestamp">{{ timestamp }}</span>
                                     </h2>
                                     <div [innerHtml]="processed" class="message-text"></div>
+                                    <message-embed (close)="removeEmbed()"
+                                        [canManage]="canManage"
+                                        [message]="message"></message-embed>
                                 </div>
-                                <div *ngIf="embed" class="embed">
-                                    <a class="title" [href]="embed.url">{{ embed.title || 'Untitled' }}</a>
-                                    <div *ngIf="embed.description"
-                                        class="description">{{ embed.description }}</div>
-                                    <img *ngIf="embed.image"
-                                        [src]="embed.image" onerror="this.onerror=null;this.hidden = true">
                             </div>
                         </div>
                     </div>
@@ -31,3 +28,18 @@
         </div>
     </div>
 </div>
+
+<ng-template #extraMessage>
+    <div class="extra-message">
+        <span class="content">
+            <span class="timestamp"
+                [matTooltip]="message.createdAt">{{ timeString }}</span>
+            <span [innerHTML]="processed"></span>
+            <span class="embed">
+                <message-embed (close)="removeEmbed()"
+                    [canManage]="canManage"
+                    [message]="message"></message-embed>
+            </span>
+        </span>
+    </div>
+</ng-template>

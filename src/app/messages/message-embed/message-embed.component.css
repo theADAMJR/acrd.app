@@ -1,0 +1,34 @@
+.embed {
+  border-radius: 5px;
+	background-color: var(--background-secondary);
+	border-left: 5px solid gray;
+
+	margin-top: 5px;
+  padding: 10px;
+  margin: 0 75px;
+}
+.embed .title {
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+.embed .description {
+	padding-bottom: 5px;	
+}
+.embed img, .embed video {
+	max-width: 450px;
+	border-radius: 5px;
+
+	outline: none !important;
+}
+.embed a {
+	color: #7289da;
+	text-decoration: none;
+}
+
+.hide-embed {
+	font-size: larger;
+	display: none;
+}
+.embed-wrapper:hover .hide-embed {
+	display: block;
+}

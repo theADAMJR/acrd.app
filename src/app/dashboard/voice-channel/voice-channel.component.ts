@@ -21,16 +21,18 @@ export class VoiceChannelComponent implements OnInit {
     await this.rtc.init();
     await this.userService.init();
 
-    this.hookEvents();
+    this.hookWSEvents();
   }
 
-  hookEvents() {
+  hookWSEvents() {
     this.ws.socket.on('VOICE_CHANNEL_UPDATE', ({ channel, user }) => {
       console.log('GET VOICE_CHANNEL_UPDATE');
 
       if (this.channel._id !== channel._id) return;
-
       this.channel = channel;
+      
+      if (this.userService.user._id !== user._id)
+        this.rtc.call(user._id);
 
       const selfUpdate = this.userService.user._id === user._id;      
       const currentChannel = user.voice.channelId === this.channel._id;
@@ -45,8 +47,8 @@ export class VoiceChannelComponent implements OnInit {
       .some(m => m.user._id === this.userService.user._id);
     if (isSelfConnected) return;
 
-    this.callChannelMembers();
     this.addSelfToChannel();
+    this.callChannelMembers();
 
     this.userService.user.voice.channelId = this.channel._id;
     this.userService.user.voice.guildId = this.guild._id;
@@ -63,8 +65,7 @@ export class VoiceChannelComponent implements OnInit {
     for (const member of this.channel.members) {
       if (member.user._id === this.userService.user._id) continue;
 
-      navigator.getUserMedia({ video: false, audio: true },
-        (stream) => this.rtc.peer.call(member._id, stream), (err) => console.log(err));
+      this.rtc.call(member.user._id);
     }
   }
 

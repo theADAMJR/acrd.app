@@ -1,34 +1,38 @@
 <guild-sidebar>
   <div *ngIf="channel">
     <div class="float-right member-list">
-      <div class="category">Online-{{ onlineMembers.length }}</div>
+      <div class="category">Online—{{ onlineMembers.length }}</div>
       <div>
         <member-username *ngFor="let member of onlineMembers"
-          class="nav-item nav-link cursor-pointer"
+          class="cursor-pointer"
           [user]="member.user" [guild]="guild"></member-username>
       </div>
 
-      <div class="category">Offline-{{ offlineMembers.length }}</div>
+      <div class="category">Offline—{{ offlineMembers.length }}</div>
       <div>
         <member-username *ngFor="let member of offlineMembers"
-          class="nav-item nav-link cursor-pointer"
+          class="cursor-pointer"
           [user]="member.user" [guild]="guild"></member-username>
       </div>
     </div>
     <div class="messages">
       <div *ngFor="let message of messages">
-        <message-preview *ngIf="!isSameAuthor(message)"
-          [message]="message"></message-preview>
-        <div *ngIf="isSameAuthor(message)"
-          class="extra-message">{{ message.content }}</div>
+        <message-preview [message]="message" [isExtra]="shouldCombine(message)"></message-preview>
       </div>
+      <spinner *ngIf="messages.length <= 0"></spinner>
     </div>
     <div class="footer">
-      <mat-form-field (keyup.enter)="chat(message.value)"
+      <mat-form-field (keyup)="emitTypingStart()"
+        (keyup.enter)="chat(message.value)"
         appearance="outline">
         <mat-label>Message #{{ channel.name }}</mat-label>
         <input id="chatBox" type="text" matInput #message>
       </mat-form-field>
+      <div *ngIf="typingUsernames.length <= 0" class="pt-3"></div>
+      <div *ngIf="typingUsernames.length > 0"
+        class="typing">
+        <strong>{{ typingUsernames.join(', ') }}</strong> {{ typingUsernames.length > 1 ? 'are' : 'is' }} typing...
+      </div>
     </div>
   </div>
   <div *ngIf="!channel">

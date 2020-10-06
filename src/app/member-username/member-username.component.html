@@ -6,5 +6,6 @@
   <!-- <span class="status round" [class]="user.status?.toLowerCase()"></span> -->
   <span class="username">{{ user.username }}</span>
   <span *ngIf="user._id === guild?.owner._id"
+    matTooltip="Guild Owner"
     class="crown pl-1"><i class="fas fa-crown"></i></span>
 </div>
