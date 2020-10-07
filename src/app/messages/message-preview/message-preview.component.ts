@@ -18,7 +18,7 @@ export class MessagePreviewComponent {
 
   get timestamp() {
     const createdAt = new Date(this.message.createdAt ?? new Date());
-    const timestamp = new Date()
+    const timestamp = createdAt
       .toTimeString()
       .slice(0, 5);
 
@@ -62,6 +62,8 @@ export class MessagePreviewComponent {
     private ws: WSService) {}
 
   removeEmbed() {
+    this.message.embed = null;
+
     this.log.info('SEND MESSAGE_UPDATE', 'msg');
     this.ws.socket.emit('MESSAGE_UPDATE', { message: this.message, withEmbed: false });
   }

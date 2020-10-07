@@ -30,9 +30,7 @@ export class GuildSidebarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private usersService: UsersService,
-    private ws: WSService) {
-      document.title = 'DClone - Dashboard';
-    }
+    private ws: WSService) {}
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {

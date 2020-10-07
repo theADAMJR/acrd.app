@@ -46,6 +46,7 @@ import { VoiceChannelComponent } from './dashboard/voice-channel/voice-channel.c
 import { InviteModalComponent } from './dashboard/invite-modal/invite-modal.component';
 import { MessageEmbedComponent } from './messages/message-embed/message-embed.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -114,7 +115,8 @@ export class AlertErrorHandler implements ErrorHandler {
     HttpClientModule,
     MaterialModule,
     HighlightModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    PickerModule
   ],
   providers: [
     { provide: ErrorHandler, useClass: AlertErrorHandler },

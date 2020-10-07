@@ -17,9 +17,11 @@ export class TextChannelComponent implements OnInit {
   messages = [];
 
   loadedAllMessages = false;  
+  emojiPickerOpen = false;
+
   chatBox = new FormControl();
   typingUsernames = [];
-  
+
   private lastTypingEmissionAt = null;
 
   get onlineMembers() {
@@ -79,9 +81,7 @@ export class TextChannelComponent implements OnInit {
       this.log.info('GET MESSAGE_UPDATE', 'text');
 
       let index = this.messages.findIndex(m => m._id === message._id);
-      if (message._id !== this.messages[index]._id) return;
-
-      this.messages[index] = message;
+      this.messages[index] = message;      
     });
   }
 
@@ -159,6 +159,20 @@ export class TextChannelComponent implements OnInit {
     this.scrollToMessage(this.messages.length);
 
     this.loadedAllMessages = moreMessages.length < 25;
-    this.messages = moreMessages.concat(this.messages);
+    this.messages = moreMessages
+      .concat(this.messages)
+      .sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1);
+  }
+
+  // emoji picker
+  addEmoji({ emoji }) {
+    console.log(emoji.native);
+    (document.querySelector('#chatBox') as HTMLInputElement).value += emoji.native;
+  }
+
+  onClick({ path }) {
+    const emojiPickerWasClicked = path
+      .some(n => n && n.nodeName === 'EMOJI-MART' || n.classList?.contains('emoji-icon'));
+    this.emojiPickerOpen = emojiPickerWasClicked;
   }
 }

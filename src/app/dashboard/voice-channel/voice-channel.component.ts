@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LogService } from 'src/app/services/log.service';
-import { RtcService } from 'src/app/services/rtc.service';
+import { RTCService } from 'src/app/services/rtc.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 
@@ -14,7 +14,7 @@ export class VoiceChannelComponent implements OnInit {
   @Input() guild;
 
   constructor(
-    private rtc: RtcService,
+    private rtc: RTCService,
     private userService: UsersService,
     private log: LogService,
     private ws: WSService) {}
@@ -26,21 +26,29 @@ export class VoiceChannelComponent implements OnInit {
     this.hookWSEvents();
   }
 
-  hookWSEvents() {
-    this.ws.socket.on('VOICE_CHANNEL_UPDATE', ({ channel, user }) => {
+  async hookWSEvents() {
+    this.ws.socket.on('VOICE_CHANNEL_UPDATE', async ({ channel, user }) => {
       this.log.info('GET VOICE_CHANNEL_UPDATE', 'vc');
 
       if (this.channel._id !== channel._id) return;
       this.channel = channel;
       
-      if (this.userService.user._id !== user._id)
-        this.rtc.call(user._id);
+      const isSelf = this.userService.user._id === user._id;
+      if (!isSelf)
+        await this.rtc.call(user._id); 
 
-      const selfUpdate = this.userService.user._id === user._id;      
-      const currentChannel = user.voice.channelId === this.channel._id;
-
-      if (selfUpdate && currentChannel && !user.voice.connected)
+      if (isSelf && !user.voice.connected)
         this.removeSelfMember();
+    });
+
+    this.ws.socket.on('VOICE_STATE_UPDATE', ({ user }) => {
+      this.log.info('GET VOICE_STATE_UPDATE', 'vc');
+
+      const member = this.channel.members
+        .find(m => m.user?._id ?? m.user === user._id);
+      if (!member) return;
+
+      member.user.voice = user.voice;
     });
 
     this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {
@@ -48,43 +56,42 @@ export class VoiceChannelComponent implements OnInit {
     });
   }
   
-  join() {
+  async join() {
     const isSelfConnected = this.channel.members
-      .some(m => m.user._id === this.userService.user._id);
+      .some(m => m.user?._id ?? m.user === this.userService.user._id);
+    console.log(this.channel.members);
+    
     if (isSelfConnected) return;
 
-    this.addSelfToChannel();
-    this.callChannelMembers();
+    await this.callChannelMembers();
 
-    this.userService.user.voice.channelId = this.channel._id;
-    this.userService.user.voice.guildId = this.guild._id;
-    this.userService.user.voice.connected = true;
+    const user = this.userService.user;
+    user.voice.channelId = this.channel._id;
+    user.voice.guildId = this.guild._id;
+    user.voice.connected = true;
 
     this.log.info('SEND VOICE_CHANNEL_UPDATE', 'vc');
-    this.ws.socket.emit('VOICE_CHANNEL_UPDATE', {
-      channel: this.channel,
-      guild: this.guild,
-      user: this.userService.user
-    });
+    this.ws.socket.emit('VOICE_CHANNEL_UPDATE',
+      { channel: this.channel, guild: this.guild, user });
+    this.ws.socket.emit('VOICE_STATE_UPDATE', ({ user }));
   }
-  callChannelMembers() {
+  async callChannelMembers() {
     for (const member of this.channel.members) {
-      if (member.user._id === this.userService.user._id) continue;
+      if (member.user?._id ?? member.user === this.userService.user._id) continue;
 
-      this.rtc.call(member.user._id);
+      await this.rtc.call(member.user?._id ?? member.user);
     }
-  }
-
-  addSelfToChannel() {
-    const selfMember = this.guild.members
-      .find(m => m.user._id === this.userService.user._id);
-    this.channel.members.push(selfMember);
   }
 
   removeSelfMember() {
     const selfMember = this.guild.members
       .find(m => m.user._id === this.userService.user._id);
-    const index = this.channel.members.indexOf(selfMember);
+    const index = this.channel.members.indexOf(selfMember._id);
     this.channel.members.splice(index, 1);
+  }
+
+  getUser(memberId: string) {    
+    return this.guild.members
+      .find(m => m._id === memberId)?.user;
   }
 }

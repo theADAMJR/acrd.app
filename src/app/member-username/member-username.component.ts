@@ -9,4 +9,5 @@ export class MemberUsernameComponent {
   @Input() user;
   @Input() guild;
   @Input() withAvatar = true;
+  @Input() voice = false;
 }

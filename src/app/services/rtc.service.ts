@@ -4,7 +4,9 @@ import { LogService } from './log.service';
 import { UsersService } from './users.service';
 
 @Injectable({ providedIn: 'root' })
-export class RtcService {
+export class RTCService {
+  private streams: MediaStream[] = [];
+
   private _audio: AudioSources; 
   get audio() {
     return this._audio;
@@ -26,29 +28,44 @@ export class RtcService {
     this._audio = this._audio ?? new AudioSources(this.userService.user._id);
     this._peer = this._peer ?? new Peer(this.userService.user._id);
 
-    this.hookPeerEvents();
-
     this.log.info(`Peer connected with ID: ${this.userService.user._id}`, 'rtc');
   }
 
-  hookPeerEvents() {
-    this.peer.on('call', (call) => {
-      navigator.getUserMedia({ video: false, audio: true },
-        (stream) => {
-          call.answer(stream);
-          
-          call.on('stream', (remoteStream) => this.audio.play(call.peer, remoteStream));
-          call.on('close', () => this.audio.stop(call.peer));
-        }, (err) => console.log(err));
-    });
-  }
+  async call(id: string) {
+    if (id === this.userService.user._id)
+      throw new TypeError('You cannot call yourself!');
 
-  call(id: string) {
-    navigator.getUserMedia({ video: false, audio: true },
-      (stream) => this.peer.call(id, stream),
-      (err) => console.log(err));
+    const stream = await navigator.mediaDevices
+      .getUserMedia({ video: false, audio: true });
+
+    this.peer.on('call', async (call) => {
+      call.answer(stream);
+      call.on('stream', (remote) => this.audio.play(call.peer, remote));
+    });
+    this.peer.call(id, stream);
+
+    this.streams.push(stream);
 
     this.log.info(`Calling ${id}`, 'rtc');    
+  }
+
+  hangUp() {
+    this.muteMicrophone();
+    this.audio.stopAll();
+  }
+
+  muteMicrophone() {
+    for (const stream of this.streams)
+      stream
+        .getTracks()
+        .forEach(t => t.enabled = false);
+  }
+
+  unmuteMicrophone() {
+    for (const stream of this.streams)      
+      stream
+        .getTracks()
+        .forEach(t => t.enabled = true);
   }
 }
 

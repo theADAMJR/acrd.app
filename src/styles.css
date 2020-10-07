@@ -2,6 +2,7 @@
 /* @import "~@angular/material/prebuilt-themes/pink-bluegrey.css"; */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~highlight.js/styles/arta.css';
+@import '~@ctrl/ngx-emoji-mart/picker.css';
 
 body,
 mat-sidenav-content {
@@ -143,8 +144,6 @@ mat-paginator {
 
   max-width: 96px;
   border-radius: 50%;
-
-  padding-bottom: 5px;
 }
 
 .side-nav .header {
@@ -212,4 +211,9 @@ mat-sidenav a:hover {
 
 .modal-backdrop {
   z-index: -1 !important;
+}
+
+/* emoji picker */
+.emoji-mart, .emoji-mart * {
+  border-color: transparent !important;
 }

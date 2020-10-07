@@ -7,7 +7,7 @@
                 </div>
                 <hr class="guild-seperator">
             </div>
-            <div *ngFor="let guild of guilds"
+            <div *ngFor="let guild of guilds || []"
                 [routerLink]="'/channels/' + guild._id"
                 routerLinkActive="active"
                 class="guild-icon"
@@ -40,7 +40,9 @@
                 <hr>
             </div>
             <div class="float-right">
-                <button (click)="mute()"
+                <button
+                    matTooltip="Mute"
+                    (click)="mute()"
                     id="muteButton" mat-button>
                     <i class="fas pb-1" [ngClass]="{
                         'fa-microphone': !user.voice.selfMuted,

@@ -34,3 +34,10 @@
   font-size: small;
   margin-top: -3px;
 }
+.emoji-icon {
+  transition: transform .3s ease;
+}
+.emoji-icon:hover {
+  color: gold;
+  transform: scale(1.1);
+}
