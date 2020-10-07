@@ -256,15 +256,20 @@
 /* extra */
 .extra-message {
   color: white;
-  padding: 0 5px;
+	padding: 0 80px;
 }
 .extra-message:hover {
 	background-color: rgba(46,48,54,.3);
 }
 
 .extra-message .timestamp {
-  font-size: small;
-  padding: 0 21px;
+	font-size: small;
+	
+	float: left;
+	position: relative;
+	cursor: default;
+
+	margin: 3px 23px 0 -55px;
 
   color: transparent;
 }

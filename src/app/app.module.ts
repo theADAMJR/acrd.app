@@ -45,6 +45,7 @@ import { TextChannelComponent } from './dashboard/text-channel/text-channel.comp
 import { VoiceChannelComponent } from './dashboard/voice-channel/voice-channel.component';
 import { InviteModalComponent } from './dashboard/invite-modal/invite-modal.component';
 import { MessageEmbedComponent } from './messages/message-embed/message-embed.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -112,7 +113,8 @@ export class AlertErrorHandler implements ErrorHandler {
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    HighlightModule
+    HighlightModule,
+    InfiniteScrollModule
   ],
   providers: [
     { provide: ErrorHandler, useClass: AlertErrorHandler },

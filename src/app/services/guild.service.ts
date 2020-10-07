@@ -48,8 +48,11 @@ export class GuildService {
     return this.http.post(this.endpoint, data, { headers: { Authorization: this.key } }).toPromise();
   }
 
-  getMessages(guildId: string, channelId: string): Promise<any> {
-    return this.http.get(`${environment.endpoint}/channels/${guildId}/${channelId}`,
-      { headers: { Authorization: this.key } }).toPromise();
+  getMessages(guildId: string, channelId: string, options?: LazyLoadOptions): Promise<any> {
+    return this.http
+      .get(`${environment.endpoint}/channels/${guildId}/${channelId}?start=${options?.start ?? 0}&end=${options?.end ?? 25}`,
+        { headers: { Authorization: this.key } }).toPromise();
   }
 }
+
+interface LazyLoadOptions { start: number, end: number }

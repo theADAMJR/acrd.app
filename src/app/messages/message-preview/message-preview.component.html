@@ -32,9 +32,9 @@
 <ng-template #extraMessage>
     <div class="extra-message">
         <span class="content">
-            <span class="timestamp"
+            <span class="timestamp no-select"
                 [matTooltip]="message.createdAt">{{ timeString }}</span>
-            <span [innerHTML]="processed"></span>
+            <span [innerHTML]="processed" class="message"></span>
             <span class="embed">
                 <message-embed (close)="removeEmbed()"
                     [canManage]="canManage"

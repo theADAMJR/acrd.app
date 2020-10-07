@@ -15,11 +15,24 @@
           [user]="member.user" [guild]="guild"></member-username>
       </div>
     </div>
-    <div class="messages">
-      <div *ngFor="let message of messages">
-        <message-preview [message]="message" [isExtra]="shouldCombine(message)"></message-preview>
+    <div class="messages"
+      infiniteScroll
+      [scrollWindow]="false"
+      (scrolledUp)="loadMoreMessages()">
+      <div *ngIf="loadedAllMessages"
+        class="jumbotron pb-0">
+        <p class="lead">Start of #{{ channel.name }} message history.</p>
+        <hr>
       </div>
-      <spinner *ngIf="messages.length <= 0"></spinner>
+      <spinner *ngIf="!loadedAllMessages"></spinner>
+
+      <div *ngFor="let message of messages; index as i"
+        [id]="'message' + message._id"
+        class="message-preview">
+        <message-preview
+          [message]="message"
+          [isExtra]="shouldCombine(i)"></message-preview>
+      </div>
     </div>
     <div class="footer">
       <mat-form-field (keyup)="emitTypingStart()"

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { LogService } from 'src/app/services/log.service';
 import { RtcService } from 'src/app/services/rtc.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
@@ -15,6 +16,7 @@ export class VoiceChannelComponent implements OnInit {
   constructor(
     private rtc: RtcService,
     private userService: UsersService,
+    private log: LogService,
     private ws: WSService) {}
 
   async ngOnInit() {
@@ -26,7 +28,7 @@ export class VoiceChannelComponent implements OnInit {
 
   hookWSEvents() {
     this.ws.socket.on('VOICE_CHANNEL_UPDATE', ({ channel, user }) => {
-      console.log('GET VOICE_CHANNEL_UPDATE');
+      this.log.info('GET VOICE_CHANNEL_UPDATE', 'vc');
 
       if (this.channel._id !== channel._id) return;
       this.channel = channel;
@@ -39,6 +41,10 @@ export class VoiceChannelComponent implements OnInit {
 
       if (selfUpdate && currentChannel && !user.voice.connected)
         this.removeSelfMember();
+    });
+
+    this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {
+      this.rtc.audio.stop(user._id);
     });
   }
   
@@ -54,7 +60,7 @@ export class VoiceChannelComponent implements OnInit {
     this.userService.user.voice.guildId = this.guild._id;
     this.userService.user.voice.connected = true;
 
-    console.log('SEND VOICE_CHANNEL_UPDATE');
+    this.log.info('SEND VOICE_CHANNEL_UPDATE', 'vc');
     this.ws.socket.emit('VOICE_CHANNEL_UPDATE', {
       channel: this.channel,
       guild: this.guild,

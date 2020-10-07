@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
+import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 
@@ -17,11 +18,9 @@ export class MessagePreviewComponent {
 
   get timestamp() {
     const createdAt = new Date(this.message.createdAt ?? new Date());
-    const timestamp = createdAt.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      hour12: false,
-      minute: 'numeric'
-    });
+    const timestamp = new Date()
+      .toTimeString()
+      .slice(0, 5);
 
     const wasToday = new Date().getDay() / createdAt.getDay() === 1;
     const wasYesterday = new Date().getDate() % createdAt.getDate() === 1;
@@ -58,12 +57,12 @@ export class MessagePreviewComponent {
   }
 
   constructor(
+    private log: LogService,
     private usersService: UsersService,
     private ws: WSService) {}
 
   removeEmbed() {
-    // this.embed = null;
-    console.log('SEND MESSAGE_UPDATE');
+    this.log.info('SEND MESSAGE_UPDATE', 'msg');
     this.ws.socket.emit('MESSAGE_UPDATE', { message: this.message, withEmbed: false });
   }
 }

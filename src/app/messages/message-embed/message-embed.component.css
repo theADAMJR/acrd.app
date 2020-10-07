@@ -5,7 +5,9 @@
 
 	margin-top: 5px;
   padding: 10px;
-  margin: 0 75px;
+	margin-bottom: 5px;
+
+	max-width: 500px;
 }
 .embed .title {
 	font-weight: bold;
@@ -15,7 +17,7 @@
 	padding-bottom: 5px;	
 }
 .embed img, .embed video {
-	max-width: 450px;
+	max-width: 100%;
 	border-radius: 5px;
 
 	outline: none !important;
@@ -28,6 +30,8 @@
 .hide-embed {
 	font-size: larger;
 	display: none;
+
+	float: right;
 }
 .embed-wrapper:hover .hide-embed {
 	display: block;
