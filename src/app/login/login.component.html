@@ -21,6 +21,8 @@
             </mat-form-field>
         </div>
         <div *ngIf="form.errors" class="text-danger">The username or password is invalid.</div>
-        <button class="bg-primary mt-3" type="submit" mat-button>Login</button>
+        <button
+            [disabled]="processing"
+            class="bg-primary mt-3" type="submit" mat-button>Login</button>
     </form>
 </section>

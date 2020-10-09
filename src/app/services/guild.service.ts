@@ -15,7 +15,7 @@ export class GuildService {
     return localStorage.getItem('key');
   }
   
-  constructor(private http: HttpClient) {} 
+  constructor(private http: HttpClient) {}
   
   async init() {
     if (this.guilds.length <= 0)

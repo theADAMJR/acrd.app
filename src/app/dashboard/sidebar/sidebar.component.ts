@@ -26,6 +26,17 @@ export class SidebarComponent implements OnInit {
 
   async ngOnInit() {
     await this.guildService.init();
+    
+    this.hookWSEvents();
+  }
+
+  hookWSEvents() {
+    this.ws.socket.on('GUILD_MEMBER_ADD', async ({ guild, member }) => {
+      this.log.info('GET GUILD_MEMBER_ADD', 'sbar');
+      if (member.user._id !== this.user._id) return;
+      
+      await this.guildService.updateGuilds();
+    });
   }
 
   toggle() {
@@ -35,11 +46,12 @@ export class SidebarComponent implements OnInit {
   }
 
   async disconnect() {
-    const channel = this.guildService.getChannel(this.user.voice.guildId, this.user.voice.channelId);
-    const index = channel.members.findIndex(m => m.user === this.user._id);
-    channel.members.splice(index, 1);
-
     const guild = this.guildService.getGuild(this.user.voice.guildId);
+    const channel = guild.channels.find(c => c._id === this.user.voice.channelId);
+    const member = guild.members.find(m => m.user._id === this.user._id);
+
+    const index = channel.memberIds.indexOf(member._id);
+    channel.memberIds.splice(index, 1);
 
     this.user.voice.connected = false;
 

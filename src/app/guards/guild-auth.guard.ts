@@ -26,6 +26,7 @@ export class GuildAuthGuard implements CanActivate {
       }
 
       this.ws.socket.emit('READY', {
+        channelIds: this.guildService.guilds.flatMap(g => g.channels.map(c => c._id)),
         guildIds: this.guildService.guilds.map(g => g._id),
         user: this.userService.user
       });

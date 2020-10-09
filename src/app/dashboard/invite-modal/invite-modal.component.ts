@@ -22,4 +22,8 @@ export class InviteModalComponent {
 
     document.querySelector('.modal-backdrop')?.remove();
   }
+
+  copyToClipboard() {
+    navigator.clipboard.writeText(this.invite?._id);
+  }
 }

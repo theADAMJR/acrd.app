@@ -44,8 +44,8 @@ export class VoiceChannelComponent implements OnInit {
     this.ws.socket.on('VOICE_STATE_UPDATE', ({ user }) => {
       this.log.info('GET VOICE_STATE_UPDATE', 'vc');
 
-      const member = this.channel.members
-        .find(m => m.user?._id ?? m.user === user._id);
+      const member = this.guild.members
+        .find(m => m.user._id === user._id);
       if (!member) return;
 
       member.user.voice = user.voice;
@@ -57,10 +57,7 @@ export class VoiceChannelComponent implements OnInit {
   }
   
   async join() {
-    const isSelfConnected = this.channel.members
-      .some(m => m.user?._id ?? m.user === this.userService.user._id);
-    console.log(this.channel.members);
-    
+    const isSelfConnected = this.channel.memberIds.includes(this.userService.user._id);    
     if (isSelfConnected) return;
 
     await this.callChannelMembers();
@@ -76,18 +73,20 @@ export class VoiceChannelComponent implements OnInit {
     this.ws.socket.emit('VOICE_STATE_UPDATE', ({ user }));
   }
   async callChannelMembers() {
-    for (const member of this.channel.members) {
-      if (member.user?._id ?? member.user === this.userService.user._id) continue;
+    const selfMember = this.guild.members
+      .find(m => m.user._id === this.userService.user._id);
+    for (const id of this.channel.memberIds) {
+      if (id === selfMember._id) continue;
 
-      await this.rtc.call(member.user?._id ?? member.user);
+      await this.rtc.call(id);
     }
   }
 
   removeSelfMember() {
     const selfMember = this.guild.members
       .find(m => m.user._id === this.userService.user._id);
-    const index = this.channel.members.indexOf(selfMember._id);
-    this.channel.members.splice(index, 1);
+    const index = this.channel.memberIds.indexOf(selfMember._id);
+    this.channel.memberIds.splice(index, 1);
   }
 
   getUser(memberId: string) {    

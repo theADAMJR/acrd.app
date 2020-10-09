@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { GuildService } from '../../services/guild.service';
@@ -27,9 +28,9 @@ export class GuildSidebarComponent implements OnInit {
 
   constructor(
     private guildService: GuildService,
+    private log: LogService,
     private route: ActivatedRoute,
     private router: Router,
-    private usersService: UsersService,
     private ws: WSService) {}
 
   async ngOnInit() {
@@ -49,16 +50,22 @@ export class GuildSidebarComponent implements OnInit {
   }
 
   hookWSEvents() {
-    this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {      
-      const guildMember = this.guild.members.find(m => m.user._id === user?._id);
+    this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {
+      this.log.info('GET PRESENCE_UPDATE', 'gsbar');
+      const guildMember = this.guild.members
+        .find(m => m.user._id === user?._id);
       if (!guildMember) return;
 
-      guildMember.user = user;
+      console.log(user.status);
+      
+
+      guildMember.user.status = user.status;
     });
 
-    this.ws.socket.on('GUILD_MEMBER_ADD', async ({ guild, member }) => {
-      if (member.user._id === this.usersService.user._id)
-        await this.guildService.updateGuilds();
+    this.ws.socket.on('GUILD_MEMBER_ADD', async ({ member }) => {
+      this.log.info('GET GUILD_MEMBER_ADD', 'gsbar');
+
+      this.guild.members.push(member)
     });
   }
 }

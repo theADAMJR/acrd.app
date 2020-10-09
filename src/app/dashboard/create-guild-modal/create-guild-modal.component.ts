@@ -13,7 +13,7 @@ import { WSService } from 'src/app/services/ws.service';
 export class CreateGuildModalComponent {
   @ViewChild('inviteInput') inviteInput: ElementRef;
 
-  creating = false;
+  processing = false;
 
   form = new FormGroup({
     name: new FormControl(`${this.userService.user.username}'s Guild`, [
@@ -31,7 +31,7 @@ export class CreateGuildModalComponent {
   async submit() {
     if (this.form.invalid) return;
 
-    this.creating = true;
+    this.processing = true;
 
     const { _id } = await this.guildService.createGuild(this.form.value);
     await this.guildService.updateGuilds();
@@ -41,7 +41,8 @@ export class CreateGuildModalComponent {
     this.router.navigate([`/channels/${_id}`]);
   }
 
-  joinGuild() {    
+  joinGuild() {
+    this.processing = true;
     this.ws.socket.emit('GUILD_MEMBER_ADD',
       ({ inviteCode: this.inviteInput.nativeElement.value, user: this.userService.user }));
   }

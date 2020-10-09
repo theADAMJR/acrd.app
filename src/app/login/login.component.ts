@@ -18,6 +18,7 @@ export class LoginComponent {
     username: new FormControl('', [ Validators.required ]),
     password: new FormControl('', [ Validators.required] )
   });
+  processing = false;
 
   get username() { return this.form.get('username'); }
   get password() { return this.form.get('password'); }
@@ -26,11 +27,13 @@ export class LoginComponent {
     if (this.form.invalid) return;
 
     try {
+      this.processing = true;
       await this.auth.login(user);
 
       const redirect = this.route.snapshot.queryParamMap.get('redirect');
       this.router.navigate([ redirect || '/' ]);
     } catch {
+      this.processing = false;
       this.form.setErrors({ invalidLogin: true });
     }
   }

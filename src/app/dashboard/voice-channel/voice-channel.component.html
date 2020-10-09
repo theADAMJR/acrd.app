@@ -5,6 +5,8 @@
       <i class="fas fa-volume-up text-muted"></i> {{ channel.name }}</a>
     <div *ngFor="let member of channel.members"
       class="ml-4">
-      <member-username [user]="getUser(member._id)" [voice]="true"></member-username>
+      <member-username
+        [user]="getUser(member._id)"
+        [voice]="true"></member-username>
     </div>
 </div>
