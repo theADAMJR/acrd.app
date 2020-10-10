@@ -1,0 +1,9 @@
+.summary {
+  font-size: small;
+  display: block;
+}
+
+.role-details {
+  height: 150%;
+  overflow-y: auto;
+}

@@ -4,12 +4,14 @@
 @import '~highlight.js/styles/arta.css';
 @import '~@ctrl/ngx-emoji-mart/picker.css';
 
-body,
-mat-sidenav-content {
+body {
   color: var(--font);
 
-  overflow: hidden !important;
   font-family: ​Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+mat-sidenav-content {
+  overflow: hidden !important;
 }
 
 footer {

@@ -67,7 +67,6 @@ export class GuildSidebarComponent implements OnInit {
       this.log.info('GET GUILD_UPDATE', 'gsbar');
 
       this.guild = guild;
-      debugger;
 
       const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
       this.guildService.guilds[index] = guild;

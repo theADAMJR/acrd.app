@@ -13,7 +13,7 @@ import { DocsComponent } from './docs/docs.component';
 import { CanDeactivateDashboard } from './guards/can-deactivate-dashboard.guard';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { TextChannelComponent } from './dashboard/text-channel/text-channel.component';
-import { GuildSettingsComponent } from './dashboard/guild-settings/guild-settings.component';
+import { GuildSettingsComponent } from './dashboard/guild-settings/overview/guild-settings.component';
 import { InvitesComponent } from './dashboard/guild-settings/invites/invites.component';
 import { RolesComponent } from './dashboard/guild-settings/roles/roles.component';
 

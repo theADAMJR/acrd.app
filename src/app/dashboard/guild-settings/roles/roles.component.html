@@ -1,1 +1,257 @@
-<p>roles works!</p>
+<div *ngIf="guild"
+  class="side side-nav navbar-dark">
+  <div class="navbar-nav float-right">
+    <p class="category">{{ guild.name }}</p>
+    <a [routerLink]="'/channels/' + guild._id + '/settings'"
+      routerLinkActive="active"
+      class="nav-item nav-link">Overview</a>
+    <a [routerLink]="'/channels/' + guild._id + '/roles'"
+      routerLinkActive="active"
+      class="nav-item nav-link">Roles</a>
+    <a [routerLink]="'/channels/' + guild._id + '/invites'" 
+      routerLinkActive="active"
+      class="nav-item nav-link">Invites</a>
+    <hr>
+    <a (click)="deleteGuild()"
+      class="nav-item nav-link text-danger">Delete Guild</a>
+  </div>
+</div>
+
+<div *ngIf="guild"
+  class="main">
+  <div class="content">
+    <div class="float-right">
+      <div (click)="close()"
+        class="close round btn" mat-button><i class="fas fa-times"></i></div>
+      <span class="text-muted d-block px-2">ESC</span>
+    </div>
+
+    <div class="row">
+      <div class="col-3 side-nav navbar-dark">
+        <div class="navbar-nav">
+          <a *ngFor="let role of guild.roles"
+            (click)="selectRole(role)"
+            routerLinkActive="active"
+            class="nav-item nav-link">{{ role.name }}</a>
+        </div>
+
+        <hr class="my-4">
+
+        <p class="text-muted">Members use the color of the highest role they have in this list.</p>
+      </div>
+      <div class="col-9 role-details">
+        <form *ngIf="selectedRole"
+          #f="ngForm" [formGroup]="form">
+          <p>Use roles to customize what server members can or cannot do in the guild.</p>
+          
+          <hr>
+
+          <div> 
+            <mat-form-field appearance="outline">
+              <mat-label>Role Name</mat-label>
+              <input formControlName="name" type="text" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Role Color</mat-label>            
+              <input matInput
+                (colorPickerChange)="openSaveChanges()"
+                [disabled]="isEveryone"
+                [(colorPicker)]="presetColors[1]"
+                [cpPresetColors]="presetColors"
+                formControlName="color">
+            </mat-form-field>
+
+            <p class="category text-muted pl-0">Role</p>
+
+            <div>
+              <span>Display role members</span>
+              <mat-slide-toggle 
+                formControlName="hoisted"
+                [disabled]="isEveryone"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Allow anyone to @mention this role</span>
+              <mat-slide-toggle 
+                formControlName="mentionable"
+                [disabled]="isEveryone"
+                class="float-right"></mat-slide-toggle>
+            </div>
+            <hr>
+          </div>
+        </form>
+
+        <form *ngIf="selectedRole"
+          #f="ngForm" [formGroup]="permissionsForm">
+          <p class="category text-muted pl-0">General</p> 
+          <div formGroupName="general"
+            class="form-group">         
+            <div>
+              <span>Admin</span>
+              <mat-slide-toggle 
+                formControlName="ADMINISTRATOR"
+                class="float-right"></mat-slide-toggle>
+              <span class="summary text-muted">
+                Members with this permission inherit every other permission. This is a <span class="text-danger">dangerous</span> permission.
+              </span>
+              <hr>
+            </div>
+          
+            <div>
+              <span>View Audit Log</span>
+              <mat-slide-toggle 
+                formControlName="VIEW_AUDIT_LOG"
+                class="float-right"></mat-slide-toggle>
+              <span class="summary text-muted">
+                Members with this permission can access the guild's audit logs.
+              </span>
+              <hr>
+            </div>
+            <div>
+              <span>Manage Guild</span>
+              <mat-slide-toggle 
+                formControlName="MANAGE_GUILD"
+                class="float-right"></mat-slide-toggle>
+              <hr> 
+            </div>
+            <div>
+              <span>Manage Roles</span>
+              <mat-slide-toggle 
+                formControlName="MANAGE_ROLES"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Manage Channels</span>
+              <mat-slide-toggle 
+                formControlName="MANAGE_CHANNELS"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Ban Members</span>
+              <mat-slide-toggle 
+                formControlName="BAN_MEMBERS"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Kick Members</span>
+              <mat-slide-toggle 
+                formControlName="KICK_MEMBERS"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Create Invite</span>
+              <mat-slide-toggle 
+                formControlName="CREATE_INVITE"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Change Nickname</span>
+              <mat-slide-toggle 
+                formControlName="CHANGE_NICKNAME"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Manage Nicknames</span>
+              <mat-slide-toggle 
+                formControlName="MANAGE_NICKNAMES"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>View Channels</span>
+              <mat-slide-toggle 
+                formControlName="VIEW_CHANNELS"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+          </div>
+
+          <div formGroupName="text"
+            class="form-group">
+            <p class="category text-muted pl-0">Text</p>
+            <div>
+              <span>Send Messages</span>
+              <mat-slide-toggle 
+                formControlName="SEND_MESSAGES"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Read Message History</span>
+              <mat-slide-toggle 
+                formControlName="READ_MESSAGE_HISTORY"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Mention @everyone</span>
+              <mat-slide-toggle 
+                formControlName="MENTION_EVERYONE"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Manage Messages</span>
+              <mat-slide-toggle 
+                formControlName="MANAGE_MESSAGES"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Add Reactions</span>
+              <mat-slide-toggle 
+                formControlName="ADD_REACTIONS"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+          </div>
+          
+          <div formGroupName="voice"
+            class="form-group">
+            <p class="category text-muted pl-0">Voice</p>
+            
+            <div>
+              <span>Connect</span>
+              <mat-slide-toggle 
+                formControlName="CONNECT"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Move Members</span>
+              <mat-slide-toggle 
+                formControlName="MOVE_MEMBERS"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Mute Members</span>
+              <mat-slide-toggle 
+                formControlName="MUTE_MEMBERS"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <span>Speak</span>
+              <mat-slide-toggle 
+                formControlName="SPEAK"
+                class="float-right"></mat-slide-toggle>
+              <hr>
+            </div>
+            <div>
+              <button (click)="clearPermissions()"
+                class="border-white text-white" mat-button>Clear Permissions</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

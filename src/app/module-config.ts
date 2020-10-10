@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaveChangesComponent } from './dashboard/save-changes/save-changes.component';
@@ -25,7 +25,8 @@ export abstract class ModuleConfig implements OnDestroy {
         protected route: ActivatedRoute,
         public saveChanges: MatSnackBar,
         protected ws: WSService,
-        protected log: LogService) {}
+        protected log: LogService,
+        protected router: Router) {}
 
     /**
      * Load all required data for the form, and hook events.
@@ -39,7 +40,16 @@ export abstract class ModuleConfig implements OnDestroy {
         await this.resetForm();
 
         this.valueChanges$ = this.form.valueChanges
-            .subscribe(() => this.openSaveChanges());     
+            .subscribe(() => this.openSaveChanges()); 
+
+        document.body.onkeyup = ({ key }) => {
+            if (key !== 'Escape') return;
+    
+            this.close();
+        };    
+    }
+    close() {
+      this.router.navigate(['/channels/' + this.guild._id]);
     }
 
     private async resetForm() {     
@@ -53,7 +63,7 @@ export abstract class ModuleConfig implements OnDestroy {
      */
     abstract buildForm(guild: any): FormGroup | Promise<FormGroup>;
     
-    private openSaveChanges() {
+    openSaveChanges() {
         const snackBarRef = this.saveChanges._openedSnackBarRef;
         if (!this.form.valid || snackBarRef) return;
 
@@ -99,6 +109,22 @@ export abstract class ModuleConfig implements OnDestroy {
         
         this.form.valueChanges
             .subscribe(() => this.openSaveChanges()); 
+    }
+
+    
+    async deleteGuild() {
+        const confirmation = prompt(`Please type 'CONFIRM' if you wish to delete this guild.`);
+        if (confirmation !== 'CONFIRM') return;
+
+        await this.guildService.deleteGuild(this.guild._id);
+
+        this.log.info('SEND GUILD_DELETE', 'gset');
+        this.ws.socket.emit('GUILD_DELETE', { guild: this.guildId });
+
+        const index = this.guildService.guilds.findIndex(g => g._id === this.guildId);
+        this.guildService.guilds.splice(index, 1);
+
+        await this.router.navigate(['/channels/@me']);
     }
 
     // input events

@@ -45,7 +45,7 @@ import { InviteModalComponent } from './dashboard/invite-modal/invite-modal.comp
 import { MessageEmbedComponent } from './messages/message-embed/message-embed.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
-import { GuildSettingsComponent } from './dashboard/guild-settings/guild-settings.component';
+import { GuildSettingsComponent } from './dashboard/guild-settings/overview/guild-settings.component';
 import { RolesComponent } from './dashboard/guild-settings/roles/roles.component';
 import { InvitesComponent } from './dashboard/guild-settings/invites/invites.component';
 

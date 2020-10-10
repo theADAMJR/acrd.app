@@ -1,7 +1,8 @@
-<div *ngIf="guild" class="side side-nav navbar-dark">
+<div *ngIf="guild"
+  class="side side-nav navbar-dark">
   <div class="navbar-nav float-right">
     <p class="category">{{ guild.name }}</p>
-    <a [routerLink]="'/channels/' + guild._id"
+    <a [routerLink]="'/channels/' + guild._id + '/settings'"
       routerLinkActive="active"
       class="nav-item nav-link">Overview</a>
     <a [routerLink]="'/channels/' + guild._id + '/roles'"

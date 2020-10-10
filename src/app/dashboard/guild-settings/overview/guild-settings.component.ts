@@ -15,12 +15,12 @@ import { WSService } from 'src/app/services/ws.service';
 export class GuildSettingsComponent extends ModuleConfig implements OnInit {
   constructor(
     route: ActivatedRoute,
-    private router: Router,
+    router: Router,
     guildService: GuildService,
     snackbar: MatSnackBar,
     ws: WSService,
     log: LogService) {
-      super(guildService, route, snackbar, ws, log);
+      super(guildService, route, snackbar, ws, log, router);
     }
 
   async ngOnInit() {
@@ -31,25 +31,6 @@ export class GuildSettingsComponent extends ModuleConfig implements OnInit {
 
       this.close();
     };
-  }
-
-  close() {
-    this.router.navigate(['/channels/' + this.guild._id]);
-  }
-
-  async deleteGuild() {
-    const confirmation = prompt(`Please type 'CONFIRM' if you wish to delete this guild.`);
-    if (confirmation !== 'CONFIRM') return;
-
-    await this.guildService.deleteGuild(this.guild._id);
-
-    this.log.info('SEND GUILD_DELETE', 'gset');
-    this.ws.socket.emit('GUILD_DELETE', { guild: this.guildId });
-
-    const index = this.guildService.guilds.findIndex(g => g._id === this.guildId);
-    this.guildService.guilds.splice(index, 1);
-
-    await this.router.navigate(['/channels/@me']);
   }
 
   buildForm(guild: any): FormGroup | Promise<FormGroup> {
