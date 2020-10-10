@@ -1,12 +1,19 @@
 <sidebar>
     <div *ngIf="guild" class="side-nav navbar-dark">
         <div class="header">
-            <div (click)="inviteModal.open()"
-                class="float-right cursor-pointer m-3" color="primary"
-                data-toggle="modal" data-target="#createInviteModal">
-                <i class="fas fa-user-plus"></i>
+            <div class="dropdown">
+                <button id="heftyButton"
+                    class="btn bg-transparent dropdown-toggle d-flex justify-content-between" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <h1><strong>{{ guild.name }}</strong></h1>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="heftyButton">
+                    <a (click)="inviteModal.open()"
+                        class="dropdown-item invite"
+                        data-toggle="modal" data-target="#createInviteModal">Invite People <i class="fas fa-user-plus"></i></a>
+                    <a class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Guild Settings <i class="fas fa-cogs"></i></a>
+                    <a class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Create Channel <i class="fas fa-plus-circle"></i></a>
+                </div>
             </div>
-            <h1><strong>{{ guild.name }}</strong></h1>
         </div>
         <div class="category">Channels</div>
         <div *ngIf="guild"

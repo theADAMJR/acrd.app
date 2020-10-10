@@ -56,16 +56,30 @@ export class GuildSidebarComponent implements OnInit {
         .find(m => m.user._id === user?._id);
       if (!guildMember) return;
 
-      console.log(user.status);
-      
-
       guildMember.user.status = user.status;
     });
 
     this.ws.socket.on('GUILD_MEMBER_ADD', async ({ member }) => {
       this.log.info('GET GUILD_MEMBER_ADD', 'gsbar');
+    });
 
-      this.guild.members.push(member)
+    this.ws.socket.on('GUILD_UPDATE', ({ guild }) => {
+      this.log.info('GET GUILD_UPDATE', 'gsbar');
+
+      this.guild = guild;
+      debugger;
+
+      const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
+      this.guildService.guilds[index] = guild;
+    });
+
+    this.ws.socket.on('GUILD_DELETE', async () => {
+      this.log.info('GET GUILD_DELETE', 'gsbar');
+      
+      const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
+      this.guildService.guilds.splice(index, 1);
+
+      await this.router.navigate(['/channels/@me']);
     });
   }
 }

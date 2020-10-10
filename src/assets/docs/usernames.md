@@ -16,6 +16,8 @@ They must **not start with**:
 - everyone
 - here
 - discordtag
+- me
+- someone
 - whitespace (' ')
 
 They must **not end with**:

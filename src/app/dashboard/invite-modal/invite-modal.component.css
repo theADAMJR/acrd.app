@@ -5,3 +5,7 @@
 .modal-content div {
   border: none !important;
 }
+
+.close {
+  color: var(--heading) !important;
+}

@@ -9,11 +9,13 @@ import { DashboardOverviewComponent } from './dashboard/dashboard-overview/dashb
 import { GuildComponent } from './dashboard/guild/guild.component';
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { GuildAuthGuard } from './guards/guild-auth.guard';
-import { SettingsModuleComponent } from './dashboard/settings-module/settings-module.component';
 import { DocsComponent } from './docs/docs.component';
 import { CanDeactivateDashboard } from './guards/can-deactivate-dashboard.guard';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { TextChannelComponent } from './dashboard/text-channel/text-channel.component';
+import { GuildSettingsComponent } from './dashboard/guild-settings/guild-settings.component';
+import { InvitesComponent } from './dashboard/guild-settings/invites/invites.component';
+import { RolesComponent } from './dashboard/guild-settings/roles/roles.component';
 
 const routes: Routes = [
   {
@@ -61,17 +63,35 @@ const routes: Routes = [
     canDeactivate: [CanDeactivateDashboard]
   },
   {
+    path: 'channels/:guildId/settings',
+    component: GuildSettingsComponent,
+    canActivate: [GuildAuthGuard],
+    canDeactivate: [CanDeactivateDashboard]
+  },
+  {
+    path: 'channels/:guildId/roles',
+    component: RolesComponent,
+    canActivate: [GuildAuthGuard],
+    canDeactivate: [CanDeactivateDashboard]
+  },
+  {
+    path: 'channels/:guildId/invites',
+    component: InvitesComponent,
+    canActivate: [GuildAuthGuard],
+    canDeactivate: [CanDeactivateDashboard]
+  },
+  {
     path: 'channels/:guildId/:channelId',
     component: TextChannelComponent,
     canActivate: [GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard]
   },
-  {
-    path: 'channels/:guildId/:channelId/settings',
-    component: SettingsModuleComponent,
-    canActivate: [GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard]
-  },
+  // {
+  //   path: 'channels/:guildId/:channelId/settings',
+  //   component: SettingsModuleComponent,
+  //   canActivate: [GuildAuthGuard],
+  //   canDeactivate: [CanDeactivateDashboard]
+  // },
   {
     path: '**',
     component: NotFoundComponent

@@ -30,7 +30,6 @@
     "@auth0/angular-jwt": "^5.0.1",
     "@ctrl/ngx-emoji-mart": "^4.0.2",
     "@nguniversal/express-engine": "^10.1.0",
-    "@popperjs/core": "^2.5.3",
     "@stripe/stripe-js": "^1.5.0",
     "bootstrap": "^4.5.2",
     "discord-markdown": "^2.3.1",

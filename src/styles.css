@@ -194,6 +194,10 @@ mat-sidenav a:hover {
   cursor: pointer;
 }
 
+.dropdown-toggle::after {
+  margin-top: 15px;
+}
+
 /* inputs */
 .mat-option {
   height: inherit !important;
@@ -205,6 +209,10 @@ mat-sidenav a:hover {
 
 .footer .mat-form-field-wrapper {
   padding-bottom: 0 !important;
+}
+
+.btn:focus {
+  box-shadow: none !important;
 }
 
 /* modal */

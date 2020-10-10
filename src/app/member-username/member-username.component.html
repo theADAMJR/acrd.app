@@ -1,5 +1,7 @@
 <div *ngIf="user"
-  [class]="user.status?.toLowerCase()">
+  (contextmenu)="openCtxMenu($event)"
+  class="member-username"
+  [class]="'user-' + user._id + ' ' + user.status?.toLowerCase()">
   <img *ngIf="withAvatar"
     [src]="user.avatarURL" [alt]="user.username + ' Avatar'"
     class="round">

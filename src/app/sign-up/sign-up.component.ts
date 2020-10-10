@@ -23,7 +23,7 @@ export class SignUpComponent implements OnInit {
             Validators.required,
             Validators.minLength(2),
             Validators.maxLength(32),
-            Validators.pattern(/(^(?! |^everyone$|^here$|^discordtag$)[A-Za-z\d\-\_\! ]+(?<! )$)/)
+            Validators.pattern(/(^(?! |^everyone$|^here$|^me$|^someone$|^discordtag$)[A-Za-z\d\-\_\! ]+(?<! )$)/)
         ], UsernameValidators.shouldBeUnique),
         password: new FormControl('', [
             Validators.required,

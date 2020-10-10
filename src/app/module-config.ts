@@ -6,21 +6,14 @@ import { GuildService } from './services/guild.service';
 import {  OnDestroy, Directive } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
+import { WSService } from './services/ws.service';
+import { LogService } from './services/log.service';
 
-// TODO: Add Angular decorator.
 @Directive()
 export abstract class ModuleConfig implements OnDestroy {
-    abstract moduleName: string;
-
     form: FormGroup;
-
-    savedGuild: any;
     guild: any;
-    originalSavedGuild: any;
-
-    channels: any = [];
-    textChannels: any = [];
-    roles: any = [];
+    originalGuild: any;
 
     get guildId() { return this.route.snapshot.paramMap.get('guildId'); }
 
@@ -30,22 +23,18 @@ export abstract class ModuleConfig implements OnDestroy {
     constructor(
         protected guildService: GuildService,
         protected route: ActivatedRoute,
-        public saveChanges: MatSnackBar) {}
+        public saveChanges: MatSnackBar,
+        protected ws: WSService,
+        protected log: LogService) {}
 
     /**
      * Load all required data for the form, and hook events.
      */
     async init() {
-        const data = this.route.snapshot.data;
+        await this.guildService.init();
         
-        this.guild = this.guildService.guilds.find(g => g.id === this.guildId);
-
-        this.roles = data.roles;
-        this.channels = data.channels;
-        this.textChannels = data.channels.filter(c => c.type === 'text');
-
-        this.savedGuild = data.savedGuild;
-        this.originalSavedGuild = JSON.parse(JSON.stringify(this.savedGuild));
+        this.guild = this.guildService.getGuild(this.guildId);
+        this.originalGuild = JSON.parse(JSON.stringify(this.guild));
         
         await this.resetForm();
 
@@ -54,17 +43,15 @@ export abstract class ModuleConfig implements OnDestroy {
     }
 
     private async resetForm() {     
-        this.savedGuild = JSON.parse(JSON.stringify(this.originalSavedGuild));   
-        this.form = await this.buildForm(this.savedGuild);
-        this.form.addControl('enabled',
-            new FormControl(this.savedGuild[this.moduleName]?.enabled));
+        this.guild = JSON.parse(JSON.stringify(this.originalGuild));   
+        this.form = await this.buildForm(this.guild);
     }
 
     /**
      * Build the form to be used.
      * Called when on form init.
      */
-    abstract buildForm(savedGuild: any): FormGroup | Promise<FormGroup>;
+    abstract buildForm(guild: any): FormGroup | Promise<FormGroup>;
     
     private openSaveChanges() {
         const snackBarRef = this.saveChanges._openedSnackBarRef;
@@ -92,9 +79,15 @@ export abstract class ModuleConfig implements OnDestroy {
     async submit() {
         console.log(this.form.value);
         try {
-            if (this.form.valid)
-                await this.guildService.saveGuild(this.guildId, this.moduleName, this.form.value);
-        } catch { alert('An error occurred when submitting the form - check console'); }
+            if (!this.form.valid) return;
+
+            this.guild = await this.guildService.saveGuild(this.guildId, this.form.value);
+            
+            this.log.info('SEND GUILD_UPDATE', 'mcnfg');
+            this.ws.socket.emit('GUILD_UPDATE', { guild: this.guild });
+        } catch {
+            alert('An error occurred when submitting the form - check console');
+        }
     }
 
     /**
@@ -102,7 +95,7 @@ export abstract class ModuleConfig implements OnDestroy {
      */
     async reset() {
         await this.resetForm();
-        this.savedGuild = JSON.parse(JSON.stringify(this.originalSavedGuild));
+        this.guild = JSON.parse(JSON.stringify(this.originalGuild));
         
         this.form.valueChanges
             .subscribe(() => this.openSaveChanges()); 
@@ -131,6 +124,6 @@ export abstract class ModuleConfig implements OnDestroy {
     }
 
     getChannel(id: string) {
-        return this.channels.find(c => c.id === id);
+        return this.guild.channels.find(c => c._id === id);
     }
 }

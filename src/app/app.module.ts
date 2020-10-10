@@ -17,9 +17,7 @@ import { SidebarComponent } from './dashboard/sidebar/sidebar.component';
 import { GuildComponent } from './dashboard/guild/guild.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { HomeComponent } from './home/home.component';
-import { LogsModuleComponent } from './dashboard/logs-module/logs-module.component';
 import { LogModuleComponent } from './dashboard/log-module/log-module.component';
-import { SettingsModuleComponent } from './dashboard/settings-module/settings-module.component';
 import { GuildSidebarComponent } from './dashboard/guild-sidebar/guild-sidebar.component';
 import { DashboardSidebarComponent } from './dashboard/dashboard-sidebar/dashboard-sidebar.component';
 import { MaterialModule } from './material-module';
@@ -47,6 +45,9 @@ import { InviteModalComponent } from './dashboard/invite-modal/invite-modal.comp
 import { MessageEmbedComponent } from './messages/message-embed/message-embed.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { GuildSettingsComponent } from './dashboard/guild-settings/guild-settings.component';
+import { RolesComponent } from './dashboard/guild-settings/roles/roles.component';
+import { InvitesComponent } from './dashboard/guild-settings/invites/invites.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -78,7 +79,6 @@ export class AlertErrorHandler implements ErrorHandler {
     SidebarComponent,
     GuildComponent,
     SpinnerComponent,
-    SettingsModuleComponent,
     GuildSidebarComponent,
     DashboardSidebarComponent,
     SaveChangesComponent,
@@ -95,7 +95,6 @@ export class AlertErrorHandler implements ErrorHandler {
     CamelToSentenceCasePipe,
     MessagePreviewComponent,
     LogModuleComponent,
-    LogsModuleComponent,
     WavesComponent,
     LoginComponent,
     SignUpComponent,
@@ -104,7 +103,10 @@ export class AlertErrorHandler implements ErrorHandler {
     TextChannelComponent,
     VoiceChannelComponent,
     InviteModalComponent,
-    MessageEmbedComponent
+    MessageEmbedComponent,
+    GuildSettingsComponent,
+    RolesComponent,
+    InvitesComponent
   ],
   imports: [
     AppRoutingModule,

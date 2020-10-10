@@ -53,10 +53,17 @@ export class TextChannelComponent implements OnInit {
 
     this.messages = await this.guildService.getMessages(guildId, channelId);
     this.loadedAllMessages = this.messages.length < 25;
-
-    this.hookWSEvents();
-
+    
     setTimeout(() => this.scrollToMessage(), 100);
+    
+    this.hookWSEvents();
+    this.initCtxMenuEvents();
+  }
+
+  private initCtxMenuEvents() {
+    document
+      .querySelectorAll('.ctx-menu')
+      .forEach((el: HTMLElement) => window.addEventListener('click', () => el.style.display = 'none'));
   }
 
   hookWSEvents() {
@@ -174,5 +181,10 @@ export class TextChannelComponent implements OnInit {
     const emojiPickerWasClicked = path
       .some(n => n && n.nodeName === 'EMOJI-MART' || n.classList?.contains('emoji-icon'));
     this.emojiPickerOpen = emojiPickerWasClicked;
+  }
+
+  // manage users
+  kickMember(user: any) {
+    console.log(user);    
   }
 }

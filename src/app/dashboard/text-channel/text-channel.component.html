@@ -12,6 +12,7 @@
       <div class="category">Offline—{{ offlineMembers.length }}</div>
       <div>
         <member-username *ngFor="let member of offlineMembers"
+          (memberKick)="kickMember($event)"
           class="cursor-pointer"
           [user]="member.user" [guild]="guild"></member-username>
       </div>
@@ -67,5 +68,9 @@
   </div>
   <div *ngIf="!channel">
     <spinner></spinner>
+  </div>
+
+  <div class="ctx-menu ctx-member-menu">
+    <div class="kick text-danger cursor-pointer">Kick User</div>
   </div>
 </guild-sidebar>

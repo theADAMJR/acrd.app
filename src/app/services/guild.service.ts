@@ -40,10 +40,6 @@ export class GuildService {
     return this.http.get(`${this.endpoint}/${id}/log`).toPromise();
   }
 
-  saveGuild(id: string, module: string, value: any): Promise<any> {    
-    return this.http.put(`${this.endpoint}/${id}/${module}`, value).toPromise();
-  }
-
   async createGuild(data: any): Promise<any> {
     return this.http.post(this.endpoint, data, { headers: { Authorization: this.key } }).toPromise();
   }
@@ -52,6 +48,14 @@ export class GuildService {
     return this.http
       .get(`${environment.endpoint}/channels/${guildId}/${channelId}?start=${options?.start ?? 0}&end=${options?.end ?? 25}`,
         { headers: { Authorization: this.key } }).toPromise();
+  }
+
+  saveGuild(id: string, value: any): Promise<any> {    
+    return this.http.patch(`${this.endpoint}/${id}`, value, { headers: { Authorization: this.key } }).toPromise();
+  }
+
+  deleteGuild(id: any): Promise<any> {
+    return this.http.delete(`${this.endpoint}/${id}`, { headers: { Authorization: this.key } }).toPromise();
   }
 }
 

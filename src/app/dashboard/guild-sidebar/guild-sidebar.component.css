@@ -25,5 +25,52 @@ i {
 
 .header h1 {
     font-size: large;
-    padding: 16px 20px;
+
+    padding-top: 10px;
+}
+.header h1::after {
+    padding-top: 10px;
+}
+
+#heftyButton {
+    outline: none !important;
+
+    height: 50px !important; 
+    width: 270px !important;
+
+    color: var(--heading);
+}
+#heftyButton:focus {
+    outline: none !important;
+}
+
+.dropdown-menu {
+    background-color: var(--background-tertiary);
+    width: 265px;
+    padding: 5px;
+}
+
+a.dropdown-item {
+    cursor: pointer;
+
+    color: var(--font);
+
+    padding-right: 10px;
+    max-width: 95%;
+}
+a.dropdown-item.invite {
+    color: var(--tertiary) !important;
+}
+
+a.dropdown-item:hover {
+    color: var(--heading) !important;
+    background-color: var(--primary) !important;
+}
+a.dropdown-item:hover i {
+    color: var(--heading) !important;
+}
+
+.dropdown i {
+    float: right;
+    color: gray;
 }
