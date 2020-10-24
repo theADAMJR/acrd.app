@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ChannelService } from 'src/app/services/channel.service';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -31,9 +32,10 @@ export class DMChannelComponent implements OnInit {
   }
 
   constructor(
+    private channelService: ChannelService,
+    private guildService: GuildService,
     private log: LogService,
     private route: ActivatedRoute,
-    private guildService: GuildService,
     private userService: UsersService,
     private ws: WSService) {}
 
@@ -42,11 +44,11 @@ export class DMChannelComponent implements OnInit {
     await this.guildService.init();
 
     const channelId = this.route.snapshot.paramMap.get('channelId');
-    this.channel = this.userService.getDMChannelById(channelId);
+    this.channel = this.channelService.getDMChannelById(channelId);
     
     document.title = `@${this.recipient?.username}`;
 
-    this.messages = await this.guildService.getMessages('@me', channelId);
+    this.messages = await this.channelService.getMessages('@me', channelId);
     this.loadedAllMessages = this.messages.length < 25;
     
     setTimeout(() => this.scrollToMessage(), 100);
@@ -145,7 +147,7 @@ export class DMChannelComponent implements OnInit {
 
     this.log.info('Loading more messages', 'text');
 
-    const moreMessages = await this.guildService
+    const moreMessages = await this.channelService
       .getMessages('@me', this.channel._id, {
         start: this.messages.length,
         end: this.messages.length + 25

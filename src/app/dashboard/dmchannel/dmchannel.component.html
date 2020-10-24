@@ -18,7 +18,7 @@
       </div>
       <spinner *ngIf="!loadedAllMessages"></spinner>
 
-      <div *ngFor="let message of messages; index as i"
+      <div *ngFor="let message of messages; index as i; trackBy: message._id"
         [id]="'message' + message._id"
         class="message-preview">
         <message-preview

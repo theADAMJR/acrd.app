@@ -11,9 +11,8 @@
               <member-username
                 *ngFor="let friend of user.friends"
                 class="cursor-pointer"
-                [routerLink]="'/channels/@me/' + userService.getDMChannel(friend._id)?._id"
-                [user]="friend"
-                [guild]="guild"></member-username>
+                [routerLink]="'/channels/@me/' + channelService.getDMChannel(friend._id)?._id"
+                [user]="friend"></member-username>
             </div>
             
 

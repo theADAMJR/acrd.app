@@ -5,6 +5,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { FormControl } from '@angular/forms';
 import { WSService } from 'src/app/services/ws.service';
 import { LogService } from 'src/app/services/log.service';
+import { ChannelService } from 'src/app/services/channel.service';
 
 @Component({
   selector: 'app-text-channel',
@@ -32,9 +33,10 @@ export class TextChannelComponent implements OnInit {
   }
 
   constructor(
-    private route: ActivatedRoute,
+    private channelService: ChannelService,
     private guildService: GuildService,
     private log: LogService,
+    private route: ActivatedRoute,
     public userService: UsersService,
     private ws: WSService) {}
 
@@ -51,7 +53,7 @@ export class TextChannelComponent implements OnInit {
     
     document.title = `#${this.channel.name}`;
 
-    this.messages = await this.guildService.getMessages(guildId, channelId);
+    this.messages = await this.channelService.getMessages(guildId, channelId);
     this.loadedAllMessages = this.messages.length < 25;
     
     setTimeout(() => this.scrollToMessage(), 100);
@@ -157,7 +159,7 @@ export class TextChannelComponent implements OnInit {
 
     this.log.info('Loading more messages', 'text');
 
-    const moreMessages = await this.guildService
+    const moreMessages = await this.channelService
       .getMessages(this.guild._id, this.channel._id, {
         start: this.messages.length,
         end: this.messages.length + 25

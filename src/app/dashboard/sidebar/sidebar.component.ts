@@ -5,6 +5,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { WSService } from 'src/app/services/ws.service';
 import { LogService } from 'src/app/services/log.service';
 import { RTCService } from 'src/app/services/rtc.service';
+import { ChannelService } from 'src/app/services/channel.service';
 
 @Component({
   selector: 'sidebar',
@@ -18,6 +19,7 @@ export class SidebarComponent implements OnInit {
   get user() { return this.userService.user; }
 
   constructor(
+    public channelService: ChannelService,
     public guildService: GuildService,
     private userService: UsersService,
     private log: LogService,
@@ -25,6 +27,7 @@ export class SidebarComponent implements OnInit {
     private ws: WSService) {}
 
   async ngOnInit() {
+    await this.channelService.init();
     await this.guildService.init();
     
     this.hookWSEvents();
@@ -53,7 +56,7 @@ export class SidebarComponent implements OnInit {
     this.ws.socket.on('ACCEPT_FRIEND_REQUEST', async ({ sender, friend, dmChannel }) => {
       this.log.info('GET ACCEPT_FRIEND_REQUEST', 'sbar');
 
-      this.userService.dmChannels.push(dmChannel);
+      this.channelService.dmChannels.push(dmChannel);
       
       const selfUserAcceptedRequest = sender._id === this.user._id;
       if (selfUserAcceptedRequest) {

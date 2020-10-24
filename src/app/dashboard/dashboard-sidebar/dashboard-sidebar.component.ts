@@ -3,6 +3,7 @@ import { UsersService } from '../../services/users.service';
 import { MatSelect } from '@angular/material/select';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ThemeService } from 'src/app/services/theme.service';
+import { ChannelService } from 'src/app/services/channel.service';
 
 @Component({
   selector: 'dashboard-sidebar',
@@ -21,6 +22,7 @@ export class DashboardSidebarComponent implements OnInit {
   get user() { return this.userService.user ?? {}; }
 
   constructor(
+    public channelService: ChannelService,
     private service: ThemeService,
     public userService: UsersService) {}
     

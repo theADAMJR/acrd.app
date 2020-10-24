@@ -3,7 +3,22 @@
     <div *ngSwitchCase="'ONLINE'">
       <div class="category pl-0">Online—{{ onlineFriends.length }}</div>
       <hr>
-
+      
+      <div *ngFor="let friend of onlineFriends">
+        <member-username [user]="getFriend(friend._id)"></member-username>
+          <div class="float-right">
+            <button
+              [routerLink]="'/channels/@me/' + channelService.getDMChannel(friend._id)?._id"
+              matTooltip="Message"
+              class="round px-0" mat-button>
+              <i class="fas fa-comment-alt"></i>
+            </button>
+            <button
+              matTooltip="Remove Friend"
+              (click)="removeFriend(friend._id)"
+              class="round px-0 ml-2" mat-button>&times;</button>
+        </div>
+      </div>
       <div
         *ngIf="friends.length <= 0"
         class="text-muted">No friends online :(.</div>  
@@ -17,7 +32,7 @@
         <member-username [user]="getFriend(friend._id)"></member-username>
           <div class="float-right">
             <button
-              [routerLink]="'/channels/@me/' + userService.getDMChannel(friend._id)?._id"
+              [routerLink]="'/channels/@me/' + channelService.getDMChannel(friend._id)?._id"
               matTooltip="Message"
               class="round px-0" mat-button>
               <i class="fas fa-comment-alt"></i>

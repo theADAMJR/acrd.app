@@ -21,7 +21,8 @@
           [guild]="guild"></member-username>
       </div>
     </div>
-    <div class="messages"
+    <div
+      class="messages"
       infiniteScroll
       [scrollWindow]="false"
       (scrolledUp)="loadMoreMessages()">
@@ -32,9 +33,10 @@
       </div>
       <spinner *ngIf="!loadedAllMessages"></spinner>
 
-      <div *ngFor="let message of messages; index as i"
-        [id]="'message' + message._id"
-        class="message-preview">
+      <div
+        *ngFor="let message of messages; index as i; trackBy: message._id"
+        class="message-preview"
+        [id]="'message' + message._id">
         <message-preview
           [message]="message"
           [isExtra]="shouldCombine(i)"></message-preview>
