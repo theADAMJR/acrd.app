@@ -50,14 +50,30 @@ export class SidebarComponent implements OnInit {
         : friend.friendRequests;
     });
 
-    this.ws.socket.on('ACCEPT_FRIEND_REQUEST', ({ sender, friend }) => {
+    this.ws.socket.on('ACCEPT_FRIEND_REQUEST', async ({ sender, friend, dmChannel }) => {
       this.log.info('GET ACCEPT_FRIEND_REQUEST', 'sbar');
+
+      this.userService.dmChannels.push(dmChannel);
       
       const selfUserAcceptedRequest = sender._id === this.user._id;
-      this.user.friends = (selfUserAcceptedRequest)
+      if (selfUserAcceptedRequest) {
+        this.user.friends = sender.friends;
+        this.user.friendRequests = sender.friendRequests;
+      } else {
+        this.user.friends = friend.friends;
+        this.user.friendRequests = friend.friendRequests;        
+      }
+    });
+
+    this.ws.socket.on('REMOVE_FRIEND', async ({ sender, friend }) => {
+      this.log.info('GET REMOVE_FRIEND', 'sbar');
+      
+      const selfUserRemovedFriend = sender._id === this.user._id;
+      this.user.friends = (selfUserRemovedFriend)
         ? sender.friends
         : friend.friends;
     });
+
 
     this.ws.socket.on('CANCEL_FRIEND_REQUEST', ({ sender, friend }) => {
       this.log.info('GET CANCEL_FRIEND_REQUEST', 'sbar');

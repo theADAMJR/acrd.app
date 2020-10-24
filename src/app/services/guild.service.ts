@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class GuildService {
-  endpoint = environment.endpoint + '/guilds';
+  readonly endpoint = environment.endpoint + '/guilds';
 
   private _guilds = [];
   get guilds() { return this._guilds; }
@@ -30,11 +30,6 @@ export class GuildService {
   getGuild(id: string) {
     return this.guilds?.find(g => g._id === id);
   }
-
-  getChannel(guildId: string, channelId: string) {
-    const guild = this.getGuild(guildId);
-    return guild?.channels.find(c => c._id === channelId);
-  }
   
   getSavedLog(id: string): Promise<any> {
     return this.http.get(`${this.endpoint}/${id}/log`).toPromise();
@@ -42,12 +37,6 @@ export class GuildService {
 
   async createGuild(data: any): Promise<any> {
     return this.http.post(this.endpoint, data, { headers: { Authorization: this.key } }).toPromise();
-  }
-
-  getMessages(guildId: string, channelId: string, options?: LazyLoadOptions): Promise<any> {
-    return this.http
-      .get(`${environment.endpoint}/channels/${guildId}/${channelId}?start=${options?.start ?? 0}&end=${options?.end ?? 25}`,
-        { headers: { Authorization: this.key } }).toPromise();
   }
 
   saveGuild(id: string, value: any): Promise<any> {    
@@ -58,5 +47,3 @@ export class GuildService {
     return this.http.delete(`${this.endpoint}/${id}`, { headers: { Authorization: this.key } }).toPromise();
   }
 }
-
-interface LazyLoadOptions { start: number, end: number }

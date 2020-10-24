@@ -1,33 +1,19 @@
-<guild-sidebar
+<dashboard-sidebar
   (click)="onClick($event)">
   <div *ngIf="channel">
-    <div class="float-right member-list">
-      <div class="category">Online—{{ onlineMembers.length }}</div>
-      <div>
-        <member-username
-          *ngFor="let member of onlineMembers"
-          class="cursor-pointer"
-          [user]="member.user"
-          [guild]="guild"></member-username>
-      </div>
+    <dashboard-navbar>      
+      <i class="fas fa-at pr-2 text-muted"></i>
+      <strong>{{ recipient?.username }}</strong>
 
-      <div class="category">Offline—{{ offlineMembers.length }}</div>
-      <div>
-        <member-username
-          *ngFor="let member of offlineMembers"
-          (memberKick)="kickMember($event)"
-          class="cursor-pointer"
-          [user]="member.user"
-          [guild]="guild"></member-username>
-      </div>
-    </div>
+    </dashboard-navbar>
+
     <div class="messages"
       infiniteScroll
       [scrollWindow]="false"
       (scrolledUp)="loadMoreMessages()">
       <div *ngIf="loadedAllMessages"
         class="jumbotron pb-0">
-        <p class="lead">Start of #{{ channel.name }} message history.</p>
+        <p class="lead">Start of direct message history with #{{ recipient?.username }}.</p>
         <hr>
       </div>
       <spinner *ngIf="!loadedAllMessages"></spinner>
@@ -53,7 +39,7 @@
         (keyup)="emitTypingStart()"
         (keyup.enter)="chat(message.value)"
         appearance="outline">
-        <mat-label>Message #{{ channel.name }}</mat-label>
+        <mat-label>Message #{{ recipient?.username }}</mat-label>
         <input id="chatBox" type="text" matInput #message>
         <mat-icon
           (click)="emojiPickerOpen = true"
@@ -76,8 +62,4 @@
   <div *ngIf="!channel">
     <spinner></spinner>
   </div>
-
-  <div class="ctx-menu ctx-member-menu">
-    <div class="kick text-danger cursor-pointer">Kick User</div>
-  </div>
-</guild-sidebar>
+</dashboard-sidebar>

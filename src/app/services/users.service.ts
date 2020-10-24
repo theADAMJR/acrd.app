@@ -31,11 +31,11 @@ export class UsersService {
   }
   async updateKnownUsers() {
     this.knownUsers = (this.key) ?
-      await this.http.get(`${this.endpoint}/known`, { headers: { Authorization: this.key } }).toPromise() as any : null;
+      await this.http.get(`${this.endpoint}/known`, { headers: { Authorization: this.key } }).toPromise() as any : [];
   }
   async updateDMChannels() {
     this.dmChannels = (this.key) ?
-      await this.http.get(`${this.endpoint}/dm-channels`, { headers: { Authorization: this.key } }).toPromise() as any : null;
+      await this.http.get(`${this.endpoint}/dm-channels`, { headers: { Authorization: this.key } }).toPromise() as any : [];
   }
 
   get(id: string): Promise<any> {
@@ -54,6 +54,9 @@ export class UsersService {
   getDMChannel(recipientId: string) {
     return this.dmChannels.find(c => c.recipientIds.includes(recipientId)
       && c.recipientIds.includes(this.user._id));
+  }
+  getDMChannelById(id: string) {
+    return this.dmChannels.find(c => c._id === id);
   }
 
   update(id: string, newItem: any, extraOptions?: any) {

@@ -22,7 +22,7 @@ export class DashboardSidebarComponent implements OnInit {
 
   constructor(
     private service: ThemeService,
-    private userService: UsersService) {}
+    public userService: UsersService) {}
     
   ngOnInit() {
     this.service.updateTheme();

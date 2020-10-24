@@ -49,6 +49,7 @@ import { GuildSettingsComponent } from './dashboard/guild-settings/overview/guil
 import { RolesComponent } from './dashboard/guild-settings/roles/roles.component';
 import { InvitesComponent } from './dashboard/guild-settings/invites/invites.component';
 import { FriendsListComponent } from './dashboard/friends-list/friends-list.component';
+import { DMChannelComponent } from './dashboard/dmchannel/dmchannel.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -108,7 +109,8 @@ export class AlertErrorHandler implements ErrorHandler {
     GuildSettingsComponent,
     RolesComponent,
     InvitesComponent,
-    FriendsListComponent
+    FriendsListComponent,
+    DMChannelComponent
   ],
   imports: [
     AppRoutingModule,

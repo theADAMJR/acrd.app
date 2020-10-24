@@ -7,6 +7,16 @@
                 class="nav-item nav-link">
             <i class="fa fa-user-friends pr-2" aria-hidden="true"></i> Friends</a>
             <div class="category">Direct Messages</div>
+            <div class="mx-2">
+              <member-username
+                *ngFor="let friend of user.friends"
+                class="cursor-pointer"
+                [routerLink]="'/channels/@me/' + userService.getDMChannel(friend._id)?._id"
+                [user]="friend"
+                [guild]="guild"></member-username>
+            </div>
+            
+
             <form #f="ngForm" [formGroup]="form">
                 <div class="category">Other</div>
                 <mat-form-field appearance="outline" class="ml-3 m-2">

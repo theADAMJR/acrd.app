@@ -7,10 +7,11 @@
                 </div>
                 <hr class="guild-seperator">
             </div>
-            <div *ngFor="let guild of guilds || []"
-                [routerLink]="'/channels/' + guild._id"
+            <div
+                *ngFor="let guild of guilds || []"
                 routerLinkActive="active"
                 class="guild-icon"
+                [routerLink]="'/channels/' + guild._id"
                 [matTooltip]="guild.name">
                 <img *ngIf="guild.iconURL"
                     [src]="guild.iconURL" [alt]="guild.name">
@@ -50,7 +51,9 @@
                     }"></i>                    
                 </button>
             </div>
-            <img class="round" [src]="user.avatarURL"> {{ user.username }}</div>
+            <img
+                class="round"
+                [src]="user.avatarURL"> {{ user.username }}</div>
         </div>
 
         <create-guild-modal></create-guild-modal>

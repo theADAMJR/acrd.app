@@ -54,10 +54,11 @@
             (click)="cancelFriendRequest(request.userId)"
             class="round px-0 ml-2" mat-button>&times;</button>
         </div>
-        <div
-          *ngIf="friendRequests.length <= 0"
-          class="text-muted">No friend requests sent.</div>
       </div>
+        
+      <div
+        *ngIf="friendRequests.length <= 0"
+        class="text-muted">No friend requests sent.</div>
     </div>
        
     <div *ngSwitchCase="'BLOCKED'">
