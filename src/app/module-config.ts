@@ -93,6 +93,9 @@ export abstract class ModuleConfig implements OnDestroy {
 
             this.guild = await this.guildService.saveGuild(this.guildId, this.form.value);
             
+            const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
+            this.guildService.guilds[index] = this.guild;
+            
             this.log.info('SEND GUILD_UPDATE', 'mcnfg');
             this.ws.socket.emit('GUILD_UPDATE', { guild: this.guild });
         } catch {

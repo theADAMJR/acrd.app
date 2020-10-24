@@ -33,16 +33,6 @@ export class UsersService {
       { ...extraOptions, headers: this.buildHeaders() }).toPromise();
   }
 
-  addFriend(id: string) {
-    return this.http.get(`${this.endpoint}/${id}/add-friend`,
-      { headers: this.buildHeaders() }).toPromise();
-  }
-
-  removeFriend(id: string) {
-    return this.http.get(`${this.endpoint}/${id}/remove-friend`,
-      { headers: this.buildHeaders() }).toPromise();
-  }
-
   avatarURL(id: string) {
     return `${this.endpoint}/${id}/avatar`;
   }

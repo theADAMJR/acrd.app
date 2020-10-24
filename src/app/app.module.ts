@@ -48,6 +48,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { GuildSettingsComponent } from './dashboard/guild-settings/overview/guild-settings.component';
 import { RolesComponent } from './dashboard/guild-settings/roles/roles.component';
 import { InvitesComponent } from './dashboard/guild-settings/invites/invites.component';
+import { FriendsListComponent } from './dashboard/friends-list/friends-list.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -106,7 +107,8 @@ export class AlertErrorHandler implements ErrorHandler {
     MessageEmbedComponent,
     GuildSettingsComponent,
     RolesComponent,
-    InvitesComponent
+    InvitesComponent,
+    FriendsListComponent
   ],
   imports: [
     AppRoutingModule,

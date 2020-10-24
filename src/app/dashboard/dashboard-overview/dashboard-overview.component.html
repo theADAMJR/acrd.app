@@ -1,1 +1,47 @@
-<dashboard-sidebar></dashboard-sidebar>
+<dashboard-sidebar>
+  <dashboard-navbar>
+    <i class="fas fa-user-friends pr-2 text-muted"></i>
+    <strong>Friends</strong>
+
+    <span class="border mx-3 py-1"></span>
+
+    <ul class="nav nav-pills float-right">
+      <li class="nav-item">
+        <a class="nav-link active">Online</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">All</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">Pending</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Blocked</a>
+      </li>
+      <li class="nav-item">
+        <a (click)="friendPromptOpen = true"
+          class="nav-link add-friend">Add Friend</a>
+      </li>
+    </ul>
+  </dashboard-navbar>
+
+  <div
+    [hidden]="!friendPromptOpen"
+    class="border-bottom border-dark px-4 pt-4">
+    <form #f="ngForm" [formGroup]="addFriendForm">
+      <h5 class="uppercase"><strong>Add Friend</strong></h5>
+      <p class="text-muted">Add a friend with their Discord username.</p>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input formControlName="username" type="text" matInput>
+
+        <button
+          (click)="sendFriendRequest()"
+          class="send-friend-request mx-2" mat-button matSuffix>Send Friend Request</button>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <friends-list></friends-list>
+</dashboard-sidebar>

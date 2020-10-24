@@ -46,20 +46,24 @@
           
           <hr>
 
-          <div> 
-            <mat-form-field appearance="outline">
-              <mat-label>Role Name</mat-label>
-              <input formControlName="name" type="text" matInput>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Role Color</mat-label>            
-              <input matInput
-                (colorPickerChange)="openSaveChanges()"
-                [disabled]="isEveryone"
-                [(colorPicker)]="presetColors[1]"
-                [cpPresetColors]="presetColors"
-                formControlName="color">
-            </mat-form-field>
+          <div>
+            <div class="d-flex justify-content-around">
+              <mat-form-field appearance="outline">
+                <mat-label>Role Name</mat-label>
+                <input
+                  [readonly]="isEveryone"
+                  formControlName="name" type="text" matInput>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Role Color</mat-label>            
+                <input matInput
+                  (colorPickerChange)="openSaveChanges()"
+                  [disabled]="isEveryone"
+                  [(colorPicker)]="presetColors[1]"
+                  [cpPresetColors]="presetColors"
+                  formControlName="color">
+              </mat-form-field>
+            </div>
 
             <p class="category text-muted pl-0">Role</p>
 

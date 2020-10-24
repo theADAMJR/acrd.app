@@ -11,7 +11,7 @@ body {
 }
 
 mat-sidenav-content {
-  overflow: hidden !important;
+  /* overflow: hidden !important; */
 }
 
 footer {

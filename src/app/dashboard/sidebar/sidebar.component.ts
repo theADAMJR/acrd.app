@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer;
 
   get guilds() { return this.guildService.guilds || []; }
-  get user() { return this.userService.user || {}; }
+  get user() { return this.userService.user; }
 
   constructor(
     public guildService: GuildService,
@@ -36,6 +36,12 @@ export class SidebarComponent implements OnInit {
       if (member.user._id !== this.user._id) return;
       
       await this.guildService.updateGuilds();
+    });
+
+    this.ws.socket.on('USER_FRIEND_ADD', ({ sender }) => {
+      const selfUserSentRequest = sender._id === this.user._id;
+      if (selfUserSentRequest)
+        this.user.friendRequests = sender.friendRequests;
     });
   }
 

@@ -1,0 +1,32 @@
+.border {
+  border-color: rgba(255, 255, 255, 0.025) !important;
+}
+
+.nav-link {
+  color: var(--font) !important;
+  cursor: pointer;
+
+  padding: 0 10px;
+}
+.nav-link:hover:not(.add-friend) {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--heading) !important;
+}
+
+.nav-item {
+  margin-right: 15px;
+
+  border-radius: 5px;
+}
+
+.add-friend {
+  background-color: var(--success);
+  color: var(--heading) !important;
+}
+
+button.send-friend-request {
+  background-color: var(--primary);
+}
