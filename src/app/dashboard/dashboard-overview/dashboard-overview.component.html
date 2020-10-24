@@ -7,16 +7,24 @@
 
     <ul class="nav nav-pills float-right">
       <li class="nav-item">
-        <a class="nav-link active">Online</a>
+        <a (click)="setTab('ONLINE')" 
+          [class.active]="tab === 'ONLINE'"
+          class="nav-link active">Online</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">All</a>
+        <a (click)="setTab('ALL')" 
+          [class.active]="tab === 'ALL'"
+          class="nav-link">All</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">Pending</a>
+        <a (click)="setTab('PENDING')" 
+          [class.active]="tab === 'PENDING'"
+          class="nav-link">Pending</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Blocked</a>
+        <a (click)="setTab('BLOCKED')" 
+          [class.active]="tab === 'BLOCKED'"
+          class="nav-link">Blocked</a>
       </li>
       <li class="nav-item">
         <a (click)="friendPromptOpen = true"
@@ -43,5 +51,6 @@
     </form>
   </div>
 
-  <friends-list></friends-list>
+  <friends-list
+    [tab]="tab"></friends-list>
 </dashboard-sidebar>

@@ -9,8 +9,7 @@ export class GuildAuthGuard implements CanActivate {
   constructor(
     private guildService: GuildService,
     private router: Router,
-    private userService: UsersService,
-    private ws: WSService) {}
+    private userService: UsersService) {}
 
   async canActivate(next: ActivatedRouteSnapshot) {
       await this.userService.init();
@@ -24,13 +23,6 @@ export class GuildAuthGuard implements CanActivate {
         this.router.navigate(['/channels/@me']);
         return true;
       }
-
-      this.ws.socket.emit('READY', {
-        channelIds: this.guildService.guilds.flatMap(g => g.channels.map(c => c._id)),
-        guildIds: this.guildService.guilds.map(g => g._id),
-        user: this.userService.user
-      });
-      
       return true;
   }  
 }

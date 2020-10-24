@@ -38,10 +38,34 @@ export class SidebarComponent implements OnInit {
       await this.guildService.updateGuilds();
     });
 
-    this.ws.socket.on('USER_FRIEND_ADD', ({ sender }) => {
+    this.ws.socket.on('SEND_FRIEND_REQUEST', ({ sender, friend }) => {
+      this.log.info('GET SEND_FRIEND_REQUEST', 'sbar');
+      
+      this.userService.addKnownUser(friend);
+      this.userService.addKnownUser(sender);
+      
       const selfUserSentRequest = sender._id === this.user._id;
-      if (selfUserSentRequest)
-        this.user.friendRequests = sender.friendRequests;
+      this.user.friendRequests = (selfUserSentRequest)
+        ? sender.friendRequests
+        : friend.friendRequests;
+    });
+
+    this.ws.socket.on('ACCEPT_FRIEND_REQUEST', ({ sender, friend }) => {
+      this.log.info('GET ACCEPT_FRIEND_REQUEST', 'sbar');
+      
+      const selfUserAcceptedRequest = sender._id === this.user._id;
+      this.user.friends = (selfUserAcceptedRequest)
+        ? sender.friends
+        : friend.friends;
+    });
+
+    this.ws.socket.on('CANCEL_FRIEND_REQUEST', ({ sender, friend }) => {
+      this.log.info('GET CANCEL_FRIEND_REQUEST', 'sbar');
+      
+      const selfUserSentRequest = sender._id === this.user._id;
+      this.user.friendRequests = (selfUserSentRequest)
+        ? sender.friendRequests
+        : friend.friendRequests;
     });
   }
 

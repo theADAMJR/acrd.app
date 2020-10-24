@@ -1,1 +1,72 @@
-<div class="d-flex justify-content-center"></div>
+<div class="px-4">
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="'ONLINE'">
+      <div class="category pl-0">Online—{{ onlineFriends.length }}</div>
+      <hr>
+
+      <div
+        *ngIf="friends.length <= 0"
+        class="text-muted">No friends online :(.</div>  
+    </div>
+    
+    <div *ngSwitchCase="'ALL'">
+      <div class="category pl-0">All—{{ friends.length }}</div>
+      <hr>
+
+      <div *ngFor="let friend of friends">
+        <member-username [user]="getFriend(friend._id)"></member-username>
+          <div class="float-right">
+            <button
+              [routerLink]="'/channels/@me/' + userService.getDMChannel(friend._id)?._id"
+              matTooltip="Message"
+              class="round px-0" mat-button>
+              <i class="fas fa-comment-alt"></i>
+            </button>
+            <button
+              matTooltip="Remove Friend"
+              (click)="removeFriend(friend._id)"
+              class="round px-0 ml-2" mat-button>&times;</button>
+        </div>
+      </div>
+
+      <div
+        *ngIf="friends.length <= 0"
+        class="text-muted">No friends :(.</div>  
+    </div>
+     
+    <div *ngSwitchCase="'PENDING'">
+      <div class="category pl-0">Pending—{{ friendRequests.length }}</div>
+      <hr>
+
+      <div *ngFor="let request of friendRequests">
+        <member-username
+          class="d-inline-block"
+          [user]="userService.getKnown(request.userId)"
+          [statusOverride]="request.type === 'OUTGOING' ? 'Outgoing Friend Request' : 'Incoming Friend Request'"></member-username>
+        <div class="float-right">
+          <button
+            (click)="acceptFriendRequest(request.userId)"
+            [hidden]="request.type === 'OUTGOING'"
+            class="round bg-success px-0" mat-button>
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </button>
+          <button
+            (click)="cancelFriendRequest(request.userId)"
+            class="round px-0 ml-2" mat-button>&times;</button>
+        </div>
+        <div
+          *ngIf="friendRequests.length <= 0"
+          class="text-muted">No friend requests sent.</div>
+      </div>
+    </div>
+       
+    <div *ngSwitchCase="'BLOCKED'">
+      <div class="category pl-0">Blocked—{{ 0 }}</div>
+      <hr>
+
+      <div
+        *ngIf="blockedUsers.length <= 0"
+        class="text-muted">No blocked users.</div>      
+    </div>
+  </div>
+</div>

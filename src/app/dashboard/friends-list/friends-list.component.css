@@ -1,0 +1,7 @@
+button.round {
+  width: 36px;
+  height: 36px;
+
+  background-color: var(--background-tertiary);
+  color: var(--heading)
+}

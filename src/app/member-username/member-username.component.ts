@@ -10,6 +10,7 @@ export class MemberUsernameComponent implements OnInit {
   @Input() guild;
   @Input() withAvatar = true;
   @Input() voice = false;
+  @Input() statusOverride: string;
 
   @Output() memberKick = new EventEmitter<any>();
 
@@ -19,17 +20,17 @@ export class MemberUsernameComponent implements OnInit {
     this.menu = document.querySelector('.ctx-member-menu');
   }  
 
-  openCtxMenu($event) {
+  openCtxMenu(event) {
     if (!this.guild) return;
 
-    const target = $event.target as HTMLElement;
+    const target = event.target as HTMLElement;
     const clickedOnUsername = target.classList?.contains('member-username')
       || target.classList?.contains('username');
     if (!clickedOnUsername) return;
     
-    $event.preventDefault();
+    event.preventDefault();
 
-    this.setPosition($event);
+    this.setPosition(event);
     this.setContext();
     this.toggleMenu();
   }

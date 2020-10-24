@@ -59,8 +59,11 @@
         </mat-icon>
       </mat-form-field>
 
-      <div *ngIf="typingUsernames.length <= 0" class="pt-3"></div>
-      <div *ngIf="typingUsernames.length > 0"
+      <div
+        *ngIf="typingUsernames.length <= 0"
+        class="pt-3"></div>
+      <div
+        *ngIf="typingUsernames.length > 0"
         class="typing">
         <strong>{{ typingUsernames.join(', ') }}</strong> {{ typingUsernames.length > 1 ? 'are' : 'is' }} typing...
       </div>

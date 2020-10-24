@@ -52,38 +52,38 @@ const routes: Routes = [
     canActivate: [DashboardAuthGuard]
   },
   {
-    path: 'channels/@me/:userId',
+    path: 'channels/@me/:channelId',
     component: DashboardOverviewComponent,
     canActivate: [DashboardAuthGuard]
   },
   {
     path: 'channels/:guildId',
     component: GuildComponent,
-    canActivate: [GuildAuthGuard],
+    canActivate: [DashboardAuthGuard, GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard]
   },
   {
     path: 'channels/:guildId/settings',
     component: GuildSettingsComponent,
-    canActivate: [GuildAuthGuard],
+    canActivate: [DashboardAuthGuard, GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard]
   },
   {
     path: 'channels/:guildId/roles',
     component: RolesComponent,
-    canActivate: [GuildAuthGuard],
+    canActivate: [DashboardAuthGuard, GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard]
   },
   {
     path: 'channels/:guildId/invites',
     component: InvitesComponent,
-    canActivate: [GuildAuthGuard],
+    canActivate: [DashboardAuthGuard, GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard]
   },
   {
     path: 'channels/:guildId/:channelId',
     component: TextChannelComponent,
-    canActivate: [GuildAuthGuard],
+    canActivate: [DashboardAuthGuard, GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard]
   },
   // {

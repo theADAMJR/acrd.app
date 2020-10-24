@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
 import { UsersService } from '../../services/users.service';
+import { TabType } from '../friends-list/friends-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,21 +21,31 @@ export class DashboardOverviewComponent {
   });
   
   friendPromptOpen = false;
+  tab: TabType = 'ONLINE'; 
 
   get user() { return this.userService.user; }
 
   constructor(
+    private log: LogService,
     private userService: UsersService,
     private ws: WSService) {
     document.title = 'DClone - Dashboard';
+
+    this.setTab('ONLINE');
   }
 
-  async sendFriendRequest() {
+  sendFriendRequest() {
     if (this.addFriendForm.invalid) return;
 
-    this.ws.socket.emit('USER_FRIEND_ADD', { 
+    this.log.info('SEND SEND_FRIEND_REQUEST', 'over');
+    this.ws.socket.emit('SEND_FRIEND_REQUEST', { 
       senderId: this.user._id, 
-      friendId: this.addFriendForm.value.username
+      friendUsername: this.addFriendForm.value.username
     });
+  }
+
+  setTab(tab: TabType) {
+    this.friendPromptOpen = false;
+    this.tab = tab;
   }
 }
