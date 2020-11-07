@@ -65,11 +65,21 @@ export class GuildSidebarComponent implements OnInit {
 
     this.ws.socket.on('GUILD_UPDATE', ({ guild }) => {
       this.log.info('GET GUILD_UPDATE', 'gsbar');
-
+      
       this.guild = guild;
 
       const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
       this.guildService.guilds[index] = guild;
+    });
+
+    this.ws.socket.on('GUILD_ROLE_UPDATE', ({ role }) => {
+      this.log.info('GET GUILD_ROLE_UPDATE', 'gsbar');
+      
+      let oldRole = this.guild.roles.find(r => r._id === role._id);
+      oldRole = role;
+
+      console.log(this.guild.roles.find(r => r._id === role._id));
+      
     });
 
     this.ws.socket.on('GUILD_DELETE', async () => {

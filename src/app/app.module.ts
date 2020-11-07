@@ -50,6 +50,7 @@ import { RolesComponent } from './dashboard/guild-settings/roles/roles.component
 import { InvitesComponent } from './dashboard/guild-settings/invites/invites.component';
 import { FriendsListComponent } from './dashboard/friends-list/friends-list.component';
 import { DMChannelComponent } from './dashboard/dmchannel/dmchannel.component';
+import { PermissionsService } from './services/permissions.service';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {

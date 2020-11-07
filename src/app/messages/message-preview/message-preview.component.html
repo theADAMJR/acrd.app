@@ -1,45 +1,64 @@
 <div *ngIf="!isExtra; else extraMessage" class="flex-vertical">
-    <div class="chat flex-vertical flex-spacer">
-        <div class="content flex-spacer flex-horizontal bg-transparent">
-            <div class="flex-spacer flex-vertical messages-wrapper">
-                <div class="scroller-wrap">
-                    <div class="scroller messages">
-                        <div class="message-group hide-overflow">
-                            <div class="avatar-large animate" [style.backgroundImage]="'url(' + message.author.avatarURL + ')'"></div>
-                            <div class="comment">
-                                <div class="message first">
-                                    <h2 style="line-height: 16px;">
-                                        <span class="username-wrapper v-btm">
-                                            <strong class="user-name">{{ message.author.username }}</strong>
-                                        </span>
-                                        <span class="highlight-separator"> - </span>
-                                        <span class="timestamp">{{ timestamp }}</span>
-                                    </h2>
-                                    <div [innerHtml]="processed" class="message-text"></div>
-                                    <message-embed (close)="removeEmbed()"
-                                        [canManage]="canManage"
-                                        [message]="message"></message-embed>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <div class="chat flex-vertical flex-spacer">
+    <div class="content flex-spacer flex-horizontal bg-transparent">
+      <div class="flex-spacer flex-vertical messages-wrapper">
+        <div class="scroller-wrap">
+          <div class="scroller messages">
+            <div class="message-group hide-overflow">
+              <div class="avatar-large animate" [style.backgroundImage]="'url(' + message.author.avatarURL + ')'"></div>
+              <div class="comment">
+                <div class="message first">
+                  <span class="message-options float-right">
+                    <button
+                      (click)="delete()"
+                      class="bg-danger"
+                      mat-button><i class="fas fa-trash"></i></button>
+                  </span>
+
+                  <h2 style="line-height: 16px;">
+                    <span class="username-wrapper v-btm">
+                      <strong [style.color]="roleColor" class="user-name">{{ message.author.username }}</strong>
+                    </span>
+                    <span class="highlight-separator"> - </span>
+                    <span class="timestamp">{{ timestamp }}</span>
+                  </h2>
+
+                  <div
+                    [innerHtml]="processed"
+                    class="message-text"></div>
+                  <message-embed
+                    (close)="removeEmbed()"
+                    [canManage]="canManage"
+                    [message]="message"></message-embed>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <ng-template #extraMessage>
-    <div class="extra-message">
-        <span class="content">
-            <span class="timestamp no-select"
-                [matTooltip]="message.createdAt">{{ timeString }}</span>
-            <span [innerHTML]="processed" class="message"></span>
-            <span class="embed">
-                <message-embed (close)="removeEmbed()"
-                    [canManage]="canManage"
-                    [message]="message"></message-embed>
-            </span>
-        </span>
-    </div>
+  <div class="extra-message">
+    <span class="message-options float-right">
+      <button
+        (click)="delete()"
+        class="bg-danger"
+        mat-button><i class="fas fa-trash"></i></button>
+    </span>
+    <span class="content">
+      <span
+        class="timestamp no-select"
+        [matTooltip]="message.createdAt">{{ timeString }}</span>
+      <span [innerHTML]="processed" class="message"></span>
+      <span class="embed">
+        <message-embed
+            (close)="removeEmbed()"
+            [canManage]="canManage"
+            [message]="message"></message-embed>
+      </span>
+    </span>
+  </div>
 </ng-template>

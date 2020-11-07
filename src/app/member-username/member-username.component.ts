@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+declare var $: any; // ADD THIS
+
 @Component({
   selector: 'member-username',
   templateUrl: './member-username.component.html',
@@ -14,10 +16,36 @@ export class MemberUsernameComponent implements OnInit {
 
   @Output() memberKick = new EventEmitter<any>();
 
+  get member() {
+    return this.guild?.members.find(m => m.user._id === this.user._id);
+  }
+  get roleColor() {
+    if (!this.guild) return;
+
+    const roleId = this.member.roleIds[this.member.roleIds.length - 1];
+    return this.guild.roles.find(r => r._id == roleId)?.color;
+  }
+  get roles() {
+    if (!this.guild) return;
+    
+    return this.guild.roles
+      .filter(r => this.member.roleIds.includes(r._id));
+  }
+  get popoverHTML() {
+    return (!this.member)
+      ? ``
+      : `<select class="form-control" multiple>
+        <option value="">Test</option>
+      </select>`;
+  }
+
   private menu: HTMLDivElement;
 
   async ngOnInit() {
     this.menu = document.querySelector('.ctx-member-menu');
+
+    $('[data-toggle="popover"]').popover({ html: true, content: this.popoverHTML });
+    // $('.popover-body').html(this.popoverHTML); // should refer to this member-username
   }  
 
   openCtxMenu(event) {

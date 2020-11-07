@@ -234,3 +234,26 @@ mat-sidenav a:hover {
 .emoji-mart, .emoji-mart * {
   border-color: transparent !important;
 }
+
+/* bootstrap */
+.popover-header,
+.popover-body,
+div.arrow::after,
+div.arrow::before {
+  background-color: var(--background-secondary);
+  border-color: transparent;
+}
+
+/* discord */
+.d-mention {
+  color: var(--primary);
+  cursor: pointer;
+}
+.d-mention:hover {
+  background-color: var(--secondary);
+  border-radius: 3px;
+}
+
+.self-mention {
+  background-color: rgba(243, 187, 32, 0.25);
+}

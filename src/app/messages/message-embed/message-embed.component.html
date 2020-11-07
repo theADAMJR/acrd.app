@@ -1,12 +1,12 @@
 <div class="embed-wrapper" *ngIf="message.embed">
+    <span *ngIf="canManage"
+        (click)="close.emit(message._id)"
+        class="hide-embed text-muted cursor-pointer">×</span>
     <div class="embed">
       <a class="title" [href]="message.embed.url">{{ message.embed.title || 'Untitled' }}</a>
       <div *ngIf="message.embed.description"
           class="description">{{ message.embed.description }}</div>
       <img *ngIf="message.embed.image"
           [src]="message.embed.image" onerror="this.onerror=null;this.hidden = true">
-        <span *ngIf="canManage"
-            (click)="close.emit(message._id)"
-            class="hide-embed text-muted cursor-pointer">×</span>
     </div>
 </div>

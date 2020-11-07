@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { WSService } from 'src/app/services/ws.service';
 import { LogService } from 'src/app/services/log.service';
 import { ChannelService } from 'src/app/services/channel.service';
+import { PermissionsService } from 'src/app/services/permissions.service';
 
 @Component({
   selector: 'app-text-channel',
@@ -13,6 +14,8 @@ import { ChannelService } from 'src/app/services/channel.service';
   styleUrls: ['./text-channel.component.css']
 })
 export class TextChannelComponent implements OnInit {
+  @ViewChild('notificationSound') notificationSound: ElementRef;
+
   channel: any;
   guild: any;
   messages = [];
@@ -34,10 +37,11 @@ export class TextChannelComponent implements OnInit {
 
   constructor(
     private channelService: ChannelService,
-    private guildService: GuildService,
+    public guildService: GuildService,
     private log: LogService,
     private route: ActivatedRoute,
     public userService: UsersService,
+    public perms: PermissionsService,
     private ws: WSService) {}
 
   async ngOnInit() {
@@ -65,7 +69,8 @@ export class TextChannelComponent implements OnInit {
   private initCtxMenuEvents() {
     document
       .querySelectorAll('.ctx-menu')
-      .forEach((el: HTMLElement) => window.addEventListener('click', () => el.style.display = 'none'));
+      .forEach((el: HTMLElement) => window
+        .addEventListener('click', () => el.style.display = 'none'));
   }
 
   hookWSEvents() {
@@ -78,8 +83,11 @@ export class TextChannelComponent implements OnInit {
       setTimeout(() => this.stopTyping(user), 5.1 * 1000);
     });
 
-    this.ws.socket.on('MESSAGE_CREATE', (message) => {
+    this.ws.socket.on('MESSAGE_CREATE', async (message) => {
       this.log.info('GET MESSAGE_CREATE', 'text');
+
+      if (message.author._id !== this.userService.user._id)
+        await (this.notificationSound.nativeElement as HTMLAudioElement).play();
 
       this.messages.push(message);
 

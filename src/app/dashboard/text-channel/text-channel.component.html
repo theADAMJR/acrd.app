@@ -39,7 +39,9 @@
         [id]="'message' + message._id">
         <message-preview
           [message]="message"
-          [isExtra]="shouldCombine(i)"></message-preview>
+          [isExtra]="shouldCombine(i)"
+          [member]="guildService.getMember(guild._id, message.author._id)"
+          [guild]="guild"></message-preview>
       </div>
     </div>
     <div class="footer">
@@ -56,7 +58,12 @@
         (keyup.enter)="chat(message.value)"
         appearance="outline">
         <mat-label>Message #{{ channel.name }}</mat-label>
-        <input id="chatBox" type="text" matInput #message>
+        <input
+          [disabled]="!perms.memberHas(guild._id, 'SEND_MESSAGES')"
+          id="chatBox"
+          type="text"
+          matInput
+          #message>
         <mat-icon
           (click)="emojiPickerOpen = true"
           class="cursor-pointer emoji-icon"
@@ -82,4 +89,6 @@
   <div class="ctx-menu ctx-member-menu">
     <div class="kick text-danger cursor-pointer">Kick User</div>
   </div>
+
+  <audio src="assets/audio/notification.wav" #notificationSound></audio>
 </guild-sidebar>

@@ -2,15 +2,21 @@
   *ngIf="user"
   (contextmenu)="openCtxMenu($event)"
   class="member-username"
+  data-placement="left"
+  [title]="user.username"
+  [attr.data-toggle]="member ? 'popover' : ''"
+  [attr.data-content]="popoverHTML"
   [class]="guild ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
   <img
     *ngIf="withAvatar"
-    [src]="user.avatarURL" [alt]="user.username + ' Avatar'"
+    [src]="user.avatarURL"
+    [alt]="user.username + ' Avatar'"
     class="round">
   <span
     class="status round"
     [class]="user.status?.toLowerCase()"></span>
   <div
+    [style.color]="member ? roleColor : 'inherit'"
     class="username ml-4 pt-0">{{ user.username }}
     <div
       *ngIf="!guild && !voice"

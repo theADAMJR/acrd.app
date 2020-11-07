@@ -35,7 +35,7 @@ export class UsersService {
     return this.http.get(`${this.endpoint}/${id}`, { headers: { Authorization: this.key } }).toPromise();
   }
   getKnown(id: string) {
-    return this.knownUsers.find(u => u._id === id);
+    return this.knownUsers?.find(u => u._id === id);
   }
 
   addKnownUser(user: any) {

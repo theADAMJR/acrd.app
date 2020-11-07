@@ -1,0 +1,1 @@
+export const anythingButSnowflakeId = /@(?!\d{18})(.*)/g;

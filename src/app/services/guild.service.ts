@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class GuildService {
     return localStorage.getItem('key');
   }
   
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private usersService: UsersService) {}
   
   async init() {
     if (this.guilds.length <= 0)
@@ -29,6 +32,20 @@ export class GuildService {
 
   getGuild(id: string) {
     return this.guilds?.find(g => g._id === id);
+  }
+
+  getSelfMember(guildId: string) {
+    return this.getMember(guildId, this.usersService.user._id);
+  }
+
+  getMember(guildId: string, userId: string) {
+    return this
+      .getGuild(guildId)?.members
+      .find(m => m.user._id === userId);
+  }
+
+  ownsGuild(guildId: string, userId: string) {
+    return this.getGuild(guildId)?.owner._id === userId;
   }
   
   getSavedLog(id: string): Promise<any> {

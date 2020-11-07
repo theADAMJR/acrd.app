@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModuleConfig } from 'src/app/module-config';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
+import { GeneralPermission, Permission, PermissionsService, TextChannelPermission, VoiceChannelPermission } from 'src/app/services/permissions.service';
 import { WSService } from 'src/app/services/ws.service';
 
 @Component({
@@ -48,7 +49,8 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     guildService: GuildService,
     snackbar: MatSnackBar,
     ws: WSService,
-    log: LogService) {
+    log: LogService,
+    private perms: PermissionsService) {
       super(guildService, route, snackbar, ws, log, router);
     }
 
@@ -68,7 +70,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       return new FormGroup({});
 
     const role = guild.roles.find(r => r._id === this.selectedRole?._id);
-    const hasPermission = (perm: any) => Boolean(role?.permissions & perm);
+    const hasPermission = (perm: Permission) => Boolean(role?.permissions & perm);
 
     this.permissionsForm = new FormGroup({
       general: new FormGroup({
@@ -140,31 +142,4 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       alert('An error occurred when submitting the form - check console');
     }
   }
-}
-
-export enum GeneralPermission {
-  VIEW_CHANNELS = 1024,
-  MANAGE_NICKNAMES = 512,
-  CHANGE_NICKNAME = 256,
-  CREATE_INVITE = 128,
-  KICK_MEMBERS = 64,
-  BAN_MEMBERS = 32,
-  MANAGE_CHANNELS = 16,
-  MANAGE_ROLES = 8,
-  MANAGE_GUILD = 4,
-  VIEW_AUDIT_LOG = 2,
-  ADMINISTRATOR = 1
-}
-export enum TextChannelPermission {
-  ADD_REACTIONS = 2048 * 16,
-  MENTION_EVERYONE = 2048 * 8,
-  READ_MESSAGE_HISTORY = 2048 * 4,
-  MANAGE_MESSAGES = 2048 * 2,
-  SEND_MESSAGES = 2048
-}
-export enum VoiceChannelPermission {
-  MOVE_MEMBERS = 32768 * 8,
-  MUTE_MEMBERS = 32768 * 4,
-  SPEAK = 32768 * 2,
-  CONNECT = 32768
 }
