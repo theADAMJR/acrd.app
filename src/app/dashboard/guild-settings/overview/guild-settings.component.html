@@ -28,13 +28,13 @@
     <div class="row">
       <div class="col-6">
         <div
-            [routerLink]="'/channels/' + guild._id"
-            routerLinkActive="active"
-            class="guild-icon round">
-            <img *ngIf="guild.iconURL"
-                [src]="guild.iconURL" [alt]="guild.name">
-            <span *ngIf="!guild.iconURL"
-                class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+          [routerLink]="'/channels/' + guild._id"
+          routerLinkActive="active"
+          class="guild-icon round">
+          <img *ngIf="guild.iconURL"
+              [src]="guild.iconURL" [alt]="guild.name">
+          <span *ngIf="!guild.iconURL"
+              class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
         </div>
       </div>
       <div class="col-6">

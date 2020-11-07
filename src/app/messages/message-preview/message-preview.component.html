@@ -10,6 +10,7 @@
                 <div class="message first">
                   <span class="message-options float-right">
                     <button
+                      *ngIf="canManage"
                       (click)="delete()"
                       class="bg-danger"
                       mat-button><i class="fas fa-trash"></i></button>
@@ -44,6 +45,7 @@
   <div class="extra-message">
     <span class="message-options float-right">
       <button
+        *ngIf="canManage"
         (click)="delete()"
         class="bg-danger"
         mat-button><i class="fas fa-trash"></i></button>

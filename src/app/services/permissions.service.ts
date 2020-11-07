@@ -5,7 +5,7 @@ import { GuildService } from './guild.service';
 export class PermissionsService {
   constructor(private guildService: GuildService) {}
 
-  memberHas(guildId: string, required: string) {
+  can(guildId: string, required: string) {
     const member = this.guildService.getSelfMember(guildId);
     const role = this.getHighestRole(member);
     // can account for channel permissions too

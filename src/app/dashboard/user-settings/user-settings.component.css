@@ -1,0 +1,72 @@
+.side, .main, .main .content {
+  min-height: 100%;
+}
+
+a {
+  cursor: pointer;
+}
+
+.side {
+  float: left;
+  width: 25%;
+  
+  position: fixed;
+
+  background-color: var(--background-secondary);
+}
+.side .category {
+  color: var(--secondary);
+  padding-left: 5px;
+}
+.side .navbar-nav {
+  padding: 15px;
+  padding-top: 40px;
+}
+.side hr {
+  color: var(--font);
+}
+
+.main {
+  float: right;
+  width: 75%;
+}
+.main .content {
+  padding: 60px 40px;
+  width: 85%;
+}
+.main .close {
+  border: 1px solid var(--secondary);
+  color: var(--heading); 
+
+  width: 48px;
+  height: 48px;
+
+  padding: 8px;
+  padding-top: 12px;
+}
+.main .close:hover {
+  background-color: var(--tertiary);
+}
+
+.main .user-icon img {
+  width: 100px;
+  height: 100px;
+
+  font-size: 40px;
+
+  color: var(--heading);
+  background-color: var(--primary);
+}
+.main .user-icon span {
+  text-align: center;
+
+  font-size: 32px;
+  padding-top: 28px;
+
+  transition: all .35s;
+}
+.main .user-icon img {    
+  border-radius: 50%;
+
+  transition: all .35s;
+}

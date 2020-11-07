@@ -18,6 +18,7 @@ import { InvitesComponent } from './dashboard/guild-settings/invites/invites.com
 import { RolesComponent } from './dashboard/guild-settings/roles/roles.component';
 import { DMChannelAuthGuard } from './dmchannel-auth.guard';
 import { DMChannelComponent } from './dashboard/dmchannel/dmchannel.component';
+import { UserSettingsComponent } from './dashboard/user-settings/user-settings.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,11 @@ const routes: Routes = [
   {
     path: 'channels/@me',
     component: DashboardOverviewComponent,
+    canActivate: [DashboardAuthGuard]
+  },
+  {
+    path: 'channels/@me/settings',
+    component: UserSettingsComponent,
     canActivate: [DashboardAuthGuard]
   },
   {

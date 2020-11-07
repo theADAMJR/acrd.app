@@ -1,0 +1,49 @@
+<div *ngIf="user"
+  class="side side-nav navbar-dark">
+  <div class="navbar-nav float-right">
+    <p class="category">{{ user.username }}</p>
+    <a [routerLink]="'/channels/@me/settings'"
+      routerLinkActive="active"
+      class="nav-item nav-link">Overview</a>
+    <hr>
+  </div>
+</div>
+
+<div *ngIf="user" class="main">
+  <div class="content">
+    <div class="float-right">
+      <div (click)="close()"
+        class="close round btn" mat-button><i class="fas fa-times"></i></div>
+      <span class="text-muted d-block px-2">ESC</span>
+    </div>
+    <h5 class="uppercase mb-4">User Overview</h5>
+    <div class="row">
+      <div class="col-6">
+        <div
+          [routerLink]="'/channels/' + user._id"
+          routerLinkActive="active"
+          class="user-icon round">
+          <img
+            [src]="user.avatarURL"
+            [alt]="user.username">
+        </div>
+      </div>
+
+      <div class="col-6">
+        <form *ngIf="form"
+          #f="ngForm" [formGroup]="form">
+          <mat-form-field appearance="outline">
+            <mat-label>Avatar URL</mat-label>
+            <input formControlName="avatarURL" type="url" matInput>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input formControlName="username" type="text" matInput>
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+    <hr class="my-4">
+  </div>
+</div>

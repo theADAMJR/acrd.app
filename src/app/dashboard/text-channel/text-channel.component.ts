@@ -100,6 +100,13 @@ export class TextChannelComponent implements OnInit {
       let index = this.messages.findIndex(m => m._id === message._id);
       this.messages[index] = message;      
     });
+    
+    this.ws.socket.on('MESSAGE_DELETE', ({ messageId }) => {
+      this.log.info('GET MESSAGE_DELETE', 'text');
+
+      let index = this.messages.findIndex(m => m._id === messageId);
+      this.messages.splice(index, 1);
+    });
   }
 
   emitTypingStart() { 

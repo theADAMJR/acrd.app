@@ -130,7 +130,9 @@ mat-sidenav {
     border-radius: 15px !important;
 }
 
-#disconnectButton, #muteButton {
+#disconnectButton,
+#muteButton,
+#settingsButton {
     width: 32px;
     height: 32px;
     padding: 0 !important;

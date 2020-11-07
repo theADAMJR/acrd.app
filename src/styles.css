@@ -224,6 +224,13 @@ mat-sidenav a:hover {
   background-color: var(--secondary) !important;
 }
 
+.mat-ripple.mat-button-ripple,
+.mat-button-focus-overlay,
+.mat-button {
+  min-width: 32px !important;
+  width: inherit !important;
+}
+
 /* modal */
 
 .modal-backdrop {
@@ -257,3 +264,4 @@ div.arrow::before {
 .self-mention {
   background-color: rgba(243, 187, 32, 0.25);
 }
+

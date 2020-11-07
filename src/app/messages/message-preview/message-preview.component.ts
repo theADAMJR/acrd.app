@@ -4,6 +4,7 @@ import { textEmoji } from 'markdown-to-text-emoji';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { anythingButSnowflakeId } from 'src/app/services/patterns';
+import { PermissionsService } from 'src/app/services/permissions.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 
@@ -61,9 +62,7 @@ export class MessagePreviewComponent {
 
   get processed() {
     const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
-    const getRoleByName = (name: string) => this.guild?.roles.find(r => r.name === name);
     const getUser = (id: string) => this.guild?.members.find(m => m.user._id === id)?.user;
-    const getUserByUsername = (username: string) => this.guild?.members.find(m => m.user._id === username)?.user;
 
     const getMention = (html: string, condition: boolean) => {
       return (condition)
@@ -92,15 +91,16 @@ export class MessagePreviewComponent {
   }
 
   get canManage() {
-    // TODO: add channel and role permissions etc
-    return this.message.author._id === this.usersService.user._id;
+    return this.message.author._id === this.usersService.user._id
+      || this.perms.can(this.guild._id, 'MANAGE_MESSAGES');
   }
 
   constructor(
     private log: LogService,
     private guildService: GuildService,
     private usersService: UsersService,
-    private ws: WSService) {}
+    private ws: WSService,
+    private perms: PermissionsService) {}
 
   removeEmbed() {
     this.message.embed = null;
@@ -111,7 +111,11 @@ export class MessagePreviewComponent {
 
   delete() {
     this.log.info('SEND MESSAGE_DELETE', 'msg');
-    this.ws.socket.emit('MESSAGE_DELETE', { messageId: this.message._id });
+    this.ws.socket.emit('MESSAGE_DELETE', this.message);
+
+    document
+      .querySelector(`#message${this.message._id}`)
+      ?.remove();
   }
 }
 

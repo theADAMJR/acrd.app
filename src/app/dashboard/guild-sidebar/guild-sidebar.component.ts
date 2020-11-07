@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogService } from 'src/app/services/log.service';
+import { PermissionsService } from 'src/app/services/permissions.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { GuildService } from '../../services/guild.service';
@@ -31,7 +32,8 @@ export class GuildSidebarComponent implements OnInit {
     private log: LogService,
     private route: ActivatedRoute,
     private router: Router,
-    private ws: WSService) {}
+    private ws: WSService,
+    public perms: PermissionsService) {}
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
@@ -75,10 +77,8 @@ export class GuildSidebarComponent implements OnInit {
     this.ws.socket.on('GUILD_ROLE_UPDATE', ({ role }) => {
       this.log.info('GET GUILD_ROLE_UPDATE', 'gsbar');
       
-      let oldRole = this.guild.roles.find(r => r._id === role._id);
-      oldRole = role;
-
-      console.log(this.guild.roles.find(r => r._id === role._id));
+      const index = this.guild.roles.findIndex(r => r._id === role._id);
+      this.guild.roles[index] = role;
       
     });
 

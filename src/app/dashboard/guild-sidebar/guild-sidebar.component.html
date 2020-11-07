@@ -7,11 +7,14 @@
                     <h1><strong>{{ guild.name }}</strong></h1>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="heftyButton">
-                    <a (click)="inviteModal.open()"
+                    <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
+                        (click)="inviteModal.open()"
                         class="dropdown-item invite"
                         data-toggle="modal" data-target="#createInviteModal">Invite People <i class="fas fa-user-plus"></i></a>
-                    <a class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Guild Settings <i class="fas fa-cogs"></i></a>
-                    <a class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Create Channel <i class="fas fa-plus-circle"></i></a>
+                    <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
+                        class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Guild Settings <i class="fas fa-cogs"></i></a>
+                    <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
+                        class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Create Channel <i class="fas fa-plus-circle"></i></a>
                 </div>
             </div>
         </div>
@@ -23,7 +26,8 @@
                 routerLinkActive="active"
                 class="nav-item nav-link">
                 <i class="fas fa-hashtag text-muted"></i> {{ channel.name }}</a>
-            <voice-channel *ngFor="let channel of voiceChannels"
+            <voice-channel
+                *ngFor="let channel of voiceChannels"
                 [channel]="channel" [guild]="guild"></voice-channel>
         </div>
     </div>
@@ -43,4 +47,6 @@
     </div>
 </sidebar>
 
-<invite-modal [guild]="guild" #inviteModal></invite-modal>
+<invite-modal
+    [guild]="guild"
+    #inviteModal></invite-modal>

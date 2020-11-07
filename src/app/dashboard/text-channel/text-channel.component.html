@@ -59,7 +59,7 @@
         appearance="outline">
         <mat-label>Message #{{ channel.name }}</mat-label>
         <input
-          [disabled]="!perms.memberHas(guild._id, 'SEND_MESSAGES')"
+          [disabled]="!perms.can(guild._id, 'SEND_MESSAGES')"
           id="chatBox"
           type="text"
           matInput

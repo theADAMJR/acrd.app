@@ -44,11 +44,6 @@ export class UsersService {
       this.knownUsers.push(user);
   }
 
-  update(id: string, newItem: any, extraOptions?: any) {
-    return this.http.put(id, newItem,
-      { ...extraOptions, headers: this.buildHeaders() }).toPromise();
-  }
-
   avatarURL(id: string) {
     return `${this.endpoint}/${id}/avatar`;
   }

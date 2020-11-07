@@ -51,6 +51,7 @@ import { InvitesComponent } from './dashboard/guild-settings/invites/invites.com
 import { FriendsListComponent } from './dashboard/friends-list/friends-list.component';
 import { DMChannelComponent } from './dashboard/dmchannel/dmchannel.component';
 import { PermissionsService } from './services/permissions.service';
+import { UserSettingsComponent } from './dashboard/user-settings/user-settings.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -111,7 +112,8 @@ export class AlertErrorHandler implements ErrorHandler {
     RolesComponent,
     InvitesComponent,
     FriendsListComponent,
-    DMChannelComponent
+    DMChannelComponent,
+    UserSettingsComponent
   ],
   imports: [
     AppRoutingModule,
