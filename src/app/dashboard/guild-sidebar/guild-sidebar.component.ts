@@ -6,6 +6,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { GuildService } from '../../services/guild.service';
 import { InviteModalComponent } from '../invite-modal/invite-modal.component';
+import { CreateChannelModalComponent } from '../modals/create-channel-modal/create-channel-modal.component';
 
 @Component({
   selector: 'guild-sidebar',
@@ -15,6 +16,7 @@ import { InviteModalComponent } from '../invite-modal/invite-modal.component';
 export class GuildSidebarComponent implements OnInit {
   @Input('waitFor') loaded = true;
   @ViewChild('inviteModal') inviteModal: InviteModalComponent;
+  @ViewChild('channelModal') channelModal: CreateChannelModalComponent;
   
   id: string;
   guild: any;

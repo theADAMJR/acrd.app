@@ -10,16 +10,20 @@
                     <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
                         (click)="inviteModal.open()"
                         class="dropdown-item invite"
-                        data-toggle="modal" data-target="#createInviteModal">Invite People <i class="fas fa-user-plus"></i></a>
+                        data-toggle="modal"
+                        data-target="#createInviteModal">Invite People <i class="fas fa-user-plus"></i></a>
                     <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
                         class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Guild Settings <i class="fas fa-cogs"></i></a>
                     <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
-                        class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Create Channel <i class="fas fa-plus-circle"></i></a>
+                        (click)="channelModal.open()"
+                        class="dropdown-item"
+                        data-toggle="modal"
+                        data-target="#createChannelModal">Create Channel <i class="fas fa-plus-circle"></i></a>
                 </div>
             </div>
         </div>
         <div class="category">Channels</div>
-        <div *ngIf="guild"
+        <div *ngIf="guild && perms.can(guild._id, 'VIEW_CHANNELS')"
             class="navbar-nav">
             <a *ngFor="let channel of textChannels"
                 [routerLink]="'/channels/' + guild._id + '/' + channel._id"
@@ -50,3 +54,6 @@
 <invite-modal
     [guild]="guild"
     #inviteModal></invite-modal>
+<create-channel-modal
+    [guild]="guild"
+    #channelModal></create-channel-modal>

@@ -25,7 +25,7 @@ export class MessagePreviewComponent {
   get roleColor() {
     if (!this.guild) return;
 
-    const roleId = this.member.roleIds[this.member.roleIds.length - 1];
+    const roleId = this.member?.roleIds[this.member?.roleIds.length - 1];
     return this.guild.roles.find(r => r._id == roleId)?.color;
   }
 
@@ -91,8 +91,8 @@ export class MessagePreviewComponent {
   }
 
   get canManage() {
-    return this.message.author._id === this.usersService.user._id
-      || this.perms.can(this.guild._id, 'MANAGE_MESSAGES');
+    return this.message.author?._id === this.usersService.user._id
+      || (this.guild && this.perms.can(this.guild._id, 'MANAGE_MESSAGES'));
   }
 
   constructor(

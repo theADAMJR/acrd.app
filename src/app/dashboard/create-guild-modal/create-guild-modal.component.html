@@ -12,7 +12,7 @@
         <div class="d-flex justify-content-center">
             <form #f="ngForm" [formGroup]="form" (submit)="submit()">
               <mat-form-field appearance="outline">
-                <mat-label class="ml-5 pl-3">Server Name</mat-label>
+                <mat-label>Server Name</mat-label>
                 <input formControlName="name" type="text" matInput>
                 <mat-error *ngIf="form.get('name').invalid">Required, and should be less than 32 characters.</mat-error>
               </mat-form-field>

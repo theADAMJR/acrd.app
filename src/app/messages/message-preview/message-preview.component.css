@@ -291,3 +291,7 @@
 .extra-message:hover .message-options {
 	display: inline-block;
 }
+
+.extra-message:hover .message-options {
+	margin-right: -35px;
+}

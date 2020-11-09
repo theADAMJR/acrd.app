@@ -1,8 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
-import { MatSelect } from '@angular/material/select';
-import { FormGroup, FormControl } from '@angular/forms';
-import { ThemeService } from 'src/app/services/theme.service';
 import { ChannelService } from 'src/app/services/channel.service';
 
 @Component({
@@ -10,26 +7,19 @@ import { ChannelService } from 'src/app/services/channel.service';
   templateUrl: './dashboard-sidebar.component.html',
   styleUrls: ['./dashboard-sidebar.component.css']
 })
-export class DashboardSidebarComponent implements OnInit {
-  @ViewChild('themeSelect') themeSelect: MatSelect;
-
-  defaultTheme = 'DISCORD';
-
-  form = new FormGroup({
-    theme: new FormControl(localStorage.getItem('theme') ?? this.defaultTheme)
-  });
-  
-  get user() { return this.userService.user ?? {}; }
+export class DashboardSidebarComponent implements OnInit {  
+  get user() { return this.userService.user; }
 
   constructor(
     public channelService: ChannelService,
-    private service: ThemeService,
     public userService: UsersService) {}
     
-  ngOnInit() {
-    this.service.updateTheme();
-    this.form.valueChanges.subscribe(() => 
-      this.service.changeTheme(
-        this.form.get('theme').value));
+  async ngOnInit() {
+    await this.channelService.init();
+  }
+
+  getRecipient(channel: any) { 
+    const userId = channel.recipientIds.filter(id => id !== this.user._id)[0];
+    return this.userService.getKnown(userId);
   }
 }

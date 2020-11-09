@@ -4,14 +4,15 @@ import { environment } from 'src/environments/environment';
 import { GuildService } from './guild.service';
 import { UsersService } from './users.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ChannelService {
   readonly endpoint = environment.endpoint + '/channels';
-
   cachedMessages = new Map<string, Map<string, any[]>>();
-  dmChannels = [];
+  
+  _dmChannels = [];
+  get dmChannels() {
+    return this._dmChannels;
+  }
 
   private get key() {
     return localStorage.getItem('key');
@@ -40,7 +41,7 @@ export class ChannelService {
     return this.dmChannels.find(c => c._id === id);
   }
   async updateDMChannels() {
-    this.dmChannels = (this.key) ?
+    this._dmChannels = (this.key) ?
       await this.http.get(`${environment.endpoint}/users/dm-channels`,
         { headers: { Authorization: this.key } }).toPromise() as any : [];
   }
@@ -58,8 +59,7 @@ export class ChannelService {
     
     return messages;
   }
-
-  getMessageMap(guildId: string) {
+  private getMessageMap(guildId: string) {
     return this.cachedMessages.get(guildId)
       ?? this.cachedMessages
         .set(guildId, new Map())

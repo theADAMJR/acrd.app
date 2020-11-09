@@ -1,5 +1,6 @@
 <div
   *ngIf="user"
+  (click)="openPopover()"
   (contextmenu)="openCtxMenu($event)"
   class="member-username"
   data-placement="left"
@@ -18,13 +19,25 @@
   <div
     [style.color]="member ? roleColor : 'inherit'"
     class="username ml-4 pt-0">{{ user.username }}
-    <div
-      *ngIf="!guild && !voice"
-      class="ml-1 status-override text-muted">{{ statusOverride }}</div>
+    <span
+      *ngIf="user.bot"
+      class="badge badge-secondary">Bot</span>
     <span
       *ngIf="user._id === guild?.owner._id"
       matTooltip="Guild Owner"
       class="crown pl-1"><i class="fas fa-crown"></i></span>
+    <div
+      *ngIf="!voice"
+      class="ml-1 status-override">
+      <span
+        *ngIf="user.badges?.includes('VIEWER')"
+        matTooltip="youtube.com/adamjr Viewer"
+        class="text-primary"><i class="fab fa-youtube px-1"></i></span>
+      <span
+        *ngIf="true || user.badges?.includes('DEVELOPER')"
+        matTooltip="Developer"
+        class="text-info"><i class="fas fa-code px-1"></i></span>
+      </div>
   </div>
   <span
     *ngIf="voice"

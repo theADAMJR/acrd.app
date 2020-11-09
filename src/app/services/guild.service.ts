@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class GuildService {
   readonly endpoint = environment.endpoint + '/guilds';
 
@@ -54,6 +52,9 @@ export class GuildService {
 
   async createGuild(data: any): Promise<any> {
     return this.http.post(this.endpoint, data, { headers: { Authorization: this.key } }).toPromise();
+  }
+  async createChannel(guildId: string, data: any): Promise<any> {
+    return this.http.post(`${this.endpoint}/${guildId}`, data, { headers: { Authorization: this.key } }).toPromise();
   }
 
   saveGuild(id: string, value: any): Promise<any> {    

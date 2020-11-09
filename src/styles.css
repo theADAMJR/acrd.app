@@ -3,6 +3,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~highlight.js/styles/arta.css';
 @import '~@ctrl/ngx-emoji-mart/picker.css';
+@import '~bootstrap-select/dist/css/bootstrap-select.min.css';
 
 body {
   color: var(--font);
@@ -232,7 +233,6 @@ mat-sidenav a:hover {
 }
 
 /* modal */
-
 .modal-backdrop {
   z-index: -1 !important;
 }
@@ -264,4 +264,3 @@ div.arrow::before {
 .self-mention {
   background-color: rgba(243, 187, 32, 0.25);
 }
-

@@ -30,20 +30,39 @@
       </div>
 
       <div class="col-6">
-        <form *ngIf="form"
-          #f="ngForm" [formGroup]="form">
+        <form
+          *ngIf="form"
+          #f="ngForm"
+          [formGroup]="form">
           <mat-form-field appearance="outline">
             <mat-label>Avatar URL</mat-label>
             <input formControlName="avatarURL" type="url" matInput>
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field
+            class="ml-2"
+            appearance="outline">
             <mat-label>Username</mat-label>
             <input formControlName="username" type="text" matInput>
           </mat-form-field>
         </form>
       </div>
     </div>
+
     <hr class="my-4">
+    
+    <mat-form-field appearance="outline" class="ml-3 m-2">
+      <mat-label>Theme</mat-label>
+      <mat-select
+        (selectionChange)="themes.changeTheme(themeSelect.value)"
+        #themeSelect>
+          <mat-option value="CHOCOLATE">Chocolate</mat-option>
+          <mat-option value="CLONE">Clone (Default)</mat-option>
+          <mat-option value="COSMIC">Cosmic</mat-option>
+          <mat-option value="DISCORD">Discord</mat-option>
+          <mat-option value="IONIC" selected>Ionic</mat-option>
+          <mat-option value="TWILIGHT">Twilight</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 </div>

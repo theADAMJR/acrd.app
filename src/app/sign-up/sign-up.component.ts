@@ -13,7 +13,6 @@ import { UsersService } from '../services/users.service';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-
     get username() { return this.form.get('username'); }
     get password() { return this.form.get('password'); }
     get confirmPassword() { return this.form.get('confirmPassword'); }

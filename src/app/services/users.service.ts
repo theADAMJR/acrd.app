@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 @Injectable({ providedIn: 'root' })
 export class UsersService {
   endpoint = `${environment.endpoint}/users`;
-
   knownUsers = [];
   user: any;
 
@@ -27,8 +26,9 @@ export class UsersService {
       await this.http.get(this.endpoint, { headers: { Authorization: this.key } }).toPromise() : null;
   }
   async updateKnownUsers() {
-    this.knownUsers = (this.key) ?
-      await this.http.get(`${this.endpoint}/known`, { headers: { Authorization: this.key } }).toPromise() as any : [];
+    this.knownUsers = (this.key)
+      ? await this.http.get(`${this.endpoint}/known`, { headers: { Authorization: this.key } }).toPromise() as any
+      : [];    
   }
 
   get(id: string): Promise<any> {

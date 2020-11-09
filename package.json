@@ -32,6 +32,7 @@
     "@nguniversal/express-engine": "^10.1.0",
     "@stripe/stripe-js": "^1.5.0",
     "bootstrap": "^4.5.2",
+    "bootstrap-select": "^1.13.18",
     "discord-markdown": "^2.3.1",
     "express": "^4.15.2",
     "faker": "^5.1.0",

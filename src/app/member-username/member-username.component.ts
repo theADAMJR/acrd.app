@@ -20,13 +20,13 @@ export class MemberUsernameComponent implements OnInit {
     return this.guild?.members.find(m => m.user._id === this.user._id);
   }
   get roleColor() {
-    if (!this.guild) return;
+    if (!this.guild) return null;
 
     const roleId = this.member.roleIds[this.member.roleIds.length - 1];
     return this.guild.roles.find(r => r._id == roleId)?.color;
   }
   get roles() {
-    if (!this.guild) return;
+    if (!this.guild) return null;
     
     return this.guild.roles
       .filter(r => this.member.roleIds.includes(r._id));
@@ -45,8 +45,16 @@ export class MemberUsernameComponent implements OnInit {
     this.menu = document.querySelector('.ctx-member-menu');
 
     $('[data-toggle="popover"]').popover({ html: true, content: this.popoverHTML });
-    // $('.popover-body').html(this.popoverHTML); // should refer to this member-username
-  }  
+  } 
+  
+  openPopover() {
+    setTimeout(() => {
+      $('.popover-body').html(`
+      <select class="selectpicker" multiple>
+        ${this.roles?.map(r => `<option>${r.name}</option>`)}
+      </select>`)
+    }, 100);
+  }
 
   openCtxMenu(event) {
     if (!this.guild) return;

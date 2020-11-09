@@ -49,8 +49,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     guildService: GuildService,
     snackbar: MatSnackBar,
     ws: WSService,
-    log: LogService,
-    private perms: PermissionsService) {
+    log: LogService) {
       super(guildService, route, snackbar, ws, log, router);
     }
 
@@ -58,11 +57,41 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     await super.init();
 
     this.selectRole(this.guild.roles[0]);
+    this.hookWSEvents();
   }
 
-  selectRole(role: any) {
+  private hookWSEvents() {
+    this.ws.socket.on('GUILD_ROLE_CREATE', async ({ role }) => {
+      this.log.info('GET GUILD_ROLE_CREATE', 'mcnfg');
+      
+      this.guild.roles.push(role);
+      this.originalGuild = {...this.guild};
+
+      await this.selectRole(role);
+    });
+
+    this.ws.socket.on('GUILD_ROLE_DELETE', async ({ roleId }) => {
+      this.log.info('GET GUILD_ROLE_CREATE', 'mcnfg');
+
+      const index = this.guild.roles.findIndex(r => r._id === roleId);
+      this.guild.roles.splice(index, 1);
+      this.originalGuild = {...this.guild};
+
+      await this.selectRole(this.guild.roles[0]);
+    });
+
+    this.ws.socket.on('GUILD_ROLE_UPDATE', ({ role }) => {
+      this.log.info('GET GUILD_ROLE_UPDATE', 'mcnfg');
+
+      const index = this.guild.roles.findIndex(r => r._id === role._id);
+      this.guild.roles[index] = role;
+      this.originalGuild = {...this.guild};
+    });
+  }
+
+  async selectRole(role: any) {
     this.selectedRole = role;
-    this.reset();
+    await this.reset();
   }
 
   buildForm(guild: any): FormGroup {
@@ -104,7 +133,11 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       .subscribe(() => this.openSaveChanges());
 
     return new FormGroup({
-      name: new FormControl(role?.name ?? '', [ Validators.required, Validators.maxLength(32) ]),
+      name: new FormControl(role?.name ?? '', [
+        Validators.required,
+        Validators.maxLength(32),
+        Validators.pattern(/^(?!everyone|here|someone).*$/)
+      ]),
       color: new FormControl(this.presetColors[1]),
       hoisted: new FormControl(this.isEveryone ? false : role?.mentionable),
       mentionable: new FormControl(this.isEveryone ? false : role?.mentionable)
@@ -126,20 +159,24 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     for (const key in this.form.value)
       this.selectedRole[key] = this.form.value[key];
 
-    console.log(this.form.value);
-    console.log(this.permissionsForm.value);
     try {
       if (!this.form.valid) return;
-
-      await this.guildService.saveGuild(this.guildId, { roles: [this.selectedRole] });
-      
-      this.log.info('SEND GUILD_UPDATE', 'mcnfg');
-      this.ws.socket.emit('GUILD_UPDATE', { guild: this.guild });
 
       this.log.info('SEND GUILD_ROLE_UPDATE', 'mcnfg');
       this.ws.socket.emit('GUILD_ROLE_UPDATE', { role: this.selectedRole });
     } catch {
       alert('An error occurred when submitting the form - check console');
     }
+  }
+
+  newRole() {
+    this.log.info('SEND GUILD_ROLE_CREATE', 'mcnfg');
+    this.ws.socket.emit('GUILD_ROLE_CREATE',
+      { partialRole: { ...this.selectedRole, name: 'New Role' } });
+  }
+
+  deleteRole() {
+    this.log.info('SEND GUILD_ROLE_DELETE', 'mcnfg');
+    this.ws.socket.emit('GUILD_ROLE_DELETE', ({ roleId: this.selectedRole._id, guildId: this.guildId }));
   }
 }
