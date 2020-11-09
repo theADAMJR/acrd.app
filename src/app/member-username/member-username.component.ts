@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-declare var $: any; // ADD THIS
+declare var $: any;
 
 @Component({
   selector: 'member-username',
@@ -48,12 +48,7 @@ export class MemberUsernameComponent implements OnInit {
   } 
   
   openPopover() {
-    setTimeout(() => {
-      $('.popover-body').html(`
-      <select class="selectpicker" multiple>
-        ${this.roles?.map(r => `<option>${r.name}</option>`)}
-      </select>`)
-    }, 100);
+    if (!this.guild) return;
   }
 
   openCtxMenu(event) {
