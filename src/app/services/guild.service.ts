@@ -6,9 +6,10 @@ import { UsersService } from './users.service';
 @Injectable({ providedIn: 'root' })
 export class GuildService {
   readonly endpoint = environment.endpoint + '/guilds';
-
   private _guilds = [];
+  
   get guilds() { return this._guilds; }
+  private get headers() { return { headers: { Authorization: this.key } }; }
 
   private get key() {
     return localStorage.getItem('key');
@@ -51,17 +52,25 @@ export class GuildService {
   }
 
   async createGuild(data: any): Promise<any> {
-    return this.http.post(this.endpoint, data, { headers: { Authorization: this.key } }).toPromise();
+    return this.http.post(this.endpoint, data, this.headers).toPromise();
   }
   async createChannel(guildId: string, data: any): Promise<any> {
-    return this.http.post(`${this.endpoint}/${guildId}`, data, { headers: { Authorization: this.key } }).toPromise();
+    return this.http.post(`${this.endpoint}/${guildId}`, data, this.headers).toPromise();
   }
 
   saveGuild(id: string, value: any): Promise<any> {    
-    return this.http.patch(`${this.endpoint}/${id}`, value, { headers: { Authorization: this.key } }).toPromise();
+    return this.http.patch(`${this.endpoint}/${id}`, value, this.headers).toPromise();
   }
 
   deleteGuild(id: any): Promise<any> {
-    return this.http.delete(`${this.endpoint}/${id}`, { headers: { Authorization: this.key } }).toPromise();
+    return this.http.delete(`${this.endpoint}/${id}`, this.headers).toPromise();
+  }
+
+  addBot(guildId: string, botId: any): Promise<any> {
+    return this.http.get(`${this.endpoint}/${guildId}/authorize/user?client_id=${botId}`, this.headers).toPromise();
+  }
+
+  removeBot(guildId: string, botId: any) {
+    alert('kick bot from guild');
   }
 }

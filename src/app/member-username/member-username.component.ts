@@ -44,7 +44,7 @@ export class MemberUsernameComponent implements OnInit {
   async ngOnInit() {
     this.menu = document.querySelector('.ctx-member-menu');
 
-    $('[data-toggle="popover"]').popover({ html: true, content: this.popoverHTML });
+    // $(`.user-${this.user._id}[data-toggle="popover"]`).popover({ html: true, content: this.popoverHTML });
   } 
   
   openPopover() {

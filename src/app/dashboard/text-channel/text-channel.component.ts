@@ -83,16 +83,16 @@ export class TextChannelComponent implements OnInit {
       setTimeout(() => this.stopTyping(user), 5.1 * 1000);
     });
 
-    this.ws.socket.on('MESSAGE_CREATE', async (message) => {
+    this.ws.on('MESSAGE_CREATE', async (message) => {
       this.log.info('GET MESSAGE_CREATE', 'text');
 
       if (message.author._id !== this.userService.user._id)
         await (this.notificationSound.nativeElement as HTMLAudioElement).play();
-
+      
       this.messages.push(message);
 
       setTimeout(() => this.scrollToMessage(), 100);
-    });
+    }, this);
     
     this.ws.socket.on('MESSAGE_UPDATE', (message) => {
       this.log.info('GET MESSAGE_UPDATE', 'text');

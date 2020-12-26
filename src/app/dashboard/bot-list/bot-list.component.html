@@ -1,0 +1,80 @@
+<div *ngIf="guild"
+  class="side side-nav navbar-dark">
+  <div class="navbar-nav float-right">
+    <p class="category">{{ guild.name }}</p>
+    <a [routerLink]="'/channels/' + guild._id + '/settings'"
+      routerLinkActive="active"
+      class="nav-item nav-link">
+      <i class="fas fa-eye text-muted"></i>
+      Overview</a>
+    <a [routerLink]="'/channels/' + guild._id + '/roles'"
+      routerLinkActive="active"
+      class="nav-item nav-link">
+      <i class="fas fa-at text-muted"></i>
+      Roles</a>
+    <hr>
+
+    <a [routerLink]="'/channels/' + guild._id + '/bots'"
+      routerLinkActive="active"
+      class="nav-item nav-link">
+      <i class="fas fa-robot text-muted"></i>
+      Bots</a>
+    <!-- <a [routerLink]="'/channels/' + guild._id + '/invites'" 
+      routerLinkActive="active"
+      class="nav-item nav-link">Invites</a> -->
+    <hr>
+    <a (click)="deleteGuild()"
+      class="nav-item nav-link text-danger">
+      <i class="fas fa-trash text-muted"></i>
+      Delete</a>
+  </div>
+</div>
+
+<div *ngIf="guild && bots"
+  class="main">
+  <div class="content">
+    <div class="float-right">
+      <div (click)="close()"
+        class="close round btn" mat-button><i class="fas fa-times"></i></div>
+      <span class="text-muted d-block px-2">ESC</span>
+    </div>
+
+    <div class="row">
+      <div class="col-3 side-nav navbar-dark">
+        <div class="navbar-nav">
+          <a
+            *ngFor="let user of bots"
+            (click)="selectBot(user)"
+            routerLinkActive="active"
+            class="nav-item nav-link">{{ user.username }}</a>
+          <div class="float-right"></div>
+        </div>
+
+        <hr class="my-4">
+
+        <p class="text-muted">Bots can do <code>cool</code> things for your guilds.</p>
+      </div>
+      <div class="col-9 role-details">
+        <img
+          [src]="selectedBot.avatarURL"
+          [alt]="selectedBot.username + ' Avatar'"
+          class="rounded-lg float-left mr-4">
+        <h1>{{ selectedBot.username }}</h1>
+        <hr>
+        <p class="lead text-muted">2PG is a very cool bot, you should definitely add 2PG!</p>
+        
+        <div class="mt-3">
+          <button
+            *ngIf="!botInGuild"
+            (click)="addBot(selectedBot._id)"
+            class="bg-success rounded"
+            mat-button>Add</button>
+          <button
+            *ngIf="botInGuild"
+            (click)="removeBot(selectedBot._id)"
+            class="bg-danger rounded"
+            mat-button>Remove</button>
+        </div>
+    </div>
+  </div>
+</div>

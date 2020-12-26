@@ -53,6 +53,7 @@ import { DMChannelComponent } from './dashboard/dmchannel/dmchannel.component';
 import { PermissionsService } from './services/permissions.service';
 import { UserSettingsComponent } from './dashboard/user-settings/user-settings.component';
 import { CreateChannelModalComponent } from './dashboard/modals/create-channel-modal/create-channel-modal.component';
+import { BotListComponent } from './dashboard/bot-list/bot-list.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -115,7 +116,8 @@ export class AlertErrorHandler implements ErrorHandler {
     FriendsListComponent,
     DMChannelComponent,
     UserSettingsComponent,
-    CreateChannelModalComponent
+    CreateChannelModalComponent,
+    BotListComponent
   ],
   imports: [
     AppRoutingModule,

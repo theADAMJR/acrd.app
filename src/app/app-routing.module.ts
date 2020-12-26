@@ -19,6 +19,7 @@ import { RolesComponent } from './dashboard/guild-settings/roles/roles.component
 import { DMChannelAuthGuard } from './dmchannel-auth.guard';
 import { DMChannelComponent } from './dashboard/dmchannel/dmchannel.component';
 import { UserSettingsComponent } from './dashboard/user-settings/user-settings.component';
+import { BotListComponent } from './dashboard/bot-list/bot-list.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,12 @@ const routes: Routes = [
   {
     path: 'channels/:guildId/roles',
     component: RolesComponent,
+    canActivate: [DashboardAuthGuard, GuildAuthGuard],
+    canDeactivate: [CanDeactivateDashboard]
+  },
+  {
+    path: 'channels/:guildId/bots',
+    component: BotListComponent,
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard]
   },

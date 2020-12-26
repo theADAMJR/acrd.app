@@ -59,6 +59,10 @@ export class UsersService {
     return this.http.get(`${this.endpoint}/usernames`).toPromise();
   }
 
+  getBots(): Promise<any> {
+    return this.http.get(`${this.endpoint}/bots`).toPromise();
+  }
+
   private buildHeaders() {
     return new HttpHeaders({ Authorization: `${this.key}` });
   }

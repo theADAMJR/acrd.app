@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { GuildService } from '../services/guild.service';
 import { UsersService } from '../services/users.service';
-import { WSService } from '../services/ws.service';
 
 @Injectable({ providedIn: 'root' })
 export class GuildAuthGuard implements CanActivate {

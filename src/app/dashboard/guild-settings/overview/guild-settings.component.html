@@ -4,16 +4,28 @@
     <p class="category">{{ guild.name }}</p>
     <a [routerLink]="'/channels/' + guild._id + '/settings'"
       routerLinkActive="active"
-      class="nav-item nav-link">Overview</a>
+      class="nav-item nav-link">
+      <i class="fas fa-eye text-muted"></i>
+      Overview</a>
     <a [routerLink]="'/channels/' + guild._id + '/roles'"
       routerLinkActive="active"
-      class="nav-item nav-link">Roles</a>
-    <!-- <a [routerLink]="'/channels/' + guild._id + '/invites'" 
+      class="nav-item nav-link">
+      <i class="fas fa-at text-muted"></i>
+      Roles</a>
+
+    <hr>
+
+    <a [routerLink]="'/channels/' + guild._id + '/bots'"
       routerLinkActive="active"
-      class="nav-item nav-link">Invites</a> -->
+      class="nav-item nav-link">
+      <i class="fas fa-robot text-muted"></i>
+      Bots</a>
+
     <hr>
     <a (click)="deleteGuild()"
-      class="nav-item nav-link text-danger">Delete Guild</a>
+      class="nav-item nav-link text-danger">
+      <i class="fas fa-trash text-muted"></i>
+      Delete</a>
   </div>
 </div>
 
