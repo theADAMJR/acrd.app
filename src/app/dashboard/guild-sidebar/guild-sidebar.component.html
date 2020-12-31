@@ -1,59 +1,65 @@
 <sidebar>
-    <div *ngIf="guild" class="side-nav navbar-dark">
-        <div class="header">
-            <div class="dropdown">
-                <button id="heftyButton"
-                    class="btn bg-transparent dropdown-toggle d-flex justify-content-between" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <h1><strong>{{ guild.name }}</strong></h1>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="heftyButton">
-                    <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
-                        (click)="inviteModal.open()"
-                        class="dropdown-item invite"
-                        data-toggle="modal"
-                        data-target="#createInviteModal">Invite People <i class="fas fa-user-plus"></i></a>
-                    <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
-                        class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Guild Settings <i class="fas fa-cogs"></i></a>
-                    <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
-                        (click)="channelModal.open()"
-                        class="dropdown-item"
-                        data-toggle="modal"
-                        data-target="#createChannelModal">Create Channel <i class="fas fa-plus-circle"></i></a>
-                </div>
-            </div>
+  <div *ngIf="guild" class="side-nav navbar-dark">
+    <div class="header">
+      <div class="dropdown">
+        <button id="heftyButton"
+          class="btn bg-transparent dropdown-toggle d-flex justify-content-between" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <h1><strong>{{ guild.name }}</strong></h1>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="heftyButton">
+          <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
+            (click)="inviteModal.open()"
+            class="dropdown-item invite"
+            data-toggle="modal"
+            data-target="#createInviteModal">Invite People <i class="fas fa-user-plus"></i></a>
+          <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
+            class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Guild Settings <i class="fas fa-cogs"></i></a>
+          <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
+            (click)="channelModal.open()"
+            class="dropdown-item"
+            data-toggle="modal"
+            data-target="#createChannelModal">Create Channel <i class="fas fa-plus-circle"></i></a>
         </div>
-        <div class="category">Channels</div>
-        <div *ngIf="guild && perms.can(guild._id, 'VIEW_CHANNELS')"
-            class="navbar-nav">
-            <a *ngFor="let channel of textChannels"
-                [routerLink]="'/channels/' + guild._id + '/' + channel._id"
-                routerLinkActive="active"
-                class="nav-item nav-link">
-                <i class="fas fa-hashtag text-muted"></i> {{ channel.name }}</a>
-            <voice-channel
-                *ngFor="let channel of voiceChannels"
-                [channel]="channel" [guild]="guild"></voice-channel>
-        </div>
+      </div>
     </div>
-        
-    <div id="content">
-        <dashboard-navbar *ngIf="selectedChannel">
-            <i class="fas fa-hashtag text-muted pr-2"></i>
-            <strong>{{ selectedChannel.name }}</strong>            
-        </dashboard-navbar>
-        
-        <div *ngIf="loaded">
-            <ng-content></ng-content>
-        </div>
-        <div *ngIf="!loaded">
-            <spinner></spinner>
-        </div>
+    <div class="category">Channels</div>
+    <div *ngIf="guild && perms.can(guild._id, 'VIEW_CHANNELS')"
+      class="navbar-nav">
+      <a *ngFor="let channel of textChannels"
+        [routerLink]="'/channels/' + guild._id + '/' + channel._id"
+        routerLinkActive="active"
+        class="nav-item nav-link">
+        <i class="fas fa-hashtag text-muted"></i> {{ channel.name }}</a>
+      <voice-channel
+        *ngFor="let channel of voiceChannels"
+        [channel]="channel" [guild]="guild"></voice-channel>
     </div>
+  </div>
+    
+  <div id="content">
+    <dashboard-navbar
+      *ngIf="selectedChannel">
+      <i class="fas fa-hashtag text-muted pr-2"></i>
+      <strong>{{ selectedChannel.name }}</strong> 
+
+      <div class="float-right">
+        <i (click)="toggleMemberList()"
+          class="fas fa-users text-muted cursor-pointer"></i>
+      </div>
+    </dashboard-navbar>
+    
+    <div *ngIf="loaded">
+      <ng-content></ng-content>
+    </div>
+    <div *ngIf="!loaded">
+      <spinner></spinner>
+    </div>
+  </div>
 </sidebar>
 
 <invite-modal
-    [guild]="guild"
-    #inviteModal></invite-modal>
+  [guild]="guild"
+  #inviteModal></invite-modal>
 <create-channel-modal
-    [guild]="guild"
-    #channelModal></create-channel-modal>
+  [guild]="guild"
+  #channelModal></create-channel-modal>

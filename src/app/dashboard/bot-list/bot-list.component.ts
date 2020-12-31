@@ -11,7 +11,7 @@ import { WSService } from 'src/app/services/ws.service';
 @Component({
   selector: 'app-bot-list',
   templateUrl: './bot-list.component.html',
-  styleUrls: ['./bot-list.component.css']
+  styleUrls: ['./bot-list.component.css', '../guild-settings/overview/guild-settings.component.css']
 })
 export class BotListComponent extends ModuleConfig implements OnInit {
   bots: any[];

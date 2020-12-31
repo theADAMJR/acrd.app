@@ -164,7 +164,7 @@ mat-paginator {
   border: none !important;
 }
 
-mat-sidenav a {
+.side-nav a {
   margin: 2px 10px;
   padding: 5px;
   padding-left: 10px !important;
@@ -172,11 +172,11 @@ mat-sidenav a {
   border-radius: 5px;
 }
 
-mat-sidenav a.active {
+.side-nav a.active {
   background-color: var(--background-primary) !important;
 }
 
-mat-sidenav a:hover {
+.side-nav a:hover {
   color: var(--secondary);
   background-color: var(--background-primary) !important;
 }
@@ -263,4 +263,16 @@ div.arrow::before {
 
 .self-mention {
   background-color: rgba(243, 187, 32, 0.25);
+}
+
+blockquote {
+  padding-left: 5px;
+  border-left: 5px solid var(--background-tertiary);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+/* users */
+.username-badge {
+  font-size: 12px;
 }

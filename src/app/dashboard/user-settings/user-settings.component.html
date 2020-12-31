@@ -1,10 +1,13 @@
 <div *ngIf="user"
   class="side side-nav navbar-dark">
   <div class="navbar-nav float-right">
-    <p class="category">{{ user.username }}</p>
+    <p class="category">Settings</p>
     <a [routerLink]="'/channels/@me/settings'"
       routerLinkActive="active"
-      class="nav-item nav-link">Overview</a>
+      class="nav-item nav-link">
+      <i class="fas fa-eye text-muted mr-1"></i>
+      Overview
+    </a>
     <hr>
   </div>
 </div>
@@ -24,7 +27,7 @@
           routerLinkActive="active"
           class="user-icon round">
           <img
-            [src]="user.avatarURL"
+            [src]="form.get('avatarURL').value"
             [alt]="user.username">
         </div>
       </div>
@@ -46,6 +49,45 @@
             <input formControlName="username" type="text" matInput>
           </mat-form-field>
         </form>
+      </div>
+
+      <div class="avatars card bg-dark p-1 mt-2 rounded">
+        <h5>Choose an Avatar</h5>
+        <div class="row">
+          <div class="col-3">
+            <img (click)="setAvatar('avatar_aqua')"
+              [src]="environment.endpoint + '/avatars/avatar_aqua.png'" alt="">
+          </div>
+          <div class="col-3">
+            <img (click)="setAvatar('avatar_coffee')"
+              [src]="environment.endpoint + '/avatars/avatar_coffee.png'" alt="">
+          </div>
+          <div class="col-3">
+            <img (click)="setAvatar('avatar_fire')"
+              [src]="environment.endpoint + '/avatars/avatar_fire.png'" alt="">
+          </div>
+          <div class="col-3">
+            <img (click)="setAvatar('avatar_gold')"
+              [src]="environment.endpoint + '/avatars/avatar_gold.png'" alt="">
+          </div>
+
+          <div class="col-3">
+            <img (click)="setAvatar('avatar_grey')"
+              [src]="environment.endpoint + '/avatars/avatar_grey.png'" alt="">
+          </div>
+          <div class="col-3">
+            <img (click)="setAvatar('avatar_rainbow')"
+              [src]="environment.endpoint + '/avatars/avatar_rainbow.png'" alt="">
+          </div>
+          <div class="col-3">
+            <img (click)="setAvatar('avatar_sky')"
+              [src]="environment.endpoint + '/avatars/avatar_sky.png'" alt="">
+          </div>
+          <div class="col-3">
+            <img (click)="setAvatar('avatar_tree')"
+              [src]="environment.endpoint + '/avatars/avatar_tree.png'" alt="">
+          </div>
+        </div>
       </div>
     </div>
 

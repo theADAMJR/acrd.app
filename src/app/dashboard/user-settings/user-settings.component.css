@@ -2,7 +2,11 @@
   min-height: 100%;
 }
 
-a {
+.side .category {
+  margin-left: 10px;  
+}
+.side a {
+  padding-right: 10px !important;
   cursor: pointer;
 }
 
@@ -69,4 +73,19 @@ a {
   border-radius: 50%;
 
   transition: all .35s;
+}
+
+.avatars {
+  max-width: 385px;
+}
+.avatars img {
+  border-radius: 10px;
+  max-height: 64px;
+  margin: 5px;
+
+  cursor: pointer;
+  transition: 0.3s box-shadow ease-in-out;
+}
+.avatars img:hover {
+  box-shadow: var(--tertiary) 0px 0px 3px 3px;
 }

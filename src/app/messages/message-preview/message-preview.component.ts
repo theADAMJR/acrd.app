@@ -3,7 +3,6 @@ import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
-import { anythingButSnowflakeId } from 'src/app/services/patterns';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';

@@ -2,7 +2,11 @@
   min-height: 100%;
 }
 
-a {
+.side .category {
+  margin-left: 10px;  
+}
+.side a {
+  padding-right: 10px !important;
   cursor: pointer;
 }
 

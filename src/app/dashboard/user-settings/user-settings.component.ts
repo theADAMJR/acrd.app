@@ -9,6 +9,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { UsernameValidators } from 'src/app/sign-up/username.validators';
 import { UserConfig } from 'src/app/user-config';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-settings',
@@ -17,6 +18,8 @@ import { UserConfig } from 'src/app/user-config';
 })
 export class UserSettingsComponent extends UserConfig implements OnInit {
   @ViewChild('themeSelect') themeSelect: MatSelect;
+
+  environment = environment;
 
   defaultTheme = 'CLONE';
   
@@ -41,7 +44,8 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
       this.close();
     };
 
-    this.themeSelect.writeValue(localStorage.getItem('theme') ?? this.defaultTheme);
+    this.themeSelect.writeValue(localStorage.getItem('theme')
+      ?? this.defaultTheme);
 
     this.themes.updateTheme();
   }
@@ -63,5 +67,11 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
       const usernames = await this.usersService.getUsernames();
       UsernameValidators.takenUsernames = (usernames ?? [])
         .filter(name => name !== this.user.username);
+  }
+
+  setAvatar(name: string) {
+    this.form
+      .get('avatarURL')
+      .setValue(`${environment.endpoint}/avatars/${name}.png`);
   }
 }

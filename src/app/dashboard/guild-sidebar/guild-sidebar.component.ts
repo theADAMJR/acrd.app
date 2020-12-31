@@ -2,7 +2,6 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
-import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { GuildService } from '../../services/guild.service';
 import { InviteModalComponent } from '../invite-modal/invite-modal.component';
@@ -92,5 +91,11 @@ export class GuildSidebarComponent implements OnInit {
 
       await this.router.navigate(['/channels/@me']);
     });
+  }
+
+  toggleMemberList() {
+    document
+      .querySelector('.member-list').classList
+      .toggle('d-none');
   }
 }

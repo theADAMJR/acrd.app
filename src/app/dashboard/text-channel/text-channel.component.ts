@@ -144,7 +144,7 @@ export class TextChannelComponent implements OnInit {
     (document.querySelector('#chatBox') as HTMLInputElement).value = '';
     
     this.log.info('SEND MESSAGE_CREATE', 'text');
-
+    
     this.ws.socket.emit('MESSAGE_CREATE', {
       author: this.userService.user,
       channel: this.channel,
