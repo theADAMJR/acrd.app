@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { camelToSentenceCase } from '../utils';
+import { camelToSentenceCase } from '../utils/utils';
 
 @Pipe({ name: 'camelToSentenceCase' })
 export class CamelToSentenceCasePipe implements PipeTransform {
