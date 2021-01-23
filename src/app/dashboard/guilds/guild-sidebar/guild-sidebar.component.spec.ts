@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GuildSidebarComponent } from './guild-sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,7 +8,7 @@ describe('GuildSidebarComponent', () => {
   let component: GuildSidebarComponent;
   let fixture: ComponentFixture<GuildSidebarComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GuildSidebarComponent ],
       imports: [ HttpClientModule, AppRoutingModule ]
