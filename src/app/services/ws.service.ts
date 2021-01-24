@@ -1,19 +1,18 @@
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import io from 'socket.io-client';
 import { LogService } from './log.service';
 
 @Injectable({ providedIn: 'root' })
 export class WSService {
-  readonly socket: SocketIOClient.Socket;
-  
+  public readonly socket: SocketIOClient.Socket;
   private listened = new Map<any, string[]>();
 
   constructor(private log: LogService) {
     this.socket = this.socket ?? io.connect(environment.rootEndpoint);
   }
 
-  on(name: DCloneEvent, callback: (...args: any[]) => any, component: any) {
+  public on(name: DCloneEvent, callback: (...args: any[]) => any, component: any) {
     const listened = this.getListened(typeof component);
     if (listened.includes(name)) return;
     listened.push(name);

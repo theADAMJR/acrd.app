@@ -8,6 +8,10 @@ export class UsersService {
   knownUsers = [];
   user: any;
 
+  private get headers() {
+    return { headers: { Authorization: this.key } };
+  }
+
   get key() {
     return localStorage.getItem('key');
   }
@@ -23,16 +27,16 @@ export class UsersService {
 
   async updateUser() {
     this.user = (this.key) ?
-      await this.http.get(this.endpoint, { headers: { Authorization: this.key } }).toPromise() : null;
+      await this.http.get(this.endpoint, this.headers).toPromise() : null;
   }
   async updateKnownUsers() {
     this.knownUsers = (this.key)
-      ? await this.http.get(`${this.endpoint}/known`, { headers: { Authorization: this.key } }).toPromise() as any
+      ? await this.http.get(`${this.endpoint}/known`, this.headers).toPromise() as any
       : [];    
   }
 
   get(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}`, { headers: { Authorization: this.key } }).toPromise();
+    return this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise();
   }
   getKnown(id: string) {
     return this.knownUsers?.find(u => u._id === id);

@@ -1,56 +1,56 @@
 div {
-    border-radius: 5px;
+  border-radius: 5px;
 
-    width: 100%;
-    padding: 5px;
+  width: 100%;
+  padding: 5px;
 }
 div:hover {
-    background-color: var(--background-primary);
+  background-color: var(--background-primary);
 }
 
 img {
-    width: 32px;
-    height: 32px;
-    margin-right: 10px;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
 
-    float: left;
+  float: left;
 }
 
 .username {
-    font-size: 16px;
-    width: 90% !important;
+  font-size: 20px;
+  width: 90% !important;
 }
 .status-override {
-    font-size: smaller;
-    margin-top: -5px;
+  font-size: smaller;
+  margin-top: -5px;
 }
 .crown {
-    color: gold;
-    font-size: small;
+  color: gold;
+  font-size: small;
 }
 
 .offline {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 .offline:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .status {
-    z-index: 1;
-    
-    width: 10px;
-    height: 10px;
+  z-index: 1;
+  
+  width: 10px;
+  height: 10px;
 }
 .status.online {
-    color: green;
-    border-color: green;
+  color: green;
+  border-color: green;
 }
 .status.idle {
-    color: orange;
-    border-color: orange;
+  color: orange;
+  border-color: orange;
 }
 .status.dnd {
-    color: red;
-    border-color: red;
+  color: red;
+  border-color: red;
 }

@@ -4,11 +4,20 @@
 @import '~highlight.js/styles/arta.css';
 @import '~@ctrl/ngx-emoji-mart/picker.css';
 @import '~bootstrap-select/dist/css/bootstrap-select.min.css';
-
+@import url('http://fonts.cdnfonts.com/css/whitney-2');
+                
 body {
   color: var(--font);
+  
+  font-weight: 300;
+  font-family: 'Whitney', 'Helvetica Neue', 'Helvetica', sans-serif;
+  letter-spacing: 1px;
+  font-size: 20px;
+}
 
-  font-family: ​Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
+h1,h2,h3,h4,h5 {
+  font-family: 'Whitney Semibold';
+  letter-spacing: 1.5px;
 }
 
 mat-sidenav-content {
@@ -32,6 +41,10 @@ table {
 
 table.dataTable tbody tr {
   background-color: inherit;
+}
+
+i {
+  color: gray;
 }
 
 .jumbotron {
@@ -170,10 +183,11 @@ mat-paginator {
   padding-left: 10px !important;
 
   border-radius: 5px;
+  color: inherit;
 }
 
 .side-nav a.active {
-  background-color: var(--background-primary) !important;
+  background-color: var(--primary) !important;
 }
 
 .side-nav a:hover {
@@ -270,6 +284,10 @@ blockquote {
   border-left: 5px solid var(--background-tertiary);
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+}
+
+p.lead {
+  color: var(--secondary);
 }
 
 /* users */

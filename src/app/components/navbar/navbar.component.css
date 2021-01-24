@@ -1,26 +1,27 @@
 nav.navbar {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 img {
-    width: 32px;
-    height: 32px;
-    
-    border-radius: 50%;   
+  width: 32px;
+}
+img.logo {
+  margin-left: 5px;
+  width: 96px;
 }
 
 .dropdown-menu {
-    background: var(--background-secondary);
+  background: var(--background-secondary);
 }
 
-.dropdown-menu a {    
-    color: white;
+.dropdown-menu a {  
+  color: white;
 }
 
 .dropdown-menu a:hover {
-    background-color: var(--background-primary);
+  background-color: var(--background-primary);
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
 }

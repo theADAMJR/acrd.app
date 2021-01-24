@@ -1,0 +1,25 @@
+img {
+  height: 32px;
+}
+
+* {
+  overflow-y: hidden !important;
+}
+
+a {
+  padding: 10px;
+}
+
+.developer-sidebar {
+  background-color: var(--background-secondary);
+}
+
+.applications {
+
+}
+
+.developer-sidebar,
+.applications {
+  height: 100vh;
+  padding: 25px;
+}

@@ -52,6 +52,8 @@ import { CreateChannelModalComponent } from './dashboard/modals/create-channel-m
 import { BotListComponent } from './dashboard/guilds/guild-settings/bot-list/bot-list.component';
 import { MessageEmbedComponent } from './dashboard/messages/message-embed/message-embed.component';
 import { MessagePreviewComponent } from './dashboard/messages/message-preview/message-preview.component';
+import { MemberListComponent } from './dashboard/guilds/member-list/member-list.component';
+import { DevelopersComponent } from './pages/developers/developers.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -113,7 +115,9 @@ export class AlertErrorHandler implements ErrorHandler {
     DMChannelComponent,
     UserSettingsComponent,
     CreateChannelModalComponent,
-    BotListComponent
+    BotListComponent,
+    MemberListComponent,
+    DevelopersComponent
   ],
   imports: [
     AppRoutingModule,
