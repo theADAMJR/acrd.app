@@ -35,7 +35,7 @@ export class DashboardAuthGuard implements CanActivate {
           .flatMap(g => g.channels.map(c => c._id))
           .concat(this.channelService.dmChannels.map(c => c._id)),
         guildIds: this.guildService.guilds.map(g => g._id),
-        user: this.userService.user
+        key: localStorage.getItem('key')
       });
     }
 
