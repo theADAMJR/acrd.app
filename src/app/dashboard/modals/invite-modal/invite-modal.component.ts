@@ -29,8 +29,7 @@ export class InviteModalComponent {
 
   hookWSEvents() {
     this.ws.socket.on('INVITE_CREATE', ({ invite }) => {
-      this.log.info('GET INVITE_CREATE', 'invt'); 
-
+      
       this.invite = invite;
     });
   }

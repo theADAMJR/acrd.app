@@ -5,7 +5,11 @@
 @import '~@ctrl/ngx-emoji-mart/picker.css';
 @import '~bootstrap-select/dist/css/bootstrap-select.min.css';
 @import url('http://fonts.cdnfonts.com/css/whitney-2');
-                
+
+:root {
+  --mention: rgba(243, 187, 32, 0.25);
+}
+
 body {
   color: var(--font);
   
@@ -268,10 +272,11 @@ div.arrow::before {
 /* discord */
 .d-mention {
   color: var(--primary);
+  background-color: var(--mention);
   cursor: pointer;
 }
 .d-mention:hover {
-  background-color: var(--secondary);
+  background-color: var(--mention) !important;
   border-radius: 3px;
 }
 

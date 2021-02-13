@@ -58,8 +58,7 @@ export class DMChannelComponent implements OnInit {
 
   hookWSEvents() {
     this.ws.socket.on('TYPING_START', ({ user }) => {
-      this.log.info('GET TYPING_START', 'text');
-
+      
       const selfUserIsTyping = this.typingUsernames.includes(this.userService.user.username);
       if (!selfUserIsTyping)
         this.typingUsernames.push(user.username);
@@ -68,16 +67,14 @@ export class DMChannelComponent implements OnInit {
     });
 
     this.ws.socket.on('MESSAGE_CREATE', (message) => {
-      this.log.info('GET MESSAGE_CREATE', 'text');
-
+      
       this.messages.push(message);
 
       setTimeout(() => this.scrollToMessage(), 100);
     });
     
     this.ws.socket.on('MESSAGE_UPDATE', (message) => {
-      this.log.info('GET MESSAGE_UPDATE', 'text');
-
+      
       let index = this.messages.findIndex(m => m._id === message._id);
       this.messages[index] = message;      
     });

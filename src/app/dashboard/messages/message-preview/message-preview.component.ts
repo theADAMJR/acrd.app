@@ -59,6 +59,10 @@ export class MessagePreviewComponent {
     return `${date.toString().slice(16, 21)}`;
   }
 
+  get isMentioned() {
+    return document.querySelector(`#message-${this.message._id} .self-mention`);
+  }
+
   get processed() {
     const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
     const getUser = (id: string) => this.guild?.members.find(m => m.user._id === id)?.user;

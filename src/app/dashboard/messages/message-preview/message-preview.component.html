@@ -1,4 +1,8 @@
-<div *ngIf="!isExtra; else extraMessage" class="flex-vertical">
+<div
+  [id]="'message-' + message._id"
+  *ngIf="!isExtra; else extraMessage"
+  [ngClass]="{ 'd-mention': isMentioned }"
+  class="flex-vertical">
   <div class="chat flex-vertical flex-spacer">
     <div class="content flex-spacer flex-horizontal bg-transparent">
       <div class="flex-spacer flex-vertical messages-wrapper">
@@ -44,7 +48,10 @@
 </div>
 
 <ng-template #extraMessage>
-  <div class="extra-message">
+  <div
+    [id]="'message-' + message._id"
+    class="extra-message"
+    [ngClass]="{ 'd-mention': isMentioned }">
     <span class="message-options float-right">
       <button
         *ngIf="canManage"

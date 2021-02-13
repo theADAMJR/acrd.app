@@ -32,7 +32,8 @@
         <i class="fas fa-hashtag text-muted"></i> {{ channel.name }}</a>
       <voice-channel
         *ngFor="let channel of voiceChannels"
-        [channel]="channel" [guild]="guild"></voice-channel>
+        [channel]="channel"
+        [guild]="guild"></voice-channel>
     </div>
   </div>
     

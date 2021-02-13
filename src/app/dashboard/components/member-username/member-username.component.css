@@ -17,14 +17,19 @@ img {
 }
 
 .username {
+  max-width: 224px;
+}
+.username-text {
   font-size: 20px;
-  width: 90% !important;
+  text-overflow: ellipsis;  
+
+  width: 70% !important;  
 }
 .status-override {
   font-size: smaller;
   margin-top: -5px;
 }
-.crown {
+i.fa-crown {
   color: gold;
   font-size: small;
 }

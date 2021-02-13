@@ -21,6 +21,8 @@ export class WSService {
       this.log.info(`GET ${name}`, 'ws');
       await callback(...args);
     });
+
+    this.socket.on('message', (content: string) => console.log(content));
   }
 
   private getListened(type: any) {

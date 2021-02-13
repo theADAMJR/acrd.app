@@ -31,7 +31,7 @@
             <span (click)="toggle()"
                 class="float-right d-sm-none d-block close">&times;</span>
             <div class="footer">
-            <div *ngIf="user.voice.connected">
+            <div *ngIf="user.voice.channelId">
                 <button (click)="disconnect()"
                     id="disconnectButton" class="float-right bg-danger"
                     matTooltip="Disconnect" mat-button>

@@ -62,8 +62,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
   private hookWSEvents() {
     this.ws.socket.on('GUILD_ROLE_CREATE', async ({ role }) => {
-      this.log.info('GET GUILD_ROLE_CREATE', 'mcnfg');
-      
+            
       this.guild.roles.push(role);
       this.originalGuild = {...this.guild};
 
@@ -71,8 +70,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     });
 
     this.ws.socket.on('GUILD_ROLE_DELETE', async ({ roleId }) => {
-      this.log.info('GET GUILD_ROLE_CREATE', 'mcnfg');
-
+      
       const index = this.guild.roles.findIndex(r => r._id === roleId);
       this.guild.roles.splice(index, 1);
       this.originalGuild = {...this.guild};
@@ -81,8 +79,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     });
 
     this.ws.socket.on('GUILD_ROLE_UPDATE', ({ role }) => {
-      this.log.info('GET GUILD_ROLE_UPDATE', 'mcnfg');
-
+      
       const index = this.guild.roles.findIndex(r => r._id === role._id);
       this.guild.roles[index] = role;
       this.originalGuild = {...this.guild};

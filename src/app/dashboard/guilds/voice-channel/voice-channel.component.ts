@@ -27,28 +27,15 @@ export class VoiceChannelComponent implements OnInit {
   }
 
   async hookWSEvents() {
-    this.ws.socket.on('VOICE_CHANNEL_UPDATE', async ({ channel, user }) => {
-      this.log.info('GET VOICE_CHANNEL_UPDATE', 'vc');
-
-      if (this.channel._id !== channel._id) return;
-      this.channel = channel;
+    this.ws.socket.on('VOICE_STATE_UPDATE', async ({ userId, voice, memberIds }) => {
       
-      const isSelf = this.userService.user._id === user._id;
-      if (!isSelf)
-        await this.rtc.call(user._id); 
+      if (this.channel._id !== voice.channelId) return;
 
-      if (isSelf && !user.voice.connected)
-        this.removeSelfMember();
-    });
+      const user = this.userService.user._id;
+      if (user._id === userId)
+        user.voice = voice;        
 
-    this.ws.socket.on('VOICE_STATE_UPDATE', ({ user }) => {
-      this.log.info('GET VOICE_STATE_UPDATE', 'vc');
-
-      const member = this.guild.members
-        .find(m => m.user._id === user._id);
-      if (!member) return;
-
-      member.user.voice = user.voice;
+      this.channel.memberIds = memberIds;
     });
 
     this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {
@@ -57,40 +44,25 @@ export class VoiceChannelComponent implements OnInit {
   }
   
   async join() {
-    const isSelfConnected = this.channel.memberIds.includes(this.userService.user._id);    
-    if (isSelfConnected) return;
-
-    await this.callChannelMembers();
-
     const user = this.userService.user;
-    user.voice.channelId = this.channel._id;
-    user.voice.guildId = this.guild._id;
-    user.voice.connected = true;
+    // const isSelfConnected = this.channel.memberIds.includes(user._id);    
+    // if (isSelfConnected) return;
 
-    this.log.info('SEND VOICE_CHANNEL_UPDATE', 'vc');
-    this.ws.socket.emit('VOICE_CHANNEL_UPDATE',
-      { channel: this.channel, guild: this.guild, user });
-    this.ws.socket.emit('VOICE_STATE_UPDATE', ({ user }));
-  }
-  async callChannelMembers() {
-    const selfMember = this.guild.members
-      .find(m => m.user._id === this.userService.user._id);
-    for (const id of this.channel.memberIds) {
-      if (id === selfMember._id) continue;
+    user.voice = {
+      ...user.voice,
+      channelId: this.channel._id,
+      guildId: this.guild._id,
+    };
 
-      await this.rtc.call(id);
-    }
-  }
-
-  removeSelfMember() {
-    const selfMember = this.guild.members
-      .find(m => m.user._id === this.userService.user._id);
-    const index = this.channel.memberIds.indexOf(selfMember._id);
-    this.channel.memberIds.splice(index, 1);
+    this.log.info('SEND VOICE_STATE_UPDATE', 'vc');
+    this.ws.socket.emit('VOICE_STATE_UPDATE', {
+      userId: user._id,
+      voice: user.voice,
+    });
   }
 
   getUser(memberId: string) {    
     return this.guild.members
-      .find(m => m._id === memberId)?.user;
+      .find(m => m.user._id === memberId)?.user;
   }
 }

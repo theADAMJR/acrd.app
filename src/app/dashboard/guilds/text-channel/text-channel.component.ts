@@ -75,8 +75,7 @@ export class TextChannelComponent implements OnInit {
 
   hookWSEvents() {
     this.ws.socket.on('TYPING_START', ({ user }) => {
-      this.log.info('GET TYPING_START', 'text');
-
+      
       if (!this.typingUsernames.includes(this.userService.user.username))
         this.typingUsernames.push(user.username);
 
@@ -84,8 +83,7 @@ export class TextChannelComponent implements OnInit {
     });
 
     this.ws.on('MESSAGE_CREATE', async (message) => {
-      this.log.info('GET MESSAGE_CREATE', 'text');
-
+      
       if (message.author._id !== this.userService.user._id)
         await (this.notificationSound.nativeElement as HTMLAudioElement).play();
       
@@ -95,15 +93,13 @@ export class TextChannelComponent implements OnInit {
     }, this);
     
     this.ws.socket.on('MESSAGE_UPDATE', (message) => {
-      this.log.info('GET MESSAGE_UPDATE', 'text');
-
+      
       let index = this.messages.findIndex(m => m._id === message._id);
       this.messages[index] = message;      
     });
     
     this.ws.socket.on('MESSAGE_DELETE', ({ messageId }) => {
-      this.log.info('GET MESSAGE_DELETE', 'text');
-
+      
       let index = this.messages.findIndex(m => m._id === messageId);
       this.messages.splice(index, 1);
     });
@@ -178,11 +174,11 @@ export class TextChannelComponent implements OnInit {
       .getMessages(this.guild._id, this.channel._id, {
         start: this.messages.length,
         end: this.messages.length + 25
-      });
+      });    
     
     this.scrollToMessage(this.messages.length);
 
-    this.loadedAllMessages = moreMessages.length < 25;
+    this.loadedAllMessages = moreMessages.length < this.messages.length + 25;
     this.messages = moreMessages
       .concat(this.messages)
       .sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1);

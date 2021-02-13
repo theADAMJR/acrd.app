@@ -74,7 +74,7 @@ class AudioSources {
 
   constructor(private userId: string) {}
 
-  play(id, stream) {
+  play(id: string, stream: MediaStream) {
     if (id === this.userId) return;
 
     const video = document.createElement('video');
@@ -84,7 +84,7 @@ class AudioSources {
     this.sources.set(id, video);
   }
 
-  stop(id) {
+  stop(id: string) {
     const video = this.sources.get(id);
     if (!video) return;
 

@@ -35,15 +35,12 @@ export class SidebarComponent implements OnInit {
 
   hookWSEvents() {
     this.ws.socket.on('GUILD_MEMBER_ADD', async ({ guild, member }) => {
-      this.log.info('GET GUILD_MEMBER_ADD', 'sbar');
       if (member.user._id !== this.user._id) return;
       
       await this.guildService.updateGuilds();
     });
 
     this.ws.socket.on('SEND_FRIEND_REQUEST', ({ sender, friend }) => {
-      this.log.info('GET SEND_FRIEND_REQUEST', 'sbar');
-      
       this.userService.addKnownUser(friend);
       this.userService.addKnownUser(sender);
       
@@ -54,8 +51,6 @@ export class SidebarComponent implements OnInit {
     });
 
     this.ws.socket.on('ACCEPT_FRIEND_REQUEST', async ({ sender, friend, dmChannel }) => {
-      this.log.info('GET ACCEPT_FRIEND_REQUEST', 'sbar');
-
       this.channelService.dmChannels.push(dmChannel);
       
       const selfUserAcceptedRequest = sender._id === this.user._id;
@@ -68,9 +63,7 @@ export class SidebarComponent implements OnInit {
       }
     });
 
-    this.ws.socket.on('REMOVE_FRIEND', async ({ sender, friend }) => {
-      this.log.info('GET REMOVE_FRIEND', 'sbar');
-      
+    this.ws.socket.on('REMOVE_FRIEND', async ({ sender, friend }) => {      
       const selfUserRemovedFriend = sender._id === this.user._id;
       this.user.friends = (selfUserRemovedFriend)
         ? sender.friends
@@ -78,9 +71,7 @@ export class SidebarComponent implements OnInit {
     });
 
 
-    this.ws.socket.on('CANCEL_FRIEND_REQUEST', ({ sender, friend }) => {
-      this.log.info('GET CANCEL_FRIEND_REQUEST', 'sbar');
-      
+    this.ws.socket.on('CANCEL_FRIEND_REQUEST', ({ sender, friend }) => {      
       const selfUserSentRequest = sender._id === this.user._id;
       this.user.friendRequests = (selfUserSentRequest)
         ? sender.friendRequests
@@ -95,17 +86,14 @@ export class SidebarComponent implements OnInit {
   }
 
   async disconnect() {
-    const guild = this.guildService.getGuild(this.user.voice.guildId);
-    const channel = guild.channels.find(c => c._id === this.user.voice.channelId);
-    const member = guild.members.find(m => m.user._id === this.user._id);
-
-    const index = channel.memberIds.indexOf(member._id);
-    channel.memberIds.splice(index, 1);
-
-    this.user.voice.connected = false;
-
-    this.ws.socket.emit('VOICE_CHANNEL_UPDATE', { channel, guild, user: this.user });
-    this.ws.socket.emit('VOICE_STATE_UPDATE', { user: this.user });
+    this.ws.socket.emit('VOICE_STATE_UPDATE', {
+      userId: this.user._id,
+      voice: {
+        ...this.user.voice,
+        channelId: null,
+        guildId: null
+      },
+    });
 
     this.rtc.hangUp();
   }

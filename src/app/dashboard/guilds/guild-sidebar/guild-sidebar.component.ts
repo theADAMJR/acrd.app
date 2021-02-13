@@ -54,8 +54,7 @@ export class GuildSidebarComponent implements OnInit {
 
   hookWSEvents() {
     this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {
-      this.log.info('GET PRESENCE_UPDATE', 'gsbar');
-      const guildMember = this.guild.members
+            const guildMember = this.guild.members
         .find(m => m.user._id === user?._id);
       if (!guildMember) return;
 
@@ -63,12 +62,10 @@ export class GuildSidebarComponent implements OnInit {
     });
 
     this.ws.socket.on('GUILD_MEMBER_ADD', async ({ member }) => {
-      this.log.info('GET GUILD_MEMBER_ADD', 'gsbar');
-    });
+          });
 
     this.ws.socket.on('GUILD_UPDATE', ({ guild }) => {
-      this.log.info('GET GUILD_UPDATE', 'gsbar');
-      
+            
       this.guild = guild;
 
       const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
@@ -76,16 +73,14 @@ export class GuildSidebarComponent implements OnInit {
     });
 
     this.ws.socket.on('GUILD_ROLE_UPDATE', ({ role }) => {
-      this.log.info('GET GUILD_ROLE_UPDATE', 'gsbar');
-      
+            
       const index = this.guild.roles.findIndex(r => r._id === role._id);
       this.guild.roles[index] = role;
       
     });
 
     this.ws.socket.on('GUILD_DELETE', async () => {
-      this.log.info('GET GUILD_DELETE', 'gsbar');
-      
+            
       const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
       this.guildService.guilds.splice(index, 1);
 
