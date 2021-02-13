@@ -20,6 +20,7 @@ import { DMChannelComponent } from './dashboard/me/dmchannel/dmchannel.component
 import { UserSettingsComponent } from './dashboard/me/user-settings/user-settings.component';
 import { BotListComponent } from './dashboard/guilds/guild-settings/bot-list/bot-list.component';
 import { DevelopersComponent } from './pages/developers/developers.component';
+import { ApplicationComponent } from './pages/developers/application/application.component';
 
 const routes: Routes = [
   {
@@ -99,6 +100,15 @@ const routes: Routes = [
   //   canActivate: [GuildAuthGuard],
   //   canDeactivate: [CanDeactivateDashboard]
   // },
+  {
+    path: `developers/applications/:id`,
+    // TODO: make sure user is logged in
+    component: ApplicationComponent
+  },
+  {
+    path: `developers/applications`,
+    redirectTo: 'developers'
+  },
   {
     path: 'developers',
     // TODO: make sure user is logged in

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DevelopersService } from 'src/app/services/developers.service';
 
 @Component({
   selector: 'app-developers',
@@ -6,10 +8,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./developers.component.css']
 })
 export class DevelopersComponent implements OnInit {
+  applications = [];
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private service: DevelopersService,
+  ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.applications = await this.service.getAll();
   }
 
+  async create() {
+    try {
+      const app = await this.service.create();
+      
+      await this.router.navigate([`/developers/applications/`, app?._id]);
+    } catch (apiError) {
+      alert(apiError.message);
+    }
+  }
 }

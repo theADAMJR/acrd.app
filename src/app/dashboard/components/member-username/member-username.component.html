@@ -22,7 +22,8 @@
     <span class="username-text">{{ user.username }}</span>
     <span
       *ngIf="user.bot"
-      class="badge badge-secondary">BOT</span>
+      textContent="user.username === 'DClone' ? 'SYSTEM' : 'BOT'"
+      class="ml-1 badge badge-secondary"></span>
     <span
       *ngIf="user._id === guild?.owner._id"
       matTooltip="Guild Owner"

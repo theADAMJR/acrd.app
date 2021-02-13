@@ -8,6 +8,7 @@
 
 :root {
   --mention: rgba(243, 187, 32, 0.25);
+  --mention-background: rgba(243, 187, 32, 0.5);
 }
 
 body {
@@ -272,7 +273,7 @@ div.arrow::before {
 /* discord */
 .d-mention {
   color: var(--primary);
-  background-color: var(--mention);
+  background-color: var(--mention-background);
   cursor: pointer;
 }
 .d-mention:hover {
@@ -281,6 +282,8 @@ div.arrow::before {
 }
 
 .self-mention {
+  border-radius: 5px;
+  padding: 2px;
   background-color: rgba(243, 187, 32, 0.25);
 }
 

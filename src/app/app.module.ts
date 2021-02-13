@@ -54,6 +54,7 @@ import { MessageEmbedComponent } from './dashboard/messages/message-embed/messag
 import { MessagePreviewComponent } from './dashboard/messages/message-preview/message-preview.component';
 import { MemberListComponent } from './dashboard/guilds/member-list/member-list.component';
 import { DevelopersComponent } from './pages/developers/developers.component';
+import { ApplicationComponent } from './pages/developers/application/application.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -117,7 +118,8 @@ export class AlertErrorHandler implements ErrorHandler {
     CreateChannelModalComponent,
     BotListComponent,
     MemberListComponent,
-    DevelopersComponent
+    DevelopersComponent,
+    ApplicationComponent
   ],
   imports: [
     AppRoutingModule,

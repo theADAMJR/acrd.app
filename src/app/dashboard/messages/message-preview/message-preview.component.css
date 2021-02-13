@@ -250,7 +250,7 @@
 }
 
 .message-group:hover {
-	background-color: rgba(46,48,54,.3) !important;
+	background-color: rgba(46,48,54,.3);
 }
 
 /* extra */

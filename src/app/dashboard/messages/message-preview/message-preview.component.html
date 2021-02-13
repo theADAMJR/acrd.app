@@ -1,14 +1,15 @@
 <div
   [id]="'message-' + message._id"
   *ngIf="!isExtra; else extraMessage"
-  [ngClass]="{ 'd-mention': isMentioned }"
   class="flex-vertical">
   <div class="chat flex-vertical flex-spacer">
     <div class="content flex-spacer flex-horizontal bg-transparent">
       <div class="flex-spacer flex-vertical messages-wrapper">
         <div class="scroller-wrap">
           <div class="scroller messages">
-            <div class="message-group hide-overflow">
+            <div
+              class="message-group hide-overflow"
+              [ngClass]="{ 'd-mention': isMentioned }">
               <div class="avatar-large animate" [style.backgroundImage]="'url(' + message.author.avatarURL + ')'"></div>
               <div class="comment">
                 <div class="message first">

@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-3">
+    <div class="developer-sidebar">
+      <header
+        routerLink="/developers"
+        class="cursor-pointer my-5">
+        <a class="p-2 text-muted" routerLink="/developers"><- Dashboard</a>
+      </header>
+      
+      <nav class="side-nav mt-3">
+        <a routerLinkActive="active"
+          class="nav-link"
+          routerLink="/developers">
+          <i class="fas fa-eye"></i>
+          Overview</a>
+      </nav>
+    </div>
+  </div>
+
+  <div
+    *ngIf="app; else loading"
+    class="col-6 m-4 mt-5">
+    <header>
+      <h2>Overview</h2>
+      <p class="lead">General info about your Discord bot.</p>
+    </header>
+    <form #f="ngForm" [formGroup]="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input formControlName="name" type="text" [value]="app.name" matInput>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="ml-2">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" matInput>{{ app.description }}</textarea>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <ng-template
+    class="col-6 d-flex justify-content-center"
+    #loading>
+    <spinner></spinner>
+  </ng-template>
+</div>
