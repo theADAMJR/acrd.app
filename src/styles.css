@@ -302,3 +302,8 @@ p.lead {
 .username-badge {
   font-size: 12px;
 }
+
+/* navigation */
+a i {
+  color: var(--secondary);
+}

@@ -4,12 +4,17 @@
       <div class="modal-header">
         <h5 class="modal-title" id="createChannelLabel">Create Channel</h5>
         <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-          <span aria-hidden="true">&times;</span>
+          <a aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </a>
         </button>
       </div>
       <div class="modal-body">
         <div class="d-flex justify-content-center">
-            <form #f="ngForm" [formGroup]="form" (submit)="submit()">
+            <form
+              #f="ngForm"
+              [formGroup]="form"
+              (submit)="create()">
               <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
                 <input formControlName="name" type="text" matInput #nameInput>
@@ -30,9 +35,8 @@
 
               <div class="d-flex justify-content-center">
                 <button
-                  (click)="create()"
                   id="createChannelButton"
-                  type="button"
+                  type="submit"
                   class="btn btn-success mt-2"
                   [disabled]="processing">Create</button>
               </div>

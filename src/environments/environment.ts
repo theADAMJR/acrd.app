@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  docsURL: 'https://docs.d-cl.one',
   production: false,
   endpoint: 'http://localhost:3000/api',
   rootEndpoint: 'http://localhost:3000',

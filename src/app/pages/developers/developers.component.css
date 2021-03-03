@@ -14,8 +14,17 @@ a {
   background-color: var(--background-secondary);
 }
 
-.applications {
+.icon {
+  font-size: 64px;
+  color: var(--primary);
+  background-color: var(--background-tertiary);
+  overflow-x: hidden;
+  padding: 50px;
+}
 
+button {
+  font-size: 32px;
+  padding: 16px 24px;
 }
 
 .developer-sidebar,

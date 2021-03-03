@@ -9,7 +9,8 @@ body {
   background-color: var(--background-primary) !important;
 }
 
-:root, :root[theme=CLONE] {
+:root,
+:root[theme=CLONE] {
   --primary: #6E8481;
   --secondary: #A2B6AD;
   --tertiary: #576067;
@@ -44,6 +45,18 @@ body {
   --background-primary: #0F1A31;
   --background-secondary: #070d1a;
   --background-tertiary: #060b18;
+}
+:root[theme=PAIN] {
+  --primary: #6E8481;
+  --secondary: #A2B6AD;
+  --tertiary: #576067;
+
+  --heading: #000000;
+  --font: #CACBCD;
+  
+  --background-primary: #dfdfdf;
+  --background-secondary: #bdbdbd;
+  --background-tertiary: #afafaf;
 }
 :root[theme=DISCORD] {
   --primary: #7289DA;

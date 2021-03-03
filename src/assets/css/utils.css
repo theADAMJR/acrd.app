@@ -44,4 +44,10 @@
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
-  }
+}
+
+/* gradient buttons */
+.bg-primary-gradient {
+    background: var(--primary);
+    background: linear-gradient(43deg, var(--primary) 0%, var(--secondary) 35%, var(--primary) 100%) !important;
+}

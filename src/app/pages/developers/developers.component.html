@@ -12,29 +12,42 @@
         <a routerLinkActive="active"
           class="nav-link"
           routerLink="/developers">
-          <i class="fas fa-code"></i>
-          Applications</a>
+          <i class="fas fa-code pt-2"></i>
+          <span>Apps</span>
+        </a>
+        <a routerLinkActive="active"
+          class="nav-link"
+          [href]="environment.docsURL"
+          target="#">
+          <i class="fas fa-book-open pt-2"></i>
+          <span>Docs</span>
+        </a>
       </nav>
     </div>
   </div>
 
-  <div class="col-6">
+  <div class="col-8">
     <div class="applications">
       <header class="mt-5">
         <button
           (click)="create()"
-          class="float-right bg-primary"
-          mat-button>Create</button>
+          class="float-right round bg-primary-gradient"
+          matTooltip="New Application"
+          mat-button>
+          <strong><i class="fas fa-plus text-light pt-2"></i></strong>
+        </button>
         <h1>Applications</h1>
         <p class="lead">Manage bot applications in the DClone developer dashboard.</p>
       </header>
       <div
         *ngIf="applications; else applicationsLoading"
-        class="row">
+        class="row pt-2">
         <div
-          *ngFor="let app of applications" class="col-2"
+          *ngFor="let app of applications" class="col-sm-6 col-lg-3"
           [routerLink]="'/developers/applications/' + app._id">
-          {{ app.name }}
+          <div
+            [matTooltip]="app.name"
+            class="icon rounded-lg cursor-pointer text-center">{{ getAbbr(app.name) }}</div>
         </div>
       </div>
     </div>
