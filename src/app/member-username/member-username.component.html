@@ -1,0 +1,31 @@
+<div
+  *ngIf="user"
+  (contextmenu)="openCtxMenu($event)"
+  class="member-username"
+  [class]="guild ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
+  <img
+    *ngIf="withAvatar"
+    [src]="user.avatarURL" [alt]="user.username + ' Avatar'"
+    class="round">
+  <span
+    class="status round"
+    [class]="user.status?.toLowerCase()"></span>
+  <div
+    class="username ml-4 pt-0">{{ user.username }}
+    <div
+      *ngIf="!guild && !voice"
+      class="ml-1 status-override text-muted">{{ statusOverride }}</div>
+    <span
+      *ngIf="user._id === guild?.owner._id"
+      matTooltip="Guild Owner"
+      class="crown pl-1"><i class="fas fa-crown"></i></span>
+  </div>
+  <span
+    *ngIf="voice"
+    class="float-right text-muted p-1">
+    <i
+      *ngIf="user.voice.selfMuted"
+      matTooltip="Muted"
+      class="fas fa-microphone-slash"></i>
+  </span>
+</div>
