@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # DClone
 Discord clone website built from the [2PG Dashboard](https://github.com/theADAMJR/2PG-Dashboard).
 
@@ -8,3 +9,17 @@ Creating Discord Series - https://www.youtube.com/watch?v=F9wHO4QOfEU&list=PLGfT
 ## Subsidiaries
 + WebSocket Text Chat - https://github.com/theADAMJR/discord-chat
 + WebSocket Voice Chat - https://github.com/theADAMJR/discord-voice-chat
+=======
+# DClone
+Discord clone website built from the [2PG Dashboard](https://github.com/theADAMJR/2PG-Dashboard).
+
+![Old Demo](https://i.ibb.co/ZxpTdWP/dclone-demo.gif)
+
+Creating Discord Series - https://www.youtube.com/watch?v=F9wHO4QOfEU&list=PLGfT2ttRbfixrbgkKa0h9bkSz5BzE1npG&index=1
+
+**Project is currently incomplete and awaiting major updates.**
+
+## Subsidiaries
++ WebSocket Text Chat - https://github.com/theADAMJR/discord-chat
++ WebSocket Voice Chat - https://github.com/theADAMJR/discord-voice-chat
+>>>>>>> 76614c5eb288c09a579316f576a9779fb333f7a6
