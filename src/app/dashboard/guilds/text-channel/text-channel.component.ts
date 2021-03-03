@@ -16,9 +16,16 @@ import { PermissionsService } from 'src/app/services/permissions.service';
 export class TextChannelComponent implements OnInit {
   @ViewChild('notificationSound') notificationSound: ElementRef;
 
+  activeChannelId: string;
   channel: any;
   guild: any;
-  messages = [];
+
+  get channelMessages() {
+    return this.channelService.getMessageMap(this.guild._id);
+  }
+  get messages() {
+    return this.channelMessages.get(this.activeChannelId);
+  }
 
   loadedAllMessages = false;  
   emojiPickerOpen = false;
@@ -48,22 +55,27 @@ export class TextChannelComponent implements OnInit {
     await this.userService.init();
     await this.guildService.init();
 
-    const guildId = this.route.snapshot.paramMap.get('guildId');
-    const channelId = this.route.snapshot.paramMap.get('channelId');
-
-    this.guild = this.guildService.getGuild(guildId);
-    this.channel = this.guild?.channels
-      .find(c => c._id === channelId);
-    
-    document.title = `#${this.channel.name}`;
-
-    this.messages = await this.channelService.getMessages(guildId, channelId);
-    this.loadedAllMessages = this.messages.length < 25;
-    
-    setTimeout(() => this.scrollToMessage(), 100);
-    
-    this.hookWSEvents();
-    this.initCtxMenuEvents();
+    this.route.paramMap.subscribe(async(paramMap) => {
+      const guildId = paramMap.get('guildId');
+      const channelId = this.activeChannelId = paramMap.get('channelId');
+  
+      this.guild = this.guildService.getGuild(guildId);
+      this.channel = this.guild?.channels
+        .find(c => c._id === channelId);
+      
+      document.title = `#${this.channel.name}`;
+  
+      this.channelMessages.set(
+        this.activeChannelId,
+        await this.channelService.getMessages(guildId, channelId)
+      );
+      this.loadedAllMessages = this.messages.length < 25;
+      
+      setTimeout(() => this.scrollToMessage(), 100);
+      
+      this.hookWSEvents();
+      this.initCtxMenuEvents();
+    });
   }
 
   private initCtxMenuEvents() {
@@ -73,7 +85,7 @@ export class TextChannelComponent implements OnInit {
         .addEventListener('click', () => el.style.display = 'none'));
   }
 
-  hookWSEvents() {
+  public hookWSEvents() {
     this.ws.socket.on('TYPING_START', ({ user }) => {
       
       if (!this.typingUsernames.includes(this.userService.user.username))
@@ -82,12 +94,18 @@ export class TextChannelComponent implements OnInit {
       setTimeout(() => this.stopTyping(user), 5.1 * 1000);
     });
 
-    this.ws.on('MESSAGE_CREATE', async (message) => {
-      
+    this.ws.on('MESSAGE_CREATE', async ({ message }) => {      
       if (message.author._id !== this.userService.user._id)
-        await (this.notificationSound.nativeElement as HTMLAudioElement).play();
+        try {
+          await (this.notificationSound.nativeElement as HTMLAudioElement).play();
+        } catch {}
       
-      this.messages.push(message);
+      if (message.channel === this.activeChannelId)
+        this.messages.push(message);
+      else {
+        const messages = this.channelMessages.get(message.channel);
+        this.channelMessages.set(message.channel, messages.concat(message));
+      }
 
       setTimeout(() => this.scrollToMessage(), 100);
     }, this);
@@ -105,7 +123,7 @@ export class TextChannelComponent implements OnInit {
     });
   }
 
-  emitTypingStart() { 
+  public emitTypingStart() { 
     const sinceLastTyped = new Date().getTime() - this.lastTypingEmissionAt?.getTime();    
     if (sinceLastTyped < 5 * 1000) return;
 
@@ -179,9 +197,12 @@ export class TextChannelComponent implements OnInit {
     this.scrollToMessage(this.messages.length);
 
     this.loadedAllMessages = moreMessages.length < this.messages.length + 25;
-    this.messages = moreMessages
-      .concat(this.messages)
-      .sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1);
+    this.channelMessages.set(
+      this.activeChannelId, 
+      moreMessages
+        .concat(this.messages)
+        .sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1)
+    );
   }
 
   // emoji picker

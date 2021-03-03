@@ -18,7 +18,7 @@ export class InviteModalComponent {
     private usersService: UsersService,
     private ws: WSService) {}
 
-  open() {
+  public open() {
     this.log.info('SEND INVITE_CREATE', 'invt');    
     this.ws.socket.emit('INVITE_CREATE', { guild: this.guild, user: this.usersService.user });
 
@@ -27,14 +27,13 @@ export class InviteModalComponent {
     this.hookWSEvents();
   }
 
-  hookWSEvents() {
+  public hookWSEvents() {
     this.ws.socket.on('INVITE_CREATE', ({ invite }) => {
-      
       this.invite = invite;
     });
   }
 
-  copyToClipboard() {
+  public copyToClipboard() {
     navigator.clipboard.writeText(this.invite?._id);
   }
 }

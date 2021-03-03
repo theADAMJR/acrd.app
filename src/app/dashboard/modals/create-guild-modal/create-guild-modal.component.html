@@ -4,7 +4,9 @@
       <div class="modal-header">
         <h5 class="modal-title" id="addGuildLabel">Add Guild</h5>
         <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-          <span aria-hidden="true">&times;</span>
+          <a aria-hidden="true">
+            <i class="fas fa-times"></i>
+          </a>
         </button>
       </div>
       <div class="modal-body">
@@ -34,7 +36,9 @@
         <button
           [disabled]="processing"
           (click)="joinGuild()"
-          id="joinGuildButton" type="button" class="btn btn-secondary">Join a Guild</button>
+          id="joinGuildButton"
+          type="button"
+          class="btn btn-secondary">Join a Guild</button>
       </div>
     </div>
   </div>

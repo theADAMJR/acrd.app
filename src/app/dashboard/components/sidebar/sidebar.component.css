@@ -1,146 +1,146 @@
 .guild-icon {
-    border-radius: 50%;
+  border-radius: 50%;
 
-    margin: 5px;
-    width: 52px;
-    height: 52px;
+  margin: 5px;
+  width: 52px;
+  height: 52px;
 
-    background-color: var(--background-primary);
-    transition: all .35s;
+  background-color: var(--background-primary);
+  transition: all .35s;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .guild-icon img:hover, .guild-icon:hover, .guild-icon span:hover {
-    border-radius: 25%;
+  border-radius: 25%;
 }
 
 .guild-icon span {
-    text-align: center;
+  text-align: center;
 
-    font-size: 18px;
+  font-size: 18px;
 
-    width: 52px;
-    height: 48px;
-    padding-top: 14px;
+  width: 52px;
+  height: 48px;
+  padding-top: 14px;
 
-    transition: all .35s;
+  transition: all .35s;
 }
 
 .guild-icon img {
-    width: 52px;
-    height: 52px;
-    
-    border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  
+  border-radius: 50%;
 
-    transition: all .35s;
+  transition: all .35s;
 }
 
 button {
-    background: transparent;
-    border: none;
-    color: var(--font);
+  background: transparent;
+  border: none;
+  color: var(--font);
 
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .guilds {
-    background-color: var(--background-tertiary);
-    float: left;
-    height: inherit;
-    padding-top: 12px;
+  background-color: var(--background-tertiary);
+  float: left;
+  height: inherit;
+  padding-top: 12px;
 }
 
 .options {
-    background-color: var(--background-secondary) !important;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    overflow-x: hidden;
+  background-color: var(--background-secondary) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  overflow-x: hidden;
 
-    width: 275px;
-    height: inherit;
+  width: 275px;
+  height: inherit;
 
-    margin-left: 75px;
+  margin-left: 75px;
 }
 
 .toggle {
-    position: absolute;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
 
-    visibility: visible;
+  visibility: visible;
 
-    margin: 50px 0 0 15px;
+  margin: 50px 0 0 15px;
 }
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    .toggle {
-        visibility: hidden;
-    }
+  .toggle {
+    visibility: hidden;
+  }
 }
 
 mat-sidenav {
-    height: 100vh;
-    background-color: var(--background-tertiary);
+  height: 100vh;
+  background-color: var(--background-tertiary);
 }
 
 .guild-icon .add-guild {
-    font-size: 40px;
+  font-size: 40px;
 
-    color: var(--tertiary);
+  color: var(--tertiary);
 }
 
 .invite:hover {
-    background-color: var(--primary);
+  background-color: var(--primary);
 }
 
 .guild-seperator {
-    height: 2px;
-    width: 32px;
-    border-radius: 1px;
+  height: 2px;
+  width: 32px;
+  border-radius: 1px;
 
-    border-color: var(--background-secondary);
+  border-color: var(--background-secondary);
 }
 
 .close {
-    position: absolute;
-    top: 0;
-    right: 15px;
+  position: absolute;
+  top: 0;
+  right: 15px;
 
-    font-size: 48px;
+  font-size: 48px;
 
-    color: var(--primary);
-    text-shadow: none;
+  color: var(--primary);
+  text-shadow: none;
 }
 
-.footer {    
-    background-color: rgba(0, 0, 0, 0.05);
+.footer {  
+  background-color: rgba(0, 0, 0, 0.05);
 
-    position: absolute;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
 
-    margin-left: 0px;
-    padding: 10px;
-    width: 275px;
+  margin-left: 0px;
+  padding: 10px;
+  width: 275px;
 }
 .footer img {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .guilds .active {
-    background-color: var(--primary);
-    border-radius: 15px !important;
+  background-color: var(--primary);
+  border-radius: 15px !important;
 }
 
 #disconnectButton,
 #muteButton,
 #settingsButton {
-    width: 32px;
-    height: 32px;
-    padding: 0 !important;
+  width: 32px;
+  height: 32px;
+  padding: 0 !important;
 
-    font-size: medium;
+  font-size: medium;
 }
 
 .connected-to {
-    font-size: small;
+  font-size: small;
 }

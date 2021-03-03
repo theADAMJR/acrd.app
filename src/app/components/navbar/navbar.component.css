@@ -2,8 +2,11 @@ nav.navbar {
   background-color: transparent;
 }
 
-img {
+img:not(.icon) {
   width: 32px;
+  height: 32px;
+}
+img.icon {
   height: 32px;
 }
 img.logo {

@@ -66,7 +66,7 @@ export class DMChannelComponent implements OnInit {
       setTimeout(() => this.stopTyping(user), 5.1 * 1000);
     });
 
-    this.ws.socket.on('MESSAGE_CREATE', (message) => {
+    this.ws.socket.on('MESSAGE_CREATE', ({ message }) => {
       
       this.messages.push(message);
 

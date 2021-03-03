@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { GuildService } from 'src/app/services/guild.service';
 import { WSService } from 'src/app/services/ws.service';
 
 @Component({
@@ -15,13 +13,11 @@ export class CreateChannelModalComponent implements OnInit {
   processing = false;
 
   form = new FormGroup({
-    name: new FormControl(''),
+    name: new FormControl('', [ Validators.required ]),
     type: new FormControl('TEXT')
   });
 
   constructor(
-    private guildService: GuildService,
-    private router: Router,
     private ws: WSService
   ) {}
 
@@ -56,11 +52,12 @@ export class CreateChannelModalComponent implements OnInit {
     if (this.form.invalid) return;
 
     this.processing = true;
-
-    const channel = await this.guildService.createChannel(this.guild._id, this.form.value);
     
     document.querySelector('.modal-backdrop')?.remove();
 
-    this.router.navigate([`/channels/${this.guild._id}/${channel._id}`]);
+    this.ws.emit('CHANNEL_CREATE', {
+      partialChannel: this.form.value,
+      guildId: this.guild._id
+    });
   }
 }

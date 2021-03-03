@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import io from 'socket.io-client';
 import { LogService } from './log.service';
@@ -25,10 +25,17 @@ export class WSService {
     this.socket.on('message', (content: string) => console.log(content));
   }
 
+  public emit(name: DCloneEvent, data: any) {
+    this.log.info(`SEND ${name}`, 'ws');
+    this.socket.emit(name, data);
+  }
+
   private getListened(type: any) {
     return this.listened.get(type)
       ?? this.listened.set(type, []).get(type);
   }
 }
 
-export type DCloneEvent = 'MESSAGE_CREATE';
+export type DCloneEvent = 'MESSAGE_CREATE'
+  | 'CHANNEL_CREATE'
+  | 'PRESENCE_UPDATE';

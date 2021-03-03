@@ -59,7 +59,7 @@ export class ChannelService {
     
     return messages;
   }
-  private getMessageMap(guildId: string) {
+  public getMessageMap(guildId: string) {
     return this.cachedMessages.get(guildId)
       ?? this.cachedMessages
         .set(guildId, new Map())

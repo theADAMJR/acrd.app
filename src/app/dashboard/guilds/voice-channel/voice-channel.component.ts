@@ -38,8 +38,8 @@ export class VoiceChannelComponent implements OnInit {
       this.channel.memberIds = memberIds;
     });
 
-    this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {
-      this.rtc.audio.stop(user._id);
+    this.ws.socket.on('PRESENCE_UPDATE', ({ userId }) => {
+      this.rtc.audio.stop(userId);
     });
   }
   

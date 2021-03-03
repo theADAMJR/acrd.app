@@ -30,13 +30,12 @@ export class GuildSidebarComponent implements OnInit {
 
   constructor(
     private guildService: GuildService,
-    private log: LogService,
     private route: ActivatedRoute,
     private router: Router,
     private ws: WSService,
     public perms: PermissionsService) {}
 
-  async ngOnInit() {
+  public async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
       this.id = paramMap.get('guildId');
       const channelId = paramMap.get('channelId');
@@ -52,17 +51,23 @@ export class GuildSidebarComponent implements OnInit {
     this.hookWSEvents();
   }
 
-  hookWSEvents() {
-    this.ws.socket.on('PRESENCE_UPDATE', ({ user }) => {
-            const guildMember = this.guild.members
-        .find(m => m.user._id === user?._id);
+  public hookWSEvents() {
+    this.ws.on('CHANNEL_CREATE', ({ channel }) => {
+      this.guild.channels.push(channel);
+    }, this);
+
+    this.ws.on('PRESENCE_UPDATE', ({ userId, status }) => {
+      const guildMember = this.guild.members
+        .find(m => m.user._id === userId);
       if (!guildMember) return;
 
-      guildMember.user.status = user.status;
-    });
+      console.log(`${guildMember.user.username} - ${guildMember.user.status}`);
+      
+      guildMember.user.status = status;
+    }, this);
 
     this.ws.socket.on('GUILD_MEMBER_ADD', async ({ member }) => {
-          });
+    });
 
     this.ws.socket.on('GUILD_UPDATE', ({ guild }) => {
             
