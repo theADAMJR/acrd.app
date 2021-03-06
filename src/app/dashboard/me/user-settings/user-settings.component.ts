@@ -50,7 +50,7 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
     this.themes.updateTheme();
   }
 
-  buildForm(user: any): FormGroup | Promise<FormGroup> {
+  public buildForm(user: any): FormGroup | Promise<FormGroup> {
     return new FormGroup({
       avatarURL: new FormControl(user.avatarURL, [
         Validators.required,
@@ -58,15 +58,16 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
       ]),
       username: new FormControl(user.username, [
         Validators.required,
-        Validators.maxLength(32)
+        Validators.maxLength(32),
+        Validators.pattern(/(?=.*[a-zA-Z0-9!@#$%^&*])/gm),
       ], [ UsernameValidators.shouldBeUnique ])
     });
   }
 
   async updateTakenUsernames() {
-      const usernames = await this.usersService.getUsernames();
-      UsernameValidators.takenUsernames = (usernames ?? [])
-        .filter(name => name !== this.user.username);
+    const usernames = await this.usersService.getUsernames();
+    UsernameValidators.takenUsernames = (usernames ?? [])
+      .filter(name => name !== this.user.username);
   }
 
   setAvatar(name: string) {

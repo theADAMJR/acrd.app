@@ -10,7 +10,7 @@
             <div
               class="message-group hide-overflow"
               [ngClass]="{ 'd-mention': isMentioned }">
-              <div class="avatar-large animate" [style.backgroundImage]="'url(' + message.author.avatarURL + ')'"></div>
+              <div class="avatar-large animate" [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
               <div class="comment">
                 <div class="message first">
                   <span class="message-options float-right">
@@ -23,8 +23,8 @@
 
                   <h2 style="line-height: 16px;">
                     <span class="username-wrapper v-btm">
-                      <strong [style.color]="roleColor" class="user-name">{{ message.author.username }}</strong>
-                      <div *ngIf="message.author.bot"
+                      <strong [style.color]="roleColor" class="user-name">{{ author.username }}</strong>
+                      <div *ngIf="author.bot"
                         class="username-badge badge badge-secondary ml-1">BOT</div>
                     </span>
                     <span class="highlight-separator"> - </span>

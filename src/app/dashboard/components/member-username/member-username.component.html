@@ -25,7 +25,7 @@
       textContent="user.username === 'DClone' ? 'SYSTEM' : 'BOT'"
       class="ml-1 badge badge-secondary"></span>
     <span
-      *ngIf="user._id === guild?.owner._id"
+      *ngIf="user._id === guild?.ownerId"
       matTooltip="Guild Owner"
       class="crown pl-1"><i class="fas fa-crown"></i></span>
   </div>

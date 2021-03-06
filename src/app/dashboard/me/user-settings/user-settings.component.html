@@ -47,6 +47,11 @@
             appearance="outline">
             <mat-label>Username</mat-label>
             <input formControlName="username" type="text" matInput>
+            <mat-hint *ngIf="form.get('username').pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</mat-hint>
+            <mat-error *ngIf="form.get('username').errors?.required">Username is required.</mat-error>
+            <mat-error *ngIf="form.get('username').errors?.minlength">Username should be minimum {{ form.get('username').errors?.minlength.requiredLength }} characters.</mat-error>
+            <mat-error *ngIf="form.get('username').errors?.shouldBeUnique">Username is already taken.</mat-error>
+            <mat-error *ngIf="form.get('username').errors?.pattern">Username should follow the <a routerLink="/docs/usernames">username rules</a>.</mat-error>
           </mat-form-field>
         </form>
       </div>

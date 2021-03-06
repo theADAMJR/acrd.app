@@ -62,8 +62,8 @@ export abstract class UserConfig implements OnDestroy {
   abstract buildForm(user: any): FormGroup | Promise<FormGroup>;
   
   openSaveChanges() {
-    const snackBarRef = this.saveChanges._openedSnackBarRef;
-    if (!this.form.valid || snackBarRef) return;
+    const snackBarRef = this.saveChanges._openedSnackBarRef;   
+    if (this.form.invalid || snackBarRef) return;
 
     this.saveChanges$ = this.saveChanges.openFromComponent(SaveChangesComponent).afterOpened()
     .subscribe(() => {
@@ -85,9 +85,8 @@ export abstract class UserConfig implements OnDestroy {
    * Send the form data to the API.
    */
   async submit() {
-    console.log(this.form.value);
     try {
-      if (!this.form.valid) return;
+      if (this.form.invalid) return;
 
       this.usersService.user = Object.assign(this.user, this.form.value);
 

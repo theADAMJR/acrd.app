@@ -44,7 +44,7 @@ export class GuildService {
   }
 
   ownsGuild(guildId: string, userId: string) {
-    return this.getGuild(guildId)?.owner._id === userId;
+    return this.getGuild(guildId)?.ownerId === userId;
   }
   
   getSavedLog(id: string): Promise<any> {

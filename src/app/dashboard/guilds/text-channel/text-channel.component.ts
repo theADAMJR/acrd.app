@@ -95,16 +95,16 @@ export class TextChannelComponent implements OnInit {
     });
 
     this.ws.on('MESSAGE_CREATE', async ({ message }) => {      
-      if (message.author._id !== this.userService.user._id)
+      if (message.authorId !== this.userService.user._id)
         try {
           await (this.notificationSound.nativeElement as HTMLAudioElement).play();
         } catch {}
       
-      if (message.channel === this.activeChannelId)
+      if (message.channelId === this.activeChannelId)
         this.messages.push(message);
       else {
-        const messages = this.channelMessages.get(message.channel);
-        this.channelMessages.set(message.channel, messages.concat(message));
+        const messages = this.channelMessages.get(message.channelId);
+        this.channelMessages.set(message.channelId, messages.concat(message));
       }
 
       setTimeout(() => this.scrollToMessage(), 100);
@@ -176,7 +176,7 @@ export class TextChannelComponent implements OnInit {
 
     const message = this.messages[index];
 
-    const isSameAuthor = message.author._id === lastMessage?.author._id;
+    const isSameAuthor = message.authorId === lastMessage?.author._id;
     const duringSameHour = new Date(message.createdAt)
       .getHours() === new Date(lastMessage?.createdAt).getHours();    
 

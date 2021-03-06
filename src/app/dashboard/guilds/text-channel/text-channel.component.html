@@ -42,7 +42,7 @@
         <message-preview
           [message]="message"
           [isExtra]="shouldCombine(i)"
-          [member]="guildService.getMember(guild._id, message.author._id)"
+          [member]="guildService.getMember(guild._id, message.authorId)"
           [guild]="guild"></message-preview>
       </div>
     </div>

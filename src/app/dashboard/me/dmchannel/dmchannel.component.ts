@@ -132,7 +132,7 @@ export class DMChannelComponent implements OnInit {
 
     const message = this.messages[index];
 
-    const isSameAuthor = message.author._id === lastMessage?.author._id;
+    const isSameAuthor = message.authorId === lastMessage?.author._id;
     const duringSameHour = new Date(message.createdAt)
       .getHours() === new Date(lastMessage?.createdAt).getHours();    
 

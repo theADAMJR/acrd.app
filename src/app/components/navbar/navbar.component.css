@@ -4,7 +4,7 @@ nav.navbar {
 
 img:not(.icon) {
   width: 32px;
-  height: 32px;
+  height: auto;
 }
 img.icon {
   height: 32px;

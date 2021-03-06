@@ -20,6 +20,10 @@ export class MessagePreviewComponent {
   @Input() member: any;
 
   embed: MessageEmbed;
+
+  get author() {
+    return this.usersService.getKnown(this.message.authorId);
+  }
   
   get roleColor() {
     if (!this.guild) return;
@@ -103,7 +107,8 @@ export class MessagePreviewComponent {
     private guildService: GuildService,
     private usersService: UsersService,
     private ws: WSService,
-    private perms: PermissionsService) {}
+    private perms: PermissionsService
+  ) {}
 
   removeEmbed() {
     this.message.embed = null;
