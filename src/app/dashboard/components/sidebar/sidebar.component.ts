@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsersService } from '../../../services/users.service';
 import { GuildService } from '../../../services/guild.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { WSService } from 'src/app/services/ws.service';
+import { WSEventArgs, WSService } from 'src/app/services/ws.service';
 import { LogService } from 'src/app/services/log.service';
 import { RTCService } from 'src/app/services/rtc.service';
 import { ChannelService } from 'src/app/services/channel.service';
@@ -34,49 +34,50 @@ export class SidebarComponent implements OnInit {
   }
 
   hookWSEvents() {
-    this.ws.socket.on('GUILD_MEMBER_ADD', async ({ guild, member }) => {
-      if (member.user._id !== this.user._id) return;
-      
-      await this.guildService.updateGuilds();
-    });
+    this.ws
+      .on('ACCEPT_FRIEND_REQUEST', ({ sender, friend, dmChannel }) => {
+        this.channelService.dmChannels.push(dmChannel);
+        
+        const selfUserAcceptedRequest = sender._id === this.user._id;
+        if (selfUserAcceptedRequest) {
+          this.user.friends = sender.friends;
+          this.user.friendRequests = sender.friendRequests;
+        } else {
+          this.user.friends = friend.friends;
+          this.user.friendRequests = friend.friendRequests;        
+        }
+      }, this)
+      .on('GUILD_MEMBER_ADD', async ({ member }) => {
+        if (member.user._id !== this.user._id) return;
+        
+        await this.guildService.updateGuilds();
+      }, this)
+      .on('GUILD_JOIN', async ({ guild }) => {
+        this.guildService.guilds.push(guild);
+      }, this)
+      .on('SEND_FRIEND_REQUEST', ({ sender, friend }) => {
+        this.userService.addKnownUser(friend);
+        this.userService.addKnownUser(sender);
+        
+        const selfUserSentRequest = sender._id === this.user._id;
+        this.user.friendRequests = (selfUserSentRequest)
+          ? sender.friendRequests
+          : friend.friendRequests;
+      }, this)
+      .on('REMOVE_FRIEND', async ({ sender, friend }) => {      
+        const selfUserRemovedFriend = sender._id === this.user._id;
+        this.user.friends = (selfUserRemovedFriend)
+          ? sender.friends
+          : friend.friends;
+      }, this);
 
-    this.ws.socket.on('SEND_FRIEND_REQUEST', ({ sender, friend }) => {
-      this.userService.addKnownUser(friend);
-      this.userService.addKnownUser(sender);
-      
+
+    this.ws.on('CANCEL_FRIEND_REQUEST', ({ sender, friend }) => {      
       const selfUserSentRequest = sender._id === this.user._id;
       this.user.friendRequests = (selfUserSentRequest)
         ? sender.friendRequests
         : friend.friendRequests;
-    });
-
-    this.ws.socket.on('ACCEPT_FRIEND_REQUEST', async ({ sender, friend, dmChannel }) => {
-      this.channelService.dmChannels.push(dmChannel);
-      
-      const selfUserAcceptedRequest = sender._id === this.user._id;
-      if (selfUserAcceptedRequest) {
-        this.user.friends = sender.friends;
-        this.user.friendRequests = sender.friendRequests;
-      } else {
-        this.user.friends = friend.friends;
-        this.user.friendRequests = friend.friendRequests;        
-      }
-    });
-
-    this.ws.socket.on('REMOVE_FRIEND', async ({ sender, friend }) => {      
-      const selfUserRemovedFriend = sender._id === this.user._id;
-      this.user.friends = (selfUserRemovedFriend)
-        ? sender.friends
-        : friend.friends;
-    });
-
-
-    this.ws.socket.on('CANCEL_FRIEND_REQUEST', ({ sender, friend }) => {      
-      const selfUserSentRequest = sender._id === this.user._id;
-      this.user.friendRequests = (selfUserSentRequest)
-        ? sender.friendRequests
-        : friend.friendRequests;
-    });
+    }, this);
   }
 
   toggle() {

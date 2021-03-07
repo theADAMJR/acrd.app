@@ -7,7 +7,7 @@ import { ChannelService } from 'src/app/services/channel.service';
   templateUrl: './me-sidebar.component.html',
   styleUrls: ['./me-sidebar.component.css']
 })
-export class DashboardSidebarComponent implements OnInit {  
+export class MeSidebarComponent implements OnInit {  
   get user() { return this.userService.user; }
 
   constructor(

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
-import { WSService } from 'src/app/services/ws.service';
+import { WSEventArgs, Params, WSService } from 'src/app/services/ws.service';
 
 @Component({
   selector: 'invite-modal',
@@ -18,9 +18,11 @@ export class InviteModalComponent {
     private usersService: UsersService,
     private ws: WSService) {}
 
-  public open() {
-    this.log.info('SEND INVITE_CREATE', 'invt');    
-    this.ws.socket.emit('INVITE_CREATE', { guild: this.guild, user: this.usersService.user });
+  public open() { 
+    this.ws.emit('INVITE_CREATE', {
+      guildId: this.guild._id,
+      userId: this.usersService.user._id,
+    } as Params.InviteCreate);
 
     document.querySelector('.modal-backdrop')?.remove();
 
@@ -28,7 +30,7 @@ export class InviteModalComponent {
   }
 
   public hookWSEvents() {
-    this.ws.socket.on('INVITE_CREATE', ({ invite }) => {
+    this.ws.on('INVITE_CREATE', ({ invite }: Args.InviteCreate) => {
       this.invite = invite;
     });
   }

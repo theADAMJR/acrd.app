@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { DashboardSidebarComponent } from './me-sidebar.component';
+import { MeSidebarComponent } from './me-sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('DashboardSidebarComponent', () => {
-  let component: DashboardSidebarComponent;
-  let fixture: ComponentFixture<DashboardSidebarComponent>;
+  let component: MeSidebarComponent;
+  let fixture: ComponentFixture<MeSidebarComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardSidebarComponent ],
+      declarations: [ MeSidebarComponent ],
       imports: [ HttpClientModule ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardSidebarComponent);
+    fixture = TestBed.createComponent(MeSidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

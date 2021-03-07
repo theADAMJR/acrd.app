@@ -22,7 +22,8 @@ export class MessagePreviewComponent {
   embed: MessageEmbed;
 
   get author() {
-    return this.usersService.getKnown(this.message.authorId);
+    return this.usersService.getKnown(this.message.authorId)
+      ?? this.usersService.getUnknown(this.message.authorId);
   }
   
   get roleColor() {
@@ -98,7 +99,7 @@ export class MessagePreviewComponent {
   }
 
   get canManage() {
-    return this.message.author?._id === this.usersService.user._id
+    return this.author?._id === this.usersService.user._id
       || (this.guild && this.perms.can(this.guild._id, 'MANAGE_MESSAGES'));
   }
 

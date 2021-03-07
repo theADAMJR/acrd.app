@@ -19,7 +19,7 @@ import { SpinnerComponent } from './utils/spinner/spinner.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LogModuleComponent } from './dashboard/modals/log-module/log-module.component';
 import { GuildSidebarComponent } from './dashboard/guilds/guild-sidebar/guild-sidebar.component';
-import { DashboardSidebarComponent } from './dashboard/me/me-sidebar/me-sidebar.component';
+import { MeSidebarComponent } from './dashboard/me/me-sidebar/me-sidebar.component';
 import { MaterialModule } from './material-module';
 import { SaveChangesComponent } from './dashboard/components/save-changes/save-changes.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -87,7 +87,7 @@ export class AlertErrorHandler implements ErrorHandler {
     GuildComponent,
     SpinnerComponent,
     GuildSidebarComponent,
-    DashboardSidebarComponent,
+    MeSidebarComponent,
     SaveChangesComponent,
     NotFoundComponent,
     CleanDateTimePipe,

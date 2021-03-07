@@ -86,7 +86,7 @@ export class TextChannelComponent implements OnInit {
   }
 
   public hookWSEvents() {
-    this.ws.socket.on('TYPING_START', ({ user }) => {
+    this.ws.on('TYPING_START', ({ user }) => {
       
       if (!this.typingUsernames.includes(this.userService.user.username))
         this.typingUsernames.push(user.username);
@@ -110,13 +110,13 @@ export class TextChannelComponent implements OnInit {
       setTimeout(() => this.scrollToMessage(), 100);
     }, this);
     
-    this.ws.socket.on('MESSAGE_UPDATE', (message) => {
+    this.ws.on('MESSAGE_UPDATE', (message) => {
       
       let index = this.messages.findIndex(m => m._id === message._id);
       this.messages[index] = message;      
     });
     
-    this.ws.socket.on('MESSAGE_DELETE', ({ messageId }) => {
+    this.ws.on('MESSAGE_DELETE', ({ messageId }) => {
       
       let index = this.messages.findIndex(m => m._id === messageId);
       this.messages.splice(index, 1);

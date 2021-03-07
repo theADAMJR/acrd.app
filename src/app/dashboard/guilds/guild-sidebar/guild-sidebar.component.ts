@@ -66,10 +66,10 @@ export class GuildSidebarComponent implements OnInit {
       guildMember.user.status = status;
     }, this);
 
-    this.ws.socket.on('GUILD_MEMBER_ADD', async ({ member }) => {
+    this.ws.on('GUILD_MEMBER_ADD', async ({ member }) => {
     });
 
-    this.ws.socket.on('GUILD_UPDATE', ({ guild }) => {
+    this.ws.on('GUILD_UPDATE', ({ guild }) => {
             
       this.guild = guild;
 
@@ -77,14 +77,14 @@ export class GuildSidebarComponent implements OnInit {
       this.guildService.guilds[index] = guild;
     });
 
-    this.ws.socket.on('GUILD_ROLE_UPDATE', ({ role }) => {
+    this.ws.on('GUILD_ROLE_UPDATE', ({ role }) => {
             
       const index = this.guild.roles.findIndex(r => r._id === role._id);
       this.guild.roles[index] = role;
       
     });
 
-    this.ws.socket.on('GUILD_DELETE', async () => {
+    this.ws.on('GUILD_DELETE', async () => {
             
       const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
       this.guildService.guilds.splice(index, 1);

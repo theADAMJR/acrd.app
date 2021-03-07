@@ -27,7 +27,7 @@ export class VoiceChannelComponent implements OnInit {
   }
 
   async hookWSEvents() {
-    this.ws.socket.on('VOICE_STATE_UPDATE', async ({ userId, voice, memberIds }) => {
+    this.ws.on('VOICE_STATE_UPDATE', async ({ userId, voice, memberIds }) => {
       
       if (this.channel._id !== voice.channelId) return;
 
@@ -38,7 +38,7 @@ export class VoiceChannelComponent implements OnInit {
       this.channel.memberIds = memberIds;
     });
 
-    this.ws.socket.on('PRESENCE_UPDATE', ({ userId }) => {
+    this.ws.on('PRESENCE_UPDATE', ({ userId }) => {
       this.rtc.audio.stop(userId);
     });
   }
