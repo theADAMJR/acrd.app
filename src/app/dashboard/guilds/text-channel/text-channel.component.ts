@@ -31,15 +31,27 @@ export class TextChannelComponent implements OnInit {
   emojiPickerOpen = false;
 
   chatBox = new FormControl();
-  typingUsernames = [];
+  typingUserIds = [];
+
+  get typingUsernames() {
+    return this.typingUserIds
+      .map(id => this.userService
+        .getKnown(id).username);
+  }
 
   private lastTypingEmissionAt = null;
 
   get onlineMembers() {
-    return this.guild.members.filter(m => m.user.status !== 'OFFLINE');
+    return this.guild.members.filter(m => {
+      const user = this.userService.getKnown(m.userId);
+      return user.status !== 'OFFLINE';
+    });
   }
   get offlineMembers() {
-    return this.guild.members.filter(m => m.user.status === 'OFFLINE');
+    return this.guild.members.filter(m => {
+      const user = this.userService.getKnown(m.userId);
+      return user.status === 'OFFLINE';
+    });
   }
 
   constructor(
@@ -86,15 +98,14 @@ export class TextChannelComponent implements OnInit {
   }
 
   public hookWSEvents() {
-    this.ws.on('TYPING_START', ({ user }) => {
-      
-      if (!this.typingUsernames.includes(this.userService.user.username))
-        this.typingUsernames.push(user.username);
+    this.ws.on('TYPING_START', ({ userId }) => {
+      const selfIsTyping = this.typingUserIds.includes(this.userService.user._id);
+      if (!selfIsTyping)
+        this.typingUserIds.push(userId);
 
-      setTimeout(() => this.stopTyping(user), 5.1 * 1000);
-    });
-
-    this.ws.on('MESSAGE_CREATE', async ({ message }) => {      
+      setTimeout(() => this.stopTyping(userId), 5.1 * 1000);
+    }, this)
+    .on('MESSAGE_CREATE', async ({ message }) => {      
       if (message.authorId !== this.userService.user._id)
         try {
           await (this.notificationSound.nativeElement as HTMLAudioElement).play();
@@ -108,19 +119,20 @@ export class TextChannelComponent implements OnInit {
       }
 
       setTimeout(() => this.scrollToMessage(), 100);
-    }, this);
-    
-    this.ws.on('MESSAGE_UPDATE', (message) => {
+    }, this)
+    .on('MESSAGE_UPDATE', ({ messageId, partialMessage }) => {
       
-      let index = this.messages.findIndex(m => m._id === message._id);
-      this.messages[index] = message;      
-    });
-    
-    this.ws.on('MESSAGE_DELETE', ({ messageId }) => {
+      let index = this.messages.findIndex(m => m._id === messageId);
+      this.messages[index] = {
+        ...this.messages[index],
+        ...partialMessage,
+      };      
+    }, this)
+    .on('MESSAGE_DELETE', ({ messageId }) => {
       
       let index = this.messages.findIndex(m => m._id === messageId);
       this.messages.splice(index, 1);
-    });
+    }, this);
   }
 
   public emitTypingStart() { 
@@ -129,14 +141,14 @@ export class TextChannelComponent implements OnInit {
 
     this.log.info('SEND TYPING_START', 'text');
     
-    this.ws.socket.emit('TYPING_START',
-      { channel: this.channel, user: this.userService.user });
+    this.ws.emit('TYPING_START',
+      { channelId: this.channel._id, userId: this.userService.user._id });
 
     this.lastTypingEmissionAt = new Date();
   }
-  private stopTyping(user: any) {
-    const index = this.typingUsernames.indexOf(user.username);
-    this.typingUsernames.splice(index, 1);
+  private stopTyping(userId: string) {
+    const index = this.typingUserIds.indexOf(userId);
+    this.typingUserIds.splice(index, 1);
   }
 
   private scrollToMessage(end?: number) {
@@ -157,13 +169,13 @@ export class TextChannelComponent implements OnInit {
     
     (document.querySelector('#chatBox') as HTMLInputElement).value = '';
     
-    this.log.info('SEND MESSAGE_CREATE', 'text');
-    
-    this.ws.socket.emit('MESSAGE_CREATE', {
-      author: this.userService.user,
-      channel: this.channel,
-      content,
-      guild: this.guild
+    this.ws.emit('MESSAGE_CREATE', {
+      partialMessage: {
+        authorId: this.userService.user._id,
+        channelId: this.channel._id,
+        content,
+        guildId: this.guild._id,
+      }
     });
 
     this.stopTyping(this.userService.user);
@@ -176,7 +188,7 @@ export class TextChannelComponent implements OnInit {
 
     const message = this.messages[index];
 
-    const isSameAuthor = message.authorId === lastMessage?.author._id;
+    const isSameAuthor = message.authorId === lastMessage?.authorId;
     const duringSameHour = new Date(message.createdAt)
       .getHours() === new Date(lastMessage?.createdAt).getHours();    
 

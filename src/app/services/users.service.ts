@@ -40,6 +40,7 @@ export class UsersService {
     this.knownUsers = (this.key)
       ? await this.http.get(`${this.endpoint}/known`, this.headers).toPromise() as any
       : [];
+    this.knownUsers.push(this.user);
   }
 
   public get(id: string): Promise<any> {

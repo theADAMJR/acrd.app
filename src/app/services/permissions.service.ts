@@ -13,7 +13,7 @@ export class PermissionsService {
       ?? TextChannelPermission[required]
       ?? VoiceChannelPermission[required];
 
-    return this.guildService.ownsGuild(guildId, member.user._id)
+    return this.guildService.ownsGuild(guildId, member.userId)
       || Boolean(role.permissions & permission);
   }
   getHighestRole(member: any) {

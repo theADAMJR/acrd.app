@@ -40,7 +40,7 @@ export class GuildService {
   getMember(guildId: string, userId: string) {
     return this
       .getGuild(guildId)?.members
-      .find(m => m.user._id === userId);
+      .find(m => m.userId === userId);
   }
 
   ownsGuild(guildId: string, userId: string) {

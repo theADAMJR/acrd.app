@@ -43,9 +43,9 @@ export class CreateGuildModalComponent {
 
   joinGuild() {
     this.processing = true;
-    this.ws.socket.emit('GUILD_MEMBER_ADD', {
+    this.ws.emit('GUILD_MEMBER_ADD', {
       inviteCode: this.inviteInput.nativeElement.value,
-      user: this.userService.user
+      userId: this.userService.user._id
     });
   }
 }

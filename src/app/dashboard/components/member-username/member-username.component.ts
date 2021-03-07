@@ -17,7 +17,7 @@ export class MemberUsernameComponent implements OnInit {
   @Output() memberKick = new EventEmitter<any>();
 
   get member() {
-    return this.guild?.members.find(m => m.user._id === this.user._id);
+    return this.guild?.members.find(m => m.userId === this.user._id);
   }
   get roleColor() {
     if (!this.guild) return null;

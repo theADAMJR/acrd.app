@@ -6,6 +6,7 @@ import { WSService } from 'src/app/services/ws.service';
 import { GuildService } from '../../../services/guild.service';
 import { InviteModalComponent } from '../../modals/invite-modal/invite-modal.component';
 import { CreateChannelModalComponent } from '../../modals/create-channel-modal/create-channel-modal.component';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'guild-sidebar',
@@ -29,11 +30,13 @@ export class GuildSidebarComponent implements OnInit {
   }
 
   constructor(
-    private guildService: GuildService,
     private route: ActivatedRoute,
+    private guildService: GuildService,
+    public perms: PermissionsService,
     private router: Router,
+    private usersService: UsersService,
     private ws: WSService,
-    public perms: PermissionsService) {}
+  ) {}
 
   public async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
@@ -58,39 +61,35 @@ export class GuildSidebarComponent implements OnInit {
 
     this.ws.on('PRESENCE_UPDATE', ({ userId, status }) => {
       const guildMember = this.guild.members
-        .find(m => m.user._id === userId);
+        .find(m => m.userId === userId);
       if (!guildMember) return;
-
-      console.log(`${guildMember.user.username} - ${guildMember.user.status}`);
       
-      guildMember.user.status = status;
+      const user = this.usersService.getKnown(userId);
+      user.status = status;
     }, this);
 
-    this.ws.on('GUILD_MEMBER_ADD', async ({ member }) => {
-    });
-
-    this.ws.on('GUILD_UPDATE', ({ guild }) => {
-            
-      this.guild = guild;
+    this.ws.on('GUILD_UPDATE', ({ guildId, partialGuild }) => {
+      this.guild = {
+        ...this.guild,
+        ...partialGuild
+      };
 
       const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
-      this.guildService.guilds[index] = guild;
-    });
-
-    this.ws.on('GUILD_ROLE_UPDATE', ({ role }) => {
-            
-      const index = this.guild.roles.findIndex(r => r._id === role._id);
-      this.guild.roles[index] = role;
-      
-    });
-
-    this.ws.on('GUILD_DELETE', async () => {
-            
+      this.guildService.guilds[index] = this.guild;
+    }, this)
+    .on('GUILD_ROLE_UPDATE', ({ roleId, partialRole }) => {
+      const index = this.guild.roles.findIndex(r => r._id === roleId);
+      this.guild.roles[index] = {
+        ...this.guild.roles[index],
+        ...partialRole,
+      };
+    }, this)
+    .on('GUILD_DELETE', async () => {
       const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
       this.guildService.guilds.splice(index, 1);
 
       await this.router.navigate(['/channels/@me']);
-    });
+    }, this);
   }
 
   toggleMemberList() {

@@ -38,7 +38,7 @@ addFriendForm = new FormGroup({
     if (this.addFriendForm.invalid) return;
 
     this.log.info('SEND SEND_FRIEND_REQUEST', 'over');
-    this.ws.socket.emit('SEND_FRIEND_REQUEST', { 
+    this.ws.emit('SEND_FRIEND_REQUEST', { 
       senderId: this.user._id, 
       friendUsername: this.addFriendForm.value.username
     });

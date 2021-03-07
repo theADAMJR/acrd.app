@@ -48,7 +48,7 @@ export class SidebarComponent implements OnInit {
         }
       }, this)
       .on('GUILD_MEMBER_ADD', async ({ member }) => {
-        if (member.user._id !== this.user._id) return;
+        if (member.userId !== this.user._id) return;
         
         await this.guildService.updateGuilds();
       }, this)
@@ -87,7 +87,7 @@ export class SidebarComponent implements OnInit {
   }
 
   async disconnect() {
-    this.ws.socket.emit('VOICE_STATE_UPDATE', {
+    this.ws.emit('VOICE_STATE_UPDATE', {
       userId: this.user._id,
       voice: {
         ...this.user.voice,
@@ -105,7 +105,9 @@ export class SidebarComponent implements OnInit {
       ? this.rtc.muteMicrophone()
       : this.rtc.unmuteMicrophone();
 
-    this.log.info('SEND VOICE_STATE_UPDATE', 'vc');
-    this.ws.socket.emit('VOICE_STATE_UPDATE', { user: this.user });
+    this.ws.emit('VOICE_STATE_UPDATE', {
+      voice: this.user.voice,
+      userId: this.user._id
+    });
   }
 }

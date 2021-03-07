@@ -34,17 +34,17 @@ export class FriendsListComponent {
 
   acceptFriendRequest(friendId: string) {
     this.log.info('SEND ACCEPT_FRIEND_REQUEST', 'over');
-    this.ws.socket.emit('ACCEPT_FRIEND_REQUEST', { senderId: friendId, friendId: this.userService.user._id });
+    this.ws.emit('ACCEPT_FRIEND_REQUEST', { senderId: friendId, friendId: this.userService.user._id });
   }
 
   cancelFriendRequest(friendId: string) {
     this.log.info('SEND CANCEL_FRIEND_REQUEST', 'over');
-    this.ws.socket.emit('CANCEL_FRIEND_REQUEST', { senderId: this.userService.user._id, friendId });
+    this.ws.emit('CANCEL_FRIEND_REQUEST', { senderId: this.userService.user._id, friendId });
   }
 
   removeFriend(friendId: string) {
     this.log.info('SEND REMOVE_FRIEND', 'over');
-    this.ws.socket.emit('REMOVE_FRIEND', { senderId: this.userService.user._id, friendId });
+    this.ws.emit('REMOVE_FRIEND', { senderId: this.userService.user._id, friendId });
   }
 }
 

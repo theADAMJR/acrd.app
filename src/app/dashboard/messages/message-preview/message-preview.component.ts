@@ -70,7 +70,7 @@ export class MessagePreviewComponent {
 
   get processed() {
     const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
-    const getUser = (id: string) => this.guild?.members.find(m => m.user._id === id)?.user;
+    const getUser = (id: string) => this.guild?.members.find(m => m.userId === id)?.user;
 
     const getMention = (html: string, condition: boolean) => {
       return (condition)
@@ -113,14 +113,17 @@ export class MessagePreviewComponent {
 
   removeEmbed() {
     this.message.embed = null;
-
-    this.log.info('SEND MESSAGE_UPDATE', 'msg');
-    this.ws.socket.emit('MESSAGE_UPDATE', { message: this.message, withEmbed: false });
+    
+    this.ws.emit('MESSAGE_UPDATE', {
+      messageId: this.message._id,
+      partialMessage: this.message,
+      withEmbed: false
+    });
   }
 
   delete() {
     this.log.info('SEND MESSAGE_DELETE', 'msg');
-    this.ws.socket.emit('MESSAGE_DELETE', this.message);
+    this.ws.emit('MESSAGE_DELETE', this.message);
 
     document
       .querySelector(`#message${this.message._id}`)

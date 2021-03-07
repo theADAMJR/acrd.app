@@ -7,7 +7,7 @@
         <member-username
           *ngFor="let member of onlineMembers"
           class="cursor-pointer"
-          [user]="member.user"
+          [user]="userService.getKnown(member.userId)"
           [guild]="guild"></member-username>
       </div>
 
@@ -19,7 +19,7 @@
           *ngFor="let member of offlineMembers"
           (memberKick)="kickMember($event)"
           class="cursor-pointer"
-          [user]="member.user"
+          [user]="userService.getKnown(member.userId)"
           [guild]="guild"></member-username>
       </div>
     </div>

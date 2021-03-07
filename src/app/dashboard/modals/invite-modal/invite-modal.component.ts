@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
-import { WSEventArgs, Params, WSService } from 'src/app/services/ws.service';
+import { WSService } from 'src/app/services/ws.service';
 
 @Component({
   selector: 'invite-modal',
@@ -22,7 +22,8 @@ export class InviteModalComponent {
     this.ws.emit('INVITE_CREATE', {
       guildId: this.guild._id,
       userId: this.usersService.user._id,
-    } as Params.InviteCreate);
+      options: {} // TODO: add invite options
+    });
 
     document.querySelector('.modal-backdrop')?.remove();
 
@@ -30,9 +31,9 @@ export class InviteModalComponent {
   }
 
   public hookWSEvents() {
-    this.ws.on('INVITE_CREATE', ({ invite }: Args.InviteCreate) => {
+    this.ws.on('INVITE_CREATE', ({ invite }) => {
       this.invite = invite;
-    });
+    }, this);
   }
 
   public copyToClipboard() {

@@ -14,17 +14,20 @@ export class WSService {
 
   public on<T extends keyof WSEventArgs>(name: T, callback: WSEventArgs[T], component: any): this {
     const listened = this.getListened(typeof component);
-    if (listened.includes(name)) return;
+    if (listened.includes(name)) {
+      this.log.warning(`Refusing to listen to ${name} more than once, for ${component}`, 'ws');
+      return this;
+    }
     listened.push(name);
 
+    this.socket.on(name, () => this.log.info(`RECEIVE ${name}`, 'ws'));
     this.socket.on(name, callback);
-
     this.socket.on('message', (content: string) => console.log(content));
 
     return this;
   }
 
-  public emit<T extends keyof WSEventParams>(name: T, params: WSEventParams) {
+  public emit<T extends keyof WSEventParams>(name: T, params: WSEventParams[T]) {
     this.log.info(`SEND ${name}`, 'ws');
     this.socket.emit(name, params);
   }
@@ -60,27 +63,27 @@ export interface WSEventArgs {
   'VOICE_STATE_UPDATE': (args: Args.VoiceStateUpdate) => any;
 }
 export interface WSEventParams {
-  'ACCEPT_FRIEND_REQUEST': (params: Params.AcceptFriendRequest) => any;
-  'CANCEL_FRIEND_REQUEST': (params: Params.CancelFriendRequest) => any;
-  'CHANNEL_CREATE': (params: Params.ChannelCreate) => any;
-  'GUILD_DELETE': (params: Params.GuildDelete) => any;
-  'GUILD_MEMBER_ADD': (params: Params.GuildMemberAdd) => any;
-  'GUILD_MEMBER_UPDATE': (params: Params.GuildMemberUpdate) => any;
-  'GUILD_ROLE_CREATE': (params: Params.GuildRoleCreate) => any;
-  'GUILD_ROLE_DELETE': (params: Params.GuildRoleDelete) => any;
-  'GUILD_ROLE_UPDATE': (params: Params.GuildRoleUpdate) => any;
-  'GUILD_UPDATE': (params: Params.GuildUpdate) => any;
-  'INVITE_CREATE': (params: Params.InviteCreate) => any;
-  'MESSAGE_CREATE': (params: Params.MessageCreate) => any;
-  'MESSAGE_DELETE': (params: Params.MessageDelete) => any;
-  'MESSAGE_UPDATE': (params: Params.MessageUpdate) => any;
-  'READY': (params: Params.Ready) => any;
-  'REMOVE_FRIEND': (params: Params.RemoveFriend) => any;
-  'SEND_FRIEND_REQUEST': (params: Params.SendFriendRequest) => any;
-  'TYPING_START': (params: Params.TypingStart) => any;
-  'USER_UPDATE': (params: Params.UserUpdate) => any;
-  'VOICE_SERVER_UPDATE': (params: Params.VoiceServerUpdate) => any;
-  'VOICE_STATE_UPDATE': (params: Params.VoiceStateUpdate) => any;
+  'ACCEPT_FRIEND_REQUEST': Params.AcceptFriendRequest;
+  'CANCEL_FRIEND_REQUEST': Params.CancelFriendRequest;
+  'CHANNEL_CREATE': Params.ChannelCreate;
+  'GUILD_DELETE': Params.GuildDelete;
+  'GUILD_MEMBER_ADD': Params.GuildMemberAdd;
+  'GUILD_MEMBER_UPDATE': Params.GuildMemberUpdate;
+  'GUILD_ROLE_CREATE': Params.GuildRoleCreate;
+  'GUILD_ROLE_DELETE': Params.GuildRoleDelete;
+  'GUILD_ROLE_UPDATE': Params.GuildRoleUpdate;
+  'GUILD_UPDATE': Params.GuildUpdate;
+  'INVITE_CREATE': Params.InviteCreate;
+  'MESSAGE_CREATE': Params.MessageCreate;
+  'MESSAGE_DELETE': Params.MessageDelete;
+  'MESSAGE_UPDATE': Params.MessageUpdate;
+  'READY': Params.Ready;
+  'REMOVE_FRIEND': Params.RemoveFriend;
+  'SEND_FRIEND_REQUEST': Params.SendFriendRequest;
+  'TYPING_START': Params.TypingStart;
+  'USER_UPDATE': Params.UserUpdate;
+  'VOICE_SERVER_UPDATE': Params.VoiceServerUpdate;
+  'VOICE_STATE_UPDATE': Params.VoiceStateUpdate;
 }
 
 // REMEMBER: Sync types below with API project.
@@ -93,7 +96,7 @@ export namespace Params {
   export interface CancelFriendRequest extends AcceptFriendRequest {}
   export interface ChannelCreate {
     guildId: string;
-    partialChannel: any;
+    partialChannel: Types.PartialChannel;
   }
   export interface GuildDelete {
     guildId: string;
@@ -103,20 +106,26 @@ export namespace Params {
     userId: string;
   }
   export interface GuildMemberUpdate {
-    member: any;
+    guildId: string;
+    partialMember: Types.PartialMember;
+    userId: string;
   }
   export interface GuildRoleCreate {
-    partialRole: any;
+    guildId: string;
+    partialRole: Types.PartialRole;
   }
   export interface GuildRoleDelete {
     roleId: string;
     guildId: string;
   }
   export interface GuildRoleUpdate {
-    role: any;
+    roleId: string;
+    guildId: string;
+    partialRole: Types.PartialRole;
   }
   export interface GuildUpdate {
-    guild: any;
+    guildId: string;
+    partialGuild: Types.PartialGuild;
   }
   export interface InviteCreate {
     guildId: string;
@@ -124,7 +133,7 @@ export namespace Params {
     userId: string;
   }
   export interface MessageCreate {
-    partialMessage: any;
+    partialMessage: Types.PartialMessage;
   }
   export interface MessageDelete {
     channelId: string;
@@ -132,10 +141,11 @@ export namespace Params {
   }
   export interface MessageUpdate {
     messageId: string;
+    partialMessage: Types.PartialMessage;
     withEmbed: boolean;
   }
   export interface MessageCreate {
-    partialMessage: any;
+    partialMessage: Types.PartialMessage;
   }
   export interface Ready {
     key: string;
@@ -155,7 +165,7 @@ export namespace Params {
     userId: string;
   }
   export interface UserUpdate {
-    partialUser: any;
+    partialUser: Types.PartialUser;
     userId: string;
   }
   export interface VoiceStateUpdate {
@@ -187,7 +197,8 @@ export namespace Args {
     member: any;
   }
   export interface GuildMemberUpdate {
-    member: any;
+    partialMember: any;
+    userId: string;
   }
   export interface GuildRoleCreate {
     role: any;
@@ -196,10 +207,12 @@ export namespace Args {
     roleId: string;
   }
   export interface GuildRoleUpdate {
-    role: any;
+    roleId: string;
+    partialRole: any;
   }
   export interface GuildUpdate {
-    guild: any;
+    guildId: any;
+    partialGuild: Types.PartialGuild;
   }
   export interface InviteCreate {
     invite: any;
@@ -211,7 +224,8 @@ export namespace Args {
     messageId: string;
   }
   export interface MessageUpdate {
-    message: any;
+    messageId: string;
+    partialMessage: any;
   }
   export interface PresenceUpdate {
     userId: string;
@@ -226,8 +240,43 @@ export namespace Args {
     userId: string;
   }
   export interface UserUpdate {
-    user: any;
+    partialUser: any;
   }
-  export interface VoiceStateUpdate {}
+  export interface VoiceStateUpdate {
+    userId: string;
+    voice: any;
+    memberIds: string[];
+  }
   export interface VoiceServerUpdate {}
+}
+
+export namespace Types {
+  export interface PartialChannel {
+    name: string;
+    type: any;
+  }
+  export interface PartialGuild {
+    name: string;
+  }
+  export interface PartialMember {
+    
+  }
+  export interface PartialMessage {
+    authorId: string;
+    channelId: string;
+    content: string;
+    guildId?: string;
+  }
+  export interface PartialRole {
+    name: string;
+    color: string;
+    hoisted: boolean;
+    mentionable: boolean;
+    permissions: number;
+    position: number;
+  }
+  export interface PartialUser {
+    avatarURL: string;
+    username: string;
+  }
 }

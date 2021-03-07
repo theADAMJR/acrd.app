@@ -97,7 +97,10 @@ export abstract class ModuleConfig implements OnDestroy {
       this.guildService.guilds[index] = this.guild;
       
       this.log.info('SEND GUILD_UPDATE', 'mcnfg');
-      this.ws.socket.emit('GUILD_UPDATE', { guild: this.guild });
+      this.ws.emit('GUILD_UPDATE', {
+        guildId: this.guild,
+        partialGuild: this.guild
+      });
     } catch {
       alert('An error occurred when submitting the form - check console');
     }
@@ -122,7 +125,7 @@ export abstract class ModuleConfig implements OnDestroy {
     await this.guildService.deleteGuild(this.guild._id);
 
     this.log.info('SEND GUILD_DELETE', 'gset');
-    this.ws.socket.emit('GUILD_DELETE', { guild: this.guildId });
+    this.ws.emit('GUILD_DELETE', { guildId: this.guildId });
 
     const index = this.guildService.guilds.findIndex(g => g._id === this.guildId);
     this.guildService.guilds.splice(index, 1);

@@ -34,13 +34,11 @@ export class VoiceChannelComponent implements OnInit {
       const user = this.userService.user._id;
       if (user._id === userId)
         user.voice = voice;        
-
       this.channel.memberIds = memberIds;
-    });
-
-    this.ws.on('PRESENCE_UPDATE', ({ userId }) => {
+    }, this)
+    .on('PRESENCE_UPDATE', ({ userId }) => {
       this.rtc.audio.stop(userId);
-    });
+    }, this);
   }
   
   async join() {
@@ -55,7 +53,7 @@ export class VoiceChannelComponent implements OnInit {
     };
 
     this.log.info('SEND VOICE_STATE_UPDATE', 'vc');
-    this.ws.socket.emit('VOICE_STATE_UPDATE', {
+    this.ws.emit('VOICE_STATE_UPDATE', {
       userId: user._id,
       voice: user.voice,
     });
@@ -63,6 +61,6 @@ export class VoiceChannelComponent implements OnInit {
 
   getUser(memberId: string) {    
     return this.guild.members
-      .find(m => m.user._id === memberId)?.user;
+      .find(m => m.userId === memberId)?.user;
   }
 }

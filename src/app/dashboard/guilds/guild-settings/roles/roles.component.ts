@@ -62,28 +62,26 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
   private hookWSEvents() {
     this.ws.on('GUILD_ROLE_CREATE', async ({ role }) => {
-            
       this.guild.roles.push(role);
       this.originalGuild = {...this.guild};
 
       await this.selectRole(role);
-    });
-
-    this.ws.on('GUILD_ROLE_DELETE', async ({ roleId }) => {
-      
+    }, this)
+    .on('GUILD_ROLE_DELETE', async ({ roleId }) => {
       const index = this.guild.roles.findIndex(r => r._id === roleId);
       this.guild.roles.splice(index, 1);
       this.originalGuild = {...this.guild};
 
       await this.selectRole(this.guild.roles[0]);
-    });
-
-    this.ws.on('GUILD_ROLE_UPDATE', ({ role }) => {
-      
-      const index = this.guild.roles.findIndex(r => r._id === role._id);
-      this.guild.roles[index] = role;
+    }, this)
+    .on('GUILD_ROLE_UPDATE', ({ roleId, partialRole }) => {
+      const index = this.guild.roles.findIndex(r => r._id === roleId);
+      this.guild.roles[index] = {
+        ...this.guild.roles[index],
+        ...partialRole
+      };
       this.originalGuild = {...this.guild};
-    });
+    }, this);
   }
 
   async selectRole(role: any) {
@@ -160,7 +158,11 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       if (!this.form.valid) return;
 
       this.log.info('SEND GUILD_ROLE_UPDATE', 'mcnfg');
-      this.ws.socket.emit('GUILD_ROLE_UPDATE', { role: this.selectedRole });
+      this.ws.emit('GUILD_ROLE_UPDATE', {
+        roleId: this.selectedRole,
+        guildId: this.guildId,
+        partialRole: this.form.value,
+      });
     } catch {
       alert('An error occurred when submitting the form - check console');
     }
@@ -168,12 +170,17 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
   newRole() {
     this.log.info('SEND GUILD_ROLE_CREATE', 'mcnfg');
-    this.ws.socket.emit('GUILD_ROLE_CREATE',
-      { partialRole: { ...this.selectedRole, name: 'New Role' } });
+    this.ws.emit('GUILD_ROLE_CREATE', {
+      guildId: this.guildId,
+      partialRole: {
+        ...this.form.value,
+        name: 'New Role'
+      },
+    });
   }
 
   deleteRole() {
     this.log.info('SEND GUILD_ROLE_DELETE', 'mcnfg');
-    this.ws.socket.emit('GUILD_ROLE_DELETE', ({ roleId: this.selectedRole._id, guildId: this.guildId }));
+    this.ws.emit('GUILD_ROLE_DELETE', ({ roleId: this.selectedRole._id, guildId: this.guildId }));
   }
 }

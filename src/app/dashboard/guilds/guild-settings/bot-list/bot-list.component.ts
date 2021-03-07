@@ -41,7 +41,7 @@ export class BotListComponent extends ModuleConfig implements OnInit {
     this.selectBot(this.bots[0]);
 
     this.botInGuild = this.selectedBot
-      && this.guild.members.some(m => m.user._id === this.selectedBot._id);;
+      && this.guild.members.some(m => m.userId === this.selectedBot._id);;
     
     this.hookWSEvents();
   }
