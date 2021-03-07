@@ -51,8 +51,7 @@ export interface WSEventArgs {
   'MESSAGE_CREATE': (args: Args.MessageCreate) => any;
   'MESSAGE_DELETE': (args: Args.MessageDelete) => any;
   'MESSAGE_UPDATE': (args: Args.MessageUpdate) => any;
-  'PRESENCE_UPDATE': (params: Params.PresenceUpdate) => any;
-  'READY': (args: Args.Ready) => any;
+  'PRESENCE_UPDATE': (params: Args.PresenceUpdate) => any;
   'REMOVE_FRIEND': (args: Args.RemoveFriend) => any;
   'SEND_FRIEND_REQUEST': (args: Args.SendFriendRequest) => any;
   'TYPING_START': (args: Args.TypingStart) => any;
