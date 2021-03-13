@@ -13,7 +13,7 @@ export class LogService {
   }
 
   warning(message: string, src?: string) {
-    console.log(`%c[${this.hhMMSS}]`, 'color: green',
-    `%c[${src?.toUpperCase() ?? '???'}]`, 'color: yellow', `${message}`);
+    console.log(`%c[${this.hhMMSS}]`, 'color: yellow',
+    `%c[${src?.toUpperCase() ?? '???'}]`, `${message}`);
   }
 }

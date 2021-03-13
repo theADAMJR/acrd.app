@@ -52,7 +52,7 @@
         emoji="joy"
         title="Pick an Emoji"
         (emojiClick)="addEmoji($event)"
-        [style.display]="emojiPickerOpen ? 'block' : 'none'"></emoji-mart>
+        [ngStyle]="{ display: (emojiPickerOpen) ? 'block' : 'none' }"></emoji-mart>
 
       <mat-form-field
         autoFocus

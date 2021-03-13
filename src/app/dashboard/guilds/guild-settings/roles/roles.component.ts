@@ -5,8 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModuleConfig } from 'src/app/dashboard/components/module-config';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
-import { GeneralPermission, Permission, PermissionsService, TextChannelPermission, VoiceChannelPermission } from 'src/app/services/permissions.service';
 import { WSService } from 'src/app/services/ws.service';
+import { PermissionTypes } from '../../../../types/entity-types';
 
 @Component({
   selector: 'app-roles-component',
@@ -36,7 +36,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
           .get(key).value;
 
         permissions |= (hasPermission)
-          ? GeneralPermission[key] || TextChannelPermission[key] || VoiceChannelPermission[key]
+          ? PermissionTypes.General[key] || PermissionTypes.Text[key] || PermissionTypes.Voice[key]
           : 0;
       }
 
@@ -94,34 +94,34 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       return new FormGroup({});
 
     const role = guild.roles.find(r => r._id === this.selectedRole?._id);
-    const hasPermission = (perm: Permission) => Boolean(role?.permissions & perm);
+    const hasPermission = (perm: PermissionTypes.Permission) => Boolean(role?.permissions & perm);
 
     this.permissionsForm = new FormGroup({
       general: new FormGroup({
-        ADMINISTRATOR: new FormControl(hasPermission(GeneralPermission.ADMINISTRATOR)),
-        VIEW_AUDIT_LOG: new FormControl(hasPermission(GeneralPermission.VIEW_AUDIT_LOG)),
-        MANAGE_GUILD: new FormControl(hasPermission(GeneralPermission.MANAGE_GUILD)),
-        MANAGE_ROLES: new FormControl(hasPermission(GeneralPermission.MANAGE_ROLES)),
-        MANAGE_CHANNELS: new FormControl(hasPermission(GeneralPermission.MANAGE_CHANNELS)),
-        BAN_MEMBERS: new FormControl(hasPermission(GeneralPermission.BAN_MEMBERS)),
-        KICK_MEMBERS: new FormControl(hasPermission(GeneralPermission.KICK_MEMBERS)),
-        CREATE_INVITE: new FormControl(hasPermission(GeneralPermission.CREATE_INVITE)),
-        CHANGE_NICKNAME: new FormControl(hasPermission(GeneralPermission.CHANGE_NICKNAME)),
-        MANAGE_NICKNAMES: new FormControl(hasPermission(GeneralPermission.MANAGE_NICKNAMES)),
-        VIEW_CHANNELS: new FormControl(hasPermission(GeneralPermission.VIEW_CHANNELS))
+        ADMINISTRATOR: new FormControl(hasPermission(PermissionTypes.General.ADMINISTRATOR)),
+        VIEW_AUDIT_LOG: new FormControl(hasPermission(PermissionTypes.General.VIEW_AUDIT_LOG)),
+        MANAGE_GUILD: new FormControl(hasPermission(PermissionTypes.General.MANAGE_GUILD)),
+        MANAGE_ROLES: new FormControl(hasPermission(PermissionTypes.General.MANAGE_ROLES)),
+        MANAGE_CHANNELS: new FormControl(hasPermission(PermissionTypes.General.MANAGE_CHANNELS)),
+        BAN_MEMBERS: new FormControl(hasPermission(PermissionTypes.General.BAN_MEMBERS)),
+        KICK_MEMBERS: new FormControl(hasPermission(PermissionTypes.General.KICK_MEMBERS)),
+        CREATE_INVITE: new FormControl(hasPermission(PermissionTypes.General.CREATE_INVITE)),
+        CHANGE_NICKNAME: new FormControl(hasPermission(PermissionTypes.General.CHANGE_NICKNAME)),
+        MANAGE_NICKNAMES: new FormControl(hasPermission(PermissionTypes.General.MANAGE_NICKNAMES)),
+        VIEW_CHANNELS: new FormControl(hasPermission(PermissionTypes.General.VIEW_CHANNELS))
       }),
       text: new FormGroup({
-        SEND_MESSAGES: new FormControl(hasPermission(TextChannelPermission.SEND_MESSAGES)),
-        READ_MESSAGE_HISTORY: new FormControl(hasPermission(TextChannelPermission.READ_MESSAGE_HISTORY)),
-        MENTION_EVERYONE: new FormControl(hasPermission(TextChannelPermission.MENTION_EVERYONE)),
-        MANAGE_MESSAGES: new FormControl(hasPermission(TextChannelPermission.MANAGE_MESSAGES)),
-        ADD_REACTIONS: new FormControl(hasPermission(TextChannelPermission.ADD_REACTIONS)),
+        SEND_MESSAGES: new FormControl(hasPermission(PermissionTypes.Text.SEND_MESSAGES)),
+        READ_MESSAGE_HISTORY: new FormControl(hasPermission(PermissionTypes.Text.READ_MESSAGE_HISTORY)),
+        MENTION_EVERYONE: new FormControl(hasPermission(PermissionTypes.Text.MENTION_EVERYONE)),
+        MANAGE_MESSAGES: new FormControl(hasPermission(PermissionTypes.Text.MANAGE_MESSAGES)),
+        ADD_REACTIONS: new FormControl(hasPermission(PermissionTypes.Text.ADD_REACTIONS)),
       }),
       voice: new FormGroup({
-        CONNECT: new FormControl(hasPermission(VoiceChannelPermission.CONNECT)),
-        MOVE_MEMBERS: new FormControl(hasPermission(VoiceChannelPermission.MOVE_MEMBERS)),
-        MUTE_MEMBERS: new FormControl(hasPermission(VoiceChannelPermission.MUTE_MEMBERS)),
-        SPEAK: new FormControl(hasPermission(VoiceChannelPermission.SPEAK))
+        CONNECT: new FormControl(hasPermission(PermissionTypes.Voice.CONNECT)),
+        MOVE_MEMBERS: new FormControl(hasPermission(PermissionTypes.Voice.MOVE_MEMBERS)),
+        MUTE_MEMBERS: new FormControl(hasPermission(PermissionTypes.Voice.MUTE_MEMBERS)),
+        SPEAK: new FormControl(hasPermission(PermissionTypes.Voice.SPEAK))
       })
     });
     this.permissionsForm.valueChanges

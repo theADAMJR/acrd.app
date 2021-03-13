@@ -55,8 +55,7 @@ export class ChannelService {
         .get(`${environment.endpoint}/channels/${guildId}/${channelId}?start=${options?.start ?? 0}&end=${options?.end ?? 25}`,
           { headers: { Authorization: this.key } }).toPromise() as any;
       messageMap.set(channelId, messages);
-    }
-    
+    }    
     return messages;
   }
   public getMessageMap(guildId: string) {

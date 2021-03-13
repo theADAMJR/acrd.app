@@ -20,26 +20,25 @@ export class TextChannelComponent implements OnInit {
   channel: any;
   guild: any;
 
-  get channelMessages() {
-    return this.channelService.getMessageMap(this.guild._id);
-  }
-  get messages() {
-    return this.channelMessages.get(this.activeChannelId);
-  }
-
-  loadedAllMessages = false;  
+  messages = [];
   emojiPickerOpen = false;
 
   chatBox = new FormControl();
   typingUserIds = [];
 
-  get typingUsernames() {
+  public get typingUsernames() {
     return this.typingUserIds
       .map(id => this.userService
         .getKnown(id).username);
   }
+  public get channelMessages() {
+    return this.channelService.getMessageMap(this.guild._id);
+  }
+  public get loadedAllMessages() {
+    return this.messages.length % 25 === 0;
+  }
 
-  private lastTypingEmissionAt = null;
+  private lastTypingEventAt = null;
 
   get onlineMembers() {
     return this.guild.members.filter(m => {
@@ -72,16 +71,10 @@ export class TextChannelComponent implements OnInit {
       const channelId = this.activeChannelId = paramMap.get('channelId');
   
       this.guild = this.guildService.getGuild(guildId);
-      this.channel = this.guild?.channels
-        .find(c => c._id === channelId);
+      this.channel = this.guild?.channels.find(c => c._id === channelId);
+      this.messages = await this.channelService.getMessages(guildId, channelId);      
       
       document.title = `#${this.channel.name}`;
-  
-      this.channelMessages.set(
-        this.activeChannelId,
-        await this.channelService.getMessages(guildId, channelId)
-      );
-      this.loadedAllMessages = this.messages.length < 25;
       
       setTimeout(() => this.scrollToMessage(), 100);
       
@@ -126,7 +119,7 @@ export class TextChannelComponent implements OnInit {
       this.messages[index] = {
         ...this.messages[index],
         ...partialMessage,
-      };      
+      };
     }, this)
     .on('MESSAGE_DELETE', ({ messageId }) => {
       
@@ -136,7 +129,7 @@ export class TextChannelComponent implements OnInit {
   }
 
   public emitTypingStart() { 
-    const sinceLastTyped = new Date().getTime() - this.lastTypingEmissionAt?.getTime();    
+    const sinceLastTyped = new Date().getTime() - this.lastTypingEventAt?.getTime();    
     if (sinceLastTyped < 5 * 1000) return;
 
     this.log.info('SEND TYPING_START', 'text');
@@ -144,7 +137,7 @@ export class TextChannelComponent implements OnInit {
     this.ws.emit('TYPING_START',
       { channelId: this.channel._id, userId: this.userService.user._id });
 
-    this.lastTypingEmissionAt = new Date();
+    this.lastTypingEventAt = new Date();
   }
   private stopTyping(userId: string) {
     const index = this.typingUserIds.indexOf(userId);
@@ -164,7 +157,7 @@ export class TextChannelComponent implements OnInit {
       : combinedHeight;
   }
 
-  chat(content: string) {
+  public chat(content: string) {
     if (!content.trim()) return;
     
     (document.querySelector('#chatBox') as HTMLInputElement).value = '';
@@ -181,7 +174,7 @@ export class TextChannelComponent implements OnInit {
     this.stopTyping(this.userService.user);
   }
   
-  shouldCombine(index: number) {
+  public shouldCombine(index: number) {
     const lastMessage = (index) ? this.messages[Math.max(0, index - 1)] : null;
     if (!lastMessage)
       return false;
@@ -195,7 +188,7 @@ export class TextChannelComponent implements OnInit {
     return isSameAuthor && duringSameHour;
   }
 
-  async loadMoreMessages() {
+  public async loadMoreMessages() {
     if (this.loadedAllMessages) return;
 
     this.log.info('Loading more messages', 'text');
@@ -208,7 +201,6 @@ export class TextChannelComponent implements OnInit {
     
     this.scrollToMessage(this.messages.length);
 
-    this.loadedAllMessages = moreMessages.length < this.messages.length + 25;
     this.channelMessages.set(
       this.activeChannelId, 
       moreMessages
@@ -218,19 +210,20 @@ export class TextChannelComponent implements OnInit {
   }
 
   // emoji picker
-  addEmoji({ emoji }) {
+  public addEmoji({ emoji }) {
     console.log(emoji.native);
     (document.querySelector('#chatBox') as HTMLInputElement).value += emoji.native;
   }
 
-  onClick({ path }) {
+  public onClick({ path }) {
     const emojiPickerWasClicked = path
       .some(n => n && n.nodeName === 'EMOJI-MART' || n.classList?.contains('emoji-icon'));
     this.emojiPickerOpen = emojiPickerWasClicked;
   }
 
   // manage users
-  kickMember(user: any) {
-    console.log(user);    
+  // FIXME: move this somewhere else
+  public kickMember(user: any) {
+    console.log(user);
   }
 }

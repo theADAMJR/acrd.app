@@ -17,7 +17,6 @@ import { SidebarComponent } from './dashboard/components/sidebar/sidebar.compone
 import { GuildComponent } from './dashboard/guilds/guild-overview/guild-overview.component';
 import { SpinnerComponent } from './utils/spinner/spinner.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LogModuleComponent } from './dashboard/modals/log-module/log-module.component';
 import { GuildSidebarComponent } from './dashboard/guilds/guild-sidebar/guild-sidebar.component';
 import { MeSidebarComponent } from './dashboard/me/me-sidebar/me-sidebar.component';
 import { MaterialModule } from './material-module';
@@ -99,7 +98,6 @@ export class AlertErrorHandler implements ErrorHandler {
     DurationStringPipe,
     CamelToSentenceCasePipe,
     MessagePreviewComponent,
-    LogModuleComponent,
     WavesComponent,
     LoginComponent,
     SignUpComponent,

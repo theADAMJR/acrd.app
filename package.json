@@ -31,6 +31,7 @@
     "@ctrl/ngx-emoji-mart": "^4.0.2",
     "@nguniversal/express-engine": "^11.1.0",
     "@stripe/stripe-js": "^1.5.0",
+    "@types/mongoose": "^5.10.3",
     "bootstrap": "^4.5.2",
     "bootstrap-select": "^1.13.18",
     "discord-markdown": "^2.4.1",

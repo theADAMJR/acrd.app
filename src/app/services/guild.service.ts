@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
+import { Lean } from '../types/entity-types';
 
 @Injectable({ providedIn: 'root' })
 export class GuildService {
@@ -29,15 +30,15 @@ export class GuildService {
       await this.http.get(this.endpoint, this.headers).toPromise() as any : [];
   }
 
-  getGuild(id: string) {
+  getGuild(id: string): Lean.Guild {
     return this.guilds?.find(g => g._id === id);
   }
 
-  getSelfMember(guildId: string) {
+  getSelfMember(guildId: string): Lean.GuildMember {
     return this.getMember(guildId, this.usersService.user._id);
   }
 
-  getMember(guildId: string, userId: string) {
+  getMember(guildId: string, userId: string): Lean.GuildMember {
     return this
       .getGuild(guildId)?.members
       .find(m => m.userId === userId);
@@ -45,10 +46,6 @@ export class GuildService {
 
   ownsGuild(guildId: string, userId: string) {
     return this.getGuild(guildId)?.ownerId === userId;
-  }
-  
-  getSavedLog(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}/log`).toPromise();
   }
 
   async createGuild(data: any): Promise<any> {
