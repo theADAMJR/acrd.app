@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'invite-modal',
@@ -11,7 +12,7 @@ import { WSService } from 'src/app/services/ws.service';
 export class InviteModalComponent {
   @Input() guild;
 
-  invite: any;
+  invite: Lean.Invite;
 
   constructor(
     private log: LogService,

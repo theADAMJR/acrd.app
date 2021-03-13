@@ -8,12 +8,13 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 import { WSService } from '../../services/ws.service';
 import { LogService } from '../../services/log.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Directive()
 export abstract class ModuleConfig implements OnDestroy {
   form: FormGroup;
-  guild: any;
-  originalGuild: any;
+  guild: Lean.Guild;
+  originalGuild: Lean.Guild;
 
   get guildId() { return this.route.snapshot.paramMap.get('guildId'); }
 
@@ -61,7 +62,7 @@ export abstract class ModuleConfig implements OnDestroy {
    * Build the form to be used.
    * Called when on form init.
    */
-  abstract buildForm(guild: any): FormGroup | Promise<FormGroup>;
+  abstract buildForm(guild: Lean.Guild): FormGroup | Promise<FormGroup>;
   
   openSaveChanges() {
     const snackBarRef = this.saveChanges._openedSnackBarRef;
@@ -98,7 +99,7 @@ export abstract class ModuleConfig implements OnDestroy {
       
       this.log.info('SEND GUILD_UPDATE', 'mcnfg');
       this.ws.emit('GUILD_UPDATE', {
-        guildId: this.guild,
+        guildId: this.guildId,
         partialGuild: this.guild
       });
     } catch {

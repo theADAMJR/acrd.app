@@ -7,6 +7,7 @@ import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-bot-list',
@@ -17,8 +18,8 @@ import { WSService } from 'src/app/services/ws.service';
   ]
 })
 export class BotListComponent extends ModuleConfig implements OnInit {
-  bots: any[];
-  selectedBot: any;
+  bots: Lean.User[];
+  selectedBot: Lean.User;
 
   botInGuild = false;
 
@@ -54,7 +55,7 @@ export class BotListComponent extends ModuleConfig implements OnInit {
     return new FormGroup({});
   }
 
-  selectBot(user: any) {
+  selectBot(user: Lean.User) {
     this.selectedBot = user;
   }
 

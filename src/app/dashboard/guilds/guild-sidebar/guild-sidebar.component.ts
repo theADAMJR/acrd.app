@@ -7,6 +7,7 @@ import { GuildService } from '../../../services/guild.service';
 import { InviteModalComponent } from '../../modals/invite-modal/invite-modal.component';
 import { CreateChannelModalComponent } from '../../modals/create-channel-modal/create-channel-modal.component';
 import { UsersService } from 'src/app/services/users.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'guild-sidebar',
@@ -19,8 +20,8 @@ export class GuildSidebarComponent implements OnInit {
   @ViewChild('channelModal') channelModal: CreateChannelModalComponent;
   
   id: string;
-  guild: any;
-  selectedChannel: any;
+  guild: Lean.Guild;
+  selectedChannel: Lean.Channel;
 
   get textChannels() {
     return this.guild.channels.filter(c => c.type === 'TEXT');

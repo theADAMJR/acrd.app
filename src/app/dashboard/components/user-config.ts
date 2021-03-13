@@ -8,12 +8,13 @@ import { Subscription } from 'rxjs';
 import { WSService } from '../../services/ws.service';
 import { LogService } from '../../services/log.service';
 import { UsersService } from '../../services/users.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Directive()
 export abstract class UserConfig implements OnDestroy {
   form: FormGroup;
-  user: any;
-  originalUser: any;
+  user: Lean.User;
+  originalUser: Lean.User;
 
   private saveChanges$: Subscription;  
   private valueChanges$: Subscription;  
@@ -59,7 +60,7 @@ export abstract class UserConfig implements OnDestroy {
    * Build the form to be used.
    * Called when on form init.
    */
-  abstract buildForm(user: any): FormGroup | Promise<FormGroup>;
+  abstract buildForm(user: Lean.User): FormGroup | Promise<FormGroup>;
   
   openSaveChanges() {
     const snackBarRef = this.saveChanges._openedSnackBarRef;   

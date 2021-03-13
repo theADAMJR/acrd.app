@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { SaveChangesComponent } from 'src/app/dashboard/components/save-changes/save-changes.component';
 import { DevelopersService } from 'src/app/services/developers.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-application',
@@ -17,8 +18,8 @@ export class ApplicationComponent implements OnInit {
     name: new FormControl('', [ Validators.required ]),
   });
 
-  originalForm: any;
-  app: any;
+  originalForm: Lean.Application;
+  app: Lean.Application;
 
   private saveChanges$: Subscription;  
   private valueChanges$: Subscription;  

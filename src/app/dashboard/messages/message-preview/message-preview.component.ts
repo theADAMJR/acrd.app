@@ -6,6 +6,7 @@ import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'message-preview',
@@ -13,11 +14,11 @@ import { WSService } from 'src/app/services/ws.service';
   styleUrls: ['./message-preview.component.css']
 })
 export class MessagePreviewComponent {
-  @Input() message: any;
+  @Input() message: Lean.Message;
   @Input() isExtra = false;
 
-  @Input() guild: any;
-  @Input() member: any;
+  @Input() guild: Lean.Guild;
+  @Input() member: Lean.GuildMember;
 
   embed: MessageEmbed;
 
@@ -26,7 +27,7 @@ export class MessagePreviewComponent {
       ?? this.usersService.getUnknown(this.message.authorId);
   }
   
-  get roleColor() {
+  get roleColor(): string {
     if (!this.guild) return;
 
     const roleId = this.member?.roleIds[this.member?.roleIds.length - 1];
@@ -41,7 +42,7 @@ export class MessagePreviewComponent {
     
     if (this.getDaysAgo(createdAt))
       return `Today at ${timestamp}`;
-    if (this.getDaysAgo(createdAt, 1))
+    else if (this.getDaysAgo(createdAt, 1))
       return `Yesterday at ${timestamp}`;
     else if (this.getDaysAgo(createdAt, -1))
       return `Tomorrow at ${timestamp}`;
@@ -70,7 +71,7 @@ export class MessagePreviewComponent {
 
   get processed() {
     const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
-    const getUser = (id: string) => this.guild?.members.find(m => m.userId === id)?.user;
+    const getUser = (id: string) => this.usersService.getKnown(id);
 
     const getMention = (html: string, condition: boolean) => {
       return (condition)
@@ -99,7 +100,7 @@ export class MessagePreviewComponent {
   }
 
   get canManage() {
-    return this.author?._id === this.usersService.user._id
+    return this.author._id === this.usersService.user._id
       || (this.guild && this.perms.can(this.guild._id, 'MANAGE_MESSAGES'));
   }
 
@@ -123,7 +124,10 @@ export class MessagePreviewComponent {
 
   delete() {
     this.log.info('SEND MESSAGE_DELETE', 'msg');
-    this.ws.emit('MESSAGE_DELETE', this.message);
+    this.ws.emit('MESSAGE_DELETE', {
+      channelId: this.message.channelId,
+      messageId: this.message._id,
+    });
 
     document
       .querySelector(`#message${this.message._id}`)

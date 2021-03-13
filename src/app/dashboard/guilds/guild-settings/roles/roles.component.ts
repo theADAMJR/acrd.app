@@ -6,7 +6,7 @@ import { ModuleConfig } from 'src/app/dashboard/components/module-config';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
-import { PermissionTypes } from '../../../../types/entity-types';
+import { Lean, PermissionTypes } from '../../../../types/entity-types';
 
 @Component({
   selector: 'app-roles-component',
@@ -14,7 +14,7 @@ import { PermissionTypes } from '../../../../types/entity-types';
   styleUrls: ['./roles.component.css', '../overview/guild-settings.component.css']
 })
 export class RolesComponent extends ModuleConfig implements OnInit {
-  selectedRole: any;
+  selectedRole: Lean.Role;
   presetColors = [
     '#6E8481',
     '#A2B6AD',
@@ -84,12 +84,12 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     }, this);
   }
 
-  async selectRole(role: any) {
+  async selectRole(role: Lean.Role) {
     this.selectedRole = role;
     await this.reset();
   }
 
-  buildForm(guild: any): FormGroup {
+  buildForm(guild: Lean.Guild): FormGroup {
     if (!this.selectedRole)
       return new FormGroup({});
 
@@ -159,7 +159,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
       this.log.info('SEND GUILD_ROLE_UPDATE', 'mcnfg');
       this.ws.emit('GUILD_ROLE_UPDATE', {
-        roleId: this.selectedRole,
+        roleId: this.selectedRole._id,
         guildId: this.guildId,
         partialRole: this.form.value,
       });

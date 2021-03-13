@@ -201,7 +201,7 @@ export namespace Args {
   }
   export interface PresenceUpdate {
     userId: string;
-    status: string;
+    status: UserTypes.StatusType;
   }
   export interface RemoveFriend extends CancelFriendRequest {}
   export interface SendFriendRequest extends CancelFriendRequest {
@@ -223,6 +223,10 @@ export namespace Args {
 }
 
 export namespace Partial {
+  export interface Application {
+    description: string;
+    name: string;
+  }
   export interface Channel {
     name: string;
     type: ChannelTypes.Type;

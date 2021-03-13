@@ -7,6 +7,7 @@ import { WSService } from 'src/app/services/ws.service';
 import { LogService } from 'src/app/services/log.service';
 import { ChannelService } from 'src/app/services/channel.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-text-channel',
@@ -17,8 +18,8 @@ export class TextChannelComponent implements OnInit {
   @ViewChild('notificationSound') notificationSound: ElementRef;
 
   activeChannelId: string;
-  channel: any;
-  guild: any;
+  channel: Lean.Channel;
+  guild: Lean.Guild;
 
   messages = [];
   emojiPickerOpen = false;
@@ -171,7 +172,7 @@ export class TextChannelComponent implements OnInit {
       }
     });
 
-    this.stopTyping(this.userService.user);
+    this.stopTyping(this.userService.user._id);
   }
   
   public shouldCombine(index: number) {
@@ -223,7 +224,7 @@ export class TextChannelComponent implements OnInit {
 
   // manage users
   // FIXME: move this somewhere else
-  public kickMember(user: any) {
+  public kickMember(user: Lean.User) {
     console.log(user);
   }
 }

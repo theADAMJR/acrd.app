@@ -1,12 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Lean, UserTypes } from '../types/entity-types';
+import { Partial } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
   endpoint = `${environment.endpoint}/users`;
-  knownUsers = [];
-  user: any;
+  knownUsers: Lean.User[] = [];
+  user: Lean.User;
 
   private get headers() {
     return { headers: { Authorization: this.key } };
@@ -25,32 +27,42 @@ export class UsersService {
       await this.updateKnownUsers();
   }
 
-  public getUnknown(userId: string) {
+  public getUnknown(userId: string): Lean.User {
     return {
+      _id: userId,
+      avatarURL: `${environment.endpoint}/assets/avatars/avatar-gray.png`,
+      badges: [],
+      bot: false,
+      createdAt: new Date(),
+      friends: [],
+      friendRequests: [],
+      guilds: [],
+      status: 'OFFLINE',
       username: `Unknown - ${userId}`,
-      avatarURL: `${environment.endpoint}/assets/avatars/avatar-gray.png`
+      voice: new UserTypes.VoiceState()
     }
   } 
 
   public async updateUser() {
-    this.user = (this.key) ?
-      await this.http.get(this.endpoint, this.headers).toPromise() : null;
+    this.user = (this.key)
+      ? await this.http.get(this.endpoint, this.headers).toPromise() as any
+      : null;
   }
   public async updateKnownUsers() {
     this.knownUsers = (this.key)
       ? await this.http.get(`${this.endpoint}/known`, this.headers).toPromise() as any ?? []
-      : [];    
+      : [];
     this.knownUsers.push(this.user);
   }
 
-  public get(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise();
+  public get(id: string): Promise<Lean.User> {
+    return this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise() as any;
   }
-  public getKnown(id: string) {    
+  public getKnown(id: string): Lean.User {    
     return this.knownUsers?.find(u => u._id === id);
   }
 
-  public addKnownUser(user: any) {
+  public addKnownUser(user: Lean.User) {
     const userInArray = this.knownUsers.some(u => u._id === user._id);
     if (!userInArray)
       this.knownUsers.push(user);
@@ -67,12 +79,12 @@ export class UsersService {
       .toPromise();
   }
 
-  public getUsernames(): Promise<any> {
-    return this.http.get(`${this.endpoint}/usernames`).toPromise();
+  public getUsernames(): Promise<string[]> {
+    return this.http.get(`${this.endpoint}/usernames`).toPromise() as any;
   }
 
-  public getBots(): Promise<any> {
-    return this.http.get(`${this.endpoint}/bots`).toPromise();
+  public getBots(): Promise<Lean.User[]> {
+    return this.http.get(`${this.endpoint}/bots`).toPromise() as any;
   }
 
   private buildHeaders() {

@@ -6,6 +6,7 @@ import { ModuleConfig } from 'src/app/dashboard/components/module-config';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-invites',
@@ -33,7 +34,7 @@ export class InvitesComponent extends ModuleConfig implements OnInit {
     };
   }
 
-  buildForm(guild: any): FormGroup | Promise<FormGroup> {
+  buildForm(guild: Lean.Guild): FormGroup | Promise<FormGroup> {
     return new FormGroup({
       name: new FormControl(guild.name, [ Validators.required, Validators.maxLength(32) ])
     });

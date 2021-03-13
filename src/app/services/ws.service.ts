@@ -35,7 +35,9 @@ export class WSService {
 
   private getListened(type: any) {
     return this.listened.get(type)
-      ?? this.listened.set(type, []).get(type);
+      ?? this.listened
+        .set(type, [])
+        .get(type);
   }
 }
 

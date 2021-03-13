@@ -6,6 +6,7 @@ import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-dmchannel',
@@ -13,7 +14,7 @@ import { WSService } from 'src/app/services/ws.service';
   styleUrls: ['./dmchannel.component.css']
 })
 export class DMChannelComponent implements OnInit {
-  channel: any;
+  channel: Lean.Channel;
   messages = [];
 
   loadedAllMessages = false;  
@@ -131,7 +132,7 @@ export class DMChannelComponent implements OnInit {
       },
     });
 
-    this.stopTyping(this.userService.user);
+    this.stopTyping(this.userService.user._id);
   }
   
   shouldCombine(index: number) {
@@ -180,7 +181,7 @@ export class DMChannelComponent implements OnInit {
   }
 
   // manage users
-  kickMember(user: any) {
+  kickMember(user: Lean.User) {
     console.log(user);    
   }
 }

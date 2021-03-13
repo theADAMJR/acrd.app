@@ -10,6 +10,7 @@ import { WSService } from 'src/app/services/ws.service';
 import { UsernameValidators } from 'src/app/authentication/sign-up/username.validators';
 import { UserConfig } from 'src/app/dashboard/components/user-config';
 import { environment } from 'src/environments/environment';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-user-settings',
@@ -50,7 +51,7 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
     this.themes.updateTheme();
   }
 
-  public buildForm(user: any): FormGroup | Promise<FormGroup> {
+  public buildForm(user: Lean.User): FormGroup | Promise<FormGroup> {
     return new FormGroup({
       avatarURL: new FormControl(user.avatarURL, [
         Validators.required,

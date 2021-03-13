@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import Peer from 'peerjs';
 import { LogService } from './log.service';
 import { UsersService } from './users.service';
 
@@ -11,11 +10,6 @@ export class RTCService {
   get audio() {
     return this._audio;
   }
-  
-  private _peer: Peer;
-  get peer() {
-    return this._peer;
-  }
 
   constructor(
     private log: LogService,
@@ -26,7 +20,7 @@ export class RTCService {
     if (!this.userService.user._id) return;
     
     this._audio = this._audio ?? new AudioSources(this.userService.user._id);
-    this._peer = this._peer ?? new Peer(this.userService.user._id);
+    // this._peer = this._peer ?? new Peer(this.userService.user._id);
 
     this.log.info(`Peer connected with ID: ${this.userService.user._id}`, 'rtc');
   }
@@ -38,11 +32,11 @@ export class RTCService {
     const stream = await navigator.mediaDevices
       .getUserMedia({ video: false, audio: true });
 
-    this.peer.on('call', async (call) => {
-      call.answer(stream);
-      call.on('stream', (remote) => this.audio.play(call.peer, remote));
-    });
-    this.peer.call(id, stream);
+    // this.peer.on('call', async (call) => {
+    //   call.answer(stream);
+    //   call.on('stream', (remote) => this.audio.play(call.peer, remote));
+    // });
+    // this.peer.call(id, stream);
 
     this.streams.push(stream);
 

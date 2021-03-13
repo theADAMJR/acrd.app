@@ -28,12 +28,12 @@ export class VoiceChannelComponent implements OnInit {
 
   async hookWSEvents() {
     this.ws.on('VOICE_STATE_UPDATE', async ({ userId, voice, memberIds }) => {
-      
       if (this.channel._id !== voice.channelId) return;
 
-      const user = this.userService.user._id;
+      const user = this.userService.user;
       if (user._id === userId)
-        user.voice = voice;        
+        user.voice = voice;
+      
       this.channel.memberIds = memberIds;
     }, this)
     .on('PRESENCE_UPDATE', ({ userId }) => {

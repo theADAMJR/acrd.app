@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Lean } from 'src/app/types/entity-types';
 import { GuildService } from '../../../services/guild.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { GuildService } from '../../../services/guild.service';
   styleUrls: ['./guild-overview.component.css']
 })
 export class GuildComponent implements OnInit {
-  guild: any;
+  guild: Lean.Guild;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,7 +21,7 @@ export class GuildComponent implements OnInit {
       const id = paramMap.get('guildId');
       this.guild = this.guildService.getGuild(id);
       
-      const defaultChannel = this.guild.channels[0];
+      const defaultChannel = this.guild.channels[0];      
       if (defaultChannel)
         this.router.navigate([`/channels/${id}/${defaultChannel._id}`]);
     });

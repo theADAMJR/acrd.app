@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../../services/users.service';
 import { ChannelService } from 'src/app/services/channel.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'dashboard-sidebar',
@@ -18,7 +19,7 @@ export class MeSidebarComponent implements OnInit {
     await this.channelService.init();
   }
 
-  getRecipient(channel: any) { 
+  getRecipient(channel: Lean.Channel) { 
     const userId = channel.recipientIds.filter(id => id !== this.user._id)[0];
     return this.userService.getKnown(userId);
   }

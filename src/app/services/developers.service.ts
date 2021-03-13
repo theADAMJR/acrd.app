@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Lean } from '../types/entity-types';
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +17,23 @@ export class DevelopersService {
 
   constructor(private http: HttpClient) {}
 
-  async get(id: string): Promise<any> {
-    return this.http.get(`${this.endpoint}/applications/${id}`, { headers: this.headers }).toPromise();
+  async get(id: string): Promise<Lean.Application> {
+    return this.http.get(`${this.endpoint}/applications/${id}`, { headers: this.headers }).toPromise() as any;
   }
 
-  async getAll(): Promise<any> {
-    return this.http.get(`${this.endpoint}/applications`, { headers: this.headers }).toPromise();
+  async getAll(): Promise<Lean.Application[]> {
+    return this.http.get(`${this.endpoint}/applications`, { headers: this.headers }).toPromise() as any;
   }
 
-  async create(): Promise<any> {
-    return this.http.get(`${this.endpoint}/applications/new`, { headers: this.headers }).toPromise();
+  async create(): Promise<Lean.Application> {
+    return this.http.get(`${this.endpoint}/applications/new`, { headers: this.headers }).toPromise() as any;
   }
 
-  async update(id: any, value: any): Promise<any> {
-    return this.http.patch(`${this.endpoint}/applications/${id}`, value, { headers: this.headers }).toPromise();
+  async update(id: string, value: string): Promise<Lean.Application> {
+    return this.http.patch(`${this.endpoint}/applications/${id}`, value, { headers: this.headers }).toPromise() as any;
+  }
+
+  async delete() {
+    // TODO: implement
   }
 }

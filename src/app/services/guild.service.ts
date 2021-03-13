@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
 import { Lean } from '../types/entity-types';
+import { Partial } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class GuildService {
   readonly endpoint = environment.endpoint + '/guilds';
-  private _guilds = [];
+  private _guilds: Lean.Guild[] = [];
   
   get guilds() { return this._guilds; }
   private get headers() { return { headers: { Authorization: this.key } }; }
@@ -48,26 +49,31 @@ export class GuildService {
     return this.getGuild(guildId)?.ownerId === userId;
   }
 
-  async createGuild(data: any): Promise<any> {
-    return this.http.post(this.endpoint, data, this.headers).toPromise();
+  async createGuild(data: Partial.Guild): Promise<Lean.Guild> {
+    return this.http
+      .post(this.endpoint, data, this.headers)
+      .toPromise() as any;
   }
-  async createChannel(guildId: string, data: any): Promise<any> {
-    return this.http.post(`${this.endpoint}/${guildId}`, data, this.headers).toPromise();
-  }
-
-  saveGuild(id: string, value: any): Promise<any> {    
-    return this.http.patch(`${this.endpoint}/${id}`, value, this.headers).toPromise();
-  }
-
-  deleteGuild(id: any): Promise<any> {
-    return this.http.delete(`${this.endpoint}/${id}`, this.headers).toPromise();
+  saveGuild(id: string, value: Partial.Guild): Promise<Lean.Guild> {    
+    return this.http
+      .patch(`${this.endpoint}/${id}`, value, this.headers)
+      .toPromise() as any;
   }
 
-  addBot(guildId: string, botId: any): Promise<any> {
-    return this.http.get(`${this.endpoint}/${guildId}/authorize/user?client_id=${botId}`, this.headers).toPromise();
+  // TODO: remove
+  deleteGuild(id: string): Promise<any> {
+    return this.http
+      .delete(`${this.endpoint}/${id}`, this.headers)
+      .toPromise() as any;
   }
 
-  removeBot(guildId: string, botId: any) {
+  addBot(guildId: string, botId: string): Promise<any> {
+    return this.http
+      .get(`${this.endpoint}/${guildId}/authorize/user?client_id=${botId}`, this.headers)
+      .toPromise() as any;
+  }
+
+  removeBot(guildId: string, botId: string) {
     alert('kick bot from guild');
   }
 }

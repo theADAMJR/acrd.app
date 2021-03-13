@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Lean } from '../types/entity-types';
 import { GuildService } from './guild.service';
 
 @Injectable({ providedIn: 'root' })
@@ -26,7 +27,7 @@ export class PermissionsService {
     //   || Boolean(totalPerms & GeneralPermission.ADMINISTRATOR);
   }
 
-  getRoles(member: any) {
+  getRoles(member: Lean.GuildMember) {
     const roleId = member.roleIds[member.roleIds.length - 1];
 
     return this.guildService

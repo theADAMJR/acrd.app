@@ -45,7 +45,6 @@ import { RolesComponent } from './dashboard/guilds/guild-settings/roles/roles.co
 import { InvitesComponent } from './dashboard/guilds/guild-settings/invites/invites.component';
 import { FriendsListComponent } from './dashboard/me/friends-list/friends-list.component';
 import { DMChannelComponent } from './dashboard/me/dmchannel/dmchannel.component';
-import { PermissionsService } from './services/permissions.service';
 import { UserSettingsComponent } from './dashboard/me/user-settings/user-settings.component';
 import { CreateChannelModalComponent } from './dashboard/modals/create-channel-modal/create-channel-modal.component';
 import { BotListComponent } from './dashboard/guilds/guild-settings/bot-list/bot-list.component';
@@ -68,7 +67,7 @@ export class AlertErrorHandler implements ErrorHandler {
         body: JSON.stringify({ message: error.message })
       });
     } finally {
-      console.log(error);
+      throw error;
     }
   }
 }

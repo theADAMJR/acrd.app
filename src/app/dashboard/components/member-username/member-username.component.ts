@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-declare var $: any;
-
 @Component({
   selector: 'member-username',
   templateUrl: './member-username.component.html',

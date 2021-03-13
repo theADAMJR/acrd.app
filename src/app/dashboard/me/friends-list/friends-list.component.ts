@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChannelService } from 'src/app/services/channel.service';
 import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
