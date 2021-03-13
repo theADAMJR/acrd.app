@@ -14,14 +14,15 @@ export class GuildComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private guildService: GuildService,
-    private router: Router) {}
+    private router: Router
+  ) {}
 
   async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
       const id = paramMap.get('guildId');
       this.guild = this.guildService.getGuild(id);
       
-      const defaultChannel = this.guild.channels[0];      
+      const defaultChannel = this.guild.channels[0];          
       if (defaultChannel)
         this.router.navigate([`/channels/${id}/${defaultChannel._id}`]);
     });

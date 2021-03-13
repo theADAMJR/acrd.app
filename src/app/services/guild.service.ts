@@ -26,9 +26,10 @@ export class GuildService {
       await this.updateGuilds();
   }
 
-  async updateGuilds() {
-    this._guilds = (this.key) ? 
-      await this.http.get(this.endpoint, this.headers).toPromise() as any : [];
+  async updateGuilds() {    
+    this._guilds = (this.key)
+      ? await this.http.get(this.endpoint, this.headers).toPromise() as any
+      : [];    
   }
 
   getGuild(id: string): Lean.Guild {

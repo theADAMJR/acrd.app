@@ -21,11 +21,11 @@ export class TextChannelComponent implements OnInit {
   channel: Lean.Channel;
   guild: Lean.Guild;
 
-  messages = [];
+  messages: Lean.Message[] = [];
   emojiPickerOpen = false;
 
   chatBox = new FormControl();
-  typingUserIds = [];
+  typingUserIds: string[] = [];
 
   public get typingUsernames() {
     return this.typingUserIds
@@ -36,7 +36,8 @@ export class TextChannelComponent implements OnInit {
     return this.channelService.getMessageMap(this.guild._id);
   }
   public get loadedAllMessages() {
-    return this.messages.length % 25 === 0;
+    return this.messages.length <= 0
+      || this.messages.length % 25 !== 0;
   }
 
   private lastTypingEventAt = null;
@@ -64,15 +65,16 @@ export class TextChannelComponent implements OnInit {
     private ws: WSService) {}
 
   async ngOnInit() {
-    await this.userService.init();
+    await this.channelService.init();
     await this.guildService.init();
+    await this.userService.init();
 
     this.route.paramMap.subscribe(async(paramMap) => {
       const guildId = paramMap.get('guildId');
       const channelId = this.activeChannelId = paramMap.get('channelId');
   
       this.guild = this.guildService.getGuild(guildId);
-      this.channel = this.guild?.channels.find(c => c._id === channelId);
+      this.channel = this.guild?.channels.find(c => c._id === channelId);      
       this.messages = await this.channelService.getMessages(guildId, channelId);      
       
       document.title = `#${this.channel.name}`;
