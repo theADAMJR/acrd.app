@@ -32,7 +32,7 @@ export class DMChannelComponent implements OnInit {
   private lastTypingEmissionAt = null;
 
   get recipient() {
-    const recipientId = this.channel.recipientIds
+    const recipientId = this.channel.memberIds
       .filter(id => id !== this.userService.user._id)[0];    
 
     return this.userService.getKnown(recipientId);

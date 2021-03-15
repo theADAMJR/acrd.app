@@ -10,7 +10,8 @@ export class WSService {
   private listened = new Map<any, string[]>();
 
   constructor(private log: LogService) {
-    this.socket = this.socket ?? io.connect(environment.rootEndpoint);
+    this.socket ??= io.connect(environment.rootEndpoint);
+    this.socket.on('message', (content: string) => console.log(content));
   }
 
   public on<T extends keyof WSEventArgs>(name: T, callback: WSEventArgs[T], component: any): this {
@@ -23,7 +24,6 @@ export class WSService {
 
     this.socket.on(name, () => this.log.info(`RECEIVE ${name}`, 'ws'));
     this.socket.on(name, callback);
-    this.socket.on('message', (content: string) => console.log(content));
 
     return this;
   }

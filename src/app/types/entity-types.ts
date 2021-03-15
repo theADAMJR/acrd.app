@@ -16,7 +16,6 @@ export namespace Lean {
     guildId?: string;
     memberIds?: string[];
     name?: string;
-    recipientIds?: string[];
     summary?: string;
     type: ChannelTypes.Type;
   }
@@ -25,7 +24,7 @@ export namespace Lean {
     name: string;
     createdAt: Date;
     nameAcronym: string;
-    iconURL: string;
+    iconURL?: null | string;
     ownerId: string;
     channels: Channel[];
     members: GuildMember[];
@@ -40,10 +39,10 @@ export namespace Lean {
   export interface Invite {
     _id: string;
     createdAt: Date;
-    expiresAt: Date;
+    expiresAt?: null | Date;
     inviterId: string;
     guildId: string;
-    maxUses: number;
+    maxUses?: null | number;
     uses: number;
   }  
   export interface Message {
@@ -53,8 +52,8 @@ export namespace Lean {
     content: string;
     createdAt: Date;
     embed: MessageTypes.Embed;
-    guildId: string;
-    updatedAt: Date;
+    guildId?: null | string;
+    updatedAt?: null | Date;
   }  
   export interface Role {
     _id: string;
@@ -75,7 +74,7 @@ export namespace Lean {
     createdAt: Date;
     friends: this[];
     friendRequests: UserTypes.FriendRequest[];
-    guilds: Guild[];
+    guilds: string[] | Guild[];
     status: UserTypes.StatusType;
     username: string;
     voice: UserTypes.VoiceState;
@@ -91,14 +90,30 @@ export namespace UserTypes {
   export type FriendRequestType = 'OUTGOING' | 'INCOMING';
   export type StatusType = 'ONLINE' | 'DND' | 'IDLE' | 'OFFLINE';
   export class VoiceState {
-    channelId?: string;
-    guildId: string;
+    channelId?: null | string;
+    guildId?: null | string;
     selfMuted = false;
   }
 }
 
 export namespace ChannelTypes {
   export type Type = 'DM' | 'TEXT' | 'VOICE';
+
+  export interface DM extends Lean.Channel {
+    memberIds: string[];
+    guildId: never;
+    summary: never;
+    type: 'DM';
+  }
+  export interface Text extends Lean.Channel {
+    memberIds: never;
+    type: 'TEXT';
+  }
+  export interface Voice extends Lean.Channel {
+    memberIds: string[];
+    summary: never;
+    type: 'VOICE';
+  }
 }
 
 export namespace MessageTypes {

@@ -36,8 +36,8 @@ export class ChannelService {
   }
 
   getDMChannel(recipientId: string): Lean.Channel {
-    return this.dmChannels.find(c => c.recipientIds.includes(recipientId)
-      && c.recipientIds.includes(this.userService.user._id));
+    return this.dmChannels.find(c => c.memberIds.includes(recipientId)
+      && c.memberIds.includes(this.userService.user._id));
   }
   getDMChannelById(id: string): Lean.Channel {
     return this.dmChannels.find(c => c._id === id);
