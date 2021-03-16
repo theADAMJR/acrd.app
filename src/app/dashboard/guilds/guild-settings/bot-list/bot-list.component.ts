@@ -48,7 +48,6 @@ export class BotListComponent extends ModuleConfig implements OnInit {
   }
 
   hookWSEvents() {
-    // throw new Error('Method not implemented.');
   }
 
   buildForm() {

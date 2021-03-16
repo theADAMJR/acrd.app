@@ -28,8 +28,11 @@
       <a *ngFor="let channel of textChannels"
         [routerLink]="'/channels/' + guild._id + '/' + channel._id"
         routerLinkActive="active"
+        style="background-color: rgba(255, 255, 255, 0);"
         class="nav-item nav-link">
-        <i class="fas fa-hashtag text-muted"></i> {{ channel.name }}</a>
+        <i class="fas fa-hashtag text-muted"></i> {{ channel.name }}
+        <i class="fas fa-cog text-muted float-right channel-settings spin"></i>
+      </a>
       <voice-channel
         *ngFor="let channel of voiceChannels"
         [channel]="channel"

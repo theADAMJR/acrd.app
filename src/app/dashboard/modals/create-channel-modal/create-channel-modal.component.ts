@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { WSService } from 'src/app/services/ws.service';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'create-channel-modal',
@@ -8,7 +10,7 @@ import { WSService } from 'src/app/services/ws.service';
   styleUrls: ['./create-channel-modal.component.css']
 })
 export class CreateChannelModalComponent implements OnInit {
-  @Input() guild;
+  @Input() guild: Lean.Guild;
 
   processing = false;
 
@@ -18,7 +20,8 @@ export class CreateChannelModalComponent implements OnInit {
   });
 
   constructor(
-    private ws: WSService
+    private router: Router,
+    private ws: WSService,
   ) {}
 
   public ngOnInit() {
@@ -59,5 +62,10 @@ export class CreateChannelModalComponent implements OnInit {
       partialChannel: this.form.value,
       guildId: this.guild._id
     });
+
+    this.ws.on('CHANNEL_CREATE', async ({ channel }) => {
+      await this.router.navigate([`/channels/${channel.guildId}/${channel._id}`]);
+      this.processing = false;
+    }, this);
   }
 }

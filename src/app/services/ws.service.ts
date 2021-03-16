@@ -17,8 +17,8 @@ export class WSService {
   public on<T extends keyof WSEventArgs>(name: T, callback: WSEventArgs[T], component: any): this {
     const listened = this.getListened(typeof component);
     if (listened.includes(name)) {
-      // this.log.warning(`Refusing to listen to ${name} more than once, for ${component}`, 'ws');
-      // return this;
+      this.log.warning(`Refusing to listen to ${name} more than once, for ${component}`, 'ws');
+      return this;
     }
     listened.push(name);
 

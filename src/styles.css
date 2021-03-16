@@ -159,6 +159,10 @@ mat-paginator {
 
 /* sidebar */
 
+.mat-drawer-content {
+  height: unset !important;
+}
+
 .side-nav img {
   background-color: var(--background-tertiary);
 
@@ -191,12 +195,12 @@ mat-paginator {
 }
 
 .side-nav a.active {
-  background-color: var(--primary) !important;
+  background-color: var(--background-primary) !important;
 }
 
 .side-nav a:hover {
   color: var(--secondary);
-  background-color: var(--background-primary) !important;
+  background-color: var(--background-secondary) !important;
 }
 
 .category {
@@ -224,8 +228,12 @@ mat-paginator {
   height: inherit !important;
 }
 
+.mat-form-field-underline {
+  display: none !important;
+}
+
 .footer .mat-form-field-flex {
-  width: 65vw !important;
+  width: 60vw;
 }
 
 .footer .mat-form-field-wrapper {

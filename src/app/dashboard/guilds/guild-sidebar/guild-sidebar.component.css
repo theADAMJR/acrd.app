@@ -1,76 +1,85 @@
 h4 {
-    margin-bottom: 35px;
-    cursor: pointer;
+  margin-bottom: 35px;
+  cursor: pointer;
 }
 
 img {
-    padding: 0;
+  padding: 0;
 }
 
 i {
-    padding-right: 5px;
+  padding-right: 5px;
 }
 
 .alt-name {
-    border-radius: 50%;
-    background-color: var(--background-primary);
+  border-radius: 50%;
+  background-color: var(--background-primary);
 
-    width: 96px;
-    height: 96px;
+  width: 96px;
+  height: 96px;
 }
 
 .alt-name span {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .header h1 {
-    font-size: large;
+  font-size: large;
 
-    padding-top: 10px;
+  padding-top: 10px;
 }
 .header h1::after {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 #heftyButton {
-    outline: none !important;
+  outline: none !important;
 
-    height: 50px !important; 
-    width: 270px !important;
+  height: 50px !important; 
+  width: 270px !important;
 
-    color: var(--heading);
+  color: var(--heading);
 }
 #heftyButton:focus {
-    outline: none !important;
+  outline: none !important;
 }
 
 .dropdown-menu {
-    background-color: var(--background-tertiary);
-    width: 265px;
-    padding: 5px;
+  background-color: var(--background-tertiary);
+  width: 265px;
+  padding: 5px;
 }
 
 a.dropdown-item {
-    cursor: pointer;
+  cursor: pointer;
 
-    color: var(--font);
+  color: var(--font);
 
-    padding-right: 10px;
-    max-width: 95%;
+  padding-right: 10px;
+  max-width: 95%;
 }
 a.dropdown-item.invite {
-    color: var(--tertiary) !important;
+  color: var(--tertiary) !important;
 }
 
 a.dropdown-item:hover {
-    color: var(--heading) !important;
-    background-color: var(--primary) !important;
+  color: var(--heading) !important;
+  background-color: var(--primary) !important;
 }
 a.dropdown-item:hover i {
-    color: var(--heading) !important;
+  color: var(--heading) !important;
 }
 
 .dropdown i {
-    float: right;
-    color: gray;
+  float: right;
+  color: gray;
+}
+
+.channel-settings {
+  margin: 6px 10px 0 0;
+  opacity: 0;
+}
+a:hover .channel-settings {
+  transition: opacity .3s ease-in-out;
+  opacity: 1;
 }

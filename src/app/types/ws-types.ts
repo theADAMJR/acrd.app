@@ -239,9 +239,11 @@ export namespace Partial {
   export interface Channel {
     name: string;
     type: ChannelTypes.Type;
+    summary?: string;
   }
   export interface Guild {
     name: string;
+    iconURL?: string;
   }
   export interface GuildMember {
     

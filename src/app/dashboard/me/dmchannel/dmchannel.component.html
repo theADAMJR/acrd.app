@@ -38,7 +38,7 @@
         autoFocus
         (keyup)="emitTypingStart()"
         (keyup.enter)="chat(message.value)"
-        appearance="outline">
+        appearance="fill">
         <mat-label>Message #{{ recipient?.username }}</mat-label>
         <input id="chatBox" type="text" matInput #message>
         <mat-icon

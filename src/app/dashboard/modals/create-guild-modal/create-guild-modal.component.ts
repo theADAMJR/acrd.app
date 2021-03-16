@@ -26,7 +26,8 @@ export class CreateGuildModalComponent {
     private guildService: GuildService,
     private router: Router,
     private userService: UsersService,
-    private ws: WSService) {}
+    private ws: WSService
+  ) {}
 
   async submit() {
     if (this.form.invalid) return;

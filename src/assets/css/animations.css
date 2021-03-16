@@ -1,13 +1,24 @@
 /* float */
 @keyframes float {
-    0% { transform: translatey(0px); }
-    50% { transform: translatey(-10px); }
-    100% { transform: translatey(0px); }
+  0% { transform: translatey(0px); }
+  50% { transform: translatey(-10px); }
+  100% { transform: translatey(0px); }
 }
 
 .float {
-    font-size: 3em;
+  font-size: 3em;
 	overflow: hidden;
 	transform: translatey(0px);
-    animation: float 3s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }  
+}
+.spin {
+  -webkit-animation: spin 2s infinite; /* Safari 4+ */
+  -moz-animation:    spin 2s infinite; /* Fx 5+ */
+  -o-animation:      spin 2s infinite; /* Opera 12+ */
+  animation:         spin 2s infinite; /* IE 10+, Fx 29+ */
 }

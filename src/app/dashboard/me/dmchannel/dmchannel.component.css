@@ -1,33 +1,13 @@
 .footer {
-  position: absolute;
-  bottom: 0;
-  
+  display: flex;
   padding: 15px;
-  padding-bottom: 0;
-  width: 100%;
-}
-
-.member-list {
-  background-color: var(--background-secondary);
-
-  width: 250px;
-  height: 95vh;
-  padding-left: 10px;
-  padding-right: 16px;
-}
-.member-list .category {
-  padding-left: 10px;
-}
-
-.offline {
-  opacity: 0.5;
 }
 
 .messages {
   overflow-y: auto;
 
   padding-bottom: 1vh;
-  max-height: 85vh;
+  height: 82.5vh;
 }
 
 .typing {

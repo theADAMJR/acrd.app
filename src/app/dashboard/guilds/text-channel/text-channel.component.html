@@ -37,7 +37,7 @@
         autoFocus
         (keyup)="emitTypingStart()"
         (keyup.enter)="chat(message.value)"
-        appearance="outline">
+        appearance="fill">
         <mat-label>Message #{{ channel.name }}</mat-label>
         <input
           [disabled]="!perms.can(guild._id, 'SEND_MESSAGES')"
