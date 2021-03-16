@@ -10,14 +10,16 @@
       <div class="modal-body">
         <div class="d-flex justify-content-center">
           <mat-form-field appearance="outline">
-            <mat-label class="ml-5 pl-3">Invite Link</mat-label>
+            <mat-label>Invite Link</mat-label>
             <input type="text"
               [value]="invite?._id" matInput>
           </mat-form-field>
           <div class="ml-3">
-            <button (click)="copyToClipboard()"
+            <button
+              (click)="copyToClipboard()"
               matTooltip="Copy"
-              class="btn btn-primary mt-2">
+              class="btn p-4 mt-1 btn-outline-primary"
+              color="primary">
               <i class="fas fa-clipboard"></i>
             </button>
           </div>
@@ -25,21 +27,28 @@
         <hr>
         <div>
           <h3 class="text-center">Options</h3>
-          <form (submit)="updateInvite()">
+          <form #f="ngForm" [formGroup]="form" (submit)="updateInvite()">
             <mat-form-field appearance="outline">
-              <mat-label class="ml-5 pl-3">Max Uses</mat-label>
+              <mat-label>Max Uses</mat-label>
               <input
                 type="number"
                 formControlName="maxUses" matInput>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label class="ml-5 pl-3">Expires At</mat-label>
+            <mat-form-field appearance="outline" class="ml-2">
+              <mat-label>Expires At</mat-label>
               <input
                 type="datetime-local"
                 formControlName="expiresAt" matInput>
             </mat-form-field>
 
+            <div class="text-center">
+              <button
+                [disabled]="!recentlyUpdated"
+                class="btn btn-outline-success"
+                color="success"
+                mat-button>Update</button>
+            </div>
           </form>
         </div>
       </div>

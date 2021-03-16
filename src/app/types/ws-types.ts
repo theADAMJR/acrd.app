@@ -70,7 +70,6 @@ export namespace Params {
   }
   export interface GuildMemberAdd {
     inviteCode: string;
-    userId: string;
   }
   export interface GuildMemberDelete {
     guildId: string;
@@ -100,7 +99,7 @@ export namespace Params {
   }
   export interface InviteCreate {
     guildId: string;
-    options: InviteTypes.InviteOptions;
+    options: InviteTypes.Options;
     userId: string;
   }
   export interface InviteDelete {

@@ -14,14 +14,14 @@ export class InviteModalComponent {
   @Input() guild: Lean.Guild;
 
   invite: Lean.Invite;
+  recentlyUpdated = false;
 
   form = new FormGroup({
-    maxUses: new FormControl('', [ Validators.required, Validators.min(5), Validators.max(1000) ]),
+    maxUses: new FormControl('', [ Validators.required, Validators.min(1), Validators.max(1000) ]),
     expiresAt: new FormControl('', [ Validators.required ]),
   });
 
   constructor(
-    private log: LogService,
     private usersService: UsersService,
     private ws: WSService) {}
 
@@ -32,12 +32,19 @@ export class InviteModalComponent {
       options: this.form.value,
     });
 
+    this.form.valueChanges
+      .subscribe(() => this.recentlyUpdated = this.form.valid);
+
     document.querySelector('.modal-backdrop')?.remove();
 
     this.hookWSEvents();
   }
 
   public updateInvite() {
+    if (this.form.invalid) return;
+
+    this.recentlyUpdated = true;
+
     this.ws.emit('INVITE_DELETE', { inviteCode: this.invite._id });
 
     this.ws.emit('INVITE_CREATE', {
