@@ -24,7 +24,7 @@ export namespace Lean {
     name: string;
     createdAt: Date;
     nameAcronym: string;
-    iconURL?: null | string;
+    iconURL?: string;
     ownerId: string;
     channels: Channel[];
     members: GuildMember[];
@@ -39,10 +39,10 @@ export namespace Lean {
   export interface Invite {
     _id: string;
     createdAt: Date;
-    expiresAt?: null | Date;
+    expiresAt?: Date;
     inviterId: string;
     guildId: string;
-    maxUses?: null | number;
+    maxUses?: number;
     uses: number;
   }  
   export interface Message {
@@ -52,9 +52,9 @@ export namespace Lean {
     content: string;
     createdAt: Date;
     embed: MessageTypes.Embed;
-    guildId?: null | string;
-    updatedAt?: null | Date;
-  }  
+    guildId?: string;
+    updatedAt?: Date;
+  }
   export interface Role {
     _id: string;
     color: string;
@@ -90,8 +90,8 @@ export namespace UserTypes {
   export type FriendRequestType = 'OUTGOING' | 'INCOMING';
   export type StatusType = 'ONLINE' | 'DND' | 'IDLE' | 'OFFLINE';
   export class VoiceState {
-    channelId?: null | string;
-    guildId?: null | string;
+    channelId?: string;
+    guildId?:  string;
     selfMuted = false;
   }
 }

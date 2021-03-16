@@ -25,6 +25,7 @@ export interface WSEventArgs {
   'USER_UPDATE': (args: Args.UserUpdate) => any;
   'VOICE_SERVER_UPDATE': (args: Args.VoiceServerUpdate) => any;
   'VOICE_STATE_UPDATE': (args: Args.VoiceStateUpdate) => any;
+  'message': (message: string) => any;
 }
 export interface WSEventParams {
   'ACCEPT_FRIEND_REQUEST': Params.AcceptFriendRequest;
@@ -115,8 +116,6 @@ export namespace Params {
   }
   export interface Ready {
     key: string;
-    guildIds: string[];
-    channelIds: string[];
   }
   export interface RemoveFriend {
     friendId: string;

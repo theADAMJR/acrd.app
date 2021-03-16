@@ -30,15 +30,8 @@ export class DashboardAuthGuard implements CanActivate {
       this.already = true;
 
       this.log.info('SEND READY', 'dauth');
-      this.ws.emit('READY', {
-        channelIds: this.guildService.guilds
-          .flatMap(g => g.channels.map(c => c._id))
-          .concat(this.channelService.dmChannels.map(c => c._id)),
-        guildIds: this.guildService.guilds.map(g => g._id),
-        key: localStorage.getItem('key')
-      });
+      this.ws.emit('READY', { key: localStorage.getItem('key') });
     }
-
     return canActivate;
-  }  
+  }
 }

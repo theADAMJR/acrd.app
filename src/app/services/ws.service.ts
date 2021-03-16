@@ -6,7 +6,7 @@ import { WSEventArgs, WSEventParams } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class WSService {
-  public readonly socket: SocketIOClient.Socket;
+  private readonly socket: SocketIOClient.Socket;
   private listened = new Map<any, string[]>();
 
   constructor(private log: LogService) {
