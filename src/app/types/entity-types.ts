@@ -39,10 +39,9 @@ export namespace Lean {
   export interface Invite {
     _id: string;
     createdAt: Date;
-    expiresAt?: Date;
+    options: InviteTypes.InviteOptions;
     inviterId: string;
     guildId: string;
-    maxUses?: number;
     uses: number;
   }  
   export interface Message {
@@ -51,8 +50,7 @@ export namespace Lean {
     channelId: string;
     content: string;
     createdAt: Date;
-    embed: MessageTypes.Embed;
-    guildId?: string;
+    embed?: MessageTypes.Embed;
     updatedAt?: Date;
   }
   export interface Role {
@@ -116,6 +114,13 @@ export namespace ChannelTypes {
   }
 }
 
+export namespace InviteTypes {
+  export interface InviteOptions {
+    expiresAt: Date;
+    maxUses: number;
+  }
+}
+
 export namespace MessageTypes {
   export interface Embed {
     description: string;
@@ -152,6 +157,5 @@ export namespace PermissionTypes {
     SPEAK = 32768 * 2,
     CONNECT = 32768
   }
-
   export type Permission = General | Text | Voice;
 }

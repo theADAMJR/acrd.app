@@ -1,0 +1,15 @@
+.member-list {
+  background-color: var(--background-secondary);;
+
+  width: 250px;
+  height: 95vh;
+  padding-left: 10px;
+  padding-right: 16px;
+}
+.member-list .category {
+  padding-left: 10px;
+}
+
+.offline {
+  opacity: 0.5;
+}

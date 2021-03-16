@@ -4,7 +4,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="createInviteLabel">Invite Friends to {{ guild.name }}</h5>
         <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
         </button>
       </div>
       <div class="modal-body">
@@ -21,6 +21,26 @@
               <i class="fas fa-clipboard"></i>
             </button>
           </div>
+        </div>
+        <hr>
+        <div>
+          <h3 class="text-center">Options</h3>
+          <form (submit)="updateInvite()">
+            <mat-form-field appearance="outline">
+              <mat-label class="ml-5 pl-3">Max Uses</mat-label>
+              <input
+                type="number"
+                formControlName="maxUses" matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label class="ml-5 pl-3">Expires At</mat-label>
+              <input
+                type="datetime-local"
+                formControlName="expiresAt" matInput>
+            </mat-form-field>
+
+          </form>
         </div>
       </div>
   </div>

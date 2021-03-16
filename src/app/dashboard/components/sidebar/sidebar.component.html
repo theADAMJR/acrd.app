@@ -29,7 +29,7 @@
         <div class="options">
             <ng-content select=".side-nav"></ng-content>
             <span (click)="toggle()"
-                class="float-right d-sm-none d-block close">&times;</span>
+                class="float-right d-sm-none d-block close"><i class="fas fa-times"></i></span>
             <div class="footer">
             <div *ngIf="user.voice.channelId">
                 <button (click)="disconnect()"

@@ -1,1 +1,21 @@
-<p>member-list works!</p>
+<div class="float-right member-list">
+  <div class="category">Online—{{ onlineMembers.length }}</div>
+  <div>
+    <member-username
+      *ngFor="let member of onlineMembers"
+      class="cursor-pointer"
+      [user]="userService.getKnown(member.userId)"
+      [guild]="guild"></member-username>
+  </div>
+
+  <div
+    *ngIf="offlineMembers.length"
+    class="category">Offline—{{ offlineMembers.length }}</div>
+  <div>
+    <member-username
+      *ngFor="let member of offlineMembers"
+      class="cursor-pointer"
+      [user]="userService.getKnown(member.userId)"
+      [guild]="guild"></member-username>
+  </div>
+</div>

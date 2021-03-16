@@ -1,5 +1,5 @@
 // REMEMBER: Sync types below with Website project.
-import { ChannelTypes, Lean, UserTypes } from './entity-types';
+import { ChannelTypes, Lean, UserTypes, InviteTypes } from './entity-types';
 
 // -> in ws.service.ts
 export interface WSEventArgs {
@@ -15,6 +15,7 @@ export interface WSEventArgs {
   'GUILD_ROLE_UPDATE': (args: Args.GuildRoleUpdate) => any;
   'GUILD_UPDATE': (args: Args.GuildUpdate) => any;
   'INVITE_CREATE': (args: Args.InviteCreate) => any;
+  'INVITE_DELETE': (args: Args.InviteDelete) => any;
   'MESSAGE_CREATE': (args: Args.MessageCreate) => any;
   'MESSAGE_DELETE': (args: Args.MessageDelete) => any;
   'MESSAGE_UPDATE': (args: Args.MessageUpdate) => any;
@@ -34,11 +35,13 @@ export interface WSEventParams {
   'GUILD_DELETE': Params.GuildDelete;
   'GUILD_MEMBER_ADD': Params.GuildMemberAdd;
   'GUILD_MEMBER_UPDATE': Params.GuildMemberUpdate;
+  'GUILD_MEMBER_DELETE': Params.GuildMemberDelete;
   'GUILD_ROLE_CREATE': Params.GuildRoleCreate;
   'GUILD_ROLE_DELETE': Params.GuildRoleDelete;
   'GUILD_ROLE_UPDATE': Params.GuildRoleUpdate;
   'GUILD_UPDATE': Params.GuildUpdate;
   'INVITE_CREATE': Params.InviteCreate;
+  'INVITE_DELETE': Params.InviteDelete;
   'MESSAGE_CREATE': Params.MessageCreate;
   'MESSAGE_DELETE': Params.MessageDelete;
   'MESSAGE_UPDATE': Params.MessageUpdate;
@@ -49,6 +52,7 @@ export interface WSEventParams {
   'USER_UPDATE': Params.UserUpdate;
   'VOICE_SERVER_UPDATE': Params.VoiceServerUpdate;
   'VOICE_STATE_UPDATE': Params.VoiceStateUpdate;
+  'disconnect': () => any;
 }
 
 export namespace Params {
@@ -68,13 +72,13 @@ export namespace Params {
     inviteCode: string;
     userId: string;
   }
-  export interface GuildMemberRemove {
+  export interface GuildMemberDelete {
     guildId: string;
     userId: string;
   }
   export interface GuildMemberUpdate {
     guildId: string;
-    partialMember: Partial.Member;
+    partialMember: Partial.GuildMember;
     userId: string;
   }
   export interface GuildRoleCreate {
@@ -96,10 +100,14 @@ export namespace Params {
   }
   export interface InviteCreate {
     guildId: string;
-    options?: any; /* TODO: InviteOptions */
+    options: InviteTypes.InviteOptions;
     userId: string;
   }
+  export interface InviteDelete {
+    inviteCode: string;
+  }
   export interface MessageCreate {
+    channelId: string;
     partialMessage: Partial.Message;
   }
   export interface MessageDelete {
@@ -164,11 +172,11 @@ export namespace Args {
   export interface GuildMemberAdd {
     member: Lean.GuildMember;
   }
-  export interface GuildMemberRemove {
+  export interface GuildMemberDelete {
     userId: string;
   }
   export interface GuildMemberUpdate {
-    partialMember: Partial.Member;
+    partialMember: Partial.GuildMember;
     userId: string;
   }
   export interface GuildRoleCreate {
@@ -187,6 +195,9 @@ export namespace Args {
   }
   export interface InviteCreate {
     invite: Lean.Invite;
+  }
+  export interface InviteDelete {
+    inviteCode: string;
   }
   export interface MessageCreate {
     message: Lean.Message;
@@ -233,14 +244,11 @@ export namespace Partial {
   export interface Guild {
     name: string;
   }
-  export interface Member {
+  export interface GuildMember {
     
   }
   export interface Message {
-    authorId: string;
-    channelId: string;
     content: string;
-    guildId?: string;
   }
   export interface Role {
     name: string;

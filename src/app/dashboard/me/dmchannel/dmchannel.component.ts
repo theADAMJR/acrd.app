@@ -72,7 +72,6 @@ export class DMChannelComponent implements OnInit {
       setTimeout(() => this.stopTyping(userId), 5.1 * 1000);
     }, this)
     .on('MESSAGE_CREATE', ({ message }) => {
-      
       this.messages.push(message);
 
       setTimeout(() => this.scrollToMessage(), 100);
@@ -125,11 +124,10 @@ export class DMChannelComponent implements OnInit {
     this.log.info('SEND MESSAGE_CREATE', 'text');
 
     this.ws.emit('MESSAGE_CREATE', {
+      channelId: this.channel._id,
       partialMessage: {
-        authorId: this.userService.user._id,
-        channelId: this.channel._id,
         content,
-      },
+      }
     });
 
     this.stopTyping(this.userService.user._id);

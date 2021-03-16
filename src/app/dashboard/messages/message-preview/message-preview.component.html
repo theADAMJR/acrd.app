@@ -24,8 +24,10 @@
                   <h2 style="line-height: 16px;">
                     <span class="username-wrapper v-btm">
                       <strong [style.color]="roleColor" class="user-name">{{ author.username }}</strong>
-                      <div *ngIf="author.bot"
+                      <div *ngIf="author.bot && author.username !== '2PG'"
                         class="username-badge badge badge-secondary ml-1">BOT</div>
+                      <div *ngIf="author.bot && author.username === '2PG'"
+                        class="username-badge badge badge-secondary ml-1">SYSTEM</div>
                     </span>
                     <span class="highlight-separator"> - </span>
                     <span class="timestamp">{{ timestamp }}</span>

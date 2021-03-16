@@ -30,7 +30,7 @@ export class UsersService {
   public getUnknown(userId: string): Lean.User {
     return {
       _id: userId,
-      avatarURL: `${environment.endpoint}/assets/avatars/avatar-gray.png`,
+      avatarURL: `${environment.endpoint}/avatars/unknown.png`,
       badges: [],
       bot: false,
       createdAt: new Date(),
@@ -52,7 +52,6 @@ export class UsersService {
     this.knownUsers = (this.key)
       ? await this.http.get(`${this.endpoint}/known`, this.headers).toPromise() as any ?? []
       : [];
-    this.knownUsers.push(this.user);
   }
 
   public get(id: string): Promise<Lean.User> {

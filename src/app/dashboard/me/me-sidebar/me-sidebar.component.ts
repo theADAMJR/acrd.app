@@ -16,6 +16,7 @@ export class MeSidebarComponent implements OnInit {
     public userService: UsersService) {}
     
   async ngOnInit() {
+    await this.userService.init();
     await this.channelService.init();
   }
 

@@ -42,19 +42,6 @@ export class TextChannelComponent implements OnInit {
 
   private lastTypingEventAt = null;
 
-  get onlineMembers() {
-    return this.guild.members.filter(m => {
-      const user = this.userService.getKnown(m.userId);
-      return user.status !== 'OFFLINE';
-    });
-  }
-  get offlineMembers() {
-    return this.guild.members.filter(m => {
-      const user = this.userService.getKnown(m.userId);
-      return user.status === 'OFFLINE';
-    });
-  }
-
   constructor(
     private channelService: ChannelService,
     public guildService: GuildService,
@@ -166,11 +153,9 @@ export class TextChannelComponent implements OnInit {
     (document.querySelector('#chatBox') as HTMLInputElement).value = '';
     
     this.ws.emit('MESSAGE_CREATE', {
+      channelId: this.channel._id,
       partialMessage: {
-        authorId: this.userService.user._id,
-        channelId: this.channel._id,
         content,
-        guildId: this.guild._id,
       }
     });
 
