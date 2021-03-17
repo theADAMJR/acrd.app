@@ -27,6 +27,13 @@ export class UsersService {
       await this.updateKnownUsers();
   }
 
+  public upsertCached(userId: string, updated: Lean.User) {
+    const index = this.knownUsers.findIndex(u => u._id === userId);
+    (index < 0)
+      ? this.knownUsers.push(updated)
+      : this.knownUsers[index] = updated;
+  }
+
   public getUnknown(userId: string): Lean.User {
     return {
       _id: userId,
@@ -34,8 +41,8 @@ export class UsersService {
       badges: [],
       bot: false,
       createdAt: new Date(),
-      friends: [],
-      friendRequests: [],
+      friendsIds: [],
+      friendRequestIds: [],
       guilds: [],
       status: 'OFFLINE',
       username: `Unknown - ${userId}`,

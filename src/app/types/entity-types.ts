@@ -39,7 +39,7 @@ export namespace Lean {
   export interface Invite {
     _id: string;
     createdAt: Date;
-    options: InviteTypes.Options;
+    options?: InviteTypes.Options;
     inviterId: string;
     guildId: string;
     uses: number;
@@ -70,8 +70,8 @@ export namespace Lean {
     badges: UserTypes.BadgeType[];
     bot: boolean;
     createdAt: Date;
-    friends: this[];
-    friendRequests: UserTypes.FriendRequest[];
+    friendIds: string[];
+    friendRequestIds: string[];
     guilds: string[] | Guild[];
     status: UserTypes.StatusType;
     username: string;
