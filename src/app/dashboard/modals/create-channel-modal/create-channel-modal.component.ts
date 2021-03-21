@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WSService } from 'src/app/services/ws.service';
-import { Lean } from 'src/app/types/entity-types';
+import { Lean, patterns } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'create-channel-modal',
@@ -31,7 +31,7 @@ export class CreateChannelModalComponent implements OnInit {
       .get('name')
       .setValidators([
         Validators.required,
-        Validators.pattern((value === 'TEXT') ? /^[A-Za-z\-\d]+$/ : /.*/),
+        Validators.pattern((value === 'TEXT') ? patterns.textChannelName : /.*/),
         Validators.maxLength(32)
       ]));
 

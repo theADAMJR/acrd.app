@@ -11,7 +11,7 @@ export class GuildService {
   private _guilds: Lean.Guild[] = [];
   
   get guilds() { return this._guilds; }
-  private get headers() { return { headers: { Authorization: this.key } }; }
+  private get headers() { return { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } }; }
 
   private get key() {
     return localStorage.getItem('key');
@@ -48,24 +48,6 @@ export class GuildService {
 
   ownsGuild(guildId: string, userId: string) {
     return this.getGuild(guildId)?.ownerId === userId;
-  }
-
-  async createGuild(data: Partial.Guild): Promise<Lean.Guild> {
-    return this.http
-      .post(this.endpoint, data, this.headers)
-      .toPromise() as any;
-  }
-  saveGuild(id: string, value: Partial.Guild): Promise<Lean.Guild> {    
-    return this.http
-      .patch(`${this.endpoint}/${id}`, value, this.headers)
-      .toPromise() as any;
-  }
-
-  // TODO: remove
-  deleteGuild(id: string): Promise<any> {
-    return this.http
-      .delete(`${this.endpoint}/${id}`, this.headers)
-      .toPromise() as any;
   }
 
   addBot(guildId: string, botId: string): Promise<any> {

@@ -20,6 +20,7 @@ export interface WSEventArgs {
   'MESSAGE_DELETE': (args: Args.MessageDelete) => any;
   'MESSAGE_UPDATE': (args: Args.MessageUpdate) => any;
   'PRESENCE_UPDATE': (params: Args.PresenceUpdate) => any;
+  'READY': () => any;
   'REMOVE_FRIEND': (args: Args.RemoveFriend) => any;
   'SEND_FRIEND_REQUEST': (args: Args.SendFriendRequest) => any;
   'TYPING_START': (args: Args.TypingStart) => any;
@@ -32,6 +33,7 @@ export interface WSEventParams {
   'ACCEPT_FRIEND_REQUEST': Params.AcceptFriendRequest;
   'CANCEL_FRIEND_REQUEST': Params.CancelFriendRequest;
   'CHANNEL_CREATE': Params.ChannelCreate;
+  'GUILD_CREATE': Params.GuildCreate;
   'GUILD_DELETE': Params.GuildDelete;
   'GUILD_MEMBER_ADD': Params.GuildMemberAdd;
   'GUILD_MEMBER_UPDATE': Params.GuildMemberUpdate;
@@ -52,7 +54,7 @@ export interface WSEventParams {
   'USER_UPDATE': Params.UserUpdate;
   'VOICE_SERVER_UPDATE': Params.VoiceServerUpdate;
   'VOICE_STATE_UPDATE': Params.VoiceStateUpdate;
-  'disconnect': () => any;
+  'disconnect': any;
 }
 
 export namespace Params {
@@ -64,6 +66,9 @@ export namespace Params {
   export interface ChannelCreate {
     guildId: string;
     partialChannel: Partial.Channel;
+  }
+  export interface GuildCreate {
+    partialGuild: Partial.Guild;
   }
   export interface GuildDelete {
     guildId: string;
@@ -110,7 +115,6 @@ export namespace Params {
     partialMessage: Partial.Message;
   }
   export interface MessageDelete {
-    channelId: string;
     messageId: string;
   }
   export interface MessageUpdate {
@@ -189,7 +193,6 @@ export namespace Args {
     partialRole: Partial.Role;
   }
   export interface GuildUpdate {
-    guildId: string;
     partialGuild: Partial.Guild;
   }
   export interface InviteCreate {
@@ -212,6 +215,7 @@ export namespace Args {
     userId: string;
     status: UserTypes.StatusType;
   }
+  export interface Ready {}
   export interface RemoveFriend extends CancelFriendRequest {}
   export interface SendFriendRequest extends CancelFriendRequest {
     friend: Lean.User;

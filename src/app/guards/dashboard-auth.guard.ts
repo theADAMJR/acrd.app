@@ -29,7 +29,7 @@ export class DashboardAuthGuard implements CanActivate {
     if (!this.already) {
       this.already = true;
 
-      this.log.info('SEND READY', 'dauth');
+      ;
       this.ws.emit('READY', { key: localStorage.getItem('key') });
     }
     return canActivate;

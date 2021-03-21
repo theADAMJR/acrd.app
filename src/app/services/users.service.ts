@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Lean, UserTypes } from '../types/entity-types';
-import { Partial } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
@@ -11,7 +10,7 @@ export class UsersService {
   user: Lean.User;
 
   private get headers() {
-    return { headers: { Authorization: this.key } };
+    return { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } };
   }
 
   get key() {
@@ -41,8 +40,8 @@ export class UsersService {
       badges: [],
       bot: false,
       createdAt: new Date(),
-      friendsIds: [],
-      friendRequestIds: [],
+      friendIds: [],
+      friendRequests: [],
       guilds: [],
       status: 'OFFLINE',
       username: `Unknown - ${userId}`,
@@ -58,14 +57,18 @@ export class UsersService {
   public async updateKnownUsers() {
     this.knownUsers = (this.key)
       ? await this.http.get(`${this.endpoint}/known`, this.headers).toPromise() as any ?? []
-      : [];
+      : [];    
   }
 
   public get(id: string): Promise<Lean.User> {
     return this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise() as any;
   }
   public getKnown(id: string): Lean.User {    
-    return this.knownUsers?.find(u => u._id === id);
+    return this.knownUsers.find(u => u._id === id);
+  }
+  public getFriends() {
+    return this.user.friendIds
+      .map(id => this.getKnown(id));
   }
 
   public addKnownUser(user: Lean.User) {
@@ -94,6 +97,6 @@ export class UsersService {
   }
 
   private buildHeaders() {
-    return new HttpHeaders({ Authorization: `${this.key}` });
+    return new HttpHeaders({ Authorization: `Bearer ${localStorage.getItem('key')}` });
   }
 }

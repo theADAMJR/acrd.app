@@ -7,6 +7,7 @@ import { LogService } from 'src/app/services/log.service';
 import { RTCService } from 'src/app/services/rtc.service';
 import { ChannelService } from 'src/app/services/channel.service';
 import { Lean } from 'src/app/types/entity-types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sidebar',
@@ -23,8 +24,8 @@ export class SidebarComponent implements OnInit {
     public channelService: ChannelService,
     public guildService: GuildService,
     private userService: UsersService,
-    private log: LogService,
     private rtc: RTCService,
+    private router: Router,
     private ws: WSService) {}
 
   async ngOnInit() {
@@ -49,6 +50,9 @@ export class SidebarComponent implements OnInit {
 
       .on('GUILD_JOIN', async ({ guild }) => {
         this.guildService.guilds.push(guild);
+        this.router.navigate([`/channels/${guild._id}`]);
+
+        document.querySelector('.modal-backdrop')?.remove();
       }, this)
 
       .on('SEND_FRIEND_REQUEST', ({ sender, friend }) => {

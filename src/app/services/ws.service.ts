@@ -6,15 +6,14 @@ import { WSEventArgs, WSEventParams } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class WSService {
-  private readonly socket: SocketIOClient.Socket;
+  private readonly socket = (io as any).connect(environment.rootEndpoint);
   private listened = new Map<any, string[]>();
 
   constructor(private log: LogService) {
-    this.socket ??= io.connect(environment.rootEndpoint);
     this.socket.on('message', (content: string) => console.log(content));
   }
 
-  public on<T extends keyof WSEventArgs>(name: T, callback: WSEventArgs[T], component: any): this {
+  public on<K extends keyof WSEventArgs>(name: K, callback: WSEventArgs[K], component: any): this {
     const listened = this.getListened(typeof component);
     if (listened.includes(name)) {
       this.log.warning(`Refusing to listen to ${name} more than once, for ${component}`, 'ws');
@@ -28,7 +27,7 @@ export class WSService {
     return this;
   }
 
-  public emit<T extends keyof WSEventParams>(name: T, params: WSEventParams[T]) {
+  public emit<K extends keyof WSEventParams>(name: K, params: WSEventParams[K]) {
     this.log.info(`SEND ${name}`, 'ws');
     this.socket.emit(name, params);
   }

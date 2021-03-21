@@ -8,7 +8,7 @@ import { UsersService } from './users.service';
 @Injectable({ providedIn: 'root' })
 export class ChannelService {
   readonly endpoint = environment.endpoint + '/channels';
-  private readonly headers = { headers: { Authorization: this.key } };
+  private readonly headers = { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } };
 
   cachedMessages = new Map<string, Map<string, Lean.Message[]>>();
   _dmChannels: Lean.Channel[] = [];
@@ -57,8 +57,8 @@ export class ChannelService {
     if (!messages) {
       const query = `?start=${options?.start ?? 0}&end=${options?.end ?? 25}`;
       messages = await this.http
-        .get(`${this.endpoint}/${guildId}/${channelId}${query}`,
-          { headers: { Authorization: this.key } }).toPromise() as any;
+        .get(`${this.endpoint}/${guildId}/${channelId}/messages${query}`,
+          { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } }).toPromise() as any;
       messageMap.set(channelId, messages);
     }    
     return messages;

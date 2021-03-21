@@ -34,12 +34,11 @@ export class CreateGuildModalComponent {
 
     this.processing = true;
 
-    const { _id } = await this.guildService.createGuild(this.form.value);
-    await this.guildService.updateGuilds();
-    
-    document.querySelector('.modal-backdrop')?.remove();
-
-    this.router.navigate([`/channels/${_id}`]);
+    this.ws.emit('GUILD_CREATE', {
+      partialGuild: {
+        name: this.form.value.name,
+      },
+    })
   }
 
   joinGuild() {

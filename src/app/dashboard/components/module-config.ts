@@ -92,15 +92,16 @@ export abstract class ModuleConfig implements OnDestroy {
     try {
       if (!this.form.valid) return;
 
-      this.guild = await this.guildService.saveGuild(this.guildId, this.form.value);
-      
-      const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
-      this.guildService.guilds[index] = this.guild;
-      
-      this.log.info('SEND GUILD_UPDATE', 'mcnfg');
+      this.ws.on('GUILD_UPDATE', ({ partialGuild }) => {
+        this.guild = {
+          ...this.guild,
+          ...partialGuild,
+        }
+      }, this);
+
       this.ws.emit('GUILD_UPDATE', {
         guildId: this.guildId,
-        partialGuild: this.guild
+        partialGuild: this.form.value,
       });
     } catch {
       alert('An error occurred when submitting the form - check console');
@@ -117,15 +118,11 @@ export abstract class ModuleConfig implements OnDestroy {
     this.form.valueChanges
       .subscribe(() => this.openSaveChanges()); 
   }
-
   
   async deleteGuild() {
     const confirmation = prompt(`Please type 'CONFIRM' if you wish to delete this guild.`);
     if (confirmation !== 'CONFIRM') return;
 
-    await this.guildService.deleteGuild(this.guild._id);
-
-    this.log.info('SEND GUILD_DELETE', 'gset');
     this.ws.emit('GUILD_DELETE', { guildId: this.guildId });
 
     const index = this.guildService.guilds.findIndex(g => g._id === this.guildId);

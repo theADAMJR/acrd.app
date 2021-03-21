@@ -56,28 +56,37 @@ export class GuildSidebarComponent implements OnInit {
   }
 
   public hookWSEvents() {
-    this.ws.on('CHANNEL_CREATE', ({ channel }) => {
+    this.ws
+    .on('CHANNEL_CREATE', ({ channel }) => {
       this.guild.channels.push(channel);
-    }, this);
+    }, this)
 
-    this.ws.on('PRESENCE_UPDATE', ({ userId, status }) => {
+    .on('PRESENCE_UPDATE', ({ userId, status }) => {
       const guildMember = this.guild.members
         .find(m => m.userId === userId);
       if (!guildMember) return;
       
       const user = this.usersService.getKnown(userId);
       user.status = status;
-    }, this);
+    }, this)
 
-    this.ws.on('GUILD_UPDATE', ({ guildId, partialGuild }) => {
+      
+    .on('GUILD_UPDATE', ({ partialGuild }) => {
+      const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
+      const guild = this.guildService.guilds[index];
+      this.guildService.guilds[index] = {
+        ...guild,
+        ...partialGuild,
+      }
+    }, this)
+
+    .on('GUILD_UPDATE', ({ partialGuild }) => {
       this.guild = {
         ...this.guild,
         ...partialGuild
       };
-
-      const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
-      this.guildService.guilds[index] = this.guild;
     }, this)
+
     .on('GUILD_ROLE_UPDATE', ({ roleId, partialRole }) => {
       const index = this.guild.roles.findIndex(r => r._id === roleId);
       this.guild.roles[index] = {
@@ -85,6 +94,7 @@ export class GuildSidebarComponent implements OnInit {
         ...partialRole,
       };
     }, this)
+
     .on('GUILD_DELETE', async () => {
       const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
       this.guildService.guilds.splice(index, 1);

@@ -1,46 +1,52 @@
 <navbar></navbar>
 <section class="container text-center">
-    <div class="py-2 my-5"></div>
-    <form #f="ngForm" [formGroup]="form" (ngSubmit)="signUp(f.value)">
-        <h2 class="display-4 mb-4">Sign Up</h2>
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label for="username">Username</mat-label>
-                <input formControlName="username"
-                    id="username" type="text" autocomplete="username" matInput>
-                <mat-hint *ngIf="username.pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</mat-hint>
-                <mat-error *ngIf="username.errors?.required">Username is required.</mat-error>
-                <mat-error *ngIf="username.errors?.minlength">Username should be minimum {{ username.errors.minlength.requiredLength }} characters.</mat-error>
-                <mat-error *ngIf="username.errors?.shouldBeUnique">Username is already taken.</mat-error>
-                <mat-error *ngIf="username.errors?.pattern">Username should follow the <a routerLink="/docs/usernames">username rules</a>.</mat-error>
-            </mat-form-field>
-        </div>
+  <div class="py-2 my-5"></div>
+  <form #f="ngForm" [formGroup]="form" (ngSubmit)="signUp(f.value)">
+    <h2 class="display-4 mb-4">Sign Up</h2>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label for="username">Username</mat-label>
+        <input formControlName="username"
+          id="username" type="text" autocomplete="username" matInput>
+        <mat-hint *ngIf="username.pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</mat-hint>
+        <mat-error *ngIf="username.errors?.required">Username is required.</mat-error>
+        <mat-error *ngIf="username.errors?.minlength">Username should be minimum {{ username.errors.minlength.requiredLength }} characters.</mat-error>
+        <mat-error *ngIf="username.errors?.shouldBeUnique">Username is already taken.</mat-error>
+        <mat-error *ngIf="username.errors?.pattern">Username should follow the <a routerLink="/docs/usernames">username rules</a>.</mat-error>
+      </mat-form-field>
+    </div>
 
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label for="password">Password</mat-label>
-                <input formControlName="password"
-                    id="password" type="password" autocomplete="new-password" matInput>
-                <mat-hint>Minimum 8 characters.</mat-hint>
-                <mat-error *ngIf="password.errors?.required">Password is required.</mat-error>
-                <mat-error *ngIf="password.errors?.minlength">Password should be minimum {{ password.errors.minlength.requiredLength }} characters.</mat-error>
-                <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[a-z])/gm'">Password should include lowercase characters.</mat-error>
-                <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[A-Z])/gm'">Password should include uppercase characters.</mat-error>
-                <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[0-9])/gm'">Password should include numbers.</mat-error>
-                <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[!@#$%^&*])/gm'">Password should include symbols.</mat-error>
-            </mat-form-field>
-        </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label for="password">Password</mat-label>
+        <input formControlName="password"
+          id="password" type="password" autocomplete="new-password" matInput>
+        <mat-hint>Minimum 8 characters.</mat-hint>
+        <mat-error *ngIf="password.errors?.required">Password is required.</mat-error>
+        <mat-error *ngIf="password.errors?.minlength">Password should be minimum {{ password.errors.minlength.requiredLength }} characters.</mat-error>
+        <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[a-z])/gm'">Password should include lowercase characters.</mat-error>
+        <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[A-Z])/gm'">Password should include uppercase characters.</mat-error>
+        <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[0-9])/gm'">Password should include numbers.</mat-error>
+        <mat-error *ngIf="password.errors?.pattern?.requiredPattern === '/(?=.*[!@#$%^&*])/gm'">Password should include symbols.</mat-error>
+      </mat-form-field>
+    </div>
 
-        <div class="form-group">
-            <mat-form-field appearance="outline">
-                <mat-label for="confirmPassword">Confirm Password</mat-label>
-                <input formControlName="confirmPassword"
-                    id="confirmPassword" type="password"  autocomplete="new-password" matInput>
-                <mat-hint>Repeat password.</mat-hint>
-                <mat-error *ngIf="confirmPassword.errors?.required">Confirm Password is required.</mat-error>
-                <mat-error *ngIf="confirmPassword.touched && f.errors?.passwordsDoNotMatch">Passwords should match.</mat-error>
-            </mat-form-field>
-        </div>
-        <button class="bg-primary" type="submit" mat-button>Sign Up</button>
-    </form>
+    <div class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label for="confirmPassword">Confirm Password</mat-label>
+        <input formControlName="confirmPassword"
+          id="confirmPassword" type="password"  autocomplete="new-password" matInput>
+        <mat-hint>Repeat password.</mat-hint>
+        <mat-error *ngIf="confirmPassword.errors?.required">Confirm Password is required.</mat-error>
+      </mat-form-field>
+    </div>
+    <div
+      *ngIf="form.errors"
+      class="mb-4">
+      <span
+        *ngIf="form.get('confirmPassword').dirty && form.errors?.passwordMismatch"
+        class="text-warning rounded alert border-warning">Passwords should match.</span>
+    </div>
+    <button class="bg-primary text-center" type="submit" mat-button>Sign Up</button>
+  </form>
 </section>

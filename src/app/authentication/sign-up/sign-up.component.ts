@@ -6,6 +6,7 @@ import { PasswordValidators } from './password.validators';
 import { UsernameValidators } from './username.validators';
 import { hacker } from 'faker';
 import { UsersService } from '../../services/users.service';
+import { patterns } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'sign-up',
@@ -18,16 +19,16 @@ export class SignUpComponent implements OnInit {
   get confirmPassword() { return this.form.get('confirmPassword'); }
 
   form = new FormGroup({
-    username: new FormControl(`${hacker.adjective()} ${hacker.noun()}`, [
+    username: new FormControl(`${hacker.adjective()}-${hacker.noun().replace(/ /, '')}`, [
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(32),
-      Validators.pattern(/(^(?! |^everyone$|^here$|^me$|^someone$|^discordtag$)[A-Za-z\d\-\_\! ]{2,32}(?<! )$)/)
+      Validators.pattern(patterns.username),
     ], UsernameValidators.shouldBeUnique),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
-      Validators.pattern(/(?=.*[a-zA-Z0-9!@#$%^&*])/gm),
+      Validators.pattern(patterns.password),
     ]),
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: PasswordValidators.passwordsShouldMatch });

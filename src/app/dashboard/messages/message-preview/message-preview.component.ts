@@ -123,9 +123,7 @@ export class MessagePreviewComponent {
   }
 
   delete() {
-    this.log.info('SEND MESSAGE_DELETE', 'msg');
     this.ws.emit('MESSAGE_DELETE', {
-      channelId: this.message.channelId,
       messageId: this.message._id,
     });
 

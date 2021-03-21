@@ -1,6 +1,8 @@
 <dashboard-sidebar
   (click)="onClick($event)">
-  <div *ngIf="channel">
+  <div
+    *ngIf="channel"
+    class="dm-channel">
     <dashboard-navbar>      
       <i class="fas fa-at pr-2 text-muted"></i>
       <strong>{{ recipient?.username }}</strong>

@@ -52,7 +52,7 @@ export class VoiceChannelComponent implements OnInit {
       guildId: this.guild._id,
     };
 
-    this.log.info('SEND VOICE_STATE_UPDATE', 'vc');
+    ;
     this.ws.emit('VOICE_STATE_UPDATE', {
       userId: user._id,
       voice: user.voice,

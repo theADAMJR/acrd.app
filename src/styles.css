@@ -235,6 +235,9 @@ mat-paginator {
 .footer .mat-form-field-flex {
   width: 60vw;
 }
+ .footer .mat-form-field-flex {
+  width: 75vw;
+}
 
 .footer .mat-form-field-wrapper {
   padding-bottom: 0 !important;

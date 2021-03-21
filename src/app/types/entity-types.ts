@@ -55,7 +55,7 @@ export namespace Lean {
   }
   export interface Role {
     _id: string;
-    color: string;
+    color?: string;
     createdAt: Date;
     guildId: string;
     hoisted: boolean;
@@ -71,7 +71,7 @@ export namespace Lean {
     bot: boolean;
     createdAt: Date;
     friendIds: string[];
-    friendRequestIds: string[];
+    friendRequests: UserTypes.FriendRequest[];
     guilds: string[] | Guild[];
     status: UserTypes.StatusType;
     username: string;
@@ -86,7 +86,7 @@ export namespace UserTypes {
     type: FriendRequestType
   }
   export type FriendRequestType = 'OUTGOING' | 'INCOMING';
-  export type StatusType = 'ONLINE' | 'DND' | 'IDLE' | 'OFFLINE';
+  export type StatusType = 'ONLINE' | 'BUSY' | 'AFK' | 'OFFLINE';
   export class VoiceState {
     channelId?: string;
     guildId?:  string;
@@ -147,7 +147,7 @@ export namespace PermissionTypes {
   export enum Text {
     ADD_REACTIONS = 2048 * 16,
     MENTION_EVERYONE = 2048 * 8,
-    READ_MESSAGE_HISTORY = 2048 * 4,
+    READ_MESSAGES = 2048 * 4,
     MANAGE_MESSAGES = 2048 * 2,
     SEND_MESSAGES = 2048
   }
@@ -157,5 +157,19 @@ export namespace PermissionTypes {
     SPEAK = 32768 * 2,
     CONNECT = 32768
   }
+  export const All = {
+    ...General,
+    ...Text,
+    ...Voice,
+  }
   export type Permission = General | Text | Voice;
+}
+
+export const patterns = {
+  hexColor: /^#(?:[0-9a-fA-F]{3}){1,2}$/,
+  password: /(?=.*[a-zA-Z0-9!@#$%^&*])/,
+  snowflake: /^\d{18}$/,
+  status: /^ONLINE|^BUSY$|^AFK$|^OFFLINE$/,
+  textChannelName: /^[A-Za-z\-\d]+$/,
+  username: /(^(?! |^everyone$|^here$|^me$|^someone$|^discordtag$)[A-Za-z\d\-\_]{2,32}(?<! )$)/,
 }

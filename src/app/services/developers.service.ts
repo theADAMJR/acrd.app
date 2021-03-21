@@ -11,7 +11,7 @@ export class DevelopersService {
 
   private get headers() {
     return {
-      Authorization: localStorage.getItem('key')
+      Authorization: `Bearer ${localStorage.getItem('key')}`,
     };
   }
 

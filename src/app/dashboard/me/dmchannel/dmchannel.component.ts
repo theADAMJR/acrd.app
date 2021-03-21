@@ -89,7 +89,7 @@ export class DMChannelComponent implements OnInit {
     const sinceLastTyped = new Date().getTime() - this.lastTypingEmissionAt?.getTime();    
     if (sinceLastTyped < 5 * 1000) return;
 
-    this.log.info('SEND TYPING_START', 'text');
+    ;
     
     this.ws.emit('TYPING_START', {
       channelId: this.channel._id,
@@ -121,7 +121,7 @@ export class DMChannelComponent implements OnInit {
     
     (document.querySelector('#chatBox') as HTMLInputElement).value = '';
     
-    this.log.info('SEND MESSAGE_CREATE', 'text');
+    ;
 
     this.ws.emit('MESSAGE_CREATE', {
       channelId: this.channel._id,

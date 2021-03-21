@@ -122,7 +122,7 @@ export class TextChannelComponent implements OnInit {
     const sinceLastTyped = new Date().getTime() - this.lastTypingEventAt?.getTime();    
     if (sinceLastTyped < 5 * 1000) return;
 
-    this.log.info('SEND TYPING_START', 'text');
+    ;
     
     this.ws.emit('TYPING_START',
       { channelId: this.channel._id, userId: this.userService.user._id });

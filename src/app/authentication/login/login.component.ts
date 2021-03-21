@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { patterns } from 'src/app/types/entity-types';
 import { Credentials, UserAuthService } from '../../services/user-auth.service';
 
 @Component({
@@ -15,8 +16,14 @@ export class LoginComponent {
     private router: Router) {}
 
   form = new FormGroup({
-    username: new FormControl('', [ Validators.required ]),
-    password: new FormControl('', [ Validators.required] )
+    username: new FormControl('', [
+      Validators.required,
+      Validators.pattern(patterns.username),
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.pattern(patterns.password),
+    ]),
   });
   processing = false;
 

@@ -112,7 +112,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       }),
       text: new FormGroup({
         SEND_MESSAGES: new FormControl(hasPermission(PermissionTypes.Text.SEND_MESSAGES)),
-        READ_MESSAGE_HISTORY: new FormControl(hasPermission(PermissionTypes.Text.READ_MESSAGE_HISTORY)),
+        READ_MESSAGE_HISTORY: new FormControl(hasPermission(PermissionTypes.Text.READ_MESSAGES)),
         MENTION_EVERYONE: new FormControl(hasPermission(PermissionTypes.Text.MENTION_EVERYONE)),
         MANAGE_MESSAGES: new FormControl(hasPermission(PermissionTypes.Text.MANAGE_MESSAGES)),
         ADD_REACTIONS: new FormControl(hasPermission(PermissionTypes.Text.ADD_REACTIONS)),
@@ -157,7 +157,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     try {
       if (!this.form.valid) return;
 
-      this.log.info('SEND GUILD_ROLE_UPDATE', 'mcnfg');
+      ;
       this.ws.emit('GUILD_ROLE_UPDATE', {
         roleId: this.selectedRole._id,
         guildId: this.guildId,
@@ -169,7 +169,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   newRole() {
-    this.log.info('SEND GUILD_ROLE_CREATE', 'mcnfg');
+    ;
     this.ws.emit('GUILD_ROLE_CREATE', {
       guildId: this.guildId,
       partialRole: {
@@ -180,7 +180,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   deleteRole() {
-    this.log.info('SEND GUILD_ROLE_DELETE', 'mcnfg');
+    ;
     this.ws.emit('GUILD_ROLE_DELETE', ({ roleId: this.selectedRole._id, guildId: this.guildId }));
   }
 }
