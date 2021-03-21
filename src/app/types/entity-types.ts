@@ -9,6 +9,8 @@ export namespace Lean {
     description: string;
     name: string;
     owner: User;
+    user: User;
+    token: never;
   }
   export interface Channel {
     _id: string;
@@ -72,26 +74,11 @@ export namespace Lean {
     createdAt: Date;
     friendIds: string[];
     friendRequests: UserTypes.FriendRequest[];
-    guilds: string[] | Guild[];
+    guilds: string[] | Lean.Guild[];
     status: UserTypes.StatusType;
     username: string;
     voice: UserTypes.VoiceState;
   } 
-}
-
-export namespace UserTypes {
-  export type BadgeType = 'VIEWER' | 'DEVELOPER';
-  export interface FriendRequest {
-    userId: string,
-    type: FriendRequestType
-  }
-  export type FriendRequestType = 'OUTGOING' | 'INCOMING';
-  export type StatusType = 'ONLINE' | 'BUSY' | 'AFK' | 'OFFLINE';
-  export class VoiceState {
-    channelId?: string;
-    guildId?:  string;
-    selfMuted = false;
-  }
 }
 
 export namespace ChannelTypes {
@@ -163,6 +150,24 @@ export namespace PermissionTypes {
     ...Voice,
   }
   export type Permission = General | Text | Voice;
+}
+
+export namespace UserTypes {
+  export type BadgeType = 'VIEWER' | 'DEVELOPER';
+  export interface FriendRequest {
+    userId: string,
+    type: FriendRequestType
+  }
+  export type FriendRequestType = 'OUTGOING' | 'INCOMING';
+  export type StatusType = 'ONLINE' | 'BUSY' | 'AFK' | 'OFFLINE';
+  export class VoiceState {
+    channelId?: string;
+    guildId?:  string;
+    selfMuted = false;
+  }
+  export interface Self extends Lean.User {
+    guilds: Lean.Guild[];
+  }
 }
 
 export const patterns = {

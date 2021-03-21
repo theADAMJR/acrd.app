@@ -53,6 +53,7 @@ import { MessagePreviewComponent } from './dashboard/messages/message-preview/me
 import { MemberListComponent } from './dashboard/guilds/member-list/member-list.component';
 import { DevelopersComponent } from './pages/developers/developers.component';
 import { ApplicationComponent } from './pages/developers/application/application.component';
+import { BotUserComponent } from './pages/developers/bot-user/bot-user.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -116,7 +117,8 @@ export class AlertErrorHandler implements ErrorHandler {
     BotListComponent,
     MemberListComponent,
     DevelopersComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    BotUserComponent
   ],
   imports: [
     AppRoutingModule,

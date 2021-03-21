@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
+import { patterns } from 'src/app/types/entity-types';
 import { UsersService } from '../../../services/users.service';
 import { TabType } from '../friends-list/friends-list.component';
 
@@ -11,12 +12,12 @@ import { TabType } from '../friends-list/friends-list.component';
   styleUrls: ['./me-overview.component.css']
 })
 export class DashboardOverviewComponent {
-addFriendForm = new FormGroup({
+  addFriendForm = new FormGroup({
     username: new FormControl('', [      
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(32),
-      Validators.pattern(/(^(?! |^everyone$|^here$|^me$|^someone$|^discordtag$)[A-Za-z\d\-\_\! ]+(?<! )$)/)
+      Validators.pattern(patterns.username),
     ])
   });
   

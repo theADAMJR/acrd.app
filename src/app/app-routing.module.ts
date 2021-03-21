@@ -21,6 +21,8 @@ import { UserSettingsComponent } from './dashboard/me/user-settings/user-setting
 import { BotListComponent } from './dashboard/guilds/guild-settings/bot-list/bot-list.component';
 import { DevelopersComponent } from './pages/developers/developers.component';
 import { ApplicationComponent } from './pages/developers/application/application.component';
+import { BotUserComponent } from './pages/developers/bot-user/bot-user.component';
+import { DevelopersAuthGuard } from './guards/developers-auth.guard';
 
 const routes: Routes = [
   {
@@ -101,17 +103,22 @@ const routes: Routes = [
   //   canDeactivate: [CanDeactivateDashboard]
   // },
   {
+    path: `developers/applications/:id/user`,
+    canActivate: [DevelopersAuthGuard],
+    component: BotUserComponent,
+  },
+  {
     path: `developers/applications/:id`,
-    // TODO: make sure user is logged in
-    component: ApplicationComponent
+    canActivate: [DevelopersAuthGuard],
+    component: ApplicationComponent,
   },
   {
     path: `developers/applications`,
-    redirectTo: 'developers'
+    redirectTo: 'developers',
   },
   {
     path: 'developers',
-    // TODO: make sure user is logged in
+    canActivate: [DevelopersAuthGuard],
     component: DevelopersComponent
   },
   {

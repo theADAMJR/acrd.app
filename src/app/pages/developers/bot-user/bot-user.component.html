@@ -27,19 +27,12 @@
     *ngIf="app; else loading"
     class="col-6 m-4 mt-5">
     <header>
-      <h2>Overview</h2>
-      <p class="lead">General info about your Discord bot.</p>
+      <h2>Bot User</h2>
+      <p class="lead">General info about your Discord bot user.</p>
     </header>
     <form #f="ngForm" [formGroup]="form">
-      <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input formControlName="name" type="text" [value]="app.name" matInput>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="ml-2">
-        <mat-label>Description</mat-label>
-        <textarea formControlName="description" matInput>{{ app.description }}</textarea>
-      </mat-form-field>
+      {{ app.user | json }}
+      {{ app.token | json }}
     </form>
   </div>
 
