@@ -54,6 +54,7 @@ import { MemberListComponent } from './dashboard/guilds/member-list/member-list.
 import { DevelopersComponent } from './pages/developers/developers.component';
 import { ApplicationComponent } from './pages/developers/application/application.component';
 import { BotUserComponent } from './pages/developers/bot-user/bot-user.component';
+import { AvatarUrlComponent } from './dashboard/components/avatar-url/avatar-url.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -118,7 +119,8 @@ export class AlertErrorHandler implements ErrorHandler {
     MemberListComponent,
     DevelopersComponent,
     ApplicationComponent,
-    BotUserComponent
+    BotUserComponent,
+    AvatarUrlComponent
   ],
   imports: [
     AppRoutingModule,

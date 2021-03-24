@@ -28,7 +28,6 @@ export class InviteModalComponent {
   public open() {
     this.ws.emit('INVITE_CREATE', {
       guildId: this.guild._id,
-      userId: this.usersService.user._id,
       options: this.form.value,
     });
 
@@ -36,8 +35,6 @@ export class InviteModalComponent {
       .subscribe(() => this.recentlyUpdated = this.form.valid);
 
     document.querySelector('.modal-backdrop')?.remove();
-
-    this.hookWSEvents();
   }
 
   public updateInvite() {
@@ -49,15 +46,8 @@ export class InviteModalComponent {
 
     this.ws.emit('INVITE_CREATE', {
       guildId: this.guild._id,
-      userId: this.usersService.user._id,
       options: this.form.value,
     });    
-  }
-
-  public hookWSEvents() {
-    this.ws.on('INVITE_CREATE', ({ invite }) => {
-      this.invite = invite;
-    }, this);
   }
 
   public copyToClipboard() {

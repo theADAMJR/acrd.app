@@ -30,9 +30,29 @@
       <h2>Bot User</h2>
       <p class="lead">General info about your Discord bot user.</p>
     </header>
+
     <form #f="ngForm" [formGroup]="form">
-      {{ app.user | json }}
-      {{ app.token | json }}
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input
+          formControlName="username"
+          type="text"
+          matInput>
+      </mat-form-field>
+
+      <div>
+        <img
+          [src]="form.get('avatarURL').value"
+          [alt]="app.user.username + ' Avatar'">
+  
+        <mat-form-field appearance="outline" class="ml-3">
+          <mat-label>Avatar URL</mat-label>
+          <input
+            formControlName="avatarURL"
+            type="url"
+            matInput>
+        </mat-form-field>
+      </div>
     </form>
   </div>
 

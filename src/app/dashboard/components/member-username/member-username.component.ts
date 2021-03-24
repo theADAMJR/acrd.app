@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'member-username',
@@ -6,8 +7,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./member-username.component.css']
 })
 export class MemberUsernameComponent implements OnInit {
-  @Input() user;
-  @Input() guild;
+  @Input() user: Lean.User;
+  @Input() guild: Lean.Guild;
   @Input() withAvatar = true;
   @Input() voice = false;
   @Input() statusOverride: string;

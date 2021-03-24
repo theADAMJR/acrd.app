@@ -8,11 +8,9 @@
   [attr.data-toggle]="member ? 'popover' : ''"
   [attr.data-content]="popoverHTML"
   [class]="guild ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
-  <img
-    *ngIf="withAvatar"
-    [src]="user.avatarURL"
-    [alt]="user.username + ' Avatar'"
-    class="round">
+    <app-avatar-url
+      *ngIf="withAvatar"
+      [user]="user"></app-avatar-url>
   <span
     class="status round"
     [class]="user.status?.toLowerCase()"></span>

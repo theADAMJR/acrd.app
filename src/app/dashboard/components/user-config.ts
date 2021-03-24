@@ -92,7 +92,10 @@ export abstract class UserConfig implements OnDestroy {
       this.usersService.user = Object.assign(this.user, this.form.value);
 
       ;
-      this.ws.emit('USER_UPDATE', { userId: this.user._id, partialUser: this.form.value });
+      this.ws.emit('USER_UPDATE', {
+        key: localStorage.getItem('key'),
+        partialUser: this.form.value,
+      });
     } catch {
       alert('An error occurred when submitting the form - check console');
     }

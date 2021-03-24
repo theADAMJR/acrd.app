@@ -16,7 +16,6 @@ import { Lean } from 'src/app/types/entity-types';
 export class MessagePreviewComponent {
   @Input() message: Lean.Message;
   @Input() isExtra = false;
-
   @Input() guild: Lean.Guild;
   @Input() member: Lean.GuildMember;
 

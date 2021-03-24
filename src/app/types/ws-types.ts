@@ -105,7 +105,6 @@ export namespace Params {
   export interface InviteCreate {
     guildId: string;
     options: InviteTypes.Options;
-    userId: string;
   }
   export interface InviteDelete {
     inviteCode: string;
@@ -138,25 +137,22 @@ export namespace Params {
   }
   export interface TypingStart {
     channelId: string;
-    userId: string;
   }
   export interface UserUpdate {
     partialUser: Partial.User;
-    userId: string;
+    key: string;
   }
   export interface VoiceStateUpdate {
-    userId: string;
     voice: UserTypes.VoiceState;
   }
   export interface VoiceServerUpdate {
     guildId: string;
-    userId: string;
   }
 }
 
 export namespace Args {
   export interface AcceptFriendRequest extends CancelFriendRequest {
-    dmChannel: Lean.Channel;
+    dmChannel: ChannelTypes.DM;
   }
   export interface CancelFriendRequest {
     friend: Lean.User;

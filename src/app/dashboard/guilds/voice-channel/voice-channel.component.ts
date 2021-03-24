@@ -3,6 +3,7 @@ import { LogService } from 'src/app/services/log.service';
 import { RTCService } from 'src/app/services/rtc.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
+import { ChannelTypes, Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'voice-channel',
@@ -10,13 +11,12 @@ import { WSService } from 'src/app/services/ws.service';
   styleUrls: ['./voice-channel.component.css']
 })
 export class VoiceChannelComponent implements OnInit {
-  @Input() channel;
-  @Input() guild;
+  @Input() channel: ChannelTypes.Voice;
+  @Input() guild: Lean.Guild;
 
   constructor(
     private rtc: RTCService,
     private userService: UsersService,
-    private log: LogService,
     private ws: WSService) {}
 
   async ngOnInit() {
@@ -43,8 +43,8 @@ export class VoiceChannelComponent implements OnInit {
   
   async join() {
     const user = this.userService.user;
-    // const isSelfConnected = this.channel.memberIds.includes(user._id);    
-    // if (isSelfConnected) return;
+    const isSelfConnected = this.channel.memberIds.includes(user._id);    
+    if (isSelfConnected) return;
 
     user.voice = {
       ...user.voice,
@@ -52,15 +52,10 @@ export class VoiceChannelComponent implements OnInit {
       guildId: this.guild._id,
     };
 
-    ;
-    this.ws.emit('VOICE_STATE_UPDATE', {
-      userId: user._id,
-      voice: user.voice,
-    });
+    this.ws.emit('VOICE_STATE_UPDATE', { voice: user.voice });
   }
 
-  getUser(memberId: string) {    
-    return this.guild.members
-      .find(m => m.userId === memberId)?.user;
+  getUser(userId: string) {
+    return this.userService.getKnown(userId);
   }
 }

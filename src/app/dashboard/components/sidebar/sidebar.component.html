@@ -1,83 +1,81 @@
-<mat-sidenav-container fullscreen>
-    <mat-sidenav mode="side" opened #drawer>
-        <div class="guilds px-2">
-            <div class="user">
-                <div routerLink="/channels/@me" class="guild-icon">
-                    <img
-                        [src]="user.avatarURL"
-                        [alt]="user.username">
-                </div>
-                <hr class="guild-seperator">
-            </div>
-            <div
-                *ngFor="let guild of guilds || []"
-                routerLinkActive="active"
-                class="guild-icon"
-                [routerLink]="'/channels/' + guild._id"
-                [matTooltip]="guild.name">
-                <img *ngIf="guild.iconURL"
-                    [src]="guild.iconURL" [alt]="guild.name">
-                <span *ngIf="!guild.iconURL"
-                    class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
-            </div>
-            <div data-toggle="modal" data-target="#addGuildModal"
-                class="guild-icon invite bg-transparent cursor-pointer"
-                matTooltip="Add a Guild">
-                <span class="add-guild pt-0 d-flex justify-content-center flex-column">+</span>
-            </div>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened #drawer>
+    <div class="guilds px-2">
+      <div class="user">
+        <div routerLink="/channels/@me" class="guild-icon">
+          <app-avatar-url [user]="user"></app-avatar-url>
         </div>
-        <div class="options">
-            <ng-content select=".side-nav"></ng-content>
-            <span (click)="toggle()"
-                class="float-right d-sm-none d-block close"><i class="fas fa-times"></i></span>
-            <div class="footer">
-            <div *ngIf="user.voice.channelId">
-                <button (click)="disconnect()"
-                    id="disconnectButton" class="float-right bg-danger"
-                    matTooltip="Disconnect" mat-button>
-                    <i class="fas fa-phone-slash pb-1"></i>
-                </button>
-                <span class="text-success">Voice Connected</span>
-                <span class="text-muted d-block connected-to">
-                    {{ channelService.getChannel(user.voice.guildId, user.voice.channelId)?.name }} /
-                    {{ guildService.getGuild(user.voice.guildId)?.name }}
-                </span>
-                <hr>
-            </div>
-            <div class="float-right">
-                <button
-                    matTooltip="Mute"
-                    (click)="mute()"
-                    id="muteButton" mat-button>
-                    <i class="fas pb-1" [ngClass]="{
-                        'fa-microphone': !user.voice.selfMuted,
-                        'fa-microphone-slash': user.voice.selfMuted
-                    }"></i>                    
-                </button>
-                <button
-                    id="settingsButton"
-                    matTooltip="Settings"
-                    routerLink="/channels/@me/settings"
-                    mat-button>
-                    <i class="fas fa-cogs pb-1"></i>                    
-                </button>
-            </div>
-            <img
-                class="round"
-                [src]="user.avatarURL"> {{ user.username }}</div>
-        </div>
-
-        <create-guild-modal></create-guild-modal>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <button class="toggle">
-            <div id="nav-icon1" class="open"
-                (click)="toggle()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        <hr class="guild-seperator">
+      </div>
+      <div
+        *ngFor="let guild of guilds || []"
+        routerLinkActive="active"
+        class="guild-icon"
+        [routerLink]="'/channels/' + guild._id"
+        [matTooltip]="guild.name">
+        <img *ngIf="guild.iconURL"
+          [src]="guild.iconURL" [alt]="guild.name">
+        <span *ngIf="!guild.iconURL"
+          class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+      </div>
+      <div data-toggle="modal" data-target="#addGuildModal"
+        class="guild-icon invite bg-transparent cursor-pointer"
+        matTooltip="Add a Guild">
+        <span class="add-guild pt-0 d-flex justify-content-center flex-column">+</span>
+      </div>
+    </div>
+    <div class="options">
+      <ng-content select=".side-nav"></ng-content>
+      <span (click)="toggle()"
+        class="float-right d-sm-none d-block close"><i class="fas fa-times"></i></span>
+      <div class="footer">
+      <div *ngIf="user.voice.channelId">
+        <button (click)="disconnect()"
+          id="disconnectButton" class="float-right bg-danger"
+          matTooltip="Disconnect" mat-button>
+          <i class="fas fa-phone-slash pb-1"></i>
         </button>
-        <ng-content select="#content"></ng-content>
-    </mat-sidenav-content>
+        <span class="text-success">Voice Connected</span>
+        <span class="text-muted d-block connected-to">
+          {{ channelService.getChannel(user.voice.guildId, user.voice.channelId)?.name }} /
+          {{ guildService.getGuild(user.voice.guildId)?.name }}
+        </span>
+        <hr>
+      </div>
+      <div class="float-right">
+        <button
+          matTooltip="Mute"
+          (click)="mute()"
+          id="muteButton" mat-button>
+          <i class="fas pb-1" [ngClass]="{
+            'fa-microphone': !user.voice.selfMuted,
+            'fa-microphone-slash': user.voice.selfMuted
+          }"></i>          
+        </button>
+        <button
+          id="settingsButton"
+          matTooltip="Settings"
+          routerLink="/channels/@me/settings"
+          mat-button>
+          <i class="fas fa-cogs pb-1"></i>          
+        </button>
+      </div>
+      <app-avatar-url
+        *ngIf="withAvatar"
+        [user]="user"></app-avatar-url> {{ user.username }}
+    </div>
+    <create-guild-modal></create-guild-modal>
+  </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button class="toggle">
+      <div id="nav-icon1" class="open"
+        (click)="toggle()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <ng-content select="#content"></ng-content>
+  </mat-sidenav-content>
 </mat-sidenav-container>

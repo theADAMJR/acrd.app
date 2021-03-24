@@ -1,3 +1,5 @@
+import { hacker } from "faker";
+
 export function toIterable(length: number) {
   const array = [];
   for (let i = 0; i < length; i++)
@@ -28,4 +30,12 @@ export function kebabToCamelCase(words: string) {
 
   const capitalized = capital.join('');
   return capitalized[0].toLowerCase() + capitalized.slice(1);
+}
+
+export function generateUsername() {
+  return `${hacker
+    .adjective()
+    .replace(/ /, '')}-${hacker
+    .noun()
+    .replace(/ /, '')}`
 }

@@ -1,0 +1,207 @@
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatInput } from '@angular/material/input';
+import { ActivatedRoute } from '@angular/router';
+import { ChannelService } from '../services/channel.service';
+import { GuildService } from '../services/guild.service';
+import { LogService } from '../services/log.service';
+import { PermissionsService } from '../services/permissions.service';
+import { SoundService } from '../services/sound.service';
+import { UsersService } from '../services/users.service';
+import { Args, WSService } from '../services/ws.service';
+import { Lean } from '../types/entity-types';
+
+@Component({ template: '' })
+export class TextBasedChannel {
+  @ViewChild('message')
+  private messageInput: ElementRef;
+
+  public activeChannelId: string;
+  public channel: Lean.Channel;
+  public chatBox = new FormControl();
+  public emojiPickerOpen = false;
+  public messages = [];
+  public parentId: string;
+  public typingUserIds = [];
+
+  private lastTypingEmissionAt = null;
+
+  public get typingUsernames() {
+    return this.typingUserIds
+      .map(id => this.userService
+        .getKnown(id).username);
+  }
+  public get channelMessages() {
+    return this.channelService.getMessageMap(this.parentId);
+  }
+  public get loadedAllMessages() {
+    return this.messages.length <= 0
+      || this.messages.length % 25 !== 0;
+  }
+  public get recipient() {
+    const recipientId = this.channel.memberIds
+      ?.find(id => id !== this.userService.user._id);
+    return this.userService.getKnown(recipientId);
+  }
+
+  constructor(
+    private channelService: ChannelService,
+    public guildService: GuildService,
+    private log: LogService,
+    private route: ActivatedRoute,
+    public userService: UsersService,
+    public perms: PermissionsService,
+    public sounds: SoundService,
+    private ws: WSService,
+  ) {}
+
+  public async init() {
+    this.route.paramMap.subscribe(async(paramMap) => {
+      this.parentId = paramMap.get('guildId') ?? '@me';
+
+      const channelId = this.activeChannelId = this.route.snapshot.paramMap.get('channelId');
+      this.channel = this.channelService.getDMChannelById(channelId)
+        ?? this.channelService.getChannel(this.parentId, channelId);
+
+      document.title = (this.parentId === '@me')
+        ? `@${this.recipient.username}`
+        : `#${this.channel.name}`;
+
+      this.messages = await this.channelService.getMessages(this.parentId, channelId);
+      
+      setTimeout(() => this.scrollToMessage(), 100);
+      
+      this.hookWSEvents();
+    });
+  }
+
+  public hookWSEvents() {
+    this.ws
+    .on('TYPING_START', this.addTypingUser.bind(this), this)
+    .on('MESSAGE_CREATE', this.createMessage.bind(this), this)
+    .on('MESSAGE_UPDATE', this.updateMessage.bind(this), this)
+    .on('MESSAGE_DELETE', this.deleteMessage.bind(this), this);
+  }
+
+  private addTypingUser({ userId }: Args.TypingStart) {
+    const selfIsTyping = this.typingUserIds.includes(this.userService.user._id);
+    if (!selfIsTyping)
+      this.typingUserIds.push(userId);
+
+    setTimeout(() => this.stopTyping(userId), 5.1 * 1000);
+  }
+
+  private async createMessage({ message }: Args.MessageCreate) {  
+    if (message.authorId !== this.userService.user._id)
+      await this.sounds.notification();   
+
+    if (message.channelId === this.activeChannelId)
+      return this.messages.push(message);
+
+    const messages = this.channelMessages.get(message.channelId);
+    this.channelMessages.set(message.channelId, messages.concat(message));
+
+    setTimeout(() => this.scrollToMessage(), 100);
+  }
+
+  private updateMessage({ messageId, partialMessage }: Args.MessageUpdate) {
+    let index = this.messages.findIndex(m => m._id === messageId);
+    this.messages[index] = {
+      ...this.messages[index],
+      ...partialMessage,
+    };
+  }
+
+  private deleteMessage({ messageId }: Args.MessageDelete) {
+    let index = this.messages.findIndex(m => m._id === messageId);
+    this.messages.splice(index, 1);
+  }
+
+  private scrollToMessage(end?: number) {
+    const messages = document.querySelector('.messages');
+
+    let combinedHeight = 0;    
+    Array.from(document.querySelectorAll(`.message-preview`))
+      .slice(0, end ?? this.messages.length)
+      .forEach(e => combinedHeight += e.scrollHeight);
+
+    messages.scrollTop = (end)
+      ? messages.scrollHeight - combinedHeight
+      : combinedHeight;
+  }
+
+  public chat(content: string) {
+    if (!content.trim()) return;
+    
+    this.messageInput.nativeElement.value = '';
+
+    this.ws.emit('MESSAGE_CREATE', {
+      channelId: this.channel._id,
+      partialMessage: { content },
+    });
+
+    this.stopTyping(this.userService.user._id);
+  }
+
+  public async loadMoreMessages() {
+    if (this.loadedAllMessages) return;
+
+    this.log.info('Loading more messages', 'text');
+
+    const moreMessages = await this.channelService
+      .getMessages(this.parentId, this.channel._id, {
+        start: this.messages.length,
+        end: this.messages.length + 25
+      });
+    
+    this.scrollToMessage(this.messages.length);
+
+    this.messages = moreMessages
+      .concat(this.messages)
+      .sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1);
+  }
+  
+  public shouldCombine(index: number) {
+    const lastIndex = Math.max(0, index - 1);
+    const lastMessage = (index) ? this.messages[lastIndex] : null;
+    if (!lastMessage)
+      return false;
+
+    const message = this.messages[index];
+    
+    const msDifference = new Date(message.createdAt).getTime() - new Date(lastMessage?.createdAt).getTime();    
+    const minsAgo = msDifference / 60 / 1000;    
+
+    return (message.authorId === lastMessage?.authorId)
+      && minsAgo < 5;
+  }
+
+  public emitTypingStart() { 
+    const sinceLastTyped = new Date().getTime() - this.lastTypingEmissionAt?.getTime();    
+    if (sinceLastTyped < 5 * 1000) return;
+    
+    this.ws.emit('TYPING_START', {
+      channelId: this.channel._id,
+    });
+
+    this.lastTypingEmissionAt = new Date();
+  }
+
+  private stopTyping(userId: string) {
+    const index = this.typingUserIds.indexOf(userId);
+    this.typingUserIds.splice(index, 1);
+  }
+
+  // emoji picker
+  public addEmoji({ emoji }) {
+    console.log(emoji.native);
+    this.messageInput.nativeElement.value += emoji.native;
+  }
+
+  public onClick({ path }) {
+    const emojiPickerWasClicked = path
+      .some(n => n && n.nodeName === 'EMOJI-MART'
+        || n.classList?.contains('emoji-icon'));
+    this.emojiPickerOpen = emojiPickerWasClicked;
+  }
+}

@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SaveChangesComponent } from 'src/app/dashboard/components/save-changes/save-changes.component';
 import { DevelopersService } from 'src/app/services/developers.service';
-import { Lean } from 'src/app/types/entity-types';
+import { Lean, patterns } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-bot-user',
@@ -14,8 +14,8 @@ import { Lean } from 'src/app/types/entity-types';
 })
 export class BotUserComponent implements OnInit {
   form = new FormGroup({
-    description: new FormControl('', [ Validators.required ]),
-    name: new FormControl('', [ Validators.required ]),
+    avatarURL: new FormControl('', [ Validators.required ]),
+    username: new FormControl('', [ Validators.required, Validators.pattern(patterns.username) ]),
   });
 
   originalForm: Lean.Application;

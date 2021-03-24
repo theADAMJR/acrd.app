@@ -7,6 +7,7 @@ import { UsernameValidators } from './username.validators';
 import { hacker } from 'faker';
 import { UsersService } from '../../services/users.service';
 import { patterns } from 'src/app/types/entity-types';
+import { generateUsername } from 'src/app/utils/utils';
 
 @Component({
   selector: 'sign-up',
@@ -19,7 +20,7 @@ export class SignUpComponent implements OnInit {
   get confirmPassword() { return this.form.get('confirmPassword'); }
 
   form = new FormGroup({
-    username: new FormControl(`${hacker.adjective()}-${hacker.noun().replace(/ /, '')}`, [
+    username: new FormControl(generateUsername(), [
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(32),

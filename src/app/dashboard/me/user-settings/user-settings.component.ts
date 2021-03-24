@@ -21,7 +21,6 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
   @ViewChild('themeSelect') themeSelect: MatSelect;
 
   environment = environment;
-
   defaultTheme = 'CLONE';
   
   constructor(
@@ -40,9 +39,8 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
     await this.updateTakenUsernames();
 
     document.body.onkeyup = ({ key }) => {
-      if (key !== 'Escape') return;
-
-      this.close();
+      if (key === 'Escape')
+        this.close();
     };
 
     this.themeSelect.writeValue(localStorage.getItem('theme')
