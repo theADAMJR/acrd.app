@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { UsernameValidators } from '../authentication/sign-up/username.validators';
 import { Lean, UserTypes } from '../types/entity-types';
 
 @Injectable({ providedIn: 'root' })
@@ -81,10 +82,9 @@ export class UsersService {
     return `${this.endpoint}/${id}/avatar`;
   }
 
-  public uploadAvatar(avatar: File) {
-    const headers = this.buildHeaders();
+  public uploadAvatar(avatar: File): Promise<any> {
     return this.http
-      .post(`${this.endpoint}/upload-avatar`, { avatar }, { headers })
+      .post(`${this.endpoint}/upload-avatar`, { avatar }, this.headers)
       .toPromise();
   }
 
@@ -96,7 +96,9 @@ export class UsersService {
     return this.http.get(`${this.endpoint}/bots`).toPromise() as any;
   }
 
-  private buildHeaders() {
-    return new HttpHeaders({ Authorization: `Bearer ${localStorage.getItem('key')}` });
+  public async updateTakenUsernames() {
+    const usernames = await this.getUsernames();
+    UsernameValidators.takenUsernames = (usernames ?? [])
+      .filter(name => name !== this.user.username);
   }
 }

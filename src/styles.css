@@ -233,9 +233,9 @@ mat-paginator {
 }
 
 .footer .mat-form-field-flex {
-  width: 60vw;
+  width: 62.5vw;
 }
- .footer .mat-form-field-flex {
+.dm-channel .mat-form-field-flex {
   width: 75vw;
 }
 
@@ -311,6 +311,10 @@ p.lead {
 /* users */
 .username-badge {
   font-size: 12px;
+}
+
+app-avatar-url {
+  float: left;
 }
 
 /* navigation */

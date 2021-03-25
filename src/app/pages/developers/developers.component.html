@@ -27,6 +27,29 @@
   </div>
 
   <div class="col-8">
+    <div class="row mt-2">
+      <div class="col-10"></div>
+      <div class="col-2">
+        <button mat-button [matMenuTriggerFor]="menu" class="p-1">
+          <app-avatar-url [user]="userService.user"></app-avatar-url>
+          <span class="pl-1">{{ userService.user.username }}</span>
+        </button>
+      </div>
+    </div>
+
+    <mat-menu #menu="matMenu">
+      <button routerLink="/channels/@me" mat-menu-item>
+        <i class="fas fa-cog"></i> Open
+      </button>
+      <hr>
+      <button routerLink="/developers" mat-menu-item>
+        <i class="fas fa-code"></i> Developers
+      </button>
+      <button routerLink="/logout" mat-menu-item>
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </mat-menu>
+    
     <div class="applications">
       <header class="mt-5">
         <button

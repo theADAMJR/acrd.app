@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DevelopersService } from 'src/app/services/developers.service';
+import { UsersService } from 'src/app/services/users.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,6 +16,7 @@ export class DevelopersComponent implements OnInit {
   constructor(
     private router: Router,
     private service: DevelopersService,
+    public userService: UsersService,
   ) {}
 
   async ngOnInit() {

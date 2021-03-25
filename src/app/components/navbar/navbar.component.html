@@ -21,23 +21,23 @@
       <a class="nav-item nav-link" routerLink="/sign-up"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
     </div>
     <div *ngIf="user">
-      <div class="dropdown">
-        <a class="nav-item nav-link dropdown-toggle"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <app-avatar-url [user]="user"></app-avatar-url> {{ user.username }}
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" routerLink="/channels/@me"
-            routerLinkActive="active">
-            <i class="fas fa-cog"></i> Open</a>
-          <a class="dropdown-item" routerLink="/developers"
-            routerLinkActive="active">
-            <i class="fas fa-code"></i> Developers</a>
-          <hr class="m-1">
-          <a class="dropdown-item" routerLink="/logout">
-          <i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
-      </div>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <app-avatar-url [user]="user"></app-avatar-url>
+        <span class="pl-1">{{ user.username }}</span>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button routerLink="/channels/@me" mat-menu-item>
+          <i class="fas fa-cog"></i> Open
+        </button>
+        <hr>
+        <button routerLink="/developers" mat-menu-item>
+          <i class="fas fa-code"></i> Developers
+        </button>
+        <button routerLink="/logout" mat-menu-item>
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </mat-menu>
     </div>
   </div>
 </nav>

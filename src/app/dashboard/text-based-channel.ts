@@ -77,10 +77,10 @@ export class TextBasedChannel {
 
   public hookWSEvents() {
     this.ws
-    .on('TYPING_START', this.addTypingUser.bind(this), this)
-    .on('MESSAGE_CREATE', this.createMessage.bind(this), this)
-    .on('MESSAGE_UPDATE', this.updateMessage.bind(this), this)
-    .on('MESSAGE_DELETE', this.deleteMessage.bind(this), this);
+      .on('TYPING_START', this.addTypingUser, this)
+      .on('MESSAGE_CREATE', this.createMessage, this)
+      .on('MESSAGE_UPDATE', this.updateMessage, this)
+      .on('MESSAGE_DELETE', this.deleteMessage, this);
   }
 
   private addTypingUser({ userId }: Args.TypingStart) {
@@ -92,7 +92,7 @@ export class TextBasedChannel {
   }
 
   private async createMessage({ message }: Args.MessageCreate) {  
-    if (message.authorId !== this.userService.user._id)
+    // if (message.authorId !== this.userService.user._id)
       await this.sounds.notification();   
 
     if (message.channelId === this.activeChannelId)

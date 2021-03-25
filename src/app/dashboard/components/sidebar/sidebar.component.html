@@ -1,9 +1,9 @@
-<mat-sidenav-container>
+<mat-sidenav-container fullscreen>
   <mat-sidenav mode="side" opened #drawer>
     <div class="guilds px-2">
       <div class="user">
         <div routerLink="/channels/@me" class="guild-icon">
-          <app-avatar-url [user]="user"></app-avatar-url>
+          <app-avatar-url [user]="user" [size]="'52px'"></app-avatar-url>
         </div>
         <hr class="guild-seperator">
       </div>
@@ -42,6 +42,7 @@
         </span>
         <hr>
       </div>
+
       <div class="float-right">
         <button
           matTooltip="Mute"
@@ -60,9 +61,11 @@
           <i class="fas fa-cogs pb-1"></i>          
         </button>
       </div>
-      <app-avatar-url
-        *ngIf="withAvatar"
-        [user]="user"></app-avatar-url> {{ user.username }}
+
+      <div class="d-flex">
+        <app-avatar-url [user]="user" size="48px" class="pt-2"></app-avatar-url>
+        <span class="pl-2">{{ user.username }}</span>
+      </div>
     </div>
     <create-guild-modal></create-guild-modal>
   </div>

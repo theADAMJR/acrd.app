@@ -2,12 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsersService } from '../../../services/users.service';
 import { GuildService } from '../../../services/guild.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Args, Params, WSEventArgs, WSService } from 'src/app/services/ws.service';
-import { LogService } from 'src/app/services/log.service';
+import { Args, WSService } from 'src/app/services/ws.service';
 import { RTCService } from 'src/app/services/rtc.service';
 import { ChannelService } from 'src/app/services/channel.service';
 import { Lean } from 'src/app/types/entity-types';
 import { Router } from '@angular/router';
+import { SoundService } from 'src/app/services/sound.service';
 
 @Component({
   selector: 'sidebar',
@@ -26,6 +26,7 @@ export class SidebarComponent implements OnInit {
     private userService: UsersService,
     private rtc: RTCService,
     private router: Router,
+    private sounds: SoundService,
     private ws: WSService) {}
 
   async ngOnInit() {
@@ -49,10 +50,11 @@ export class SidebarComponent implements OnInit {
     this.updateFriends({ sender, friend });
   }
 
-  public joinGuild({ guild }: Args.GuildJoin) {
+  public async joinGuild({ guild }: Args.GuildJoin) {
     this.guildService.guilds.push(guild);
     this.router.navigate([`/channels/${guild._id}`]);
 
+    await this.sounds.success();
     document.querySelector('.modal-backdrop')?.remove();
   }
 

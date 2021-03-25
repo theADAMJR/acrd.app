@@ -10,7 +10,7 @@ import { WSService } from 'src/app/services/ws.service';
 import { UsernameValidators } from 'src/app/authentication/sign-up/username.validators';
 import { UserConfig } from 'src/app/dashboard/components/user-config';
 import { environment } from 'src/environments/environment';
-import { Lean } from 'src/app/types/entity-types';
+import { Lean, patterns } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-user-settings',
@@ -34,9 +34,9 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
       super(usersService, route, snackbar, ws, log, router);
     }
 
-  async ngOnInit() {
+  public async ngOnInit() {
     await super.init();
-    await this.updateTakenUsernames();
+    await this.usersService.updateTakenUsernames();
 
     document.body.onkeyup = ({ key }) => {
       if (key === 'Escape')
@@ -58,18 +58,12 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
       username: new FormControl(user.username, [
         Validators.required,
         Validators.maxLength(32),
-        Validators.pattern(/(?=.*[a-zA-Z0-9!@#$%^&*])/gm),
+        Validators.pattern(patterns.username),
       ], [ UsernameValidators.shouldBeUnique ])
     });
   }
 
-  async updateTakenUsernames() {
-    const usernames = await this.usersService.getUsernames();
-    UsernameValidators.takenUsernames = (usernames ?? [])
-      .filter(name => name !== this.user.username);
-  }
-
-  setAvatar(name: string) {
+  public setAvatar(name: string) {
     this.form
       .get('avatarURL')
       .setValue(`${environment.endpoint}/avatars/${name}.png`);

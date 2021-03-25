@@ -33,6 +33,10 @@ export class DevelopersService {
     return this.http.patch(`${this.endpoint}/applications/${id}`, value, { headers: this.headers }).toPromise() as any;
   }
 
+  async regenToken(id: string): Promise<string> {
+    return this.http.get(`${this.endpoint}/applications/${id}/regen-token`, { headers: this.headers }).toPromise() as any;
+  }
+
   async delete() {
     // TODO: implement
   }

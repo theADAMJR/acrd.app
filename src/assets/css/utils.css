@@ -1,53 +1,57 @@
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .uppercase {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 /* border radius */
 .rounded {
-    border-radius: 5px !important;
+  border-radius: 5px !important;
 }
 
 .rounded-lg {
-    border-radius: 25px !important;
+  border-radius: 25px !important;
 }
 
 .round {
-    border-radius: 50% !important;
+  border-radius: 50% !important;
 }
 
 /* lists */
 .list-none {
-    list-style-type: none !important;
-    list-style: none !important;
+  list-style-type: none !important;
+  list-style: none !important;
 }
 
 /* shadow */
 .shadow	{
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 .shadow-inner {
-    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
 }
 
 .cursor-pointer {
-    cursor: pointer !important;
+  cursor: pointer !important;
 }
 .no-select {
-    -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-         -moz-user-select: none; /* Old versions of Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; /* Non-prefixed version, currently
-                                    supported by Chrome, Edge, Opera and Firefox */
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                  supported by Chrome, Edge, Opera and Firefox */
 }
 
 /* gradient buttons */
 .bg-primary-gradient {
-    background: var(--primary);
-    background: linear-gradient(43deg, var(--primary) 0%, var(--secondary) 35%, var(--primary) 100%) !important;
+  background: var(--primary);
+  background: linear-gradient(43deg, var(--primary) 0%, var(--secondary) 35%, var(--primary) 100%) !important;
+}
+
+.overflow-hidden {
+  overflow: hidden !important;
 }

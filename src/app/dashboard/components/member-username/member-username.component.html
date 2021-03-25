@@ -17,7 +17,7 @@
   <div
     [style.color]="member ? roleColor : 'inherit'"
     class="username ml-4 pt-0">
-    <span class="username-text">{{ user.username }}</span>
+    <span class="username-text pl-2">{{ user.username }}</span>
     <span
       *ngIf="user.bot"
       textContent="user.username === 'DClone' ? 'SYSTEM' : 'BOT'"

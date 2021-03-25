@@ -3,9 +3,9 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Injectable()
 export class UsernameValidators {
-  static takenUsernames: string[] = [];
+  public static takenUsernames: string[] = [];
 
-  static async shouldBeUnique(control: AbstractControl): Promise<ValidationErrors> | null {
+  public static async shouldBeUnique(control: AbstractControl): Promise<ValidationErrors> | null {
     return new Promise(resolve => {
       const isTaken = UsernameValidators.takenUsernames
         .some(u => u.toLowerCase() === control.value.toLowerCase());

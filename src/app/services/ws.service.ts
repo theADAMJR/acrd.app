@@ -18,7 +18,7 @@ export class WSService {
     listened.set(name, callback.bind(component));
 
     this.socket.on(name, () => this.log.info(`RECEIVE ${name}`, 'ws'));
-    this.socket.on(name, this.listened.get(name));
+    this.socket.on(name, listened.get(name));
 
     return this;
   }

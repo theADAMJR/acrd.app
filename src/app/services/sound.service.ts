@@ -4,10 +4,23 @@ import { ElementRef, Injectable, ViewChild } from '@angular/core';
   providedIn: 'root'
 })
 export class SoundService {
-  @ViewChild('notificationSound')
-  private notificationSound: ElementRef;
+  private notificationSound: HTMLAudioElement;
+  private successSound: HTMLAudioElement;
+  private errorSound: HTMLAudioElement;
+
+  constructor() {
+    this.notificationSound = document.querySelector('#notificationSound');
+    this.successSound = document.querySelector('#successSound');
+    this.errorSound = document.querySelector('#errorSound');
+  }
 
   public async notification() {
-    await (this.notificationSound.nativeElement as HTMLAudioElement).play();
+    await this.notificationSound.play();
+  }
+  public async success() {
+    await this.successSound.play();
+  }
+  public async error() {
+    await this.errorSound.play();
   }
 }

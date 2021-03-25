@@ -3,8 +3,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UsernameValidators } from 'src/app/authentication/sign-up/username.validators';
 import { SaveChangesComponent } from 'src/app/dashboard/components/save-changes/save-changes.component';
 import { DevelopersService } from 'src/app/services/developers.service';
+import { SoundService } from 'src/app/services/sound.service';
+import { UsersService } from 'src/app/services/users.service';
+import { WSService } from 'src/app/services/ws.service';
 import { Lean, patterns } from 'src/app/types/entity-types';
 
 @Component({
@@ -13,29 +17,37 @@ import { Lean, patterns } from 'src/app/types/entity-types';
   styleUrls: ['../application/application.component.css', '../developers.component.css']
 })
 export class BotUserComponent implements OnInit {
-  form = new FormGroup({
+  public form = new FormGroup({
     avatarURL: new FormControl('', [ Validators.required ]),
-    username: new FormControl('', [ Validators.required, Validators.pattern(patterns.username) ]),
+    username: new FormControl('', [
+      Validators.required,
+      Validators.pattern(patterns.username),
+    ], [ UsernameValidators.shouldBeUnique ]),
   });
 
-  originalForm: Lean.Application;
-  app: Lean.Application;
+  public originalForm: Lean.Application;
+  public app: Lean.Application;
 
   private saveChanges$: Subscription;  
-  private valueChanges$: Subscription;  
-
+  private valueChanges$: Subscription;
+  
   constructor(
     private route: ActivatedRoute,
     public saveChanges: MatSnackBar,
-    private service: DevelopersService,
+    public service: DevelopersService,
+    private usersService: UsersService,
+    private sounds: SoundService,
+    private ws: WSService,
   ) {}
 
-  async ngOnInit() {
+  public async ngOnInit() {
     const appId = this.route.snapshot.paramMap.get('id');
+    await this.usersService.updateTakenUsernames();
+
     this.app = await this.service.get(appId);
     this.form.setValue({
-      description: this.app.description,
-      name: this.app.name,
+      avatarURL: this.app.user.avatarURL,
+      username: this.app.user.username,
     });
     this.originalForm = { ...this.form.value };
 
@@ -43,14 +55,14 @@ export class BotUserComponent implements OnInit {
       .subscribe(() => this.openSaveChanges()); 
   }
 
-  ngOnDestroy() {    
+  public ngOnDestroy() {    
     this.valueChanges$?.unsubscribe();
     this.saveChanges$?.unsubscribe();
   }
   
-  openSaveChanges() {
-    const snackBarRef = this.saveChanges._openedSnackBarRef;
-    if (!this.form.valid || snackBarRef) return;
+  public openSaveChanges() {
+    const snackBarRef = this.saveChanges._openedSnackBarRef;    
+    if (this.form.invalid || snackBarRef) return;
 
     this.saveChanges$ = this.saveChanges
       .openFromComponent(SaveChangesComponent)
@@ -64,21 +76,30 @@ export class BotUserComponent implements OnInit {
       });    
   }
 
-  async submit() {
-    try {
-      if (!this.form.valid) return;
+  public async submit() {
+    if (this.form.invalid) return;
 
-      await this.service.update(this.app._id, this.form.value);
-      this.originalForm = { ...this.form.value };  
-    } catch {
-      alert('An error occurred when submitting the form - check console');
-    }
+    this.ws.emit('USER_UPDATE', {
+      key: this.app.token,
+      partialUser: this.form.value,
+    });
+    this.originalForm = { ...this.form.value };
+
+    await this.sounds.success();
   }
 
-  async reset() {
+  public async reset() {
     this.form.setValue({ ...this.originalForm });
     
     this.valueChanges$ = this.form.valueChanges
       .subscribe(() => this.openSaveChanges()); 
+  }
+
+  public async regenToken() {
+    this.app.token = await this.service.regenToken(this.app._id);
+  }
+
+  public copyToken() {
+    navigator.clipboard.writeText(this.app.token);
   }
 }
