@@ -71,15 +71,14 @@ export class UserAuthService {
   }
 
   public async changePassword(oldPassword: string, newPassword: string): Promise<boolean> {
-    const res = await this.http.post(
-      `${this.endpoint}/verify-email`,
-      { oldPassword, newPassword },
-      this.headers).toPromise() as any;
+    const res = await this.http
+      .post(`${this.endpoint}/change-password`, { oldPassword, newPassword }, this.headers)
+      .toPromise() as any;
+
     if (typeof res !== 'string') {
       this.log.error('Password change failed.');
       return false;
     }
-
     localStorage.setItem('key', res);
     this.log.success('Password successfully changed!');
     return true;

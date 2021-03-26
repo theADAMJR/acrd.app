@@ -12,9 +12,10 @@ import { patterns, UserTypes } from 'src/app/types/entity-types';
 })
 export class UserAccountComponent implements OnInit {
   public passwordForm = new FormGroup({
-    oldPassword: new FormControl(''),
+    oldPassword: new FormControl('', [ Validators.required ]),
     newPassword: new FormControl('', [
       Validators.pattern(patterns.password),
+      Validators.required,
     ]),
   });
   public processingEmail = false;
@@ -54,15 +55,19 @@ export class UserAccountComponent implements OnInit {
 
   public async changePassword() {
     try {
+      console.log(this.passwordForm);
+      
       if (this.passwordForm.invalid) return;
   
-      const oldPassword = this.form.get('oldPassword').value;
-      const newPassword = this.form.get('newPassword').value;
+      const oldPassword = this.passwordForm.get('oldPassword').value;
+      const newPassword = this.passwordForm.get('newPassword').value;
       this.processingPassword = await this.userAuthService.changePassword(
         oldPassword,
         newPassword,
       );
-    } catch {
+    } catch (e) {
+      console.log(e);
+      
       this.passwordForm.setErrors({ oldPasswordInvalid: true });
     }
   }
