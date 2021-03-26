@@ -1,29 +1,11 @@
-<div *ngIf="user"
-  class="side side-nav navbar-dark">
-  <div class="navbar-nav float-right">
-    <p class="category">Settings</p>
-    <a [routerLink]="'/channels/@me/settings'"
-      routerLinkActive="active"
-      class="nav-item nav-link">
-      <i class="fas fa-eye text-muted mr-1"></i>
-      Overview
-    </a>
-    <hr>
-  </div>
-</div>
-
-<div *ngIf="user" class="main">
+<app-settings-sidebar
+  *ngIf="user"
+  tabType="user">
   <div class="content">
-    <div class="float-right">
-      <div (click)="close()"
-        class="close round btn" mat-button><i class="fas fa-times"></i></div>
-      <span class="text-muted d-block px-2">ESC</span>
-    </div>
     <h5 class="uppercase mb-4">User Overview</h5>
     <div class="row">
       <div class="col-6">
         <div
-          [routerLink]="'/channels/' + user._id"
           routerLinkActive="active"
           class="user-icon round">
           <img
@@ -113,4 +95,4 @@
       </mat-select>
     </mat-form-field>
   </div>
-</div>
+</app-settings-sidebar>

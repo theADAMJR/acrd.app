@@ -11,4 +11,13 @@ export class PasswordValidators {
       ? { passwordMismatch: true }
       : null;
   }
+
+  public static emailOrUsernameRequired(control: AbstractControl): ValidationErrors | null {
+    const username = control.get('username').value;
+    const email = control.get('email').value;
+    
+    return (email || username)
+      ? null
+      : { emailOrUsernameRequired: true };
+  }
 }

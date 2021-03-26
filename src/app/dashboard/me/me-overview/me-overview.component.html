@@ -22,11 +22,6 @@
           class="nav-link">Pending</a>
       </li>
       <li class="nav-item">
-        <a (click)="setTab('BLOCKED')" 
-          [class.active]="tab === 'BLOCKED'"
-          class="nav-link">Blocked</a>
-      </li>
-      <li class="nav-item">
         <a (click)="friendPromptOpen = true"
           class="nav-link add-friend">Add Friend</a>
       </li>
@@ -43,11 +38,11 @@
       <mat-form-field appearance="outline">
         <mat-label>Username</mat-label>
         <input formControlName="username" type="text" matInput>
-
-        <button
-          (click)="sendFriendRequest()"
-          class="send-friend-request mx-2" mat-button matSuffix>Send Friend Request</button>
       </mat-form-field>
+
+      <button
+        (click)="sendFriendRequest()"
+        class="send-friend-request mx-2" mat-button matSuffix>Send Request</button>
     </form>
   </div>
 

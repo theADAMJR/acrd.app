@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,14 +15,14 @@ import { Lean, patterns } from 'src/app/types/entity-types';
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.css']
+  styleUrls: ['./user-settings.component.css'],
 })
-export class UserSettingsComponent extends UserConfig implements OnInit {
-  @ViewChild('themeSelect') themeSelect: MatSelect;
+export class UserSettingsComponent extends UserConfig implements AfterViewInit {
+  @ViewChild('themeSelect')
+  public themeSelect: MatSelect;
+  public environment = environment;
+  public defaultTheme = 'CLONE';
 
-  environment = environment;
-  defaultTheme = 'CLONE';
-  
   constructor(
     route: ActivatedRoute,
     router: Router,
@@ -30,20 +30,15 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
     snackbar: MatSnackBar,
     ws: WSService,
     log: LogService,
-    public themes: ThemeService) {
-      super(usersService, route, snackbar, ws, log, router);
-    }
+    public themes: ThemeService,
+    private usernameValidators: UsernameValidators,
+  ) {
+    super(usersService, route, snackbar, ws, log, router);
+  }
 
-  public async ngOnInit() {
+  public async ngAfterViewInit() {
     await super.init();
-    await this.usersService.updateTakenUsernames();
-
-    document.body.onkeyup = ({ key }) => {
-      if (key === 'Escape')
-        this.close();
-    };
-
-    this.themeSelect.writeValue(localStorage.getItem('theme')
+    this.themeSelect?.writeValue(localStorage.getItem('theme')
       ?? this.defaultTheme);
 
     this.themes.updateTheme();
@@ -59,8 +54,12 @@ export class UserSettingsComponent extends UserConfig implements OnInit {
         Validators.required,
         Validators.maxLength(32),
         Validators.pattern(patterns.username),
-      ], [ UsernameValidators.shouldBeUnique ])
+      ], [ this.usernameValidators.shouldBeUnique.bind(this.usernameValidators) ])
     });
+  }
+
+  public async submit() {
+    await super.submit();
   }
 
   public setAvatar(name: string) {

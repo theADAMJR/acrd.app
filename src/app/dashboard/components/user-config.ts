@@ -8,13 +8,13 @@ import { Subscription } from 'rxjs';
 import { WSService } from '../../services/ws.service';
 import { LogService } from '../../services/log.service';
 import { UsersService } from '../../services/users.service';
-import { Lean } from 'src/app/types/entity-types';
+import { Lean, UserTypes } from 'src/app/types/entity-types';
 
 @Directive()
 export abstract class UserConfig implements OnDestroy {
   form: FormGroup;
-  user: Lean.User;
-  originalUser: Lean.User;
+  user: UserTypes.Self;
+  originalUser: UserTypes.Self;
 
   private saveChanges$: Subscription;  
   private valueChanges$: Subscription;  
@@ -40,15 +40,6 @@ export abstract class UserConfig implements OnDestroy {
 
     this.valueChanges$ = this.form.valueChanges
       .subscribe(() => this.openSaveChanges()); 
-
-    document.body.onkeyup = ({ key }) => {
-      if (key !== 'Escape') return;
-  
-      this.close();
-    };  
-  }
-  close() {
-    this.router.navigate(['/channels/' + this.user._id]);
   }
 
   private async resetForm() {   
@@ -91,7 +82,6 @@ export abstract class UserConfig implements OnDestroy {
 
       this.usersService.user = Object.assign(this.user, this.form.value);
 
-      ;
       this.ws.emit('USER_UPDATE', {
         key: localStorage.getItem('key'),
         partialUser: this.form.value,

@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { UsersService } from 'src/app/services/users.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UsernameValidators {
-  public static takenUsernames: string[] = [];
+  constructor(
+    private usersService: UsersService,
+  ) {}
 
-  public static async shouldBeUnique(control: AbstractControl): Promise<ValidationErrors> | null {
-    return new Promise(resolve => {
-      const isTaken = UsernameValidators.takenUsernames
-        .some(u => u.toLowerCase() === control.value.toLowerCase());
-      resolve((isTaken) ? { shouldBeUnique: true } : null);
-    });
+  public async shouldBeUnique(control: AbstractControl): Promise<ValidationErrors> | null {
+    const isTaken = await this.usersService.checkUsername(control.value);    
+    return (isTaken) ? { shouldBeUnique: true } : null;
+  }
+
+  public async emailInUse(control: AbstractControl) {
+    const inUse = await this.usersService.checkEmail(control.value);
+    return (inUse) ? { emailInUse: true } : null;
   }
 }

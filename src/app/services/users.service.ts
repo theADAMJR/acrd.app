@@ -3,22 +3,25 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { UsernameValidators } from '../authentication/sign-up/username.validators';
 import { Lean, UserTypes } from '../types/entity-types';
+import { LogService } from './log.service';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
   endpoint = `${environment.endpoint}/users`;
   knownUsers: Lean.User[] = [];
-  user: Lean.User;
+  user: UserTypes.Self;
 
   private get headers() {
     return { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } };
   }
 
-  get key() {
+  private get key() {
     return localStorage.getItem('key');
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+  ) {}
   
   public async init() {
     if (!this.user)
@@ -46,7 +49,7 @@ export class UsersService {
       guilds: [],
       status: 'OFFLINE',
       username: `Unknown - ${userId}`,
-      voice: new UserTypes.VoiceState()
+      voice: new UserTypes.VoiceState(),
     }
   } 
 
@@ -88,17 +91,14 @@ export class UsersService {
       .toPromise();
   }
 
-  public getUsernames(): Promise<string[]> {
-    return this.http.get(`${this.endpoint}/usernames`).toPromise() as any;
-  }
-
   public getBots(): Promise<Lean.User[]> {
     return this.http.get(`${this.endpoint}/bots`).toPromise() as any;
   }
 
-  public async updateTakenUsernames() {
-    const usernames = await this.getUsernames();
-    UsernameValidators.takenUsernames = (usernames ?? [])
-      .filter(name => name !== this.user.username);
+  public async checkUsername(username: string): Promise<boolean> {
+    return this.http.get(`${this.endpoint}/check-username?value=${username}`).toPromise() as any;
+  }
+  public async checkEmail(email: string): Promise<boolean> {
+    return this.http.get(`${this.endpoint}/check-email?value=${email}`).toPromise() as any;
   }
 }

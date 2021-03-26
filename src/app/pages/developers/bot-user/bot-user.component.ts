@@ -22,7 +22,7 @@ export class BotUserComponent implements OnInit {
     username: new FormControl('', [
       Validators.required,
       Validators.pattern(patterns.username),
-    ], [ UsernameValidators.shouldBeUnique ]),
+    ], [ this.usernameValidators.shouldBeUnique.bind(this.usernameValidators) ]),
   });
 
   public originalForm: Lean.Application;
@@ -35,14 +35,13 @@ export class BotUserComponent implements OnInit {
     private route: ActivatedRoute,
     public saveChanges: MatSnackBar,
     public service: DevelopersService,
-    private usersService: UsersService,
     private sounds: SoundService,
     private ws: WSService,
+    private usernameValidators: UsernameValidators,
   ) {}
 
   public async ngOnInit() {
     const appId = this.route.snapshot.paramMap.get('id');
-    await this.usersService.updateTakenUsernames();
 
     this.app = await this.service.get(appId);
     this.form.setValue({
@@ -84,7 +83,7 @@ export class BotUserComponent implements OnInit {
       partialUser: this.form.value,
     });
     this.originalForm = { ...this.form.value };
-
+    
     await this.sounds.success();
   }
 

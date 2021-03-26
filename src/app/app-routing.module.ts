@@ -23,27 +23,33 @@ import { DevelopersComponent } from './pages/developers/developers.component';
 import { ApplicationComponent } from './pages/developers/application/application.component';
 import { BotUserComponent } from './pages/developers/bot-user/bot-user.component';
 import { DevelopersAuthGuard } from './guards/developers-auth.guard';
+import { VerifyComponent } from './authentication/verify/verify.component';
+import { UserAccountComponent } from './dashboard/me/user-account/user-account.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+  },
+  {
+    path: 'auth/verify',
+    component: VerifyComponent,
   },
   {
     path: 'auth',
-    component: AuthComponent
+    component: AuthComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'sign-up',
-    component: SignUpComponent
+    component: SignUpComponent,
   },
   {
     path: 'logout',
-    component: LogoutComponent
+    component: LogoutComponent,
   },
   {
     path: 'channels/@me',
@@ -53,6 +59,11 @@ const routes: Routes = [
   {
     path: 'channels/@me/settings',
     component: UserSettingsComponent,
+    canActivate: [DashboardAuthGuard]
+  },
+  {
+    path: 'channels/@me/settings/account',
+    component: UserAccountComponent,
     canActivate: [DashboardAuthGuard]
   },
   {

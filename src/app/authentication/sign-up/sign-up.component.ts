@@ -14,18 +14,18 @@ import { generateUsername } from 'src/app/utils/utils';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit {
-  get username() { return this.form.get('username'); }
-  get password() { return this.form.get('password'); }
-  get confirmPassword() { return this.form.get('confirmPassword'); }
+export class SignUpComponent {
+  public get username() { return this.form.get('username'); }
+  public get password() { return this.form.get('password'); }
+  public get confirmPassword() { return this.form.get('confirmPassword'); }
 
-  form = new FormGroup({
+  public form = new FormGroup({
     username: new FormControl(generateUsername(), [
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(32),
       Validators.pattern(patterns.username),
-    ], UsernameValidators.shouldBeUnique),
+    ], this.usernameValidators.shouldBeUnique.bind(this.usernameValidators)),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
@@ -37,22 +37,16 @@ export class SignUpComponent implements OnInit {
   constructor(
     private router: Router,
     private auth: UserAuthService,
-    private users: UsersService) {}
+    private users: UsersService,
+    private usernameValidators: UsernameValidators,
+  ) {}
 
-  async ngOnInit() {
-    await this.updateTakenUsernames();
-  }
-
-  async signUp(user: Credentials) {
+  public async signUp() {
+    const user: Credentials = this.form.value;
     if (this.form.invalid) return;
 
     await this.auth.signUp(user);
     await this.auth.login(user);
     await this.router.navigate(['/']);
-  }
-
-  async updateTakenUsernames() {
-    const usernames = await this.users.getUsernames();
-    UsernameValidators.takenUsernames = usernames ?? [];
   }
 }

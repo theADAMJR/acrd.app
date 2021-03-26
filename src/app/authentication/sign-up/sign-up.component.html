@@ -1,7 +1,10 @@
 <navbar></navbar>
 <section class="container text-center">
   <div class="py-2 my-5"></div>
-  <form #f="ngForm" [formGroup]="form" (ngSubmit)="signUp(f.value)">
+  <form
+    #f="ngForm"
+    [formGroup]="form"
+    (ngSubmit)="signUp()">
     <h2 class="display-4 mb-4">Sign Up</h2>
     <div class="form-group">
       <mat-form-field appearance="outline">

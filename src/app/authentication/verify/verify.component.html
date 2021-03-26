@@ -1,0 +1,29 @@
+<navbar></navbar>
+
+<header class="text-center">
+  <h1 class="mt-5">Enter Code</h1>
+  <p class="lead">Check the email associated with this account for the verification code.</p>
+</header>
+
+<section class="text-center">
+  <form 
+  #f="ngForm"
+  [formGroup]="form"
+  (ngSubmit)="submit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Code</mat-label>
+      <input formControlName="code" type="text" matInput>
+    </mat-form-field>
+
+    <div>
+      <div
+        *ngIf="form.errors?.invalidCode"
+        class="text-danger m-2">Code is invalid</div>
+    
+      <button
+        *ngIf="!processing"
+        color="success"
+        mat-button>Verify</button>
+    </div>
+  </form>
+</section>

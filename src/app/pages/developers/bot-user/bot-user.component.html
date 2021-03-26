@@ -66,15 +66,18 @@
           <div class="buttons">
             <button
               type="button"
+              class="text-info"
               (click)="shown.value = (shown.value === 'shown') ? 'hidden' : 'shown'"
               [textContent]="(shown.value === 'shown') ? 'Hide' : 'Show'"
               mat-button></button>
             <button
               type="button"
+              class="text-success"
               (click)="copyToken()"
               mat-button>Copy</button>
             <button
               type="button"
+              class="text-danger"
               (click)="regenToken()"
               mat-button>Regen</button>
           </div>

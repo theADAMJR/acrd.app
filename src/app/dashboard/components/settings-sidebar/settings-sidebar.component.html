@@ -1,0 +1,25 @@
+<div
+  class="side side-nav navbar-dark">
+  <div class="navbar-nav float-right">
+    <p class="category">{{ tabType }}</p>
+
+    <a *ngFor="let tab of tabs[tabType]"
+      [routerLink]="tab.href"
+      routerLinkActive="active"
+      class="nav-item nav-link">
+      <i class="text-muted mr-1" [class]="tab.icon"></i>
+      <span>{{ tab.name }}</span>
+    </a>
+  </div>
+</div>
+
+<div class="main">
+  <div class="float-right">
+    <div (click)="close()"
+      class="close round btn" mat-button><i class="fas fa-times"></i></div>
+    <span class="text-muted d-block px-2">ESC</span>
+  </div>
+
+  <div class="main-content">
+    <ng-content select=".content"></ng-content></div>
+</div>

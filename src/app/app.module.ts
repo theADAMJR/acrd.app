@@ -55,6 +55,10 @@ import { DevelopersComponent } from './pages/developers/developers.component';
 import { ApplicationComponent } from './pages/developers/application/application.component';
 import { BotUserComponent } from './pages/developers/bot-user/bot-user.component';
 import { AvatarUrlComponent } from './dashboard/components/avatar-url/avatar-url.component';
+import { VerifyComponent } from './authentication/verify/verify.component';
+import { UserAccountComponent } from './dashboard/me/user-account/user-account.component';
+import { SettingsSidebarComponent } from './dashboard/components/settings-sidebar/settings-sidebar.component';
+import { UsernameValidators } from './authentication/sign-up/username.validators';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -120,7 +124,10 @@ export class AlertErrorHandler implements ErrorHandler {
     DevelopersComponent,
     ApplicationComponent,
     BotUserComponent,
-    AvatarUrlComponent
+    AvatarUrlComponent,
+    VerifyComponent,
+    UserAccountComponent,
+    SettingsSidebarComponent
   ],
   imports: [
     AppRoutingModule,
@@ -136,7 +143,7 @@ export class AlertErrorHandler implements ErrorHandler {
   ],
   providers: [
     { provide: ErrorHandler, useClass: AlertErrorHandler },
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
   bootstrap: [AppComponent]
 })

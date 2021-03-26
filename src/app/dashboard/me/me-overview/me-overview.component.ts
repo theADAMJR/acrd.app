@@ -38,7 +38,6 @@ export class DashboardOverviewComponent {
   sendFriendRequest() {
     if (this.addFriendForm.invalid) return;
 
-    ;
     this.ws.emit('SEND_FRIEND_REQUEST', { 
       senderId: this.user._id, 
       friendUsername: this.addFriendForm.value.username

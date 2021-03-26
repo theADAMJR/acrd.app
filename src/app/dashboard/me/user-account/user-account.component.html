@@ -1,0 +1,77 @@
+<app-settings-sidebar
+  *ngIf="usersService.user"
+  tabType="user">
+  <div class="content">
+    <h5 class="uppercase mb-4">Your Account</h5>
+    <div class="row">
+      <div class="col-6">
+        <form
+          *ngIf="form"
+          #f="ngForm"
+          (submit)="changeEmail()"
+          [formGroup]="form">
+          <mat-form-field
+            class="ml-2"
+            appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" type="email" matInput>
+            <mat-hint *ngIf="form.get('email').pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</mat-hint>
+            <mat-error *ngIf="form.get('email').errors?.emailInUse">Email is already in use.</mat-error>
+            <mat-error *ngIf="form.get('email').errors?.pattern">Email must be valid.</mat-error>
+          </mat-form-field>
+
+          <button [disabled]="processingEmail" class="ml-2" color="success" mat-button>Send Email</button>
+        </form>
+      </div>
+
+      <div class="col-6">
+        <span
+          *ngIf="usersService.user.verified"
+          class="border border-success rounded p-3">
+          Your account is verified by email.
+        </span>
+        <span
+          *ngIf="!usersService.user.verified"
+          class="border border-warning rounded p-3">
+          Your email is not verified.
+        </span>
+      </div>
+
+      <div class="col-6">
+        <form
+          #f="ngForm"
+          (submit)="changePassword()"
+          [formGroup]="passwordForm">
+          <div class="col-6">
+            <h5>Change Password</h5>
+            <mat-form-field
+              class="ml-2"
+              appearance="outline">
+              <mat-label>Old Password</mat-label>
+              <input formControlName="oldPassword" type="password" matInput>
+            </mat-form-field>
+
+            <mat-form-field
+              class="ml-2"
+              appearance="outline">
+              <mat-label>New Password</mat-label>
+              <input formControlName="newPassword" type="password" matInput>
+              <mat-error *ngIf="passwordForm.get('newPassword').errors?.pattern">New password must be valid.</mat-error>
+            </mat-form-field>
+
+            <button [disabled]="processingPassword" class="bg-warning" mat-button>Change</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-6">
+        <div>
+          <button
+            routerLink="/logout"
+            class="bg-danger"
+            mat-button>Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-settings-sidebar>

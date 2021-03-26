@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,12 @@ export class SoundService {
   }
 
   public async notification() {
-    await this.notificationSound.play();
+    await this.notificationSound?.play();
   }
   public async success() {
-    await this.successSound.play();
+    await this.successSound?.play();
   }
   public async error() {
-    await this.errorSound.play();
+    await this.errorSound?.play();
   }
 }
