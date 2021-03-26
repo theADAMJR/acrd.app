@@ -20,12 +20,12 @@ export class FriendsListComponent {
       .getFriends()
       .filter(f => f.status !== 'OFFLINE');
   }
-  get friendRequests() { return this.userService.user?.friendRequests; }
-  get blockedUsers() { return []; }
+  get friendRequests() {
+    return this.userService.user?.friendRequests;
+  }
 
   constructor(
     public channelService: ChannelService,
-    private log: LogService,
     public userService: UsersService,
     private ws: WSService) {}
 
@@ -37,18 +37,15 @@ export class FriendsListComponent {
   }
 
   acceptFriendRequest(friendId: string) {
-    ;
-    this.ws.emit('ACCEPT_FRIEND_REQUEST', { senderId: friendId, friendId: this.userService.user._id });
+    this.ws.emit('ACCEPT_FRIEND_REQUEST', { friendId });
   }
 
   cancelFriendRequest(friendId: string) {
-    ;
-    this.ws.emit('CANCEL_FRIEND_REQUEST', { senderId: this.userService.user._id, friendId });
+    this.ws.emit('CANCEL_FRIEND_REQUEST', { friendId });
   }
 
   removeFriend(friendId: string) {
-    ;
-    this.ws.emit('REMOVE_FRIEND', { senderId: this.userService.user._id, friendId });
+    this.ws.emit('REMOVE_FRIEND', { friendId });
   }
 }
 

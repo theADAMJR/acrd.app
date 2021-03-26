@@ -60,7 +60,6 @@ export interface WSEventParams {
 export namespace Params {
   export interface AcceptFriendRequest {
     friendId: string;
-    senderId: string;
   }
   export interface CancelFriendRequest extends AcceptFriendRequest {}
   export interface ChannelCreate {
@@ -129,11 +128,9 @@ export namespace Params {
   }
   export interface RemoveFriend {
     friendId: string;
-    senderId: string;
   }
   export interface SendFriendRequest {
     friendUsername: string;
-    senderId: string;
   }
   export interface TypingStart {
     channelId: string;
