@@ -64,21 +64,21 @@
 
       <div class="d-flex">
         <app-avatar-url [user]="user" size="48px" class="pt-2"></app-avatar-url>
-        <span class="pl-2">{{ user.username }}</span>
+        <span class="py-3 pl-2">{{ user.username }}</span>
       </div>
     </div>
     <create-guild-modal></create-guild-modal>
   </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <button class="toggle">
+    <!-- <button class="toggle">
       <div id="nav-icon1" class="open"
         (click)="toggle()">
         <span></span>
         <span></span>
         <span></span>
       </div>
-    </button>
+    </button> -->
     <ng-content select="#content"></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

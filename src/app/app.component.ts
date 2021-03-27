@@ -10,6 +10,10 @@ import { LogService } from './services/log.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  public get sfxEnabled() {
+    return localStorage.getItem('sfx') !== 'disabled';
+  }
+
   constructor(
     private themeService: ThemeService,
     private userService: UsersService,

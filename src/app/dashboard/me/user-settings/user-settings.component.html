@@ -83,16 +83,28 @@
     <mat-form-field appearance="outline" class="ml-3 m-2">
       <mat-label>Theme</mat-label>
       <mat-select
+        [value]="currentTheme"
         (selectionChange)="themes.changeTheme(themeSelect.value)"
         #themeSelect>
           <mat-option value="CHOCOLATE">Chocolate</mat-option>
           <mat-option value="CLONE">Clone (Default)</mat-option>
           <mat-option value="COSMIC">Cosmic</mat-option>
           <mat-option value="DISCORD">Discord</mat-option>
+          <mat-option value="HORIZON">Horizon</mat-option>
           <mat-option value="IONIC" selected>Ionic</mat-option>
           <mat-option value="PAIN">Pain</mat-option>
           <mat-option value="TWILIGHT">Twilight</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <div>
+      <label for="sfxEnabled">Enable Sound Effects</label>
+      <mat-checkbox
+        id="sfxEnabled"
+        (input)="toggleSounds(sfxEnabledInput.checked)"
+        [checked]="sfxEnabled"
+        class="ml-2"
+        #sfxEnabledInput></mat-checkbox>
+    </div>
   </div>
 </app-settings-sidebar>

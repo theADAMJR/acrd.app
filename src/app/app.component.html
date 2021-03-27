@@ -3,7 +3,9 @@
 
 <router-outlet></router-outlet>
 
-<div class="sounds">
+<div
+  *ngIf="sfxEnabled"
+  class="sfxEnabled">
   <audio id="notificationSound" src="assets/audio/notification.wav"></audio>
   <audio id="successSound" src="assets/audio/success.wav"></audio>
   <audio id="errorSound" src="assets/audio/error.wav"></audio>

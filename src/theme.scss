@@ -14,13 +14,15 @@ body {
   --primary: #6E8481;
   --secondary: #A2B6AD;
   --tertiary: #576067;
-
-  --heading: white;
-  --font: #CACBCD;
   
   --background-primary: #414244;
   --background-secondary: #37373a;
   --background-tertiary: #323335;
+
+  --heading: white;
+  --font: #CACBCD;
+
+  --muted: #6c757d;
 }
 :root[theme=CHOCOLATE] {
   --heading: #FFFFFF;
@@ -46,18 +48,6 @@ body {
   --background-secondary: #070d1a;
   --background-tertiary: #060b18;
 }
-:root[theme=PAIN] {
-  --primary: #6E8481;
-  --secondary: #A2B6AD;
-  --tertiary: #576067;
-
-  --heading: #000000;
-  --font: #CACBCD;
-  
-  --background-primary: #dfdfdf;
-  --background-secondary: #bdbdbd;
-  --background-tertiary: #afafaf;
-}
 :root[theme=DISCORD] {
   --primary: #7289DA;
   --secondary: #99AAB5;
@@ -69,6 +59,24 @@ body {
   --background-primary: #36393F;
   --background-secondary: #2F3136;
   --background-tertiary: #202225;
+}
+:root[theme=HORIZON] {
+  --primary: #E95678;
+  --secondary: #FAB795;
+  --tertiary: #B877DB;
+  
+  --background-primary: #2E303E;
+  --background-secondary: #232530;
+  --background-tertiary: #1C1E26;
+
+  --heading: #25B2BC;
+  --font: #FDF0ED;
+  --muted: #6c757d;
+
+  --success: #09F7A0;
+  --danger: #F43E5C;
+  --light: #FDF0ED;
+  --dark: #16161C;
 }
 :root[theme=IONIC] {
   --heading: #FFFFFF;
@@ -86,6 +94,18 @@ body {
   --background-primary: #15244B;
   --background-secondary: #0a193a;
   --background-tertiary: #081536;
+}
+:root[theme=PAIN] {
+  --primary: #6E8481;
+  --secondary: #A2B6AD;
+  --tertiary: #576067;
+
+  --heading: #000000;
+  --font: #CACBCD;
+  
+  --background-primary: #dfdfdf;
+  --background-secondary: #bdbdbd;
+  --background-tertiary: #afafaf;
 }
 :root[theme=TWILIGHT] {
   --font: #E3E7EA;
@@ -187,10 +207,18 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
   color: var(--interactive-muted) !important;  
 }
 
+.text-muted {
+  color: var(--muted) !important;
+}
+
 // global
 
 h1,h2,h3,h4,h5 {
   color: var(--heading) !important;
+}
+
+a {
+  color: var(--tertiary) !important;
 }
 
 // other

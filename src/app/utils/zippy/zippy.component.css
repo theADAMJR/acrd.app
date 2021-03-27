@@ -1,6 +1,6 @@
 span { cursor: pointer; }
 
-.expanded { background-color: #f0f0f027; }
+.expanded { background-color: var(--background-secondary); }
 .zippy {
     margin: 15px 0;
     border: 1px solid #f0f0f0;

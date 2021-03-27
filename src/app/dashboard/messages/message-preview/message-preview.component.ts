@@ -34,16 +34,14 @@ export class MessagePreviewComponent {
   }
 
   get timestamp() { 
-    const createdAt = new Date(this.message.createdAt ?? new Date());
-    const timestamp = createdAt
-      .toTimeString()
-      .slice(0, 5);
+    const createdAt = new Date(this.message.createdAt);
+    const timestamp = createdAt.toTimeString().slice(0, 5);
     
     if (this.getDaysAgo(createdAt))
       return `Today at ${timestamp}`;
-    else if (this.getDaysAgo(createdAt, 1))
-      return `Yesterday at ${timestamp}`;
     else if (this.getDaysAgo(createdAt, -1))
+      return `Yesterday at ${timestamp}`;
+    else if (this.getDaysAgo(createdAt, 1))
       return `Tomorrow at ${timestamp}`;
 
     return createdAt

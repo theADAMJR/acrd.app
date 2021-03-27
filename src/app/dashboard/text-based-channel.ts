@@ -194,7 +194,6 @@ export class TextBasedChannel {
 
   // emoji picker
   public addEmoji({ emoji }) {
-    console.log(emoji.native);
     this.messageInput.nativeElement.value += emoji.native;
   }
 

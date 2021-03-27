@@ -13,7 +13,7 @@
 }
 .nav-link.active {
   background-color: rgba(255, 255, 255, 0.05);
-  color: var(--heading) !important;
+  color: var(--success) !important;
 }
 
 .nav-item {
@@ -24,7 +24,7 @@
 
 .add-friend {
   background-color: var(--success);
-  color: var(--heading) !important;
+  color: var(--dark) !important;
 }
 
 button.send-friend-request {

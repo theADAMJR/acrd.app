@@ -54,9 +54,7 @@ export class UserAccountComponent implements OnInit {
   }
 
   public async changePassword() {
-    try {
-      console.log(this.passwordForm);
-      
+    try {      
       if (this.passwordForm.invalid) return;
   
       const oldPassword = this.passwordForm.get('oldPassword').value;
@@ -65,9 +63,7 @@ export class UserAccountComponent implements OnInit {
         oldPassword,
         newPassword,
       );
-    } catch (e) {
-      console.log(e);
-      
+    } catch {
       this.passwordForm.setErrors({ oldPasswordInvalid: true });
     }
   }

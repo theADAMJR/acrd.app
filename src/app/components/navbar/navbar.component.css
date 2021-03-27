@@ -1,5 +1,6 @@
 nav.navbar {
   background-color: transparent;
+  color: var(--font);
 }
 
 img:not(.icon) {
@@ -19,7 +20,7 @@ img.logo {
 }
 
 .dropdown-menu a {  
-  color: white;
+  color: var(--font);
 }
 
 .dropdown-menu a:hover {

@@ -23,7 +23,7 @@
 	outline: none !important;
 }
 .embed a {
-	color: #7289da;
+	color: var(--tertiary);
 	text-decoration: none;
 }
 

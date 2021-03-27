@@ -1,8 +1,8 @@
 .bot-tag {
-	background: #7289da;
+	background: var(--secondary);
 	font-size: 10px;
 	font-weight: 600;
-	color: #fff!important;
+	color: var(--heading) !important;
 	margin-left: 6px;
 	padding: 1px 2px;
 	border-radius: 3px;
@@ -48,14 +48,14 @@
 
 .scroller-wrap .scroller::-webkit-scrollbar-thumb,
 .scroller-wrap .scroller::-webkit-scrollbar-track-piece {
-	background-color: #7289da;
+	background-color: var(--secondary);
 	background-clip: padding-box;
 	border: 3px solid #fff;
 	border-radius: 7px
 }
 
 .scroller-wrap .scroller::-webkit-scrollbar-track-piece {
-	background-color: #f3f3f3
+	background-color: var(--secondary);
 }
 
 .scroller-wrap.dark .scroller::-webkit-scrollbar-thumb {
@@ -88,11 +88,7 @@
 	-ms-flex-direction: column;
 	flex-direction: column;
 	position: relative;
-	color: #fff
-}
-
-.chat .content {
-	background: #fff
+	color: var(--font);
 }
 
 .chat .user-name {
@@ -202,7 +198,7 @@
 }
 
 .message-group h2 strong {
-	color: #fff
+	color: var(--heading);
 }
 
 .message-group h2 span {
@@ -255,7 +251,7 @@
 
 /* extra */
 .extra-message {
-  color: white;
+  color: var(--font);
 	padding: 0 80px;
 }
 .extra-message:hover {

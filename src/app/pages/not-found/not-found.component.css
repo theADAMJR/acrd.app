@@ -80,7 +80,7 @@ body {
     border-radius: 5px;
     font-weight: 400;
     display: block;
-    color: white;
+    color: var(--font);
     text-align: center;
     text-decoration: none;
     letter-spacing : 2px;

@@ -23,6 +23,13 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
   public environment = environment;
   public defaultTheme = 'CLONE';
 
+  public get sfxEnabled() {
+    return localStorage.getItem('sfx') !== 'disabled';
+  }
+  public get currentTheme() {
+    return localStorage.getItem('theme');
+  }
+
   constructor(
     route: ActivatedRoute,
     router: Router,
@@ -56,6 +63,12 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
         Validators.pattern(patterns.username),
       ], [ this.usernameValidators.shouldBeUnique.bind(this.usernameValidators) ])
     });
+  }
+
+  public toggleSounds(enabled: boolean) {    
+    (enabled)
+      ? localStorage.setItem('sfx', 'enabled')
+      : localStorage.setItem('sfx', 'disabled')
   }
 
   public async submit() {

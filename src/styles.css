@@ -48,7 +48,7 @@ table.dataTable tbody tr {
 }
 
 i {
-  color: gray;
+  color: var(--secondary);
 }
 
 .jumbotron {
