@@ -45,23 +45,24 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
 
   public async ngAfterViewInit() {
     await super.init();
-    this.themeSelect?.writeValue(localStorage.getItem('theme')
-      ?? this.defaultTheme);
 
-    this.themes.updateTheme();
+    this.themeSelect
+      ?.writeValue(localStorage
+        .getItem('theme') ?? this.defaultTheme);
+
+    this.themes.updateTheme();    
   }
 
   public buildForm(user: Lean.User): FormGroup | Promise<FormGroup> {
     return new FormGroup({
       avatarURL: new FormControl(user.avatarURL, [
         Validators.required,
-        Validators.pattern(/[https://]/)
       ]),
       username: new FormControl(user.username, [
         Validators.required,
         Validators.maxLength(32),
         Validators.pattern(patterns.username),
-      ], [ this.usernameValidators.shouldBeUnique.bind(this.usernameValidators) ])
+      ], [ this.usernameValidators.shouldBeUnique.bind(this.usernameValidators) ]),
     });
   }
 
@@ -75,7 +76,7 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
     await super.submit();
   }
 
-  public setAvatar(name: string) {
+  public setAvatar(name: string) {        
     this.form
       .get('avatarURL')
       .setValue(`${environment.endpoint}/avatars/${name}.png`);

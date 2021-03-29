@@ -8,12 +8,17 @@ import { UsersService } from './users.service';
 @Injectable({ providedIn: 'root' })
 export class ChannelService {
   readonly endpoint = environment.endpoint + '/channels';
-  private readonly headers = { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } };
+  
+  private get headers() {
+    return {
+      headers: { Authorization: `Bearer ${localStorage.getItem('key')}` }
+    }
+  };
 
-  cachedMessages = new Map<string, Map<string, Lean.Message[]>>();
+  cachedMessages = new Map<string, Lean.Message[]>();
   _dmChannels: ChannelTypes.DM[] = [];
 
-  get dmChannels() {
+  public get dmChannels() {
     return this._dmChannels;
   }
   private get key() {
@@ -50,24 +55,18 @@ export class ChannelService {
       : [];
   }
 
-  public async getMessages(guildId: string, channelId: string, options?: LazyLoadOptions): Promise<Lean.Message[]> {
-    const messageMap = this.getMessageMap(guildId);
-    
-    let messages = messageMap.get(channelId);
-    if (!messages) {
-      const query = `?start=${options?.start ?? 0}&end=${options?.end ?? 25}`;
-      messages = await this.http
-        .get(`${this.endpoint}/${guildId}/${channelId}/messages${query}`,
-          { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } }).toPromise() as any;
-      messageMap.set(channelId, messages);
-    }    
-    return messages;
-  }
-  public getMessageMap(guildId: string) {
-    return this.cachedMessages.get(guildId)
+  public async getMessages(channelId: string, options?: LazyLoadOptions): Promise<Lean.Message[]> {
+    return this.cachedMessages.get(channelId)
       ?? this.cachedMessages
-        .set(guildId, new Map())
-        .get(guildId);
+        .set(channelId, await this.fetchMessages(channelId, options))
+        .get(channelId);
+  }
+
+  private async fetchMessages(channelId: string, options?: LazyLoadOptions) {
+    const query = `?start=${options?.start ?? 0}&end=${options?.end ?? 25}`;
+    return this.http
+      .get(`${this.endpoint}/${channelId}/messages${query}`,this.headers)
+      .toPromise() as any;
   }
 }
 

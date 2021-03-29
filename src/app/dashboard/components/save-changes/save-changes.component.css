@@ -1,18 +1,19 @@
 .text {
-    text-align: left;
-    padding-bottom: 15px;
+  text-align: left;
+  padding-bottom: 15px;
 }
 button, .text {
-    color: var(--heading);    
+  color: var(--light);  
 }
 #save {
-    margin-left: 5px;
-    background-color: var(--success);
+  margin-left: 5px;
+  color: var(--dark);
+  background-color: var(--success);
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-    .text {
-        text-align: center;
-    }
+  .text {
+    text-align: center;
+  }
 }

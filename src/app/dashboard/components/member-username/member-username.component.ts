@@ -12,73 +12,27 @@ export class MemberUsernameComponent implements OnInit {
   @Input() withAvatar = true;
   @Input() voice = false;
   @Input() statusOverride: string;
+  @Input() routerLink: string;
 
-  @Output() memberKick = new EventEmitter<any>();
-
-  get member() {
+  public get member() {
     return this.guild?.members.find(m => m.userId === this.user._id);
   }
-  get roleColor() {
+  public get roleColor() {
     if (!this.guild) return null;
 
-    const roleId = this.member.roleIds[this.member.roleIds.length - 1];
-    return this.guild.roles.find(r => r._id == roleId)?.color;
+    const lastRole = this.roles[this.roles.length - 1];
+    return lastRole.color;
   }
-  get roles() {
+  public get roles() {
     if (!this.guild) return null;
     
     return this.guild.roles
       .filter(r => this.member.roleIds.includes(r._id));
   }
-  get popoverHTML() {
-    return (!this.member)
-      ? ``
-      : `<select class="form-control" multiple>
-        <option value="">Test</option>
-      </select>`;
-  }
 
-  private menu: HTMLDivElement;
-
-  async ngOnInit() {
-    this.menu = document.querySelector('.ctx-member-menu');
-
-    // $(`.user-${this.user._id}[data-toggle="popover"]`).popover({ html: true, content: this.popoverHTML });
-  } 
+  public async ngOnInit() {} 
   
-  openPopover() {
+  public openPopover() {
     if (!this.guild) return;
-  }
-
-  openCtxMenu(event) {
-    if (!this.guild) return;
-
-    const target = event.target as HTMLElement;
-    const clickedOnUsername = target.classList?.contains('member-username')
-      || target.classList?.contains('username');
-    if (!clickedOnUsername) return;
-    
-    event.preventDefault();
-
-    this.setPosition(event);
-    this.setContext();
-    this.toggleMenu();
-  }
-
-  private setContext() { 
-    this.menu.innerHTML = this.menu.innerHTML.replace(/Kick .*$/, `Kick ${this.user.username}`);
-  }
-
-  private setPosition($event) {
-    const offsetX = 350;
-
-    this.menu.style.top = `${$event.pageY}px`;
-    this.menu.style.left = `${$event.pageX - offsetX}px`;
-  }
-
-  private toggleMenu() {
-    this.menu.style.display = this.menu.style.display === 'none'
-      ? 'block'
-      : 'none';    
   }
 }

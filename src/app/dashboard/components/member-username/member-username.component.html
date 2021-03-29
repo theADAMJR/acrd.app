@@ -1,12 +1,10 @@
 <div
   *ngIf="user"
-  (click)="openPopover()"
-  (contextmenu)="openCtxMenu($event)"
   class="member-username"
   data-placement="left"
+  [routerLink]="routerLink || '#'"
+  routerLinkActive="active"
   [title]="user.username"
-  [attr.data-toggle]="member ? 'popover' : ''"
-  [attr.data-content]="popoverHTML"
   [class]="guild ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
     <app-avatar-url
       *ngIf="withAvatar"

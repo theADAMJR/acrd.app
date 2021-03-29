@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
-import { WSService } from 'src/app/services/ws.service';
+import { Args, WSService } from 'src/app/services/ws.service';
 import { GuildService } from '../../../services/guild.service';
 import { InviteModalComponent } from '../../modals/invite-modal/invite-modal.component';
 import { CreateChannelModalComponent } from '../../modals/create-channel-modal/create-channel-modal.component';
@@ -15,18 +14,21 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./guild-sidebar.component.css']
 })
 export class GuildSidebarComponent implements OnInit {
-  @Input('waitFor') loaded = true;
-  @ViewChild('inviteModal') inviteModal: InviteModalComponent;
-  @ViewChild('channelModal') channelModal: CreateChannelModalComponent;
+  @Input('waitFor')
+  public loaded = true;
+  @ViewChild('inviteModal')
+  public inviteModal: InviteModalComponent;
+  @ViewChild('channelModal')
+  public channelModal: CreateChannelModalComponent;
   
-  id: string;
-  guild: Lean.Guild;
-  selectedChannel: Lean.Channel;
+  public id: string;
+  public guild: Lean.Guild;
+  public selectedChannel: Lean.Channel;
 
-  get textChannels() {
+  public get textChannels() {
     return this.guild.channels.filter(c => c.type === 'TEXT');
   }
-  get voiceChannels() {
+  public get voiceChannels() {
     return this.guild.channels.filter(c => c.type === 'VOICE');
   }
 
@@ -57,53 +59,49 @@ export class GuildSidebarComponent implements OnInit {
 
   public hookWSEvents() {
     this.ws
-    .on('CHANNEL_CREATE', ({ channel }) => {
-      this.guild.channels.push(channel);
-    }, this)
-
-    .on('PRESENCE_UPDATE', ({ userId, status }) => {
-      const guildMember = this.guild.members
-        .find(m => m.userId === userId);
-      if (!guildMember) return;
-      
-      const user = this.usersService.getKnown(userId);
-      user.status = status;
-    }, this)
-
-      
-    .on('GUILD_UPDATE', ({ partialGuild }) => {
-      const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
-      const guild = this.guildService.guilds[index];
-      this.guildService.guilds[index] = {
-        ...guild,
-        ...partialGuild,
-      }
-    }, this)
-
-    .on('GUILD_UPDATE', ({ partialGuild }) => {
-      this.guild = {
-        ...this.guild,
-        ...partialGuild
-      };
-    }, this)
-
-    .on('GUILD_ROLE_UPDATE', ({ roleId, partialRole }) => {
-      const index = this.guild.roles.findIndex(r => r._id === roleId);
-      this.guild.roles[index] = {
-        ...this.guild.roles[index],
-        ...partialRole,
-      };
-    }, this)
-
-    .on('GUILD_DELETE', async () => {
-      const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
-      this.guildService.guilds.splice(index, 1);
-
-      await this.router.navigate(['/channels/@me']);
-    }, this);
+      .on('CHANNEL_CREATE', this.addChannelToGuild, this)
+      .on('PRESENCE_UPDATE', this.updateMemberPresence, this)      
+      .on('GUILD_UPDATE', this.updateGuild, this)
+      .on('GUILD_ROLE_UPDATE', this.updateRole, this)
+      .on('GUILD_DELETE', this.delete, this);
   }
 
-  toggleMemberList() {
+  private addChannelToGuild({ channel }: Args.ChannelCreate) {
+    this.guild.channels.push(channel);
+  }
+  private updateMemberPresence({ userId, status }: Args.PresenceUpdate) {
+    const guildMember = this.getMember(userId);
+    if (!guildMember) return;
+    
+    const user = this.usersService.getKnown(userId);
+    user.status = status;
+  }
+  private updateGuild({ partialGuild }: Args.GuildUpdate) {
+    this.guildService.updateCached(this.guild._id, {
+      ...this.guild,
+      ...partialGuild,
+    });
+  }
+
+  private updateRole({ roleId, partialRole }: Args.GuildRoleUpdate) {
+    const index = this.guild.roles.findIndex(r => r._id === roleId);
+    this.guild.roles[index] = {
+      ...this.guild.roles[index],
+      ...partialRole,
+    };
+  }
+  private async delete() {
+    const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
+    this.guildService.guilds.splice(index, 1);
+
+    await this.router.navigate(['/channels/@me']);
+  }
+
+  private getMember(userId: string) {
+    return this.guild.members.find(m => m.userId === userId);
+  }
+
+  public toggleMemberList() {
     document
       .querySelector('.member-list').classList
       .toggle('d-none');

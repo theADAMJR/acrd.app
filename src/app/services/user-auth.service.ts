@@ -23,7 +23,6 @@ export class UserAuthService {
   }
 
   constructor(
-    private log: LogService,
     private http: HttpClient,
     private usersService: UsersService,
   ) {}
@@ -61,26 +60,19 @@ export class UserAuthService {
 
   public async sendVerifyEmail(email: string): Promise<boolean> {
     const res = await this.http.get(`${this.endpoint}/send-verify-email?email=${email}`, this.headers).toPromise() as any;
-    const verified = 'verify' in res;
-    if (verified) {
-      this.log.success('Email sent');
-      return true;
-    }
-    this.log.error('Failed to send email');
-    return false;
+    return 'verify' in res;
   }
 
-  public async changePassword(oldPassword: string, newPassword: string): Promise<boolean> {
+  public async changePassword(email: string, oldPassword: string, newPassword: string): Promise<boolean> {
     const res = await this.http
-      .post(`${this.endpoint}/change-password`, { oldPassword, newPassword }, this.headers)
+      .post(`${this.endpoint}/change-password`, {
+        email,
+        oldPassword,
+        newPassword,
+      }, this.headers)
       .toPromise() as any;
 
-    if (typeof res !== 'string') {
-      this.log.error('Password change failed.');
-      return false;
-    }
     localStorage.setItem('key', res);
-    this.log.success('Password successfully changed!');
     return true;
   }
 }

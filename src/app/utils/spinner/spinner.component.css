@@ -1,3 +1,4 @@
+/* credit - https://codepen.io/JesGraPa/pen/Hyaiw */
 .spinner {
     width: 40px;
     height: 40px;
@@ -26,4 +27,132 @@
         transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
         -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     }
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body, html {
+    margin: 10px auto;
+    text-align: center;
+    background: #1c1c1d;
+}
+* {
+    color: #666;
+}
+span {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background: #2FAC9B;
+    border-radius: 0px;
+}
+.border-radius {
+    border-radius: 500px;
+}
+#spinner {
+    margin-bottom: 30px;
+}
+#spinner span:nth-child(1) {
+    animation: rotateX 2s 0.1s infinite cubic-bezier(0.650,0.030,0.735,0.045);
+}
+#spinner span:nth-child(2) {
+    animation: rotateX 2s 0.2s infinite cubic-bezier(0.650,0.030,0.735,0.045);
+}
+#spinner span:nth-child(3) {
+    animation: rotateX 2s 0.3s infinite cubic-bezier(0.650,0.030,0.735,0.045);
+}
+#spinner span:nth-child(4) {
+    animation: rotateX 2s 0.4s infinite cubic-bezier(0.650,0.030,0.735,0.045);
+}
+#spinner span:nth-child(5) {
+    animation: rotateX 2s 0.5s infinite cubic-bezier(0.650,0.030,0.735,0.045);
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(0.0);
+   }
+    25% {
+        transform: scale(0.9,0.9);
+        background: #93e1d7;
+   }
+    50% {
+        transform: scale(1,1);
+        margin: 0 3px;
+        background: #2FAC9B;
+   }
+    100% {
+        transform: scale(0.0);
+   }
+}
+@keyframes rotateY {
+    0% {
+        transform: rotateY(0deg);
+   }
+    50% {
+        transform: rotateY(90deg);
+        background: #93e1d7;
+   }
+    100% {
+        transform: rotateY(0deg);
+   }
+}
+@keyframes rotateX {
+    0% {
+        transform: rotateX(0deg);
+   }
+    50% {
+        transform: rotateX(90deg) scale(0.5,0.5);
+        background: #93e1d7;
+   }
+    100% {
+        transform: rotateX(0deg);
+   }
+}
+@keyframes push {
+    0% {
+        transform: translateX(0px) scale(0.9,0.6);
+   }
+    50% {
+        transform: translateY(-20px) scale(0.7,1.1);
+        background: #6bd6c8;
+   }
+    100% {
+        transform: translateX(0px) scale(0.9,0.6);
+   }
+}
+@keyframes rotateZ {
+    0% {
+        transform: rotateZ(-20deg);
+   }
+    50% {
+        transform: rotateZ(20deg) scaleY(1.2);
+        background: #6bd6c8;
+   }
+    100% {
+        transform: rotateZ(-20deg);
+   }
+}
+@keyframes cuve {
+    0% {
+        transform: rotateY(-90deg) perspective(50px);
+        background: #195c53;
+   }
+    50% {
+        transform: rotateY(0deg);
+        background: #6bd6c8;
+   }
+    100% {
+        transform: rotateY(90deg) perspective(50px);
+        transform-origin: 100% 50%;
+        background: #195c53;
+   }
+}
+@keyframes temp {
+    50% {
+        transform: scale(1,5);
+        background: #195c53;
+   }
 }

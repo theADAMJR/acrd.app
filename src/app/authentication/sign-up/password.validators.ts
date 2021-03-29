@@ -12,6 +12,15 @@ export class PasswordValidators {
       : null;
   }
 
+  public static newPasswordShouldNotMatch(control: AbstractControl): ValidationErrors | null {
+    const oldPassword = control.get('oldPassword').value;
+    const newPassword = control.get('newPassword').value;
+    
+    return (oldPassword === newPassword)
+      ? { passwordMatch: true }
+      : null;
+  }
+
   public static emailOrUsernameRequired(control: AbstractControl): ValidationErrors | null {
     const username = control.get('username').value;
     const email = control.get('email').value;

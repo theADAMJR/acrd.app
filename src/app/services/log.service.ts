@@ -3,7 +3,7 @@ import { SoundService } from './sound.service';
 
 @Injectable({ providedIn: 'root' })
 export class LogService {
-  private hidePopupMs = 5 * 1000;
+  private hidePopupMs = 3 * 1000;
 
   constructor(
     private sounds: SoundService,

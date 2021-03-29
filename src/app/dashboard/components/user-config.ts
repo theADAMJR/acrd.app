@@ -25,12 +25,13 @@ export abstract class UserConfig implements OnDestroy {
     public saveChanges: MatSnackBar,
     protected ws: WSService,
     protected log: LogService,
-    protected router: Router) {}
+    protected router: Router,
+  ) {}
 
   /**
    * Load all required data for the form, and hook events.
    */
-  async init() {
+  public async init() {
     await this.usersService.init();
     
     this.user = this.usersService.user;
@@ -51,24 +52,26 @@ export abstract class UserConfig implements OnDestroy {
    * Build the form to be used.
    * Called when on form init.
    */
-  abstract buildForm(user: Lean.User): FormGroup | Promise<FormGroup>;
+  public abstract buildForm(user: Lean.User): FormGroup | Promise<FormGroup>;
   
-  openSaveChanges() {
+  public openSaveChanges() {    
     const snackBarRef = this.saveChanges._openedSnackBarRef;   
     if (this.form.invalid || snackBarRef) return;
 
-    this.saveChanges$ = this.saveChanges.openFromComponent(SaveChangesComponent).afterOpened()
-    .subscribe(() => {
-      const component = this.saveChanges._openedSnackBarRef.instance as SaveChangesComponent;
-      component.onSave.subscribe(async() => await this.submit());
-      component.onReset.subscribe(async() => await this.reset());
-    });    
+    this.saveChanges$ = this.saveChanges
+      .openFromComponent(SaveChangesComponent)
+      .afterOpened()
+      .subscribe(() => {
+        const component: SaveChangesComponent = this.saveChanges._openedSnackBarRef.instance;
+        component.onSave.subscribe(() => this.submit());
+        component.onReset.subscribe(() => this.reset());
+      });    
   }
 
   /**
    * Clean up subscriptions - to prevent memory leak.
    */  
-  ngOnDestroy() {    
+  public ngOnDestroy() {    
     this.valueChanges$?.unsubscribe();
     this.saveChanges$?.unsubscribe();
   }
@@ -76,7 +79,7 @@ export abstract class UserConfig implements OnDestroy {
   /**
    * Send the form data to the API.
    */
-  async submit() {
+  public async submit() {
     try {
       if (this.form.invalid) return;
 
@@ -86,15 +89,17 @@ export abstract class UserConfig implements OnDestroy {
         key: localStorage.getItem('key'),
         partialUser: this.form.value,
       });
-    } catch {
-      alert('An error occurred when submitting the form - check console');
+
+      await this.log.success('Successfully updated.');
+    } catch (error) {
+      await this.log.error(error.message);
     }
   }
 
   /**
    * Reset form values, and rebuild form.
    */
-  async reset() {
+  public async reset() {
     await this.resetForm();
     this.user = JSON.parse(JSON.stringify(this.originalUser));
     
@@ -104,7 +109,7 @@ export abstract class UserConfig implements OnDestroy {
 
   // input events
 
-  add(event: MatChipInputEvent, array: any[]) {    
+  public add(event: MatChipInputEvent, array: any[]) {    
     const { value, input } = event;
   
     if ((value || '').trim())
@@ -116,7 +121,7 @@ export abstract class UserConfig implements OnDestroy {
     this.openSaveChanges();
   }
   
-  remove(item: any, array: any[]) {
+  public remove(item: any, array: any[]) {
     const index = array.indexOf(item);
     if (index >= 0)
       array.splice(index, 1);

@@ -7,18 +7,20 @@ import { WSEventArgs, WSEventParams } from '../types/ws-types';
 @Injectable({ providedIn: 'root' })
 export class WSService {
   private readonly socket = (io as any).connect(environment.rootEndpoint);
-  private listened = new Map<any, Map<string, WSEventArgs[keyof WSEventArgs]>>();
 
   constructor(private log: LogService) {
     this.socket.on('message', (content: string) => console.log(content));
   }
 
   public on<K extends keyof WSEventArgs>(name: K, callback: WSEventArgs[K], component: any): this {
-    const listened = this.getListened(typeof component);
-    listened.set(name, callback.bind(component));
+    const listener = (...args: string[]) => {
+      this.log.info(`RECEIVE ${name}`, 'ws');
+      return callback.call(component, ...args);
+    }
 
-    this.socket.on(name, () => this.log.info(`RECEIVE ${name}`, 'ws'));
-    this.socket.on(name, listened.get(name));
+    this.socket
+      .off(name, listener)
+      .on(name, listener);
 
     return this;
   }
@@ -26,13 +28,6 @@ export class WSService {
   public emit<K extends keyof WSEventParams>(name: K, params: WSEventParams[K]) {
     this.log.info(`SEND ${name}`, 'ws');
     this.socket.emit(name, params);
-  }
-
-  private getListened(type: any) {
-    return this.listened.get(type)
-      ?? this.listened
-        .set(type, new Map())
-        .get(type);
   }
 }
 

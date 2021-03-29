@@ -95,8 +95,9 @@ h3 {
   color: var(--secondary);
 }
 
-.mat-snack-bar-container {
-  background-color: rgba(0, 0, 0, 0.8) !important;
+snack-bar-container.mat-snack-bar-container {
+  background-color: var(--background-tertiary);
+  background-color: rgba(0, 0, 0, 0.5) !important;
   color: var(--font);
   width: 75vw;
 }
@@ -212,9 +213,13 @@ mat-paginator {
 
   color: var(--font);
 }
+.category {
+  transition: color .3s ease-in-out !important;
+}
 
 .category:hover {
   color: var(--secondary);
+  transition: color .3s ease-in-out !important;
 
   cursor: pointer;
 }

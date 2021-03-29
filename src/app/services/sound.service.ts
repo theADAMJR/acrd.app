@@ -4,23 +4,20 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SoundService {
-  private notificationSound: HTMLAudioElement;
-  private successSound: HTMLAudioElement;
-  private errorSound: HTMLAudioElement;
-
-  constructor() {
-    this.notificationSound = document.querySelector('#notificationSound');
-    this.successSound = document.querySelector('#successSound');
-    this.errorSound = document.querySelector('#errorSound');
-  }
-
   public async notification() {
-    await this.notificationSound?.play();
+    const notification: HTMLAudioElement = document.querySelector('#notificationSound');
+    await notification?.play();
+  }
+  public async message() {
+    const notification: HTMLAudioElement = document.querySelector('#messageSound');
+    await notification?.play();
   }
   public async success() {
-    await this.successSound?.play();
+    const success: HTMLAudioElement = document.querySelector('#successSound');
+    await success?.play();
   }
   public async error() {
-    await this.errorSound?.play();
+    const error: HTMLAudioElement = document.querySelector('#errorSound');
+    await error?.play();
   }
 }

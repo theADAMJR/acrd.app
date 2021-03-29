@@ -91,9 +91,10 @@ export class TextBasedChannel {
     setTimeout(() => this.stopTyping(userId), 5.1 * 1000);
   }
 
-  private async createMessage({ message }: Args.MessageCreate) {  
-    // if (message.authorId !== this.userService.user._id)
-      await this.sounds.notification();   
+  private async createMessage({ message }: Args.MessageCreate) { 
+    const selfIsAuthor = message.authorId === this.userService.user._id; 
+    if (selfIsAuthor)
+      await this.sounds.message();   
 
     if (message.channelId === this.activeChannelId)
       return this.messages.push(message);

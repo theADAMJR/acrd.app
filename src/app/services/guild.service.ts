@@ -7,10 +7,10 @@ import { Partial } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class GuildService {
-  readonly endpoint = environment.endpoint + '/guilds';
+  private readonly endpoint = environment.endpoint + '/guilds';
   private _guilds: Lean.Guild[] = [];
   
-  get guilds() { return this._guilds; }
+  public get guilds() { return this._guilds; }
   private get headers() { return { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } }; }
 
   private get key() {
@@ -21,42 +21,47 @@ export class GuildService {
     private http: HttpClient,
     private usersService: UsersService) {}
   
-  async init() {
+  public async init() {
     if (this.guilds.length <= 0)
       await this.updateGuilds();
   }
 
-  async updateGuilds() {    
+  public async updateGuilds() {    
     this._guilds = (this.key)
       ? await this.http.get(this.endpoint, this.headers).toPromise() as any
       : [];    
   }
 
-  getGuild(id: string): Lean.Guild {
+  public getGuild(id: string): Lean.Guild {
     return this.guilds?.find(g => g._id === id);
   }
 
-  getSelfMember(guildId: string): Lean.GuildMember {
+  public updateCached(id: string, value: Lean.Guild): Lean.Guild {
+    const index = this.guilds.findIndex(g => g._id === id);
+    return this.guilds[index] = value;
+  }
+
+  public getSelfMember(guildId: string): Lean.GuildMember {
     return this.getMember(guildId, this.usersService.user._id);
   }
 
-  getMember(guildId: string, userId: string): Lean.GuildMember {
+  public getMember(guildId: string, userId: string): Lean.GuildMember {
     return this
       .getGuild(guildId)?.members
       .find(m => m.userId === userId);
   }
 
-  ownsGuild(guildId: string, userId: string) {
+  public ownsGuild(guildId: string, userId: string) {
     return this.getGuild(guildId)?.ownerId === userId;
   }
 
-  addBot(guildId: string, botId: string): Promise<any> {
+  public addBot(guildId: string, botId: string): Promise<any> {
     return this.http
       .get(`${this.endpoint}/${guildId}/authorize/user?client_id=${botId}`, this.headers)
       .toPromise() as any;
   }
 
-  removeBot(guildId: string, botId: string) {
+  public removeBot(guildId: string, botId: string) {
     alert('kick bot from guild');
   }
 }

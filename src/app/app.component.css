@@ -1,0 +1,11 @@
+.popup {
+  position: static;
+}
+
+#successPopup {
+  background-color: var(--success);
+  color: var(--dark);
+}
+#errorPopup {
+  background-color: var(--danger);
+}

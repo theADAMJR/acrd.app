@@ -61,6 +61,10 @@
               <mat-error *ngIf="passwordForm.get('newPassword').errors?.pattern">New password must be valid.</mat-error>
             </mat-form-field>
 
+            <mat-error
+              *ngIf="passwordForm.get('newPassword').dirty
+                && passwordForm.errors?.passwordMatch"
+              class="mb-2">New password should not equal old password.</mat-error>
             <button [disabled]="processingPassword" class="bg-warning" mat-button>Change</button>
           </div>
         </form>

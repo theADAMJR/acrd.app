@@ -15,8 +15,8 @@ export class CreateChannelModalComponent implements OnInit {
   processing = false;
 
   form = new FormGroup({
-    name: new FormControl('', [ Validators.required ]),
-    type: new FormControl('TEXT')
+    name: new FormControl('chat', [ Validators.required ]),
+    type: new FormControl('TEXT'),
   });
 
   constructor(
@@ -28,12 +28,13 @@ export class CreateChannelModalComponent implements OnInit {
     const typeInput = this.form.get('type');
     typeInput.valueChanges
       .subscribe((value) => this.form
-      .get('name')
-      .setValidators([
-        Validators.required,
-        Validators.pattern((value === 'TEXT') ? patterns.textChannelName : /.*/),
-        Validators.maxLength(32)
-      ]));
+        .get('name')
+        .setValidators([
+          Validators.required,
+          Validators.pattern((value === 'TEXT') ? patterns.textChannelName : /.*/),
+          Validators.maxLength(32)
+        ]
+      ));
 
     const nameInput = this.form.get('name');
     nameInput.valueChanges

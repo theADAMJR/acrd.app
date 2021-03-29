@@ -3,6 +3,7 @@ import { UsersService } from './services/users.service';
 import { ThemeService } from './services/theme.service';
 import { ActivatedRoute } from '@angular/router';
 import { LogService } from './services/log.service';
+import { SoundService } from './services/sound.service';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +23,13 @@ export class AppComponent implements OnInit {
   ) {}
 
   public async ngOnInit() {
-    this.route.queryParamMap.subscribe(map => {
+    this.route.queryParamMap.subscribe(async(map) => {
       const success = map.get('success');
       const error = map.get('error');
       if (success)
-        this.log.success(success);
+        await this.log.success(success);
       else if (error)
-        this.log.error(error);
+        await this.log.error(error);
     });
 
     this.themeService.updateTheme();
