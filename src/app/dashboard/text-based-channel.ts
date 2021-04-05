@@ -1,6 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatInput } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from '../services/channel.service';
 import { GuildService } from '../services/guild.service';
@@ -74,10 +73,10 @@ export class TextBasedChannel {
 
   public hookWSEvents() {
     this.ws
-      .on('TYPING_START', this.addTypingUser, this)
       .on('MESSAGE_CREATE', this.createMessage, this)
       .on('MESSAGE_UPDATE', this.updateMessage, this)
-      .on('MESSAGE_DELETE', this.deleteMessage, this);
+      .on('MESSAGE_DELETE', this.deleteMessage, this)
+      .on('TYPING_START', this.addTypingUser, this);
   }
 
   private addTypingUser({ userId }: Args.TypingStart) {

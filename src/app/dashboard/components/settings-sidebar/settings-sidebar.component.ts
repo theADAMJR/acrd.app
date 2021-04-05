@@ -15,8 +15,8 @@ export class SettingsSidebarComponent {
     guild: [
       { name: 'General', icon: 'fas fa-eye', href: () => `/channels/${this.id}/settings` },
       { name: 'Bots', icon: 'fas fa-robot', href: () => `/channels/${this.id}/bots` },
-      { name: 'Invites', icon: 'fas fa-lock', href: () => `/channels/${this.id}/invites` },
-      { name: 'Roles', icon: 'fas fa-lock', href: () => `/channels/${this.id}/roles` },
+      { name: 'Invites', icon: 'fas fa-user-plus', href: () => `/channels/${this.id}/invites` },
+      { name: 'Roles', icon: 'fas fa-at', href: () => `/channels/${this.id}/roles` },
     ],
     user: [
       { name: 'Overview', icon: 'fas fa-eye', href: () => '/channels/@me/settings' },

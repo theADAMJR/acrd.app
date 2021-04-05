@@ -22,8 +22,8 @@ export class InviteModalComponent {
   });
 
   constructor(
-    private usersService: UsersService,
-    private ws: WSService) {}
+    private ws: WSService,
+  ) {}
 
   public open() {
     this.ws.emit('INVITE_CREATE', {

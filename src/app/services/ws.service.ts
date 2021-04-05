@@ -9,7 +9,12 @@ export class WSService {
   private readonly socket = (io as any).connect(environment.rootEndpoint);
 
   constructor(private log: LogService) {
-    this.socket.on('message', (content: string) => console.log(content));
+    this.socket.on('message', (content: string) => {
+      console.log(content);
+
+      if (content.includes('Not Logged In'))
+        window.location.reload();
+    });
   }
 
   public on<K extends keyof WSEventArgs>(name: K, callback: WSEventArgs[K], component: any): this {
@@ -17,9 +22,8 @@ export class WSService {
       this.log.info(`RECEIVE ${name}`, 'ws');
       return callback.call(component, ...args);
     }
-
     this.socket
-      .off(name, listener)
+      .off(name)
       .on(name, listener);
 
     return this;
