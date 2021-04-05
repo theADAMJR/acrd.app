@@ -17,6 +17,8 @@ body {
   font-weight: 300;
   font-family: 'Whitney', 'Helvetica Neue', 'Helvetica', sans-serif;
   font-size: 20px;
+
+  scroll-behavior: smooth;
 }
 
 h1,h2,h3,h4,h5 {

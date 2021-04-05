@@ -1,12 +1,9 @@
-.jumbotron {
+header {
   background: none;
   text-align: center;
   margin-top: 15vh;
-}
 
-.robot {
-  max-width: 256px;
-  margin-bottom: 5px;
+  margin-bottom: 300px;
 }
 
 p:not(.lead) {
@@ -19,6 +16,8 @@ footer {
 }
 
 .main {
+  padding-top: 500px;
+
   background-color: var(--background-secondary) !important;
   min-height: 750px;
 }
@@ -30,8 +29,7 @@ mat-card {
 mat-card:hover {
   transform: scale(1.1);
 }
-mat-card-title,
-mat-card-subtitle {
+mat-card {
   text-align: center;
 }
 mat-card-subtitle {
