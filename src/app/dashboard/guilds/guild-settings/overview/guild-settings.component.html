@@ -1,4 +1,6 @@
-<app-settings-sidebar>
+<app-settings-sidebar
+  tabType="guild"
+  [id]="guild?._id">
   <div *ngIf="guild" class="content">
     <h5 class="uppercase mb-4">Guild Overview</h5>
     <div class="row">

@@ -211,6 +211,10 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
   color: var(--muted) !important;
 }
 
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+
 // global
 
 h1,h2,h3,h4,h5 {

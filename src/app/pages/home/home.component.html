@@ -3,14 +3,51 @@
   <div class="jumbotron">
     <h1 class="display-4">Chat With Ease</h1>
     <p class="lead">
-      Simple design, with guilds, voice chat, and more.<br>
-      DClone is like Discord, but cooler.
+      Seamlessly chat with friends within seconds. <br>
+      With friends, guilds, roles, and more.
     </p>
+    <button routerLink="/login" class="bg-success" mat-button>Get Started</button>
+    <button routerLink="/docs" class="bg-info ml-2" mat-button>Features</button>
   </div>
 </header>
 
-<waves></waves>
+<waves  color="var(--secondary)"></waves>
+
+<section class="main py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <mat-card class="bg-primary">
+          <mat-card-title><i class="fas fa-comments"></i> Chat with Ease</mat-card-title>
+          <mat-card-content></mat-card-content>
+        </mat-card>
+      </div>
+      
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <mat-card class="bg-primary">
+          <mat-card-title><i class="fas fa-lock"></i> Encrypted Messages</mat-card-title>
+          <mat-card-subtitle>Your Data Is Secure</mat-card-subtitle>
+          <mat-card-content></mat-card-content>
+          <mat-card-actions class="text-center">
+            <button class="bg-info" mat-button>More Info</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <mat-card class="bg-primary">
+          <mat-card-title>Custom Themes</mat-card-title>
+          <mat-card-content>Choose from a wide range of premade themes to customize your experience.</mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <app-submarine></app-submarine>
+
+  <waves color="var(--secondary)"></waves>
+</section>
+  
 <footer>
-  <p routerLink="/docs/changelog"
-    class="float-right bg-tertiary">{{ version }}</p>
+  <p class="float-right bg-tertiary">{{ version }}</p>
 </footer>

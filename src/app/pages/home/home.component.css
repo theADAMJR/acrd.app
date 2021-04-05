@@ -1,26 +1,60 @@
 .jumbotron {
-    background: none;
-    text-align: center;
-    margin-top: 15vh;
+  background: none;
+  text-align: center;
+  margin-top: 15vh;
 }
 
 .robot {
-    max-width: 256px;
-    margin-bottom: 5px;
+  max-width: 256px;
+  margin-bottom: 5px;
 }
 
 p:not(.lead) {
-    color: var(--secondary);
-    cursor: pointer;
+  color: var(--secondary);
+  cursor: pointer;
 }
 
 footer {
-    z-index: 1 !important;
-    background-color: var(--background-secondary) !important;
+  z-index: 1 !important;
 }
 
-waves {
-    position: fixed;
-    bottom: 35px;
-    width: 100vw;
+.main {
+  background-color: var(--background-secondary) !important;
+  min-height: 750px;
+}
+
+mat-card {
+  transition: transform 1s ease;
+  cursor: pointer;
+}
+mat-card:hover {
+  transform: scale(1.1);
+}
+mat-card-title,
+mat-card-subtitle {
+  text-align: center;
+}
+mat-card-subtitle {
+  font-weight: bold;
+}
+mat-card-subtitle,
+mat-card-content {
+  color: var(--secondary);
+}
+
+app-submarine {
+  position: absolute;
+  top: 1100px;
+  transform: scale(0.5);
+
+  animation: moveLeft 150s infinite;
+}
+
+@keyframes moveLeft {
+  0% {
+    left: 90%;
+  }
+  100% {
+    left: 10%;
+  }
 }

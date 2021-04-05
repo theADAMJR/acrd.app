@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,15 +9,18 @@ import { Router } from '@angular/router';
 export class SettingsSidebarComponent {
   @Input() closeRedirect = '/channels/@me';
   @Input() tabType: TabType;
+  @Input() id: string;
 
   public readonly tabs: Tabs = {
     guild: [
-      { name: 'Overview', icon: 'fas fa-eye', href: '/channels/@me/settings' },
-      { name: 'Account', icon: 'fas fa-lock', href: '/channels/@me/settings/account' },
+      { name: 'General', icon: 'fas fa-eye', href: () => `/channels/${this.id}/settings` },
+      { name: 'Bots', icon: 'fas fa-robot', href: () => `/channels/${this.id}/bots` },
+      { name: 'Invites', icon: 'fas fa-lock', href: () => `/channels/${this.id}/invites` },
+      { name: 'Roles', icon: 'fas fa-lock', href: () => `/channels/${this.id}/roles` },
     ],
     user: [
-      { name: 'Overview', icon: 'fas fa-eye', href: '/channels/@me/settings' },
-      { name: 'Account', icon: 'fas fa-lock', href: '/channels/@me/settings/account' },
+      { name: 'Overview', icon: 'fas fa-eye', href: () => '/channels/@me/settings' },
+      { name: 'Account', icon: 'fas fa-lock', href: () => '/channels/@me/settings/account' },
     ],
   };
 
@@ -43,6 +46,6 @@ export type TabType = 'guild' | 'user';
 export interface Tab {
   icon: string;
   name: string;
-  href: string;
+  href: (id: string) => string;
 }
 type Tabs = { [k in TabType]: Tab[] };

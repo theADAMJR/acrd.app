@@ -55,6 +55,10 @@ export class GuildService {
     return this.getGuild(guildId)?.ownerId === userId;
   }
 
+  public getInvites(guildId: string): Promise<Lean.Invite[]> {
+    return this.http.get(`${this.endpoint}/invites/${guildId}`, this.headers).toPromise() as any;
+  }
+
   public addBot(guildId: string, botId: string): Promise<any> {
     return this.http
       .get(`${this.endpoint}/${guildId}/authorize/user?client_id=${botId}`, this.headers)

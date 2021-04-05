@@ -56,19 +56,17 @@
       font-size:24px;
     }
   }
+
+#gentle-wave {
+  fill: var(--background-secondary);
+}
   
 #wave1 {
-  fill: var(--background-secondary);
   fill-opacity: 0.7;
 }
 #wave2 {
-  fill: var(--background-secondary);
   fill-opacity: 0.5;
 }
 #wave3 {
-  fill: var(--background-secondary);
   fill-opacity: 0.3;
-}
-#wave4 {
-  fill: var(--background-secondary);
 }

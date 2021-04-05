@@ -4,7 +4,7 @@
     <p class="category">{{ tabType }}</p>
 
     <a *ngFor="let tab of tabs[tabType]"
-      [routerLink]="tab.href"
+      [routerLink]="tab.href()"
       routerLinkActive="active"
       class="nav-item nav-link">
       <i class="text-muted mr-1" [class]="tab.icon"></i>

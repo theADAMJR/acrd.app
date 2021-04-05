@@ -18,6 +18,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   exports: [
@@ -40,6 +41,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSnackBarModule,
     MatTooltipModule,
     MatMenuModule,
+    MatCardModule,
   ]
 })
 export class MaterialModule {}

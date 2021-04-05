@@ -1,23 +1,6 @@
-<div *ngIf="guild"
-  class="side side-nav navbar-dark">
-  <div class="navbar-nav float-right">
-    <p class="category">{{ guild.name }}</p>
-    <a [routerLink]="'/channels/' + guild._id + '/settings'"
-      routerLinkActive="active"
-      class="nav-item nav-link">Overview</a>
-    <a [routerLink]="'/channels/' + guild._id + '/roles'"
-      routerLinkActive="active"
-      class="nav-item nav-link">Roles</a>
-    <a [routerLink]="'/channels/' + guild._id + '/invites'" 
-      routerLinkActive="active"
-      class="nav-item nav-link">Invites</a>
-    <hr>
-    <a (click)="deleteGuild()"
-      class="nav-item nav-link text-danger">Delete Guild</a>
-  </div>
-</div>
-
-<div *ngIf="guild" class="main">
+<app-settings-sidebar
+  tabType="guild"
+  [id]="guild?._id">
   <div class="content">
     <div class="float-right">
       <div (click)="close()"
@@ -38,15 +21,9 @@
         </div>
       </div>
       <div class="col-6">
-        <form *ngIf="form"
-          #f="ngForm" [formGroup]="form">
-          <mat-form-field appearance="outline">
-            <mat-label>Guild Name</mat-label>
-            <input formControlName="name" type="text" matInput>
-          </mat-form-field>
-        </form>
+        
       </div>
     </div>
     <hr class="my-4">
   </div>
-</div>
+</app-settings-sidebar>
