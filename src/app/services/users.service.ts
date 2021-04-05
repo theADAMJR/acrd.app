@@ -61,7 +61,7 @@ export class UsersService {
   public async updateKnownUsers() {
     this.knownUsers = (this.key)
       ? await this.http.get(`${this.endpoint}/known`, this.headers).toPromise() as any ?? []
-      : [];    
+      : [];
   }
 
   public get(id: string): Promise<Lean.User> {

@@ -15,10 +15,14 @@
   </div>
   <div class="nav navbar-nav ml-auto">
     <div *ngIf="!user">
-      <a class="nav-item nav-link" routerLink="/login"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+      <a class="nav-item nav-link" routerLink="/login">
+        <i class="fa fa-user" aria-hidden="true"></i> Login
+      </a>
     </div>
     <div *ngIf="!user">
-      <a class="nav-item nav-link" routerLink="/sign-up"><i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</a>
+      <a class="nav-item nav-link" routerLink="/sign-up">
+        <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up
+      </a>
     </div>
     <div *ngIf="user">
       <button mat-button [matMenuTriggerFor]="menu">

@@ -7,7 +7,7 @@ import { UsersService } from './users.service';
 
 @Injectable({ providedIn: 'root' })
 export class ChannelService {
-  readonly endpoint = environment.endpoint + '/channels';
+  private readonly endpoint = environment.endpoint + '/channels';
   
   private get headers() {
     return {
@@ -15,8 +15,8 @@ export class ChannelService {
     }
   };
 
-  cachedMessages = new Map<string, Lean.Message[]>();
-  _dmChannels: ChannelTypes.DM[] = [];
+  private cachedMessages = new Map<string, Lean.Message[]>();
+  private _dmChannels: ChannelTypes.DM[] = [];
 
   public get dmChannels() {
     return this._dmChannels;
@@ -67,6 +67,13 @@ export class ChannelService {
     return this.http
       .get(`${this.endpoint}/${channelId}/messages${query}`,this.headers)
       .toPromise() as any;
+  }
+
+  public addMessage(message: Lean.Message) {
+    const messages = this.cachedMessages.get(message.channelId);
+    messages.push(message);
+
+    this.cachedMessages.set(message.channelId, messages);
   }
 }
 

@@ -3,9 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModuleConfig } from 'src/app/dashboard/components/module-config';
+import { DevelopersService } from 'src/app/services/developers.service';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
-import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
@@ -18,8 +18,8 @@ import { Lean } from 'src/app/types/entity-types';
   ]
 })
 export class BotListComponent extends ModuleConfig implements OnInit {
-  bots: Lean.User[];
-  selectedBot: Lean.User;
+  apps: Lean.Application[];
+  selectedApp: Lean.Application;
 
   botInGuild = false;
 
@@ -30,19 +30,18 @@ export class BotListComponent extends ModuleConfig implements OnInit {
     snackbar: MatSnackBar,
     ws: WSService,
     log: LogService,
-    private userService: UsersService) {
+    private dev: DevelopersService) {
       super(guildService, route, snackbar, ws, log, router);
     }
 
   async ngOnInit() {
     await super.init();
-    await this.userService.init();
     
-    this.bots = await this.userService.getBots();
-    this.selectBot(this.bots[0]);
+    this.apps = await this.dev.getAll();
+    this.selectBot(this.apps[0]);
 
-    this.botInGuild = this.selectedBot
-      && this.guild.members.some(m => m.userId === this.selectedBot._id);;
+    this.botInGuild = this.selectedApp
+      && this.guild.members.some(m => m.userId === this.selectedApp._id);;
     
     this.hookWSEvents();
   }
@@ -54,8 +53,8 @@ export class BotListComponent extends ModuleConfig implements OnInit {
     return new FormGroup({});
   }
 
-  selectBot(user: Lean.User) {
-    this.selectedBot = user;
+  selectBot(app: Lean.Application) {
+    this.selectedApp = app;
   }
 
   async addBot(botId: string) {

@@ -1,37 +1,5 @@
-<div *ngIf="guild"
-  class="side side-nav navbar-dark">
-  <div class="navbar-nav float-right">
-    <p class="category">{{ guild.name }}</p>
-    <a [routerLink]="'/channels/' + guild._id + '/settings'"
-      routerLinkActive="active"
-      class="nav-item nav-link">
-      <i class="fas fa-eye text-muted"></i>
-      Overview</a>
-    <a [routerLink]="'/channels/' + guild._id + '/roles'"
-      routerLinkActive="active"
-      class="nav-item nav-link">
-      <i class="fas fa-at text-muted"></i>
-      Roles</a>
-    <hr>
-
-    <a [routerLink]="'/channels/' + guild._id + '/bots'"
-      routerLinkActive="active"
-      class="nav-item nav-link">
-      <i class="fas fa-robot text-muted"></i>
-      Bots</a>
-    <!-- <a [routerLink]="'/channels/' + guild._id + '/invites'" 
-      routerLinkActive="active"
-      class="nav-item nav-link">Invites</a> -->
-    <hr>
-    <a (click)="deleteGuild()"
-      class="nav-item nav-link text-danger">
-      <i class="fas fa-trash text-muted"></i>
-      Delete</a>
-  </div>
-</div>
-
-<div *ngIf="guild && bots"
-  class="main">
+<app-settings-sidebar
+tabType="user">
   <div class="content">
     <div class="float-right">
       <div (click)="close()"
@@ -43,10 +11,10 @@
       <div class="col-3 side-nav navbar-dark">
         <div class="navbar-nav">
           <a
-            *ngFor="let user of bots"
-            (click)="selectBot(user)"
+            *ngFor="let app of apps"
+            (click)="selectBot(app)"
             routerLinkActive="active"
-            class="nav-item nav-link">{{ user.username }}</a>
+            class="nav-item nav-link">{{ app.user.username }}</a>
           <div class="float-right"></div>
         </div>
 
@@ -56,25 +24,26 @@
       </div>
       <div class="col-9 role-details">
         <img
-          [src]="selectedBot.avatarURL"
-          [alt]="selectedBot.username + ' Avatar'"
+          [src]="selectedApp.user.avatarURL"
+          [alt]="selectedApp.user.username + ' Avatar'"
           class="rounded-lg float-left mr-4">
-        <h1>{{ selectedBot.username }}</h1>
+        <h1>{{ selectedApp.user.username }}</h1>
         <hr>
-        <p class="lead text-muted">2PG is a very cool bot, you should definitely add 2PG!</p>
+        <p class="lead text-muted">{{ selectedApp.description }}</p>
         
         <div class="mt-3">
           <button
             *ngIf="!botInGuild"
-            (click)="addBot(selectedBot._id)"
+            (click)="addBot(selectedApp.user._id)"
             class="bg-success rounded"
             mat-button>Add</button>
           <button
             *ngIf="botInGuild"
-            (click)="removeBot(selectedBot._id)"
+            (click)="removeBot(selectedApp.user._id)"
             class="bg-danger rounded"
             mat-button>Remove</button>
         </div>
+      </div>
     </div>
   </div>
-</div>
+</app-settings-sidebar>

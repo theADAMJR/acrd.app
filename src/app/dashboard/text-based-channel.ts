@@ -31,9 +31,6 @@ export class TextBasedChannel {
       .map(id => this.userService
         .getKnown(id).username);
   }
-  public get channelMessages() {
-    return this.channelService.getMessageMap(this.parentId);
-  }
   public get loadedAllMessages() {
     return this.messages.length <= 0
       || this.messages.length % 25 !== 0;
@@ -67,7 +64,7 @@ export class TextBasedChannel {
         ? `@${this.recipient.username}`
         : `#${this.channel.name}`;
 
-      this.messages = await this.channelService.getMessages(this.parentId, channelId);
+      this.messages = await this.channelService.getMessages(channelId);
       
       setTimeout(() => this.scrollToMessage(), 100);
       
@@ -93,14 +90,14 @@ export class TextBasedChannel {
 
   private async createMessage({ message }: Args.MessageCreate) { 
     const selfIsAuthor = message.authorId === this.userService.user._id; 
-    if (selfIsAuthor)
-      await this.sounds.message();   
+    (selfIsAuthor)
+      ? await this.sounds.message()
+      : await this.sounds.notification();
 
-    if (message.channelId === this.activeChannelId)
-      return this.messages.push(message);
-
-    const messages = this.channelMessages.get(message.channelId);
-    this.channelMessages.set(message.channelId, messages.concat(message));
+    const channelIsActive = this.activeChannelId === this.channel._id;
+    (channelIsActive)
+      ? this.messages.push(message)
+      : this.channelService.addMessage(message);
 
     setTimeout(() => this.scrollToMessage(), 100);
   }
@@ -131,7 +128,7 @@ export class TextBasedChannel {
       : combinedHeight;
   }
 
-  public chat(content: string) {
+  public async chat(content: string) {
     if (!content.trim()) return;
     
     this.messageInput.nativeElement.value = '';
@@ -150,7 +147,7 @@ export class TextBasedChannel {
     this.log.info('Loading more messages', 'text');
 
     const moreMessages = await this.channelService
-      .getMessages(this.parentId, this.channel._id, {
+      .getMessages(this.channel._id, {
         start: this.messages.length,
         end: this.messages.length + 25
       });

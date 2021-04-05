@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-settings-sidebar',
