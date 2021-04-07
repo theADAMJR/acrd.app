@@ -41,16 +41,7 @@ export abstract class ModuleConfig implements OnDestroy {
     await this.resetForm();
 
     this.valueChanges$ = this.form.valueChanges
-      .subscribe(() => this.openSaveChanges()); 
-
-    document.body.onkeyup = ({ key }) => {
-      if (key !== 'Escape') return;
-  
-      this.close();
-    };  
-  }
-  close() {
-    this.router.navigate(['/channels/' + this.guild._id]);
+      .subscribe(() => this.openSaveChanges());
   }
 
   private async resetForm() {   

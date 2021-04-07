@@ -4,7 +4,7 @@
 
   font-size: 40px;
 
-  color: var(--heading);
+  color: var(--font);
   background-color: var(--primary);
 }
 .guild-icon span {

@@ -19,8 +19,12 @@
         <form *ngIf="form"
           #f="ngForm" [formGroup]="form">
           <mat-form-field appearance="outline">
-            <mat-label>Guild Name</mat-label>
+            <mat-label>Name</mat-label>
             <input formControlName="name" type="text" matInput>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Icon URL</mat-label>
+            <input formControlName="iconURL" type="text" matInput>
           </mat-form-field>
         </form>
       </div>

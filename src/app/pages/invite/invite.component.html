@@ -1,0 +1,26 @@
+<navbar></navbar>
+
+<waves></waves>
+
+<section class="main">
+  <div *ngIf="guild && usersService.user" class="text-center">
+    <p class="lead uppercase">You have been invited to</p>
+    <h1>{{ guild._id }}</h1>
+    <hr>
+    <button (click)="join()" class="bg-primary" mat-button>Join</button>
+  </div>
+
+  <div *ngIf="guild && !usersService.user" >
+    <p class="lead uppercase">You have been invited to</p>
+    <h1>{{ guild._id }}</h1>
+    <hr>
+    <button [routerLink]="'/sign-up&redirect=/invite/' + invite._id" class="bg-success" mat-button>Join</button>
+  </div>
+  
+  <div *ngIf="!guild" class="text-center">
+    <p class="lead uppercase">This invite is</p>
+    <h1 class="text-danger">Invalid</h1>
+  </div>
+
+  <app-submarine></app-submarine>
+</section>

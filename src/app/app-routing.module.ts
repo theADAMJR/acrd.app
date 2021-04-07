@@ -25,6 +25,7 @@ import { BotUserComponent } from './pages/developers/bot-user/bot-user.component
 import { DevelopersAuthGuard } from './guards/developers-auth.guard';
 import { VerifyComponent } from './authentication/verify/verify.component';
 import { UserAccountComponent } from './dashboard/me/user-account/user-account.component';
+import { InviteComponent } from './pages/invite/invite.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent,
+  },
+  {
+    path: 'invite/:id',
+    component: InviteComponent,
   },
   {
     path: 'channels/@me',

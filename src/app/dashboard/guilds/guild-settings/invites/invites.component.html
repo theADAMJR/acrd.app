@@ -2,23 +2,16 @@
   tabType="guild"
   [id]="guild?._id">
   <div class="content">
-    <h5 class="uppercase mb-4">Guild Overview</h5>
+    <h5 class="uppercase mb-4">Invites</h5>
     <div class="row">
-      <div class="col-6">
-        <div
-            [routerLink]="'/channels/' + guild._id"
-            routerLinkActive="active"
-            class="guild-icon round">
-            <img *ngIf="guild.iconURL"
-                [src]="guild.iconURL" [alt]="guild.name">
-            <span *ngIf="!guild.iconURL"
-                class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+      <div
+        *ngFor="let invite of invites"
+        class="col-12 bg-light">
+        <div class="float-right">
+          {{ invite.name }}
+          <i class="fas fa-elipses-v"></i>
         </div>
       </div>
-      <div class="col-6">
-        
-      </div>
     </div>
-    <hr class="my-4">
   </div>
 </app-settings-sidebar>

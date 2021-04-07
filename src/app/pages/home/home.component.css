@@ -42,7 +42,7 @@ mat-card-content {
 
 app-submarine {
   position: absolute;
-  top: 1100px;
+  top: 1250px;
   transform: scale(0.5);
 
   animation: moveLeft 150s infinite;

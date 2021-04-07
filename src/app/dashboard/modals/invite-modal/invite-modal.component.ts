@@ -11,12 +11,13 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./invite-modal.component.css']
 })
 export class InviteModalComponent {
-  @Input() guild: Lean.Guild;
+  @Input()
+  public guild: Lean.Guild;
 
-  invite: Lean.Invite;
-  recentlyUpdated = false;
+  public invite: Lean.Invite;
+  public recentlyUpdated = false;
 
-  form = new FormGroup({
+  public form = new FormGroup({
     maxUses: new FormControl('', [ Validators.required, Validators.min(1), Validators.max(1000) ]),
     expiresAt: new FormControl('', [ Validators.required ]),
   });
@@ -30,6 +31,8 @@ export class InviteModalComponent {
       guildId: this.guild._id,
       options: this.form.value,
     });
+
+    this.ws.on('INVITE_CREATE', ({ invite }) => this.invite = invite, this);
 
     this.form.valueChanges
       .subscribe(() => this.recentlyUpdated = this.form.valid);

@@ -34,7 +34,8 @@
           [ngClass]="{
             'text-muted': true
           }"></i> {{ channel.name }}
-        <i class="fas fa-cog text-muted float-right channel-settings spin"></i>
+        <i matTooltip="Edit Channel"
+          class="fas fa-cog text-muted float-right channel-settings spin"></i>
       </a>
       <voice-channel
         *ngFor="let channel of voiceChannels"

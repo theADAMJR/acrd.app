@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ModuleConfig } from 'src/app/dashboard/components/module-config';
+import { ActivatedRoute } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
-import { LogService } from 'src/app/services/log.service';
-import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({
@@ -13,30 +8,18 @@ import { Lean } from 'src/app/types/entity-types';
   templateUrl: './invites.component.html',
   styleUrls: ['./invites.component.css', '../overview/guild-settings.component.css']
 })
-export class InvitesComponent extends ModuleConfig implements OnInit {
+export class InvitesComponent implements OnInit {
+  public invites: Lean.Invite[];
+  public guild: Lean.Guild;
+
   constructor(
-    route: ActivatedRoute,
-    router: Router,
-    guildService: GuildService,
-    snackbar: MatSnackBar,
-    ws: WSService,
-    log: LogService) {
-      super(guildService, route, snackbar, ws, log, router);
-    }
+    private route: ActivatedRoute,
+    private guildService: GuildService,
+  ) {}
 
-  async ngOnInit() {
-    await super.init();
-
-    document.body.onkeyup = ({ key }) => {
-      if (key !== 'Escape') return;
-
-      this.close();
-    };
-  }
-
-  buildForm(guild: Lean.Guild): FormGroup | Promise<FormGroup> {
-    return new FormGroup({
-      name: new FormControl(guild.name, [ Validators.required, Validators.maxLength(32) ])
-    });
+  public async ngOnInit() {
+    const guildId = this.route.snapshot.paramMap.get('guildId');
+    this.guild = this.guildService.getGuild(guildId);
+    this.invites = await this.guildService.getInvites(guildId);
   }
 }

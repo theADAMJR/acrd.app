@@ -14,26 +14,31 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./message-preview.component.css']
 })
 export class MessagePreviewComponent {
-  @Input() message: Lean.Message;
-  @Input() isExtra = false;
-  @Input() guild: Lean.Guild;
-  @Input() member: Lean.GuildMember;
+  @Input()
+  public message: Lean.Message;
+  @Input()
+  public isExtra = false;
+  @Input()
+  public guild: Lean.Guild;
+  @Input()
+  public member: Lean.GuildMember;
 
-  embed: MessageEmbed;
+  public embed: MessageEmbed;
+  public isEditing = false;
 
-  get author() {
+  public get author() {
     return this.usersService.getKnown(this.message.authorId)
       ?? this.usersService.getUnknown(this.message.authorId);
   }
   
-  get roleColor(): string {
+  public get roleColor(): string {
     if (!this.guild) return;
 
     const roleId = this.member?.roleIds[this.member?.roleIds.length - 1];
     return this.guild.roles.find(r => r._id == roleId)?.color;
   }
 
-  get timestamp() { 
+  public get timestamp() { 
     const createdAt = new Date(this.message.createdAt);
     const timestamp = createdAt.toTimeString().slice(0, 5);
     
@@ -57,16 +62,16 @@ export class MessagePreviewComponent {
       && date.getFullYear() === new Date().getFullYear()
   }
   
-  get timeString() {
+  public get timeString() {
     const date = new Date(this.message.createdAt);
     return `${date.toString().slice(16, 21)}`;
   }
 
-  get isMentioned() {
+  public get isMentioned() {
     return document.querySelector(`#message-${this.message._id} .self-mention`);
   }
 
-  get processed() {
+  public get processed() {
     const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
     const getUser = (id: string) => this.usersService.getKnown(id);
 
@@ -96,7 +101,7 @@ export class MessagePreviewComponent {
     });
   }
 
-  get canManage() {
+  public get canManage() {
     return this.author._id === this.usersService.user._id
       || (this.guild && this.perms.can(this.guild._id, 'MANAGE_MESSAGES'));
   }
@@ -109,7 +114,7 @@ export class MessagePreviewComponent {
     private perms: PermissionsService
   ) {}
 
-  removeEmbed() {
+  public removeEmbed() {
     this.message.embed = null;
     
     this.ws.emit('MESSAGE_UPDATE', {
@@ -119,7 +124,7 @@ export class MessagePreviewComponent {
     });
   }
 
-  delete() {
+  public delete() {
     this.ws.emit('MESSAGE_DELETE', {
       messageId: this.message._id,
     });
@@ -127,6 +132,12 @@ export class MessagePreviewComponent {
     document
       .querySelector(`#message${this.message._id}`)
       ?.remove();
+  }
+
+  public edit($event: KeyboardEvent, value: string) {    
+    if ($event.code !== 'Enter') return;
+
+    this.message.content = value;
   }
 }
 

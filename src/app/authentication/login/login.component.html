@@ -45,6 +45,9 @@
     </div>
     <button
       [disabled]="processing"
-      class="bg-primary mt-3" type="submit" mat-button>Login</button>
+      class="bg-primary mt-3" type="submit" mat-button>
+      <span *ngIf="processing" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Login
+    </button>
   </form>
 </section>

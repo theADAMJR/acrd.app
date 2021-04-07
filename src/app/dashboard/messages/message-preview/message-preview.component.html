@@ -14,11 +14,22 @@
               <div class="comment">
                 <div class="message first">
                   <span class="message-options float-right">
-                    <button
-                      *ngIf="canManage"
-                      (click)="delete()"
-                      class="bg-danger"
-                      mat-button><i class="fas fa-trash"></i></button>
+                    <button [matMenuTriggerFor]="menu">
+                      <i class="fas fa-ellipsis-v text-light fa-2x"></i>
+                    </button>                
+                    <mat-menu #menu="matMenu">
+                      <button
+                        (click)="isEditing = !isEditing"
+                        mat-menu-item>Edit</button>
+                      <button
+                        (click)="delete()"
+                        mat-menu-item>Delete</button>
+                      <hr>
+                      <button mat-menu-item>
+                        <strong>Message ID:</strong>
+                        <code>{{ message._id }}</code>
+                      </button>
+                    </mat-menu>
                   </span>
 
                   <h2 style="line-height: 16px;">
@@ -34,12 +45,22 @@
                   </h2>
 
                   <div
+                    (keydown)="edit($event, newMessage.innerText)"
+                    [contentEditable]="isEditing && canManage"
                     [innerHtml]="processed"
-                    class="message-text"></div>
+                    class="message-text"
+                    #newMessage></div>
                   <message-embed
                     (close)="removeEmbed()"
                     [canManage]="canManage"
                     [message]="message"></message-embed>
+
+                  <div class="float-right">
+                    <mat-menu #menu="matMenu">
+                      <button mat-menu-item>Item 1</button>
+                      <button mat-menu-item>Item 2</button>
+                    </mat-menu>
+                  </div>
                 </div>
               </div>
             </div>
@@ -66,12 +87,17 @@
       <span
         class="timestamp no-select"
         [matTooltip]="message.createdAt">{{ timeString }}</span>
-      <span [innerHTML]="processed" class="message"></span>
+      <span
+        (keydown)="edit($event, newMessage.innerText)"
+        [contentEditable]="isEditing && canManage"
+        [innerHTML]="processed"
+        class="message"
+        #newMessage></span>
       <span class="embed">
         <message-embed
-            (close)="removeEmbed()"
-            [canManage]="canManage"
-            [message]="message"></message-embed>
+          (close)="removeEmbed()"
+          [canManage]="canManage"
+          [message]="message"></message-embed>
       </span>
     </span>
   </div>

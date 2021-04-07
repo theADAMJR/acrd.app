@@ -9,6 +9,8 @@
 :root {
   --mention: rgba(243, 187, 32, 0.25);
   --mention-background: rgba(243, 187, 32, 0.5);
+
+  scroll-behavior: smooth;
 }
 
 body {
@@ -17,8 +19,6 @@ body {
   font-weight: 300;
   font-family: 'Whitney', 'Helvetica Neue', 'Helvetica', sans-serif;
   font-size: 20px;
-
-  scroll-behavior: smooth;
 }
 
 h1,h2,h3,h4,h5 {
@@ -202,8 +202,8 @@ mat-paginator {
 }
 
 .side-nav a:hover {
-  color: var(--secondary);
-  background-color: var(--background-secondary) !important;
+  color: var(--font);
+  background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .category {

@@ -214,6 +214,9 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
 .bg-primary {
   background-color: var(--primary) !important;
 }
+.bg-primary:hover {
+  background-color: var(--primary) !important;
+}
 
 // global
 

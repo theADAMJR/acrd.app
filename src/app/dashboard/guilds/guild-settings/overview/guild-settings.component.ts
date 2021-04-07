@@ -24,19 +24,14 @@ export class GuildSettingsComponent extends ModuleConfig implements OnInit {
       super(guildService, route, snackbar, ws, log, router);
     }
 
-  async ngOnInit() {
+  public async ngOnInit() {
     await super.init();
-
-    document.body.onkeyup = ({ key }) => {
-      if (key !== 'Escape') return;
-
-      this.close();
-    };
   }
 
-  buildForm(guild: Lean.Guild): FormGroup | Promise<FormGroup> {
+  public buildForm(guild: Lean.Guild): FormGroup | Promise<FormGroup> {
     return new FormGroup({
-      name: new FormControl(guild.name, [ Validators.required, Validators.maxLength(32) ])
+      iconURL: new FormControl(guild.iconURL),
+      name: new FormControl(guild.name, [ Validators.required, Validators.maxLength(32) ]),
     });
   }
 }

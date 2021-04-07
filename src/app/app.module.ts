@@ -60,6 +60,7 @@ import { UserAccountComponent } from './dashboard/me/user-account/user-account.c
 import { SettingsSidebarComponent } from './dashboard/components/settings-sidebar/settings-sidebar.component';
 import { UsernameValidators } from './authentication/sign-up/username.validators';
 import { SubmarineComponent } from './pages/home/submarine/submarine.component';
+import { InviteComponent } from './pages/invite/invite.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -129,7 +130,8 @@ export class AlertErrorHandler implements ErrorHandler {
     VerifyComponent,
     UserAccountComponent,
     SettingsSidebarComponent,
-    SubmarineComponent
+    SubmarineComponent,
+    InviteComponent
   ],
   imports: [
     AppRoutingModule,
