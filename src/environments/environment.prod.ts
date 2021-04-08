@@ -1,6 +1,6 @@
 export const environment = {
-  docsURL: 'https://docs.d-cl.one',
-  endpoint: '/api',
+  docsURL: 'https://docs.accord.app',
+  endpoint: '/api/v1',
   rootEndpoint: '/',
   githubURL: 'https://github.com/theADAMJR/DClone',
   production: true,

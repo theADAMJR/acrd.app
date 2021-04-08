@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  docsURL: 'https://docs.d-cl.one',
+  docsURL: 'https://docs.accord.app',
   production: false,
-  endpoint: 'http://localhost:3000/api',
+  endpoint: 'http://localhost:3000/api/v1',
   rootEndpoint: 'http://localhost:3000',
   githubURL: 'https://github.com/theADAMJR/DClone',
   version: 'v0.1.1a'

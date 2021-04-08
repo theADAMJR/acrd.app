@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -26,98 +26,70 @@ import { DevelopersAuthGuard } from './guards/developers-auth.guard';
 import { VerifyComponent } from './authentication/verify/verify.component';
 import { UserAccountComponent } from './dashboard/me/user-account/user-account.component';
 import { InviteComponent } from './pages/invite/invite.component';
+import { externalRedirect } from './utils/external-redirect';
+import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent,
-  },
-  {
-    path: 'auth/verify',
-    component: VerifyComponent,
-  },
-  {
-    path: 'auth',
-    component: AuthComponent,
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'sign-up',
-    component: SignUpComponent,
-  },
-  {
-    path: 'logout',
-    component: LogoutComponent,
-  },
-  {
-    path: 'invite/:id',
-    component: InviteComponent,
-  },
+  { path: '', component: HomeComponent, },
+  { path: 'auth/verify', component: VerifyComponent, },
+  { path: 'auth', component: AuthComponent, },
+  { path: 'terms', component: externalRedirect(`${environment.docsURL}/terms`) },
   {
     path: 'channels/@me',
     component: DashboardOverviewComponent,
-    canActivate: [DashboardAuthGuard]
+    canActivate: [DashboardAuthGuard],
   },
   {
     path: 'channels/@me/settings',
     component: UserSettingsComponent,
-    canActivate: [DashboardAuthGuard]
+    canActivate: [DashboardAuthGuard],
   },
   {
     path: 'channels/@me/settings/account',
     component: UserAccountComponent,
-    canActivate: [DashboardAuthGuard]
+    canActivate: [DashboardAuthGuard],
   },
   {
     path: 'channels/@me/:channelId',
     component: DMChannelComponent,
-    canActivate: [DMChannelAuthGuard, DashboardAuthGuard]
+    canActivate: [DMChannelAuthGuard, DashboardAuthGuard],
   },
   {
     path: 'channels/:guildId',
     component: GuildComponent,
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard]
+    canDeactivate: [CanDeactivateDashboard],
   },
   {
     path: 'channels/:guildId/settings',
     component: GuildSettingsComponent,
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard]
+    canDeactivate: [CanDeactivateDashboard],
   },
   {
     path: 'channels/:guildId/roles',
     component: RolesComponent,
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard]
+    canDeactivate: [CanDeactivateDashboard],
   },
   {
     path: 'channels/:guildId/bots',
     component: BotListComponent,
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard]
+    canDeactivate: [CanDeactivateDashboard],
   },
   {
     path: 'channels/:guildId/invites',
     component: InvitesComponent,
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard]
+    canDeactivate: [CanDeactivateDashboard],
   },
   {
     path: 'channels/:guildId/:channelId',
     component: TextChannelComponent,
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard]
+    canDeactivate: [CanDeactivateDashboard],
   },
-  // {
-  //   path: 'channels/:guildId/:channelId/settings',
-  //   component: SettingsModuleComponent,
-  //   canActivate: [GuildAuthGuard],
-  //   canDeactivate: [CanDeactivateDashboard]
-  // },
   {
     path: `developers/applications/:id/user`,
     canActivate: [DevelopersAuthGuard],
@@ -128,23 +100,24 @@ const routes: Routes = [
     canActivate: [DevelopersAuthGuard],
     component: ApplicationComponent,
   },
-  {
-    path: `developers/applications`,
-    redirectTo: 'developers',
-  },
+  { path: `developers/applications`, redirectTo: 'developers', },
   {
     path: 'developers',
     canActivate: [DevelopersAuthGuard],
-    component: DevelopersComponent
+    component: DevelopersComponent,
   },
-  {
-    path: '**',
-    component: NotFoundComponent
-  }
+  { path: 'invite/:id', component: InviteComponent, },
+  { path: 'login', component: LoginComponent, },
+  { path: 'logout', component: LogoutComponent, },
+  { path: 'sign-up', component: SignUpComponent, },
+  { path: '**', component: NotFoundComponent, },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { initialNavigation: 'enabled', relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabled',
+    relativeLinkResolution: 'legacy',
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
