@@ -30,7 +30,7 @@ export class DashboardOverviewComponent {
     private log: LogService,
     private userService: UsersService,
     private ws: WSService) {
-    document.title = 'DClone - Dashboard';
+    document.title = 'Accord - Dashboard';
 
     this.setTab('ONLINE');
   }

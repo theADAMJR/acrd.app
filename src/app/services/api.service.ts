@@ -6,13 +6,18 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  endpoint = environment.endpoint;
-
-  get key() { return localStorage.getItem('key'); }
+  private endpoint = environment.endpoint;
 
   constructor(private http: HttpClient) {}
 
-  getStats(): Promise<any> {
-    return this.http.get(`${this.endpoint}/stats?key=${this.key}`).toPromise();
+  public getDiscordUser(id: string): Promise<PartialDiscordUser> {
+    return this.http
+      .get(`${this.endpoint}/discord-user/${id}`)
+      .toPromise() as any;
   }
+}
+
+export interface PartialDiscordUser {
+  avatar: string;
+  username: string;
 }

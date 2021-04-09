@@ -1,8 +1,8 @@
 header {
   background: none;
   text-align: center;
+  
   margin-top: 15vh;
-
   margin-bottom: 300px;
 }
 
@@ -16,14 +16,14 @@ footer {
 }
 
 .main {
-  padding-top: 500px;
-
   background-color: var(--background-secondary) !important;
+
+  padding-top: 150px;
   min-height: 750px;
 }
 
 mat-card {
-  transition: transform 1s ease;
+  transition: transform .5s ease;
   cursor: pointer;
 }
 mat-card:hover {
@@ -42,7 +42,7 @@ mat-card-content {
 
 app-submarine {
   position: absolute;
-  top: 1250px;
+  top: 165%;
   transform: scale(0.5);
 
   animation: moveLeft 150s infinite;

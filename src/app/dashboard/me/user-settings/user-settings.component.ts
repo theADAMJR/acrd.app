@@ -29,6 +29,12 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
   public get currentTheme() {
     return localStorage.getItem('theme');
   }
+  public get avatarUser() {
+    return {
+      avatarURL: this.form.get('avatarURL').value,
+      username: this.user.username,
+    };
+  }
 
   constructor(
     route: ActivatedRoute,

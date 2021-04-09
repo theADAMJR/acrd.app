@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   endpoint: 'http://localhost:3000/api/v1',
   rootEndpoint: 'http://localhost:3000',
-  githubURL: 'https://github.com/theADAMJR/DClone',
+  githubURL: 'https://github.com/theADAMJR/Accord',
   version: 'v0.1.1a'
 };
 

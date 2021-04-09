@@ -8,9 +8,10 @@
         <div
           routerLinkActive="active"
           class="user-icon round">
-          <img
-            [src]="form.get('avatarURL').value"
-            [alt]="user.username">
+          <app-avatar-url
+            class="pl-2 pb-3"
+            [user]="avatarUser"
+            size="128px"></app-avatar-url>
         </div>
       </div>
 

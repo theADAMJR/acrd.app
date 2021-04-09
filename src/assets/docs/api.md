@@ -1,5 +1,5 @@
 # API
-- Interact with DClone through HTTP requests
+- Interact with Accord through HTTP requests
 
 ## Status Codes
 Code | Description

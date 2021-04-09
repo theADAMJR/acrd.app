@@ -33,7 +33,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent, },
   { path: 'auth/verify', component: VerifyComponent, },
   { path: 'auth', component: AuthComponent, },
-  { path: 'terms', component: externalRedirect(`${environment.docsURL}/terms`) },
+  { path: 'privacy', component: externalRedirect(`${environment.docsURL}/legal/privacy`) },
+  { path: 'terms', component: externalRedirect(`${environment.docsURL}/legal/terms`) },
   {
     path: 'channels/@me',
     component: DashboardOverviewComponent,

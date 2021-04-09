@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { uuid } from '../utils';
 
 @Component({
@@ -6,15 +6,17 @@ import { uuid } from '../utils';
   templateUrl: './waves.component.html',
   styleUrls: ['./waves.component.css']
 })
-export class WavesComponent implements OnInit {
+export class WavesComponent implements AfterViewInit {
   @Input() inverted = false;
-  @Input() color: string;
+  @Input() color = 'var(--background-secondary)';
 
   public id = uuid();
 
-  public ngOnInit() {
+  public ngAfterViewInit() {
+    console.log(this.id);
+        
     document
-      .querySelectorAll(`#${this.id} #gentle-wave`)
+      .querySelectorAll(`#${this.id}`)
       .forEach((w: HTMLElement) => w.style.fill = this.color);
   }
 }
