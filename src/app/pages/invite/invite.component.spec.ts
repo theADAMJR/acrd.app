@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from 'src/app/app.module';
 
 import { InviteComponent } from './invite.component';
 
@@ -8,7 +9,8 @@ describe('InviteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InviteComponent ]
+      declarations: [ InviteComponent ],
+      imports: [AppModule],
     })
     .compileComponents();
   });

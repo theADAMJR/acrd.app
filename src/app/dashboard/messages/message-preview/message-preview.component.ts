@@ -6,7 +6,7 @@ import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
-import { Lean } from 'src/app/types/entity-types';
+import { Lean, PermissionTypes } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'message-preview',
@@ -103,7 +103,7 @@ export class MessagePreviewComponent {
 
   public get canManage() {
     return this.author._id === this.usersService.user._id
-      || (this.guild && this.perms.can(this.guild._id, 'MANAGE_MESSAGES'));
+      || (this.guild && this.perms.can(this.guild._id, 'SEND_MESSAGES'));
   }
 
   constructor(

@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { MeSidebarComponent } from './me-sidebar.component';
-import { HttpClientModule } from '@angular/common/http';
+import { AppModule } from '../../../app.module';
 
 describe('DashboardSidebarComponent', () => {
   let component: MeSidebarComponent;
@@ -10,7 +9,7 @@ describe('DashboardSidebarComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MeSidebarComponent ],
-      imports: [ HttpClientModule ]
+      imports: [AppModule]
     })
     .compileComponents();
   }));

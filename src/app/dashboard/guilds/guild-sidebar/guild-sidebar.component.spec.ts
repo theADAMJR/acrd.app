@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { GuildSidebarComponent } from './guild-sidebar.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from '../../../app-routing.module';
+import { AppModule } from '../../../app.module';
 
 describe('GuildSidebarComponent', () => {
   let component: GuildSidebarComponent;
@@ -11,7 +9,7 @@ describe('GuildSidebarComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GuildSidebarComponent ],
-      imports: [ HttpClientModule, AppRoutingModule ]
+      imports: [AppModule]
     })
     .compileComponents();
   }));

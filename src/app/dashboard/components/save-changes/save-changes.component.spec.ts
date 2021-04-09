@@ -1,9 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { SaveChangesComponent } from './save-changes.component';
 import { By } from '@angular/platform-browser';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Overlay } from '@angular/cdk/overlay';
+import { AppModule } from 'src/app/app.module';
 
 describe('SaveChangesComponent', () => {
   let component: SaveChangesComponent;
@@ -12,7 +10,7 @@ describe('SaveChangesComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SaveChangesComponent ],
-      providers: [ MatSnackBar, Overlay ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   }));

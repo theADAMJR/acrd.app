@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { AppModule } from '../../../app.module';
 import { DashboardOverviewComponent as DashboardOverviewComponent } from './me-overview.component';
-import { HttpClientModule } from '@angular/common/http';
 
 describe('DashboardOverviewComponent', () => {
   let component: DashboardOverviewComponent;
@@ -10,7 +9,7 @@ describe('DashboardOverviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DashboardOverviewComponent ],
-      imports: [ HttpClientModule ]
+      imports: [AppModule]
     })
     .compileComponents();
   }));

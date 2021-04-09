@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { AppModule } from '../../../app.module';
 import { GuildComponent } from './guild-overview.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from '../../../app-routing.module';
 
 describe('GuildComponent', () => {
   let component: GuildComponent;
@@ -11,7 +9,7 @@ describe('GuildComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GuildComponent ],
-      imports: [ HttpClientModule, AppRoutingModule ]
+      imports: [AppModule]
     })
     .compileComponents();
   }));

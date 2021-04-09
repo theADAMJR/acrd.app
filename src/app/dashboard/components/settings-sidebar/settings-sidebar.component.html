@@ -4,7 +4,8 @@
     <p class="category">{{ tabType }}</p>
 
     <a *ngFor="let tab of tabs[tabType]"
-      [routerLink]="tab.href()"
+      [routerLink]="perms.can(guildId, tab.permission) ? tab.href() : './'"
+      [class.disabled]="!perms.can(guildId, tab.permission)"
       routerLinkActive="active"
       class="nav-item nav-link">
       <i class="mr-1" [class]="tab.icon"></i>

@@ -1,8 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { AppModule } from '../../app.module';
 import { AuthComponent } from './auth.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from '../../app-routing.module';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
@@ -11,7 +9,7 @@ describe('AuthComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AuthComponent ],
-      imports: [ HttpClientModule, AppRoutingModule ]
+      imports: [AppModule]
     })
     .compileComponents();
   }));

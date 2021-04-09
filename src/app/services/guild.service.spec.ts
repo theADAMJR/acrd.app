@@ -1,16 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-
 import { GuildService } from './guild.service';
-import { HttpClientModule } from '@angular/common/http';
+import { AppModule } from '../app.module';
 
 describe('GuildService', () => {
   let service: GuildService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule
-      ]
+      imports: [AppModule]
     });
     service = TestBed.inject(GuildService);
   });

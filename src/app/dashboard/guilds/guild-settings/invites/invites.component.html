@@ -6,11 +6,34 @@
     <div class="row">
       <div
         *ngFor="let invite of invites"
-        class="col-12 bg-light">
-        <div class="float-right">
-          {{ invite.name }}
-          <i class="fas fa-elipses-v"></i>
-        </div>
+        class="col-12">
+        <zippy [title]="invite._id">
+          <div class="row">
+            <div class="col-md-4">
+              <span>Created By</span>
+              <member-username [user]="usersService.getKnown(invite.inviterId)"></member-username>              
+            </div>
+            <div class="col-md-2">
+              <div><strong>Uses</strong></div>
+              <code>{{ usesString(invite) }}</code>
+            </div>
+            <div class="col-md-2">
+              <div><strong>Expires</strong></div>
+              <code>{{ invite.options.expiresAt | countdown }}</code>
+            </div>
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-2">
+              <div
+                (click)="delete(invite._id)"
+                matTooltip="Delete"
+                class="float-right">
+                <button class="bg-danger" mat-button><i class="fas fa-times-circle text-light"></i></button>
+              </div>
+            </div>
+          </div>
+        </zippy>
       </div>
     </div>
   </div>

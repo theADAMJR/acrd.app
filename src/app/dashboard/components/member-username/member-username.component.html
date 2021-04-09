@@ -2,7 +2,7 @@
   *ngIf="user"
   class="member-username"
   data-placement="left"
-  [routerLink]="routerLink || '#'"
+  [routerLink]="routerLink || './'"
   routerLinkActive="active"
   [title]="user.username"
   [class]="guild ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">

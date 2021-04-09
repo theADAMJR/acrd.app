@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { MessagePreviewComponent } from './message-preview.component';
-import { AppModule } from '../app.module';
+import { AppModule } from '../../../app.module';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('MessagePreviewComponent', () => {
@@ -11,7 +11,7 @@ describe('MessagePreviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MessagePreviewComponent ],
-      imports: [ AppModule ],
+      imports: [AppModule],
       schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();

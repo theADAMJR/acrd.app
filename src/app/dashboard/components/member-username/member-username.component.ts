@@ -6,7 +6,7 @@ import { Lean } from 'src/app/types/entity-types';
   templateUrl: './member-username.component.html',
   styleUrls: ['./member-username.component.css']
 })
-export class MemberUsernameComponent implements OnInit {
+export class MemberUsernameComponent {
   @Input() user: Lean.User;
   @Input() guild: Lean.Guild;
   @Input() withAvatar = true;
@@ -29,8 +29,6 @@ export class MemberUsernameComponent implements OnInit {
     return this.guild.roles
       .filter(r => this.member.roleIds.includes(r._id));
   }
-
-  public async ngOnInit() {} 
   
   public openPopover() {
     if (!this.guild) return;

@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { AppModule } from '../app.module';
 
 import { UserAuthService } from './user-auth.service';
 
@@ -6,7 +7,9 @@ describe('UserAuthService', () => {
   let service: UserAuthService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [AppModule],
+    });
     service = TestBed.inject(UserAuthService);
   });
 

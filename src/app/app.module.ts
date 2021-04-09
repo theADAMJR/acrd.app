@@ -61,6 +61,7 @@ import { SettingsSidebarComponent } from './dashboard/components/settings-sideba
 import { UsernameValidators } from './authentication/sign-up/username.validators';
 import { SubmarineComponent } from './pages/home/submarine/submarine.component';
 import { InviteComponent } from './pages/invite/invite.component';
+import { CountdownPipe } from './countdown.pipe';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -131,7 +132,8 @@ export class AlertErrorHandler implements ErrorHandler {
     UserAccountComponent,
     SettingsSidebarComponent,
     SubmarineComponent,
-    InviteComponent
+    InviteComponent,
+    CountdownPipe
   ],
   imports: [
     AppRoutingModule,

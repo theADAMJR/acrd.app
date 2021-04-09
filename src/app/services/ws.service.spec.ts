@@ -1,12 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-
+import { AppModule } from '../app.module';
 import { WSService } from './ws.service';
 
 describe('WSService', () => {
   let service: WSService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [AppModule],
+    });
     service = TestBed.inject(WSService);
   });
 

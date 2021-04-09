@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppModule } from 'src/app/app.module';
 
 import { BotUserComponent } from './bot-user.component';
 
@@ -8,7 +9,8 @@ describe('BotUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BotUserComponent ]
+      declarations: [ BotUserComponent ],
+      imports: [AppModule],
     })
     .compileComponents();
   });

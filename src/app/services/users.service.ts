@@ -31,7 +31,7 @@ export class UsersService {
   }
 
   public upsertCached(userId: string, updated: Lean.User) {
-    const index = this.knownUsers.findIndex(u => u._id === userId);
+    const index = this.knownUsers?.findIndex(u => u._id === userId);
     (index < 0)
       ? this.knownUsers.push(updated)
       : this.knownUsers[index] = updated;
@@ -68,7 +68,7 @@ export class UsersService {
     return this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise() as any;
   }
   public getKnown(id: string): Lean.User {    
-    return this.knownUsers.find(u => u._id === id);
+    return this.knownUsers?.find(u => u._id === id);
   }
   public getFriends() {
     return this.user.friendIds

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { AppModule } from 'src/app/app.module';
 
 import { SignUpComponent } from './sign-up.component';
 
@@ -8,7 +9,8 @@ describe('SignUpComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignUpComponent ]
+      declarations: [ SignUpComponent ],
+      imports: [AppModule],
     })
     .compileComponents();
   }));

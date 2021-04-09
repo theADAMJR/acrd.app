@@ -152,6 +152,8 @@ export namespace PermissionTypes {
     ...Voice,
   }
   export type Permission = General | Text | Voice;
+
+  export type PermissionString = keyof typeof All;
 }
 
 export namespace UserTypes {
