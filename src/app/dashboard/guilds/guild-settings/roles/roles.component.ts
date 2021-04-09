@@ -61,20 +61,20 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   private hookWSEvents() {
-    this.ws.on('GUILD_ROLE_CREATE', async ({ role }) => {
+    this.ws.once('GUILD_ROLE_CREATE', async ({ role }) => {
       this.guild.roles.push(role);
       this.originalGuild = {...this.guild};
 
       await this.selectRole(role);
     }, this)
-    .on('GUILD_ROLE_DELETE', async ({ roleId }) => {
+    .once('GUILD_ROLE_DELETE', async ({ roleId }) => {
       const index = this.guild.roles.findIndex(r => r._id === roleId);
       this.guild.roles.splice(index, 1);
       this.originalGuild = {...this.guild};
 
       await this.selectRole(this.guild.roles[0]);
     }, this)
-    .on('GUILD_ROLE_UPDATE', ({ roleId, partialRole }) => {
+    .once('GUILD_ROLE_UPDATE', ({ roleId, partialRole }) => {
       const index = this.guild.roles.findIndex(r => r._id === roleId);
       this.guild.roles[index] = {
         ...this.guild.roles[index],

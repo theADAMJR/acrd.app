@@ -15,13 +15,16 @@
             </button>
             <button
               matTooltip="Remove Friend"
-              (click)="removeFriend(friend._id)"
+              (click)="remove(friend._id)"
               class="round px-0 ml-2" mat-button><i class="fas fa-times"></i></button>
         </div>
       </div>
       <div
         *ngIf="friends.length <= 0"
-        class="text-muted">No friends online :(.</div>  
+        class="text-muted">
+        <i class="fas fa-info-circle mr-2"></i>
+        <span>No friends online...</span>
+      </div>  
     </div>
     
     <div *ngSwitchCase="'ALL'">
@@ -39,14 +42,17 @@
             </button>
             <button
               matTooltip="Remove Friend"
-              (click)="removeFriend(friend._id)"
+              (click)="remove(friend._id)"
               class="round px-0 ml-2" mat-button><i class="fas fa-times"></i></button>
         </div>
       </div>
 
       <div
         *ngIf="friends.length <= 0"
-        class="text-muted">No friends :(.</div>  
+        class="text-muted">
+        <i class="fas fa-info-circle mr-2"></i>
+        <span>No friends here yet...</span>
+      </div>  
     </div>
      
     <div *ngSwitchCase="'PENDING'">
@@ -60,20 +66,23 @@
           [statusOverride]="request.type === 'OUTGOING' ? 'Outgoing Friend Request' : 'Incoming Friend Request'"></member-username>
         <div class="float-right">
           <button
-            (click)="acceptFriendRequest(request.userId)"
+            (click)="accept(request.userId)"
             [hidden]="request.type === 'OUTGOING'"
             class="round bg-success px-0" mat-button>
             <i class="fa fa-check" aria-hidden="true"></i>
           </button>
           <button
-            (click)="cancelFriendRequest(request.userId)"
+            (click)="cancel(request.userId)"
             class="round px-0 ml-2" mat-button><i class="fas fa-times"></i></button>
         </div>
       </div>
         
       <div
         *ngIf="friendRequests.length <= 0"
-        class="text-muted">No friend requests sent.</div>
+        class="text-muted">
+        <i class="fas fa-info-circle mr-2"></i>
+        <span>No friend requests sent...</span>
+      </div>
     </div>
        
     <!-- <div *ngSwitchCase="'BLOCKED'">
@@ -82,7 +91,10 @@
 
       <div
         *ngIf="blockedUsers.length <= 0"
-        class="text-muted">No blocked users.</div>      
+        class="text-muted">
+        <i class="fas fa-info-circle mr-2"></i>
+        <span>No blocked users...</span>
+      </div>      
     </div> -->
   </div>
 </div>

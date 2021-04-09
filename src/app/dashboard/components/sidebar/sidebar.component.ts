@@ -36,18 +36,8 @@ export class SidebarComponent implements OnInit {
     this.hookWSEvents();
   }
 
-  hookWSEvents() {
-    this.ws
-      .on('ACCEPT_FRIEND_REQUEST', this.acceptFriendRequest, this)
-      .on('CANCEL_FRIEND_REQUEST', this.updateFriends, this)
-      .on('GUILD_JOIN', this.joinGuild, this)
-      .on('REMOVE_FRIEND', this.updateFriends, this)
-      .on('SEND_FRIEND_REQUEST', this.sendFriendRequest, this);
-  }
-  
-  public acceptFriendRequest({ sender, friend, dmChannel }) {
-    this.channelService.dmChannels.push(dmChannel);
-    this.updateFriends({ sender, friend });
+  public hookWSEvents() {
+    this.ws.once('GUILD_JOIN', this.joinGuild, this);
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {
@@ -56,16 +46,6 @@ export class SidebarComponent implements OnInit {
 
     await this.sounds.success();
     document.querySelector('.modal-backdrop')?.remove();
-  }
-
-  public updateFriends({ sender, friend }: { sender: Lean.User, friend: Lean.User }) {
-    this.userService.upsertCached(sender._id, sender);
-    this.userService.upsertCached(friend._id, friend);
-  }
-
-  public sendFriendRequest({ sender, friend }: Args.AcceptFriendRequest) {
-    this.userService.addKnownUser(friend);
-    this.updateFriends({ sender, friend });
   }
 
   public toggle() {

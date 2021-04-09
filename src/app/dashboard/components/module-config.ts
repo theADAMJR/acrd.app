@@ -83,7 +83,7 @@ export abstract class ModuleConfig implements OnDestroy {
     try {
       if (!this.form.valid) return;
 
-      this.ws.on('GUILD_UPDATE', ({ partialGuild }) => {
+      this.ws.once('GUILD_UPDATE', ({ partialGuild }) => {
         this.guild = {
           ...this.guild,
           ...partialGuild,

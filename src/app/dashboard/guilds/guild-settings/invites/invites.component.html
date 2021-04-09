@@ -18,11 +18,12 @@
               <code>{{ usesString(invite) }}</code>
             </div>
             <div class="col-md-2">
-              <div><strong>Expires</strong></div>
-              <code>{{ invite.options.expiresAt | countdown }}</code>
+              <div><strong>Created At</strong></div>
+              <code>{{ invite.createdAt | date:'medium' }}</code>
             </div>
             <div class="col-md-2">
-
+              <div><strong>Expires</strong></div>
+              <code>{{ (invite.options.expiresAt | date) || 'Never' }}</code>
             </div>
             <div class="col-md-2">
               <div

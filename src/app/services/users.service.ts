@@ -67,8 +67,9 @@ export class UsersService {
   public get(id: string): Promise<Lean.User> {
     return this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise() as any;
   }
-  public getKnown(id: string): Lean.User {    
-    return this.knownUsers?.find(u => u._id === id);
+  public getKnown(id: string): Lean.User {
+    return this.knownUsers?.find(u => u._id === id)
+      ?? this.getUnknown(id);
   }
   public getFriends() {
     return this.user.friendIds

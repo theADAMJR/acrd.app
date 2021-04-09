@@ -64,7 +64,7 @@ export class CreateChannelModalComponent implements OnInit {
       guildId: this.guild._id
     });
 
-    this.ws.on('CHANNEL_CREATE', async ({ channel }) => {
+    this.ws.once('CHANNEL_CREATE', async ({ channel }) => {
       await this.router.navigate([`/channels/${channel.guildId}/${channel._id}`]);
       this.processing = false;
     }, this);

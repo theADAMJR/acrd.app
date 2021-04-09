@@ -7,7 +7,9 @@ export class PermissionsService {
   constructor(private guildService: GuildService) {}
 
   public async can(guildId: string, permission: PermissionTypes.PermissionString) {
-    const roles = this.guildService.getGuild(guildId).roles;
+    const roles = this.guildService.getGuild(guildId)?.roles;
+    if (!roles) return;
+
     const member = this.guildService.getSelfMember(guildId);
 
     const totalPerms = roles

@@ -32,7 +32,7 @@ export class InviteModalComponent {
       options: this.form.value,
     });
 
-    this.ws.on('INVITE_CREATE', ({ invite }) => this.invite = invite, this);
+    this.ws.once('INVITE_CREATE', ({ invite }) => this.invite = invite, this);
 
     this.form.valueChanges
       .subscribe(() => this.recentlyUpdated = this.form.valid);

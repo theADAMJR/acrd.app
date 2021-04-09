@@ -25,6 +25,8 @@
       </a>
     </div>
     <div *ngIf="user">
+
+
       <button mat-button [matMenuTriggerFor]="menu">
         <app-avatar-url [user]="user"></app-avatar-url>
         <span class="pl-1">{{ user.username }}</span>

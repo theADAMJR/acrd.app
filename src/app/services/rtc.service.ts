@@ -32,9 +32,9 @@ export class RTCService {
     const stream = await navigator.mediaDevices
       .getUserMedia({ video: false, audio: true });
 
-    // this.peer.on('call', async (call) => {
+    // this.peer.once('call', async (call) => {
     //   call.answer(stream);
-    //   call.on('stream', (remote) => this.audio.play(call.peer, remote));
+    //   call.once('stream', (remote) => this.audio.play(call.peer, remote));
     // });
     // this.peer.call(id, stream);
 

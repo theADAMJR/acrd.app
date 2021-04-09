@@ -73,10 +73,10 @@ export class TextBasedChannel {
 
   public hookWSEvents() {
     this.ws
-      .on('MESSAGE_CREATE', this.createMessage, this)
-      .on('MESSAGE_UPDATE', this.updateMessage, this)
-      .on('MESSAGE_DELETE', this.deleteMessage, this)
-      .on('TYPING_START', this.addTypingUser, this);
+      .once('MESSAGE_CREATE', this.createMessage, this)
+      .once('MESSAGE_UPDATE', this.updateMessage, this)
+      .once('MESSAGE_DELETE', this.deleteMessage, this)
+      .once('TYPING_START', this.addTypingUser, this);
   }
 
   private addTypingUser({ userId }: Args.TypingStart) {

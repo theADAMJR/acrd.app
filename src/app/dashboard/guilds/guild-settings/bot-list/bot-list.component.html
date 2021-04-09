@@ -17,7 +17,9 @@
 
         <p class="text-muted">Bots can do <code>cool</code> things for your guilds.</p>
       </div>
-      <div class="col-9 role-details">
+      <div
+        *ngIf="selectedApp"
+        class="col-9 role-details">
         <img
           [src]="selectedApp.user.avatarURL"
           [alt]="selectedApp.user.username + ' Avatar'"

@@ -59,11 +59,11 @@ export class GuildSidebarComponent implements OnInit {
 
   public hookWSEvents() {
     this.ws
-      .on('CHANNEL_CREATE', this.addChannelToGuild, this)
-      .on('PRESENCE_UPDATE', this.updateMemberPresence, this)      
-      .on('GUILD_UPDATE', this.updateGuild, this)
-      .on('GUILD_ROLE_UPDATE', this.updateRole, this)
-      .on('GUILD_DELETE', this.delete, this);
+      .once('CHANNEL_CREATE', this.addChannelToGuild, this)
+      .once('PRESENCE_UPDATE', this.updateMemberPresence, this)      
+      .once('GUILD_UPDATE', this.updateGuild, this)
+      .once('GUILD_ROLE_UPDATE', this.updateRole, this)
+      .once('GUILD_DELETE', this.delete, this);
   }
 
   private addChannelToGuild({ channel }: Args.ChannelCreate) {

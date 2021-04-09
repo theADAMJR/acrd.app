@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { GuildService } from 'src/app/services/guild.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
-import { UsersService } from 'src/app/services/users.service';
 import { PermissionTypes } from 'src/app/types/entity-types';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-settings-sidebar',
@@ -54,6 +53,7 @@ export class SettingsSidebarComponent {
   constructor(
     private router: Router,
     public perms: PermissionsService,
+    private location: Location,
   ) {
     document.body.onkeyup = ({ key }) => {
       if (key === 'Escape')
@@ -62,8 +62,11 @@ export class SettingsSidebarComponent {
   }
 
   public async close() {
-    const redirect = `/channels/${this.guildId ?? '@me'}`;
-    await this.router.navigate([redirect]); // TODO: redirect to previous page
+    this.location.back();
+  }
+
+  public canAccess(tab: Tab) {
+    return !tab.permission || this.perms.can(this.guildId, tab.permission);
   }
 }
 
