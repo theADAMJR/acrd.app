@@ -70,6 +70,7 @@ i {
   background-color: transparent;
 
   width: 10px;
+  margin-left: 10px !important;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -77,20 +78,10 @@ i {
   background-color: var(--background-tertiary);
 }
 
+/*  other */
+
 a {
   transition: all .25s;
-}
-
-[premium]~span>label {
-  color: var(--plus) !important;
-}
-
-[premium]~span>label::before {
-  content: "+ ";
-}
-
-h3 {
-  color: var(--primary);
 }
 
 .desc {

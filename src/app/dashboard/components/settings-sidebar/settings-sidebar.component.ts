@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PermissionTypes } from 'src/app/types/entity-types';
 import { Location } from '@angular/common';
+import { UsersService } from 'src/app/services/users.service';
+import { GuildService } from 'src/app/services/guild.service';
 
 @Component({
   selector: 'app-settings-sidebar',
@@ -50,10 +52,18 @@ export class SettingsSidebarComponent {
     return Object.keys(this.tabs);
   }
 
+  public get tabCategory() {
+    return (this.tabType === 'guild')
+      ? this.guildService.getGuild(this.guildId)?.name
+      : this.userService.user.username;
+  }
+
   constructor(
-    private router: Router,
-    public perms: PermissionsService,
     private location: Location,
+    private guildService: GuildService,
+    private perms: PermissionsService,
+    private router: Router,
+    private userService: UsersService,
   ) {
     document.body.onkeyup = ({ key }) => {
       if (key === 'Escape')
@@ -62,7 +72,9 @@ export class SettingsSidebarComponent {
   }
 
   public async close() {
-    this.location.back();
+    (this.guildId)
+      ? this.router.navigate([`/channels/${this.guildId}`])
+      : this.location.back();
   }
 
   public canAccess(tab: Tab) {

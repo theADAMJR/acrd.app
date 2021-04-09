@@ -5,7 +5,7 @@
     <h5 class="uppercase mb-4">Invites</h5>
     <div class="row">
       <div
-        *ngFor="let invite of invites"
+        *ngFor="let invite of invites; else noInvites"
         class="col-12">
         <zippy [title]="invite._id">
           <div class="row">
@@ -30,11 +30,20 @@
                 (click)="delete(invite._id)"
                 matTooltip="Delete"
                 class="float-right">
-                <button class="bg-danger" mat-button><i class="fas fa-times-circle text-light"></i></button>
+                <button class="bg-danger" mat-button>
+                  <i class="fas fa-times-circle text-light"></i>
+                </button>
               </div>
             </div>
           </div>
         </zippy>
+      </div>
+
+      <div #noInvites>
+        <span>
+          <i class="fas fa-info-circle mr-2"></i>
+          <span>No invites created yet.</span>
+        </span>
       </div>
     </div>
   </div>
