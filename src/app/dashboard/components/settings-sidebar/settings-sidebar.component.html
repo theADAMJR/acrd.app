@@ -1,9 +1,7 @@
 <div
   class="side side-nav navbar-dark">
   <div class="navbar-nav float-right">
-    <h2 class="category text-secondary">
-      {{ tabCategory }}
-    </h2>
+    <h2 class="category text-secondary">{{ tabCategory }}</h2>
 
     <a *ngFor="let tab of tabs[tabType]"
       [routerLink]="canAccess(tab) ? tab.href() : './'"

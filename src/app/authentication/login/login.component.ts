@@ -37,6 +37,10 @@ export class LoginComponent {
   public get password() { return this.form.get('password'); }
   public get username() { return this.form.get('username'); }
 
+  public get redirect() {
+    return this.route.snapshot.queryParamMap.get('redirect') ?? '/';
+  }
+
   public async login() {
     const user: Credentials = this.form.value;    
     if (this.form.invalid) return;
@@ -47,15 +51,14 @@ export class LoginComponent {
       if (res.verify)        
         return this.router.navigate([`/auth/verify`]); 
 
-      const redirect = this.route.snapshot.queryParamMap.get('redirect');
-      this.router.navigate([ redirect || '/' ]);
+      this.router.navigate([ this.redirect ]);
     } catch {
       this.processing = false;
       this.form.setErrors({ invalidLogin: true });
     }
   }
 
-  toggleLoginWith() {
+  public toggleLoginWith() {
     const value = this.loginWith.nativeElement.value;
     const email = this.form.get('email');
     const username = this.form.get('username');

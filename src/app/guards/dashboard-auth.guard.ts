@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { UsersService } from '../services/users.service';
 import { GuildService } from '../services/guild.service';
 import { WSService } from '../services/ws.service';
@@ -16,20 +16,20 @@ export class DashboardAuthGuard implements CanActivate {
     private log: LogService,
     private router: Router,
     private userService: UsersService,
-    private ws: WSService) {}
+    private ws: WSService,
+  ) {}
 
-  async canActivate() {
+  public async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     await this.userService.init();
     await this.guildService.init();
 
     const canActivate = Boolean(this.userService.user); 
     if (!canActivate)
-      this.router.navigate(['/']);
+      await this.router.navigateByUrl(`/login?redirect=${route.url.join('/')}`);
 
     if (!this.already) {
       this.already = true;
 
-      ;
       this.ws.emit('READY', { key: localStorage.getItem('key') });
     }
     return canActivate;

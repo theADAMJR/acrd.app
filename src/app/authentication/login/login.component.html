@@ -40,14 +40,13 @@
         <mat-error *ngIf="password.errors">Password is required.</mat-error>
       </mat-form-field>
     </div>
-    <div *ngIf="form.dirty && form.errors" class="text-danger">
-      The {{ loginWith.value }} or password is invalid.
-    </div>
+
     <button
       [disabled]="processing"
-      class="bg-primary mt-3" type="submit" mat-button>
+      class="bg-primary mb-2" type="submit" mat-button>
       <span *ngIf="processing" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Login
     </button>
+    <div>Or <a [routerLink]="['/sign-up']" [queryParams]="{ redirect: redirect }">create an account</a>.</div>
   </form>
 </section>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Credentials, UserAuthService } from '../../services/user-auth.service';
 import { PasswordValidators } from './password.validators';
 import { UsernameValidators } from './username.validators';
@@ -15,10 +15,6 @@ import { generateUsername } from 'src/app/utils/utils';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
-  public get username() { return this.form.get('username'); }
-  public get password() { return this.form.get('password'); }
-  public get confirmPassword() { return this.form.get('confirmPassword'); }
-
   public form = new FormGroup({
     username: new FormControl(generateUsername(), [
       Validators.required,
@@ -34,10 +30,18 @@ export class SignUpComponent {
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: PasswordValidators.passwordsShouldMatch });
 
+  public get username() { return this.form.get('username'); }
+  public get password() { return this.form.get('password'); }
+  public get confirmPassword() { return this.form.get('confirmPassword'); }
+
+  public get redirect() {
+    return this.route.snapshot.queryParamMap.get('redirect') ?? '/';
+  }
+
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private auth: UserAuthService,
-    private users: UsersService,
     private usernameValidators: UsernameValidators,
   ) {}
 
@@ -47,6 +51,6 @@ export class SignUpComponent {
 
     await this.auth.signUp(user);
     await this.auth.login(user);
-    await this.router.navigate(['/']);
+    await this.router.navigate([this.redirect]);
   }
 }
