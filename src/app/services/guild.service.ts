@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
 import { Lean } from '../types/entity-types';
-import { Partial } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class GuildService {

@@ -37,7 +37,7 @@ import { DashboardNavbarComponent } from './dashboard/components/dashboard-navba
 import { CreateGuildModalComponent } from './dashboard/modals/create-guild-modal/create-guild-modal.component';
 import { TextChannelComponent } from './dashboard/guilds/text-channel/text-channel.component';
 import { VoiceChannelComponent } from './dashboard/guilds/voice-channel/voice-channel.component';
-import { InviteModalComponent } from './dashboard/modals/invite-modal/invite-modal.component';
+import { CreateInviteComponent } from './dialog/create-invite/create-invite.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { GuildSettingsComponent } from './dashboard/guilds/guild-settings/overview/guild-settings.component';
@@ -46,7 +46,6 @@ import { InvitesComponent } from './dashboard/guilds/guild-settings/invites/invi
 import { FriendsListComponent } from './dashboard/me/friends-list/friends-list.component';
 import { DMChannelComponent } from './dashboard/me/dmchannel/dmchannel.component';
 import { UserSettingsComponent } from './dashboard/me/user-settings/user-settings.component';
-import { CreateChannelModalComponent } from './dashboard/modals/create-channel-modal/create-channel-modal.component';
 import { BotListComponent } from './dashboard/guilds/guild-settings/bot-list/bot-list.component';
 import { MessageEmbedComponent } from './dashboard/messages/message-embed/message-embed.component';
 import { MessagePreviewComponent } from './dashboard/messages/message/message.component';
@@ -62,6 +61,7 @@ import { UsernameValidators } from './authentication/sign-up/username.validators
 import { SubmarineComponent } from './pages/home/submarine/submarine.component';
 import { InviteComponent } from './pages/invite/invite.component';
 import { CountdownPipe } from './countdown.pipe';
+import { CreateChannelComponent } from './dialog/create-channel/create-channel.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -113,7 +113,7 @@ export class AlertErrorHandler implements ErrorHandler {
     CreateGuildModalComponent,
     TextChannelComponent,
     VoiceChannelComponent,
-    InviteModalComponent,
+    CreateInviteComponent,
     MessageEmbedComponent,
     GuildSettingsComponent,
     RolesComponent,
@@ -121,7 +121,6 @@ export class AlertErrorHandler implements ErrorHandler {
     FriendsListComponent,
     DMChannelComponent,
     UserSettingsComponent,
-    CreateChannelModalComponent,
     BotListComponent,
     MemberListComponent,
     DevelopersComponent,
@@ -134,6 +133,7 @@ export class AlertErrorHandler implements ErrorHandler {
     SubmarineComponent,
     InviteComponent,
     CountdownPipe,
+    CreateChannelComponent,
   ],
   imports: [
     AppRoutingModule,

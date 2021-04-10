@@ -1,0 +1,31 @@
+<h1 class="text-center" mat-dialog-title>Create Channel</h1>
+
+<div class="text-center" mat-dialog-content>
+  <form
+    #f="ngForm"
+    [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input formControlName="name" type="text" matInput #nameInput>
+      <mat-error *ngIf="form.get('name').invalid">Required, and should be less than 32 characters.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select
+        formControlName="type"
+        (select)="nameInput.setValue('')">
+        <mat-option value="TEXT" selected>Text</mat-option>
+        <mat-option value="VOICE">Voice</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<div class="d-flex justify-content-center" mat-dialog-actions>
+  <button
+    id="createChannelButton"
+    (click)="create()"
+    class="btn btn-success mt-2"
+    [disabled]="processing">Create</button>
+</div>

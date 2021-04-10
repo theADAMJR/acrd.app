@@ -19,6 +19,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   exports: [
@@ -28,6 +29,7 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonToggleModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatInputModule,
     MatIconModule,
     MatTableModule,

@@ -1,19 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LogService } from 'src/app/services/log.service';
-import { UsersService } from 'src/app/services/users.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({
-  selector: 'invite-modal',
-  templateUrl: './invite-modal.component.html',
-  styleUrls: ['./invite-modal.component.css']
+  selector: 'app-create-invite',
+  templateUrl: './create-invite.component.html',
+  styleUrls: ['./create-invite.component.css']
 })
-export class InviteModalComponent {
-  @Input()
-  public guild: Lean.Guild;
-
+export class CreateInviteComponent implements OnInit {
   public invite: Lean.Invite;
   public recentlyUpdated = false;
 
@@ -23,12 +19,16 @@ export class InviteModalComponent {
   });
 
   constructor(
+    public dialogRef: MatDialogRef<CreateInviteComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      guild: Lean.Guild,
+    },
     private ws: WSService,
   ) {}
 
-  public open() {
+  public ngOnInit() {
     this.ws.emit('INVITE_CREATE', {
-      guildId: this.guild._id,
+      guildId: this.data.guild._id,
       options: this.form.value,
     });
 
@@ -40,15 +40,18 @@ export class InviteModalComponent {
     document.querySelector('.modal-backdrop')?.remove();
   }
 
+  public onNoClick() {
+    this.dialogRef.close();
+  }
+
   public updateInvite() {
     if (this.form.invalid) return;
 
     this.recentlyUpdated = true;
 
     this.ws.emit('INVITE_DELETE', { inviteCode: this.invite._id });
-
     this.ws.emit('INVITE_CREATE', {
-      guildId: this.guild._id,
+      guildId: this.data.guild._id,
       options: this.form.value,
     });    
   }

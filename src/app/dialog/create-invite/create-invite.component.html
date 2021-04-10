@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Invite Friends to {{ data.guild.name }}</h1>
+
+<div class="text-center" mat-dialog-content>
+  <mat-form-field appearance="outline" class="float-left">
+    <mat-label>Invite Link</mat-label>
+    <input type="text"
+      [value]="invite?._id" matInput>
+  </mat-form-field>
+
+  <div class="ml-3 float-left">
+    <button
+      (click)="copyToClipboard()"
+      matTooltip="Copy"
+      class="btn p-4 mt-1 btn-outline-primary"
+      color="primary">
+      <i class="fas fa-clipboard"></i>
+    </button>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <h3 class="text-center">Options</h3>
+  <form #f="ngForm" [formGroup]="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Max Uses</mat-label>
+      <input
+        type="number"
+        formControlName="maxUses" matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="ml-2">
+      <mat-label>Expires At</mat-label>
+      <input
+        type="datetime-local"
+        formControlName="expiresAt" matInput>
+    </mat-form-field>
+  </form>
+</div>
+
+<div class="d-flex justify-content-center" mat-dialog-actions>
+  <button
+    [disabled]="!recentlyUpdated"
+    class="bg-success text-dark"
+    (click)="updateInvite()"
+    mat-button>Update</button>
+</div>

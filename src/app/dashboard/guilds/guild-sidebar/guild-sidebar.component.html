@@ -8,17 +8,17 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="heftyButton">
           <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
-            (click)="inviteModal.open()"
+            (click)="createInviteDialog()"
             class="dropdown-item invite"
             data-toggle="modal"
             data-target="#createInviteModal">Invite People <i class="fas fa-user-plus"></i></a>
+            
           <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
             class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Guild Settings <i class="fas fa-cogs"></i></a>
+            
           <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
-            (click)="channelModal.open()"
-            class="dropdown-item"
-            data-toggle="modal"
-            data-target="#createChannelModal">Create Channel <i class="fas fa-plus-circle"></i></a>
+            (click)="createChannelDialog()"
+            class="dropdown-item">Create Channel <i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
     </div>
@@ -70,10 +70,3 @@
     </div>
   </div>
 </sidebar>
-
-<invite-modal
-  [guild]="guild"
-  #inviteModal></invite-modal>
-<create-channel-modal
-  [guild]="guild"
-  #channelModal></create-channel-modal>

@@ -5,39 +5,28 @@
   <div
     *ngIf="!isExtra; else extraMessage"
     [id]="'message-' + message._id"
-    (click)="$event.stopPropagation()"
-    class="flex-vertical">
-    <div class="chat flex-vertical flex-spacer">
-      <div class="content flex-spacer flex-horizontal bg-transparent">
-        <div class="flex-spacer flex-vertical messages-wrapper">
-          <div class="scroller-wrap">
-            <div class="scroller messages">
-              <div
-                class="message-group hide-overflow"
-                [ngClass]="{ 'd-mention': isMentioned }">
-                <div class="avatar-large animate" [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
-                <div class="comment">
-                  <div class="message first">
-                    <ng-container *ngTemplateOutlet="messageOptions"></ng-container>
-  
-                    <h2 style="line-height: 16px;">
-                      <span class="username-wrapper v-btm">
-                        <strong [style.color]="roleColor" class="user-name">{{ author.username }}</strong>
-                        <div *ngIf="author.bot && author.username !== '2PG'"
-                          class="username-badge badge badge-secondary ml-1">BOT</div>
-                        <div *ngIf="author.bot && author.username === '2PG'"
-                          class="username-badge badge badge-secondary ml-1">SYSTEM</div>
-                      </span>
-                      <span class="highlight-separator"> - </span>
-                      <span class="timestamp">{{ timestamp }}</span>
-                    </h2>
-  
-                    <ng-container *ngTemplateOutlet="messageContent"></ng-container>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    (click)="$event.stopPropagation()">
+    <div
+      class="message-group"
+      [ngClass]="{ 'd-mention': isMentioned }">
+      <div class="avatar-large animate" [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
+      <div class="comment">
+        <div class="message first">
+          <ng-container *ngTemplateOutlet="messageOptions"></ng-container>
+
+          <h2 style="line-height: 16px;">
+            <span class="username-wrapper v-btm">
+              <strong [style.color]="roleColor" class="user-name">{{ author.username }}</strong>
+              <div *ngIf="author.bot && author.username !== '2PG'"
+                class="username-badge badge badge-secondary ml-1">BOT</div>
+              <div *ngIf="author.bot && author.username === '2PG'"
+                class="username-badge badge badge-secondary ml-1">SYSTEM</div>
+            </span>
+            <span class="highlight-separator"> - </span>
+            <span class="timestamp">{{ timestamp }}</span>
+          </h2>
+
+          <ng-container *ngTemplateOutlet="messageContent"></ng-container>
         </div>
       </div>
     </div>

@@ -6,10 +6,7 @@ import { WSEventArgs, WSEventParams } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class WSService {
-  private listeners = new Map<keyof WSEventArgs, {
-    component: any,
-    listener: () => any,
-  }>();
+  private listeners = new Map<keyof WSEventArgs, ComponentListener>();
 
   private readonly socket = (io as any).connect(environment.rootEndpoint);
 
@@ -50,5 +47,7 @@ export class WSService {
     this.socket.emit(name, params);
   }
 }
+
+interface ComponentListener { component: any, listener: () => any };
 
 export * from '../types/ws-types';

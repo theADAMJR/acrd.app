@@ -3,11 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { Args, WSService } from 'src/app/services/ws.service';
 import { GuildService } from '../../../services/guild.service';
-import { InviteModalComponent } from '../../modals/invite-modal/invite-modal.component';
-import { CreateChannelModalComponent } from '../../modals/create-channel-modal/create-channel-modal.component';
+import { CreateInviteComponent } from '../../../dialog/create-invite/create-invite.component';
 import { UsersService } from 'src/app/services/users.service';
 import { Lean } from 'src/app/types/entity-types';
 import { NotificationService } from 'src/app/services/notification.service';
+import { CreateChannelComponent } from 'src/app/dialog/create-channel/create-channel.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'guild-sidebar',
@@ -17,10 +18,6 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class GuildSidebarComponent implements OnInit {
   @Input('waitFor')
   public loaded = true;
-  @ViewChild('inviteModal')
-  public inviteModal: InviteModalComponent;
-  @ViewChild('channelModal')
-  public channelModal: CreateChannelModalComponent;
   
   public id: string;
   public guild: Lean.Guild;
@@ -41,6 +38,7 @@ export class GuildSidebarComponent implements OnInit {
     private usersService: UsersService,
     private ws: WSService,
     public pings: NotificationService,
+    private dialog: MatDialog,
   ) {}
 
   public async ngOnInit() {
@@ -107,5 +105,19 @@ export class GuildSidebarComponent implements OnInit {
     document
       .querySelector('.member-list').classList
       .toggle('d-none');
+  }
+
+  public createInviteDialog() {
+    this.dialog.open(CreateInviteComponent, {
+      width: '500px',
+      data: { guild: this.guild }
+    });
+  }
+
+  public createChannelDialog() {
+    this.dialog.open(CreateChannelComponent, {
+      width: '350px',
+      data: { guild: this.guild }
+    });
   }
 }

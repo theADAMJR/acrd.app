@@ -143,6 +143,10 @@ snack-bar-container.mat-snack-bar-container {
   outline: none !important;
 }
 
+.mat-dialog-container {
+  background-color: var(--background-primary) !important;
+}
+
 /* docs */
 
 #doc img {

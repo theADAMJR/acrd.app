@@ -1,25 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean, patterns } from 'src/app/types/entity-types';
 
 @Component({
-  selector: 'create-channel-modal',
-  templateUrl: './create-channel-modal.component.html',
-  styleUrls: ['./create-channel-modal.component.css']
+  selector: 'app-create-channel',
+  templateUrl: './create-channel.component.html',
+  styleUrls: ['./create-channel.component.css']
 })
-export class CreateChannelModalComponent implements OnInit {
-  @Input() guild: Lean.Guild;
-
-  processing = false;
-
-  form = new FormGroup({
+export class CreateChannelComponent {
+  public form = new FormGroup({
     name: new FormControl('chat', [ Validators.required ]),
     type: new FormControl('TEXT'),
   });
 
+  public processing = false;
+
   constructor(
+    public dialogRef: MatDialogRef<CreateChannelComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      guild: Lean.Guild,
+    },
     private router: Router,
     private ws: WSService,
   ) {}
@@ -46,27 +49,20 @@ export class CreateChannelModalComponent implements OnInit {
       });
   }
 
-  public open() {
-    document
-      .querySelector('.modal-backdrop')
-      ?.remove();
+  public onNoClick() {
+    this.dialogRef.close();
   }
 
-  public async create() {
+  public create() {
     if (this.form.invalid) return;
-
-    this.processing = true;
-    
-    document.querySelector('.modal-backdrop')?.remove();
 
     this.ws.emit('CHANNEL_CREATE', {
       partialChannel: this.form.value,
-      guildId: this.guild._id
+      guildId: this.data.guild._id
     });
 
     this.ws.once('CHANNEL_CREATE', async ({ channel }) => {
       await this.router.navigate([`/channels/${channel.guildId}/${channel._id}`]);
-      this.processing = false;
     }, this);
   }
 }

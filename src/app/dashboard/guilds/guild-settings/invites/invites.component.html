@@ -5,7 +5,7 @@
     <h5 class="uppercase mb-4">Invites</h5>
     <div class="row">
       <div
-        *ngFor="let invite of invites; else noInvites"
+        *ngFor="let invite of invites"
         class="col-12">
         <zippy [title]="invite._id">
           <div class="row">
@@ -39,7 +39,7 @@
         </zippy>
       </div>
 
-      <div #noInvites>
+      <div *ngIf="invites?.length <= 0">
         <span>
           <i class="fas fa-info-circle mr-2"></i>
           <span>No invites created yet.</span>

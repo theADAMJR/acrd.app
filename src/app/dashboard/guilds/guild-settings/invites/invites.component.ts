@@ -39,7 +39,7 @@ export class InvitesComponent implements OnInit {
 
   private hookWSEvents() {
     this.ws.once('INVITE_DELETE', async ({ inviteCode }) => {
-      await this.log.success('Invite successfully deleted.');
+      await this.log.success();
 
       const index = this.invites.findIndex(i => i._id === inviteCode);
       this.invites.splice(index, 1);
