@@ -11,9 +11,9 @@
 	-ms-flex-negative:0;
 	flex-shrink:0;
 	padding:1px 2px;
-	}
+}
 	
-	.avatar-large {
+.avatar-large {
 	background-clip:padding-box;
 	position:relative;
 	background-color:none;
@@ -22,19 +22,19 @@
 	width:40px;
 	height:40px;
 	background-size:40px 40px;
-	}
+}
 	
-	.scroller-wrap {
+.scroller-wrap {
 	position:relative;
 	display:flex;
-	}
+}
 	
-	.scroller-wrap,.scroller-wrap .scroller {
+.scroller-wrap,.scroller-wrap .scroller {
 	min-height:1px;
 	-webkit-box-flex:1;
 	-ms-flex:1;
 	flex:1;
-	}
+}
 	
 	.scroller-wrap .scroller::-webkit-scrollbar {
 	width:14px;
