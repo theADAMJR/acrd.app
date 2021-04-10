@@ -3,37 +3,53 @@
   [id]="guild?._id">
   <div *ngIf="guild" class="content">
     <h5 class="uppercase mb-4">Guild Overview</h5>
-    <div class="row">
-      <div class="col-6">
-        <div
-          [routerLink]="'/channels/' + guild._id"
-          routerLinkActive="active"
-          class="guild-icon round">
-          <img *ngIf="guild.iconURL"
-              [src]="guild.iconURL" [alt]="guild.name">
-          <span *ngIf="!guild.iconURL"
-              class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+
+    <form *ngIf="form"
+      #f="ngForm" [formGroup]="form">
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div
+            [routerLink]="'/channels/' + guild._id"
+            routerLinkActive="active"
+            class="guild-icon round my-2">
+            <img *ngIf="guild.iconURL"
+                [src]="guild.iconURL" [alt]="guild.name">
+            <span *ngIf="!guild.iconURL"
+                class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+          </div>
         </div>
-      </div>
-      <div class="col-6">
-        <form *ngIf="form"
-          #f="ngForm" [formGroup]="form">
+        
+        <div class="col-lg-4 col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Icon URL</mat-label>
+            <input formControlName="iconURL" type="text" matInput>
+          </mat-form-field>          
+        </div>
+
+        <div class="col-lg-4 col-md-6">
           <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input formControlName="name" type="text" matInput>
           </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Icon URL</mat-label>
-            <input formControlName="iconURL" type="text" matInput>
-          </mat-form-field>
-        </form>
+        </div>
+      </div>
+    </form>
+
+    <hr class="my-4">
+    <h5 class="uppercase mb-4">Advanced Settings</h5>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div>
+          <button
+            (click)="deleteGuild()"
+            class="nav-item nav-link bg-danger"
+            mat-button>
+            <i class="fas fa-trash mr-1"></i>
+            <span>Delete Guild</span>
+          </button>
+        </div>
       </div>
     </div>
-    <hr class="my-4">
-
-    <a (click)="deleteGuild()"
-      class="nav-item nav-link text-danger">
-      <i class="fas fa-trash text-muted"></i>
-      Delete</a>
   </div>  
 </app-settings-sidebar>

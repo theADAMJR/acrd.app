@@ -23,23 +23,27 @@ export class LogService {
     console.log(`%c[${this.hhMMSS}]`, 'color: yellow', `[${src?.toUpperCase() ?? '???'}]`, `${message}`);
   }
 
-  public async success(message: string) {
-    const popup = document.querySelector('#successPopup') as HTMLDivElement;
-    popup.toggleAttribute('hidden');
-    popup.innerText = message;
+  public async success(message?: string) {
+    if (message) {
+      const popup = document.querySelector('#successPopup') as HTMLDivElement;
+      popup.toggleAttribute('hidden');
+      popup.innerText = message;
+
+      setTimeout(() => popup.toggleAttribute('hidden'), this.hidePopupMs);
+    }     
 
     await this.sounds.success();
-
-    setTimeout(() => popup.toggleAttribute('hidden'), this.hidePopupMs);
   }
 
-  public async error(message: string) {
-    const popup = document.querySelector('#errorPopup') as HTMLDivElement;
-    popup.toggleAttribute('hidden');
-    popup.innerText = message;
+  public async error(message?: string) {
+    if (message) {
+      const popup = document.querySelector('#errorPopup') as HTMLDivElement;
+      popup.toggleAttribute('hidden');
+      popup.innerText = message;
+
+      setTimeout(() => popup.toggleAttribute('hidden'), this.hidePopupMs);
+    }     
 
     await this.sounds.error();
-
-    setTimeout(() => popup.toggleAttribute('hidden'), this.hidePopupMs);
   }
 }

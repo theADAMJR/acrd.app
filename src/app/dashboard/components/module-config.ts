@@ -120,6 +120,7 @@ export abstract class ModuleConfig implements OnDestroy {
     this.guildService.guilds.splice(index, 1);
 
     await this.router.navigate(['/channels/@me']);
+    await this.log.success();
   }
 
   // input events
@@ -146,5 +147,36 @@ export abstract class ModuleConfig implements OnDestroy {
 
   getChannel(id: string) {
     return this.guild.channels.find(c => c._id === id);
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   }
-}
+}       
