@@ -49,7 +49,7 @@ import { UserSettingsComponent } from './dashboard/me/user-settings/user-setting
 import { CreateChannelModalComponent } from './dashboard/modals/create-channel-modal/create-channel-modal.component';
 import { BotListComponent } from './dashboard/guilds/guild-settings/bot-list/bot-list.component';
 import { MessageEmbedComponent } from './dashboard/messages/message-embed/message-embed.component';
-import { MessagePreviewComponent } from './dashboard/messages/message-preview/message-preview.component';
+import { MessagePreviewComponent } from './dashboard/messages/message/message.component';
 import { MemberListComponent } from './dashboard/guilds/member-list/member-list.component';
 import { DevelopersComponent } from './pages/developers/developers.component';
 import { ApplicationComponent } from './pages/developers/application/application.component';

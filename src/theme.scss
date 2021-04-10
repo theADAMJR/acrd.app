@@ -217,6 +217,12 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
 .bg-primary:hover {
   background-color: var(--primary) !important;
 }
+.bg-success {
+  background-color: var(--success) !important;
+}
+.bg-success:hover {
+  background-color: var(--success) !important;
+}
 
 // global
 

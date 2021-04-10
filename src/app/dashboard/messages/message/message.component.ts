@@ -9,9 +9,9 @@ import { WSService } from 'src/app/services/ws.service';
 import { Lean, PermissionTypes } from 'src/app/types/entity-types';
 
 @Component({
-  selector: 'message-preview',
-  templateUrl: './message-preview.component.html',
-  styleUrls: ['./message-preview.component.css']
+  selector: 'message',
+  templateUrl: './message.component.html',
+  styleUrls: ['./message.component.css']
 })
 export class MessagePreviewComponent {
   @Input()
