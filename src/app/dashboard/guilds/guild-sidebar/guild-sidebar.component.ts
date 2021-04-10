@@ -7,6 +7,7 @@ import { InviteModalComponent } from '../../modals/invite-modal/invite-modal.com
 import { CreateChannelModalComponent } from '../../modals/create-channel-modal/create-channel-modal.component';
 import { UsersService } from 'src/app/services/users.service';
 import { Lean } from 'src/app/types/entity-types';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'guild-sidebar',
@@ -39,6 +40,7 @@ export class GuildSidebarComponent implements OnInit {
     private router: Router,
     private usersService: UsersService,
     private ws: WSService,
+    public pings: NotificationService,
   ) {}
 
   public async ngOnInit() {

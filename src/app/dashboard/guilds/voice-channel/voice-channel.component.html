@@ -1,8 +1,8 @@
-<div class="cursor-pointer">
-  <a (click)="join()"
-      routerLinkActive="active"
-      class="nav-item nav-link">
-      <i class="fas fa-volume-up text-muted"></i> {{ channel.name }}</a>
+<div class="cursor-pointer" hidden>
+  <a (click)="join()" 
+    routerLinkActive="active"
+    class="nav-item nav-link">
+    <i class="fas fa-volume-up text-muted"></i> {{ channel.name }}</a>
     <div *ngFor="let id of channel.memberIds"
       class="ml-4">
       <member-username

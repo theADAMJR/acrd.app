@@ -6,6 +6,11 @@ import { WSEventArgs, WSEventParams } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class WSService {
+  private listeners = new Map<keyof WSEventArgs, {
+    component: any,
+    listener: () => any,
+  }>();
+
   private readonly socket = (io as any).connect(environment.rootEndpoint);
 
   constructor(private log: LogService) {
@@ -28,8 +33,14 @@ export class WSService {
   }
 
   public once<K extends keyof WSEventArgs>(name: K, callback: WSEventArgs[K], component: any): this {
-    this.socket.off(name);
-    this.on(name, callback, component);
+    const listener = (...args: string[]) => {
+      this.log.info(`RECEIVE ${name}`, 'ws');
+      return callback.call(component, ...args);
+    }
+
+    this.socket.off(name, this.listeners.get(name)?.listener);
+    this.listeners.set(name, { component, listener });
+    this.socket.on(name, listener); 
     
     return this;
   }

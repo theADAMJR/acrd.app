@@ -28,14 +28,20 @@
       <a *ngFor="let channel of textChannels"
         [routerLink]="'/channels/' + guild._id + '/' + channel._id"
         routerLinkActive="active"
-        style="background-color: rgba(255, 255, 255, 0);"
         class="nav-item nav-link">
         <i class="fas fa-hashtag"
           [ngClass]="{
             'text-muted': true
-          }"></i> {{ channel.name }}
-        <i matTooltip="Edit Channel"
-          class="fas fa-cog text-muted float-right channel-settings spin"></i>
+          }"></i>
+        <span>{{ channel.name }}</span>
+        <span *ngIf="pings.isUnread(channel._id)" class="ml-2">
+          <i class="fas fa-circle text-danger"></i>
+        </span>
+
+        <span class="float-right">
+          <i matTooltip="Edit Channel"
+            class="fas fa-cog text-muted channel-settings spin"></i>
+        </span>
       </a>
       <voice-channel
         *ngFor="let channel of voiceChannels"

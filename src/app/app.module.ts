@@ -133,7 +133,7 @@ export class AlertErrorHandler implements ErrorHandler {
     SettingsSidebarComponent,
     SubmarineComponent,
     InviteComponent,
-    CountdownPipe
+    CountdownPipe,
   ],
   imports: [
     AppRoutingModule,

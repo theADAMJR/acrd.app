@@ -8,6 +8,7 @@ import { ChannelService } from 'src/app/services/channel.service';
 import { Lean } from 'src/app/types/entity-types';
 import { Router } from '@angular/router';
 import { SoundService } from 'src/app/services/sound.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'sidebar',
@@ -23,11 +24,13 @@ export class SidebarComponent implements OnInit {
   constructor(
     public channelService: ChannelService,
     public guildService: GuildService,
+    private sounds: SoundService,
+    private notifications: NotificationService,
     private userService: UsersService,
     private rtc: RTCService,
     private router: Router,
-    private sounds: SoundService,
-    private ws: WSService) {}
+    private ws: WSService,
+  ) {}
 
   async ngOnInit() {
     await this.channelService.init();
@@ -37,7 +40,15 @@ export class SidebarComponent implements OnInit {
   }
 
   public hookWSEvents() {
-    this.ws.once('GUILD_JOIN', this.joinGuild, this);
+    this.ws
+      .once('GUILD_JOIN', this.joinGuild, this)
+      .once('MESSAGE_CREATE', this.sendNotification, this);
+  }
+
+  public async sendNotification({ message }: Args.MessageCreate) {
+    if (message.authorId === this.user._id) return;
+
+    await this.notifications.add(message.channelId, message._id);
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {

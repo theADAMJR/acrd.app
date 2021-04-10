@@ -9,7 +9,6 @@ body {
   background-color: var(--background-primary) !important;
 }
 
-:root,
 :root[theme=CLONE] {
   --primary: #6E8481;
   --secondary: #A2B6AD;
@@ -60,6 +59,7 @@ body {
   --background-secondary: #2F3136;
   --background-tertiary: #202225;
 }
+:root,
 :root[theme=HORIZON] {
   --primary: #E95678;
   --secondary: #FAB795;

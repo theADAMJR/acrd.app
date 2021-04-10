@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
 import { GuildService } from 'src/app/services/guild.service';
@@ -6,7 +7,7 @@ import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
-import { Lean, PermissionTypes } from 'src/app/types/entity-types';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'message',
@@ -14,17 +15,28 @@ import { Lean, PermissionTypes } from 'src/app/types/entity-types';
   styleUrls: ['./message.component.css']
 })
 export class MessagePreviewComponent {
-  @Input()
-  public message: Lean.Message;
-  @Input()
-  public isExtra = false;
-  @Input()
-  public guild: Lean.Guild;
-  @Input()
-  public member: Lean.GuildMember;
+  @Input() public message: Lean.Message;
+  @Input() public isExtra = false;
+  @Input() public guild: Lean.Guild;
+  @Input() public member: Lean.GuildMember;
+
+  @ViewChild('newMessage')
+  public newMessage: ElementRef;
+  @ViewChild('contextMenu')
+  public contextMenu: MatMenu;
 
   public embed: MessageEmbed;
-  public isEditing = false;
+  public contextMenuPosition = { x: '0px', y: '0px' };
+
+  private _isEditing = false;
+  public get isEditing() {
+    return this._isEditing;
+  }
+  public set isEditing(value: boolean) {
+    this._isEditing = value;
+    const div: HTMLDivElement = this.newMessage.nativeElement;
+    if (value) div.focus();
+  }
 
   public get author() {
     return this.usersService.getKnown(this.message.authorId)
@@ -69,6 +81,10 @@ export class MessagePreviewComponent {
 
   public get isMentioned() {
     return document.querySelector(`#message-${this.message._id} .self-mention`);
+  }
+
+  public get updatedAt() {
+    return new Date(this.message.updatedAt)?.toLocaleString();
   }
 
   public get processed() {
@@ -125,19 +141,43 @@ export class MessagePreviewComponent {
   }
 
   public delete() {
-    this.ws.emit('MESSAGE_DELETE', {
-      messageId: this.message._id,
-    });
+    this.ws.emit('MESSAGE_DELETE', { messageId: this.message._id });
 
     document
       .querySelector(`#message${this.message._id}`)
       ?.remove();
+
+    this.ws.once('MESSAGE_DELETE', async ({ messageId }) => {
+      if (messageId === this.message._id)
+        await this.log.success();
+    }, this);
   }
 
-  public edit($event: KeyboardEvent, value: string) {    
+  public async edit($event: KeyboardEvent, value: string) {
     if ($event.code !== 'Enter') return;
 
+    this.isEditing = false;
     this.message.content = value;
+    this.message.updatedAt = new Date();
+
+    this.ws.emit('MESSAGE_UPDATE', {
+      messageId: this.message._id,
+      partialMessage: { content: this.message.content },
+      withEmbed: Boolean(this.message.embed),
+    });
+
+    this.ws.once('MESSAGE_UPDATE', async ({ partialMessage }) => {
+      if (partialMessage.content === this.message.content)
+        await this.log.success();
+    }, this);
+  }
+
+  public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + 'px';
+    this.contextMenuPosition.y = event.clientY + 'px';
+    menuTrigger.menu.focusFirstItem('mouse');
+    menuTrigger.openMenu();
   }
 }
 

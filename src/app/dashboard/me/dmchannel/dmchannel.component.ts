@@ -17,19 +17,6 @@ import { TextBasedChannel } from '../../text-based-channel';
   styleUrls: ['./dmchannel.component.css']
 })
 export class DMChannelComponent extends TextBasedChannel {
-  constructor(
-    channelService: ChannelService,
-    guildService: GuildService,
-    log: LogService,
-    route: ActivatedRoute,
-    userService: UsersService,
-    perms: PermissionsService,
-    sounds: SoundService,
-    ws: WSService,
-  ) {
-    super(channelService, guildService, log, route, userService, perms, sounds, ws);
-  }
-
   public async ngOnInit() {
     await super.init();
   }

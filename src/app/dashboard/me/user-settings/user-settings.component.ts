@@ -21,7 +21,7 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
   @ViewChild('themeSelect')
   public themeSelect: MatSelect;
   public environment = environment;
-  public defaultTheme = 'CLONE';
+  public defaultTheme = 'HORIZON';
 
   public get sfxEnabled() {
     return localStorage.getItem('sfx') !== 'disabled';

@@ -88,17 +88,6 @@ a {
   color: var(--secondary);
 }
 
-snack-bar-container.mat-snack-bar-container {
-  background-color: var(--background-tertiary);
-  background-color: rgba(0, 0, 0, 0.85) !important;
-  color: var(--font);
-  width: 75vw;
-}
-
-customize-xp-card .mat-form-field-infix {
-  width: inherit !important;
-}
-
 /* overrides */
 code {
   color: var(--secondary) !important;
@@ -127,8 +116,27 @@ mat-paginator {
   background-color: transparent !important;
 }
 
+/* angular material */
+
 .mat-standard-chip .mat-chip-remove.mat-icon {
   font-size: 15px;
+}
+
+.mat-tooltip {
+  background-color: var(--background-tertiary) !important;
+  color: var(--heading) !important;
+}
+
+snack-bar-container.mat-snack-bar-container {
+  background-color: var(--background-tertiary);
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  color: var(--font);
+  width: 75vw;
+}
+
+.mat-menu-content {
+  font-size: 16px;
+  background-color: var(--background-tertiary);
 }
 
 :focus {

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from '../services/channel.service';
 import { GuildService } from '../services/guild.service';
 import { LogService } from '../services/log.service';
+import { NotificationService } from '../services/notification.service';
 import { PermissionsService } from '../services/permissions.service';
 import { SoundService } from '../services/sound.service';
 import { UsersService } from '../services/users.service';
@@ -49,6 +50,7 @@ export class TextBasedChannel {
     public perms: PermissionsService,
     public sounds: SoundService,
     private ws: WSService,
+    public notifications: NotificationService,
   ) {}
 
   public async init() {
@@ -58,6 +60,8 @@ export class TextBasedChannel {
       const channelId = this.activeChannelId = this.route.snapshot.paramMap.get('channelId');
       this.channel = this.channelService.getDMChannelById(channelId)
         ?? this.channelService.getChannel(this.parentId, channelId);
+
+      this.notifications.markAsRead(channelId);
 
       document.title = (this.parentId === '@me')
         ? `@${this.recipient.username}`
@@ -89,9 +93,8 @@ export class TextBasedChannel {
 
   private async createMessage({ message }: Args.MessageCreate) { 
     const selfIsAuthor = message.authorId === this.userService.user._id; 
-    (selfIsAuthor)
-      ? await this.sounds.message()
-      : await this.sounds.notification();
+    if (selfIsAuthor)
+      await this.sounds.message();
 
     const channelIsActive = this.activeChannelId === this.channel._id;
     (channelIsActive)
@@ -118,7 +121,7 @@ export class TextBasedChannel {
     const messages = document.querySelector('.messages');
 
     let combinedHeight = 0;    
-    Array.from(document.querySelectorAll(`.message-preview`))
+    Array.from(document.querySelectorAll(`.message`))
       .slice(0, end ?? this.messages.length)
       .forEach(e => combinedHeight += e.scrollHeight);
 

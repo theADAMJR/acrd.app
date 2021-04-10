@@ -23,19 +23,6 @@ export class TextChannelComponent extends TextBasedChannel implements OnInit {
     return this.guildService.getGuild(this.parentId);
   }
 
-  constructor(
-    channelService: ChannelService,
-    guildService: GuildService,
-    log: LogService,
-    route: ActivatedRoute,
-    userService: UsersService,
-    perms: PermissionsService,
-    sounds: SoundService,
-    ws: WSService,
-  ) {
-    super(channelService, guildService, log, route, userService, perms, sounds, ws);
-  }
-
   public async ngOnInit() {
     await super.init();
   }

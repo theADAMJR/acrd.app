@@ -72,9 +72,7 @@ export class SettingsSidebarComponent {
   }
 
   public async close() {
-    (this.guildId)
-      ? this.router.navigate([`/channels/${this.guildId}`])
-      : this.location.back();
+    await this.router.navigate([`/channels/${this.guildId ?? '@me'}`]);
   }
 
   public canAccess(tab: Tab) {

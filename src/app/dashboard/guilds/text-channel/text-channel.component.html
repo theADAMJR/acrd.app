@@ -16,13 +16,13 @@
 
       <div
         *ngFor="let message of messages; index as i; trackBy: message._id"
-        class="message-preview"
+        class="message"
         [id]="'message' + message._id">
-        <message-preview
+        <message
           [message]="message"
           [isExtra]="shouldCombine(i)"
           [member]="guildService.getMember(guild._id, message.authorId)"
-          [guild]="guild"></message-preview>
+          [guild]="guild"></message>
       </div>
     </div>
     <div class="footer">

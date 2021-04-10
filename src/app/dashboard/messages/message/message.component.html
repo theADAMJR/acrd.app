@@ -1,65 +1,38 @@
 <div
-  [id]="'message-' + message._id"
-  *ngIf="!isExtra; else extraMessage"
-  class="flex-vertical">
-  <div class="chat flex-vertical flex-spacer">
-    <div class="content flex-spacer flex-horizontal bg-transparent">
-      <div class="flex-spacer flex-vertical messages-wrapper">
-        <div class="scroller-wrap">
-          <div class="scroller messages">
-            <div
-              class="message-group hide-overflow"
-              [ngClass]="{ 'd-mention': isMentioned }">
-              <div class="avatar-large animate" [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
-              <div class="comment">
-                <div class="message first">
-                  <span class="message-options float-right">
-                    <button [matMenuTriggerFor]="menu" mat-button>
-                      <i class="fas fa-ellipsis-v text-light fa-2x"></i>
-                    </button>                
-                    <mat-menu #menu="matMenu">
-                      <button
-                        (click)="isEditing = !isEditing"
-                        mat-menu-item>Edit</button>
-                      <button
-                        (click)="delete()"
-                        mat-menu-item>Delete</button>
-                      <hr>
-                      <button mat-menu-item>
-                        <strong>Message ID:</strong>
-                        <code>{{ message._id }}</code>
-                      </button>
-                    </mat-menu>
-                  </span>
-
-                  <h2 style="line-height: 16px;">
-                    <span class="username-wrapper v-btm">
-                      <strong [style.color]="roleColor" class="user-name">{{ author.username }}</strong>
-                      <div *ngIf="author.bot && author.username !== '2PG'"
-                        class="username-badge badge badge-secondary ml-1">BOT</div>
-                      <div *ngIf="author.bot && author.username === '2PG'"
-                        class="username-badge badge badge-secondary ml-1">SYSTEM</div>
-                    </span>
-                    <span class="highlight-separator"> - </span>
-                    <span class="timestamp">{{ timestamp }}</span>
-                  </h2>
-
-                  <div
-                    (keydown)="edit($event, newMessage.innerText)"
-                    [contentEditable]="isEditing && canManage"
-                    [innerHtml]="processed"
-                    class="message-text"
-                    #newMessage></div>
-                  <message-embed
-                    (close)="removeEmbed()"
-                    [canManage]="canManage"
-                    [message]="message"></message-embed>
-
-                  <div class="float-right">
-                    <mat-menu #menu="matMenu">
-                      <button mat-menu-item>Item 1</button>
-                      <button mat-menu-item>Item 2</button>
-                    </mat-menu>
+  #menuTrigger="matMenuTrigger"
+  [matMenuTriggerFor]="contextMenu"
+  (contextmenu)="openMenu($event, menuTrigger)">
+  <div
+    *ngIf="!isExtra; else extraMessage"
+    [id]="'message-' + message._id"
+    (click)="$event.stopPropagation()"
+    class="flex-vertical">
+    <div class="chat flex-vertical flex-spacer">
+      <div class="content flex-spacer flex-horizontal bg-transparent">
+        <div class="flex-spacer flex-vertical messages-wrapper">
+          <div class="scroller-wrap">
+            <div class="scroller messages">
+              <div
+                class="message-group hide-overflow"
+                [ngClass]="{ 'd-mention': isMentioned }">
+                <div class="avatar-large animate" [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
+                <div class="comment">
+                  <div class="message first">
+                    <ng-container *ngTemplateOutlet="messageOptions"></ng-container>
+  
+                    <h2 style="line-height: 16px;">
+                      <span class="username-wrapper v-btm">
+                        <strong [style.color]="roleColor" class="user-name">{{ author.username }}</strong>
+                        <div *ngIf="author.bot && author.username !== '2PG'"
+                          class="username-badge badge badge-secondary ml-1">BOT</div>
+                        <div *ngIf="author.bot && author.username === '2PG'"
+                          class="username-badge badge badge-secondary ml-1">SYSTEM</div>
+                      </span>
+                      <span class="highlight-separator"> - </span>
+                      <span class="timestamp">{{ timestamp }}</span>
+                    </h2>
+  
+                    <ng-container *ngTemplateOutlet="messageContent"></ng-container>
                   </div>
                 </div>
               </div>
@@ -75,30 +48,89 @@
   <div
     [id]="'message-' + message._id"
     class="extra-message"
-    [ngClass]="{ 'd-mention': isMentioned }">
-    <span class="message-options float-right">
-      <button
-        *ngIf="canManage"
-        (click)="delete()"
-        class="bg-danger"
-        mat-button><i class="fas fa-trash"></i></button>
-    </span>
+    [ngClass]="{ 'd-mention': isMentioned }"
+    (click)="$event.stopPropagation()">
+    <ng-container *ngTemplateOutlet="messageOptions"></ng-container>
+
     <span class="content">
       <span
         class="timestamp no-select"
         [matTooltip]="message.createdAt">{{ timeString }}</span>
-      <span
-        (keydown)="edit($event, newMessage.innerText)"
-        [contentEditable]="isEditing && canManage"
-        [innerHTML]="processed"
-        class="message"
-        #newMessage></span>
-      <span class="embed">
-        <message-embed
-          (close)="removeEmbed()"
-          [canManage]="canManage"
-          [message]="message"></message-embed>
-      </span>
+      <ng-container *ngTemplateOutlet="messageContent"></ng-container>
     </span>
   </div>
 </ng-template>
+
+<ng-template #edited>
+  <span
+    *ngIf="message.updatedAt"
+    [matTooltip]="'Edited - ' + updatedAt"
+    class="edit-indicator cursor-pointer ml-1"
+    #edited>
+    <i class="fas fa-pencil-alt text-muted fa-xs"></i>
+  </span>
+</ng-template>
+
+<ng-template #messageContent>
+  <div
+    (keydown)="edit($event, newMessage.innerText)"
+    [contentEditable]="isEditing && canManage"
+    [innerHtml]="processed"
+    class="message-text d-inline"
+    #newMessage>
+  </div>
+  <ng-container *ngTemplateOutlet="edited"></ng-container>
+
+  <message-embed
+    (close)="removeEmbed()"
+    [canManage]="canManage"
+    [message]="message"></message-embed>
+</ng-template>
+
+<ng-template #messageOptions>
+  <span class="message-options float-right position-absolute">
+    <button
+      matTooltip="Edit"
+      (click)="isEditing = !isEditing"
+      mat-button>
+      <i class="fas fa-pencil-alt text-warning fa-2x"></i>
+    </button>
+
+    <button
+      matTooltip="Delete"
+      (click)="delete()"
+      mat-button>
+      <i class="fas fa-times-circle text-danger fa-2x"></i>
+    </button>
+
+    <button
+      matTooltip="More Options"
+      [matMenuTriggerFor]="contextMenu"
+      mat-button>
+      <i class="fas fa-ellipsis-v text-light fa-2x"></i>
+    </button>
+  </span>
+</ng-template>  
+
+<mat-menu
+  [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y"
+  #contextMenu>
+  <button
+    (click)="isEditing = !isEditing"
+    mat-menu-item>
+    <i class="fas fa-pencil-alt text-warning mr-1"></i>
+    <span>Edit</span>
+  </button>
+  <button
+    (click)="delete()"
+    mat-menu-item>
+    <i class="fas fa-times-circle text-danger mr-1"></i>
+    <span>Delete</span>
+  </button>
+  <hr>
+  <div (click)="$event.stopPropagation()" class="p-2">
+    <strong>ID: </strong>
+    <code>{{ message._id }}</code>
+  </div>
+</mat-menu>

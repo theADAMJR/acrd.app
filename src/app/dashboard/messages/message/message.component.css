@@ -234,18 +234,33 @@
 	transform:scale(0.5);
 	}
 	
-	.message:hover .message-options,.extra-message:hover .message-options {
+.message:hover .message-options,.extra-message:hover .message-options {
 	display:inline-block;
-	}
+}
 	
-	.extra-message:hover .message-options {
+.extra-message:hover .message-options {
 	margin-right:-35px;
-	}
+}
 	
-	.chat .messages-wrapper,.chat .messages-wrapper .scroller-wrap,.hide-overflow {
+.chat .messages-wrapper,.chat .messages-wrapper .scroller-wrap,.hide-overflow {
 	overflow:hidden;
-	}
+}
 	
-	.message-group:hover,.extra-message:hover {
+.message-group:hover,.extra-message:hover {
 	background-color:rgba(46,48,54,.3);
-	}
+}
+
+.edit-indicator {
+	display: none;
+}
+
+.message-group:hover .edit-indicator,
+.extra-message:hover .edit-indicator {
+	display: inline;
+}
+
+.message-options {
+	border-radius: 5px;
+	padding: 5px;
+	background-color: var(--background-secondary);
+}
