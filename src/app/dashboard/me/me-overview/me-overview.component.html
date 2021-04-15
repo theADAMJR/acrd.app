@@ -22,6 +22,11 @@
           class="nav-link">Pending</a>
       </li>
       <li class="nav-item">
+        <a (click)="setTab('BLOCKED')" 
+          [class.active]="tab === 'BLOCKED'"
+          class="nav-link text-warning">Blocked</a>
+      </li>
+      <li class="nav-item">
         <a (click)="friendPromptOpen = true"
           class="nav-link add-friend">Add Friend</a>
       </li>
@@ -46,6 +51,5 @@
     </form>
   </div>
 
-  <friends-list
-    [tab]="tab"></friends-list>
+  <friends-list [tab]="tab"></friends-list>
 </dashboard-sidebar>

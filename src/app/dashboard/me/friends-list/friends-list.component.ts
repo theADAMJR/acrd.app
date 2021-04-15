@@ -14,21 +14,25 @@ export class FriendsListComponent implements OnInit {
   @Input()
   public tab: TabType;
 
+  public get blockedUsers() {
+    return this.users.user.ignored?.userIds
+      ?.map(id => this.users.getKnown(id));
+  }
   public get friends() {
-    return this.userService.getFriends();
+    return this.users.getFriends();
   }
   public get onlineFriends() {
-    return this.userService
+    return this.users
       .getFriends()
       .filter(f => f.status !== 'OFFLINE');
   }
   public get friendRequests() {
-    return this.userService.user?.friendRequests;
+    return this.users.user?.friendRequests;
   }
 
   constructor(
     public channelService: ChannelService,
-    public userService: UsersService,
+    public users: UsersService,
     private ws: WSService,
   ) {}
 
@@ -50,13 +54,13 @@ export class FriendsListComponent implements OnInit {
   }
 
   public sendFriendRequest({ sender, friend }: Args.AcceptFriendRequest) {
-    this.userService.addKnownUser(friend);
+    this.users.addKnownUser(friend);
     this.updateFriends({ sender, friend });
   }
 
   public updateFriends({ sender, friend }: { sender: Lean.User, friend: Lean.User }) {
-    this.userService.upsertCached(sender._id, sender);
-    this.userService.upsertCached(friend._id, friend);
+    this.users.upsertCached(sender._id, sender);
+    this.users.upsertCached(friend._id, friend);
   }
 
   public getFriendRequest(id: string) {

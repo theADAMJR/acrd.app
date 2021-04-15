@@ -62,7 +62,7 @@
       <div *ngFor="let request of friendRequests">
         <member-username
           class="d-inline-block"
-          [user]="userService.getKnown(request.userId)"
+          [user]="users.getKnown(request.userId)"
           [statusOverride]="request.type === 'OUTGOING' ? 'Outgoing Friend Request' : 'Incoming Friend Request'"></member-username>
         <div class="float-right">
           <button
@@ -71,9 +71,12 @@
             class="round bg-success px-0" mat-button>
             <i class="fa fa-check" aria-hidden="true"></i>
           </button>
+
           <button
             (click)="cancel(request.userId)"
-            class="round px-0 ml-2" mat-button><i class="fas fa-times"></i></button>
+            class="round px-0 ml-2" mat-button>
+            <i class="fas fa-times"></i>
+          </button>
         </div>
       </div>
         
@@ -85,9 +88,18 @@
       </div>
     </div>
        
-    <!-- <div *ngSwitchCase="'BLOCKED'">
+    <div *ngSwitchCase="'BLOCKED'">
       <div class="category pl-0">Blocked—{{ 0 }}</div>
       <hr>
+
+      <div *ngFor="let user of blockedUsers">
+        <member-username></member-username>
+        <div class="float-right">
+          <i (click)="users.unblockUser(user._id)"
+            matTooltip="Unblock"
+            class="cursor-pointer fas fa-times-circle"></i>
+        </div>
+      </div>
 
       <div
         *ngIf="blockedUsers.length <= 0"
@@ -95,6 +107,6 @@
         <i class="fas fa-info-circle mr-2"></i>
         <span>No blocked users...</span>
       </div>      
-    </div> -->
+    </div>
   </div>
 </div>

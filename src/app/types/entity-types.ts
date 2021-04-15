@@ -72,7 +72,6 @@ export namespace Lean {
     badges: UserTypes.BadgeType[];
     bot: boolean;
     createdAt: Date;
-    email?: never | string;
     friendIds: string[];
     friendRequests: UserTypes.FriendRequest[];
     guilds: string[] | Lean.Guild[];
@@ -163,6 +162,11 @@ export namespace UserTypes {
     type: FriendRequestType
   }
   export type FriendRequestType = 'OUTGOING' | 'INCOMING';
+  export class Ignored {
+    channelIds: string[] = [];
+    guildIds: string[] = [];
+    userIds: string[] = [];
+  }
   export type StatusType = 'ONLINE' | 'BUSY' | 'AFK' | 'OFFLINE';
   export class VoiceState {
     channelId?: string;
@@ -173,6 +177,11 @@ export namespace UserTypes {
     guilds: Lean.Guild[];
     email: string;
     verified: true;
+    ignored: {
+      channelIds: string[];
+      guildIds: string[];
+      userIds: string[];
+    }
   }
 }
 

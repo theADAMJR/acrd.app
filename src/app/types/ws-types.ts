@@ -259,5 +259,10 @@ export namespace Partial {
   export interface User {
     avatarURL: string;
     username: string;
+    ignored: {
+      channelIds: string[];
+      guildIds: string[];
+      userIds: string[];
+    }
   }
 }

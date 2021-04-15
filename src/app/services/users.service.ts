@@ -1,27 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { UsernameValidators } from '../authentication/sign-up/username.validators';
 import { Lean, UserTypes } from '../types/entity-types';
-import { LogService } from './log.service';
+import { HTTPWrapper } from './http-wrapper';
 
 @Injectable({ providedIn: 'root' })
-export class UsersService {
-  endpoint = `${environment.endpoint}/users`;
-  knownUsers: Lean.User[] = [];
-  user: UserTypes.Self;
-
-  private get headers() {
-    return { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } };
-  }
-
-  private get key() {
-    return localStorage.getItem('key');
-  }
-
-  constructor(
-    private http: HttpClient,
-  ) {}
+export class UsersService extends HTTPWrapper {
+  public endpoint = `${environment.endpoint}/users`;
+  public knownUsers: Lean.User[] = [];
+  public user: UserTypes.Self;
   
   public async init() {
     if (!this.user)
@@ -101,5 +87,30 @@ export class UsersService {
   }
   public async checkEmail(email: string): Promise<boolean> {
     return this.http.get(`${this.endpoint}/check-email?value=${email}`).toPromise() as any;
+  }
+
+  public async blockUser(id: string) {
+    const userIds = this.user.ignored?.userIds?.concat(id) ?? [id];
+
+    return this.emit('USER_UPDATE', {
+      key: this.key,
+      partialUser: {
+        ...this.user,
+        ignored: { userIds },
+      }
+    });
+  }
+
+  public async unblockUser(id: string) {
+    const index = this.user.ignored?.userIds?.indexOf(id);
+    const userIds = this.user.ignored?.userIds?.splice(index, 1) ?? [];
+
+    return this.emit('USER_UPDATE', {
+      key: this.key,
+      partialUser: {
+        ...this.user,
+        ignored: { userIds },
+      }
+    });
   }
 }
