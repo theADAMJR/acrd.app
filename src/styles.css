@@ -138,9 +138,10 @@ snack-bar-container.mat-snack-bar-container {
   width: 75vw;
 }
 
-.mat-menu-content {
+.mat-menu-content,
+.mat-menu-panel {
   font-size: 16px;
-  background-color: var(--background-tertiary);
+  background-color: var(--background-tertiary) !important;
 }
 
 :focus {

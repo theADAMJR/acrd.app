@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { ChannelService } from 'src/app/services/channel.service';
 import { PingService } from 'src/app/services/ping.service';
 import { Lean } from 'src/app/types/entity-types';
@@ -40,4 +41,10 @@ export class MemberUsernameComponent {
     public pings: PingService,
     private channelService: ChannelService,
   ) {}
+
+  public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
+    event.preventDefault();
+    menuTrigger.menu.focusFirstItem('mouse');
+    menuTrigger.openMenu();
+  }
 }

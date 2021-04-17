@@ -1,34 +1,59 @@
 <div
   *ngIf="user"
+  [matMenuTriggerFor]="contextMenu"
+  #menuTrigger="matMenuTrigger"
+  (contextmenu)="openMenu($event, menuTrigger)"
   class="member-username"
-  data-placement="left"
-  [routerLink]="routerLink || './'"
-  routerLinkActive="active"
   [title]="user.username"
+  routerLinkActive="active"
   [class]="(guild) ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
+  <div
+    (click)="$event.stopPropagation()"
+    [routerLink]="routerLink || './'">
     <app-avatar-url
       *ngIf="withAvatar"
       [user]="user"></app-avatar-url>
-  <span
-    class="status round"
-    [class]="user.status?.toLowerCase()"></span>
-  <div
-    [style.color]="member ? roleColor : 'var(--light)'"
-    class="username pt-0">
-    <span class="float-right text-muted">
-      <i *ngIf="pings.isUnread(dmChannelId)"
-        matTooltip="Unread Pings"
-        class="fas fa-circle text-danger"></i>
-    </span>
-
-    <span class="username-text">{{ user.username }}</span>
     <span
-      *ngIf="user.bot"
-      textContent="user.username === 'Accord' ? 'SYSTEM' : 'BOT'"
-      class="ml-1 badge badge-secondary"></span>
-    <span
-      *ngIf="user._id === guild?.ownerId"
-      matTooltip="Guild Owner"
-      class="crown pl-1"><i class="fas fa-crown"></i></span>
+      class="status round"
+      [class]="user.status?.toLowerCase()"></span>
+    <div
+      [style.color]="member ? roleColor : 'var(--light)'"
+      class="username pt-0">
+      <span class="float-right text-muted">
+        <i *ngIf="pings.isUnread(dmChannelId)"
+          matTooltip="Unread Pings"
+          class="fas fa-circle text-danger"></i>
+      </span>
+  
+      <span class="username-text">{{ user.username }}</span>
+      <span
+        *ngIf="user.bot"
+        textContent="user.username === 'Accord' ? 'SYSTEM' : 'BOT'"
+        class="ml-1 badge badge-secondary"></span>
+      <span
+        *ngIf="user._id === guild?.ownerId"
+        matTooltip="Guild Owner"
+        class="crown pl-1">
+        <i class="fas fa-crown"></i>
+      </span>
+    </div>
   </div>
 </div>
+
+<mat-menu #contextMenu>
+  <!-- <button mat-menu-item>
+    <i class="fas fa-pencil-alt text-warning mr-1"></i>
+    <span>Edit</span>
+  </button>
+  <button
+    (click)="delete()"
+    mat-menu-item>
+    <i class="fas fa-times-circle text-danger mr-1"></i>
+    <span>Delete</span>
+  </button>
+  <hr> -->
+  <div (click)="$event.stopPropagation()" class="p-2">
+    <strong>ID: </strong>
+    <code>{{ user._id }}</code>
+  </div>
+</mat-menu>

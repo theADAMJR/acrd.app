@@ -1,22 +1,23 @@
 <sidebar>
-    <div class="side-nav navbar-dark">
-        <div class="header"></div>
-        <div class="navbar-nav">
-            <a routerLink="/channels/@me"
-                routerLinkActive="active"
-                class="nav-item nav-link">
-            <i class="fa fa-user-friends pr-2" aria-hidden="true"></i> Friends</a>
-            <div class="category">Direct Messages</div>
-            <div class="mx-2">
-              <member-username
-                *ngFor="let channel of channelService.dmChannels"
-                class="cursor-pointer"
-                [routerLink]="'/channels/@me/' + channel._id"
-                [user]="getRecipient(channel)"></member-username>
-            </div>
-        </div>
+  <div class="side-nav navbar-dark">
+    <div class="header"></div>
+    <div class="navbar-nav">
+      <a routerLink="/channels/@me"
+        routerLinkActive="active"
+        class="nav-item nav-link">
+      <i class="fa fa-user-friends pr-2" aria-hidden="true"></i> Friends</a>
+      <div class="category">Direct Messages</div>
+      <div 
+        *ngFor="let channel of channelService.dmChannels"
+        class="mx-2 mb-1">
+        <member-username
+          class="cursor-pointer"
+          [routerLink]="'/channels/@me/' + channel._id"
+          [user]="getRecipient(channel)"></member-username>
+      </div>
     </div>
-    <div id="content">
-        <ng-content></ng-content>
-    </div>
+  </div>
+  <div id="content">
+    <ng-content></ng-content>
+  </div>
 </sidebar>

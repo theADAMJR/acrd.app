@@ -127,7 +127,7 @@ export class MessagePreviewComponent {
     private guildService: GuildService,
     private usersService: UsersService,
     private ws: WSService,
-    private perms: PermissionsService
+    private perms: PermissionsService,
   ) {}
 
   public removeEmbed() {

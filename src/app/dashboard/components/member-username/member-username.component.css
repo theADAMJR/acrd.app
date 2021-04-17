@@ -4,7 +4,7 @@ div {
   width: 100%;
   padding: 5px;
 }
-div:hover {
+.active, div:hover {
   background-color: var(--background-primary);
 }
 
