@@ -19,6 +19,7 @@ export interface WSEventArgs {
   'MESSAGE_CREATE': (args: Args.MessageCreate) => any;
   'MESSAGE_DELETE': (args: Args.MessageDelete) => any;
   'MESSAGE_UPDATE': (args: Args.MessageUpdate) => any;
+  'PING': (args: Args.Ping) => any;
   'PRESENCE_UPDATE': (params: Args.PresenceUpdate) => any;
   'READY': () => any;
   'REMOVE_FRIEND': (args: Args.RemoveFriend) => any;
@@ -203,6 +204,10 @@ export namespace Args {
   export interface MessageUpdate {
     messageId: string;
     partialMessage: Partial.Message;
+  }
+  export interface Ping {
+    channelId: string;
+    guildId?: string;
   }
   export interface PresenceUpdate {
     userId: string;

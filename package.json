@@ -43,7 +43,6 @@
     "markdown-to-text-emoji": "^1.1.0",
     "marked": "^0.8.2",
     "ngx-color-picker": "^10.1.0",
-    "ngx-highlightjs": "^4.1.0-beta",
     "ngx-infinite-scroll": "^9.1.0",
     "rxjs": "^6.6.3",
     "socket.io-client": "^4.0.0",

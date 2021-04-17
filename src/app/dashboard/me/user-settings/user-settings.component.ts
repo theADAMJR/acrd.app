@@ -21,7 +21,6 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
   @ViewChild('themeSelect')
   public themeSelect: MatSelect;
   public environment = environment;
-  public defaultTheme = 'HORIZON';
 
   public get sfxEnabled() {
     return localStorage.getItem('sfx') !== 'disabled';
@@ -54,7 +53,7 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
 
     this.themeSelect
       ?.writeValue(localStorage
-        .getItem('theme') ?? this.defaultTheme);
+        .getItem('theme') ?? this.themes.defaultTheme);
 
     this.themes.updateTheme();    
   }

@@ -10,6 +10,6 @@ export class HomeComponent {
   version = environment.version;
 
   constructor() {
-    document.title = 'Accord - Discord Clone';
+    document.title = 'Accord - Not a Discord Clone';
   }
 }

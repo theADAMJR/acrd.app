@@ -8,7 +8,7 @@ import { ChannelService } from 'src/app/services/channel.service';
 import { Lean } from 'src/app/types/entity-types';
 import { Router } from '@angular/router';
 import { SoundService } from 'src/app/services/sound.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { PingService } from 'src/app/services/ping.service';
 
 @Component({
   selector: 'sidebar',
@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
     public channelService: ChannelService,
     public guildService: GuildService,
     private sounds: SoundService,
-    private notifications: NotificationService,
+    private notifications: PingService,
     private userService: UsersService,
     private rtc: RTCService,
     private router: Router,

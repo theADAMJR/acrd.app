@@ -6,7 +6,7 @@ import { GuildService } from '../../../services/guild.service';
 import { CreateInviteComponent } from '../../../dialog/create-invite/create-invite.component';
 import { UsersService } from 'src/app/services/users.service';
 import { Lean } from 'src/app/types/entity-types';
-import { NotificationService } from 'src/app/services/notification.service';
+import { PingService } from 'src/app/services/ping.service';
 import { CreateChannelComponent } from 'src/app/dialog/create-channel/create-channel.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -37,7 +37,7 @@ export class GuildSidebarComponent implements OnInit {
     private router: Router,
     private usersService: UsersService,
     private ws: WSService,
-    public pings: NotificationService,
+    public pings: PingService,
     private dialog: MatDialog,
   ) {}
 

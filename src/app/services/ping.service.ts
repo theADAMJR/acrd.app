@@ -4,7 +4,7 @@ import { SoundService } from './sound.service';
 @Injectable({
   providedIn: 'root'
 })
-export class NotificationService {
+export class PingService {
   private unread = new Map<string, string>();
 
   constructor(private sounds: SoundService) {}

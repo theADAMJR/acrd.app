@@ -177,11 +177,14 @@ export namespace UserTypes {
     guilds: Lean.Guild[];
     email: string;
     verified: true;
+    lastReadMessages: {
+      [k: string]: string
+    };
     ignored: {
       channelIds: string[];
       guildIds: string[];
       userIds: string[];
-    }
+    };
   }
 }
 

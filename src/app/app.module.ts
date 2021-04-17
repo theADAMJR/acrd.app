@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HighlightModule } from 'ngx-highlightjs';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -143,7 +142,6 @@ export class AlertErrorHandler implements ErrorHandler {
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    HighlightModule,
     InfiniteScrollModule,
     PickerModule
   ],

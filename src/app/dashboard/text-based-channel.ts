@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from '../services/channel.service';
 import { GuildService } from '../services/guild.service';
 import { LogService } from '../services/log.service';
-import { NotificationService } from '../services/notification.service';
+import { PingService } from '../services/ping.service';
 import { PermissionsService } from '../services/permissions.service';
 import { SoundService } from '../services/sound.service';
 import { UsersService } from '../services/users.service';
@@ -50,7 +50,7 @@ export class TextBasedChannel {
     public perms: PermissionsService,
     public sounds: SoundService,
     private ws: WSService,
-    public notifications: NotificationService,
+    public notifications: PingService,
   ) {}
 
   public async init() {
