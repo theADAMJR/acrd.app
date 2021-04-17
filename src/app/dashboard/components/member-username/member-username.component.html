@@ -41,17 +41,21 @@
 </div>
 
 <mat-menu #contextMenu>
-  <!-- <button mat-menu-item>
-    <i class="fas fa-pencil-alt text-warning mr-1"></i>
-    <span>Edit</span>
+  <button
+    *ngIf="isBlocked"  
+    (click)="usersService.unblock(user._id)"
+    mat-menu-item>
+    <i class="fas fa-ban text-muted mr-1"></i>
+    <span>Unblock</span>
   </button>
   <button
-    (click)="delete()"
+    *ngIf="!isBlocked"  
+    (click)="usersService.block(user._id)"
     mat-menu-item>
-    <i class="fas fa-times-circle text-danger mr-1"></i>
-    <span>Delete</span>
+    <i class="fas fa-ban text-danger mr-1"></i>
+    <span>Block </span>
   </button>
-  <hr> -->
+  <hr>
   <div (click)="$event.stopPropagation()" class="p-2">
     <strong>ID: </strong>
     <code>{{ user._id }}</code>

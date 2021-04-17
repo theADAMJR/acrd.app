@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ChannelService } from 'src/app/services/channel.service';
 import { PingService } from 'src/app/services/ping.service';
+import { UsersService } from 'src/app/services/users.service';
+import { Args, WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({
@@ -9,7 +11,7 @@ import { Lean } from 'src/app/types/entity-types';
   templateUrl: './member-username.component.html',
   styleUrls: ['./member-username.component.css']
 })
-export class MemberUsernameComponent {
+export class MemberUsernameComponent implements OnInit {
   @Input() user: Lean.User;
   @Input() guild: Lean.Guild;
   @Input() withAvatar = true;
@@ -32,15 +34,37 @@ export class MemberUsernameComponent {
     return this.guild.roles
       .filter(r => this.member.roleIds.includes(r._id));
   }
+  public get isBlocked() {
+    return this.usersService.user.ignored.userIds.includes(this.user._id);
+  }
 
   public get dmChannelId() {
     return this.channelService.getDMChannel(this.user._id)?._id;
   }
 
   constructor(
-    public pings: PingService,
     private channelService: ChannelService,
+    public pings: PingService,
+    public usersService: UsersService,
+    private ws: WSService,
   ) {}
+
+  public ngOnInit() {
+    this.hookWSEvents();
+  }
+
+  private hookWSEvents() {
+    this.ws
+      .on('USER_UPDATE', this.updateUser, this);
+  }
+
+  private updateUser(args: Args.UserUpdate) {
+    const user = this.usersService.user;
+    this.usersService.upsertCached(user._id, {
+      ...user,
+      ...args.partialUser,
+    })
+  }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
     event.preventDefault();
