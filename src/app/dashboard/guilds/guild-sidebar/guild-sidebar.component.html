@@ -2,13 +2,13 @@
   <div *ngIf="guild" class="side-nav navbar-dark">
     <div class="header">
       <div class="dropdown">
-        <button id="heftyButton"
-          class="btn bg-transparent dropdown-toggle d-flex justify-content-between" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button
+          id="heftyButton"
+          [matMenuTriggerFor]="guildMenu"
+          class="btn bg-transparent"
+          type="button">
           <h1><strong>{{ guild.name }}</strong></h1>
         </button>
-
-        <div class="dropdown-menu" aria-labelledby="heftyButton">
-        </div>
       </div>
     </div>
     <div class="category">Channels</div>
@@ -17,7 +17,13 @@
       <a *ngFor="let channel of textChannels"
         [routerLink]="'/channels/' + guild._id + '/' + channel._id"
         routerLinkActive="active"
-        class="nav-item nav-link">
+        class="nav-item nav-link">        
+        <span class="float-right text-muted p-1">
+          <i *ngIf="pings.isUnread(channel._id)"
+            matTooltip="Unread Pings"
+            class="fas fa-circle"></i>
+        </span>
+
         <i class="fas fa-hashtag"
           [ngClass]="{
             'text-muted': usersService.user.ignored.channelIds.includes(channel._id),
@@ -62,7 +68,7 @@
   </div>
 </sidebar>
 
-<mat-menu #guildMenu="matMenu">
+<mat-menu #guildMenu="matMenu" width="400px">
   <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
     (click)="createInviteDialog()"
     class="dropdown-item invite"

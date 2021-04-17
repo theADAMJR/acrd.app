@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChannelService } from 'src/app/services/channel.service';
-import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
 import { Args, WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';

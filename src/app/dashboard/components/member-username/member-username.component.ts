@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChannelService } from 'src/app/services/channel.service';
+import { PingService } from 'src/app/services/ping.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({
@@ -29,8 +31,13 @@ export class MemberUsernameComponent {
     return this.guild.roles
       .filter(r => this.member.roleIds.includes(r._id));
   }
-  
-  public openPopover() {
-    if (!this.guild) return;
+
+  public get dmChannelId() {
+    return this.channelService.getDMChannel(this.user._id)?._id;
   }
+
+  constructor(
+    public pings: PingService,
+    private channelService: ChannelService,
+  ) {}
 }

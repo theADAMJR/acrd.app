@@ -39,12 +39,11 @@
         (keyup.enter)="chat(message.value)"
         appearance="fill">
         <mat-label>Message #{{ channel.name }}</mat-label>
-        <input
+        <textarea
           [disabled]="!perms.can(guild._id, 'SEND_MESSAGES')"
           id="chatBox"
-          type="text"
           matInput
-          #message>
+          #message></textarea>
         <mat-icon
           (click)="emojiPickerOpen = true"
           class="cursor-pointer emoji-icon"

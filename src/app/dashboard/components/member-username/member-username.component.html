@@ -5,7 +5,7 @@
   [routerLink]="routerLink || './'"
   routerLinkActive="active"
   [title]="user.username"
-  [class]="guild ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
+  [class]="(guild) ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
     <app-avatar-url
       *ngIf="withAvatar"
       [user]="user"></app-avatar-url>
@@ -15,6 +15,12 @@
   <div
     [style.color]="member ? roleColor : 'var(--light)'"
     class="username ml-4 pt-0">
+    <span class="float-right text-muted p-1">
+      <i *ngIf="pings.isUnread(dmChannelId)"
+        matTooltip="Unread Pings"
+        class="fas fa-circle"></i>
+    </span>
+
     <span class="username-text pl-2">{{ user.username }}</span>
     <span
       *ngIf="user.bot"
@@ -25,12 +31,4 @@
       matTooltip="Guild Owner"
       class="crown pl-1"><i class="fas fa-crown"></i></span>
   </div>
-  <span
-    *ngIf="voice"
-    class="float-right text-muted p-1">
-    <i
-      *ngIf="user.voice.selfMuted"
-      matTooltip="Muted"
-      class="fas fa-microphone-slash"></i>
-  </span>
 </div>

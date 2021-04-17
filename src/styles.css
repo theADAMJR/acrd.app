@@ -4,7 +4,7 @@
 @import '~highlight.js/styles/arta.css';
 @import '~@ctrl/ngx-emoji-mart/picker.css';
 @import '~bootstrap-select/dist/css/bootstrap-select.min.css';
-@import url('http://fonts.cdnfonts.com/css/whitney-2');
+@import 'assets/css/whitney-font.css';
 
 :root {
   --mention: rgba(243, 187, 32, 0.25);
@@ -125,6 +125,10 @@ mat-paginator {
 .mat-tooltip {
   background-color: var(--background-tertiary) !important;
   color: var(--heading) !important;
+}
+
+.mat-menu-content {
+  min-width: 175px;
 }
 
 snack-bar-container.mat-snack-bar-container {
