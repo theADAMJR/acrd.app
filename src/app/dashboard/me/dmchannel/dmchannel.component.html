@@ -6,7 +6,6 @@
     <dashboard-navbar>      
       <i class="fas fa-at pr-2 text-muted"></i>
       <strong>{{ recipient?.username }}</strong>
-
     </dashboard-navbar>
 
     <div class="messages"
@@ -42,7 +41,10 @@
         (keyup.enter)="chat(message.value)"
         appearance="fill">
         <mat-label>Message #{{ recipient?.username }}</mat-label>
-        <input id="chatBox" type="text" matInput #message>
+        <textarea
+          id="chatBox"
+          matInput
+          #message></textarea>
         <mat-icon
           (click)="emojiPickerOpen = true"
           class="cursor-pointer emoji-icon"

@@ -33,7 +33,6 @@ import { CamelToSentenceCasePipe } from './pipes/camel-to-sentence-case.pipe';
 import { WavesComponent } from './utils/waves/waves.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { DashboardNavbarComponent } from './dashboard/components/dashboard-navbar/dashboard-navbar.component';
-import { CreateGuildModalComponent } from './dashboard/modals/create-guild-modal/create-guild-modal.component';
 import { TextChannelComponent } from './dashboard/guilds/text-channel/text-channel.component';
 import { VoiceChannelComponent } from './dashboard/guilds/voice-channel/voice-channel.component';
 import { CreateInviteComponent } from './dialog/create-invite/create-invite.component';
@@ -61,6 +60,7 @@ import { SubmarineComponent } from './pages/home/submarine/submarine.component';
 import { InviteComponent } from './pages/invite/invite.component';
 import { CountdownPipe } from './countdown.pipe';
 import { CreateChannelComponent } from './dialog/create-channel/create-channel.component';
+import { CreateGuildComponent } from './dialog/create-guild/create-guild.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -109,7 +109,6 @@ export class AlertErrorHandler implements ErrorHandler {
     LoginComponent,
     SignUpComponent,
     DashboardNavbarComponent,
-    CreateGuildModalComponent,
     TextChannelComponent,
     VoiceChannelComponent,
     CreateInviteComponent,
@@ -133,6 +132,7 @@ export class AlertErrorHandler implements ErrorHandler {
     InviteComponent,
     CountdownPipe,
     CreateChannelComponent,
+    CreateGuildComponent,
   ],
   imports: [
     AppRoutingModule,

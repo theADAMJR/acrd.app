@@ -72,8 +72,6 @@
   <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
     (click)="createInviteDialog()"
     class="dropdown-item invite"
-    data-toggle="modal"
-    data-target="#createInviteModal"
     mat-menu-item>Invite People <i class="fas fa-user-plus"></i></a>
     
   <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"

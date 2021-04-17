@@ -150,6 +150,9 @@ snack-bar-container.mat-snack-bar-container {
 .mat-dialog-container {
   background-color: var(--background-primary) !important;
 }
+.mat-dialog-container .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
 
 /* docs */
 
@@ -292,6 +295,10 @@ div.arrow::after,
 div.arrow::before {
   background-color: var(--background-secondary);
   border-color: transparent;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+  background-color: unset;
 }
 
 /* discord */

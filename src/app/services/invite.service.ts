@@ -9,11 +9,19 @@ import { Lean } from '../types/entity-types';
 export class InviteService {
   private endpoint = `${environment.rootEndpoint}/invites`;
 
+  private get headers() {
+    return {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('key')}`,
+      }
+    }
+  }
+
   constructor(
     private http: HttpClient,
   ) {}
 
   public fetch(id: string): Promise<Lean.Invite> {
-    return this.http.get(`${this.endpoint}/${id}`).toPromise() as any;
+    return this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise() as any;
   }
 }

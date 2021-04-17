@@ -9,6 +9,8 @@ import { Lean } from 'src/app/types/entity-types';
 import { Router } from '@angular/router';
 import { SoundService } from 'src/app/services/sound.service';
 import { PingService } from 'src/app/services/ping.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateGuildComponent } from 'src/app/dialog/create-guild/create-guild.component';
 
 @Component({
   selector: 'sidebar',
@@ -30,6 +32,7 @@ export class SidebarComponent implements OnInit {
     private rtc: RTCService,
     private router: Router,
     private ws: WSService,
+    private dialog: MatDialog,
   ) {}
 
   async ngOnInit() {
@@ -63,5 +66,11 @@ export class SidebarComponent implements OnInit {
     const icon = document.querySelector('#nav-icon1');
     icon.classList.toggle('open');
     this.drawer.toggle();
+  }
+
+  public createGuildDialog() {
+    this.dialog.open(CreateGuildComponent, {
+      width: '500px',
+    });
   }
 }

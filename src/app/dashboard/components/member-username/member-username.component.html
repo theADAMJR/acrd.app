@@ -14,14 +14,14 @@
     [class]="user.status?.toLowerCase()"></span>
   <div
     [style.color]="member ? roleColor : 'var(--light)'"
-    class="username ml-4 pt-0">
+    class="username pt-0">
     <span class="float-right text-muted p-1">
       <i *ngIf="pings.isUnread(dmChannelId)"
         matTooltip="Unread Pings"
         class="fas fa-circle"></i>
     </span>
 
-    <span class="username-text pl-2">{{ user.username }}</span>
+    <span class="username-text">{{ user.username }}</span>
     <span
       *ngIf="user.bot"
       textContent="user.username === 'Accord' ? 'SYSTEM' : 'BOT'"

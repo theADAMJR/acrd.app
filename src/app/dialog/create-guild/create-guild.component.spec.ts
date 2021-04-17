@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateGuildModalComponent } from './create-guild-modal.component';
+import { CreateGuildComponent } from './create-guild.component';
 
-describe('CreateGuildModalComponent', () => {
-  let component: CreateGuildModalComponent;
-  let fixture: ComponentFixture<CreateGuildModalComponent>;
+describe('CreateGuildComponent', () => {
+  let component: CreateGuildComponent;
+  let fixture: ComponentFixture<CreateGuildComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateGuildModalComponent ]
+      declarations: [ CreateGuildComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateGuildModalComponent);
+    fixture = TestBed.createComponent(CreateGuildComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

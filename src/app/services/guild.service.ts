@@ -9,8 +9,14 @@ export class GuildService {
   private readonly endpoint = environment.endpoint + '/guilds';
   private _guilds: Lean.Guild[] = [];
   
-  public get guilds() { return this._guilds; }
-  private get headers() { return { headers: { Authorization: `Bearer ${localStorage.getItem('key')}` } }; }
+  public get guilds() {
+    return this._guilds;
+  }
+  private get headers() {
+    return {
+      headers: { Authorization: `Bearer ${localStorage.getItem('key')}` }
+    };
+  }
 
   private get key() {
     return localStorage.getItem('key');

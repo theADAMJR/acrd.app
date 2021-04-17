@@ -1,42 +1,44 @@
+<h5 id="addGuildLabel" mat-dialog-title>Add Guild</h5>
 
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addGuildLabel">Add Guild</h5>
-        <button type="button" class="close" aria-label="Close" data-dismiss="modal">
-          <a aria-hidden="true">
-            <i class="fas fa-times"></i>
-          </a>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h4 class="text-center">Create a Guild</h4>
-        <div class="d-flex justify-content-center">
-            <form #f="ngForm" [formGroup]="form" (submit)="submit()">
-              <mat-form-field appearance="outline">
-                <mat-label>Server Name</mat-label>
-                <input formControlName="name" type="text" matInput>
-                <mat-error *ngIf="form.get('name').invalid">Required, and should be less than 32 characters.</mat-error>
-              </mat-form-field>
-              <div class="d-flex justify-content-center">
-                <button class="btn btn-success mt-2"
-                [disabled]="processing">Create</button>
-              </div>
-            </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <h4 class="text-center">Already have an invite?</h4>
-        <div class="d-flex justify-content-center">
-          <mat-form-field appearance="outline">
-            <mat-label>Invite</mat-label>
-            <input type="text" matInput #inviteInput>
-          </mat-form-field>
-        </div>
+<div mat-dialog-content>
+  <h4 class="text-center">Create a Guild</h4>
+  <div class="d-flex justify-content-center">
+    <form
+      #f="ngForm"
+      [formGroup]="form"
+      (submit)="create()">
+      <mat-form-field appearance="outline">
+        <mat-label>Server Name</mat-label>
+        <input
+          formControlName="name"
+          type="text"
+          matInput>
+        <mat-error *ngIf="form.get('name').invalid">Required, and should be less than 32 characters.</mat-error>
+      </mat-form-field>
+      <div class="d-flex justify-content-center">
         <button
-          [disabled]="processing"
-          (click)="joinGuild()"
-          id="joinGuildButton"
-          type="button"
-          class="btn btn-secondary">Join a Guild</button>
+          class="btn btn-success mt-2 mb-4"
+          [disabled]="processing">Create</button>
       </div>
-    </div>
+    </form>
+  </div>
+</div>
+
+<div mat-dialog-footer>
+  <h4 class="text-center">Already have an invite?</h4>
+  <div class="d-flex justify-content-center">
+    <mat-form-field appearance="outline">
+      <mat-label>Invite</mat-label>
+      <input type="text" matInput #inviteInput>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center" mat-dialog-actions>
+  <button
+    [disabled]="processing"
+    (click)="joinGuild()"
+    id="joinGuildButton"
+    type="button"
+    class="btn btn-secondary">Join a Guild</button>
+</div>

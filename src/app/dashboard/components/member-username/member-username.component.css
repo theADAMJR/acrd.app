@@ -17,7 +17,11 @@ img {
 }
 
 .username {
-  max-width: 224px;
+  max-width: 200px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .username-text {
   font-size: 20px;

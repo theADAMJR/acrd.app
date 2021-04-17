@@ -18,7 +18,8 @@
         <span *ngIf="!guild.iconURL"
           class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
       </div>
-      <div data-toggle="modal" data-target="#addGuildModal"
+      <div
+        (click)="createGuildDialog()"
         class="guild-icon invite bg-transparent cursor-pointer"
         matTooltip="Add a Guild">
         <span class="add-guild pt-0 d-flex justify-content-center flex-column">+</span>
@@ -41,22 +42,16 @@
       </div>
 
       <div class="d-flex">
-        <app-avatar-url [user]="user" size="48px" class="pt-2"></app-avatar-url>
-        <span class="py-3 pl-2">{{ user.username }}</span>
+        <app-avatar-url
+          [user]="user"
+          size="48px"
+          class="pt-2"></app-avatar-url>
+        <span class="pl-2">{{ user.username }}</span>
       </div>
     </div>
-    <create-guild-modal></create-guild-modal>
   </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <!-- <button class="toggle">
-      <div id="nav-icon1" class="open"
-        (click)="toggle()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </button> -->
     <ng-content select="#content"></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -63,9 +63,10 @@ export class TextBasedChannel {
 
       this.notifications.markAsRead(channelId);
 
+      const guild = this.guildService.getGuild(this.parentId);
       document.title = (this.parentId === '@me')
-        ? `@${this.recipient.username}`
-        : `#${this.channel.name}`;
+        ? `@me | @${this.recipient.username}`
+        : `${guild.name} | #${this.channel.name}`;
 
       this.messages = await this.channelService.getMessages(channelId);
       
