@@ -35,6 +35,12 @@ export class GuildService {
     return this.guilds?.find(g => g._id === id);
   }
 
+  public getGuildFromChannel(channelId: string): Lean.Guild | undefined {
+    return this.guilds
+      ?.find(g => g.channels
+        .find(c => c._id === channelId));
+  }
+
   public updateCached(id: string, value: Lean.Guild): Lean.Guild {
     const index = this.guilds.findIndex(g => g._id === id);
     return this.guilds[index] = value;

@@ -77,7 +77,7 @@ export class TextBasedChannel {
 
   public hookWSEvents() {
     this.ws
-      .once('MESSAGE_CREATE', this.createMessage, this)
+      .on('MESSAGE_CREATE', this.createMessage, this)
       .once('MESSAGE_UPDATE', this.updateMessage, this)
       .once('MESSAGE_DELETE', this.deleteMessage, this)
       .once('TYPING_START', this.addTypingUser, this);

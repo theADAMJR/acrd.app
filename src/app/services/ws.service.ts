@@ -21,7 +21,7 @@ export class WSService {
 
   public on<K extends keyof WSEventArgs>(name: K, callback: WSEventArgs[K], component: any): this {
     const listener = (...args: string[]) => {
-      this.log.info(`RECEIVE ${name}`, 'ws');
+      this.log.info(`RECEIVE ${name} - ${this.getName(component)}`, 'ws');      
       return callback.call(component, ...args);
     }
     this.socket.on(name, listener); 
@@ -30,8 +30,8 @@ export class WSService {
   }
 
   public once<K extends keyof WSEventArgs>(name: K, callback: WSEventArgs[K], component: any): this {
-    const listener = (...args: string[]) => {
-      this.log.info(`RECEIVE ${name}`, 'ws');
+    const listener = (...args: string[]) => {      
+      this.log.info(`RECEIVE ${name} - ${this.getName(component)}`, 'ws');
       return callback.call(component, ...args);
     }
 
@@ -40,6 +40,10 @@ export class WSService {
     this.socket.on(name, listener); 
     
     return this;
+  }
+
+  private getName(component: any) {
+    return component.constructor.name;
   }
 
   public emit<K extends keyof WSEventParams>(name: K, params: WSEventParams[K]) {

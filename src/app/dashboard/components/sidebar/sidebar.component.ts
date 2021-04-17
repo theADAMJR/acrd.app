@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
     public channelService: ChannelService,
     public guildService: GuildService,
     private sounds: SoundService,
-    private notifications: PingService,
+    private pings: PingService,
     private userService: UsersService,
     private rtc: RTCService,
     private router: Router,
@@ -42,13 +42,16 @@ export class SidebarComponent implements OnInit {
   public hookWSEvents() {
     this.ws
       .once('GUILD_JOIN', this.joinGuild, this)
-      .once('MESSAGE_CREATE', this.sendNotification, this);
+      .on('MESSAGE_CREATE', this.ping, this);
   }
 
-  public async sendNotification({ message }: Args.MessageCreate) {
-    if (message.authorId === this.user._id) return;
+  public async ping({ message }: Args.MessageCreate) {
+    const guild = this.guildService.getGuildFromChannel(message.channelId);
+    if (this.pings.isIgnored(message, guild)) return;
 
-    await this.notifications.add(message.channelId, message._id);
+    alert('ping')
+
+    await this.pings.add(message.channelId, message._id);
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {

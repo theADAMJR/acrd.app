@@ -8,8 +8,8 @@ export class SoundService {
     return localStorage.getItem('sfx') !== 'disabled';
   }
 
-  public async notification() {
-    await this.playSound('notification');
+  public async ping() {
+    await this.playSound('ping');
   }
   public async message() {
     await this.playSound('message');
