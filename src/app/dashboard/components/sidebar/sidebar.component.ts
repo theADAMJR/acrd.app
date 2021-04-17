@@ -41,15 +41,13 @@ export class SidebarComponent implements OnInit {
 
   public hookWSEvents() {
     this.ws
-      .once('GUILD_JOIN', this.joinGuild, this)
+      .on('GUILD_JOIN', this.joinGuild, this)
       .on('MESSAGE_CREATE', this.ping, this);
   }
 
   public async ping({ message }: Args.MessageCreate) {
     const guild = this.guildService.getGuildFromChannel(message.channelId);
-    if (this.pings.isIgnored(message, guild)) return;
-
-    alert('ping')
+    if (this.pings.isIgnored(message, guild?._id)) return;
 
     await this.pings.add(message.channelId, message._id);
   }
@@ -59,35 +57,11 @@ export class SidebarComponent implements OnInit {
     this.router.navigate([`/channels/${guild._id}`]);
 
     await this.sounds.success();
-    document.querySelector('.modal-backdrop')?.remove();
   }
 
   public toggle() {
     const icon = document.querySelector('#nav-icon1');
     icon.classList.toggle('open');
     this.drawer.toggle();
-  }
-
-  public async disconnect() {
-    this.ws.emit('VOICE_STATE_UPDATE', {
-      voice: {
-        ...this.user.voice,
-        channelId: null,
-        guildId: null
-      },
-    });
-
-    this.rtc.hangUp();
-  }
-
-  public mute() {
-    this.user.voice.selfMuted = !this.user.voice.selfMuted;
-    (this.user.voice.selfMuted)
-      ? this.rtc.muteMicrophone()
-      : this.rtc.unmuteMicrophone();
-
-    this.ws.emit('VOICE_STATE_UPDATE', {
-      voice: this.user.voice,
-    });
   }
 }

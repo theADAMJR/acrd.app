@@ -5,13 +5,13 @@ import { Lean, UserTypes } from '../types/entity-types';
 import { PingService } from './ping.service';
 import { UsersService } from './users.service';
 
-describe('NotificationService', () => {
+describe('PingService', () => {
   let service: PingService;
   let usersService: UsersService;
   let message: Lean.Message;
   let user: UserTypes.Self;
 
-  beforeEach(() => {
+  beforeEach(async() => {
     TestBed.configureTestingModule({
       imports: [AppModule],
     });

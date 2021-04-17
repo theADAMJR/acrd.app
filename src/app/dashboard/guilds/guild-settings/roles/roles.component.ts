@@ -61,20 +61,20 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   private hookWSEvents() {
-    this.ws.once('GUILD_ROLE_CREATE', async ({ role }) => {
+    this.ws.on('GUILD_ROLE_CREATE', async ({ role }) => {
       this.guild.roles.push(role);
       this.originalGuild = {...this.guild};
 
       await this.selectRole(role);
     }, this)
-    .once('GUILD_ROLE_DELETE', async ({ roleId }) => {
+    .on('GUILD_ROLE_DELETE', async ({ roleId }) => {
       const index = this.guild.roles.findIndex(r => r._id === roleId);
       this.guild.roles.splice(index, 1);
       this.originalGuild = {...this.guild};
 
       await this.selectRole(this.guild.roles[0]);
     }, this)
-    .once('GUILD_ROLE_UPDATE', ({ roleId, partialRole }) => {
+    .on('GUILD_ROLE_UPDATE', ({ roleId, partialRole }) => {
       const index = this.guild.roles.findIndex(r => r._id === roleId);
       this.guild.roles[index] = {
         ...this.guild.roles[index],
@@ -162,7 +162,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
         roleId: this.selectedRole._id,
         guildId: this.guildId,
         partialRole: this.form.value,
-      });
+      }, this);
     } catch {
       alert('An error occurred when submitting the form - check console');
     }
@@ -176,11 +176,11 @@ export class RolesComponent extends ModuleConfig implements OnInit {
         ...this.form.value,
         name: 'New Role'
       },
-    });
+    }, this);
   }
 
   deleteRole() {
     ;
-    this.ws.emit('GUILD_ROLE_DELETE', ({ roleId: this.selectedRole._id, guildId: this.guildId }));
+    this.ws.emit('GUILD_ROLE_DELETE', ({ roleId: this.selectedRole._id, guildId: this.guildId }), this);
   }
 }

@@ -1,15 +1,6 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { GuildService } from 'src/app/services/guild.service';
-import { UsersService } from 'src/app/services/users.service';
-import { FormControl } from '@angular/forms';
-import { Args, Params, WSService } from 'src/app/services/ws.service';
-import { LogService } from 'src/app/services/log.service';
-import { ChannelService } from 'src/app/services/channel.service';
-import { PermissionsService } from 'src/app/services/permissions.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Lean } from 'src/app/types/entity-types';
 import { TextBasedChannel } from '../../text-based-channel';
-import { SoundService } from 'src/app/services/sound.service';
 
 @Component({
   selector: 'app-text-channel',

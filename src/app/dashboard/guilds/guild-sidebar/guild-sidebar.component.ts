@@ -35,7 +35,7 @@ export class GuildSidebarComponent implements OnInit {
     private guildService: GuildService,
     public perms: PermissionsService,
     private router: Router,
-    private usersService: UsersService,
+    public usersService: UsersService,
     private ws: WSService,
     public pings: PingService,
     private dialog: MatDialog,
@@ -59,11 +59,11 @@ export class GuildSidebarComponent implements OnInit {
 
   public hookWSEvents() {
     this.ws
-      .once('CHANNEL_CREATE', this.addChannelToGuild, this)
-      .once('PRESENCE_UPDATE', this.updateMemberPresence, this)      
-      .once('GUILD_UPDATE', this.updateGuild, this)
-      .once('GUILD_ROLE_UPDATE', this.updateRole, this)
-      .once('GUILD_DELETE', this.delete, this);
+      .on('CHANNEL_CREATE', this.addChannelToGuild, this)
+      .on('PRESENCE_UPDATE', this.updateMemberPresence, this)      
+      .on('GUILD_UPDATE', this.updateGuild, this)
+      .on('GUILD_ROLE_UPDATE', this.updateRole, this)
+      .on('GUILD_DELETE', this.delete, this);
   }
 
   private addChannelToGuild({ channel }: Args.ChannelCreate) {

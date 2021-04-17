@@ -81,7 +81,7 @@ export class BotUserComponent implements OnInit {
     this.ws.emit('USER_UPDATE', {
       key: this.app.token,
       partialUser: this.form.value,
-    });
+    }, this);
     this.originalForm = { ...this.form.value };
     
     await this.sounds.success();

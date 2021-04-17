@@ -40,7 +40,7 @@ export class DashboardOverviewComponent {
 
     this.ws.emit('SEND_FRIEND_REQUEST', {
       friendUsername: this.addFriendForm.value.username
-    });
+    }, this);
   }
 
   setTab(tab: TabType) {

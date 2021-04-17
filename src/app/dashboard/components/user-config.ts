@@ -88,7 +88,7 @@ export abstract class UserConfig implements OnDestroy {
       this.ws.emit('USER_UPDATE', {
         key: localStorage.getItem('key'),
         partialUser: this.form.value,
-      });
+      }, this);
 
       await this.log.success('Successfully updated.');
     } catch (error) {

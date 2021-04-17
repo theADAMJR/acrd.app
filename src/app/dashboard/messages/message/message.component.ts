@@ -137,17 +137,17 @@ export class MessagePreviewComponent {
       messageId: this.message._id,
       partialMessage: this.message,
       withEmbed: false
-    });
+    }, this);
   }
 
   public delete() {
-    this.ws.emit('MESSAGE_DELETE', { messageId: this.message._id });
+    this.ws.emit('MESSAGE_DELETE', { messageId: this.message._id }, this);
 
     document
       .querySelector(`#message${this.message._id}`)
       ?.remove();
 
-    this.ws.once('MESSAGE_DELETE', async ({ messageId }) => {
+    this.ws.on('MESSAGE_DELETE', async ({ messageId }) => {
       if (messageId === this.message._id)
         await this.log.success();
     }, this);
@@ -164,9 +164,9 @@ export class MessagePreviewComponent {
       messageId: this.message._id,
       partialMessage: { content: this.message.content },
       withEmbed: Boolean(this.message.embed),
-    });
+    }, this);
 
-    this.ws.once('MESSAGE_UPDATE', async ({ partialMessage }) => {
+    this.ws.on('MESSAGE_UPDATE', async ({ partialMessage }) => {
       if (partialMessage.content === this.message.content)
         await this.log.success();
     }, this);

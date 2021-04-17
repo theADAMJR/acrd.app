@@ -42,10 +42,10 @@ export class FriendsListComponent implements OnInit {
 
   public hookWSEvents() {
     this.ws
-      .once('ACCEPT_FRIEND_REQUEST', this.acceptFriendRequest, this)
-      .once('CANCEL_FRIEND_REQUEST', this.updateFriends, this)
-      .once('REMOVE_FRIEND', this.updateFriends, this)
-      .once('SEND_FRIEND_REQUEST', this.sendFriendRequest, this);
+      .on('ACCEPT_FRIEND_REQUEST', this.acceptFriendRequest, this)
+      .on('CANCEL_FRIEND_REQUEST', this.updateFriends, this)
+      .on('REMOVE_FRIEND', this.updateFriends, this)
+      .on('SEND_FRIEND_REQUEST', this.sendFriendRequest, this);
   }
   
   public acceptFriendRequest({ sender, friend, dmChannel }: Args.AcceptFriendRequest) {
@@ -71,13 +71,13 @@ export class FriendsListComponent implements OnInit {
   }
 
   public accept(friendId: string) {
-    this.ws.emit('ACCEPT_FRIEND_REQUEST', { friendId });
+    this.ws.emit('ACCEPT_FRIEND_REQUEST', { friendId }, this);
   }
   public cancel(friendId: string) {
-    this.ws.emit('CANCEL_FRIEND_REQUEST', { friendId });
+    this.ws.emit('CANCEL_FRIEND_REQUEST', { friendId }, this);
   }
   public remove(friendId: string) {
-    this.ws.emit('REMOVE_FRIEND', { friendId });
+    this.ws.emit('REMOVE_FRIEND', { friendId }, this);
   }
 }
 

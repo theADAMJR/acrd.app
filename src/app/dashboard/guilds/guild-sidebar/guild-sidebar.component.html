@@ -6,19 +6,8 @@
           class="btn bg-transparent dropdown-toggle d-flex justify-content-between" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <h1><strong>{{ guild.name }}</strong></h1>
         </button>
+
         <div class="dropdown-menu" aria-labelledby="heftyButton">
-          <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
-            (click)="createInviteDialog()"
-            class="dropdown-item invite"
-            data-toggle="modal"
-            data-target="#createInviteModal">Invite People <i class="fas fa-user-plus"></i></a>
-            
-          <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
-            class="dropdown-item" [routerLink]="'/channels/' + guild._id + '/settings'">Guild Settings <i class="fas fa-cogs"></i></a>
-            
-          <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
-            (click)="createChannelDialog()"
-            class="dropdown-item">Create Channel <i class="fas fa-plus-circle"></i></a>
         </div>
       </div>
     </div>
@@ -31,7 +20,8 @@
         class="nav-item nav-link">
         <i class="fas fa-hashtag"
           [ngClass]="{
-            'text-muted': true
+            'text-muted': usersService.user.ignored.channelIds.includes(channel._id),
+            'text-warning': pings.isUnread(channel._id)
           }"></i>
         <span>{{ channel.name }}</span>
         <span *ngIf="pings.isUnread(channel._id)" class="ml-2">
@@ -43,6 +33,7 @@
             class="fas fa-cog text-muted channel-settings spin"></i>
         </span>
       </a>
+
       <voice-channel
         *ngFor="let channel of voiceChannels"
         [channel]="channel"
@@ -70,3 +61,22 @@
     </div>
   </div>
 </sidebar>
+
+<mat-menu #guildMenu="matMenu">
+  <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
+    (click)="createInviteDialog()"
+    class="dropdown-item invite"
+    data-toggle="modal"
+    data-target="#createInviteModal"
+    mat-menu-item>Invite People <i class="fas fa-user-plus"></i></a>
+    
+  <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
+    class="dropdown-item"
+    [routerLink]="'/channels/' + guild._id + '/settings'"
+    mat-menu-item>Guild Settings <i class="fas fa-cogs"></i></a>
+    
+  <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
+    (click)="createChannelDialog()"
+    class="dropdown-item"
+    mat-menu-item>Create Channel <i class="fas fa-plus-circle"></i></a>
+</mat-menu>

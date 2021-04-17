@@ -6,9 +6,8 @@ import { WSEventArgs, WSEventParams } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class WSService {
-  private listeners = new Map<keyof WSEventArgs, ComponentListener>();
-
-  private readonly socket = (io as any).connect(environment.rootEndpoint);
+  private socket = (io as any).connect(environment.rootEndpoint);
+  private listened: string[] = [];
 
   constructor(private log: LogService) {
     this.socket.once('message', (content: string) => {
@@ -19,39 +18,30 @@ export class WSService {
     });
   }
 
-  public on<K extends keyof WSEventArgs>(name: K, callback: WSEventArgs[K], component: any): this {
-    const listener = (...args: string[]) => {
-      this.log.info(`RECEIVE ${name} - ${this.getName(component)}`, 'ws');      
+  public on<K extends keyof WSEventArgs>(eventName: K, callback: WSEventArgs[K], component: any): this {
+    const componentName = this.nameOf(component);
+    const eventString = `${eventName}-${componentName}`;
+    if (this.listened.includes(eventString)) return;
+
+    this.listened.push(eventString);
+
+    const listener = (...args: any[]) => {      
+      this.log.info(`RECEIVE ${eventName} - ${componentName}`, 'ws');
       return callback.call(component, ...args);
-    }
-    this.socket.on(name, listener); 
-
-    return this;
-  }
-
-  public once<K extends keyof WSEventArgs>(name: K, callback: WSEventArgs[K], component: any): this {
-    const listener = (...args: string[]) => {      
-      this.log.info(`RECEIVE ${name} - ${this.getName(component)}`, 'ws');
-      return callback.call(component, ...args);
-    }
-
-    this.socket.off(name, this.listeners.get(name)?.listener);
-    this.listeners.set(name, { component, listener });
-    this.socket.on(name, listener); 
+    };
+    this.socket.on(eventName, listener);
     
     return this;
   }
 
-  private getName(component: any) {
-    return component.constructor.name;
-  }
-
-  public emit<K extends keyof WSEventParams>(name: K, params: WSEventParams[K]) {
-    this.log.info(`SEND ${name}`, 'ws');
+  public emit<K extends keyof WSEventParams>(name: K, params: WSEventParams[K], component: any) {
+    this.log.info(`SEND ${name} - ${this.nameOf(component)}`, 'ws');
     this.socket.emit(name, params);
   }
-}
 
-interface ComponentListener { component: any, listener: () => any };
+  public nameOf(component: any) {
+    return component.constructor.name;
+  }
+}
 
 export * from '../types/ws-types';

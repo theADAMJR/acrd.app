@@ -27,7 +27,7 @@ export class VoiceChannelComponent implements OnInit {
   }
 
   async hookWSEvents() {
-    this.ws.once('VOICE_STATE_UPDATE', async ({ userId, voice, memberIds }) => {
+    this.ws.on('VOICE_STATE_UPDATE', async ({ userId, voice, memberIds }) => {
       if (this.channel._id !== voice.channelId) return;
 
       const user = this.userService.user;
@@ -36,7 +36,7 @@ export class VoiceChannelComponent implements OnInit {
       
       this.channel.memberIds = memberIds;
     }, this)
-    .once('PRESENCE_UPDATE', ({ userId }) => {
+    .on('PRESENCE_UPDATE', ({ userId }) => {
       this.rtc.audio.stop(userId);
     }, this);
   }
@@ -52,7 +52,7 @@ export class VoiceChannelComponent implements OnInit {
       guildId: this.guild._id,
     };
 
-    this.ws.emit('VOICE_STATE_UPDATE', { voice: user.voice });
+    this.ws.emit('VOICE_STATE_UPDATE', { voice: user.voice }, this);
   }
 
   getUser(userId: string) {

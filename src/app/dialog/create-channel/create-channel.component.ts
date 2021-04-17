@@ -59,9 +59,9 @@ export class CreateChannelComponent {
     this.ws.emit('CHANNEL_CREATE', {
       partialChannel: this.form.value,
       guildId: this.data.guild._id
-    });
+    }, this);
 
-    this.ws.once('CHANNEL_CREATE', async ({ channel }) => {
+    this.ws.on('CHANNEL_CREATE', async ({ channel }) => {
       await this.router.navigate([`/channels/${channel.guildId}/${channel._id}`]);
     }, this);
   }

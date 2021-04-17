@@ -4,14 +4,11 @@
     <img src="/assets/img/logo.png" alt="Accord Logo" class="logo">
   </a>
   <div class="nav navbar-nav">
-    <!-- <a class="nav-item nav-link" routerLink="/docs" routerLinkActive="active"
-      matTooltip="Docs">
-      <i class="fa fa-book" aria-hidden="true"></i>
-    </a> -->
-    <!-- <a class="nav-item nav-link" [href]="githubURL" routerLinkActive="active"
-      matTooltip="GitHub">
-      <i class="fab fa-github" aria-hidden="true"></i>
-    </a> -->
+    <a class="nav-item nav-link" 
+      routerLink="/docs" 
+      routerLinkActive="active">
+      <i class="fa fa-book" aria-hidden="true"></i> Docs
+    </a>
   </div>
   <div class="nav navbar-nav ml-auto">
     <div *ngIf="!user">
@@ -25,25 +22,23 @@
       </a>
     </div>
     <div *ngIf="user">
-
-
       <button mat-button [matMenuTriggerFor]="menu">
         <app-avatar-url [user]="user"></app-avatar-url>
         <span class="pl-1">{{ user.username }}</span>
       </button>
-
-      <mat-menu #menu="matMenu">
-        <button routerLink="/channels/@me" mat-menu-item>
-          <i class="fas fa-cog"></i> Open
-        </button>
-        <hr>
-        <button routerLink="/developers" mat-menu-item>
-          <i class="fas fa-code"></i> Developers
-        </button>
-        <button routerLink="/logout" mat-menu-item>
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </button>
-      </mat-menu>
     </div>
   </div>
 </nav>
+
+<mat-menu #menu="matMenu">
+  <button routerLink="/channels/@me" mat-menu-item>
+    <i class="fas fa-cog"></i> Open
+  </button>
+  <hr>
+  <button routerLink="/developers" mat-menu-item>
+    <i class="fas fa-code"></i> Developers
+  </button>
+  <button routerLink="/logout" mat-menu-item>
+    <i class="fas fa-sign-out-alt"></i> Logout
+  </button>
+</mat-menu>

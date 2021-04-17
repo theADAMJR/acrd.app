@@ -38,13 +38,13 @@ export class CreateGuildModalComponent {
       partialGuild: {
         name: this.form.value.name,
       },
-    })
+    }, this);
   }
 
   joinGuild() {
     this.processing = true;
     this.ws.emit('GUILD_MEMBER_ADD', {
       inviteCode: this.inviteInput.nativeElement.value,
-    });
+    }, this);
   }
 }

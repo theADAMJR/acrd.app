@@ -29,30 +29,8 @@
       <span (click)="toggle()"
         class="float-right d-sm-none d-block close"><i class="fas fa-times"></i></span>
       <div class="footer">
-      <div *ngIf="user.voice.channelId">
-        <button (click)="disconnect()"
-          id="disconnectButton" class="float-right bg-danger"
-          matTooltip="Disconnect" mat-button>
-          <i class="fas fa-phone-slash pb-1"></i>
-        </button>
-        <span class="text-success">Voice Connected</span>
-        <span class="text-muted d-block connected-to">
-          {{ channelService.getChannel(user.voice.guildId, user.voice.channelId)?.name }} /
-          {{ guildService.getGuild(user.voice.guildId)?.name }}
-        </span>
-        <hr>
-      </div>
 
       <div class="float-right">
-        <!-- <button
-          matTooltip="Mute"
-          (click)="mute()"
-          id="muteButton" mat-button>
-          <i class="fas pb-1" [ngClass]="{
-            'fa-microphone': !user.voice.selfMuted,
-            'fa-microphone-slash': user.voice.selfMuted
-          }"></i>          
-        </button> -->
         <button
           id="settingsButton"
           matTooltip="Settings"

@@ -30,14 +30,12 @@ export class CreateInviteComponent implements OnInit {
     this.ws.emit('INVITE_CREATE', {
       guildId: this.data.guild._id,
       options: this.form.value,
-    });
+    }, this);
 
-    this.ws.once('INVITE_CREATE', ({ invite }) => this.invite = invite, this);
+    this.ws.on('INVITE_CREATE', ({ invite }) => this.invite = invite, this);
 
     this.form.valueChanges
       .subscribe(() => this.recentlyUpdated = this.form.valid);
-
-    document.querySelector('.modal-backdrop')?.remove();
   }
 
   public onNoClick() {
@@ -49,11 +47,11 @@ export class CreateInviteComponent implements OnInit {
 
     this.recentlyUpdated = true;
 
-    this.ws.emit('INVITE_DELETE', { inviteCode: this.invite._id });
+    this.ws.emit('INVITE_DELETE', { inviteCode: this.invite._id }, this);
     this.ws.emit('INVITE_CREATE', {
       guildId: this.data.guild._id,
       options: this.form.value,
-    });    
+    }, this);    
   }
 
   public copyToClipboard() {

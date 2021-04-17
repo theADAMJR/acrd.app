@@ -83,7 +83,7 @@ export abstract class ModuleConfig implements OnDestroy {
     try {
       if (!this.form.valid) return;
 
-      this.ws.once('GUILD_UPDATE', ({ partialGuild }) => {
+      this.ws.on('GUILD_UPDATE', ({ partialGuild }) => {
         this.guild = {
           ...this.guild,
           ...partialGuild,
@@ -93,7 +93,7 @@ export abstract class ModuleConfig implements OnDestroy {
       this.ws.emit('GUILD_UPDATE', {
         guildId: this.guildId,
         partialGuild: this.form.value,
-      });
+      }, this);
     } catch {
       alert('An error occurred when submitting the form - check console');
     }
@@ -114,7 +114,7 @@ export abstract class ModuleConfig implements OnDestroy {
     const confirmation = prompt(`Please type 'CONFIRM' if you wish to delete this guild.`);
     if (confirmation !== 'CONFIRM') return;
 
-    this.ws.emit('GUILD_DELETE', { guildId: this.guildId });
+    this.ws.emit('GUILD_DELETE', { guildId: this.guildId }, this);
 
     const index = this.guildService.guilds.findIndex(g => g._id === this.guildId);
     this.guildService.guilds.splice(index, 1);
