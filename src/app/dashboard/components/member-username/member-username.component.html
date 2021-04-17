@@ -15,10 +15,10 @@
   <div
     [style.color]="member ? roleColor : 'var(--light)'"
     class="username pt-0">
-    <span class="float-right text-muted p-1">
+    <span class="float-right text-muted">
       <i *ngIf="pings.isUnread(dmChannelId)"
         matTooltip="Unread Pings"
-        class="fas fa-circle"></i>
+        class="fas fa-circle text-danger"></i>
     </span>
 
     <span class="username-text">{{ user.username }}</span>

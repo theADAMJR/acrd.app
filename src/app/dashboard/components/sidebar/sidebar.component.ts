@@ -6,7 +6,7 @@ import { Args, WSService } from 'src/app/services/ws.service';
 import { RTCService } from 'src/app/services/rtc.service';
 import { ChannelService } from 'src/app/services/channel.service';
 import { Lean } from 'src/app/types/entity-types';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SoundService } from 'src/app/services/sound.service';
 import { PingService } from 'src/app/services/ping.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit {
   get user() { return this.userService.user; }
 
   constructor(
+    private route: ActivatedRoute,
     public channelService: ChannelService,
     public guildService: GuildService,
     private sounds: SoundService,
@@ -52,7 +53,10 @@ export class SidebarComponent implements OnInit {
     const guild = this.guildService.getGuildFromChannel(message.channelId);
     if (this.pings.isIgnored(message, guild?._id)) return;
 
-    await this.pings.add(message.channelId, message._id);
+    const activeChannelId = this.route.snapshot.paramMap.get('channelId');
+    (activeChannelId === message.channelId)
+      ? this.pings.markAsRead(message.channelId)
+      : await this.pings.add(message.channelId, message._id);
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {

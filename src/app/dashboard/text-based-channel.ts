@@ -50,7 +50,7 @@ export class TextBasedChannel {
     public perms: PermissionsService,
     public sounds: SoundService,
     private ws: WSService,
-    public notifications: PingService,
+    public pings: PingService,
   ) {}
 
   public async init() {
@@ -61,7 +61,7 @@ export class TextBasedChannel {
       this.channel = this.channelService.getDMChannelById(channelId)
         ?? this.channelService.getChannel(this.parentId, channelId);
 
-      this.notifications.markAsRead(channelId);
+      this.pings.markAsRead(channelId);
 
       const guild = this.guildService.getGuild(this.parentId);
       document.title = (this.parentId === '@me')

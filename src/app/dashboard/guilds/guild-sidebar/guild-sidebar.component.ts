@@ -61,9 +61,10 @@ export class GuildSidebarComponent implements OnInit {
     this.ws
       .on('CHANNEL_CREATE', this.addChannelToGuild, this)
       .on('PRESENCE_UPDATE', this.updateMemberPresence, this)      
+      .on('GUILD_DELETE', this.delete, this)
+      .on('GUILD_MEMBER_ADD', this.addGuildMember, this)
       .on('GUILD_UPDATE', this.updateGuild, this)
-      .on('GUILD_ROLE_UPDATE', this.updateRole, this)
-      .on('GUILD_DELETE', this.delete, this);
+      .on('GUILD_ROLE_UPDATE', this.updateRole, this);
   }
 
   private addChannelToGuild({ channel }: Args.ChannelCreate) {
@@ -75,6 +76,9 @@ export class GuildSidebarComponent implements OnInit {
     
     const user = this.usersService.getKnown(userId);
     user.status = status;
+  }
+  private addGuildMember({ member }: Args.GuildMemberAdd) {
+    this.guild.members.push(member);
   }
   private updateGuild({ partialGuild }: Args.GuildUpdate) {
     this.guildService.updateCached(this.guild._id, {
