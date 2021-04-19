@@ -89,33 +89,9 @@ export class UsersService extends HTTPWrapper {
     return this.http.get(`${this.endpoint}/check-email?value=${email}`).toPromise() as any;
   }
 
-  // public async blockUser(id: string) {
-  //   const userIds = this.user.ignored?.userIds?.concat(id) ?? [id];
-
-  //   return this.emit('USER_UPDATE', {
-  //     key: this.key,
-  //     partialUser: {
-  //       ...this.user,
-  //       ignored: { userIds },
-  //     }
-  //   });
-  // }
-
-  // public async unblockUser(id: string) {
-  //   const index = this.user.ignored?.userIds?.indexOf(id);
-  //   const userIds = this.user.ignored?.userIds?.splice(index, 1) ?? [];
-
-  //   return this.emit('USER_UPDATE', {
-  //     key: this.key,
-  //     partialUser: {
-  //       ...this.user,
-  //       ignored: { userIds },
-  //     }
-  //   });
-  // }
-
   public block(userId: string) {
-    const userIds = this.user.ignored.userIds.concat(userId);
+    const userIds = this.user.ignored?.userIds.concat(userId)
+      ?? [userId];
 
     this.ws.emit('USER_UPDATE', {
       partialUser: {
@@ -126,8 +102,8 @@ export class UsersService extends HTTPWrapper {
   }
 
   public unblock(userId: string) {
-    const index = this.user.ignored.userIds.indexOf(userId);
-    const userIds = this.user.ignored.userIds.splice(index, 1);
+    const index = this.user.ignored?.userIds.indexOf(userId);
+    const userIds = this.user.ignored?.userIds.splice(index, 1);
 
     this.ws.emit('USER_UPDATE', {
       partialUser: {

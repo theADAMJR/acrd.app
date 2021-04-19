@@ -93,7 +93,7 @@
 
       <div *ngFor="let user of blockedUsers">
         <div class="float-right">
-          <i (click)="users.unblockUser(user._id)"
+          <i (click)="users.unblock(user._id)"
             matTooltip="Unblock"
             class="cursor-pointer fas fa-times-circle"></i>
         </div>

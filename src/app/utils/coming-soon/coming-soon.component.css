@@ -3,14 +3,33 @@ body {
 }
 
 .main {
+  margin-top: 27.5vh;
   padding-top: 25vh;
   height: 90vh;
+
   background-image: 
     linear-gradient(
       to bottom,
       var(--background-secondary),
       var(--background-tertiary) 50%
     );
+}
+
+waves {
+  position: absolute;
+  top: 30vh;
+  width: 100vw;
+  z-index: -1;
+}
+
+app-lighthouse {
+  top: 7.5vh;
+  right: 50%;
+  transform: scale(.75);
+  position: absolute !important;
+
+  height: 100px;
+  width: 100px;
 }
 
 app-submarine {

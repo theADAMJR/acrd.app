@@ -28,13 +28,15 @@ import { UserAccountComponent } from './dashboard/me/user-account/user-account.c
 import { InviteComponent } from './pages/invite/invite.component';
 import { externalRedirect } from './utils/external-redirect';
 import { environment } from 'src/environments/environment';
+import { ComingSoonComponent } from './utils/coming-soon/coming-soon.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
   { path: 'auth/verify', component: VerifyComponent, },
   { path: 'auth', component: AuthComponent, },
-  { path: 'privacy', component: externalRedirect(`${environment.docsURL}/legal/privacy`) },
-  { path: 'terms', component: externalRedirect(`${environment.docsURL}/legal/terms`) },
+  { path: 'changelog', component: externalRedirect(`${environment.docsURL}/general/changelog`), },
+  { path: 'privacy', component: externalRedirect(`${environment.docsURL}/legal/privacy`), },
+  { path: 'terms', component: externalRedirect(`${environment.docsURL}/legal/terms`), },
   {
     path: 'channels/@me',
     component: DashboardOverviewComponent,
@@ -75,9 +77,10 @@ const routes: Routes = [
   },
   {
     path: 'channels/:guildId/bots',
-    component: BotListComponent,
-    canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard],
+    component: ComingSoonComponent,
+    // component: BotListComponent,
+    // canActivate: [DashboardAuthGuard, GuildAuthGuard],
+    // canDeactivate: [CanDeactivateDashboard],
   },
   {
     path: 'channels/:guildId/invites',
@@ -91,6 +94,7 @@ const routes: Routes = [
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard],
   },
+  { path: 'developers', component: ComingSoonComponent, },
   {
     path: `developers/applications/:id/user`,
     canActivate: [DevelopersAuthGuard],

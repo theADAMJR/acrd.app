@@ -61,6 +61,8 @@ import { InviteComponent } from './pages/invite/invite.component';
 import { CountdownPipe } from './countdown.pipe';
 import { CreateChannelComponent } from './dialog/create-channel/create-channel.component';
 import { CreateGuildComponent } from './dialog/create-guild/create-guild.component';
+import { ComingSoonComponent } from './utils/coming-soon/coming-soon.component';
+import { LighthouseComponent } from './cool/lighthouse/lighthouse.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -133,6 +135,8 @@ export class AlertErrorHandler implements ErrorHandler {
     CountdownPipe,
     CreateChannelComponent,
     CreateGuildComponent,
+    ComingSoonComponent,
+    LighthouseComponent,
   ],
   imports: [
     AppRoutingModule,

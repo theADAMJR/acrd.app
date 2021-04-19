@@ -1,0 +1,159 @@
+*:before, *:after {
+  content: '';
+  display: block;
+  position: absolute;
+}
+#lighthouse {
+  position: absolute;
+}
+#lighthouse:before {
+  right: 30px;
+  left: 0;
+  margin: 0 auto;
+  height: 24px;
+  width: 12px;
+  background: #4f1c15;
+  bottom: 0;
+  z-index: 1;
+  border-radius: 6px 6px 0 0;
+}
+#lighthouse:after {
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  background: #8f8f8f;
+  width: 98px;
+  bottom: -16px;
+  height: 16px;
+  box-shadow: inset 58px 0 0 0 #b0b0b0;
+}
+#balcony {
+  margin: 0 auto;
+  position: relative;
+  border-top: 16px solid #8f8f8f;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  width: 76px;
+}
+#balcony:after {
+  left: -10px;
+  right: 0;
+  margin: 0 auto;
+  width: 76px;
+  top: -28px;
+  height: 2px;
+  background: #636363;
+}
+#balcony:before {
+  width: 2px;
+  height: 12px;
+  background: #636363;
+  left: -10px;
+  top: -28px;
+  box-shadow: 9px 0 0 #636363, 18px 0 0 #636363, 27px 0 0 #636363, 37px 0 0 #636363, 47px 0 0 #636363, 56px 0 0 #636363, 65px 0 0 #636363, 74px 0 0 #636363;
+}
+#glass {
+  width: 50px;
+  height: 32px;
+  margin: 0 auto;
+  background: #b0b0b0;
+  box-shadow: 0 -26px 0 -6px #b2daed, 0 -30px 0 -6px #999;
+}
+#glass:before {
+  width: 2px;
+  height: 20px;
+  background: #f2f2f2;
+  left: -36px;
+  right: 0;
+  margin: 0 auto;
+  top: 22px;
+  box-shadow: 12px 0 0 #f2f2f2, 24px 0 0 #f2f2f2, 36px 0 0 #f2f2f2;
+}
+#top {
+  width: 38px;
+  height: 18px;
+  background: #8d3c46;
+  border-radius: 18px 18px 0 0;
+  margin: 0 auto 24px;
+  position: relative;
+}
+#top:before {
+  background: #8d3c46;
+  height: 30px;
+  width: 2px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  top: -30px;
+}
+/* Univ Level Rules */
+.row {
+  height: 0;
+  position: relative;
+  margin: 0 auto;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+}
+.row:before, .row:after {
+  border-style: inherit;
+}
+.row:before {
+  left: -3px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-left-color: transparent;
+}
+.row:after {
+  border-left: 0 solid transparent;
+  border-right: 3px solid transparent;
+  border-bottom: 50px solid rgba(0, 0, 0, 0.1);
+}
+/* Specific Levels - Widths are 1px wider on some areas to cover ugly rendering. I also can't get nth-child to work. */
+.row {
+  width: 60px;
+  border-bottom: 50px solid #8d3c46;
+}
+.row:before {
+  border-bottom-color: #f2f2f2;
+  border-width: 0 3px 50px 58px;
+}
+.row:after {
+  left: 30px;
+  width: 28px;
+}
+.row + .row {
+  width: 66px;
+  border-bottom: 50px solid #f2f2f2;
+}
+.row + .row:before {
+  border-bottom-color: #8d3c46;
+  border-width: 0 3px 50px 64px;
+}
+.row + .row:after {
+  left: 33px;
+  width: 31px;
+}
+.row + .row + .row {
+  width: 72px;
+  border-bottom: 50px solid #8d3c46;
+}
+.row + .row + .row:before {
+  border-bottom-color: #f2f2f2;
+  border-width: 0 3px 50px 70px;
+}
+.row + .row + .row:after {
+  left: 36px;
+  width: 34px;
+}
+.row + .row + .row + .row {
+  width: 78px;
+  border-bottom: 50px solid #f2f2f2;
+}
+.row + .row + .row + .row:before {
+  border-bottom-color: #8d3c46;
+  border-width: 0 3px 50px 76px;
+}
+.row + .row + .row + .row:after {
+  left: 39px;
+  width: 36px;
+}
