@@ -2,54 +2,54 @@
   font-family: 'Whitney';
   font-style: normal;
   font-weight: 500;
-  src: local('Whitney'), url('https://fonts.cdnfonts.com/s/38487/whitneymedium.woff') format('woff');
+  src: local('Whitney'), url('/assets/font/whitneymedium.woff') format('woff');
 }
 @font-face {
   font-family: 'Whitney';
   font-style: italic;
   font-weight: 500;
-  src: local('Whitney'), url('https://fonts.cdnfonts.com/s/38487/whitneymediumitalic.woff') format('woff');
+  src: local('Whitney'), url('/assets/font/whitneymediumitalic.woff') format('woff');
 }
 @font-face {
   font-family: 'Whitney';
   font-style: normal;
   font-weight: 700;
-  src: local('Whitney'), url('https://fonts.cdnfonts.com/s/38487/whitneybold.woff') format('woff');
+  src: local('Whitney'), url('/assets/font/whitneybold.woff') format('woff');
 }
 @font-face {
   font-family: 'Whitney Semibold';
   font-style: normal;
   font-weight: 500;
-  src: local('Whitney Semibold'), url('https://fonts.cdnfonts.com/s/38487/whitneysemibold.woff') format('woff');
+  src: local('Whitney Semibold'), url('/assets/font/whitneysemibold.woff') format('woff');
 }
 @font-face {
   font-family: 'Whitney Book';
   font-style: normal;
   font-weight: 500;
-  src: local('Whitney Book'), url('https://fonts.cdnfonts.com/s/38487/whitneybook.woff') format('woff');
+  src: local('Whitney Book'), url('/assets/font/whitneybook.woff') format('woff');
 }
 @font-face {
   font-family: 'Whitney Light';
   font-style: normal;
   font-weight: 500;
-  src: local('Whitney Light'), url('https://fonts.cdnfonts.com/s/38487/whitneylight.woff') format('woff');
+  src: local('Whitney Light'), url('/assets/font/whitneylight.woff') format('woff');
 }
 @font-face {
   font-family: 'Whitney Semibold';
   font-style: italic;
   font-weight: 500;
-  src: local('Whitney Semibold'), url('https://fonts.cdnfonts.com/s/38487/WhitneySemiboldItalic.woff') format('woff');
+  src: local('Whitney Semibold'), url('/assets/font/WhitneySemiboldItalic.woff') format('woff');
 }
 @font-face {
   font-family: 'Whitney Book';
   font-style: italic;
   font-weight: 500;
-  src: local('Whitney Book'), url('https://fonts.cdnfonts.com/s/38487/whitneybookitalic.woff') format('woff');
+  src: local('Whitney Book'), url('/assets/font/whitneybookitalic.woff') format('woff');
 }
 @font-face {
   font-family: 'Whitney Light';
   font-style: italic;
   font-weight: 500;
-  src: local('Whitney Light'), url('https://fonts.cdnfonts.com/s/38487/whitneylightitalic.woff') format('woff');
+  src: local('Whitney Light'), url('/assets/font/whitneylightitalic.woff') format('woff');
 }
 
