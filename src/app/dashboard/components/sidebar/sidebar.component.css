@@ -111,19 +111,12 @@ mat-sidenav {
   text-shadow: none;
 }
 
-.footer {  
+footer {  
   background-color: rgba(0, 0, 0, 0.05);
-
-  position: absolute;
-  bottom: 0;
 
   margin-left: 0px;
   padding: 10px;
   width: 275px;
-}
-.footer img {
-  width: 32px;
-  height: 32px;
 }
 
 .guilds .active {
@@ -131,16 +124,20 @@ mat-sidenav {
   border-radius: 15px !important;
 }
 
-#disconnectButton,
-#muteButton,
-#settingsButton {
-  width: 32px;
-  height: 32px;
-  padding: 0 !important;
-
-  font-size: medium;
-}
-
 .connected-to {
   font-size: small;
+}
+
+footer i {
+  font-size: 20px;
+}
+footer button {
+  margin-top: 150x;
+}
+.username {
+  padding-top: 25px;
+  padding-left: 10px;
+
+  max-width: 142px;
+  max-height: 42px;
 }

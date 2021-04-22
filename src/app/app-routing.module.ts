@@ -18,7 +18,6 @@ import { RolesComponent } from './dashboard/guilds/guild-settings/roles/roles.co
 import { DMChannelAuthGuard } from './guards/dmchannel-auth.guard';
 import { DMChannelComponent } from './dashboard/me/dmchannel/dmchannel.component';
 import { UserSettingsComponent } from './dashboard/me/user-settings/user-settings.component';
-import { BotListComponent } from './dashboard/guilds/guild-settings/bot-list/bot-list.component';
 import { DevelopersComponent } from './pages/developers/developers.component';
 import { ApplicationComponent } from './pages/developers/application/application.component';
 import { BotUserComponent } from './pages/developers/bot-user/bot-user.component';
@@ -35,6 +34,7 @@ const routes: Routes = [
   { path: 'auth/verify', component: VerifyComponent, },
   { path: 'auth', component: AuthComponent, },
   { path: 'changelog', component: externalRedirect(`${environment.docsURL}/general/changelog`), },
+  { path: 'docs', component: externalRedirect(`${environment.docsURL}`), },
   { path: 'privacy', component: externalRedirect(`${environment.docsURL}/legal/privacy`), },
   { path: 'terms', component: externalRedirect(`${environment.docsURL}/legal/terms`), },
   {

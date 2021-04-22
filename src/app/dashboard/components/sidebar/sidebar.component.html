@@ -29,27 +29,26 @@
       <ng-content select=".side-nav"></ng-content>
       <span (click)="toggle()"
         class="float-right d-sm-none d-block close"><i class="fas fa-times"></i></span>
-      <div class="footer">
 
-      <div class="float-right">
-        <button
-          id="settingsButton"
-          matTooltip="Settings"
-          routerLink="/channels/@me/settings"
-          mat-button>
-          <i class="fas fa-cogs pb-1"></i>          
-        </button>
-      </div>
-
-      <div class="d-flex">
+      <footer class="d-flex">
         <app-avatar-url
           [user]="user"
           size="48px"
           class="pt-2"></app-avatar-url>
-        <span class="pl-2">{{ user.username }}</span>
-      </div>
+        <h6 class="username text-overflow-ellipsis">{{ user.username }}</h6>
+
+        <div class="ml-auto">
+          <button
+            id="settingsButton"
+            matTooltip="Settings"
+            routerLink="/channels/@me/settings"
+            class="mr-2 p-2"
+            mat-button>
+            <i class="fas fa-cogs"></i>          
+          </button>
+        </div>
+      </footer>
     </div>
-  </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <ng-content select="#content"></ng-content>

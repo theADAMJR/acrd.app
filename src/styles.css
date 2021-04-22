@@ -4,7 +4,7 @@
 @import '~highlight.js/styles/arta.css';
 @import '~@ctrl/ngx-emoji-mart/picker.css';
 @import '~bootstrap-select/dist/css/bootstrap-select.min.css';
-@import 'assets/css/whitney-font.css';
+@import 'assets/css/inter-font.css';
 
 :root {
   --mention: rgba(243, 187, 32, 0.25);
@@ -17,12 +17,13 @@ body {
   color: var(--font);
   
   font-weight: 300;
-  font-family: 'Whitney', 'Helvetica Neue', 'Helvetica', sans-serif;
-  font-size: 20px;
+  font-family: 'Inter', 'Helvetica Neue', 'Helvetica', sans-serif;
+  font-size: 16px;
 }
 
 h1,h2,h3,h4,h5 {
-  font-family: 'Whitney Semibold';
+  font-family: 'Inter';
+  font-weight: 700 !important;
   letter-spacing: 1.5px;
 }
 

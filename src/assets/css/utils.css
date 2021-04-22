@@ -52,6 +52,13 @@
   background: linear-gradient(43deg, var(--primary) 0%, var(--secondary) 35%, var(--primary) 100%) !important;
 }
 
+/* overflow */
 .overflow-hidden {
   overflow: hidden !important;
+}
+
+/* text-overflow */
+.text-overflow-ellipsis {
+  text-overflow: ellipsis !important;
+  overflow: hidden;
 }
