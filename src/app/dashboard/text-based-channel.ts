@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ChannelService } from '../services/channel.service';
 import { GuildService } from '../services/guild.service';
 import { LogService } from '../services/log.service';
@@ -16,12 +16,11 @@ export class TextBasedChannel {
   @ViewChild('message')
   private messageInput: ElementRef;
 
-  public activeChannelId: string;
-  public channel: Lean.Channel;
+  @Input() public channel: Lean.Channel;
+  @Input() public guild?: Lean.Guild;
   public chatBox = new FormControl();
   public emojiPickerOpen = false;
   public messages = [];
-  public parentId: string;
   public typingUserIds = [];
 
   private lastTypingEmissionAt = null;
@@ -40,12 +39,17 @@ export class TextBasedChannel {
       ?.find(id => id !== this.userService.user._id);
     return this.userService.getKnown(recipientId);
   }
+  public get title() {
+    return (this.channel.type === 'DM')
+      ? `@me + @${this.recipient.username}`
+      : `@${this.guild.name} > #${this.channel.name}`;
+  }
 
   constructor(
     private channelService: ChannelService,
     public guildService: GuildService,
     private log: LogService,
-    private route: ActivatedRoute,
+    private router: Router,
     public userService: UsersService,
     public perms: PermissionsService,
     public sounds: SoundService,
@@ -54,33 +58,24 @@ export class TextBasedChannel {
   ) {}
 
   public async init() {
-    this.route.paramMap.subscribe(async(paramMap) => {
-      this.parentId = paramMap.get('guildId') ?? '@me';
+    if (this.channel.type === 'VOICE')
+      return this.router.navigate(['..']);
 
-      const channelId = this.activeChannelId = this.route.snapshot.paramMap.get('channelId');
-      this.channel = this.channelService.getDMChannelById(channelId)
-        ?? this.channelService.getChannel(this.parentId, channelId);
+    this.pings.markAsRead(this.channel._id);
 
-      this.pings.markAsRead(channelId);
-
-      const guild = this.guildService.getGuild(this.parentId);
-      document.title = (this.parentId === '@me')
-        ? `@me | @${this.recipient.username}`
-        : `${guild.name} | #${this.channel.name}`;
-
-      this.messages = await this.channelService.getMessages(channelId);
-      
-      setTimeout(() => this.scrollToMessage(), 100);
-      
-      this.hookWSEvents();
-    });
+    document.title = this.title;
+    this.messages = await this.channelService.getMessages(this.channel._id);
+    
+    setTimeout(() => this.scrollToMessage(), 100);
+    
+    this.hookWSEvents();
   }
 
   public hookWSEvents() {
     this.ws
       .on('MESSAGE_CREATE', this.createMessage, this)
-      .on('MESSAGE_UPDATE', this.updateMessage, this)
       .on('MESSAGE_DELETE', this.deleteMessage, this)
+      .on('MESSAGE_UPDATE', this.updateMessage, this)
       .on('TYPING_START', this.addTypingUser, this);
   }
 
@@ -97,10 +92,7 @@ export class TextBasedChannel {
     if (selfIsAuthor)
       await this.sounds.message();
 
-    const channelIsActive = this.activeChannelId === this.channel._id;
-    (channelIsActive)
-      ? this.messages.push(message)
-      : this.channelService.addMessage(message);
+    this.messages.push(message);
 
     setTimeout(() => this.scrollToMessage(), 100);
   }

@@ -1,68 +1,64 @@
-<guild-sidebar
-  (click)="onClick($event)">
-  <div *ngIf="channel">
-    <app-member-list [guild]="guild"></app-member-list>
-    <div
-      class="messages"
-      infiniteScroll
-      [scrollWindow]="false"
-      (scrolledUp)="loadMoreMessages()">
-      <div *ngIf="loadedAllMessages"
-        class="jumbotron pb-0">
-        <p class="lead">Start of #{{ channel.name }} message history.</p>
-        <hr>
-      </div>
-      <spinner *ngIf="!loadedAllMessages"></spinner>
-
-      <div
-        *ngFor="let message of messages; index as i; trackBy: message._id"
-        class="message"
-        [id]="'message' + message._id">
-        <message
-          [message]="message"
-          [isExtra]="shouldCombine(i)"
-          [member]="guildService.getMember(guild._id, message.authorId)"
-          [guild]="guild"></message>
-      </div>
-    </div>
-    <div class="footer">
-      <emoji-mart
-        class="float-right"
-        emoji="joy"
-        title="Pick an Emoji"
-        (emojiClick)="addEmoji($event)"
-        [ngStyle]="{ display: (emojiPickerOpen) ? 'block' : 'none' }"></emoji-mart>
-
-      <mat-form-field
-        autoFocus
-        (keyup)="emitTypingStart()"
-        (keyup.enter)="chat(message.value)"
-        appearance="fill">
-        <mat-label>Message #{{ channel.name }}</mat-label>
-        <textarea
-          [disabled]="!perms.can(guild._id, 'SEND_MESSAGES')"
-          id="chatBox"
-          matInput
-          #message></textarea>
-        <mat-icon
-          (click)="emojiPickerOpen = true"
-          class="cursor-pointer emoji-icon"
-          align="end" matSuffix>
-          <i class="fas fa-surprise"></i>
-        </mat-icon>
-      </mat-form-field>
-
-      <div
-        *ngIf="typingUsernames.length <= 0"
-        class="pt-3"></div>
-      <div
-        *ngIf="typingUsernames.length > 0"
-        class="typing">
-        <strong>{{ typingUsernames.join(', ') }}</strong> {{ typingUsernames.length > 1 ? 'are' : 'is' }} typing...
-      </div>
-    </div>
+<div
+  *ngIf="channel"
+  class="messages"
+  infiniteScroll
+  [scrollWindow]="false"
+  (scrolledUp)="loadMoreMessages()">
+  <div *ngIf="loadedAllMessages"
+    class="jumbotron pb-0">
+    <p class="lead">Start of {{ title }} message history.</p>
+    <hr>
   </div>
-  <div *ngIf="!channel">
-    <spinner></spinner>
+  <spinner *ngIf="!loadedAllMessages"></spinner>
+
+  <div
+    *ngFor="let message of messages; index as i; trackBy: message._id"
+    class="message"
+    [id]="'message' + message._id">
+    <message
+      [message]="message"
+      [isExtra]="shouldCombine(i)"
+      [member]="guildService.getMember(guild?._id, message.authorId)"
+      [guild]="guild"></message>
   </div>
-</guild-sidebar>
+</div>
+<div class="footer">
+  <emoji-mart
+    class="float-right"
+    emoji="joy"
+    title="Pick an Emoji"
+    (emojiClick)="addEmoji($event)"
+    [ngStyle]="{ display: (emojiPickerOpen) ? 'block' : 'none' }"></emoji-mart>
+
+  <mat-form-field
+    autoFocus
+    (keyup)="emitTypingStart()"
+    (keyup.enter)="chat(message.value)"
+    appearance="fill">
+    <mat-label>Message {{ title }}</mat-label>
+    <textarea
+      [disabled]="guild && !perms.can(guild._id, 'SEND_MESSAGES')"
+      id="chatBox"
+      matInput
+      #message></textarea>
+
+    <mat-icon
+      (click)="emojiPickerOpen = true"
+      class="cursor-pointer emoji-icon mb-3"
+      align="end" matSuffix>
+      <i class="fas fa-surprise"></i>
+    </mat-icon>
+  </mat-form-field>
+
+  <div
+    *ngIf="typingUsernames.length <= 0"
+    class="pt-3"></div>
+  <div
+    *ngIf="typingUsernames.length > 0"
+    class="typing">
+    <strong>{{ typingUsernames.join(', ') }}</strong> {{ typingUsernames.length > 1 ? 'are' : 'is' }} typing...
+  </div>
+</div>
+<div *ngIf="!channel">
+  <spinner></spinner>
+</div>

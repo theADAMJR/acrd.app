@@ -13,7 +13,7 @@ import { LoginComponent } from './authentication/login/login.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { DashboardOverviewComponent } from './dashboard/me/me-overview/me-overview.component';
 import { SidebarComponent } from './dashboard/components/sidebar/sidebar.component';
-import { GuildComponent } from './dashboard/guilds/guild-overview/guild-overview.component';
+import { GuildOverviewComponent } from './dashboard/guilds/guild-overview/guild-overview.component';
 import { SpinnerComponent } from './utils/spinner/spinner.component';
 import { HomeComponent } from './pages/home/home.component';
 import { GuildSidebarComponent } from './dashboard/guilds/guild-sidebar/guild-sidebar.component';
@@ -64,6 +64,7 @@ import { CreateGuildComponent } from './dialog/create-guild/create-guild.compone
 import { ComingSoonComponent } from './utils/coming-soon/coming-soon.component';
 import { LighthouseComponent } from './cool/lighthouse/lighthouse.component';
 import { ChannelTabComponent } from './dashboard/components/channel-tab/channel-tab.component';
+import { GuildNavbarComponent } from './dashboard/components/guild-navbar/guild-navbar.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -93,7 +94,7 @@ export class AlertErrorHandler implements ErrorHandler {
     LogoutComponent,
     DashboardOverviewComponent,
     SidebarComponent,
-    GuildComponent,
+    GuildOverviewComponent,
     SpinnerComponent,
     GuildSidebarComponent,
     MeSidebarComponent,
@@ -139,6 +140,7 @@ export class AlertErrorHandler implements ErrorHandler {
     ComingSoonComponent,
     LighthouseComponent,
     ChannelTabComponent,
+    GuildNavbarComponent,
   ],
   imports: [
     AppRoutingModule,

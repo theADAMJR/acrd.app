@@ -111,12 +111,6 @@ export class GuildSidebarComponent implements OnInit {
     return this.guild.members.find(m => m.userId === userId);
   }
 
-  public toggleMemberList() {
-    document
-      .querySelector('.member-list').classList
-      .toggle('d-none');
-  }
-
   public createInviteDialog() {
     this.dialog.open(CreateInviteComponent, {
       width: '500px',

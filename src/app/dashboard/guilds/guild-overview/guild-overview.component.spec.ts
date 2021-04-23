@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AppModule } from '../../../app.module';
-import { GuildComponent } from './guild-overview.component';
+import { GuildOverviewComponent } from './guild-overview.component';
 
 describe('GuildComponent', () => {
-  let component: GuildComponent;
-  let fixture: ComponentFixture<GuildComponent>;
+  let component: GuildOverviewComponent;
+  let fixture: ComponentFixture<GuildOverviewComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ GuildComponent ],
+      declarations: [ GuildOverviewComponent ],
       imports: [AppModule]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GuildComponent);
+    fixture = TestBed.createComponent(GuildOverviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

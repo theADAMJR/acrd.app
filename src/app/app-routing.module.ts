@@ -6,7 +6,7 @@ import { AuthComponent } from './authentication/auth/auth.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { LogoutComponent } from './authentication/logout/logout.component';
 import { DashboardOverviewComponent } from './dashboard/me/me-overview/me-overview.component';
-import { GuildComponent } from './dashboard/guilds/guild-overview/guild-overview.component';
+import { GuildOverviewComponent } from './dashboard/guilds/guild-overview/guild-overview.component';
 import { DashboardAuthGuard } from './guards/dashboard-auth.guard';
 import { GuildAuthGuard } from './guards/guild-auth.guard';
 import { CanDeactivateDashboard } from './guards/can-deactivate-dashboard.guard';
@@ -59,7 +59,7 @@ const routes: Routes = [
   },
   {
     path: 'channels/:guildId',
-    component: GuildComponent,
+    component: GuildOverviewComponent,
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard],
   },
@@ -90,7 +90,7 @@ const routes: Routes = [
   },
   {
     path: 'channels/:guildId/:channelId',
-    component: TextChannelComponent,
+    component: GuildOverviewComponent,
     canActivate: [DashboardAuthGuard, GuildAuthGuard],
     canDeactivate: [CanDeactivateDashboard],
   },

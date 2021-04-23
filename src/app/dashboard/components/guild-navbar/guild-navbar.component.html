@@ -1,0 +1,17 @@
+<dashboard-navbar
+  *ngIf="guild">
+  <i class="fas fa-at text-muted pr-1"></i>
+  <strong>{{ guild.name }}</strong>
+  
+  <span *ngIf="activeChannel">
+    <i class="fas fa-chevron-right mx-2"></i>
+    <i class="fas fa-hashtag text-muted pr-1"></i>
+    <strong>{{ activeChannel.name }}</strong>
+  </span>
+
+  <div class="float-right">
+    <i (click)="toggleMemberList()"
+      matTooltip="Toggle Members"
+      class="fas fa-users cursor-pointer"></i>
+  </div>
+</dashboard-navbar>

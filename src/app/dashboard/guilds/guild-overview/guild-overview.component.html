@@ -1,3 +1,25 @@
 <guild-sidebar>
-  <section class="container"></section>
+  <app-guild-navbar
+    [activeChannel]="activeChannel"
+    [guild]="guild"></app-guild-navbar>
+
+  <div class="row">
+    <div class="col-xl-9 col-lg-7 col-md-5">
+      <section
+        *ngIf="!activeChannel"
+        class="jumbotron">
+        <p class="lead">Nothing here yet....</p>
+        <hr>
+      </section>
+
+      <app-text-channel
+        *ngIf="activeChannel"
+        [channel]="activeChannel"
+        [guild]="guild"></app-text-channel>
+    </div>  
+
+    <div class="col-xl-3 col-lg-5 col-md-7">
+      <app-member-list [guild]="guild"></app-member-list>
+    </div>
+  </div>
 </guild-sidebar>

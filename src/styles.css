@@ -123,6 +123,10 @@ mat-paginator {
   font-size: 15px;
 }
 
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  max-width: 100%;
+}
+
 .mat-tooltip {
   background-color: var(--background-tertiary) !important;
   color: var(--heading) !important;
@@ -252,9 +256,6 @@ snack-bar-container.mat-snack-bar-container {
 }
 
 .footer .mat-form-field-flex {
-  width: 62.5vw;
-}
-.dm-channel .mat-form-field-flex {
   width: 75vw;
 }
 
@@ -286,8 +287,17 @@ snack-bar-container.mat-snack-bar-container {
 }
 
 /* emoji picker */
+.emoji-mart {
+  position: absolute;
+  bottom: 120px;
+  right: 0;
+  
+  font-family: inherit;
+}
 .emoji-mart, .emoji-mart * {
   border-color: transparent !important;
+  color: var(--font);
+  background-color: var(--background-secondary) !important;
 }
 
 /* bootstrap */
@@ -343,4 +353,8 @@ app-avatar-url {
 /* navigation */
 a i {
   color: var(--secondary);
+}
+
+[contentEditable='true'] {
+  border-bottom: 1px dashed gray;
 }

@@ -1,69 +1,12 @@
-<dashboard-sidebar
-  (click)="onClick($event)">
-  <div
-    *ngIf="channel"
-    class="dm-channel">
-    <dashboard-navbar>      
-      <i class="fas fa-at pr-2 text-muted"></i>
-      <strong>{{ recipient?.username }}</strong>
-    </dashboard-navbar>
+<dashboard-sidebar>
+  <dashboard-navbar>      
+    <i class="fas fa-at pr-2 text-muted"></i>
+    <strong>me</strong>
 
-    <div class="messages"
-      infiniteScroll
-      [scrollWindow]="false"
-      (scrolledUp)="loadMoreMessages()">
-      <div *ngIf="loadedAllMessages"
-        class="jumbotron pb-0">
-        <p class="lead">Start of direct message history with #{{ recipient?.username }}.</p>
-        <hr>
-      </div>
-      <spinner *ngIf="!loadedAllMessages"></spinner>
+    <i class="fas fa-plus mx-2"></i>
+    <i class="fas fa-at pr-2 text-muted"></i>
+    <strong>{{ recipient?.username }}</strong>
+  </dashboard-navbar>
 
-      <div *ngFor="let message of messages; index as i; trackBy: message._id"
-        [id]="'message' + message._id"
-        class="message">
-        <message
-          [message]="message"
-          [isExtra]="shouldCombine(i)"></message>
-      </div>
-    </div>
-    <div class="footer">
-      <emoji-mart
-        class="float-right"
-        emoji="joy"
-        title="Pick an Emoji"
-        (emojiClick)="addEmoji($event)"
-        [style.display]="emojiPickerOpen ? 'block' : 'none'"></emoji-mart>
-
-      <mat-form-field
-        autoFocus
-        (keyup)="emitTypingStart()"
-        (keyup.enter)="chat(message.value)"
-        appearance="fill">
-        <mat-label>Message #{{ recipient?.username }}</mat-label>
-        <textarea
-          id="chatBox"
-          matInput
-          #message></textarea>
-        <mat-icon
-          (click)="emojiPickerOpen = true"
-          class="cursor-pointer emoji-icon"
-          align="end" matSuffix>
-          <i class="fas fa-surprise"></i>
-        </mat-icon>
-      </mat-form-field>
-
-      <div
-        *ngIf="typingUsernames.length <= 0"
-        class="pt-3"></div>
-      <div
-        *ngIf="typingUsernames.length > 0"
-        class="typing">
-        <strong>{{ typingUsernames.join(', ') }}</strong> {{ typingUsernames.length > 1 ? 'are' : 'is' }} typing...
-      </div>
-    </div>
-  </div>
-  <div *ngIf="!channel">
-    <spinner></spinner>
-  </div>
+  <app-text-channel [channel]="channel" #textChannel></app-text-channel>
 </dashboard-sidebar>

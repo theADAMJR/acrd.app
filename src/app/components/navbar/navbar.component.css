@@ -12,7 +12,7 @@ img.icon {
 }
 img.logo {
   margin-left: 5px;
-  width: 96px;
+  width: 128px;
 }
 
 .dropdown-menu {
@@ -29,4 +29,5 @@ img.logo {
 
 a {
   cursor: pointer;
+  font-weight: 800;
 }

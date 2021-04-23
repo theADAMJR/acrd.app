@@ -34,5 +34,21 @@ export class AppComponent implements OnInit {
 
     this.themeService.updateTheme();
     await this.userService.updateUser();
+
+    (document
+      .querySelector('.options') as any)
+      .oncontextmenu = (e: MouseEvent) => {
+        const contextMenu: HTMLDivElement = document.querySelector('.mat-menu-panel');
+        contextMenu.style.position = 'absolute';
+        contextMenu.style.left = (e.clientX - 100) + 'px';
+    };
+    (document
+      .querySelector('#content') as any)
+      .oncontextmenu = (e: MouseEvent) => {
+        const contextMenu: HTMLDivElement = document.querySelector('.mat-menu-panel');
+        contextMenu.style.position = 'absolute';
+        contextMenu.style.top = '-20px';
+        contextMenu.style.left = (e.clientX - 350) + 'px';
+    };
   } 
 }
