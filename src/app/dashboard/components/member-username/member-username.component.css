@@ -2,7 +2,7 @@ div {
   border-radius: 5px;
 
   width: 100%;
-  padding: 2px 4px;
+  padding: 4px;
 }
 .active, div:hover {
   background-color: var(--background-primary);
@@ -17,6 +17,7 @@ img {
 }
 
 .username {
+  padding: 4px;
   max-width: 200px;
 
   white-space: nowrap;
@@ -24,10 +25,9 @@ img {
   text-overflow: ellipsis;
 }
 .username-text {
-  font-size: 20px;
-  text-overflow: ellipsis;  
-
   width: 70% !important;  
+
+  text-overflow: ellipsis;
 }
 .status-override {
   font-size: smaller;

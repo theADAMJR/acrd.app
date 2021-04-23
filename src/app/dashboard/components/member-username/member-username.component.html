@@ -18,7 +18,7 @@
       [class]="user.status?.toLowerCase()"></span>
     <div
       [style.color]="member ? roleColor : 'var(--light)'"
-      class="username pt-0">
+      class="username">
       <span class="float-right text-muted">
         <i *ngIf="pings.isUnread(dmChannelId)"
           matTooltip="Unread Pings"
