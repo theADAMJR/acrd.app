@@ -9,6 +9,7 @@ import { Lean } from 'src/app/types/entity-types';
 import { PingService } from 'src/app/services/ping.service';
 import { CreateChannelComponent } from 'src/app/dialog/create-channel/create-channel.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'guild-sidebar',
@@ -123,5 +124,11 @@ export class GuildSidebarComponent implements OnInit {
       width: '350px',
       data: { guild: this.guild }
     });
+  }
+
+  public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
+    event.preventDefault();
+    menuTrigger.menu.focusFirstItem('mouse');
+    menuTrigger.openMenu();
   }
 }

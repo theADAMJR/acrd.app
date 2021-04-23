@@ -7,10 +7,6 @@ img {
   padding: 0;
 }
 
-i {
-  padding-right: 5px;
-}
-
 .alt-name {
   border-radius: 50%;
   background-color: var(--background-primary);
@@ -70,13 +66,4 @@ a.dropdown-item:hover i {
 .dropdown i {
   float: right;
   color: gray;
-}
-
-.channel-settings {
-  margin: 6px 10px 0 0;
-  opacity: 0;
-}
-a:hover .channel-settings {
-  transition: opacity .3s ease-in-out;
-  opacity: 1;
 }

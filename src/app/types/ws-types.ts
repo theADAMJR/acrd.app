@@ -3,8 +3,7 @@ import { ChannelTypes, Lean, UserTypes, InviteTypes } from './entity-types';
 
 // -> in ws.service.ts
 export interface WSEventArgs {
-  'ACCEPT_FRIEND_REQUEST': (args: Args.AcceptFriendRequest) => any;
-  'CANCEL_FRIEND_REQUEST': (args: Args.CancelFriendRequest) => any;
+  'ADD_FRIEND': (args: Args.AddFriend) => any;
   'CHANNEL_CREATE': (args: Args.ChannelCreate) => any;
   'GUILD_DELETE': (args: Args.GuildDelete) => any;
   'GUILD_JOIN': (args: Args.GuildJoin) => any;
@@ -19,20 +18,16 @@ export interface WSEventArgs {
   'MESSAGE_CREATE': (args: Args.MessageCreate) => any;
   'MESSAGE_DELETE': (args: Args.MessageDelete) => any;
   'MESSAGE_UPDATE': (args: Args.MessageUpdate) => any;
-  'PING': (args: Args.Ping) => any;
   'PRESENCE_UPDATE': (params: Args.PresenceUpdate) => any;
   'READY': () => any;
   'REMOVE_FRIEND': (args: Args.RemoveFriend) => any;
-  'SEND_FRIEND_REQUEST': (args: Args.SendFriendRequest) => any;
   'TYPING_START': (args: Args.TypingStart) => any;
   'USER_UPDATE': (args: Args.UserUpdate) => any;
-  'VOICE_SERVER_UPDATE': (args: Args.VoiceServerUpdate) => any;
-  'VOICE_STATE_UPDATE': (args: Args.VoiceStateUpdate) => any;
   'message': (message: string) => any;
 }
 export interface WSEventParams {
-  'ACCEPT_FRIEND_REQUEST': Params.AcceptFriendRequest;
-  'CANCEL_FRIEND_REQUEST': Params.CancelFriendRequest;
+  /** Send an outgoing friend request, or accept an incoming request. */
+  'ADD_FRIEND': Params.AddFriend;
   'CHANNEL_CREATE': Params.ChannelCreate;
   'GUILD_CREATE': Params.GuildCreate;
   'GUILD_DELETE': Params.GuildDelete;
@@ -49,20 +44,17 @@ export interface WSEventParams {
   'MESSAGE_DELETE': Params.MessageDelete;
   'MESSAGE_UPDATE': Params.MessageUpdate;
   'READY': Params.Ready;
+  /** Cancel an incoming friend request, or remove a friend. */
   'REMOVE_FRIEND': Params.RemoveFriend;
-  'SEND_FRIEND_REQUEST': Params.SendFriendRequest;
   'TYPING_START': Params.TypingStart;
   'USER_UPDATE': Params.UserUpdate;
-  'VOICE_SERVER_UPDATE': Params.VoiceServerUpdate;
-  'VOICE_STATE_UPDATE': Params.VoiceStateUpdate;
   'disconnect': any;
 }
 
 export namespace Params {
-  export interface AcceptFriendRequest {
+  export interface AddFriend {
     friendId: string;
   }
-  export interface CancelFriendRequest extends AcceptFriendRequest {}
   export interface ChannelCreate {
     guildId: string;
     partialChannel: Partial.Channel;
@@ -130,9 +122,6 @@ export namespace Params {
   export interface RemoveFriend {
     friendId: string;
   }
-  export interface SendFriendRequest {
-    friendUsername: string;
-  }
   export interface TypingStart {
     channelId: string;
   }
@@ -140,21 +129,14 @@ export namespace Params {
     partialUser: Partial.User;
     key: string;
   }
-  export interface VoiceStateUpdate {
-    voice: UserTypes.VoiceState;
-  }
-  export interface VoiceServerUpdate {
-    guildId: string;
-  }
 }
 
 export namespace Args {
-  export interface AcceptFriendRequest extends CancelFriendRequest {
-    dmChannel: ChannelTypes.DM;
-  }
-  export interface CancelFriendRequest {
+  export interface AddFriend {
     friend: Lean.User;
     sender: Lean.User;
+    /** Only available if both users add each other as a friend.  */
+    dmChannel?: ChannelTypes.DM;
   }
   export interface ChannelCreate {
     channel: Lean.Channel
@@ -205,17 +187,12 @@ export namespace Args {
     messageId: string;
     partialMessage: Partial.Message;
   }
-  export interface Ping {
-    channelId: string;
-    guildId?: string;
-  }
   export interface PresenceUpdate {
     userId: string;
     status: UserTypes.StatusType;
   }
   export interface Ready {}
-  export interface RemoveFriend extends CancelFriendRequest {}
-  export interface SendFriendRequest extends CancelFriendRequest {
+  export interface RemoveFriend {
     friend: Lean.User;
     sender: Lean.User;
   }
@@ -225,12 +202,6 @@ export namespace Args {
   export interface UserUpdate {
     partialUser: Partial.User;
   }
-  export interface VoiceStateUpdate {
-    userId: string;
-    voice: UserTypes.VoiceState;
-    memberIds: string[];
-  }
-  export interface VoiceServerUpdate {}
 }
 
 export namespace Partial {
@@ -262,9 +233,9 @@ export namespace Partial {
     position: number;
   }
   export interface User {
-    avatarURL?: string;
-    username?: string;
-    ignored?: {
+    avatarURL: string;
+    username: string;
+    ignored: {
       channelIds: string[];
       guildIds: string[];
       userIds: string[];

@@ -39,7 +39,7 @@ export class WSService {
     this.socket.emit(name, params);
   }
 
-  public nameOf(component: any) {
+  private nameOf(component: any) {
     return component.constructor.name;
   }
 }

@@ -31,7 +31,7 @@ export class UsersService extends HTTPWrapper {
       bot: false,
       createdAt: new Date(),
       friendIds: [],
-      friendRequests: [],
+      friendRequestIds: [],
       guilds: [],
       status: 'OFFLINE',
       username: `Unknown - ${userId}`,
@@ -50,7 +50,7 @@ export class UsersService extends HTTPWrapper {
       : [];
   }
 
-  public get(id: string): Promise<Lean.User> {
+  public fetch(id: string): Promise<Lean.User> {
     return this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise() as any;
   }
   public getKnown(id: string): Lean.User {

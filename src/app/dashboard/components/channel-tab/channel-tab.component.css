@@ -1,0 +1,8 @@
+.channel-settings {
+  margin: 6px 10px 0 0;
+  opacity: 0;
+}
+a:hover .channel-settings {
+  transition: opacity .3s ease-in-out;
+  opacity: 1;
+}

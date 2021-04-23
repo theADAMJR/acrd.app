@@ -56,26 +56,26 @@
     </div>
      
     <div *ngSwitchCase="'PENDING'">
-      <div class="category pl-0">Pending—{{ friendRequests.length }}</div>
+      <div class="category pl-0">Pending—{{ friendRequestIds.length }}</div>
       <hr>
 
-      <div *ngFor="let request of friendRequests">
+      <div *ngFor="let friendId of friendRequestIds">
         <div class="float-right">
           <button
-            (click)="accept(request.userId)"
-            [hidden]="request.type === 'OUTGOING'"
+            (click)="accept(friendId)"
+            [hidden]="isOutgoing(friendId)"
             class="round bg-success px-0" mat-button>
             <i class="fa fa-check" aria-hidden="true"></i>
           </button>
 
           <button
-            (click)="cancel(request.userId)"
+            (click)="cancel(friendId)"
             class="round px-0 ml-2" mat-button>
             <i class="fas fa-times"></i>
           </button>
         </div>
         <member-username
-          [user]="users.getKnown(request.userId)"
+          [user]="users.getKnown(friendId)"
           [statusOverride]="request.type === 'OUTGOING' ? 'Outgoing Friend Request' : 'Incoming Friend Request'"></member-username>
       </div>
         

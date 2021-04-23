@@ -25,9 +25,6 @@ export class FriendsListComponent implements OnInit {
       .getFriends()
       .filter(f => f.status !== 'OFFLINE');
   }
-  public get friendRequests() {
-    return this.users.user?.friendRequests;
-  }
 
   constructor(
     public channelService: ChannelService,
@@ -41,19 +38,12 @@ export class FriendsListComponent implements OnInit {
 
   public hookWSEvents() {
     this.ws
-      .on('ACCEPT_FRIEND_REQUEST', this.acceptFriendRequest, this)
-      .on('CANCEL_FRIEND_REQUEST', this.updateFriends, this)
-      .on('REMOVE_FRIEND', this.updateFriends, this)
-      .on('SEND_FRIEND_REQUEST', this.sendFriendRequest, this);
+      .on('ADD_FRIEND', this.addFriend, this)
+      .on('REMOVE_FRIEND', this.updateFriends, this);
   }
   
-  public acceptFriendRequest({ sender, friend, dmChannel }: Args.AcceptFriendRequest) {
+  public addFriend({ sender, friend, dmChannel }: Args.AddFriend) {
     this.channelService.dmChannels.push(dmChannel);
-    this.updateFriends({ sender, friend });
-  }
-
-  public sendFriendRequest({ sender, friend }: Args.AcceptFriendRequest) {
-    this.users.addKnownUser(friend);
     this.updateFriends({ sender, friend });
   }
 
@@ -62,21 +52,19 @@ export class FriendsListComponent implements OnInit {
     this.users.upsertCached(friend._id, friend);
   }
 
-  public getFriendRequest(id: string) {
-    return this.friendRequests.find(r => r.userId === id);
-  }
   public getFriend(id: string) {
     return this.friends.find(f => f._id === id);
   }
 
-  public accept(friendId: string) {
-    this.ws.emit('ACCEPT_FRIEND_REQUEST', { friendId }, this);
-  }
-  public cancel(friendId: string) {
-    this.ws.emit('CANCEL_FRIEND_REQUEST', { friendId }, this);
+  public add(friendId: string) {
+    this.ws.emit('ADD_FRIEND', { friendId }, this);
   }
   public remove(friendId: string) {
     this.ws.emit('REMOVE_FRIEND', { friendId }, this);
+  }
+
+  public isOutgoing(friendId: string) {
+    this.users.fetch(friendId)?
   }
 }
 

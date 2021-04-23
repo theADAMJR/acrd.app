@@ -12,38 +12,15 @@
       </div>
     </div>
     <div class="category">Channels</div>
-    <div *ngIf="guild && perms.can(guild._id, 'VIEW_CHANNELS')"
+    <div
+      *ngIf="guild && perms.can(guild._id, 'VIEW_CHANNELS')"
       class="navbar-nav">
-      <a *ngFor="let channel of textChannels"
-        [routerLink]="'/channels/' + guild._id + '/' + channel._id"
-        routerLinkActive="active"
-        class="nav-item nav-link">        
-        <span class="float-right text-muted p-1">
-          <i *ngIf="pings.isUnread(channel._id)"
-            matTooltip="Unread Pings"
-            class="fas fa-circle"></i>
-        </span>
-
-        <i class="fas fa-hashtag"
-          [ngClass]="{
-            'text-muted': usersService.user.ignored.channelIds.includes(channel._id),
-            'text-warning': pings.isUnread(channel._id)
-          }"></i>
-        <span>{{ channel.name }}</span>
-        <span *ngIf="pings.isUnread(channel._id)" class="ml-2">
-          <i class="fas fa-circle text-danger"></i>
-        </span>
-
-        <span class="float-right">
-          <i matTooltip="Edit Channel"
-            class="fas fa-cog text-muted channel-settings spin"></i>
-        </span>
-      </a>
-
-      <voice-channel
+      <app-channel-tab
+        *ngFor="let channel of textChannels"
+        [channel]="channel"></app-channel-tab>
+      <app-channel-tab
         *ngFor="let channel of voiceChannels"
-        [channel]="channel"
-        [guild]="guild"></voice-channel>
+        [channel]="channel"></app-channel-tab>
     </div>
   </div>
     

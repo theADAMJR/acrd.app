@@ -63,6 +63,7 @@ import { CreateChannelComponent } from './dialog/create-channel/create-channel.c
 import { CreateGuildComponent } from './dialog/create-guild/create-guild.component';
 import { ComingSoonComponent } from './utils/coming-soon/coming-soon.component';
 import { LighthouseComponent } from './cool/lighthouse/lighthouse.component';
+import { ChannelTabComponent } from './dashboard/components/channel-tab/channel-tab.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -137,6 +138,7 @@ export class AlertErrorHandler implements ErrorHandler {
     CreateGuildComponent,
     ComingSoonComponent,
     LighthouseComponent,
+    ChannelTabComponent,
   ],
   imports: [
     AppRoutingModule,
