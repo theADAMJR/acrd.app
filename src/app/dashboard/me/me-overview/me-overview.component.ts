@@ -38,8 +38,8 @@ export class DashboardOverviewComponent {
   sendFriendRequest() {
     if (this.addFriendForm.invalid) return;
 
-    this.ws.emit('SEND_FRIEND_REQUEST', {
-      friendUsername: this.addFriendForm.value.username
+    this.ws.emit('ADD_FRIEND', {
+      username: this.addFriendForm.value.username,
     }, this);
   }
 

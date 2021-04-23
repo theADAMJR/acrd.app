@@ -166,8 +166,8 @@ export class MessagePreviewComponent {
       withEmbed: Boolean(this.message.embed),
     }, this);
 
-    this.ws.on('MESSAGE_UPDATE', async ({ partialMessage }) => {
-      if (partialMessage.content === this.message.content)
+    this.ws.on('MESSAGE_UPDATE', async ({ message }) => {
+      if (message.content === this.message.content)
         await this.log.success();
     }, this);
   }

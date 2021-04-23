@@ -60,7 +60,8 @@ export class GuildSidebarComponent implements OnInit {
 
   public hookWSEvents() {
     this.ws
-      .on('CHANNEL_CREATE', this.addChannelToGuild, this)
+      .on('CHANNEL_CREATE', this.addChannel, this)
+      .on('CHANNEL_DELETE', this.deleteChannel, this)
       .on('PRESENCE_UPDATE', this.updateMemberPresence, this)      
       .on('GUILD_DELETE', this.delete, this)
       .on('GUILD_MEMBER_ADD', this.addGuildMember, this)
@@ -68,8 +69,12 @@ export class GuildSidebarComponent implements OnInit {
       .on('GUILD_ROLE_UPDATE', this.updateRole, this);
   }
 
-  private addChannelToGuild({ channel }: Args.ChannelCreate) {
+  private addChannel({ channel }: Args.ChannelCreate) {
     this.guild.channels.push(channel);
+  }
+  private deleteChannel({ channelId }: Args.ChannelDelete) {
+    const index = this.guild.channels.findIndex(c => c._id === channelId);
+    this.guild.channels.splice(index, 1);
   }
   private updateMemberPresence({ userId, status }: Args.PresenceUpdate) {
     const guildMember = this.getMember(userId);

@@ -17,6 +17,10 @@ export class FriendsListComponent implements OnInit {
     return this.users.user.ignored?.userIds
       ?.map(id => this.users.getKnown(id));
   }
+  public get friendRequests() {
+    return this.users.user.friendRequestIds
+      .map(id => this.users.getKnown(id));
+  }
   public get friends() {
     return this.users.getFriends();
   }
@@ -56,15 +60,15 @@ export class FriendsListComponent implements OnInit {
     return this.friends.find(f => f._id === id);
   }
 
-  public add(friendId: string) {
-    this.ws.emit('ADD_FRIEND', { friendId }, this);
+  public add(username: string) {
+    this.ws.emit('ADD_FRIEND', { username }, this);
   }
   public remove(friendId: string) {
     this.ws.emit('REMOVE_FRIEND', { friendId }, this);
   }
 
-  public isOutgoing(friendId: string) {
-    this.users.fetch(friendId)?
+  public isOutgoing(friend: Lean.User) {
+    return !friend.friendRequestIds.includes(this.users.user._id);
   }
 }
 

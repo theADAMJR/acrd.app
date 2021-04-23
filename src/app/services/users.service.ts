@@ -95,6 +95,7 @@ export class UsersService extends HTTPWrapper {
 
     this.ws.emit('USER_UPDATE', {
       partialUser: {
+        ...this.user,
         ignored: { ...this.user.ignored, userIds }
       },
       key: localStorage.getItem('key'),
@@ -107,6 +108,7 @@ export class UsersService extends HTTPWrapper {
 
     this.ws.emit('USER_UPDATE', {
       partialUser: {
+        ...this.user,
         ignored: { ...this.user.ignored, userIds }
       },
       key: localStorage.getItem('key'),

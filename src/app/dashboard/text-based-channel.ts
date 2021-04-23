@@ -105,12 +105,9 @@ export class TextBasedChannel {
     setTimeout(() => this.scrollToMessage(), 100);
   }
 
-  private updateMessage({ messageId, partialMessage }: Args.MessageUpdate) {
-    let index = this.messages.findIndex(m => m._id === messageId);
-    this.messages[index] = {
-      ...this.messages[index],
-      ...partialMessage,
-    };
+  private updateMessage({ message }: Args.MessageUpdate) {
+    let index = this.messages.findIndex(m => m._id === message);
+    this.messages[index] = message;
   }
 
   private deleteMessage({ messageId }: Args.MessageDelete) {
