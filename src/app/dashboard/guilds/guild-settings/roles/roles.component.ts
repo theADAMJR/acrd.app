@@ -14,20 +14,45 @@ import { Lean, PermissionTypes } from '../../../../types/entity-types';
   styleUrls: ['./roles.component.css', '../overview/guild-settings.component.css']
 })
 export class RolesComponent extends ModuleConfig implements OnInit {
-  selectedRole: Lean.Role;
-  presetColors = [
-    '#6E8481',
-    '#A2B6AD',
-    '#576067'
-  ];
+  public selectedRole: Lean.Role;
+  public presetColors = [ '#6E8481', '#A2B6AD', '#576067' ];
+  public description: DescriptionType = {
+    general: {
+      'ADMINISTRATOR': `Members with this permission inherit every other permission. This is a dangerous permission.`,
+      'BAN_MEMBERS': 'Members with this permission can ban members from the guild.',
+      'CREATE_INVITE': 'Members with this permission can create invites for users to join this guild.',
+      'CHANGE_NICKNAME': '',
+      'KICK_MEMBERS': 'Members with this permission can kick members from this guild.',
+      'MANAGE_CHANNELS': 'Members with this permission can create, edit, or delete channels.',
+      'MANAGE_GUILD': `Members with this permission can edit general guild settings.`,
+      'MANAGE_NICKNAMES': '',
+      'MANAGE_ROLES': 'Members with this permission can manage guild roles.',
+      'VIEW_AUDIT_LOG': '',
+      'VIEW_CHANNELS': 'Members with this permission can view channels.',
+    },
+    text: {
+      'ADD_REACTIONS': '',
+      'MANAGE_MESSAGES': `Members with this permission can delete other member's messages.`,
+      'MENTION_EVERYONE': 'Members with this permission can mention everyone.',
+      'READ_MESSAGES': ``,
+      'SEND_MESSAGES': 'Members with this permission can send messages in text channels.',
+    },
+    voice: {
+      'CONNECT': '',
+      'MOVE_MEMBERS': 'Members with this permission can mute other members.',
+      'MUTE_MEMBERS': '',
+      'SPEAK': 'Members with this permission can speak in voice channels.',
+    },
+  };
+  public permissionType = Object.keys(PermissionTypes.All);
 
-  permissionsForm: FormGroup;
+  public permissionsForm: FormGroup;
 
-  get isEveryone() {
+  public get isEveryone() {
     return this.selectedRole?.name === '@everyone';
   }
 
-  get permissions(): number {
+  public get permissions(): number {
     let permissions = 0;
     for (const formGroupName in this.permissionsForm.value)
       for (const key in this.permissionsForm.get(formGroupName).value) {
@@ -53,7 +78,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       super(guildService, route, snackbar, ws, log, router);
     }
 
-  async ngOnInit() {
+  public async ngOnInit() {
     await super.init();
 
     this.selectRole(this.guild.roles[0]);
@@ -65,81 +90,66 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       this.guild.roles.push(role);
       this.originalGuild = {...this.guild};
 
-      await this.selectRole(role);
+      await this.log.success();
     }, this)
-    .on('GUILD_ROLE_DELETE', async ({ roleId }) => {
-      const index = this.guild.roles.findIndex(r => r._id === roleId);
-      this.guild.roles.splice(index, 1);
-      this.originalGuild = {...this.guild};
-
-      await this.selectRole(this.guild.roles[0]);
-    }, this)
-    .on('GUILD_ROLE_UPDATE', ({ roleId, partialRole }) => {
-      const index = this.guild.roles.findIndex(r => r._id === roleId);
-      this.guild.roles[index] = {
-        ...this.guild.roles[index],
-        ...partialRole
-      };
-      this.originalGuild = {...this.guild};
-    }, this);
+    .on('GUILD_ROLE_DELETE', () => this.log.success(), this)
+    .on('GUILD_ROLE_UPDATE', () => this.log.success(), this);
   }
 
-  async selectRole(role: Lean.Role) {
+  public async selectRole(role: Lean.Role) {
     this.selectedRole = role;
     await this.reset();
   }
 
-  buildForm(guild: Lean.Guild): FormGroup {
+  public buildForm(guild: Lean.Guild): FormGroup {
     if (!this.selectedRole)
       return new FormGroup({});
 
-    const role = guild.roles.find(r => r._id === this.selectedRole?._id);
-    const hasPermission = (perm: PermissionTypes.Permission) => Boolean(role?.permissions & perm);
-
+    const role = guild.roles.find(r => r._id === this.selectedRole._id);    
     this.permissionsForm = new FormGroup({
-      general: new FormGroup({
-        ADMINISTRATOR: new FormControl(hasPermission(PermissionTypes.General.ADMINISTRATOR)),
-        VIEW_AUDIT_LOG: new FormControl(hasPermission(PermissionTypes.General.VIEW_AUDIT_LOG)),
-        MANAGE_GUILD: new FormControl(hasPermission(PermissionTypes.General.MANAGE_GUILD)),
-        MANAGE_ROLES: new FormControl(hasPermission(PermissionTypes.General.MANAGE_ROLES)),
-        MANAGE_CHANNELS: new FormControl(hasPermission(PermissionTypes.General.MANAGE_CHANNELS)),
-        BAN_MEMBERS: new FormControl(hasPermission(PermissionTypes.General.BAN_MEMBERS)),
-        KICK_MEMBERS: new FormControl(hasPermission(PermissionTypes.General.KICK_MEMBERS)),
-        CREATE_INVITE: new FormControl(hasPermission(PermissionTypes.General.CREATE_INVITE)),
-        CHANGE_NICKNAME: new FormControl(hasPermission(PermissionTypes.General.CHANGE_NICKNAME)),
-        MANAGE_NICKNAMES: new FormControl(hasPermission(PermissionTypes.General.MANAGE_NICKNAMES)),
-        VIEW_CHANNELS: new FormControl(hasPermission(PermissionTypes.General.VIEW_CHANNELS))
-      }),
-      text: new FormGroup({
-        SEND_MESSAGES: new FormControl(hasPermission(PermissionTypes.Text.SEND_MESSAGES)),
-        READ_MESSAGE_HISTORY: new FormControl(hasPermission(PermissionTypes.Text.READ_MESSAGES)),
-        MENTION_EVERYONE: new FormControl(hasPermission(PermissionTypes.Text.MENTION_EVERYONE)),
-        MANAGE_MESSAGES: new FormControl(hasPermission(PermissionTypes.Text.MANAGE_MESSAGES)),
-        ADD_REACTIONS: new FormControl(hasPermission(PermissionTypes.Text.ADD_REACTIONS)),
-      }),
-      voice: new FormGroup({
-        CONNECT: new FormControl(hasPermission(PermissionTypes.Voice.CONNECT)),
-        MOVE_MEMBERS: new FormControl(hasPermission(PermissionTypes.Voice.MOVE_MEMBERS)),
-        MUTE_MEMBERS: new FormControl(hasPermission(PermissionTypes.Voice.MUTE_MEMBERS)),
-        SPEAK: new FormControl(hasPermission(PermissionTypes.Voice.SPEAK))
-      })
+      general: this.permissionGroup(role, PermissionTypes.General),
+      text: this.permissionGroup(role, PermissionTypes.Text),
+      voice: this.permissionGroup(role, PermissionTypes.Voice),
     });
     this.permissionsForm.valueChanges
       .subscribe(() => this.openSaveChanges());
 
+    console.log(this.permissionsForm.get('general').get('ADMINISTRATOR'));
+
     return new FormGroup({
-      name: new FormControl(role?.name ?? '', [
+      color: new FormControl({
+        value: role.color,
+        disabled: this.isEveryone,
+      }),
+      hoisted: new FormControl({
+        value: this.isEveryone ? false : role.mentionable,
+        disabled: this.isEveryone,
+      }),
+      mentionable: new FormControl({
+        value: this.isEveryone ? false : role.mentionable,
+        disabled: this.isEveryone,
+      }),
+      name: new FormControl(role.name ?? '', [
         Validators.required,
         Validators.maxLength(32),
         Validators.pattern(/^(?!everyone|here|someone).*$/)
       ]),
-      color: new FormControl(this.presetColors[1]),
-      hoisted: new FormControl(this.isEveryone ? false : role?.mentionable),
-      mentionable: new FormControl(this.isEveryone ? false : role?.mentionable)
+      position: new FormControl(0),
     });
   }
 
-  clearPermissions() {
+  private permissionGroup(role: Lean.Role, type: object) {
+    const hasPermission = (perm: PermissionTypes.Permission) => Boolean(role.permissions & perm);
+    
+    const group = new FormGroup({});
+    for (const perm in type) {
+      if (Number.parseInt(perm)) continue;
+      group.setControl(perm, new FormControl(hasPermission(type[perm])));
+    }    
+    return group;
+  } 
+
+  public clearPermissions() {
     for (const formGroupName in this.permissionsForm.value)
       for (const key in this.permissionsForm.get(formGroupName).value)
         this.permissionsForm
@@ -148,39 +158,61 @@ export class RolesComponent extends ModuleConfig implements OnInit {
           .setValue(false);
   }
 
-  async submit() {
-    this.form.value.permissions = this.permissions;
-    
-    for (const key in this.form.value)
-      this.selectedRole[key] = this.form.value[key];
-
+  public async submit() {
     try {
       if (!this.form.valid) return;
 
-      ;
-      this.ws.emit('GUILD_ROLE_UPDATE', {
-        roleId: this.selectedRole._id,
-        guildId: this.guildId,
-        partialRole: this.form.value,
-      }, this);
-    } catch {
-      alert('An error occurred when submitting the form - check console');
+      this.form.value.permissions = this.permissions;
+      
+      for (const key in this.form.value)
+        this.selectedRole[key] = this.form.value[key];
+
+      this.updateRole();
+    } catch (error) {
+      await this.log.error(error.message);
     }
   }
 
-  newRole() {
-    ;
+  private updateRole() {
+    const roleId = this.selectedRole._id;
+    this.ws.emit('GUILD_ROLE_UPDATE', {
+      roleId,
+      guildId: this.guildId,
+      partialRole: this.form.value,
+    }, this);
+
+    const index = this.guild.roles.findIndex(r => r._id === roleId);
+    this.guild.roles[index] = {
+      ...this.guild.roles[index],
+      ...this.form.value,
+    };
+    this.originalGuild = { ...this.guild };
+  }
+
+  public async newRole() {
     this.ws.emit('GUILD_ROLE_CREATE', {
       guildId: this.guildId,
       partialRole: {
         ...this.form.value,
-        name: 'New Role'
+        name: 'New Role',
       },
     }, this);
   }
 
-  deleteRole() {
-    ;
-    this.ws.emit('GUILD_ROLE_DELETE', ({ roleId: this.selectedRole._id, guildId: this.guildId }), this);
+  public async deleteRole() {
+    const roleId = this.selectedRole._id;
+    this.ws.emit('GUILD_ROLE_DELETE', { roleId, guildId: this.guildId }, this);
+
+    const index = this.guild.roles.findIndex(r => r._id === roleId);
+    this.guild.roles.splice(index, 1);
+    this.originalGuild = {...this.guild};
+
+    await this.selectRole(this.guild.roles[0]);
   }
 }
+
+export type DescriptionType = {
+  general: { [key in keyof typeof PermissionTypes.General]: string };
+  text: { [key  in keyof typeof PermissionTypes.Text]: string };
+  voice: { [key  in keyof typeof PermissionTypes.Voice]: string };
+};

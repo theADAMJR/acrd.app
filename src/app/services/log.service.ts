@@ -50,7 +50,7 @@ export class LogService {
   public consoleWarning() {
     console.log(`%cAttention!`, `color: red; font-size: 32px;`);
     console.log(
-      `%cIf someone told you to paste something in this console, it likely against the TOS, and could steal your account.`,
+      `%cIf someone told you to paste something in this console, it's probably against the TOS and could steal your account.`,
       `color: darkred; font-size: 16px;`
     );
   }

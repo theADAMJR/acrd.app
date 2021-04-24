@@ -43,7 +43,7 @@
 .close-container {
   position: absolute;
   top: 25px;
-  right: 25px;
+  right: -50px;
 }
 
 .close {
