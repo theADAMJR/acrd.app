@@ -11,6 +11,7 @@ import { UsernameValidators } from 'src/app/authentication/sign-up/username.vali
 import { UserConfig } from 'src/app/dashboard/components/user-config';
 import { environment } from 'src/environments/environment';
 import { Lean, patterns } from 'src/app/types/entity-types';
+import faker from 'faker';
 
 @Component({
   selector: 'app-user-settings',
@@ -21,18 +22,30 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
   @ViewChild('themeSelect')
   public themeSelect: MatSelect;
   public environment = environment;
+  public previewMessages: Lean.Message[] = [];
 
-  public get sfxEnabled() {
-    return localStorage.getItem('sfx') !== 'disabled';
-  }
-  public get currentTheme() {
-    return localStorage.getItem('theme');
-  }
+  public readonly avatarNames = [
+    'avatar_aqua',
+    'avatar_coffee',
+    'avatar_fire',
+    'avatar_gold',
+    'avatar_grey',
+    'avatar_rainbow',
+    'avatar_sky',
+    'avatar_tree',
+  ];
+
   public get avatarUser() {
     return {
       avatarURL: this.form.get('avatarURL').value,
       username: this.user.username,
     };
+  }
+  public get currentTheme() {
+    return localStorage.getItem('theme');
+  }
+  public get sfxEnabled() {
+    return localStorage.getItem('sfx') !== 'disabled';
   }
 
   constructor(
@@ -50,6 +63,15 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
 
   public async ngAfterViewInit() {
     await super.init();
+
+    const messageCount = 3;
+    for (let i = 0; i < messageCount; i++)
+      this.previewMessages.push({
+        authorId: this.user._id,
+        content: faker.lorem.sentence(),
+        channelId: '',
+        createdAt: new Date(),
+      } as any);      
 
     this.themeSelect
       ?.writeValue(localStorage

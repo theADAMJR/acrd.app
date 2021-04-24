@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer;
 
   get guilds() { return this.guildService.guilds || []; }
-  get user() { return this.userService.user; }
+  get user() { return this.usersService.user; }
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +29,7 @@ export class SidebarComponent implements OnInit {
     public guildService: GuildService,
     private sounds: SoundService,
     private pings: PingService,
-    private userService: UsersService,
+    private usersService: UsersService,
     private rtc: RTCService,
     private router: Router,
     private ws: WSService,
@@ -46,10 +46,17 @@ export class SidebarComponent implements OnInit {
   public hookWSEvents() {
     this.ws
       .on('GUILD_JOIN', this.joinGuild, this)
-      .on('MESSAGE_CREATE', this.ping, this);
+      .on('MESSAGE_CREATE', this.ping, this)
+      .on('PRESENCE_UPDATE', this.updatePresence, this);  
   }
 
-  public async ping({ message }: Args.MessageCreate) {
+  public async joinGuild({ guild }: Args.GuildJoin) {
+    this.guildService.guilds.push(guild);
+    this.router.navigate([`/channels/${guild._id}`]);
+
+    await this.sounds.success();
+  }
+  private async ping({ message }: Args.MessageCreate) {
     const guild = this.guildService.getGuildFromChannel(message.channelId);
     if (this.pings.isIgnored(message, guild?._id)) return;
 
@@ -58,12 +65,9 @@ export class SidebarComponent implements OnInit {
       ? this.pings.markAsRead(message.channelId)
       : await this.pings.add(message.channelId, message._id);
   }
-
-  public async joinGuild({ guild }: Args.GuildJoin) {
-    this.guildService.guilds.push(guild);
-    this.router.navigate([`/channels/${guild._id}`]);
-
-    await this.sounds.success();
+  private updatePresence({ userId, status }: Args.PresenceUpdate) {    
+    const user = this.usersService.getKnown(userId);
+    user.status = status;
   }
 
   public toggle() {

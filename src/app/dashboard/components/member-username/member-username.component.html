@@ -41,6 +41,23 @@
 </div>
 
 <mat-menu #contextMenu>
+  <div *ngIf="guild">
+    <button
+      *ngIf="isBlocked"  
+      (click)="usersService.unblock(user._id)"
+      mat-menu-item>
+      <i class="fas fa-ban text-muted mr-1"></i>
+      <span>Unblock</span>
+    </button>
+    <button
+      *ngIf="isBlocked"  
+      (click)="usersService.unblock(user._id)"
+      mat-menu-item>
+      <i class="fas fa-ban text-muted mr-1"></i>
+      <span>Unblock</span>
+    </button>    
+  </div>
+
   <button
     *ngIf="isBlocked"  
     (click)="usersService.unblock(user._id)"

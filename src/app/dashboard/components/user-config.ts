@@ -12,9 +12,9 @@ import { Lean, UserTypes } from 'src/app/types/entity-types';
 
 @Directive()
 export abstract class UserConfig implements OnDestroy {
-  form: FormGroup;
-  user: UserTypes.Self;
-  originalUser: UserTypes.Self;
+  public form: FormGroup;
+  public user: UserTypes.Self;
+  public originalUser: UserTypes.Self;
 
   private saveChanges$: Subscription;  
   private valueChanges$: Subscription;  
@@ -90,7 +90,7 @@ export abstract class UserConfig implements OnDestroy {
         partialUser: this.form.value,
       }, this);
 
-      await this.log.success('Successfully updated.');
+      await this.log.success();
     } catch (error) {
       await this.log.error(error.message);
     }

@@ -41,17 +41,18 @@
 <mat-menu
   #channelMenu="matMenu"
   matMenuContent>
-  <div (click)="$event.stopPropagation()"
-    class="p-2">
+  <div (click)="$event.stopPropagation()">
     <button
+      *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
       (click)="delete()"
       class="text-danger"
-      mat-button>
+      mat-menu-item>
       <i class="fas fa-trash" aria-hidden="true"></i>
       <span class="ml-2">Delete</span>
     </button>
+    
     <hr>
-    <div>
+    <div class="p-2">
       <strong>ID: </strong>
       <code>{{ channel._id }}</code>
     </div>

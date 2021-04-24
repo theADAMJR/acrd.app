@@ -46,7 +46,7 @@ import { DMChannelComponent } from './dashboard/me/dmchannel/dmchannel.component
 import { UserSettingsComponent } from './dashboard/me/user-settings/user-settings.component';
 import { BotListComponent } from './dashboard/guilds/guild-settings/bot-list/bot-list.component';
 import { MessageEmbedComponent } from './dashboard/messages/message-embed/message-embed.component';
-import { MessagePreviewComponent } from './dashboard/messages/message/message.component';
+import { MessageComponent } from './dashboard/messages/message/message.component';
 import { MemberListComponent } from './dashboard/guilds/member-list/member-list.component';
 import { DevelopersComponent } from './pages/developers/developers.component';
 import { ApplicationComponent } from './pages/developers/application/application.component';
@@ -108,7 +108,7 @@ export class AlertErrorHandler implements ErrorHandler {
     TruncatedPipe,
     DurationStringPipe,
     CamelToSentenceCasePipe,
-    MessagePreviewComponent,
+    MessageComponent,
     WavesComponent,
     LoginComponent,
     SignUpComponent,

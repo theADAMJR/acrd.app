@@ -9,7 +9,7 @@ import { GuildService } from 'src/app/services/guild.service';
 @Component({
   selector: 'app-settings-sidebar',
   templateUrl: './settings-sidebar.component.html',
-  styleUrls: ['./settings-sidebar.component.css']
+  styleUrls: ['./settings-sidebar.component.css'],
 })
 export class SettingsSidebarComponent {
   @Input() tabType: TabType;
@@ -59,7 +59,6 @@ export class SettingsSidebarComponent {
   }
 
   constructor(
-    private location: Location,
     private guildService: GuildService,
     private perms: PermissionsService,
     private router: Router,

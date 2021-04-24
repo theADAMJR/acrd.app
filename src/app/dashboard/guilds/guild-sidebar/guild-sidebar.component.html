@@ -7,7 +7,10 @@
           [matMenuTriggerFor]="guildMenu"
           class="btn bg-transparent"
           type="button">
-          <h6 class="pt-2"><strong>{{ guild.name }}</strong></h6>
+          <h6 class="pt-2">
+            <strong>{{ guild.name }}</strong>
+            <i class="fas fa-sort-down"></i>
+          </h6>
         </button>
       </div>
     </div>
@@ -35,9 +38,7 @@
   </div>
 </sidebar>
 
-<mat-menu
-  #guildMenu="matMenu"
-  width="400px">
+<mat-menu #guildMenu="matMenu">
   <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
     (click)="createInviteDialog()"
     class="dropdown-item invite"

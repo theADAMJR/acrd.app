@@ -4,30 +4,26 @@
   <div class="content">
     <h5 class="uppercase mb-4">User Overview</h5>
     <div class="row">
-      <div class="col-6">
+      <div class="col-xl-6 col-12">
         <div
           routerLinkActive="active"
           class="user-icon round">
           <app-avatar-url
-            class="pl-2 pb-3"
+            class="pl-2 pb-3 ml-4 mt-3"
             [user]="avatarUser"
             size="128px"></app-avatar-url>
         </div>
-      </div>
 
-      <div class="col-6">
         <form
           *ngIf="form"
           #f="ngForm"
           [formGroup]="form">
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="ml-5">
             <mat-label>Avatar URL</mat-label>
             <input formControlName="avatarURL" type="url" matInput>
           </mat-form-field>
 
-          <mat-form-field
-            class="ml-2"
-            appearance="outline">
+          <mat-form-field appearance="outline" class="ml-5">
             <mat-label>Username</mat-label>
             <input formControlName="username" type="text" matInput>
             <mat-hint *ngIf="form.get('username').pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</mat-hint>
@@ -39,73 +35,63 @@
         </form>
       </div>
 
-      <div class="avatars card p-3 mt-2 rounded">
-        <h5>Choose an Avatar</h5>
-        <div class="row">
-          <div class="col-3">
-            <img (click)="setAvatar('avatar_aqua')"
-              [src]="environment.endpoint + '/avatars/avatar_aqua.png'" alt="">
-          </div>
-          <div class="col-3">
-            <img (click)="setAvatar('avatar_coffee')"
-              [src]="environment.endpoint + '/avatars/avatar_coffee.png'" alt="">
-          </div>
-          <div class="col-3">
-            <img (click)="setAvatar('avatar_fire')"
-              [src]="environment.endpoint + '/avatars/avatar_fire.png'" alt="">
-          </div>
-          <div class="col-3">
-            <img (click)="setAvatar('avatar_gold')"
-              [src]="environment.endpoint + '/avatars/avatar_gold.png'" alt="">
-          </div>
-
-          <div class="col-3">
-            <img (click)="setAvatar('avatar_grey')"
-              [src]="environment.endpoint + '/avatars/avatar_grey.png'" alt="">
-          </div>
-          <div class="col-3">
-            <img (click)="setAvatar('avatar_rainbow')"
-              [src]="environment.endpoint + '/avatars/avatar_rainbow.png'" alt="">
-          </div>
-          <div class="col-3">
-            <img (click)="setAvatar('avatar_sky')"
-              [src]="environment.endpoint + '/avatars/avatar_sky.png'" alt="">
-          </div>
-          <div class="col-3">
-            <img (click)="setAvatar('avatar_tree')"
-              [src]="environment.endpoint + '/avatars/avatar_tree.png'" alt="">
+      <div class="col-lg-6 col-12">
+        <div class="avatars rounded p-3">
+          <div class="row">
+            <div class="col-12">
+              <h5 class="pl-2">Choose an Avatar</h5>
+            </div>
+            <div
+              *ngFor="let name of avatarNames"
+              class="col-xl-3 col-sm-4 col-12">
+              <img (click)="setAvatar(name)"
+                [src]="environment.endpoint + '/avatars/' + name + '.png'" [alt]="name">
+            </div>
           </div>
         </div>
       </div>
+      
+      <div class="col-lg-6 col-12 mt-4">
+        <h6>Message Preview</h6>
+        <message [message]="previewMessages[0]"></message>
+        <message [message]="previewMessages[1]" [isExtra]="true"></message>
+        <message [message]="previewMessages[2]"></message>
+      </div>
     </div>
 
-    <hr class="my-4">
-    
-    <mat-form-field appearance="outline" class="ml-3 m-2">
-      <mat-label>Theme</mat-label>
-      <mat-select
-        [value]="currentTheme"
-        (selectionChange)="themes.changeTheme(themeSelect.value)"
-        #themeSelect>
-          <mat-option value="CHOCOLATE">Chocolate</mat-option>
-          <mat-option value="CLONE">Clone</mat-option>
-          <mat-option value="COSMIC">Cosmic</mat-option>
-          <mat-option value="DISCORD">Discord</mat-option>
-          <mat-option value="HORIZON">Horizon (Default)</mat-option>
-          <mat-option value="IONIC" selected>Ionic</mat-option>
-          <mat-option value="PAIN">Pain</mat-option>
-          <mat-option value="TWILIGHT">Twilight</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <hr>
 
-    <div>
-      <label for="sfxEnabled">Enable Sound Effects</label>
-      <mat-checkbox
-        id="sfxEnabled"
-        (input)="toggleSounds(sfxEnabledInput.checked)"
-        [checked]="sfxEnabled"
-        class="ml-2"
-        #sfxEnabledInput></mat-checkbox>
+    <div class="row">
+      <div class="col-lg-3 col-md-4 col-6">    
+        <mat-form-field appearance="outline" class="ml-3 m-2">
+          <mat-label>Theme</mat-label>
+          <mat-select
+            [value]="currentTheme"
+            (selectionChange)="themes.changeTheme(themeSelect.value)"
+            #themeSelect>
+              <mat-option value="CHOCOLATE">Chocolate</mat-option>
+              <mat-option value="CLONE">Clone</mat-option>
+              <mat-option value="COSMIC">Cosmic</mat-option>
+              <mat-option value="DISCORD">Discord</mat-option>
+              <mat-option value="HORIZON">Horizon (Default)</mat-option>
+              <mat-option value="IONIC" selected>Ionic</mat-option>
+              <mat-option value="PAIN">Pain</mat-option>
+              <mat-option value="TWILIGHT">Twilight</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="pt-4">
+          <label for="sfxEnabled">Enable Sound Effects</label>
+          <mat-checkbox
+            id="sfxEnabled"
+            (input)="toggleSounds(sfxEnabledInput.checked)"
+            [checked]="sfxEnabled"
+            class="ml-2"
+            #sfxEnabledInput></mat-checkbox>
+        </div>
+      </div>
     </div>
   </div>
 </app-settings-sidebar>

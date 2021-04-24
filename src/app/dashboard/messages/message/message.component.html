@@ -62,7 +62,7 @@
 
 <ng-template #messageContent>
   <div
-    (keydown)="edit($event, newMessage.innerText)"
+    (keydown)="toggleEditing($event)"
     [contentEditable]="isEditing && canManage"
     [innerHtml]="processed"
     class="message-text d-inline"
@@ -80,7 +80,7 @@
   <span class="message-options float-right">
     <button
       matTooltip="Edit"
-      (click)="isEditing = !isEditing"
+      (click)="toggleEditing()"
       mat-button>
       <i class="fas fa-pencil-alt text-warning fa-2x"></i>
     </button>
@@ -106,10 +106,10 @@
   [style.top]="contextMenuPosition.y"
   #contextMenu>
   <button
-    (click)="isEditing = !isEditing"
+    (click)="toggleEditing()"
     mat-menu-item>
     <i class="fas fa-pencil-alt text-warning mr-1"></i>
-    <span>Edit</span>
+    <span>{{ isEditing ? 'Finish Editing' : 'Edit' }}</span>
   </button>
   <button
     (click)="delete()"

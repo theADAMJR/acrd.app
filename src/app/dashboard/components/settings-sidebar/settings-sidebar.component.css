@@ -32,14 +32,21 @@
 
 .main-content {
   padding: 60px 40px;
-  width: 85%;  
+  width: 90%;  
 }
 
 .main {
   float: right;
   width: 75%;
 }
-.main .close {
+
+.close-container {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+
+.close {
   border: 1px solid var(--secondary);
   color: var(--heading); 
 
@@ -49,9 +56,9 @@
   padding: 8px;
   padding-top: 12px;
 }
-.main .close:hover {
+.close:hover {
   background-color: var(--tertiary);
 }
-.main .close-container {
+.close-container {
   margin: 50px 7.5vw;
 }

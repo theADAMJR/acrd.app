@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
+import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
 import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
@@ -22,6 +23,7 @@ export class ChannelTabComponent {
 
   constructor(
     private guildService: GuildService,
+    public perms: PermissionsService,
     public pings: PingService,
     public router: Router,
     public usersService: UsersService,
@@ -35,11 +37,11 @@ export class ChannelTabComponent {
   }
 
   public delete() {
-    // const confirmation = prompt(`
-    //   Are you sure you want to delete channel '${this.channel.name}'?
-    //   Type 'CONFIRM' to continue.
-    // `.trim());
-    // if (confirmation !== 'CONFIRM') return;
+    const confirmation = confirm(
+      `Are you sure you want to delete channel '${this.channel.name}'?` +
+      `Messages here will also be deleted, and cannot be recovered.`
+      .trim());
+    if (!confirmation) return;
 
     this.ws.on('CHANNEL_DELETE', async () => {
       await this.router.navigate([`/channels/${this.guild._id}`]);

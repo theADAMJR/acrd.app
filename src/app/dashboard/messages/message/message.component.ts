@@ -14,7 +14,7 @@ import { Lean } from 'src/app/types/entity-types';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })
-export class MessagePreviewComponent {
+export class MessageComponent {
   @Input() public message: Lean.Message;
   @Input() public isExtra = false;
   @Input() public guild: Lean.Guild;
@@ -153,8 +153,8 @@ export class MessagePreviewComponent {
     }, this);
   }
 
-  public async edit($event: KeyboardEvent, value: string) {
-    if ($event.code !== 'Enter') return;
+  public async edit(value: string, $event?: KeyboardEvent) {
+    if ($event && ($event.shiftKey || $event.code !== 'Enter')) return;
 
     this.isEditing = false;
     this.message.content = value;
@@ -170,6 +170,12 @@ export class MessagePreviewComponent {
       if (message.content === this.message.content)
         await this.log.success();
     }, this);
+  }
+
+  public async toggleEditing($event?: KeyboardEvent) {
+    (this.isEditing)
+      ? await this.edit(this.newMessage.nativeElement.innerText, $event)
+      : this.isEditing = true;
   }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
