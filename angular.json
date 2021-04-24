@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "twopg-dashboard": {
+    "accord-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/twopg-dashboard/browser",
+            "outputPath": "dist/accord-app/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -21,7 +21,9 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json",
+              "src/sitemap.xml"
             ],
             "styles": [
               "src/styles.css",
@@ -35,6 +37,7 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/bootstrap-select/dist/js/bootstrap-select.min.js",
+              "node_modules/devtools-detect/index.js",
               "src/assets/js/main.js"
             ]
           },
@@ -71,18 +74,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "twopg-dashboard:build"
+            "browserTarget": "accord-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "twopg-dashboard:build:production"
+              "browserTarget": "accord-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "twopg-dashboard:build"
+            "browserTarget": "accord-app:build"
           }
         },
         "test": {
@@ -94,7 +97,9 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json",
+              "src/sitemap.xml"
             ],
             "styles": [
               "src/styles.css"
@@ -119,18 +124,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "twopg-dashboard:serve"
+            "devServerTarget": "accord-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "twopg-dashboard:serve:production"
+              "devServerTarget": "accord-app:serve:production"
             }
           }
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/twopg-dashboard/server",
+            "outputPath": "dist/accord-app/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json"
           },
@@ -151,21 +156,21 @@
         "serve-ssr": {
           "builder": "@nguniversal/builders:ssr-dev-server",
           "options": {
-            "browserTarget": "twopg-dashboard:build",
-            "serverTarget": "twopg-dashboard:server"
+            "browserTarget": "accord-app:build",
+            "serverTarget": "accord-app:server"
           },
           "configurations": {
             "production": {
-              "browserTarget": "twopg-dashboard:build:production",
-              "serverTarget": "twopg-dashboard:server:production"
+              "browserTarget": "accord-app:build:production",
+              "serverTarget": "accord-app:server:production"
             }
           }
         },
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "browserTarget": "twopg-dashboard:build:production",
-            "serverTarget": "twopg-dashboard:server:production",
+            "browserTarget": "accord-app:build:production",
+            "serverTarget": "accord-app:server:production",
             "routes": [
               "/"
             ]
@@ -177,7 +182,7 @@
       }
     }
   },
-  "defaultProject": "twopg-dashboard",
+  "defaultProject": "accord-app",
   "cli": {
     "analytics": "6e350057-1306-4152-b868-7ccc4b4c4614"
   }

@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ChannelService } from 'src/app/services/channel.service';
+import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
+import { SoundService } from 'src/app/services/sound.service';
 import { UsersService } from 'src/app/services/users.service';
 import { Args, WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
@@ -18,6 +20,10 @@ export class MemberUsernameComponent implements OnInit {
   @Input() voice = false;
   @Input() statusOverride: string;
   @Input() routerLink: string;
+
+  public get guildRoles() {
+    return this.guild.roles.filter(r => r.name !== '@everyone');
+  }
 
   public get member() {
     return this.guild?.members.find(m => m.userId === this.user._id);
@@ -44,7 +50,9 @@ export class MemberUsernameComponent implements OnInit {
 
   constructor(
     private channelService: ChannelService,
+    public perms: PermissionsService,
     public pings: PingService,
+    public sounds: SoundService,
     public usersService: UsersService,
     private ws: WSService,
   ) {}
@@ -63,12 +71,22 @@ export class MemberUsernameComponent implements OnInit {
     this.usersService.upsertCached(user._id, {
       ...user,
       ...args.partialUser,
-    })
+    });
+  }
+
+  public async update() {
+    this.ws.emit('GUILD_MEMBER_UPDATE', {
+      partialMember: {
+        roleIds: [],
+      },
+      memberId: this.member._id,
+    }, this);
+
+    await this.sounds.success();
   }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
     event.preventDefault();
-    menuTrigger.menu.focusFirstItem('mouse');
     menuTrigger.openMenu();
   }
 }

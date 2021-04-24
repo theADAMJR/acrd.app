@@ -3,7 +3,7 @@ import { UsersService } from './services/users.service';
 import { ThemeService } from './services/theme.service';
 import { ActivatedRoute } from '@angular/router';
 import { LogService } from './services/log.service';
-import { SoundService } from './services/sound.service';
+import devtools from 'devtools-detect';
 
 @Component({
   selector: 'app-root',
@@ -35,20 +35,15 @@ export class AppComponent implements OnInit {
     this.themeService.updateTheme();
     await this.userService.updateUser();
 
-    (document
-      .querySelector('.options') as any)
-      .oncontextmenu = (e: MouseEvent) => {
-        const contextMenu: HTMLDivElement = document.querySelector('.mat-menu-panel');
-        contextMenu.style.position = 'absolute';
-        contextMenu.style.left = (e.clientX - 100) + 'px';
-    };
-    // (document
-    //   .querySelector('#content') as any)
-    //   .oncontextmenu = (e: MouseEvent) => {
-    //     const contextMenu: HTMLDivElement = document.querySelector('.mat-menu-panel');
-    //     contextMenu.style.position = 'absolute';
-    //     contextMenu.style.top = '-20px';
-    //     contextMenu.style.left = (e.clientX - 350) + 'px';
-    // };
-  } 
+    this.consoleWarning();
+  }
+
+  private consoleWarning() {
+    const interval = setInterval(() => {
+      if (!devtools.isOpen) return;
+
+      this.log.consoleWarning();
+      clearInterval(interval);
+    }, 100);
+  }
 }

@@ -128,9 +128,9 @@ export namespace Params {
     userId: string;
   }
   export interface GuildMemberUpdate {
-    guildId: string;
+    /** ID of the member, not the same as a user ID. */
+    memberId: string;
     partialMember: Partial.GuildMember;
-    userId: string;
   }
   export interface GuildRoleCreate {
     guildId: string;
@@ -222,10 +222,10 @@ export namespace Args {
     userId: string;
   }
   export interface GuildMemberUpdate {
-    /** Properties to update the guild member. */
-    partialMember: Partial.GuildMember;
-    /** User ID of the guild member. */
-    userId: string;
+    /** Properties of updated guild member. */
+    partialMember: Lean.GuildMember;
+    /** ID of the guild member. Not the same as a user ID. */
+    memberId: string;
   }
   export interface GuildRoleCreate {
     /** Full object of the role that was created. */
@@ -308,7 +308,7 @@ export namespace Partial {
   }
   /** Properties to update a guild member. */
   export interface GuildMember {
-    
+    roleIds?: string[];
   }
   /** Properties to update a message. */
   export interface Message {

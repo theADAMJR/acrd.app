@@ -42,7 +42,7 @@ export class TextBasedChannel {
   public get title() {
     return (this.channel.type === 'DM')
       ? `@me + @${this.recipient.username}`
-      : `@${this.guild.name} > #${this.channel.name}`;
+      : `${this.guild.name} > #${this.channel.name}`;
   }
 
   constructor(

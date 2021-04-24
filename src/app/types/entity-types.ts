@@ -1,7 +1,5 @@
 // REMEMBER: Sync types below with Website project.
 // -> in entity-types.ts
-import { Types } from 'mongoose';
-
 export namespace Lean {
   export interface Application {
     _id: string;
@@ -33,7 +31,7 @@ export namespace Lean {
     roles: Role[];
   }
   export interface GuildMember {
-    _id: Types.ObjectId;
+    _id: string;
     guildId: string;
     roleIds: string[];
     userId: string;
@@ -54,10 +52,6 @@ export namespace Lean {
     createdAt: Date;
     embed?: MessageTypes.Embed;
     updatedAt?: Date;
-  }
-  export interface Ping {
-    _id: string;
-    pings: PingTypes.Message[];
   }
   export interface Role {
     _id: string;
@@ -159,13 +153,6 @@ export namespace PermissionTypes {
   export type PermissionString = keyof typeof All;
 }
 
-export namespace PingTypes {
-  export interface Message {
-    userId: string;
-    lastRead: string;
-  }
-}
-
 export namespace UserTypes {
   export type BadgeType = 'VIEWER' | 'DEVELOPER';
   export class Ignored {
@@ -183,11 +170,14 @@ export namespace UserTypes {
     guilds: Lean.Guild[];
     email: string;
     verified: true;
+    lastReadMessages: {
+      [k: string]: string
+    };
     ignored: {
       channelIds: string[];
       guildIds: string[];
       userIds: string[];
-    }
+    };
   }
 }
 

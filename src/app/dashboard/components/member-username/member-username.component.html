@@ -40,22 +40,23 @@
   </div>
 </div>
 
-<mat-menu #contextMenu>
+<mat-menu
+  (closed)="update()"
+  #contextMenu>
   <div *ngIf="guild">
-    <button
-      *ngIf="isBlocked"  
-      (click)="usersService.unblock(user._id)"
+    <div
+      *ngIf="perms.can(guild._id, 'MANAGE_ROLES')"  
+      (click)="$event.stopPropagation()"
+      appearance="outline"
       mat-menu-item>
-      <i class="fas fa-ban text-muted mr-1"></i>
-      <span>Unblock</span>
-    </button>
-    <button
-      *ngIf="isBlocked"  
-      (click)="usersService.unblock(user._id)"
-      mat-menu-item>
-      <i class="fas fa-ban text-muted mr-1"></i>
-      <span>Unblock</span>
-    </button>    
+      <mat-label>Roles</mat-label>
+      <mat-select multiple>
+        <mat-option
+          *ngFor="let role of guildRoles"
+          [style.color]="role.color"
+          [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
+      </mat-select>
+    </div>  
   </div>
 
   <button

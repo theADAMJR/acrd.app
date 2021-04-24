@@ -1,5 +1,5 @@
 {
-  "name": "twopg-dashboard",
+  "name": "accord-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -9,10 +9,10 @@
     "test:api": "cd api && ts-mocha tests/*/*.spec.ts",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev:ssr": "ng run twopg-dashboard:serve-ssr",
-    "serve:ssr": "node dist/twopg-dashboard/server/main.js",
-    "build:ssr": "ng build --prod && ng run twopg-dashboard:server:production",
-    "prerender": "ng run twopg-dashboard:prerender"
+    "dev:ssr": "ng run accord-app:serve-ssr",
+    "serve:ssr": "node dist/accord-app/server/main.js",
+    "build:ssr": "ng build --prod && ng run accord-app:server:production",
+    "prerender": "ng run accord-app:prerender"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +34,7 @@
     "@types/mongoose": "^5.10.3",
     "bootstrap": "^4.5.2",
     "bootstrap-select": "^1.13.18",
+    "devtools-detect": "^3.0.1",
     "discord-markdown": "^2.4.1",
     "express": "^4.15.2",
     "faker": "^5.1.0",
