@@ -68,7 +68,7 @@ export class FriendsListComponent implements OnInit {
   }
 
   public isOutgoing(friend: Lean.User) {
-    return !friend.friendRequestIds.includes(this.users.user._id);
+    return this.users.user.friendRequestIds.includes(friend._id);
   }
 }
 

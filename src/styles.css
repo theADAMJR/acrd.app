@@ -27,8 +27,11 @@ h1,h2,h3,h4,h5 {
   letter-spacing: 1.5px;
 }
 
-mat-sidenav-content {
-  overflow-x: hidden !important;
+hr {
+  opacity: 0;
+
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 footer {
@@ -178,6 +181,10 @@ snack-bar-container.mat-snack-bar-container {
 
 /* sidebar */
 
+mat-sidenav-content {
+  overflow-x: hidden !important;
+}
+
 .mat-drawer-content {
   height: unset !important;
 }
@@ -298,6 +305,11 @@ snack-bar-container.mat-snack-bar-container {
   border-color: transparent !important;
   color: var(--font);
   background-color: var(--background-secondary) !important;
+}
+
+/* color picker */
+.color-picker {
+  z-index: 10 !important;
 }
 
 /* bootstrap */

@@ -71,12 +71,10 @@ export namespace Lean {
     bot: boolean;
     createdAt: Date;
     friendIds: string[];
-    friendRequestIds: string[];
     guilds: string[] | Lean.Guild[];
     status: UserTypes.StatusType;
     username: string;
     verified?: boolean;
-    voice: UserTypes.VoiceState;
   } 
 }
 
@@ -161,15 +159,11 @@ export namespace UserTypes {
     userIds: string[] = [];
   }
   export type StatusType = 'ONLINE' | 'BUSY' | 'AFK' | 'OFFLINE';
-  export class VoiceState {
-    channelId?: string;
-    guildId?:  string;
-    selfMuted = false;
-  }
   export interface Self extends Lean.User {
     guilds: Lean.Guild[];
     email: string;
     verified: true;
+    friendRequestIds: string[];
     lastReadMessages: {
       [k: string]: string
     };

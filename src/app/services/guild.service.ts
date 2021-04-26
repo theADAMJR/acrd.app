@@ -3,28 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
 import { Lean } from '../types/entity-types';
+import { HTTPWrapper } from './http-wrapper';
+import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
-export class GuildService {
+export class GuildService extends HTTPWrapper {
   private readonly endpoint = environment.endpoint + '/guilds';
   private _guilds: Lean.Guild[] = [];
   
   public get guilds() {
     return this._guilds;
   }
-  private get headers() {
-    return {
-      headers: { Authorization: `Bearer ${localStorage.getItem('key')}` }
-    };
-  }
-
-  private get key() {
-    return localStorage.getItem('key');
-  }
   
   constructor(
-    private http: HttpClient,
-    private usersService: UsersService) {}
+    http: HttpClient,
+    private usersService: UsersService,
+    ws: WSService,
+    ) { super(http, ws); }
   
   public async init() {
     if (this.guilds.length <= 0)

@@ -17,14 +17,4 @@ export class HTTPWrapper {
     protected http: HttpClient,
     protected ws: WSService,
   ) {}
-
-  public emit<P extends keyof WSEventParams, A extends keyof WSEventArgs>(name: P & A, params: WSEventParams[P]): Promise<WSEventArgs[A]> {
-    return new Promise((resolve, reject) => {
-      this.ws.on('message', (message: string) =>
-        message.includes('Error') && reject(message), this);
-      this.ws.on(name as keyof WSEventArgs, (args) => resolve(args), this);
-
-      this.ws.emit(name, params, this);
-    });
-  }
 }

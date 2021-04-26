@@ -1,6 +1,6 @@
 .guild-icon {
-  width: 100px;
-  height: 100px;
+  width: 96px;
+  height: 96px;
 
   font-size: 40px;
 
@@ -16,6 +16,8 @@
   transition: all .35s;
 }
 .guild-icon img {    
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
 
   transition: all .35s;

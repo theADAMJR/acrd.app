@@ -15,11 +15,6 @@
         <i class="fa fa-user" aria-hidden="true"></i> Login
       </a>
     </div>
-    <div *ngIf="!user">
-      <a class="nav-item nav-link" routerLink="/sign-up">
-        <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up
-      </a>
-    </div>
     <div *ngIf="user">
       <button mat-button [matMenuTriggerFor]="menu">
         <app-avatar-url [user]="user"></app-avatar-url>

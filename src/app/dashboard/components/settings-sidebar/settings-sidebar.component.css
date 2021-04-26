@@ -23,7 +23,7 @@
   padding-left: 5px;
 }
 .side .navbar-nav {
-  padding: 15px;
+  padding: 35px;
   padding-top: 40px;
 }
 .side hr {
@@ -47,18 +47,24 @@
 }
 
 .close {
-  border: 1px solid var(--secondary);
-  color: var(--heading); 
+  text-shadow: unset;
 
-  width: 48px;
-  height: 48px;
-
+  border: 1px solid var(--tertiary);
   padding: 8px;
   padding-top: 12px;
+  width: 48px;
+  height: 48px;
+}
+.close i {
+  color: var(--font); 
 }
 .close:hover {
   background-color: var(--tertiary);
 }
 .close-container {
   margin: 50px 7.5vw;
+}
+
+.nav-item i {
+  width: 20px !important;
 }

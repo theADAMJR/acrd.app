@@ -34,6 +34,16 @@ export class WSService {
     return this;
   }
 
+  public emitAsync<P extends keyof WSEventParams, A extends keyof WSEventArgs>(name: P & A, params: WSEventParams[P], component: any): Promise<WSEventArgs[A]> {
+    return new Promise((resolve, reject) => {
+      this.on('message', (message: string) =>
+        message.includes('Server error') && reject(message), component);
+      this.on(name as keyof WSEventArgs, (args) => resolve(args), component);
+
+      this.emit(name, params, component);
+    });
+  }
+
   public emit<K extends keyof WSEventParams>(name: K, params: WSEventParams[K], component: any) {
     this.log.info(`SEND ${name} - ${this.nameOf(component)}`, 'ws');
     this.socket.emit(name, params);

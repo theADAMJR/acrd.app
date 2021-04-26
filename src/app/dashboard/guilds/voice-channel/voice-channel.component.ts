@@ -16,12 +16,12 @@ export class VoiceChannelComponent implements OnInit {
 
   constructor(
     private rtc: RTCService,
-    private userService: UsersService,
+    public usersService: UsersService,
     private ws: WSService) {}
 
   async ngOnInit() {
     await this.rtc.init();
-    await this.userService.init();
+    await this.usersService.init();
 
     this.hookWSEvents();
   }
@@ -32,19 +32,7 @@ export class VoiceChannelComponent implements OnInit {
     }, this);
   }
   
-  async join() {
-    const user = this.userService.user;
-    const isSelfConnected = this.channel.memberIds.includes(user._id);    
-    if (isSelfConnected) return;
-
-    user.voice = {
-      ...user.voice,
-      channelId: this.channel._id,
-      guildId: this.guild._id,
-    };
-  }
-
-  getUser(userId: string) {
-    return this.userService.getKnown(userId);
+  public async join() {
+    alert('join');
   }
 }

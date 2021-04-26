@@ -16,33 +16,33 @@ import { Lean, PermissionTypes } from '../../../../types/entity-types';
 export class RolesComponent extends ModuleConfig implements OnInit {
   public selectedRole: Lean.Role;
   public presetColors = [ '#6E8481', '#A2B6AD', '#576067' ];
-  public description: DescriptionType = {
+  public description/**: DescriptionType */ = {
     general: {
-      'ADMINISTRATOR': `Members with this permission inherit every other permission. This is a dangerous permission.`,
-      'BAN_MEMBERS': 'Members with this permission can ban members from the guild.',
-      'CREATE_INVITE': 'Members with this permission can create invites for users to join this guild.',
-      'CHANGE_NICKNAME': '',
-      'KICK_MEMBERS': 'Members with this permission can kick members from this guild.',
-      'MANAGE_CHANNELS': 'Members with this permission can create, edit, or delete channels.',
-      'MANAGE_GUILD': `Members with this permission can edit general guild settings.`,
-      'MANAGE_NICKNAMES': '',
-      'MANAGE_ROLES': 'Members with this permission can manage guild roles.',
-      'VIEW_AUDIT_LOG': '',
-      'VIEW_CHANNELS': 'Members with this permission can view channels.',
+      'ADMINISTRATOR': `Gives all permissions. This is a dangerous permission.`,
+      'BAN_MEMBERS': 'Ability to ban members from the guild.',
+      'CREATE_INVITE': 'Ability to create invites for users to join this guild.',
+      // 'CHANGE_NICKNAME': '',
+      'KICK_MEMBERS': 'Ability to kick members from this guild.',
+      'MANAGE_CHANNELS': 'Ability to create, edit, or delete channels.',
+      'MANAGE_GUILD': `Ability to edit general guild settings.`,
+      // 'MANAGE_NICKNAMES': '',
+      'MANAGE_ROLES': 'Ability to manage guild roles.',
+      // 'VIEW_AUDIT_LOG': '',
+      'VIEW_CHANNELS': 'Ability to view channels.',
     },
     text: {
-      'ADD_REACTIONS': '',
-      'MANAGE_MESSAGES': `Members with this permission can delete other member's messages.`,
-      'MENTION_EVERYONE': 'Members with this permission can mention everyone.',
-      'READ_MESSAGES': ``,
-      'SEND_MESSAGES': 'Members with this permission can send messages in text channels.',
+      // 'ADD_REACTIONS': '',
+      'MANAGE_MESSAGES': `Ability to manage message other member's messages.`,
+      // 'MENTION_EVERYONE': 'Ability to mention everyone.',
+      'READ_MESSAGES': `Ability to read messages,`,
+      'SEND_MESSAGES': 'Ability to send messages in text channels.',
     },
-    voice: {
-      'CONNECT': '',
-      'MOVE_MEMBERS': 'Members with this permission can mute other members.',
-      'MUTE_MEMBERS': '',
-      'SPEAK': 'Members with this permission can speak in voice channels.',
-    },
+    // voice: {
+    //   'CONNECT': '',
+    //   'MOVE_MEMBERS': 'Members with this permission can mute other members.',
+    //   'MUTE_MEMBERS': '',
+    //   'SPEAK': 'Members with this permission can speak in voice channels.',
+    // },
   };
   public permissionType = Object.keys(PermissionTypes.All);
 
@@ -81,6 +81,8 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   public async ngOnInit() {
     await super.init();
 
+    this.guild.roles.sort((a, b) => (a.position < b.position) ? 1 : -1);
+
     this.selectRole(this.guild.roles[0]);
     this.hookWSEvents();
   }
@@ -114,28 +116,33 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     this.permissionsForm.valueChanges
       .subscribe(() => this.openSaveChanges());
 
-    console.log(this.permissionsForm.get('general').get('ADMINISTRATOR'));
-
     return new FormGroup({
       color: new FormControl({
-        value: role.color,
         disabled: this.isEveryone,
+        value: role.color,
       }),
       hoisted: new FormControl({
-        value: this.isEveryone ? false : role.mentionable,
         disabled: this.isEveryone,
+        value: this.isEveryone ? false : role.mentionable,
       }),
       mentionable: new FormControl({
-        value: this.isEveryone ? false : role.mentionable,
         disabled: this.isEveryone,
+        value: this.isEveryone ? false : role.mentionable,
       }),
-      name: new FormControl(role.name ?? '', [
+      name: new FormControl({
+        disabled: this.isEveryone,
+        value: role.name ?? '',
+      }, [
         Validators.required,
         Validators.maxLength(32),
-        Validators.pattern(/^(?!everyone|here|someone).*$/)
+        Validators.pattern(/^(?!everyone|here|someone).*$/),
       ]),
-      position: new FormControl(0),
+      position: new FormControl(this.getPosition(role)),
     });
+  }
+
+  private getPosition(role: Lean.Role) {
+    return this.guild.roles.findIndex(r => r._id == role._id);
   }
 
   private permissionGroup(role: Lean.Role, type: object) {
@@ -163,19 +170,19 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       if (!this.form.valid) return;
 
       this.form.value.permissions = this.permissions;
-      
       for (const key in this.form.value)
         this.selectedRole[key] = this.form.value[key];
 
-      this.updateRole();
+      await this.updateRole();
+      await this.log.success();
     } catch (error) {
       await this.log.error(error.message);
     }
   }
 
-  private updateRole() {
+  private async updateRole() {
     const roleId = this.selectedRole._id;
-    this.ws.emit('GUILD_ROLE_UPDATE', {
+    await this.ws.emitAsync('GUILD_ROLE_UPDATE', {
       roleId,
       guildId: this.guildId,
       partialRole: this.form.value,

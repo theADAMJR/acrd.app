@@ -15,7 +15,7 @@
           <div class="float-right">
             <button
               (click)="newRole()"
-              class="btn bg-transparent bg-success text-light mx-4"
+              class="btn bg-transparent bg-success text-dark mt-2 mx-3"
               mat-button>New Role</button>
           </div>
         </div>
@@ -88,11 +88,13 @@
               [formGroupName]="container.key"
               class="form-group">
               <div *ngFor="let item of description[container.key] | keyvalue">
+                <span [matTooltip]="item.value" class="cursor-pointer">
+                  <i class="fas fa-info-circle mr-1"></i>
+                </span>
                 <span>{{ item.key | snakeToSentenceCase }}</span>
                 <mat-slide-toggle 
                   [formControlName]="item.key"
                   class="float-right"></mat-slide-toggle>
-                <span class="summary text-muted">{{ item.value }}</span>
                 <hr>
               </div>
             </div>

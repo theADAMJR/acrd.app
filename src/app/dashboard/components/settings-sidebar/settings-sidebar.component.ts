@@ -12,8 +12,8 @@ import { GuildService } from 'src/app/services/guild.service';
   styleUrls: ['./settings-sidebar.component.css'],
 })
 export class SettingsSidebarComponent {
-  @Input() tabType: TabType;
-  @Input('id') guildId: string;
+  @Input() public tabType: TabType;
+  @Input('id') public guildId: string;
 
   public readonly tabs: Tabs = {
     guild: [
@@ -23,12 +23,12 @@ export class SettingsSidebarComponent {
         href: () => `/channels/${this.guildId}/settings`,
         permission: PermissionTypes.General.MANAGE_GUILD, 
       },
-      {
-        name: 'Bots',
-        icon: 'fas fa-robot',
-        href: () => `/channels/${this.guildId}/bots`,
-        permission: PermissionTypes.General.MANAGE_GUILD, 
-      },
+      // {
+      //   name: 'Bots',
+      //   icon: 'fas fa-robot',
+      //   href: () => `/channels/${this.guildId}/bots`,
+      //   permission: PermissionTypes.General.MANAGE_GUILD, 
+      // },
       {
         name: 'Invites',
         icon: 'fas fa-user-plus',

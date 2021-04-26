@@ -31,11 +31,9 @@ export class UsersService extends HTTPWrapper {
       bot: false,
       createdAt: new Date(),
       friendIds: [],
-      friendRequestIds: [],
       guilds: [],
       status: 'OFFLINE',
       username: `Unknown - ${userId}`,
-      voice: new UserTypes.VoiceState(),
     }
   } 
 

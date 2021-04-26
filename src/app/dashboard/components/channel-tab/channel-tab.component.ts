@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
+import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -23,6 +24,7 @@ export class ChannelTabComponent {
 
   constructor(
     private guildService: GuildService,
+    private log: LogService,
     public perms: PermissionsService,
     public pings: PingService,
     public router: Router,
@@ -36,17 +38,20 @@ export class ChannelTabComponent {
     menuTrigger.openMenu();
   }
 
-  public delete() {
+  public async delete() {
     const confirmation = confirm(
-      `Are you sure you want to delete channel '${this.channel.name}'?` +
+      `Are you sure you want to delete channel '${this.channel.name}'?\n` +
       `Messages here will also be deleted, and cannot be recovered.`
       .trim());
     if (!confirmation) return;
 
-    this.ws.on('CHANNEL_DELETE', async () => {
-      await this.router.navigate([`/channels/${this.guild._id}`]);
-    }, this);
+    try {
+      await this.ws.emitAsync('CHANNEL_DELETE', { channelId: this.channel._id }, this);
 
-    this.ws.emit('CHANNEL_DELETE', { channelId: this.channel._id }, this);
+      await this.router.navigate([`/channels/${this.guild._id}`]);
+      await this.log.success();
+    } catch (error) {
+      await this.log.error(error.message);
+    }
   }
 }
