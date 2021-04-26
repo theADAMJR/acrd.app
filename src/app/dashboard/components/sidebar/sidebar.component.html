@@ -2,19 +2,26 @@
   <mat-sidenav mode="side" opened #drawer>
     <div class="guilds px-2">
       <div class="user">
-        <div routerLink="/channels/@me" class="guild-icon">
-          <app-avatar-url [user]="user" [size]="'52px'"></app-avatar-url>
+        <div
+          routerLinkActive="active"
+          routerLink="/channels/@me"
+          class="guild-icon">
+          <app-avatar-url
+            [user]="user"
+            [size]="'52px'"></app-avatar-url>
         </div>
         <hr class="guild-seperator">
       </div>
       <div
-        *ngFor="let guild of guilds || []"
+        *ngFor="let guild of guilds"
         routerLinkActive="active"
         class="guild-icon"
         [routerLink]="'/channels/' + guild._id"
         [matTooltip]="guild.name">
-        <img *ngIf="guild.iconURL"
-          [src]="guild.iconURL" [alt]="guild.name">
+        <img
+          *ngIf="guild.iconURL"
+          [src]="guild.iconURL"
+          [alt]="guild.name">
         <span *ngIf="!guild.iconURL"
           class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
       </div>

@@ -7,26 +7,26 @@
     <form *ngIf="form"
       #f="ngForm" [formGroup]="form">
       <div class="row">
-        <div class="col-lg-4 col-md-6">
-          <div
-            [routerLink]="'/channels/' + guild._id"
-            routerLinkActive="active"
-            class="guild-icon round my-2">
-            <img *ngIf="guild.iconURL"
-                [src]="guild.iconURL" [alt]="guild.name">
-            <span *ngIf="!guild.iconURL"
-                class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+        <div class="col-xl-3 col-lg-4 col-md-6">
+          <div class="guild-icon round my-2">
+            <img
+              *ngIf="guild.iconURL"
+              [src]="guild.iconURL"
+              [alt]="guild.name">
+            <span
+              *ngIf="!guild.iconURL"
+              class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
           </div>
         </div>
         
-        <div class="col-lg-4 col-md-6">
+        <div class="col-xl-3 col-lg-4 col-md-6">
           <mat-form-field appearance="outline">
             <mat-label>Icon URL</mat-label>
             <input formControlName="iconURL" type="text" matInput>
           </mat-form-field>          
         </div>
 
-        <div class="col-lg-4 col-md-6">
+        <div class="col-xl-3 col-lg-4 col-md-6">
           <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <input formControlName="name" type="text" matInput>

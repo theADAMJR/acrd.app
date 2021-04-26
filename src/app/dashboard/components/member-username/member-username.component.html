@@ -12,6 +12,7 @@
     [routerLink]="routerLink || './'">
     <app-avatar-url
       *ngIf="withAvatar"
+      (click)="profileDialog()"
       [user]="user"></app-avatar-url>
     <span
       class="status round"
@@ -71,7 +72,7 @@
     (click)="usersService.block(user._id)"
     mat-menu-item>
     <i class="fas fa-ban text-danger mr-1"></i>
-    <span>Block </span>
+    <span>Block</span>
   </button>
   <hr>
   <div (click)="$event.stopPropagation()" class="p-2">

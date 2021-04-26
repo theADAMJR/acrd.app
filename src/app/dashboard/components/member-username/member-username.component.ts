@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
 import { ChannelService } from 'src/app/services/channel.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
@@ -55,6 +57,7 @@ export class MemberUsernameComponent implements OnInit {
     public sounds: SoundService,
     public usersService: UsersService,
     private ws: WSService,
+    private dialog: MatDialog,
   ) {}
 
   public ngOnInit() {
@@ -88,5 +91,12 @@ export class MemberUsernameComponent implements OnInit {
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
     event.preventDefault();
     menuTrigger.openMenu();
+  }
+
+  public profileDialog() {
+    this.dialog.open(ProfileComponent, {
+      width: '500px',
+      data: { user: this.user },
+    });
   }
 }

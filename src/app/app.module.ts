@@ -65,6 +65,7 @@ import { ComingSoonComponent } from './utils/coming-soon/coming-soon.component';
 import { LighthouseComponent } from './cool/lighthouse/lighthouse.component';
 import { ChannelTabComponent } from './dashboard/components/channel-tab/channel-tab.component';
 import { GuildNavbarComponent } from './dashboard/components/guild-navbar/guild-navbar.component';
+import { ProfileComponent } from './dialog/profile/profile.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -141,6 +142,7 @@ export class AlertErrorHandler implements ErrorHandler {
     LighthouseComponent,
     ChannelTabComponent,
     GuildNavbarComponent,
+    ProfileComponent,
   ],
   imports: [
     AppRoutingModule,

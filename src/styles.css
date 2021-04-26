@@ -221,12 +221,12 @@ mat-sidenav-content {
 }
 
 .side-nav a.active {
-  background-color: var(--background-primary) !important;
+  background-color: rgba(255, 255, 255, 0.125) !important;
 }
 
 .side-nav a:hover {
   color: var(--font);
-  background-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: rgba(255, 255, 255, 0.075) !important;
 }
 
 .category {
@@ -327,7 +327,6 @@ div.arrow::before {
 
 /* discord */
 .d-mention {
-  color: var(--primary);
   background-color: var(--mention-background);
   cursor: pointer;
 }

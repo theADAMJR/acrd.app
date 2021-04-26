@@ -21,28 +21,17 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       'ADMINISTRATOR': `Gives all permissions. This is a dangerous permission.`,
       'BAN_MEMBERS': 'Ability to ban members from the guild.',
       'CREATE_INVITE': 'Ability to create invites for users to join this guild.',
-      // 'CHANGE_NICKNAME': '',
       'KICK_MEMBERS': 'Ability to kick members from this guild.',
       'MANAGE_CHANNELS': 'Ability to create, edit, or delete channels.',
       'MANAGE_GUILD': `Ability to edit general guild settings.`,
-      // 'MANAGE_NICKNAMES': '',
       'MANAGE_ROLES': 'Ability to manage guild roles.',
-      // 'VIEW_AUDIT_LOG': '',
       'VIEW_CHANNELS': 'Ability to view channels.',
     },
     text: {
-      // 'ADD_REACTIONS': '',
       'MANAGE_MESSAGES': `Ability to manage message other member's messages.`,
-      // 'MENTION_EVERYONE': 'Ability to mention everyone.',
       'READ_MESSAGES': `Ability to read messages,`,
       'SEND_MESSAGES': 'Ability to send messages in text channels.',
     },
-    // voice: {
-    //   'CONNECT': '',
-    //   'MOVE_MEMBERS': 'Members with this permission can mute other members.',
-    //   'MUTE_MEMBERS': '',
-    //   'SPEAK': 'Members with this permission can speak in voice channels.',
-    // },
   };
   public permissionType = Object.keys(PermissionTypes.All);
 

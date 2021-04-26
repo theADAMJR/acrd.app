@@ -11,20 +11,23 @@
   cursor: pointer;
 }
 
-.guild-icon img:hover, .guild-icon:hover, .guild-icon span:hover {
+.guild-icon img:hover,
+.guild-icon:hover,
+.guild-icon span:hover,
+.guild-icon.active img,
+.guild-icon.active span {
   border-radius: 25%;
 }
 
 .guild-icon span {
   text-align: center;
-
   font-size: 18px;
+
+  transition: all .35s;
 
   width: 52px;
   height: 48px;
   padding-top: 14px;
-
-  transition: all .35s;
 }
 
 .guild-icon img {

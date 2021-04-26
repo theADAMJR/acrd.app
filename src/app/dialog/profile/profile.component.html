@@ -1,0 +1,19 @@
+<div class="d-flex justify-content-center float-right">
+  <button
+    matTooltip="Add Friend"
+    class="bg-success mr-2"
+    mat-button>
+    <i class="fas fa-plus"></i>
+    <span></span>
+  </button>
+  <button
+    matTooltip="Message"
+    class="bg-secondary"
+    mat-button>
+    <i class="fas fa-comment-alt"></i>
+    <span></span>
+  </button>
+</div>
+
+<app-avatar-url [user]="data.user" class="mr-2"></app-avatar-url>
+<h5 mat-dialog-title>{{ data.user.username }}</h5>

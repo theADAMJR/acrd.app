@@ -106,14 +106,14 @@ export class GuildSidebarComponent implements OnInit {
   public createInviteDialog() {
     this.dialog.open(CreateInviteComponent, {
       width: '500px',
-      data: { guild: this.guild }
+      data: { guild: this.guild },
     });
   }
 
   public createChannelDialog() {
     this.dialog.open(CreateChannelComponent, {
       width: '350px',
-      data: { guild: this.guild }
+      data: { guild: this.guild },
     });
   }
 
