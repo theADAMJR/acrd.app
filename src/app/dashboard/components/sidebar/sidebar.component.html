@@ -12,22 +12,15 @@
         </div>
         <hr class="guild-seperator">
       </div>
-      <div
+      <app-guild-icon
         *ngFor="let guild of guilds"
         routerLinkActive="active"
-        class="guild-icon"
+        [guild]="guild"
         [routerLink]="'/channels/' + guild._id"
-        [matTooltip]="guild.name">
-        <img
-          *ngIf="guild.iconURL"
-          [src]="guild.iconURL"
-          [alt]="guild.name">
-        <span *ngIf="!guild.iconURL"
-          class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
-      </div>
+        [matTooltip]="guild.name"></app-guild-icon>
       <div
         (click)="createGuildDialog()"
-        class="guild-icon invite bg-transparent cursor-pointer"
+        class="guild-icon add-guild bg-transparent cursor-pointer"
         matTooltip="Add a Guild">
         <span class="add-guild pt-0 d-flex justify-content-center flex-column">+</span>
       </div>

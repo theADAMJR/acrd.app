@@ -60,6 +60,14 @@
     </div>  
   </div>
 
+  <hr>
+
+  <button
+    (click)="profileDialog()"
+    mat-menu-item>
+    <i class="fas fa-user text-muted mr-1"></i>
+    <span>View Profile</span>
+  </button>
   <button
     *ngIf="isBlocked"  
     (click)="usersService.unblock(user._id)"

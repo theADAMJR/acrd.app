@@ -66,6 +66,8 @@ import { LighthouseComponent } from './cool/lighthouse/lighthouse.component';
 import { ChannelTabComponent } from './dashboard/components/channel-tab/channel-tab.component';
 import { GuildNavbarComponent } from './dashboard/components/guild-navbar/guild-navbar.component';
 import { ProfileComponent } from './dialog/profile/profile.component';
+import { GuildIconComponent } from './dashboard/components/guild-icon/guild-icon.component';
+import { AddFriendComponent } from './dialog/add-friend/add-friend.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -143,6 +145,8 @@ export class AlertErrorHandler implements ErrorHandler {
     ChannelTabComponent,
     GuildNavbarComponent,
     ProfileComponent,
+    GuildIconComponent,
+    AddFriendComponent,
   ],
   imports: [
     AppRoutingModule,

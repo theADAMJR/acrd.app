@@ -1,0 +1,8 @@
+<div class="guild-icon">
+  <img
+    *ngIf="guild.iconURL"
+    [src]="guild.iconURL"
+    [alt]="guild.name">
+  <span *ngIf="!guild.iconURL"
+    class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+</div>

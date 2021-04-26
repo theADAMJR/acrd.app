@@ -30,15 +30,6 @@
   padding-top: 14px;
 }
 
-.guild-icon img {
-  width: 52px;
-  height: 52px;
-  
-  border-radius: 50%;
-
-  transition: all .35s;
-}
-
 button {
   background: transparent;
   border: none;
@@ -85,13 +76,11 @@ mat-sidenav {
   background-color: var(--background-tertiary);
 }
 
-.guild-icon .add-guild {
+.add-guild {
   font-size: 40px;
-
   color: var(--tertiary);
 }
-
-.invite:hover {
+.add-guild:hover {
   background-color: var(--primary);
 }
 

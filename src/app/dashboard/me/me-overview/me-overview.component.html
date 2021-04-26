@@ -1,55 +1,37 @@
 <dashboard-sidebar>
   <dashboard-navbar>
-    <i class="fas fa-user-friends pr-2 text-muted"></i>
+    <i class="fas fa-user-friends pr-2"></i>
     <strong>Friends</strong>
 
-    <span class="border mx-3 py-1"></span>
+    <span class="mx-3 py-1"></span>
 
     <ul class="nav nav-pills float-right">
       <li class="nav-item">
-        <a (click)="setTab('ONLINE')" 
+        <a (click)="tab = 'ONLINE'" 
           [class.active]="tab === 'ONLINE'"
           class="nav-link active">Online</a>
       </li>
       <li class="nav-item">
-        <a (click)="setTab('ALL')" 
+        <a (click)="tab = 'ALL'" 
           [class.active]="tab === 'ALL'"
           class="nav-link">All</a>
       </li>
       <li class="nav-item">
-        <a (click)="setTab('PENDING')" 
+        <a (click)="tab = 'PENDING'" 
           [class.active]="tab === 'PENDING'"
           class="nav-link">Pending</a>
       </li>
       <li class="nav-item">
-        <a (click)="setTab('BLOCKED')" 
+        <a (click)="tab = 'BLOCKED'" 
           [class.active]="tab === 'BLOCKED'"
           class="nav-link text-warning">Blocked</a>
       </li>
       <li class="nav-item">
-        <a (click)="friendPromptOpen = true"
-          class="nav-link add-friend">Add Friend</a>
+        <a (click)="addFriendDialog()"
+          class="nav-link bg-success text-dark">Add Friend</a>
       </li>
     </ul>
   </dashboard-navbar>
-
-  <div
-    [hidden]="!friendPromptOpen"
-    class="border-bottom border-dark px-4 pt-4">
-    <form #f="ngForm" [formGroup]="addFriendForm">
-      <h5 class="uppercase"><strong>Add Friend</strong></h5>
-      <p class="text-muted">Add a friend with their Discord username.</p>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
-        <input formControlName="username" type="text" matInput>
-      </mat-form-field>
-
-      <button
-        (click)="sendFriendRequest()"
-        class="send-friend-request mx-2" mat-button matSuffix>Send Request</button>
-    </form>
-  </div>
 
   <friends-list [tab]="tab"></friends-list>
 </dashboard-sidebar>

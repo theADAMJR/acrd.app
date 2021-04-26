@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LogService } from 'src/app/services/log.service';
-import { WSService } from 'src/app/services/ws.service';
-import { patterns } from 'src/app/types/entity-types';
-import { UsersService } from '../../../services/users.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddFriendComponent } from 'src/app/dialog/add-friend/add-friend.component';
 import { TabType } from '../friends-list/friends-list.component';
 
 @Component({
@@ -11,40 +8,19 @@ import { TabType } from '../friends-list/friends-list.component';
   templateUrl: './me-overview.component.html',
   styleUrls: ['./me-overview.component.css']
 })
-export class DashboardOverviewComponent {
-  addFriendForm = new FormGroup({
-    username: new FormControl('', [      
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(32),
-      Validators.pattern(patterns.username),
-    ])
-  });
-  
-  friendPromptOpen = false;
-  tab: TabType = 'ONLINE'; 
+export class DashboardOverviewComponent { 
+  public tab: TabType = 'ONLINE';
 
-  get user() { return this.userService.user; }
-
-  constructor(
-    private log: LogService,
-    private userService: UsersService,
-    private ws: WSService) {
+  constructor(private dialog: MatDialog) {
     document.title = 'Accord - Dashboard';
 
-    this.setTab('ONLINE');
+    this.tab = 'ONLINE';
   }
 
-  sendFriendRequest() {
-    if (this.addFriendForm.invalid) return;
-
-    this.ws.emit('ADD_FRIEND', {
-      username: this.addFriendForm.value.username,
-    }, this);
-  }
-
-  setTab(tab: TabType) {
-    this.friendPromptOpen = false;
-    this.tab = tab;
+  public addFriendDialog() {
+    this.dialog.open(AddFriendComponent, {
+      width: '350px',
+      data: {},
+    });
   }
 }

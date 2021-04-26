@@ -16,4 +16,35 @@
 </div>
 
 <app-avatar-url [user]="data.user" class="mr-2"></app-avatar-url>
-<h5 mat-dialog-title>{{ data.user.username }}</h5>
+<h1 mat-dialog-title>{{ data.user.username }}</h1>
+
+<hr>
+
+<div
+  *ngIf="mutualGuilds.length >= 0"
+  mat-dialog-content>
+  <h6>Mutual Guilds</h6>
+  <div class="ml-3">
+    <app-guild-icon 
+      *ngFor="let guild of mutualGuilds; else noMutualGuilds"
+      class="float-left"
+      style="margin-left: -25px;"
+      [matTooltip]="guild.name"
+      [guild]="guild"></app-guild-icon>
+  </div>
+  <hr>
+</div>
+
+<hr>
+
+<div
+  *ngIf="mutualFriends.length >= 0"
+  mat-dialog-content>
+  <h6>Mutual Friends</h6>
+  <app-avatar-url 
+    *ngFor="let friend of mutualFriends"
+    class="float-left"
+    style="margin-left: -25px;"
+    [matTooltip]="friend.username"
+    [user]="friend"></app-avatar-url>
+</div>
