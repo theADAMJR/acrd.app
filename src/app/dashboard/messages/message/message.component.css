@@ -106,6 +106,10 @@
 .message-group h2 span {
 	color:hsla(0,0%,100%,.2);
 }
+
+.message-group {
+	padding-top: 10px;
+}
 	
 .user-name {
 	padding-bottom:5px;

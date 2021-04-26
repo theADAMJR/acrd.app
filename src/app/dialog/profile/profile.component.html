@@ -1,12 +1,28 @@
-<div class="d-flex justify-content-center float-right">
+<div
+  *ngIf="!isSelf"
+  class="d-flex justify-content-center float-right">
   <button
+    *ngIf="!isFriend && !sentRequest"
+    (click)="addFriend()"
     matTooltip="Add Friend"
     class="bg-success mr-2"
     mat-button>
-    <i class="fas fa-plus"></i>
+    <i class="fas fa-user-plus text-dark"></i>
     <span></span>
   </button>
   <button
+    *ngIf="isFriend || sentRequest"
+    (click)="removeFriend()"
+    [matTooltip]="(isFriend) ? 'Remove Friend' : 'Cancel Request'"
+    class="bg-danger mr-2"
+    mat-button>
+    <i class="fas fa-times"></i>
+    <span></span>
+  </button>
+
+  <button
+    [routerLink]="'/channels/@me/' + dmChannel?._id"
+    [disabled]="!isFriend"
     matTooltip="Message"
     class="bg-secondary"
     mat-button>

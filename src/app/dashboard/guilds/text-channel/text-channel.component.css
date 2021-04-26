@@ -6,6 +6,7 @@
 .messages {
   overflow-y: auto;
 
+  margin-left: 10px;
   padding-bottom: 1vh;
   height: 82.5vh;
 }

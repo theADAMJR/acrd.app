@@ -1,7 +1,9 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
+import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
@@ -128,6 +130,7 @@ export class MessageComponent {
     private usersService: UsersService,
     private ws: WSService,
     private perms: PermissionsService,
+    private dialog: MatDialog,
   ) {}
 
   public removeEmbed() {
@@ -184,6 +187,13 @@ export class MessageComponent {
     this.contextMenuPosition.y = event.clientY + 'px';
     menuTrigger.menu.focusFirstItem('mouse');
     menuTrigger.openMenu();
+  }
+
+  public profileDialog() {
+    this.dialog.open(ProfileComponent, {
+      width: '500px',
+      data: { user: this.author },
+    });
   }
 }
 

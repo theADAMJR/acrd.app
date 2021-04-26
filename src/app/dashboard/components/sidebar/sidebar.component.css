@@ -76,7 +76,7 @@ mat-sidenav {
   background-color: var(--background-tertiary);
 }
 
-.add-guild {
+.guild-icon .add-guild {
   font-size: 40px;
   color: var(--tertiary);
 }
@@ -90,17 +90,6 @@ mat-sidenav {
   border-radius: 1px;
 
   border-color: var(--background-secondary);
-}
-
-.close {
-  position: absolute;
-  top: 0;
-  right: 15px;
-
-  font-size: 48px;
-
-  color: var(--primary);
-  text-shadow: none;
 }
 
 footer {  

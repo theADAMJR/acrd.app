@@ -7,9 +7,6 @@
 @import 'assets/css/inter-font.css';
 
 :root {
-  --mention: rgba(243, 187, 32, 0.25);
-  --mention-background: rgba(243, 187, 32, 0.5);
-
   scroll-behavior: smooth;
 }
 
@@ -327,18 +324,22 @@ div.arrow::before {
 
 /* discord */
 .d-mention {
-  background-color: var(--mention-background);
+  border-radius: 5px;
+  background-color: rgba(255,255,255,.15);
   cursor: pointer;
+
+  transition: background-color .3s ease;
 }
 .d-mention:hover {
-  background-color: var(--mention) !important;
+  background-color: rgba(255,255,255,.25) !important;
   border-radius: 3px;
 }
 
 .self-mention {
   border-radius: 5px;
   padding: 2px;
-  background-color: rgba(243, 187, 32, 0.25);
+  background-color: var(--secondary);
+  color: var(--dark);
 }
 
 blockquote {

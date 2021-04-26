@@ -9,7 +9,10 @@
     <div
       class="message-group"
       [ngClass]="{ 'd-mention': isMentioned }">
-      <div class="avatar-large animate" [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
+      <div
+        (click)="profileDialog()"
+        class="avatar-large animate"
+        [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
       <div class="comment">
         <div class="message first">
           <ng-container *ngTemplateOutlet="messageOptions"></ng-container>

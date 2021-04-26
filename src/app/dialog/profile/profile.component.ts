@@ -1,6 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ChannelService } from 'src/app/services/channel.service';
+import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
+import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({
@@ -21,9 +24,47 @@ export class ProfileComponent {
       .filter(g => otherGuilds.some(g => g?._id ?? g));
   }
 
+  public get isSelf() {
+    return this.users.user._id === this.data.user._id;
+  }
+  public get isFriend() {
+    return this.users.user.friendIds.includes(this.data.user._id);
+  }
+  public get sentRequest() {
+    return this.users.user.friendRequestIds.includes(this.data.user._id);
+  }
+  public get dmChannel() {
+    return this.channels.getDMChannel(this.data.user._id);
+  }
+
   constructor(
     public dialogRef: MatDialogRef<ProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { user: Lean.User },
-    private users: UsersService
+    private channels: ChannelService,
+    private log: LogService,
+    private users: UsersService,
+    private ws: WSService,
   ) {}
+
+  public async addFriend() {
+    try {
+      await this.ws.emitAsync('ADD_FRIEND', {
+        username: this.data.user.username,
+      }, this);
+      await this.log.success();
+    } catch (error) {
+      await this.log.error(error.message);
+    }
+  }
+
+  public async removeFriend() {
+    try {
+      await this.ws.emitAsync('REMOVE_FRIEND', {
+        friendId: this.data.user._id,
+      }, this);
+      await this.log.success();
+    } catch (error) {
+      await this.log.error(error.message);
+    }
+  }
 }
