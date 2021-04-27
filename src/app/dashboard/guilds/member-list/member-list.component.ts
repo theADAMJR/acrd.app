@@ -1,22 +1,25 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { Lean } from 'src/app/types/entity-types';
+import { widthExpandCollapse } from './member-list.animations';
 
 @Component({
   selector: 'app-member-list',
   templateUrl: './member-list.component.html',
-  styleUrls: ['./member-list.component.css']
+  styleUrls: ['./member-list.component.css'],
+  animations: [ widthExpandCollapse ],
 })
 export class MemberListComponent implements OnInit {
-  @Input() guild: Lean.Guild;
+  @Input() public expanded = true;
+  @Input() public guild: Lean.Guild;
 
-  get onlineMembers() {
+  public get onlineMembers() {
     return this.guild.members.filter(m => {
       const user = this.userService.getKnown(m.userId);
       return user.status !== 'OFFLINE';
     });
   }
-  get offlineMembers() {
+  public get offlineMembers() {
     return this.guild.members.filter(m => {
       const user = this.userService.getKnown(m.userId);
       return user.status === 'OFFLINE';
@@ -27,7 +30,7 @@ export class MemberListComponent implements OnInit {
     public userService: UsersService,
   ) {}
 
-  async ngOnInit() {
+  public async ngOnInit() {
     await this.userService.init();
   }
 }

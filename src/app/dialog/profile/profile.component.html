@@ -41,8 +41,8 @@
 <div
   *ngIf="mutualGuilds.length >= 0"
   mat-dialog-content>
-  <h6>Mutual Guilds</h6>
-  <div class="ml-3">
+  <h6>Mutual Guilds—{{ mutualGuilds.length }}</h6>
+  <div class="ml-4">
     <app-guild-icon 
       *ngFor="let guild of mutualGuilds; else noMutualGuilds"
       class="float-left"
@@ -58,8 +58,8 @@
 <div
   *ngIf="mutualFriends.length >= 0"
   mat-dialog-content>
-  <h6>Mutual Friends</h6>
-  <div class="ml-3">
+  <h6>Mutual Friends—{{ mutualFriends.length }}</h6>
+  <div class="ml-4">
     <app-avatar-url 
       *ngFor="let friend of mutualFriends"
       class="float-left cursor-pointer"

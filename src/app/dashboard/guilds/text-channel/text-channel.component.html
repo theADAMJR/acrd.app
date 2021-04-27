@@ -34,7 +34,8 @@
     autoFocus
     (keyup)="emitTypingStart()"
     (keyup.enter)="chat(message.value)"
-    appearance="fill">
+    appearance="fill"
+    class="d-block">
     <mat-label>Message {{ title }}</mat-label>
     <textarea
       [disabled]="guild && !perms.can(guild._id, 'SEND_MESSAGES')"

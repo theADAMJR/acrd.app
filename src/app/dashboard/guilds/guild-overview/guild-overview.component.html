@@ -1,10 +1,13 @@
 <guild-sidebar>
   <app-guild-navbar
     [activeChannel]="activeChannel"
-    [guild]="guild"></app-guild-navbar>
+    [guild]="guild"
+    (toggleMemberList)="memberList.expanded = !memberList.expanded"></app-guild-navbar>
 
   <div class="row">
-    <div class="col-xl-9 col-lg-7 col-md-5">
+    <div
+      class="col-xl-9 col-lg-7 col-md-5"
+      [ngClass]="{ 'col-xl-12': !memberList.expanded }">
       <section
         *ngIf="!activeChannel"
         class="jumbotron">
@@ -23,7 +26,9 @@
     </div>  
 
     <div class="col-xl-3 col-lg-5 col-md-7">
-      <app-member-list [guild]="guild"></app-member-list>
+      <app-member-list
+        [guild]="guild"
+        #memberList></app-member-list>
     </div>
   </div>
 </guild-sidebar>

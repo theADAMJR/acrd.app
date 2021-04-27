@@ -1,16 +1,17 @@
 <ng-container>
-    <div class="zippy">
-        <div class="zippy-heading"
-            [class.expanded]="expanded" 
-            (click)="toggle()">
-            {{ title }}
-            <span>
-                <i class="float-right fa fa-chevron-down"></i>
-            </span>
-        </div>
-        <div class="zippy-body"
-            [@expandCollapse]="(expanded) ? 'expanded' : 'collapsed'">
-            <ng-content></ng-content>
-        </div>
+  <div class="zippy">
+    <div class="zippy-heading"
+      [class.expanded]="expanded" 
+      (click)="toggle()">
+      {{ title }}
+      <span>
+        <i class="float-right fa fa-chevron-down"></i>
+      </span>
     </div>
+    <div
+      class="zippy-body"
+      [@expandCollapse]="(expanded) ? 'expanded' : 'collapsed'">
+      <ng-content></ng-content>
+    </div>
+  </div>
 </ng-container>
