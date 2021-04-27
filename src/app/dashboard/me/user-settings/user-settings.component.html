@@ -53,9 +53,16 @@
       
       <div class="col-lg-6 col-12 mt-4">
         <h6>Message Preview</h6>
-        <message [message]="previewMessages[0]"></message>
-        <message [message]="previewMessages[1]" [isExtra]="true"></message>
-        <message [message]="previewMessages[2]"></message>
+        <message
+          [message]="previewMessages[0]"
+          [avatarURL]="form.get('avatarURL').value"></message>
+        <message
+          [message]="previewMessages[1]"
+          [isExtra]="true"
+          [avatarURL]="form.get('avatarURL').value"></message>
+        <message
+          [message]="previewMessages[2]"
+          [avatarURL]="form.get('avatarURL').value"></message>
       </div>
     </div>
 

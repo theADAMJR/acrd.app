@@ -21,6 +21,7 @@ export class MessageComponent {
   @Input() public isExtra = false;
   @Input() public guild: Lean.Guild;
   @Input() public member: Lean.GuildMember;
+  @Input() public avatarURL: string;
 
   @ViewChild('newMessage')
   public newMessage: ElementRef;
@@ -95,7 +96,7 @@ export class MessageComponent {
 
     const getMention = (html: string, condition: boolean) => {
       return (condition)
-        ? `<span class="self-mention">${html}</span>`
+        ? `<span matTooltip="test" class="self-mention">${html}</span>`
         : html;
     };
 
@@ -127,7 +128,7 @@ export class MessageComponent {
   constructor(
     private log: LogService,
     private guildService: GuildService,
-    private usersService: UsersService,
+    public usersService: UsersService,
     private ws: WSService,
     private perms: PermissionsService,
     private dialog: MatDialog,

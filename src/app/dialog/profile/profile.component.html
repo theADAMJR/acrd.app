@@ -31,7 +31,9 @@
   </button>
 </div>
 
-<app-avatar-url [user]="data.user" class="mr-2"></app-avatar-url>
+<app-avatar-url
+  [user]="data.user"
+  class="mr-2"></app-avatar-url>
 <h1 mat-dialog-title>{{ data.user.username }}</h1>
 
 <hr>
@@ -57,10 +59,13 @@
   *ngIf="mutualFriends.length >= 0"
   mat-dialog-content>
   <h6>Mutual Friends</h6>
-  <app-avatar-url 
-    *ngFor="let friend of mutualFriends"
-    class="float-left"
-    style="margin-left: -25px;"
-    [matTooltip]="friend.username"
-    [user]="friend"></app-avatar-url>
+  <div class="ml-3">
+    <app-avatar-url 
+      *ngFor="let friend of mutualFriends"
+      class="float-left cursor-pointer"
+      size="52px"
+      style="margin-left: -25px;"
+      [matTooltip]="friend.username"
+      [user]="friend"></app-avatar-url>
+  </div>
 </div>

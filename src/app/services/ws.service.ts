@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import io from 'socket.io-client';
 import { LogService } from './log.service';
-import { WSEventArgs, WSEventParams } from '../types/ws-types';
+import { WSEventArgs, WSEventAsyncArgs, WSEventParams } from '../types/ws-types';
 
 @Injectable({ providedIn: 'root' })
 export class WSService {
@@ -34,7 +34,7 @@ export class WSService {
     return this;
   }
 
-  public emitAsync<P extends keyof WSEventParams, A extends keyof WSEventArgs>(name: P & A, params: WSEventParams[P], component: any): Promise<WSEventArgs[A]> {
+  public emitAsync<P extends keyof WSEventParams, A extends keyof WSEventAsyncArgs>(name: P, params: WSEventParams[P], component: any): Promise<WSEventAsyncArgs[A & P]> {
     return new Promise((resolve, reject) => {
       this.on('message', (message: string) =>
         message.includes('Server error') && reject(message), component);

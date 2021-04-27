@@ -8,9 +8,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./avatar-url.component.css']
 })
 export class AvatarUrlComponent implements AfterViewInit {
-  @Input('user') user: Lean.User;
-  @Input('size') size = '32px';
-  @ViewChild('img') img: ElementRef;
+  @Input('user')
+  public user: Lean.User;
+  @Input('size')
+  public size = '32px';
+  @ViewChild('img')
+  private img: ElementRef;
 
   private unknownImageURL = `${environment.endpoint}/avatars/unknown.png`;
 

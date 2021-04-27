@@ -27,8 +27,8 @@ h1,h2,h3,h4,h5 {
 hr {
   opacity: 0;
 
-  margin-top: 5px;
-  margin-bottom: 10px;
+  /* margin-top: 5px;
+  margin-bottom: 10px; */
 }
 
 footer {
@@ -332,7 +332,6 @@ div.arrow::before {
 }
 .d-mention:hover {
   background-color: rgba(255,255,255,.25) !important;
-  border-radius: 3px;
 }
 
 .self-mention {

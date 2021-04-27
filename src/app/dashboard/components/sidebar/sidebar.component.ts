@@ -11,6 +11,7 @@ import { SoundService } from 'src/app/services/sound.service';
 import { PingService } from 'src/app/services/ping.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateGuildComponent } from 'src/app/dialog/create-guild/create-guild.component';
+import { LogService } from 'src/app/services/log.service';
 
 @Component({
   selector: 'sidebar',
@@ -30,7 +31,7 @@ export class SidebarComponent implements OnInit {
     private sounds: SoundService,
     private pings: PingService,
     private usersService: UsersService,
-    private rtc: RTCService,
+    private log: LogService,
     private router: Router,
     private ws: WSService,
     private dialog: MatDialog,
@@ -45,9 +46,21 @@ export class SidebarComponent implements OnInit {
 
   public hookWSEvents() {
     this.ws
+      .on('ADD_FRIEND', this.addFriend, this)
       .on('GUILD_JOIN', this.joinGuild, this)
       .on('MESSAGE_CREATE', this.ping, this)
+      .on('REMOVE_FRIEND', this.updateFriends, this)
       .on('PRESENCE_UPDATE', this.updatePresence, this);  
+  }
+
+  public async addFriend({ sender, friend, dmChannel }: Args.AddFriend) {
+    this.updateFriends({ sender, friend });
+    if (dmChannel)
+      this.channelService.dmChannels.push(dmChannel);
+  }
+  public updateFriends({ sender, friend }: { sender: Lean.User, friend: Lean.User }) {
+    this.usersService.upsertCached(sender._id, sender);
+    this.usersService.upsertCached(friend._id, friend);
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {

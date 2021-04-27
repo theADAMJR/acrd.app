@@ -1,3 +1,8 @@
 img {
   border-radius: 50%;
+  transition: border-radius .3s ease;
+}
+
+img:hover {
+  border-radius: 25%;
 }

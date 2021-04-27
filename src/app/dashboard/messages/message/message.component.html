@@ -9,17 +9,20 @@
     <div
       class="message-group"
       [ngClass]="{ 'd-mention': isMentioned }">
-      <div
+      <app-avatar-url
         (click)="profileDialog()"
-        class="avatar-large animate"
-        [style.backgroundImage]="'url(' + author.avatarURL + ')'"></div>
+        matTooltip="View Profile"
+        size="40px"
+        [user]="(avatarURL) ? { username: author.username, avatarURL: avatarURL } : author"></app-avatar-url>
       <div class="comment">
         <div class="message first">
           <ng-container *ngTemplateOutlet="messageOptions"></ng-container>
 
           <h2 style="line-height: 16px;">
             <span class="username-wrapper v-btm">
-              <strong [style.color]="roleColor" class="user-name">{{ author.username }}</strong>
+              <strong
+                [style.color]="roleColor"
+                class="username">{{ author.username }}</strong>
               <div *ngIf="author.bot && author.username !== '2PG'"
                 class="username-badge badge badge-secondary ml-1">BOT</div>
               <div *ngIf="author.bot && author.username === '2PG'"
@@ -82,6 +85,7 @@
 <ng-template #messageOptions>
   <span class="message-options float-right">
     <button
+      *ngIf="usersService.user._id === author._id"
       matTooltip="Edit"
       (click)="toggleEditing()"
       mat-button>
@@ -89,6 +93,7 @@
     </button>
 
     <button
+      *ngIf="canManage"
       matTooltip="Delete"
       (click)="delete()"
       mat-button>
@@ -112,7 +117,7 @@
     (click)="toggleEditing()"
     mat-menu-item>
     <i class="fas fa-pencil-alt text-warning mr-1"></i>
-    <span>{{ isEditing ? 'Finish Editing' : 'Edit' }}</span>
+    <span>{{ (isEditing) ? 'Finish Editing' : 'Edit' }}</span>
   </button>
   <button
     (click)="delete()"

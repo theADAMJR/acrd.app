@@ -52,6 +52,54 @@ export interface WSEventParams {
   /** Manually disconnect from the websocket; logout. */
   'disconnect': any;
 }
+
+export interface WSEventAsyncArgs {
+  /** Called after you sent an outgoing friend request, or of an incoming friend request. */
+  'ADD_FRIEND': Args.AddFriend;
+  /** Called when a guild channel is created. */
+  'CHANNEL_CREATE': Args.ChannelCreate;
+  /** Callled when a guild channel is deleted. */
+  'CHANNEL_DELETE': Args.ChannelDelete;
+  /** Called when a guild is deleted. */
+  'GUILD_DELETE': Args.GuildDelete;
+  /** Called when the client joins a guild. */
+  'GUILD_JOIN': Args.GuildJoin;
+  /** Called when the client leaves a guild. */
+  'GUILD_LEAVE': Args.GuildLeave;
+  /** Called when someone joins a guild by an invite, or a bot is added. */
+  'GUILD_MEMBER_ADD': Args.GuildMemberAdd;
+  /** Called when member roles are updated, or other properties. */
+  'GUILD_MEMBER_UPDATE': Args.GuildMemberUpdate;
+  /** Called when a guild role is created. */
+  'GUILD_ROLE_CREATE': Args.GuildRoleCreate;
+  /** Called when a guild role is deleted. */
+  'GUILD_ROLE_DELETE': Args.GuildRoleDelete;
+  /** Called when properties on a guild role are updated. */
+  'GUILD_ROLE_UPDATE': Args.GuildRoleUpdate;
+  /** Called when guild settings are updated. */
+  'GUILD_UPDATE': Args.GuildUpdate;
+  /** Called when a guild invite is created. */
+  'INVITE_CREATE': Args.InviteCreate;
+  /** Called when an existing guild invite is deleted. */
+  'INVITE_DELETE': Args.InviteDelete;
+  /** Called when a message is created in a text-based channel. */
+  'MESSAGE_CREATE': Args.MessageCreate;
+  /** Called when a message is deleted in a text-based channel. */
+  'MESSAGE_DELETE': Args.MessageDelete;
+  /** Called when an existing message is updated in a text-based channel. */
+  'MESSAGE_UPDATE': Args.MessageUpdate;
+  'PING': Args.Ping;
+  'PRESENCE_UPDATE': Args.PresenceUpdate;
+  /** Called when the websocket accepts that you are ready. */
+  'READY': Args.Ready;
+  /** Called when you are removed as a friend, or you remove a friend request, or an existing friend. */
+  'REMOVE_FRIEND': Args.RemoveFriend;
+  /** Called when someone is typing in a text-based channel. */
+  'TYPING_START': Args.TypingStart;
+  /** Called the client user settings are updated. */
+  'USER_UPDATE': Args.UserUpdate;
+}
+
 /** WS Args are what is received from the websocket. */
 export interface WSEventArgs {
   /** Called after you sent an outgoing friend request, or of an incoming friend request. */

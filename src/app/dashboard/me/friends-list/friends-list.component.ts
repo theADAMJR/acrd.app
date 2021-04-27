@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChannelService } from 'src/app/services/channel.service';
+import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
 import { Args, WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
@@ -9,7 +10,7 @@ import { Lean } from 'src/app/types/entity-types';
   templateUrl: './friends-list.component.html',
   styleUrls: ['./friends-list.component.css']
 })
-export class FriendsListComponent implements OnInit {
+export class FriendsListComponent {
   @Input()
   public tab: TabType;
 
@@ -32,24 +33,10 @@ export class FriendsListComponent implements OnInit {
 
   constructor(
     public channelService: ChannelService,
+    private log: LogService,
     public users: UsersService,
     private ws: WSService,
   ) {}
-
-  public ngOnInit() {
-    this.hookWSEvents();
-  }
-
-  public hookWSEvents() {
-    this.ws
-      .on('ADD_FRIEND', this.addFriend, this)
-      .on('REMOVE_FRIEND', this.updateFriends, this);
-  }
-  
-  public addFriend({ sender, friend, dmChannel }: Args.AddFriend) {
-    this.channelService.dmChannels.push(dmChannel);
-    this.updateFriends({ sender, friend });
-  }
 
   public updateFriends({ sender, friend }: { sender: Lean.User, friend: Lean.User }) {
     this.users.upsertCached(sender._id, sender);
@@ -60,11 +47,21 @@ export class FriendsListComponent implements OnInit {
     return this.friends.find(f => f._id === id);
   }
 
-  public add(username: string) {
-    this.ws.emit('ADD_FRIEND', { username }, this);
+  public async add(username: string) {
+    try {
+      await this.ws.emitAsync('ADD_FRIEND', { username }, this);      
+      await this.log.success();
+    } catch (error) {
+      await this.log.error(error.message);
+    }
   }
-  public remove(friendId: string) {
-    this.ws.emit('REMOVE_FRIEND', { friendId }, this);
+  public async remove(friendId: string) {
+    try {
+      await this.ws.emitAsync('REMOVE_FRIEND', { friendId }, this);      
+      await this.log.success();
+    } catch (error) {
+      await this.log.error(error.message);
+    }
   }
 
   public isOutgoing(friend: Lean.User) {

@@ -60,9 +60,6 @@
       <hr>
 
       <div *ngFor="let friend of friendRequests">
-        <div class="badge badge-secondary">
-          {{ isOutgoing(friend) ? 'OUTGOING' : 'INCOMING' }}
-        </div>
         <div class="float-right">
           <button
             (click)="add(friend._id)"
@@ -77,6 +74,8 @@
             <i class="fas fa-times"></i>
           </button>
         </div>
+        
+        <span class="badge badge-secondary">{{ isOutgoing(friend) ? 'OUTGOING' : 'INCOMING' }}</span>
         <member-username
           [user]="friend"
           [statusOverride]="isOutgoing(friend) ? 'Outgoing Friend Request' : 'Incoming Friend Request'"></member-username>
