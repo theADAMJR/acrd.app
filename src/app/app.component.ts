@@ -4,6 +4,7 @@ import { ThemeService } from './services/theme.service';
 import { ActivatedRoute } from '@angular/router';
 import { LogService } from './services/log.service';
 import devtools from 'devtools-detect';
+import { EventService } from './services/event.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit {
   }
 
   constructor(
+    private eventService: EventService,
     private themeService: ThemeService,
     private userService: UsersService,
     private route: ActivatedRoute,
@@ -23,6 +25,8 @@ export class AppComponent implements OnInit {
   ) {}
 
   public async ngOnInit() {
+    this.eventService.init();
+
     this.route.queryParamMap.subscribe(async(map) => {
       const success = map.get('success');
       const error = map.get('error');

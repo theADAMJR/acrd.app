@@ -177,11 +177,6 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       partialRole: this.form.value,
     }, this);
 
-    const index = this.guild.roles.findIndex(r => r._id === roleId);
-    this.guild.roles[index] = {
-      ...this.guild.roles[index],
-      ...this.form.value,
-    };
     this.originalGuild = { ...this.guild };
   }
 

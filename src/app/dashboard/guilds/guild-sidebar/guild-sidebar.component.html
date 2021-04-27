@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="category">Channels</div>
+    <div class="category">Channels—{{ textChannels.length }}</div>
     <div
       *ngIf="guild && perms.can(guild._id, 'VIEW_CHANNELS')"
       class="navbar-nav">

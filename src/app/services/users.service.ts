@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Lean, UserTypes } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
@@ -16,11 +16,16 @@ export class UsersService extends HTTPWrapper {
       await this.updateKnownUsers();
   }
 
-  public upsertCached(userId: string, updated: Lean.User) {
+  public upsertCached(userId: string, updated: Lean.User | Partial<Lean.User>) {
     const index = this.knownUsers?.findIndex(u => u._id === userId);
-    (index < 0)
-      ? this.knownUsers.push(updated)
-      : this.knownUsers[index] = updated;
+    const nonExistant = index < 0;
+
+    if (nonExistant && !('_id' in updated))
+      throw new TypeError('User must be full object');
+
+    (nonExistant)
+      ? this.knownUsers.push(updated as Lean.User)
+      : this.knownUsers[index] = { ...this.knownUsers[index], ...updated };
   }
 
   public getUnknown(userId: string): Lean.User {

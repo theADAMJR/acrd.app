@@ -17,7 +17,7 @@ export interface WSEventParams {
   /** Accept a guild invite. */
   'GUILD_MEMBER_ADD': Params.GuildMemberAdd;
   /** Remove a member from a guild. */
-  'GUILD_MEMBER_DELETE': Params.GuildMemberDelete;
+  'GUILD_MEMBER_REMOVE': Params.GuildMemberDelete;
   /** Update a members roles or other properties on a member. */
   'GUILD_MEMBER_UPDATE': Params.GuildMemberUpdate;
   /** Create a role in a guild. */
@@ -163,6 +163,7 @@ export namespace Params {
     channelId: string;
   }
   export interface GuildCreate {
+    /** Properties with the guild. */
     partialGuild: Partial.Guild;
   }
   export interface GuildDelete {
@@ -260,45 +261,67 @@ export namespace Args {
     /** ID of the guild that was left. */
     guildId: string;
   }
-  export interface GuildDelete {}
+  export interface GuildDelete {
+    /** ID of the guild. */
+    guildId: string;
+  }
   /** Called when a member accepts an invite, or a bot was added to a guild. */
   export interface GuildMemberAdd {
+    /** ID of the guild. */
+    guildId: string;
     /** Full object of the member that was added to the guild. */
     member: Lean.GuildMember;
   }
-  export interface GuildMemberDelete {
-    userId: string;
+  export interface GuildMemberRemove {
+    /** ID of the guild. */
+    guildId: string;
+    /** ID of member that was removed. */
+    memberId: string;
   }
   export interface GuildMemberUpdate {
+    /** ID of the guild. */
+    guildId: string;
     /** Properties of updated guild member. */
     partialMember: Lean.GuildMember;
     /** ID of the guild member. Not the same as a user ID. */
     memberId: string;
   }
   export interface GuildRoleCreate {
+    /** ID of the guild. */
+    guildId: string;
     /** Full object of the role that was created. */
     role: Lean.Role;
   }
   export interface GuildRoleDelete {
+    /** ID of the guild. */
+    guildId: string;
     /** The ID of the role that was deleted. */
     roleId: string;
   }
   export interface GuildRoleUpdate {
+    /** Guild ID associated with role. */
+    guildId: string;
     /** Properties to update the role. */
     partialRole: Partial.Role;
     /** The ID of the role that was updated. */
     roleId: string;
   }
   export interface GuildUpdate {
+    /** ID of the guild. */
+    guildId: string;
     /** Properties to update a guild. */
     partialGuild: Partial.Guild;
   }
   export interface InviteCreate {
+    /** ID of the guild. */
+    guildId: string;
     /** Full object of the invite. */
     invite: Lean.Invite;
   }
   /** Called when a guild invite is delted. */
   export interface InviteDelete {
+    /** ID of the guild. */
+    guildId: string;
     /** The ID or the code of the invite. */
     inviteCode: string;
   }
@@ -330,6 +353,7 @@ export namespace Args {
   export interface TypingStart {
     userId: string;
   }
+  /** PRIVATE - contains private data */
   export interface UserUpdate {
     partialUser: Partial.User;
   }

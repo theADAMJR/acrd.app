@@ -6,8 +6,8 @@
 
   <div class="row">
     <div
-      class="col-xl-9 col-lg-7 col-md-5"
-      [ngClass]="{ 'col-xl-12': !memberList.expanded }">
+      class="col-lg-7 col-md-5"
+      [class]="memberList.expanded ? 'col-xl-9': 'col-xl-12'">
       <section
         *ngIf="!activeChannel"
         class="jumbotron">
@@ -25,7 +25,9 @@
         [guild]="guild"></app-text-channel>
     </div>  
 
-    <div class="col-xl-3 col-lg-5 col-md-7">
+    <div
+      [hidden]="!memberList.expanded"
+      class="col-xl-3 col-lg-5 col-md-7">
       <app-member-list
         [guild]="guild"
         #memberList></app-member-list>
