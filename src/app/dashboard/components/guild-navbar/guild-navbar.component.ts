@@ -7,7 +7,7 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./guild-navbar.component.css'],
 })
 export class GuildNavbarComponent {
-  @Output() public toggleMemberList = new EventEmitter();
   @Input() public activeChannel: Lean.Channel;
   @Input() public guild: Lean.Guild;
+  @Output() public toggleMemberList = new EventEmitter();
 }

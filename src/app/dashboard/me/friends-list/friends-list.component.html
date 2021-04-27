@@ -1,8 +1,7 @@
 <div class="px-4">
   <div [ngSwitch]="tab">
     <div *ngSwitchCase="'ONLINE'">
-      <div class="category pl-0">Online—{{ onlineFriends.length }}</div>
-      <hr>
+      <div class="category pl-0 mb-2">Online—{{ onlineFriends.length }}</div>
       
       <div *ngFor="let friend of onlineFriends">
         <div class="float-right">
@@ -28,8 +27,7 @@
     </div>
     
     <div *ngSwitchCase="'ALL'">
-      <div class="category pl-0">All—{{ friends.length }}</div>
-      <hr>
+      <div class="category pl-0 mb-2">All—{{ friends.length }}</div>
 
       <div *ngFor="let friend of friends">
         <div class="float-right">
@@ -56,8 +54,7 @@
     </div>
      
     <div *ngSwitchCase="'PENDING'">
-      <div class="category pl-0">Pending—{{ friendRequests.length }}</div>
-      <hr>
+      <div class="category pl-0 mb-2">Pending—{{ friendRequests.length }}</div>
 
       <div *ngFor="let friend of friendRequests">
         <div class="float-right">
@@ -90,8 +87,7 @@
     </div>
        
     <div *ngSwitchCase="'BLOCKED'">
-      <div class="category pl-0">Blocked—{{ 0 }}</div>
-      <hr>
+      <div class="category pl-0 mb-2">Blocked—{{ 0 }}</div>
 
       <div *ngFor="let user of blockedUsers">
         <div class="float-right">

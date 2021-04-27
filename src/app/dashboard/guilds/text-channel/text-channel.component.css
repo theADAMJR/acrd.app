@@ -1,12 +1,11 @@
 .footer {
-  /* display: flex; */
   padding: 15px;
 }
 
 .messages {
   overflow-y: auto;
 
-  margin-left: 10px;
+  margin: 0 10px;
   padding-bottom: 1vh;
   height: 82.5vh;
 }

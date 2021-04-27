@@ -2,17 +2,16 @@
   *ngIf="usersService.user"
   tabType="user">
   <div class="content">
-    <h5 class="uppercase mb-4">Your Account</h5>
+    <h5 class="mb-4">Your Account</h5>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-lg-6 col-md-12">
         <form
           *ngIf="form"
           #f="ngForm"
           (submit)="changeEmail()"
           [formGroup]="form">
-          <mat-form-field
-            class="ml-2"
-            appearance="outline">
+          <h6>Change Email</h6>
+          <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input formControlName="email" type="email" matInput>
             <mat-hint *ngIf="form.get('email').pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</mat-hint>
@@ -20,57 +19,60 @@
             <mat-error *ngIf="form.get('email').errors?.pattern">Email must be valid.</mat-error>
           </mat-form-field>
 
-          <button [disabled]="processingEmail" class="ml-2" color="success" mat-button>Send Email</button>
+          <button
+            [disabled]="processingEmail"
+            class="ml-2"
+            color="success"
+            mat-button>Send Email</button>
         </form>
+
+        <div>
+          <span
+            *ngIf="usersService.user.verified"
+            class="border border-success rounded p-3">Your account is verified by email.</span>
+          <span
+            *ngIf="!usersService.user.verified"
+            class="border border-warning rounded p-3">Your email is not verified.</span>
+        </div>
       </div>
 
-      <div class="col-md-6">
-        <span
-          *ngIf="usersService.user.verified"
-          class="border border-success rounded p-3">
-          Your account is verified by email.
-        </span>
-        <span
-          *ngIf="!usersService.user.verified"
-          class="border border-warning rounded p-3">
-          Your email is not verified.
-        </span>
-      </div>
-
-      <div class="col-md-6 mt-5">
+      <div class="col-lg-6 col-md-12">
         <form
           #f="ngForm"
           (submit)="changePassword()"
           [formGroup]="passwordForm">
-          <div class="col-6">
-            <h5>Change Password</h5>
-            <mat-form-field
-              class="ml-2"
-              appearance="outline">
-              <mat-label>Old Password</mat-label>
-              <mat-error *ngIf="passwordForm.get('oldPassword').errors?.required">Old password is required.</mat-error>
-              <input formControlName="oldPassword" type="password" matInput>
-            </mat-form-field>
+          <h6>Change Password</h6>
+          <mat-form-field
+            class="mr-2"
+            appearance="outline">
+            <mat-label>Old Password</mat-label>
+            <mat-error *ngIf="passwordForm.get('oldPassword').errors?.required">Old password is required.</mat-error>
+            <input formControlName="oldPassword" type="password" matInput>
+          </mat-form-field>
 
-            <mat-form-field
-              class="ml-2"
-              appearance="outline">
-              <mat-label>New Password</mat-label>
-              <input formControlName="newPassword" type="password" matInput>
-              <mat-error *ngIf="passwordForm.get('newPassword').errors?.required">New password is required.</mat-error>
-              <mat-error *ngIf="passwordForm.get('newPassword').errors?.pattern">New password must be valid.</mat-error>
-            </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>New Password</mat-label>
+            <input formControlName="newPassword" type="password" matInput>
+            <mat-error *ngIf="passwordForm.get('newPassword').errors?.required">New password is required.</mat-error>
+            <mat-error *ngIf="passwordForm.get('newPassword').errors?.pattern">New password must be valid.</mat-error>
+          </mat-form-field>
+          
+          <button
+            [disabled]="processingPassword"
+            class="bg-warning float-right mt-3 mr-3"
+            mat-button>Change</button>
 
-            <mat-error
-              *ngIf="passwordForm.get('newPassword').dirty
-                && passwordForm.errors?.passwordMatch"
-              class="mb-2">New password should not equal old password.</mat-error>
-            <button [disabled]="processingPassword" class="bg-warning" mat-button>Change</button>
-          </div>
+          <mat-error
+            *ngIf="passwordForm.get('newPassword').dirty
+              && passwordForm.errors?.passwordMatch"
+            class="mb-2">New password should not equal old password.</mat-error>
         </form>
       </div>
 
-      <div class="col-md-6">
+      <hr>
+
+      <div class="col-lg-6 col-md-12 mt-5">
+        <h5>More Settings</h5>
         <div>
           <button
             routerLink="/logout"
