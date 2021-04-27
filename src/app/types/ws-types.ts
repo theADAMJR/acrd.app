@@ -17,7 +17,7 @@ export interface WSEventParams {
   /** Accept a guild invite. */
   'GUILD_MEMBER_ADD': Params.GuildMemberAdd;
   /** Remove a member from a guild. */
-  'GUILD_MEMBER_REMOVE': Params.GuildMemberDelete;
+  'GUILD_MEMBER_REMOVE': Params.GuildMemberRemove;
   /** Update a members roles or other properties on a member. */
   'GUILD_MEMBER_UPDATE': Params.GuildMemberUpdate;
   /** Create a role in a guild. */
@@ -172,7 +172,7 @@ export namespace Params {
   export interface GuildMemberAdd {
     inviteCode: string;
   }
-  export interface GuildMemberDelete {
+  export interface GuildMemberRemove {
     guildId: string;
     userId: string;
   }
