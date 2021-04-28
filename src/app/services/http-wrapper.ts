@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { WSEventArgs, WSEventParams } from '../types/ws-types';
 import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })

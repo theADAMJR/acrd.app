@@ -1,4 +1,8 @@
-<div class="guild-icon">
+<div
+  class="guild-icon"
+  (contextmenu)="dialogs.openMenu($event, menuTrigger)"
+  [matMenuTriggerFor]="contextMenu"
+  #menuTrigger="matMenuTrigger">
   <img
     *ngIf="guild.iconURL"
     [src]="guild.iconURL"
@@ -6,3 +10,23 @@
   <span *ngIf="!guild.iconURL"
     class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
 </div>
+
+
+<mat-menu
+  matMenuContent
+  #contextMenu>
+  <button
+    (click)="guildService.leave(guild._id)"
+    class="text-danger p-2"
+    mat-menu-item>
+    <i class="fas fa-door-open"></i>
+    <span> Leave</span>
+  </button>
+  
+  <hr>
+
+  <div (click)="$event.stopPropagation()" class="p-2">
+    <strong>ID: </strong>
+    <code>{{ guild._id }}</code>
+  </div>
+</mat-menu>

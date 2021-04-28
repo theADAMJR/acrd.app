@@ -5,6 +5,7 @@ import { UsersService } from './users.service';
 import { Lean } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from './ws.service';
+import { LogService } from './log.service';
 
 @Injectable({ providedIn: 'root' })
 export class GuildService extends HTTPWrapper {
@@ -18,8 +19,9 @@ export class GuildService extends HTTPWrapper {
   constructor(
     http: HttpClient,
     private usersService: UsersService,
+    private log: LogService,
     ws: WSService,
-    ) { super(http, ws); }
+  ) { super(http, ws); }
   
   public async init() {
     if (this.guilds.length <= 0)
@@ -71,7 +73,17 @@ export class GuildService extends HTTPWrapper {
       .toPromise() as any;
   }
 
-  public removeBot(guildId: string, botId: string) {
-    alert('kick bot from guild');
+  public async leave(guildId: string) {
+    const member = this.getMember(guildId, this.usersService.user._id);
+    await this.kick(guildId, member._id);
+  }
+
+  public async kick(guildId: string, memberId: string) {
+    try {
+      await this.ws.emitAsync('GUILD_MEMBER_REMOVE', { memberId, guildId }, this);
+      await this.log.success();
+    } catch (error) {
+      await this.log.error(error.message);
+    }
   }
 }

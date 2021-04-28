@@ -173,8 +173,10 @@ export namespace Params {
     inviteCode: string;
   }
   export interface GuildMemberRemove {
+    /** ID of the guild. */
     guildId: string;
-    userId: string;
+    /** ID of the member, not the same as a user ID. */
+    memberId: string;
   }
   export interface GuildMemberUpdate {
     /** ID of the member, not the same as a user ID. */

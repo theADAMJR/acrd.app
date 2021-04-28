@@ -18,10 +18,12 @@ import { Lean } from 'src/app/types/entity-types';
   ]
 })
 export class BotListComponent extends ModuleConfig implements OnInit {
-  apps: Lean.Application[];
-  selectedApp: Lean.Application;
+  public apps: Lean.Application[];
+  public selectedApp: Lean.Application;
 
-  botInGuild = false;
+  public get botInGuild() {
+    return this.guild.members.some(m => m.userId === this.selectedApp._id);
+  }
 
   constructor(
     route: ActivatedRoute,
@@ -30,44 +32,30 @@ export class BotListComponent extends ModuleConfig implements OnInit {
     snackbar: MatSnackBar,
     ws: WSService,
     log: LogService,
-    private dev: DevelopersService) {
-      super(guildService, route, snackbar, ws, log, router);
-    }
+    private dev: DevelopersService,
+  ) {
+    super(guildService, route, snackbar, ws, log, router);
+  }
 
-  async ngOnInit() {
+  public async ngOnInit() {
     await super.init();
     
     this.apps = await this.dev.getAll();
-    this.selectBot(this.apps[0]);
-
-    this.botInGuild = this.selectedApp
-      && this.guild.members.some(m => m.userId === this.selectedApp._id);
-    
-    this.hookWSEvents();
+    this.selectedApp = this.apps[0];
   }
 
-  hookWSEvents() {
-  }
-
-  buildForm() {
+  public buildForm() {
     return new FormGroup({});
   }
 
-  selectBot(app: Lean.Application) {
-    this.selectedApp = app;
-  }
-
-  async addBot(botId: string) {
-    this.botInGuild = true;
-    
-    await this.guildService.addBot(this.guild._id, botId);
+  public async addBot(botId: string) {    
+    await this.guildService.addBot(this.guildId, botId);
     await this.guildService.updateGuilds();
   }
 
-  async removeBot(botId: string) {
-    this.botInGuild = false;
-
-    await this.guildService.removeBot(this.guild._id, botId);
+  public async removeBot(botId: string) {
+    const member = this.guildService.getMember(this.guildId, botId);
+    await this.guildService.kick(this.guildId, member._id);
     await this.guildService.updateGuilds();
   }
 }

@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ChannelService } from '../services/channel.service';
 import { GuildService } from '../services/guild.service';
 import { LogService } from '../services/log.service';
 import { PingService } from '../services/ping.service';
@@ -10,6 +9,7 @@ import { SoundService } from '../services/sound.service';
 import { UsersService } from '../services/users.service';
 import { Args, WSService } from '../services/ws.service';
 import { Lean } from '../types/entity-types';
+import { MessageService } from '../services/message.service';
 
 @Component({ template: '' })
 export class TextBasedChannel {
@@ -46,7 +46,7 @@ export class TextBasedChannel {
   }
 
   constructor(
-    private channelService: ChannelService,
+    private messageService: MessageService,
     public guildService: GuildService,
     private log: LogService,
     private router: Router,
@@ -64,7 +64,7 @@ export class TextBasedChannel {
     this.pings.markAsRead(this.channel._id);
 
     document.title = this.title;
-    this.messages = await this.channelService.getMessages(this.channel._id);
+    this.messages = await this.messageService.getAll(this.channel._id);
     
     setTimeout(() => this.scrollToMessage(), 100);
     
@@ -138,8 +138,8 @@ export class TextBasedChannel {
 
     this.log.info('Loading more messages', 'text');
 
-    const moreMessages = await this.channelService
-      .getMessages(this.channel._id, {
+    const moreMessages = await this.messageService
+      .getAll(this.channel._id, {
         start: this.messages.length,
         end: this.messages.length + 25
       });

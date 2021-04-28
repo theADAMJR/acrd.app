@@ -3,32 +3,25 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ChannelTypes, Lean } from '../types/entity-types';
 import { GuildService } from './guild.service';
+import { HTTPWrapper } from './http-wrapper';
 import { UsersService } from './users.service';
+import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
-export class ChannelService {
+export class ChannelService extends HTTPWrapper {
   private readonly endpoint = environment.endpoint + '/channels';
-  
-  private get headers() {
-    return {
-      headers: { Authorization: `Bearer ${localStorage.getItem('key')}` }
-    }
-  };
-
-  private cachedMessages = new Map<string, Lean.Message[]>();
   private _dmChannels: ChannelTypes.DM[] = [];
 
   public get dmChannels() {
     return this._dmChannels;
   }
-  private get key() {
-    return localStorage.getItem('key');
-  }
 
   constructor(
+    http: HttpClient,
+    ws: WSService,
     private guildService: GuildService,
-    private http: HttpClient,
-    private userService: UsersService) {}
+    private userService: UsersService,
+  ) { super(http, ws); }
 
   public async init() {
     if (this.dmChannels.length <= 0)
@@ -54,27 +47,4 @@ export class ChannelService {
         this.headers).toPromise() as any
       : [];
   }
-
-  public async getMessages(channelId: string, options?: LazyLoadOptions): Promise<Lean.Message[]> {
-    return this.cachedMessages.get(channelId)
-      ?? this.cachedMessages
-        .set(channelId, await this.fetchMessages(channelId, options))
-        .get(channelId);
-  }
-
-  private async fetchMessages(channelId: string, options?: LazyLoadOptions) {
-    const query = `?start=${options?.start ?? 0}&end=${options?.end ?? 25}`;
-    return this.http
-      .get(`${this.endpoint}/${channelId}/messages${query}`,this.headers)
-      .toPromise() as any;
-  }
-
-  public addMessage(message: Lean.Message) {
-    const messages = this.cachedMessages.get(message.channelId);
-    messages.push(message);
-
-    this.cachedMessages.set(message.channelId, messages);
-  }
 }
-
-interface LazyLoadOptions { start: number, end: number }
