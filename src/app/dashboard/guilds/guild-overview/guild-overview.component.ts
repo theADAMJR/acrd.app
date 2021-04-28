@@ -28,10 +28,11 @@ export class GuildOverviewComponent implements OnInit {
   public async ngOnInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
       const id = paramMap.get('guildId');
+      const channelId = paramMap.get('channelId');
       this.guild = this.guildService.getGuild(id);
       
       const defaultChannel = this.guild.channels.filter(c => c.type === 'TEXT')[0];          
-      if (defaultChannel)
+      if (defaultChannel && !channelId)
         await this.router.navigate([`/channels/${id}/${defaultChannel._id}`]);
     });
   }

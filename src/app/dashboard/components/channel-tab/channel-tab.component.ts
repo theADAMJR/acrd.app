@@ -15,8 +15,7 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./channel-tab.component.css']
 })
 export class ChannelTabComponent {
-  @Input()
-  public channel: Lean.Channel;
+  @Input() public channel: Lean.Channel;
 
   public get guild() {
     return this.guildService.getGuild(this.channel.guildId);

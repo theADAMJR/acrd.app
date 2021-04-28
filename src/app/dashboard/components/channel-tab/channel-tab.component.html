@@ -4,9 +4,9 @@
   (contextmenu)="openMenu($event, menuTrigger)">
   <div *ngIf="channel.type === 'TEXT'">
     <a (click)="$event.stopPropagation()"
+      class="nav-item nav-link"
       [routerLink]="'/channels/' + guild._id + '/' + channel._id"
-      routerLinkActive="active"
-      class="nav-item nav-link">        
+      routerLinkActive="active">        
       <span class="float-right text-muted p-1">
         <i *ngIf="pings.isUnread(channel._id)"
           matTooltip="Unread Pings"
@@ -21,11 +21,6 @@
       <span>{{ channel.name }}</span>
       <span *ngIf="pings.isUnread(channel._id)" class="ml-2">
         <i class="fas fa-circle text-danger"></i>
-      </span>
-    
-      <span class="float-right">
-        <i matTooltip="Edit Channel"
-          class="fas fa-cog text-muted channel-settings spin"></i>
       </span>
     </a>
   </div>

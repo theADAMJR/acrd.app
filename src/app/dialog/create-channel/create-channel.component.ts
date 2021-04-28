@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
+import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean, patterns } from 'src/app/types/entity-types';
 
@@ -24,8 +25,7 @@ export class CreateChannelComponent {
     @Inject(MAT_DIALOG_DATA) public data: {
       guild: Lean.Guild,
     },
-    private guildService: GuildService,
-    private router: Router,
+    private log: LogService,
     private ws: WSService,
   ) {}
 
@@ -51,14 +51,19 @@ export class CreateChannelComponent {
       });
   }
 
-  public create() {
+  public async create() {
     if (this.form.invalid) return;
 
-    this.ws.emit('CHANNEL_CREATE', {
-      partialChannel: this.form.value,
-      guildId: this.data.guild._id
-    }, this);
-
-    this.dialogRef.close();
+    try {
+      this.ws.emitAsync('CHANNEL_CREATE', {
+        partialChannel: this.form.value,
+        guildId: this.data.guild._id
+      }, this);
+  
+      await this.log.success();
+      this.dialogRef.close();
+    } catch (error) {
+      await this.log.error(error.message);
+    }
   }
 }
