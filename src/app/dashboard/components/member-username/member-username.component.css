@@ -1,7 +1,9 @@
-div {
+.member-username,
+.username-wrapper {
   border-radius: 5px;
-
   width: 100%;
+}
+.username-wrapper {
   padding: 3px;
 }
 .active, div:hover {
@@ -36,30 +38,4 @@ img {
 i.fa-crown {
   color: gold;
   font-size: small;
-}
-
-.offline {
-  opacity: 0.5;
-}
-.offline:hover {
-  opacity: 1;
-}
-
-.status {
-  z-index: 1;
-  
-  width: 10px;
-  height: 10px;
-}
-.status.online {
-  color: green;
-  border-color: green;
-}
-.status.idle {
-  color: orange;
-  border-color: orange;
-}
-.status.dnd {
-  color: red;
-  border-color: red;
 }

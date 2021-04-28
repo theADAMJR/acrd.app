@@ -9,6 +9,7 @@
   [title]="user.username"
   [class]="(guild) ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
   <div
+    class="username-wrapper"
     (click)="$event.stopPropagation()"
     [routerLink]="routerLink || './'">
     <app-avatar-url
