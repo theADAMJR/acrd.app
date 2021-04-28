@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
+import { Partial } from '../types/ws-types';
 import { Lean } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from './ws.service';
@@ -53,6 +54,11 @@ export class GuildService extends HTTPWrapper {
     return this.getMember(guildId, this.usersService.user._id);
   }
 
+  public getMemberById(guildId: string, memberId: string): Lean.GuildMember {
+    return this
+      .getGuild(guildId)?.members
+      .find(m => m._id === memberId);
+  }
   public getMember(guildId: string, userId: string): Lean.GuildMember {
     return this
       .getGuild(guildId)?.members

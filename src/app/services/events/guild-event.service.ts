@@ -19,4 +19,12 @@ export class GuildEventService {
       ...partialRole,
     };
   }
+
+  public updateMember({ guildId, partialMember, memberId }: Args.GuildMemberUpdate) {
+    const guild = this.guildService.getGuild(guildId);
+    const oldMember = this.guildService.getMember(guildId, memberId);
+    const index = guild.members.indexOf(oldMember);
+
+    return guild.members[index] = { ...oldMember, ...partialMember };
+  }
 }

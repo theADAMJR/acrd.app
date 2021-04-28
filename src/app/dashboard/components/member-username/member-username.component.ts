@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
 import { ChannelService } from 'src/app/services/channel.service';
+import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
 import { SoundService } from 'src/app/services/sound.service';
@@ -16,12 +17,14 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./member-username.component.css']
 })
 export class MemberUsernameComponent implements OnInit {
-  @Input() user: Lean.User;
-  @Input() guild: Lean.Guild;
-  @Input() withAvatar = true;
-  @Input() voice = false;
-  @Input() statusOverride: string;
-  @Input() routerLink: string;
+  @Input() public user: Lean.User;
+  @Input() public guild: Lean.Guild;
+  @Input() public withAvatar = true;
+  @Input() public voice = false;
+  @Input() public statusOverride: string;
+  @Input() public routerLink: string;
+
+  private oldMember: Lean.GuildMember;
 
   public get guildRoles() {
     return this.guild.roles.filter(r => r.name !== '@everyone');
@@ -52,33 +55,31 @@ export class MemberUsernameComponent implements OnInit {
     private channelService: ChannelService,
     public perms: PermissionsService,
     public pings: PingService,
-    public sounds: SoundService,
+    private log: LogService,
     public usersService: UsersService,
     private ws: WSService,
     private dialog: MatDialog,
   ) {}
 
   public ngOnInit() {
-    this.hookWSEvents();
-  }
-
-  private hookWSEvents() {
-    this.ws
-      .on('USER_UPDATE', this.updateUser, this);
-  }
-
-  private updateUser(args: Args.UserUpdate) {
-    const user = this.usersService.user;
-    this.usersService.upsertCached(user._id, args.partialUser);
+    this.oldMember = { ...this.member }; 
   }
 
   public async update() {
-    this.ws.emit('GUILD_MEMBER_UPDATE', {
-      partialMember: { roleIds: [] },
-      memberId: this.member._id,
-    }, this);
+    const unchanged = JSON.stringify(this.member) === JSON.stringify(this.oldMember);
+    if (unchanged) return;
 
-    await this.sounds.success();
+    try {
+      await this.ws.emitAsync('GUILD_MEMBER_UPDATE', {
+        partialMember: { roleIds: [] },
+        memberId: this.member._id,
+      }, this);
+
+      this.oldMember = { ...this.member }; 
+      await this.log.success();
+    } catch (error) {
+      await this.log.error(error.message);
+    }
   }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {

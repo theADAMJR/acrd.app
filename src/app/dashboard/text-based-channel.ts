@@ -13,11 +13,12 @@ import { MessageService } from '../services/message.service';
 
 @Component({ template: '' })
 export class TextBasedChannel {
+  @Input() public channel: Lean.Channel;
+  @Input() public guild?: Lean.Guild;
+
   @ViewChild('message')
   private messageInput: ElementRef;
 
-  @Input() public channel: Lean.Channel;
-  @Input() public guild?: Lean.Guild;
   public chatBox = new FormControl();
   public emojiPickerOpen = false;
   public messages = [];
@@ -92,8 +93,6 @@ export class TextBasedChannel {
     if (selfIsAuthor)
       await this.sounds.message();
 
-    this.messages.push(message);
-
     setTimeout(() => this.scrollToMessage(), 100);
   }
 
@@ -139,7 +138,7 @@ export class TextBasedChannel {
     this.log.info('Loading more messages', 'text');
 
     const moreMessages = await this.messageService
-      .getAll(this.channel._id, {
+      .fetchAll(this.channel._id, {
         start: this.messages.length,
         end: this.messages.length + 25
       });

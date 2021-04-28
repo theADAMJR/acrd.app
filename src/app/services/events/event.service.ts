@@ -19,10 +19,12 @@ export class EventService {
     this.ws
       .on('ADD_FRIEND', this.me.addFriend, this.me)
       .on('GUILD_JOIN', this.me.joinGuild, this.me)
+      .on('GUILD_MEMBER_UPDATE', this.guilds.updateMember, this.guilds)
       .on('GUILD_ROLE_UPDATE', this.guilds.updateRole, this.guilds)
       .on('MESSAGE_CREATE', this.channels.addMessage, this.channels)
       .on('PING', this.channels.ping, this.channels)
       .on('PRESENCE_UPDATE', this.me.updatePresence, this.me)
-      .on('REMOVE_FRIEND', this.me.updateFriends, this.me);
+      .on('REMOVE_FRIEND', this.me.updateFriends, this.me)
+      .on('USER_UPDATE', this.me.updateUser, this.me);
   }
 }

@@ -10,32 +10,35 @@ import { WSService } from './ws.service';
 })
 export class MessageService extends HTTPWrapper {
   private readonly endpoint = environment.endpoint + '/channels';
-  private cachedMessages = new Map<string, Lean.Message[]>();
+  private cached = new Map<string, Lean.Message[]>();
 
   constructor(
     http: HttpClient,
     ws: WSService,
   ) { super(http, ws); }
 
-  public async getAll(channelId: string, options?: LazyLoadOptions): Promise<Lean.Message[]> {
-    return this.cachedMessages.get(channelId)
-      ?? this.cachedMessages
-        .set(channelId, await this.fetchAll(channelId, options))
+  public getAll(channelId: string): Lean.Message[] {
+    return this.cached.get(channelId)
+      ?? this.cached
+        .set(channelId, [])
         .get(channelId);
   }
 
-  private async fetchAll(channelId: string, options?: LazyLoadOptions) {
+  public async fetchAll(channelId: string, options?: LazyLoadOptions) {
     const query = `?start=${options?.start ?? 0}&end=${options?.end ?? 25}`;
-    return this.http
-      .get(`${this.endpoint}/${channelId}/messages${query}`,this.headers)
+    const messages = this.http
+      .get(`${this.endpoint}/${channelId}/messages${query}`, this.headers)
       .toPromise() as any;
+    
+    this.getAll(channelId).push(messages);
+    return messages;
   }
 
-  public add(message: Lean.Message) {
-    const messages = this.cachedMessages.get(message.channelId);
+  public async add(message: Lean.Message) {
+    const messages = this.getAll(message.channelId);
     messages.push(message);
 
-    this.cachedMessages.set(message.channelId, messages);
+    this.cached.set(message.channelId, messages);
   }
 }
 

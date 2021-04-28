@@ -39,4 +39,9 @@ export class MyEventService {
   public updatePresence(args: Args.PresenceUpdate) {
     this.usersService.upsertCached(args.userId, { status: args.status });
   }
+
+  public updateUser(args: Args.UserUpdate) {
+    const user = this.usersService.user;
+    this.usersService.upsertCached(user._id, args.partialUser);
+  }
 }
