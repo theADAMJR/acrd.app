@@ -252,6 +252,8 @@ export namespace Args {
     channel: Lean.Channel;
   }
   export interface ChannelDelete {
+    /** ID of guild that channel is in. */
+    guildId: string;
     /** The ID of the channel that is deleted. */
     channelId: string;
   }
@@ -332,6 +334,8 @@ export namespace Args {
     message: Lean.Message;
   }
   export interface MessageDelete {
+    /** ID of the channel with the message. */
+    channelId: string;
     /** The ID of the message that was deleted. */
     messageId: string;
   }

@@ -31,4 +31,18 @@ export class ChannelEventService {
   public async addMessage({ message }: Args.MessageCreate) { 
     this.messageService.add(message);
   }
+
+  public deleteMessage({ channelId, messageId }: Args.MessageDelete) {
+    const messages = this.messageService.getAll(channelId);
+    const index = messages.findIndex(m => m._id === messageId);
+
+    messages.splice(index, 1);
+  }
+
+  public updateMessage({ message }: Args.MessageUpdate) {
+    const messages = this.messageService.getAll(message.channelId);
+    let index = messages.findIndex(m => m._id === message._id);
+
+    messages[index] = message;
+  }
 }

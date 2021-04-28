@@ -1,12 +1,16 @@
 <navbar></navbar>
 <section class="container text-center">
   <div class="py-2 my-5"></div>
+
   <h2 class="display-4 mb-4">Login</h2>
   <form
     #f="ngForm"
     [formGroup]="form"
     (ngSubmit)="login()">
-    <input value="username" type="hidden" #loginWith>
+    <input
+      value="username"
+      type="hidden"
+      #loginWith>
 
     <div class="form-group">
       <mat-form-field
@@ -43,10 +47,18 @@
 
     <button
       [disabled]="processing"
-      class="bg-primary mb-2" type="submit" mat-button>
-      <span *ngIf="processing" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      class="bg-primary mb-2"
+      type="submit"
+      mat-button>
+      <span
+        *ngIf="processing"
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"></span>
       Login
     </button>
-    <div>Or <a [routerLink]="['/sign-up']" [queryParams]="{ redirect: redirect }">create an account</a>.</div>
+    <div>Or <a
+      [routerLink]="['/sign-up']"
+      [queryParams]="{ redirect: redirect }">create an account</a>.</div>
   </form>
 </section>

@@ -28,7 +28,7 @@ export class ChannelService extends HTTPWrapper {
       await this.updateDMChannels();
   }
 
-  public getChannel(guildId: string, channelId: string): Lean.Channel {
+  public get(guildId: string, channelId: string): Lean.Channel {
     const guild = this.guildService.getGuild(guildId);
     return guild?.channels.find(c => c._id === channelId);
   }

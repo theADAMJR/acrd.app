@@ -15,14 +15,15 @@ import { MessageService } from '../services/message.service';
 export class TextBasedChannel {
   @Input() public channel: Lean.Channel;
   @Input() public guild?: Lean.Guild;
-
+  
   @ViewChild('message')
   private messageInput: ElementRef;
-
+  
   public chatBox = new FormControl();
   public emojiPickerOpen = false;
   public messages = [];
   public typingUserIds = [];
+  public ready = false;
 
   private lastTypingEmissionAt = null;
 
@@ -65,18 +66,17 @@ export class TextBasedChannel {
     this.pings.markAsRead(this.channel._id);
 
     document.title = this.title;
-    this.messages = await this.messageService.getAll(this.channel._id);
+    this.messages = await this.messageService.fetchAll(this.channel._id);
     
     setTimeout(() => this.scrollToMessage(), 100);
     
     this.hookWSEvents();
+    this.ready = true;
   }
 
   public hookWSEvents() {
     this.ws
       .on('MESSAGE_CREATE', this.createMessage, this)
-      .on('MESSAGE_DELETE', this.deleteMessage, this)
-      .on('MESSAGE_UPDATE', this.updateMessage, this)
       .on('TYPING_START', this.addTypingUser, this);
   }
 
@@ -94,16 +94,6 @@ export class TextBasedChannel {
       await this.sounds.message();
 
     setTimeout(() => this.scrollToMessage(), 100);
-  }
-
-  private updateMessage({ message }: Args.MessageUpdate) {
-    let index = this.messages.findIndex(m => m._id === message);
-    this.messages[index] = message;
-  }
-
-  private deleteMessage({ messageId }: Args.MessageDelete) {
-    let index = this.messages.findIndex(m => m._id === messageId);
-    this.messages.splice(index, 1);
   }
 
   private scrollToMessage(end?: number) {

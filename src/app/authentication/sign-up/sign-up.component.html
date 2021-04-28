@@ -1,10 +1,17 @@
 <navbar></navbar>
 <section class="container text-center">
   <div class="py-2 my-5"></div>
+
+  <span class="alert alert-info">
+    <i class="fas fa-info-circle text-dark"></i>
+    This is an early alpha release of Accord, therefore users are currently limited for testing.  
+  </span>
+
   <form
     #f="ngForm"
     [formGroup]="form"
-    (ngSubmit)="signUp()">
+    (ngSubmit)="signUp()"
+    class="mt-5">
     <h2 class="display-4 mb-4">Sign Up</h2>
     <div class="form-group">
       <mat-form-field appearance="outline">
@@ -47,7 +54,7 @@
     <div class="form-group">
       <label for="agreed"></label>
       <mat-checkbox id="agreed" class="mr-2" #agreed></mat-checkbox>
-      <span>I agree to the <a routerLink="/terms">TOS</a>, and <a routerLink="/privacy">privacy policy</a>.</span>
+      <span>I agree to the <a href="https://docs.accord.app/legal/alpha">Alpha Terms</a>, <a routerLink="/terms">TOS</a>, and <a routerLink="/privacy">privacy policy</a>.</span>
     </div>
 
     <div

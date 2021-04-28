@@ -8,7 +8,7 @@ export const environment = {
   endpoint: 'http://localhost:3000/api/v1',
   rootEndpoint: 'http://localhost:3000',
   githubURL: 'https://github.com/theADAMJR/Accord',
-  version: 'v0.1.6a',
+  version: 'v0.1.7a',
 };
 
 /*

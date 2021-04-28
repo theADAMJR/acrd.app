@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from 'src/app/services/channel.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -10,14 +10,14 @@ import { TextChannelComponent } from '../../guilds/text-channel/text-channel.com
   templateUrl: './dmchannel.component.html',
   styleUrls: ['./dmchannel.component.css']
 })
-export class DMChannelComponent implements OnInit {
+export class DMChannelComponent implements AfterViewInit {
   public recipient: Lean.User;
   public channel: Lean.Channel;
 
   @ViewChild('textChannel')
   public textChannel: TextChannelComponent;
 
-  public async ngOnInit() {
+  public async ngAfterViewInit() {
     this.route.paramMap.subscribe(async (paramMap) => {
       const channelId = paramMap.get('channelId');
       this.channel = this.channelService.getDMChannelById(channelId);

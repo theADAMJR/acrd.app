@@ -47,22 +47,23 @@
   (closed)="update()"
   #contextMenu>
   <div *ngIf="guild">
-    <div
-      *ngIf="perms.can(guild._id, 'MANAGE_ROLES')"  
-      (click)="$event.stopPropagation()"
-      appearance="outline"
-      mat-menu-item>
-      <mat-label>Roles</mat-label>
-      <mat-select multiple>
-        <mat-option
-          *ngFor="let role of guildRoles"
-          [style.color]="role.color"
-          [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
-      </mat-select>
-    </div>  
+    <div (click)="$event.stopPropagation()">
+      <mat-form-field
+        appearance="outline"
+        *ngIf="perms.can(guild._id, 'MANAGE_ROLES')"  
+        appearance="outline">
+        <mat-label>Roles</mat-label>
+        <mat-select multiple>
+          <mat-option
+            *ngFor="let role of guildRoles"
+            [style.color]="role.color"
+            [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
+        </mat-select> 
+      </mat-form-field>
+    </div>
   </div>
-
-  <hr>
+  
+  <hr class="my-2">
 
   <button
     (click)="profileDialog()"
@@ -84,7 +85,9 @@
     <i class="fas fa-ban text-danger mr-1"></i>
     <span>Block</span>
   </button>
-  <hr>
+  
+  <hr class="my-2">
+
   <div (click)="$event.stopPropagation()" class="p-2">
     <strong>ID: </strong>
     <code>{{ user._id }}</code>

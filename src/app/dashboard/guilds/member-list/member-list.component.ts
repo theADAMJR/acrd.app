@@ -9,7 +9,7 @@ import { widthExpandCollapse } from './member-list.animations';
   styleUrls: ['./member-list.component.css'],
   animations: [ widthExpandCollapse ],
 })
-export class MemberListComponent implements OnInit {
+export class MemberListComponent {
   @Input() public expanded = true;
   @Input() public guild: Lean.Guild;
 
@@ -29,8 +29,4 @@ export class MemberListComponent implements OnInit {
   constructor(
     public userService: UsersService,
   ) {}
-
-  public async ngOnInit() {
-    await this.userService.init();
-  }
 }

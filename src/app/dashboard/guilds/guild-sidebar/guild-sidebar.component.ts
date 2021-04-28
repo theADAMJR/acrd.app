@@ -54,49 +54,6 @@ export class GuildSidebarComponent implements OnInit {
       if (!this.guild)
         this.router.navigate(['/channels/@me']);
     });
-
-    this.hookWSEvents();
-  }
-
-  public hookWSEvents() {
-    this.ws
-      .on('CHANNEL_CREATE', this.addChannel, this)
-      .on('CHANNEL_DELETE', this.deleteChannel, this)
-      .on('GUILD_DELETE', this.delete, this)
-      .on('GUILD_MEMBER_ADD', this.addGuildMember, this)
-      .on('GUILD_UPDATE', this.updateGuild, this)
-      .on('GUILD_ROLE_UPDATE', this.updateRole, this);  
-  }
-
-  private addChannel({ channel }: Args.ChannelCreate) {
-    this.guild.channels.push(channel);
-  }
-  private deleteChannel({ channelId }: Args.ChannelDelete) {
-    const index = this.guild.channels.findIndex(c => c._id === channelId);
-    this.guild.channels.splice(index, 1);
-  }
-  private addGuildMember({ member }: Args.GuildMemberAdd) {
-    this.guild.members.push(member);
-  }
-  private updateGuild({ partialGuild }: Args.GuildUpdate) {
-    this.guildService.updateCached(this.guild._id, {
-      ...this.guild,
-      ...partialGuild,
-    });
-  }
-
-  private updateRole({ roleId, partialRole }: Args.GuildRoleUpdate) {
-    const index = this.guild.roles.findIndex(r => r._id === roleId);
-    this.guild.roles[index] = {
-      ...this.guild.roles[index],
-      ...partialRole,
-    };
-  }
-  private async delete() {
-    const index = this.guildService.guilds.findIndex(g => g._id === this.guild._id);
-    this.guildService.guilds.splice(index, 1);
-
-    await this.router.navigate(['/channels/@me']);
   }
 
   private getMember(userId: string) {
