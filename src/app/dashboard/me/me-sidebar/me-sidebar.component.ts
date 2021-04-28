@@ -8,20 +8,20 @@ import { Lean } from 'src/app/types/entity-types';
   templateUrl: './me-sidebar.component.html',
   styleUrls: ['./me-sidebar.component.css']
 })
-export class MeSidebarComponent implements OnInit {  
-  get user() { return this.userService.user; }
-
+export class MeSidebarComponent implements OnInit {
   constructor(
     public channelService: ChannelService,
-    public userService: UsersService) {}
+    public usersService: UsersService,
+  ) {}
     
-  async ngOnInit() {
-    await this.userService.init();
+  public async ngOnInit() {
+    await this.usersService.init();
     await this.channelService.init();
   }
 
-  getRecipient(channel: Lean.Channel) { 
-    const userId = channel.memberIds.filter(id => id !== this.user._id)[0];
-    return this.userService.getKnown(userId);
+  public getRecipient(channel: Lean.Channel) { 
+    const userId = channel.memberIds
+      .filter(id => id !== this.usersService.user._id)[0];
+    return this.usersService.getKnown(userId);
   }
 }

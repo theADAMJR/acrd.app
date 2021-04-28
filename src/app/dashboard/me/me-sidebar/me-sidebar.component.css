@@ -1,9 +1,9 @@
 h4 {
-    margin-bottom: 35px;
-    cursor: pointer;
+  margin-bottom: 35px;
+  cursor: pointer;
 }
 
 img {
-    padding: 0;
-    background: var(--background-tertiary);
+  padding: 0;
+  background: var(--background-tertiary);
 }

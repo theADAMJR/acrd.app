@@ -11,8 +11,7 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./friends-list.component.css']
 })
 export class FriendsListComponent {
-  @Input()
-  public tab: TabType;
+  @Input() public tab: TabType;
 
   public get blockedUsers() {
     return this.users.user.ignored?.userIds

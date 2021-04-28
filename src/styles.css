@@ -186,16 +186,16 @@ mat-sidenav-content {
   height: unset !important;
 }
 
-.side-nav img {
-  background-color: var(--background-tertiary);
-
-  max-width: 96px;
-  border-radius: 50%;
+.active app-avatar-url img,
+.active .guild-icon img,
+.active .guild-icon {
+  border-radius: 25% !important;
 }
 
 .side-nav .header {
   width: inherit;
-  height: 53px;
+  max-height: 53px;
+  padding: 4.25px;
 
   margin-bottom: 10px;
 

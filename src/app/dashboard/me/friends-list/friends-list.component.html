@@ -16,7 +16,9 @@
             (click)="remove(friend._id)"
             class="round px-0 ml-2" mat-button><i class="fas fa-times"></i></button>
         </div>
-        <member-username [user]="getFriend(friend._id)"></member-username>
+        <member-username
+          [routerLink]="'/channels/@me/' + channelService.getDMChannel(friend._id)?._id"
+          [user]="getFriend(friend._id)"></member-username>
       </div>
       <div
         *ngIf="friends.length <= 0"

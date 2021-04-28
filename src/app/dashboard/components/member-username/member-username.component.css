@@ -2,7 +2,7 @@ div {
   border-radius: 5px;
 
   width: 100%;
-  padding: 4px;
+  padding: 3px;
 }
 .active, div:hover {
   background-color: var(--background-primary);

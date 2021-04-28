@@ -4,7 +4,7 @@ import { ThemeService } from './services/theme.service';
 import { ActivatedRoute } from '@angular/router';
 import { LogService } from './services/log.service';
 import devtools from 'devtools-detect';
-import { EventService } from './services/event.service';
+import { EventService } from './services/events/event.service';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,15 @@ export class AppComponent implements OnInit {
   public async ngOnInit() {
     this.eventService.init();
 
-    this.route.queryParamMap.subscribe(async(map) => {
+    this.themeService.updateTheme();
+    await this.userService.updateUser();
+    
+    this.handlePrompt();
+    this.consoleWarning();
+  }
+
+  private handlePrompt() {
+    this.route.queryParamMap.subscribe(async (map) => {
       const success = map.get('success');
       const error = map.get('error');
       if (success)
@@ -35,11 +43,6 @@ export class AppComponent implements OnInit {
       else if (error)
         await this.log.error(error);
     });
-
-    this.themeService.updateTheme();
-    await this.userService.updateUser();
-
-    this.consoleWarning();
   }
 
   private consoleWarning() {

@@ -1,4 +1,4 @@
-import { hacker } from "faker";
+import { hacker } from 'faker';
 
 export function toIterable(length: number) {
   const array = [];

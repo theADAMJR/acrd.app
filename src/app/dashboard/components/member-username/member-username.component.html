@@ -2,10 +2,11 @@
   *ngIf="user"
   [matMenuTriggerFor]="contextMenu"
   #menuTrigger="matMenuTrigger"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{exact: true}"
   (contextmenu)="openMenu($event, menuTrigger)"
   class="member-username"
   [title]="user.username"
-  routerLinkActive="active"
   [class]="(guild) ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
   <div
     (click)="$event.stopPropagation()"

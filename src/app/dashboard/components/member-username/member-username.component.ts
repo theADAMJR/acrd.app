@@ -26,7 +26,6 @@ export class MemberUsernameComponent implements OnInit {
   public get guildRoles() {
     return this.guild.roles.filter(r => r.name !== '@everyone');
   }
-
   public get member() {
     return this.guild?.members.find(m => m.userId === this.user._id);
   }
@@ -45,7 +44,6 @@ export class MemberUsernameComponent implements OnInit {
   public get isBlocked() {
     return this.usersService.user.ignored.userIds.includes(this.user._id);
   }
-
   public get dmChannelId() {
     return this.channelService.getDMChannel(this.user._id)?._id;
   }
@@ -71,17 +69,12 @@ export class MemberUsernameComponent implements OnInit {
 
   private updateUser(args: Args.UserUpdate) {
     const user = this.usersService.user;
-    this.usersService.upsertCached(user._id, {
-      ...user,
-      ...args.partialUser,
-    });
+    this.usersService.upsertCached(user._id, args.partialUser);
   }
 
   public async update() {
     this.ws.emit('GUILD_MEMBER_UPDATE', {
-      partialMember: {
-        roleIds: [],
-      },
+      partialMember: { roleIds: [] },
       memberId: this.member._id,
     }, this);
 
