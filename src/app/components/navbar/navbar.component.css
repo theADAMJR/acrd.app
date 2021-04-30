@@ -1,3 +1,7 @@
+h1 {
+  font-size: 32px;
+}
+
 nav.navbar {
   background-color: transparent;
   color: var(--font);
@@ -9,10 +13,6 @@ img:not(.icon) {
 }
 img.icon {
   height: 32px;
-}
-img.logo {
-  margin-left: 5px;
-  width: 128px;
 }
 
 .dropdown-menu {

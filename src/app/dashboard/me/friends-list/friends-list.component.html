@@ -18,10 +18,10 @@
         </div>
         <member-username
           [routerLink]="'/channels/@me/' + channelService.getDMChannel(friend._id)?._id"
-          [user]="getFriend(friend._id)"></member-username>
+          [user]="users.getKnown(friend._id)"></member-username>
       </div>
       <div
-        *ngIf="friends.length <= 0"
+        *ngIf="users.friends.length <= 0"
         class="text-muted">
         <i class="fas fa-info-circle mr-2"></i>
         <span>No friends online.</span>
@@ -29,9 +29,9 @@
     </div>
     
     <div *ngSwitchCase="'ALL'">
-      <div class="category pl-0 mb-2">All—{{ friends.length }}</div>
+      <div class="category pl-0 mb-2">All—{{ users.friends.length }}</div>
 
-      <div *ngFor="let friend of friends">
+      <div *ngFor="let friend of users.friends">
         <div class="float-right">
           <button
             [routerLink]="'/channels/@me/' + channelService.getDMChannel(friend._id)?._id"
@@ -44,11 +44,11 @@
             (click)="remove(friend._id)"
             class="round px-0 ml-2" mat-button><i class="fas fa-times"></i></button>
         </div>
-        <member-username [user]="getFriend(friend._id)"></member-username>
+        <member-username [user]="users.getKnown(friend._id)"></member-username>
       </div>
 
       <div
-        *ngIf="friends.length <= 0"
+        *ngIf="users.friends.length <= 0"
         class="text-muted">
         <i class="fas fa-info-circle mr-2"></i>
         <span>No friends here yet.</span>
@@ -56,9 +56,9 @@
     </div>
      
     <div *ngSwitchCase="'PENDING'">
-      <div class="category pl-0 mb-2">Pending—{{ friendRequests.length }}</div>
+      <div class="category pl-0 mb-2">Pending—{{ users.friendRequests.length }}</div>
 
-      <div *ngFor="let friend of friendRequests">
+      <div *ngFor="let friend of users.friendRequests">
         <div class="float-right">
           <button
             (click)="add(friend._id)"
@@ -81,7 +81,7 @@
       </div>
         
       <div
-        *ngIf="friendRequests.length <= 0"
+        *ngIf="users.friendRequests.length <= 0"
         class="text-muted">
         <i class="fas fa-info-circle mr-2"></i>
         <span>No friend requests sent.</span>

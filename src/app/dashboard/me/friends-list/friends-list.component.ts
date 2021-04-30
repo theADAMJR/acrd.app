@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChannelService } from 'src/app/services/channel.service';
 import { LogService } from 'src/app/services/log.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -17,17 +17,8 @@ export class FriendsListComponent {
     return this.users.user.ignored?.userIds
       ?.map(id => this.users.getKnown(id));
   }
-  public get friendRequests() {
-    return this.users.user.friendRequestIds
-      .map(id => this.users.getKnown(id));
-  }
-  public get friends() {
-    return this.users.getFriends();
-  }
   public get onlineFriends() {
-    return this.users
-      .getFriends()
-      .filter(f => f.status !== 'OFFLINE');
+    return this.users.friends.filter(f => f.status !== 'OFFLINE');
   }
 
   constructor(
@@ -36,15 +27,6 @@ export class FriendsListComponent {
     public users: UsersService,
     private ws: WSService,
   ) {}
-
-  public updateFriends({ sender, friend }: { sender: Lean.User, friend: Lean.User }) {
-    this.users.upsertCached(sender._id, sender);
-    this.users.upsertCached(friend._id, friend);
-  }
-
-  public getFriend(id: string) {
-    return this.friends.find(f => f._id === id);
-  }
 
   public async add(username: string) {
     try {

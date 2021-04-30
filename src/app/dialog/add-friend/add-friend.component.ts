@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LogService } from 'src/app/services/log.service';
-import { UsersService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { patterns } from 'src/app/types/entity-types';
 

@@ -210,6 +210,15 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
 .text-muted {
   color: var(--muted) !important;
 }
+.text-primary {
+  color: var(--primary) !important;
+}
+.text-secondary {
+  color: var(--secondary) !important;
+}
+.text-tertiary {
+  color: var(--tertiary) !important;
+}
 
 .bg-primary {
   background-color: var(--primary) !important;

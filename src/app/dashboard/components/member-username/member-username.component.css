@@ -4,7 +4,7 @@
   width: 100%;
 }
 .username-wrapper {
-  padding: 3px;
+  padding: 4px;
 }
 .active, div:hover {
   background-color: var(--background-primary);

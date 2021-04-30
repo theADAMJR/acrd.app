@@ -27,6 +27,7 @@ export class WSService {
 
     const listener = (...args: any[]) => {      
       this.log.info(`RECEIVE ${eventName} - ${componentName}`, 'ws');
+      console.log(...args);      
       return callback.call(component, ...args);
     };
     this.socket.on(eventName, listener);

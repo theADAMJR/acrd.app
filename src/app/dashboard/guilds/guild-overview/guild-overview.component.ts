@@ -10,7 +10,7 @@ import { TextChannelComponent } from '../text-channel/text-channel.component';
   templateUrl: './guild-overview.component.html',
   styleUrls: ['./guild-overview.component.css']
 })
-export class GuildOverviewComponent implements OnInit, AfterViewInit {
+export class GuildOverviewComponent implements AfterViewInit {
   public activeChannel: Lean.Channel;
   public guild: Lean.Guild;
 
@@ -24,7 +24,7 @@ export class GuildOverviewComponent implements OnInit, AfterViewInit {
     private router: Router,
   ) {}
 
-  public async ngOnInit() {
+  public async ngAfterViewInit() {
     this.route.paramMap.subscribe(async(paramMap) => {
       const guildId = paramMap.get('guildId');
       const channelId = paramMap.get('channelId');
@@ -35,10 +35,8 @@ export class GuildOverviewComponent implements OnInit, AfterViewInit {
       const defaultChannel = this.guild.channels.filter(c => c.type === 'TEXT')[0];          
       if (defaultChannel && !channelId)
         await this.router.navigate([`/channels/${guildId}/${defaultChannel._id}`]);
-    });
-  }
 
-  public async ngAfterViewInit() {
-    await this.textChannel.init();
+      await this.textChannel.init();
+    });
   }
 }

@@ -4,7 +4,8 @@
 <form
   #f="ngForm"
   [formGroup]="addFriendForm"
-  class="d-flex justify-content-center">
+  class="d-flex justify-content-center"
+  (keyup.enter)="sendFriendRequest()">
   <mat-form-field appearance="outline">
     <mat-label>Username</mat-label>
     <input formControlName="username" type="text" matInput>

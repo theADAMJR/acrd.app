@@ -1,4 +1,4 @@
-import { Injectable, Type } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Lean, UserTypes } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
@@ -8,6 +8,15 @@ export class UsersService extends HTTPWrapper {
   public endpoint = `${environment.endpoint}/users`;
   public knownUsers: Lean.User[] = [];
   public user: UserTypes.Self;
+
+  public get friends() {
+    return this.user.friendIds
+      .map(id => this.getKnown(id));
+  }
+  public get friendRequests() {
+    return this.user.friendRequestIds
+      .map(id => this.getKnown(id));
+  }
   
   public async init() {
     if (!this.user)
@@ -16,14 +25,20 @@ export class UsersService extends HTTPWrapper {
       await this.updateKnownUsers();
   }
 
-  public upsertCached(userId: string, updated: Lean.User | Partial<Lean.User>) {
+  public upsertCached(userId: string, updated: Partial<Lean.User | UserTypes.Self>) {
     const index = this.knownUsers?.findIndex(u => u._id === userId);
-    const nonExistant = index < 0;
+    const isNew = index < 0;
+    
+    console.log((updated as any).friendRequestIds);    
+    console.log((updated as any).friendIds);    
 
-    if (nonExistant && !('_id' in updated))
-      throw new TypeError('User must be full object');
+    if (this.user._id === userId)
+      return this.user = { ...this.user, ...updated as any };
 
-    (nonExistant)
+    if (isNew && !('_id' in updated))
+      throw new TypeError('User must be full object');      
+
+    (isNew)
       ? this.knownUsers.push(updated as Lean.User)
       : this.knownUsers[index] = { ...this.knownUsers[index], ...updated };
   }
@@ -59,10 +74,6 @@ export class UsersService extends HTTPWrapper {
   public getKnown(id: string): Lean.User {
     return this.knownUsers?.find(u => u._id === id)
       ?? this.getUnknown(id);
-  }
-  public getFriends() {
-    return this.user.friendIds
-      .map(id => this.getKnown(id));
   }
 
   public addKnownUser(user: Lean.User) {
