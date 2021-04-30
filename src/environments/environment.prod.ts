@@ -4,5 +4,5 @@ export const environment = {
   rootEndpoint: '/',
   githubURL: 'https://github.com/theADAMJR/Accord',
   production: true,
-  version: 'v0.1.6a',
+  version: 'v0.1.7a',
 };

@@ -75,6 +75,8 @@ body {
 
   --success: #09F7A0;
   --danger: #F43E5C;
+
+  --warning: #F77D26;
   --light: #FDF0ED;
   --dark: #16161C;
 }
@@ -209,6 +211,12 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
 
 .text-muted {
   color: var(--muted) !important;
+}
+.text-warning {
+  color: var(--warning) !important;
+}
+.text-danger {
+  color: var(--danger) !important;
 }
 .text-primary {
   color: var(--primary) !important;

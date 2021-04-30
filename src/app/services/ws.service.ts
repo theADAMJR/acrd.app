@@ -21,7 +21,7 @@ export class WSService {
   public on<K extends keyof WSEventArgs>(eventName: K, callback: WSEventArgs[K], component: any): this {
     const componentName = this.nameOf(component);    
     const eventString = `${eventName}-${componentName}`;
-    if (this.listened.includes(eventString)) return;
+    if (this.listened.includes(eventString)) return this;
 
     this.listened.push(eventString);
 

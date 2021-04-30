@@ -10,7 +10,7 @@ import { TextChannelComponent } from '../../guilds/text-channel/text-channel.com
   templateUrl: './dmchannel.component.html',
   styleUrls: ['./dmchannel.component.css']
 })
-export class DMChannelComponent implements AfterViewInit {
+export class DMChannelComponent implements OnInit, AfterViewInit {
   public recipient: Lean.User;
   public channel: Lean.Channel;
 
@@ -23,8 +23,16 @@ export class DMChannelComponent implements AfterViewInit {
     private userService: UsersService,
   ) {}
 
+  public async ngOnInit() {
+    await this.updateChannel(this.route.snapshot.paramMap);
+    await this.textChannel.init();
+  }
+
   public async ngAfterViewInit() {
-    this.route.paramMap.subscribe(this.updateChannel.bind(this));
+    this.route.paramMap.subscribe(async (paramMap) => {
+      await this.updateChannel(paramMap);
+      await this.textChannel.init();
+    });
   }
 
   private async updateChannel(paramMap: ParamMap) {
@@ -34,7 +42,5 @@ export class DMChannelComponent implements AfterViewInit {
     const recipientId = this.channel.memberIds
       ?.find(id => id !== this.userService.user._id);
     this.recipient = this.userService.getKnown(recipientId);
-
-    await this.textChannel.init();
   }
 }

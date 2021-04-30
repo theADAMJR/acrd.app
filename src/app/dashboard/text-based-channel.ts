@@ -52,11 +52,11 @@ export class TextBasedChannel {
     public guildService: GuildService,
     private log: LogService,
     private router: Router,
-    public userService: UsersService,
     public perms: PermissionsService,
-    public sounds: SoundService,
-    private ws: WSService,
     public pings: PingService,
+    public sounds: SoundService,
+    public userService: UsersService,
+    private ws: WSService,
   ) {}
 
   public async init() {
@@ -74,7 +74,7 @@ export class TextBasedChannel {
     this.ready = true;
   }
 
-  public hookWSEvents() {
+  public hookWSEvents() {    
     this.ws
       .on('MESSAGE_CREATE', this.createMessage, this)
       .on('TYPING_START', this.addTypingUser, this);
