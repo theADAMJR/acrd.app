@@ -43,16 +43,22 @@
   </div>
 </div>
 
-<mat-menu #contextMenu>
+<mat-menu
+  (closed)="update()"
+  #contextMenu>
   <div *ngIf="guild">
     <mat-form-field
       *ngIf="perms.can(guild._id, 'MANAGE_ROLES')"  
       (click)="$event.stopPropagation()"
       appearance="outline">
       <mat-label>Roles</mat-label>
-      <mat-select multiple>
+      <mat-select
+        [value]="member.roleIds"
+        multiple
+        #rolesInput>
         <mat-option
           *ngFor="let role of guildRoles"
+          [value]="role._id"
           [style.color]="role.color"
           [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
       </mat-select> 

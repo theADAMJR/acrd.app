@@ -12,7 +12,7 @@
   <spinner *ngIf="!loadedAllMessages"></spinner>
 
   <div
-    *ngFor="let message of messages; index as i; trackBy: message._id"
+    *ngFor="let message of messages; index as i; trackBy: identifyMessage"
     class="message"
     [id]="'message' + message._id">
     <message
@@ -23,7 +23,9 @@
   </div>
 </div>
 
-<div class="footer">
+<div
+  *ngIf="channel"
+  class="footer">
   <emoji-mart
     class="float-right"
     emoji="joy"

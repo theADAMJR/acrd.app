@@ -164,4 +164,8 @@ export class TextBasedChannel implements OnInit {
         || n.classList?.contains('emoji-icon'));
     this.emojiPickerOpen = emojiPickerWasClicked;
   }
+  
+  public identifyMessage(index: number, item: Lean.Message) {
+    return item._id;
+  }
 }

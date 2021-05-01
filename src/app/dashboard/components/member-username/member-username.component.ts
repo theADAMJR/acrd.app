@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, Type } from '@angular/core';
+import { Component, Input, OnInit, Type, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { MatSelect } from '@angular/material/select';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
 import { ChannelService } from 'src/app/services/channel.service';
 import { DialogService } from 'src/app/services/dialog.service';
@@ -25,7 +26,8 @@ export class MemberUsernameComponent implements OnInit {
   @Input() public statusOverride: string;
   @Input() public routerLink: string;
 
-  private oldMember: Lean.GuildMember;
+  @ViewChild('rolesInput')
+  public rolesInput: MatSelect; 
 
   public get guildRoles() {
     return this.guild.roles.filter(r => r.name !== '@everyone');
@@ -37,7 +39,7 @@ export class MemberUsernameComponent implements OnInit {
     if (!this.guild) return null;
 
     const lastRole = this.roles[this.roles.length - 1];
-    return lastRole.color;
+    return lastRole?.color;
   }
   public get roles() {
     if (!this.guild) return null;
@@ -65,20 +67,19 @@ export class MemberUsernameComponent implements OnInit {
   public ngOnInit() {
     if (!this.user)
       throw new TypeError('Input user undefined');
-
-    this.oldMember = { ...this.member }; 
   }
 
   public async update() {
-    const unchanged = JSON.stringify(this.member) === JSON.stringify(this.oldMember);
-    if (unchanged) return;
+    const everyoneRole = this.guildRoles[0]; 
+    this.member.roleIds = []
+      .concat(everyoneRole)
+      .concat(this.rolesInput.value)
+      .filter(id => id);
 
     await this.ws.emitAsync('GUILD_MEMBER_UPDATE', {
-      partialMember: { roleIds: [] },
+      partialMember: { roleIds: this.member.roleIds },
       memberId: this.member._id,
     }, this);
-
-    this.oldMember = { ...this.member }; 
   }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
