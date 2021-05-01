@@ -1,31 +1,24 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 import { PermissionsService } from 'src/app/services/permissions.service';
-import { Args, WSService } from 'src/app/services/ws.service';
 import { GuildService } from '../../../services/guild.service';
-import { CreateInviteComponent } from '../../../dialog/create-invite/create-invite.component';
 import { UsersService } from 'src/app/services/users.service';
-import { Lean } from 'src/app/types/entity-types';
 import { PingService } from 'src/app/services/ping.service';
-import { CreateChannelComponent } from 'src/app/dialog/create-channel/create-channel.component';
-import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ChannelService } from 'src/app/services/channel.service';
 import { DialogService } from 'src/app/services/dialog.service';
+import { ActivatedRoute } from '@angular/router';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'guild-sidebar',
   templateUrl: './guild-sidebar.component.html',
   styleUrls: ['./guild-sidebar.component.css']
 })
-export class GuildSidebarComponent {
-  @Input('waitFor')
-  public loaded = true;
-  public id: string;
-  
-  public get guild() {
-    return this.guildService.self;
-  }
+export class GuildSidebarComponent implements OnInit {
+  @Input('waitFor') public loaded = true;
+
+  public guild: Lean.Guild;
+
   public get selectedChannel() {
     return this.channelService.self;
   }
@@ -38,6 +31,7 @@ export class GuildSidebarComponent {
   }
 
   constructor(
+    public route: ActivatedRoute,
     public channelService: ChannelService,
     public guildService: GuildService,
     public perms: PermissionsService,
@@ -45,6 +39,11 @@ export class GuildSidebarComponent {
     public pings: PingService,
     public dialog: DialogService,
   ) {}
+
+  public async ngOnInit() {
+    const guildId = this.route.snapshot.paramMap.get('guildId');    
+    this.guild = this.guildService.getCached(guildId);
+  }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
     event.preventDefault();

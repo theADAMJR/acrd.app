@@ -43,10 +43,8 @@
   </div>
 </div>
 
-<mat-menu
-  (closed)="update()"
-  #contextMenu>
-  <div *ngIf="guild">
+<mat-menu #contextMenu>
+  <!-- <div *ngIf="guild">
     <div (click)="$event.stopPropagation()">
       <mat-form-field
         appearance="outline"
@@ -63,7 +61,7 @@
     </div>
   </div>
   
-  <hr class="my-2">
+  <hr class="my-2"> -->
 
   <button
     (click)="dialog.profile({ user: user })"

@@ -1,4 +1,5 @@
 <div
+  *ngIf="author"
   #menuTrigger="matMenuTrigger"
   [matMenuTriggerFor]="contextMenu"
   (contextmenu)="openMenu($event, menuTrigger)">

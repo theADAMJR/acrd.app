@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GuildService } from '../services/guild.service';
@@ -12,7 +12,9 @@ import { MessageService } from '../services/message.service';
 import { ChannelService } from '../services/channel.service';
 
 @Component({ template: '' })
-export class TextBasedChannel {
+export class TextBasedChannel implements OnInit {
+  private messageBatchSize = 25;
+
   private get channelId() {
     return this.channelService.self?._id
       ?? this.route.snapshot.paramMap.get('channelId');
@@ -48,7 +50,7 @@ export class TextBasedChannel {
   }
   public get loadedAllMessages() {
     return this.messages.length <= 0
-      || this.messages.length % 25 !== 0;
+      || this.messages.length % this.messageBatchSize !== 0;
   }
   public get recipient() {
     const recipientId = this.channel.memberIds
@@ -75,31 +77,24 @@ export class TextBasedChannel {
     protected ws: WSService,
   ) {}
 
-  public async init() {
+  public async ngOnInit() {
     if (this.channel.type === 'VOICE')
       return this.router.navigate(['..']);
 
     this.pings.markAsRead(this.channel._id);
 
     document.title = this.title;
-    this.messages = await this.messageService.overrideFetchAll(this.channel._id);
+    this.messages = await this.messageService.getAllAsync(this.channel._id);
     
     setTimeout(() => this.scrollToMessage(), 100);
     
     this.ready = true;
   }
 
-  private scrollToMessage(end?: number) {
+  private scrollToMessage() {
     const messages = document.querySelector('.messages');
-
-    let combinedHeight = 0;    
-    Array.from(document.querySelectorAll(`.message`))
-      .slice(0, end ?? this.messages.length)
-      .forEach(e => combinedHeight += e.scrollHeight);
-
-    messages.scrollTop = (end)
-      ? messages.scrollHeight - combinedHeight
-      : combinedHeight;
+    const height = messages.scrollHeight;
+    messages.scrollTop = height;
   }
 
   public async chat(content: string) {
@@ -114,7 +109,7 @@ export class TextBasedChannel {
     }, this);
     await this.sounds.message();
 
-    this.scrollToMessage(this.messages.length);
+    this.scrollToMessage();
     this.channelService.stopTyping(this.channelId, this.userService.self._id);
   }
 
@@ -126,9 +121,8 @@ export class TextBasedChannel {
     const moreMessages = await this.messageService
       .overrideFetchAll(this.channel._id, {
         start: this.messages.length,
-        end: this.messages.length + 25
-      });
-    
+        end: this.messages.length + this.messageBatchSize
+      });    
 
     this.messages = moreMessages
       .concat(this.messages)

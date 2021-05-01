@@ -37,6 +37,8 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
 
     this.route.paramMap.subscribe((paramMap) => {
       const id = paramMap.get('channelId');
+      if (!id) return;
+
       this.self = this.getCached(id);
     });
   }

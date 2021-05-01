@@ -29,9 +29,11 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   
   public async init() {
     await super.init();
-    
+
     this.route.paramMap.subscribe((paramMap) => {
-      const id = paramMap.get('guildId');
+      const id = paramMap.get('guildId');      
+      if (!id) return;
+
       this.self = this.getCached(id);
     });
   }
@@ -71,16 +73,11 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   }
 
   public async leave(guildId: string) {
-    const member = await this.getMember(guildId, this.usersService.self._id);
+    const member = this.getMember(guildId, this.usersService.self._id);
     await this.kick(guildId, member._id);
   }
 
   public async kick(guildId: string, memberId: string) {
-    try {
-      await this.ws.emitAsync('GUILD_MEMBER_REMOVE', { memberId, guildId }, this);
-      await this.log.success();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    await this.ws.emitAsync('GUILD_MEMBER_REMOVE', { memberId, guildId }, this);
   }
 }

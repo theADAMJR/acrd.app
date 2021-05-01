@@ -53,13 +53,8 @@ export class ProfileComponent {
   }
 
   public async removeFriend() {
-    try {
-      await this.ws.emitAsync('REMOVE_FRIEND', {
-        friendId: this.data.user._id,
-      }, this);
-      await this.log.success();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    await this.ws.emitAsync('REMOVE_FRIEND', {
+      friendId: this.data.user._id,
+    }, this);
   }
 }

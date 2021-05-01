@@ -22,11 +22,14 @@
       [guild]="guild"></message>
   </div>
 </div>
+
 <div class="footer">
   <emoji-mart
     class="float-right"
     emoji="joy"
+    *ngIf="emojiPickerOpen"
     title="Pick an Emoji"
+    (click)="emojiPickerOpen = true"
     (emojiClick)="addEmoji($event)"
     [ngStyle]="{ display: (emojiPickerOpen) ? 'block' : 'none' }"></emoji-mart>
 

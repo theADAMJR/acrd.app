@@ -155,18 +155,13 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   public async submit() {
-    try {
-      if (!this.form.valid) return;
+    if (!this.form.valid) return;
 
-      this.form.value.permissions = this.permissions;
-      for (const key in this.form.value)
-        this.selectedRole[key] = this.form.value[key];
+    this.form.value.permissions = this.permissions;
+    for (const key in this.form.value)
+      this.selectedRole[key] = this.form.value[key];
 
-      await this.updateRole();
-      await this.log.success();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    await this.updateRole();
   }
 
   private async updateRole() {

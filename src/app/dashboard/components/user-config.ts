@@ -80,20 +80,14 @@ export abstract class UserConfig implements OnDestroy {
    * Send the form data to the API.
    */
   public async submit() {
-    try {
-      if (this.form.invalid) return;
+    if (this.form.invalid) return;
 
-      this.usersService.self = Object.assign(this.user, this.form.value);
+    this.usersService.self = Object.assign(this.user, this.form.value);
 
-      this.ws.emit('USER_UPDATE', {
-        key: localStorage.getItem('key'),
-        partialUser: this.form.value,
-      }, this);
-
-      await this.log.success();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    this.ws.emitAsync('USER_UPDATE', {
+      key: localStorage.getItem('key'),
+      partialUser: this.form.value,
+    }, this);
   }
 
   /**
