@@ -70,10 +70,6 @@ export class TextBasedChannel implements OnInit {
 
       this.guild = this.guildService.getCached(guildId);
       this.channel = await this.channelService.getAsync(channelId);
-      
-      const defaultChannel = this.guild.channels.filter(c => c.type === 'TEXT')[0];          
-      if (defaultChannel && !channelId)
-        await this.router.navigate([`/channels/${guildId}/${defaultChannel._id}`]);
 
       await this.init();
     });
