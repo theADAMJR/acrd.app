@@ -36,7 +36,6 @@ export class TextBasedChannel {
   public chatBox = new FormControl();
   public emojiPickerOpen = false;
   public messages = [];
-  public typingUserIds = [];
   public ready = false;
 
   private lastTypingEmissionAt = null;
@@ -128,7 +127,7 @@ export class TextBasedChannel {
       partialMessage: { content },
     }, this);
 
-    this.channelService.stopTyping(this.userService.self._id);
+    this.channelService.stopTyping(this.channelId, this.userService.self._id);
   }
 
   public async loadMoreMessages() {
