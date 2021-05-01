@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Args } from 'src/app/types/ws-types';
 import { ChannelService } from '../channel.service';
 import { GuildService } from '../guild.service';
+import { UserService } from '../user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,12 @@ export class GuildEventService {
     private route: ActivatedRoute,
     private router: Router,
     private guildService: GuildService,
+    private userService: UserService,
   ) {}
 
   public createRole({ guildId, role }: Args.GuildRoleCreate) {
     const guild = this.guildService.getCached(guildId);
-    const index = guild.roles.push(role);
+    guild.roles.push(role);
   }
 
   public deleteRole({ guildId, roleId }: Args.GuildRoleDelete) {
@@ -39,7 +41,10 @@ export class GuildEventService {
     };
   }
 
-  public addMember({ member }: Args.GuildMemberAdd) {
+  public async addMember({ member }: Args.GuildMemberAdd) {
+    const newUser = await this.userService.getAsync(member.userId);
+    this.userService.add(newUser);
+
     const guild = this.guildService.getCached(member.guildId);
     guild.members.push(member);
   }

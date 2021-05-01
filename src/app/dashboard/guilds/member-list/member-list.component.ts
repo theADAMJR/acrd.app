@@ -26,7 +26,7 @@ export class MemberListComponent {
   public get onlineMembers() {
     return this.guild.members.filter(m => {
       const user = this.userService.getCached(m.userId);
-      return user.status !== 'OFFLINE';
+      return user.status === 'ONLINE';
     });
   }
   public get offlineMembers() {

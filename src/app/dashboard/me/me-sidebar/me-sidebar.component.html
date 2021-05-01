@@ -12,11 +12,12 @@
       <div class="category">Direct Messages—{{ channelService.dmChannels.length }}</div>
       <div 
         *ngFor="let channel of channelService.dmChannels"
+        [routerLink]="'/channels/@me/' + channel._id"
+        routerLinkActive="active"
         class="mx-2 mb-1">
         <member-username
           *ngIf="channel && getRecipient(channel)"
           class="cursor-pointer"
-          [routerLink]="'/channels/@me/' + channel._id"
           [user]="getRecipient(channel)"></member-username>
       </div>
     </div>

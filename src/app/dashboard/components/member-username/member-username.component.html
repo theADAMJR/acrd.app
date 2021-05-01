@@ -2,16 +2,13 @@
   *ngIf="user"
   [matMenuTriggerFor]="contextMenu"
   #menuTrigger="matMenuTrigger"
-  routerLinkActive="active"
-  [routerLinkActiveOptions]="{exact: true}"
   (contextmenu)="openMenu($event, menuTrigger)"
   class="member-username"
   [title]="user.username"
   [class]="(guild) ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
   <div
     class="username-wrapper"
-    (click)="$event.stopPropagation()"
-    [routerLink]="routerLink || './'">
+    (click)="$event.stopPropagation()">
     <app-avatar-url
       *ngIf="withAvatar"
       [user]="user"></app-avatar-url>

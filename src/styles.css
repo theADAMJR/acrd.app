@@ -251,6 +251,10 @@ mat-sidenav-content {
   margin-top: 15px;
 }
 
+.member-list .username-wrapper {
+  margin-bottom: 5px;
+}
+
 /* inputs */
 .mat-option {
   height: inherit !important;
