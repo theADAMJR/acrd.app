@@ -2,13 +2,18 @@
   class="guild-icon"
   (contextmenu)="dialogs.openMenu($event, menuTrigger)"
   [matMenuTriggerFor]="contextMenu"
+  routerLinkActive="active"
   #menuTrigger="matMenuTrigger">
-  <img
-    *ngIf="guild.iconURL"
-    [src]="guild.iconURL"
-    [alt]="guild.name">
-  <span *ngIf="!guild.iconURL"
-    class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+  <div
+    (click)="$event.stopPropagation()"
+    [routerLink]="'/channels/' + guild._id">
+    <img
+      *ngIf="guild.iconURL"
+      [src]="guild.iconURL"
+      [alt]="guild.name">
+    <span *ngIf="!guild.iconURL"
+      class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+  </div>
 </div>
 
 

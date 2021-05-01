@@ -187,9 +187,10 @@ mat-sidenav-content {
 }
 
 .active app-avatar-url img,
-.active .guild-icon img,
-.active .guild-icon {
+.guild-icon.active img,
+.guild-icon.active {
   border-radius: 25% !important;
+  background-color: var(--primary) !important;
 }
 
 .side-nav .header {

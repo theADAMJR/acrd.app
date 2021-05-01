@@ -187,6 +187,6 @@ export const patterns = {
   password: /(?=.*[a-zA-Z0-9!@#$%^&*])/,
   snowflake: /^\d{18}$/,
   status: /^ONLINE|^BUSY$|^AFK$|^OFFLINE$/,
-  textChannelName: /^[A-Za-z\-\d]+$/,
+  textChannelName: /^[A-Za-z\-\d]{2,32}$/,
   username: /(^(?! |^everyone$|^here$|^me$|^someone$|^discordtag$)[A-Za-z\d\-\_]{2,32}(?<! )$)/,
 }

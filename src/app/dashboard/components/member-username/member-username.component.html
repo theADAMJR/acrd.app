@@ -44,24 +44,31 @@
 </div>
 
 <mat-menu #contextMenu>
-  <!-- <div *ngIf="guild">
-    <div (click)="$event.stopPropagation()">
-      <mat-form-field
-        appearance="outline"
-        *ngIf="perms.can(guild._id, 'MANAGE_ROLES')"  
-        appearance="outline">
-        <mat-label>Roles</mat-label>
-        <mat-select multiple>
-          <mat-option
-            *ngFor="let role of guildRoles"
-            [style.color]="role.color"
-            [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
-        </mat-select> 
-      </mat-form-field>
-    </div>
+  <div *ngIf="guild">
+    <mat-form-field
+      *ngIf="perms.can(guild._id, 'MANAGE_ROLES')"  
+      (click)="$event.stopPropagation()"
+      appearance="outline">
+      <mat-label>Roles</mat-label>
+      <mat-select multiple>
+        <mat-option
+          *ngFor="let role of guildRoles"
+          [style.color]="role.color"
+          [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
+      </mat-select> 
+    </mat-form-field>
+    
+
+    <button
+      *ngIf="perms.can(guild._id, 'KICK_MEMBERS') && userService.self._id !== user._id"
+      (click)="guildService.kick(guild._id, user._id)"
+      mat-menu-item>
+      <i class="fas fa-user text-muted mr-1"></i>
+      <span>Kick</span>
+    </button>
   </div>
   
-  <hr class="my-2"> -->
+  <hr class="my-2">
 
   <button
     (click)="dialog.profile({ user: user })"
@@ -69,15 +76,16 @@
     <i class="fas fa-user text-muted mr-1"></i>
     <span>View Profile</span>
   </button>
+
   <button
-    *ngIf="isBlocked"  
+    *ngIf="isBlocked && user._id !== userService.self._id"  
     (click)="userService.unblock(user._id)"
     mat-menu-item>
     <i class="fas fa-ban text-muted mr-1"></i>
     <span>Unblock</span>
   </button>
   <button
-    *ngIf="!isBlocked && user._id === userService.self"  
+    *ngIf="!isBlocked && user._id !== userService.self._id"  
     (click)="userService.block(user._id)"
     mat-menu-item>
     <i class="fas fa-ban text-danger mr-1"></i>

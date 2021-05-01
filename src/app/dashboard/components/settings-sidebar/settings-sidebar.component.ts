@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PermissionTypes } from 'src/app/types/entity-types';
-import { UserService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/user.service';
 import { GuildService } from 'src/app/services/guild.service';
 
 @Component({

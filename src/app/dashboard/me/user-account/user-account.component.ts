@@ -4,7 +4,7 @@ import { PasswordValidators } from 'src/app/authentication/sign-up/password.vali
 import { UsernameValidators } from 'src/app/authentication/sign-up/username.validators';
 import { LogService } from 'src/app/services/log.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
-import { UserService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/user.service';
 import { patterns, UserTypes } from 'src/app/types/entity-types';
 
 @Component({

@@ -16,9 +16,7 @@
       </div>
       <app-guild-icon
         *ngFor="let guild of guilds"
-        routerLinkActive="active"
         [guild]="guild"
-        [routerLink]="'/channels/' + guild._id"
         [matTooltip]="guild.name"></app-guild-icon>
       <div
         (click)="dialog.createGuild()"

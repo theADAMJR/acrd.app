@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
-import { UserService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/user.service';
 import { WSService } from 'src/app/services/ws.service';
 
 @Component({

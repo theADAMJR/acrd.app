@@ -4,10 +4,11 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
 import { ChannelService } from 'src/app/services/channel.service';
 import { DialogService } from 'src/app/services/dialog.service';
+import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
-import { UserService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/user.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
@@ -55,6 +56,7 @@ export class MemberUsernameComponent implements OnInit {
     private channelService: ChannelService,
     public perms: PermissionsService,
     public pings: PingService,
+    public guildService: GuildService,
     public userService: UserService,
     private ws: WSService,
     public dialog: DialogService,

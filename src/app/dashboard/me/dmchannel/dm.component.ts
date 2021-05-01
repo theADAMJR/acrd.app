@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ChannelService } from 'src/app/services/channel.service';
-import { UserService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/user.service';
 import { Lean } from 'src/app/types/entity-types';
 import { TextChannelComponent } from '../../guilds/text-channel/text-channel.component';
 

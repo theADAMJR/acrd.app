@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { GuildService } from '../../../services/guild.service';
-import { UserService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/user.service';
 import { PingService } from 'src/app/services/ping.service';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ChannelService } from 'src/app/services/channel.service';
@@ -41,8 +41,10 @@ export class GuildSidebarComponent implements OnInit {
   ) {}
 
   public async ngOnInit() {
-    const guildId = this.route.snapshot.paramMap.get('guildId');    
-    this.guild = this.guildService.getCached(guildId);    
+    this.route.paramMap.subscribe(async (paramMap) => {
+      const guildId = paramMap.get('guildId');
+      this.guild = this.guildService.getCached(guildId);
+    });
   }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {

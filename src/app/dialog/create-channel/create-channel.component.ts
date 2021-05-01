@@ -13,8 +13,12 @@ import { Lean, patterns } from 'src/app/types/entity-types';
   styleUrls: ['./create-channel.component.css']
 })
 export class CreateChannelComponent {
+  // TODO: use different form for voice channel
   public form = new FormGroup({
-    name: new FormControl('chat', [ Validators.required ]),
+    name: new FormControl('chat', [
+      Validators.pattern(patterns.textChannelName),
+      Validators.required,
+    ]),
     type: new FormControl('TEXT'),
   });
 
@@ -25,36 +29,13 @@ export class CreateChannelComponent {
     @Inject(MAT_DIALOG_DATA) public data: {
       guild: Lean.Guild,
     },
-    private log: LogService,
     private ws: WSService,
   ) {}
-
-  public ngOnInit() {
-    const typeInput = this.form.get('type');
-    typeInput.valueChanges
-      .subscribe((value) => this.form
-        .get('name')
-        .setValidators([
-          Validators.required,
-          Validators.pattern((value === 'TEXT') ? patterns.textChannelName : /.*/),
-          Validators.maxLength(32)
-        ]
-      ));
-
-    const nameInput = this.form.get('name');
-    nameInput.valueChanges
-      .subscribe((value: string) => {
-        if (typeInput.value !== 'TEXT') return;
-        
-        if (value.includes(' '))
-          nameInput.setValue(value.replace(/ /g, '-'));
-      });
-  }
 
   public async create() {
     if (this.form.invalid) return;
 
-    this.ws.emitAsync('CHANNEL_CREATE', {
+    await this.ws.emitAsync('CHANNEL_CREATE', {
       partialChannel: this.form.value,
       guildId: this.data.guild._id
     }, this);
