@@ -47,7 +47,7 @@ export class GuildSidebarComponent implements OnInit {
       this.id = paramMap.get('guildId');
       const channelId = paramMap.get('channelId');
 
-      this.guild = this.guildService.getGuild(this.id);
+      this.guild = this.guildService.get(this.id);
       this.selectedChannel = this.guild.channels
         .find(c => c._id === channelId);
       

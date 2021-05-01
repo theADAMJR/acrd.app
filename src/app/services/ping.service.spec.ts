@@ -18,7 +18,7 @@ describe('PingService', () => {
     service = TestBed.inject(PingService);
     usersService = TestBed.inject(UsersService);
 
-    user = usersService.user;
+    user = usersService.self;
     user.username = 'test_user_123';
     user.ignored = {
       channelIds: [],

@@ -98,6 +98,12 @@ export namespace ChannelTypes {
   }
 }
 
+export namespace GeneralTypes {
+  export interface SnowflakeEntity {
+    _id: string;
+  }
+}
+
 export namespace InviteTypes {
   export interface Options {
     expiresAt?: Date;

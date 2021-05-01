@@ -14,7 +14,7 @@ export class CreateGuildComponent {
   public inviteInput: ElementRef;
 
   public form = new FormGroup({
-    name: new FormControl(`${this.userService.user.username}'s Guild`, [
+    name: new FormControl(`${this.userService.self.username}'s Guild`, [
       Validators.required,
       Validators.maxLength(32)
     ]),

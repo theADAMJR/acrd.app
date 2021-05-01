@@ -14,27 +14,27 @@ import { Lean } from 'src/app/types/entity-types';
 export class ProfileComponent {
   public get mutualFriends(): Lean.User[] {
     const otherFriendIds = this.data.user.friendIds;
-    return this.users.user.friendIds
+    return this.users.self.friendIds
       .filter(id => otherFriendIds.includes(id))
       .map(id => this.users.getKnown(id));
   }
   public get mutualGuilds(): Lean.Guild[] {
     const otherGuilds = this.data.user.guilds;
-    return this.users.user.guilds
+    return this.users.self.guilds
       .filter(g => otherGuilds.some(g => g?._id ?? g));
   }
 
   public get isSelf() {
-    return this.users.user._id === this.data.user._id;
+    return this.users.self._id === this.data.user._id;
   }
   public get isFriend() {
-    return this.users.user.friendIds.includes(this.data.user._id);
+    return this.users.self.friendIds.includes(this.data.user._id);
   }
   public get sentRequest() {
-    return this.users.user.friendRequestIds.includes(this.data.user._id);
+    return this.users.self.friendRequestIds.includes(this.data.user._id);
   }
   public get dmChannel() {
-    return this.channels.getDMChannel(this.data.user._id);
+    return this.channels.getDM(this.data.user._id);
   }
 
   constructor(

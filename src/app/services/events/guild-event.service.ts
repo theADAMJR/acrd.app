@@ -11,7 +11,7 @@ import { WSService } from '../ws.service';
 export class GuildEventService {
   public get activeGuild() {
     const guildId = this.route.snapshot.paramMap.get('guildId');
-    return this.guildService.getGuild(guildId);
+    return this.guildService.get(guildId);
   }
 
   constructor(
@@ -22,7 +22,7 @@ export class GuildEventService {
   ) {}
 
   public updateRole({ guildId, roleId, partialRole }: Args.GuildRoleUpdate) {
-    const guild = this.guildService.getGuild(guildId);
+    const guild = this.guildService.get(guildId);
     const index = guild.roles.findIndex(r => r._id === roleId);
     guild.roles[index] = {
       ...guild.roles[index],
@@ -31,12 +31,12 @@ export class GuildEventService {
   }
 
   public addMember({ member }: Args.GuildMemberAdd) {
-    const guild = this.guildService.getGuild(member.guildId);
+    const guild = this.guildService.get(member.guildId);
     guild.members.push(member);
   }
   
   public updateMember({ guildId, partialMember, memberId }: Args.GuildMemberUpdate) {
-    const guild = this.guildService.getGuild(guildId);
+    const guild = this.guildService.get(guildId);
     const oldMember = this.guildService.getMember(guildId, memberId);
     const index = guild.members.indexOf(oldMember);
 
@@ -44,20 +44,20 @@ export class GuildEventService {
   }
 
   public addChannel({ channel }: Args.ChannelCreate) {
-    const guild = this.guildService.getGuild(channel.guildId);
+    const guild = this.guildService.get(channel.guildId);
     guild.channels.push(channel);
   }
   public deleteChannel({ guildId, channelId }: Args.ChannelDelete) {
-    const guild = this.guildService.getGuild(guildId);
+    const guild = this.guildService.get(guildId);
     const index = guild.channels.findIndex(c => c._id === channelId);
 
     guild.channels.splice(index, 1);
   }
 
   public update({ guildId, partialGuild }: Args.GuildUpdate) {
-    const guild = this.guildService.getGuild(guildId);
+    const guild = this.guildService.get(guildId);
 
-    this.guildService.updateCached(guildId, {
+    this.guildService.upsert(guildId, {
       ...guild,
       ...partialGuild,
     });

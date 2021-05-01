@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
@@ -6,9 +6,8 @@ import { ChannelService } from 'src/app/services/channel.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
-import { SoundService } from 'src/app/services/sound.service';
 import { UsersService } from 'src/app/services/users.service';
-import { Args, WSService } from 'src/app/services/ws.service';
+import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({
@@ -45,10 +44,10 @@ export class MemberUsernameComponent implements OnInit {
       .filter(r => this.member.roleIds.includes(r._id));
   }
   public get isBlocked() {
-    return this.usersService.user.ignored.userIds.includes(this.user._id);
+    return this.usersService.self.ignored.userIds.includes(this.user._id);
   }
   public get dmChannelId() {
-    return this.channelService.getDMChannel(this.user._id)?._id;
+    return this.channelService.getDM(this.user._id)?._id;
   }
 
   constructor(

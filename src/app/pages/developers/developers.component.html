@@ -31,8 +31,8 @@
       <div class="col-10"></div>
       <div class="col-2">
         <button mat-button [matMenuTriggerFor]="menu" class="p-1">
-          <app-avatar-url [user]="userService.user"></app-avatar-url>
-          <span class="pl-1">{{ userService.user.username }}</span>
+          <app-avatar-url [user]="userService.self"></app-avatar-url>
+          <span class="pl-1">{{ userService.self.username }}</span>
         </button>
       </div>
     </div>

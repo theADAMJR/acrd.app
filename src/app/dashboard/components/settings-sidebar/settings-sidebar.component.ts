@@ -54,8 +54,8 @@ export class SettingsSidebarComponent {
 
   public get tabCategory() {
     return (this.tabType === 'guild')
-      ? this.guildService.getGuild(this.guildId)?.name
-      : this.userService.user.username;
+      ? this.guildService.get(this.guildId)?.name
+      : this.userService.self.username;
   }
 
   constructor(

@@ -28,13 +28,13 @@ export class InviteComponent implements OnInit {
     const code = this.route.snapshot.paramMap.get('id');
     const invite = await this.invites.fetch(code);
 
-    if (this.guildService.getGuild(invite.guildId))
+    if (this.guildService.get(invite.guildId))
       return this.router.navigate([`/channels/${invite.guildId}`]);
   }
 
   public join() {
     this.ws.on('GUILD_JOIN', (args) =>
-      this.guildService.updateCached(args.guild._id, args.guild), this);
+      this.guildService.upsert(args.guild._id, args.guild), this);
 
     this.ws.emit('GUILD_MEMBER_ADD', { inviteCode: this.invite._id }, this);
   }

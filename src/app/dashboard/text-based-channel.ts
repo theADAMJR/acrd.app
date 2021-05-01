@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GuildService } from '../services/guild.service';
 import { LogService } from '../services/log.service';
 import { PingService } from '../services/ping.service';
@@ -10,11 +10,16 @@ import { UsersService } from '../services/users.service';
 import { Args, WSService } from '../services/ws.service';
 import { Lean } from '../types/entity-types';
 import { MessageService } from '../services/message.service';
+import { ChannelService } from '../services/channel.service';
 
 @Component({ template: '' })
 export class TextBasedChannel {
-  @Input() public channel: Lean.Channel;
-  @Input() public guild?: Lean.Guild;
+  public get channel() {
+    return this.channelService.self;
+  }
+  public get guild() {
+    return this.guildService.self;
+  }
   
   @ViewChild('message')
   private messageInput: ElementRef;
@@ -29,8 +34,10 @@ export class TextBasedChannel {
 
   public get typingUsernames() {
     return this.typingUserIds
-      .map(id => this.userService
-        .getKnown(id).username);
+      .map(async (id) => {
+        const user = await this.userService.get(id);
+        return user.username;
+      });
   }
   public get loadedAllMessages() {
     return this.messages.length <= 0
@@ -38,8 +45,8 @@ export class TextBasedChannel {
   }
   public get recipient() {
     const recipientId = this.channel.memberIds
-      ?.find(id => id !== this.userService.user._id);
-    return this.userService.getKnown(recipientId);
+      ?.find(id => id !== this.userService.self._id);
+    return this.userService.getCached(recipientId);
   }
   public get title() {
     return (this.channel.type === 'DM')
@@ -48,15 +55,17 @@ export class TextBasedChannel {
   }
 
   constructor(
-    private messageService: MessageService,
+    protected route: ActivatedRoute,
+    protected channelService: ChannelService,
+    protected messageService: MessageService,
     public guildService: GuildService,
-    private log: LogService,
-    private router: Router,
+    protected log: LogService,
+    protected router: Router,
     public perms: PermissionsService,
     public pings: PingService,
     public sounds: SoundService,
     public userService: UsersService,
-    private ws: WSService,
+    protected ws: WSService,
   ) {}
 
   public async init() {
@@ -66,7 +75,7 @@ export class TextBasedChannel {
     this.pings.markAsRead(this.channel._id);
 
     document.title = this.title;
-    this.messages = await this.messageService.fetchAll(this.channel._id);
+    this.messages = await this.messageService.overrideFetchAll(this.channel._id);
     
     setTimeout(() => this.scrollToMessage(), 100);
     
@@ -81,7 +90,7 @@ export class TextBasedChannel {
   }
 
   private addTypingUser({ userId }: Args.TypingStart) {
-    const selfIsTyping = this.typingUserIds.includes(this.userService.user._id);
+    const selfIsTyping = this.typingUserIds.includes(this.userService.self._id);
     if (!selfIsTyping)
       this.typingUserIds.push(userId);
 
@@ -89,7 +98,7 @@ export class TextBasedChannel {
   }
 
   private async createMessage({ message }: Args.MessageCreate) { 
-    const selfIsAuthor = message.authorId === this.userService.user._id; 
+    const selfIsAuthor = message.authorId === this.userService.self._id; 
     if (selfIsAuthor)
       await this.sounds.message();
 
@@ -119,7 +128,7 @@ export class TextBasedChannel {
       partialMessage: { content },
     }, this);
 
-    this.stopTyping(this.userService.user._id);
+    this.stopTyping(this.userService.self._id);
   }
 
   public async loadMoreMessages() {
@@ -128,7 +137,7 @@ export class TextBasedChannel {
     this.log.info('Loading more messages', 'text');
 
     const moreMessages = await this.messageService
-      .fetchAll(this.channel._id, {
+      .overrideFetchAll(this.channel._id, {
         start: this.messages.length,
         end: this.messages.length + 25
       });

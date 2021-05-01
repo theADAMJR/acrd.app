@@ -25,8 +25,8 @@ export class MyEventService {
       this.channelService.dmChannels.push(dmChannel);
   }
   public updateFriends({ sender, friend }: { sender: Lean.User, friend: Lean.User }) {
-    this.usersService.upsertCached(sender._id, sender);
-    this.usersService.upsertCached(friend._id, friend);
+    this.usersService.upsert(sender._id, sender);
+    this.usersService.upsert(friend._id, friend);
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {
@@ -37,11 +37,11 @@ export class MyEventService {
   }
 
   public updatePresence(args: Args.PresenceUpdate) {
-    this.usersService.upsertCached(args.userId, { status: args.status });
+    this.usersService.upsert(args.userId, { status: args.status });
   }
 
   public updateUser(args: Args.UserUpdate) {
-    const user = this.usersService.user;
-    this.usersService.upsertCached(user._id, args.partialUser);
+    const user = this.usersService.self;
+    this.usersService.upsert(user._id, args.partialUser);
   }
 }

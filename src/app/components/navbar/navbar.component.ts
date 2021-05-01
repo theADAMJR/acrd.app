@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class NavbarComponent implements OnInit {
   githubURL = environment.githubURL;
 
-  get user() { return this.userService.user; }
+  get user() { return this.userService.self; }
 
   constructor(private userService: UsersService) {}
 

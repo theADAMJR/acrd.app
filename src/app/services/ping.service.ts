@@ -33,7 +33,7 @@ export class PingService {
   }
 
   public isIgnored(message: Lean.Message, guildId?: string): boolean {
-    const user = this.usersService.user;
+    const user = this.usersService.self;
 
     return message.authorId === user._id
       || user.ignored.channelIds.includes(message.channelId)

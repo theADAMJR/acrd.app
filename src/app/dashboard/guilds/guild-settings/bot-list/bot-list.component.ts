@@ -50,12 +50,12 @@ export class BotListComponent extends ModuleConfig implements OnInit {
 
   public async addBot(botId: string) {    
     await this.guildService.addBot(this.guildId, botId);
-    await this.guildService.updateGuilds();
+    await this.guildService.fetchAll();
   }
 
   public async removeBot(botId: string) {
     const member = this.guildService.getMember(this.guildId, botId);
     await this.guildService.kick(this.guildId, member._id);
-    await this.guildService.updateGuilds();
+    await this.guildService.fetchAll();
   }
 }

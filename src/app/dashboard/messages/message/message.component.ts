@@ -101,27 +101,27 @@ export class MessageComponent {
     };
 
     const recipientHasRole = this.guildService
-      .getMember(this.guild?._id, this.usersService.user._id)?.roleIds
+      .getMember(this.guild?._id, this.usersService.self._id)?.roleIds
       .some(id => this.guild?.roles.some(r => r._id === id));
   
     return toHTML(textEmoji(this.message.content), {
       discordCallback: {
         user: (node) => getMention(
           `@${getUser(node.id)?.username ?? `Invalid User`}`,
-          this.usersService.user._id === node.id),
+          this.usersService.self._id === node.id),
 
         role: (node) => getMention(
           `@${getRole(node.id)?.name ?? `Invalid Role`}`,
           recipientHasRole),
 
         everyone: (node) => getMention(`@everyone`, true),
-        here: (node) => getMention(`@here`, this.usersService.user.status !== 'OFFLINE')
+        here: (node) => getMention(`@here`, this.usersService.self.status !== 'OFFLINE')
       }
     });
   }
 
   public get canManage() {
-    return this.author._id === this.usersService.user._id
+    return this.author._id === this.usersService.self._id
       || (this.guild && this.perms.can(this.guild._id, 'SEND_MESSAGES'));
   }
 

@@ -14,11 +14,11 @@ export class LogoutComponent implements OnInit {
     private router: Router,
     private userService: UsersService) {}
 
-  async ngOnInit() {
+  public async ngOnInit() {
     localStorage.removeItem('key');
     
     await this.userService.updateUser();    
-    await this.guildService.updateGuilds();
+    await this.guildService.fetchAll();
 
     this.router.navigate(['/']);
   }

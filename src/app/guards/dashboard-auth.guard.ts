@@ -23,7 +23,7 @@ export class DashboardAuthGuard implements CanActivate {
     await this.userService.init();
     await this.guildService.init();
 
-    const canActivate = Boolean(this.userService.user); 
+    const canActivate = Boolean(this.userService.self); 
     if (!canActivate)
       await this.router.navigateByUrl(`/login?redirect=${route.url.join('/')}`);
 

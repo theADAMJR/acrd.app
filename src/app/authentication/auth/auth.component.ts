@@ -21,7 +21,7 @@ export class AuthComponent implements OnInit {
       localStorage.setItem('key', key);
     
       await this.userService.updateUser();
-      await this.guildService.updateGuilds();
+      await this.guildService.fetchAll();
       
       this.router.navigate(['/channels/@me']);
     } catch {

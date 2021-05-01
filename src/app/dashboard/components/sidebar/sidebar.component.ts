@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer;
 
   get guilds() { return this.guildService.guilds || []; }
-  get user() { return this.usersService.user; }
+  get user() { return this.usersService.self; }
 
   constructor(
     public channelService: ChannelService,

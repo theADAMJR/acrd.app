@@ -10,7 +10,7 @@ export class UserAuthService {
 
   public get loggedIn() {
     const expired = new JwtHelperService().isTokenExpired(this.key);
-    return this.usersService.user && !expired;
+    return this.usersService.self && !expired;
   }
   public get key() {
     return localStorage.getItem('key');

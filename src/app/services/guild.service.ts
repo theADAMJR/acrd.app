@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
@@ -7,36 +7,33 @@ import { Lean } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from './ws.service';
 import { LogService } from './log.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
-export class GuildService extends HTTPWrapper {
-  private readonly endpoint = environment.endpoint + '/guilds';
-  private _guilds: Lean.Guild[] = [];
+export class GuildService extends HTTPWrapper<Lean.Guild> {
+  protected endpoint = environment.endpoint + '/guilds';
+  public self: Lean.Guild;
   
+  protected _arr: Lean.Guild[] = [];
   public get guilds() {
-    return this._guilds;
+    return this._arr;
   }
   
   constructor(
     http: HttpClient,
+    ws: WSService,
+    private route: ActivatedRoute,
     private usersService: UsersService,
     private log: LogService,
-    ws: WSService,
   ) { super(http, ws); }
   
   public async init() {
-    if (this.guilds.length <= 0)
-      await this.updateGuilds();
-  }
-
-  public async updateGuilds() {    
-    this._guilds = (this.key)
-      ? await this.http.get(this.endpoint, this.headers).toPromise() as any
-      : [];    
-  }
-
-  public getGuild(id: string): Lean.Guild {
-    return this.guilds?.find(g => g._id === id);
+    await super.init();
+    
+    this.route.paramMap.subscribe(async (paramMap) => {
+      const guildId = paramMap.get('guildId');
+      this.self = await this.get(guildId);
+    });
   }
 
   public getGuildFromChannel(channelId: string): Lean.Guild | undefined {
@@ -45,28 +42,24 @@ export class GuildService extends HTTPWrapper {
         .find(c => c._id === channelId));
   }
 
-  public updateCached(id: string, value: Lean.Guild): Lean.Guild {
-    const index = this.guilds.findIndex(g => g._id === id);
-    return this.guilds[index] = value;
+  public getSelfMember(guildId: string): Promise<Lean.GuildMember> {
+    return this.getMember(guildId, this.usersService.self._id);
   }
 
-  public getSelfMember(guildId: string): Lean.GuildMember {
-    return this.getMember(guildId, this.usersService.user._id);
-  }
-
-  public getMemberById(guildId: string, memberId: string): Lean.GuildMember {
-    return this
-      .getGuild(guildId)?.members
+  public async getMemberById(guildId: string, memberId: string): Promise<Lean.GuildMember> {
+    const guild = await this.get(guildId);
+    return guild?.members
       .find(m => m._id === memberId);
   }
-  public getMember(guildId: string, userId: string): Lean.GuildMember {
-    return this
-      .getGuild(guildId)?.members
+  public async getMember(guildId: string, userId: string): Promise<Lean.GuildMember> {
+    const guild = await this.get(guildId);
+    return guild?.members
       .find(m => m.userId === userId);
   }
 
-  public ownsGuild(guildId: string, userId: string) {
-    return this.getGuild(guildId)?.ownerId === userId;
+  public async ownsGuild(guildId: string, userId: string) {
+    const guild = await this.get(guildId);
+    return guild.ownerId === userId;
   }
 
   public getInvites(guildId: string): Promise<Lean.Invite[]> {
@@ -80,7 +73,7 @@ export class GuildService extends HTTPWrapper {
   }
 
   public async leave(guildId: string) {
-    const member = this.getMember(guildId, this.usersService.user._id);
+    const member = await this.getMember(guildId, this.usersService.self._id);
     await this.kick(guildId, member._id);
   }
 

@@ -20,8 +20,7 @@
       </section>
 
       <app-text-channel
-        [channel]="activeChannel"
-        [guild]="guild"
+        *ngIf="activeChannel"
         #textChannel></app-text-channel>
     </div>  
 

@@ -1,5 +1,5 @@
 <app-settings-sidebar
-  *ngIf="usersService.user"
+  *ngIf="usersService.self"
   tabType="user">
   <div class="content">
     <h5 class="mb-4">Your Account</h5>
@@ -28,13 +28,13 @@
 
         <div>
           <span
-            *ngIf="usersService.user.verified"
+            *ngIf="usersService.self.verified"
             class="border border-success rounded p-3">
             <i class="fas fa-check-circle text-success"></i>
             <span> Your account is verified by email.</span>
           </span>
           <span
-            *ngIf="!usersService.user.verified"
+            *ngIf="!usersService.self.verified"
             class="border border-warning rounded p-3">
             <i class="fas fa-times-circle text-danger"></i>
             <span> Your email is not verified.</span>

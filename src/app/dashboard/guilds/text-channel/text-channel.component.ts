@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { ParamMap } from '@angular/router';
 import { TextBasedChannel } from '../../text-based-channel';
 
 @Component({

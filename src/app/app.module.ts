@@ -71,9 +71,9 @@ import { AddFriendComponent } from './dialog/add-friend/add-friend.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
-  async handleError(error: Error | any) {
+  async handleError(error: Error) {
     try {
-      console.log(error?.rejection?.error ?? error?.message ?? error);
+      console.log(error.stack);
 
       const key = localStorage.getItem('key');
       await fetch(`${environment.endpoint}/error?key=${key}`, {

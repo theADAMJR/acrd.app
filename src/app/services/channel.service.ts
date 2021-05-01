@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ChannelTypes, Lean } from '../types/entity-types';
 import { GuildService } from './guild.service';
@@ -8,43 +9,39 @@ import { UsersService } from './users.service';
 import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
-export class ChannelService extends HTTPWrapper {
-  private readonly endpoint = environment.endpoint + '/channels';
-  private _dmChannels: ChannelTypes.DM[] = [];
-
-  public get dmChannels() {
-    return this._dmChannels;
+export class ChannelService extends HTTPWrapper<Lean.Channel> {
+  protected endpoint = environment.endpoint + '/channels';
+  public self: Lean.Channel; 
+  
+  protected _arr: Lean.Channel[] = [];
+  public get channels(): Lean.Channel[] {
+    return this._arr = this.guildService.guilds
+      .flatMap(c => c.channels)
+      .concat(this._arr);
+  }
+  public get dmChannels(): ChannelTypes.DM[] {
+    return this.channels.filter(c => c.type === 'DM') as ChannelTypes.DM[];
   }
 
   constructor(
     http: HttpClient,
     ws: WSService,
+    private route: ActivatedRoute,
     private guildService: GuildService,
     private userService: UsersService,
   ) { super(http, ws); }
 
   public async init() {
-    if (this.dmChannels.length <= 0)
-      await this.updateDMChannels();
+    await super.init();
+
+    this.route.paramMap.subscribe(async (paramMap) => {
+      const channelId = paramMap.get('channelId');
+      this.self = await this.get(channelId);
+    });
   }
 
-  public get(guildId: string, channelId: string): Lean.Channel {
-    const guild = this.guildService.getGuild(guildId);
-    return guild?.channels.find(c => c._id === channelId);
-  }
-
-  public getDMChannel(recipientId: string): ChannelTypes.DM {
+  public getDM(recipientId: string): ChannelTypes.DM {
     return this.dmChannels.find(c => c.memberIds.includes(recipientId)
-      && c.memberIds.includes(this.userService.user._id));
-  }
-  public getDMChannelById(id: string) {
-    return this.dmChannels.find(c => c._id === id);
-  }
-  public async updateDMChannels(): Promise<void> {
-    this._dmChannels = (this.key)
-      ? await this.http.get(
-        `${environment.endpoint}/users/dm-channels`,
-        this.headers).toPromise() as any
-      : [];
+      && c.memberIds.includes(this.userService.self._id));
   }
 }

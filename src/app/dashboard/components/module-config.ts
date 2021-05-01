@@ -12,11 +12,11 @@ import { Lean } from 'src/app/types/entity-types';
 
 @Directive()
 export abstract class ModuleConfig implements OnDestroy {
-  form: FormGroup;
-  guild: Lean.Guild;
-  originalGuild: Lean.Guild;
+  public form: FormGroup;
+  public guild: Lean.Guild;
+  public originalGuild: Lean.Guild;
 
-  get guildId() { return this.route.snapshot.paramMap.get('guildId'); }
+  public get guildId() { return this.route.snapshot.paramMap.get('guildId'); }
 
   private saveChanges$: Subscription;  
   private valueChanges$: Subscription;  
@@ -32,10 +32,10 @@ export abstract class ModuleConfig implements OnDestroy {
   /**
    * Load all required data for the form, and hook events.
    */
-  async init() {
+  public async init() {
     await this.guildService.init();
     
-    this.guild = this.guildService.getGuild(this.guildId);
+    this.guild = this.guildService.get(this.guildId);
     this.originalGuild = JSON.parse(JSON.stringify(this.guild));
     
     await this.resetForm();
@@ -53,9 +53,9 @@ export abstract class ModuleConfig implements OnDestroy {
    * Build the form to be used.
    * Called when on form init.
    */
-  abstract buildForm(guild: Lean.Guild): FormGroup | Promise<FormGroup>;
+  public abstract buildForm(guild: Lean.Guild): FormGroup | Promise<FormGroup>;
   
-  openSaveChanges() {
+  public openSaveChanges() {
     const snackBarRef = this.saveChanges._openedSnackBarRef;
     if (!this.form.valid || snackBarRef) return;
 
@@ -70,7 +70,7 @@ export abstract class ModuleConfig implements OnDestroy {
   /**
    * Clean up subscriptions - to prevent memory leak.
    */  
-  ngOnDestroy() {    
+  public ngOnDestroy() {    
     this.valueChanges$?.unsubscribe();
     this.saveChanges$?.unsubscribe();
   }
@@ -78,7 +78,7 @@ export abstract class ModuleConfig implements OnDestroy {
   /**
    * Send the form data to the API.
    */
-  async submit() {
+  public async submit() {
     console.log(this.form.value);
     try {
       if (!this.form.valid) return;
@@ -102,7 +102,7 @@ export abstract class ModuleConfig implements OnDestroy {
   /**
    * Reset form values, and rebuild form.
    */
-  async reset() {
+  public async reset() {
     await this.resetForm();
     this.guild = JSON.parse(JSON.stringify(this.originalGuild));
     
@@ -110,7 +110,7 @@ export abstract class ModuleConfig implements OnDestroy {
       .subscribe(() => this.openSaveChanges()); 
   }
   
-  async deleteGuild() {
+  public async deleteGuild() {
     const confirmation = prompt(`Please type 'CONFIRM' if you wish to delete this guild.`);
     if (confirmation !== 'CONFIRM') return;
 
@@ -125,7 +125,7 @@ export abstract class ModuleConfig implements OnDestroy {
 
   // input events
 
-  add(event: MatChipInputEvent, array: any[]) {    
+  public add(event: MatChipInputEvent, array: any[]) {    
     const { value, input } = event;
   
     if ((value || '').trim())
@@ -137,7 +137,7 @@ export abstract class ModuleConfig implements OnDestroy {
     this.openSaveChanges();
   }
   
-  remove(item: any, array: any[]) {
+  public remove(item: any, array: any[]) {
     const index = array.indexOf(item);
     if (index >= 0)
       array.splice(index, 1);
@@ -145,7 +145,7 @@ export abstract class ModuleConfig implements OnDestroy {
     this.openSaveChanges();
   }
 
-  getChannel(id: string) {
+  public getChannel(id: string) {
     return this.guild.channels.find(c => c._id === id);
   }
 }

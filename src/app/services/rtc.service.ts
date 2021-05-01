@@ -17,16 +17,16 @@ export class RTCService {
 
   async init() {
     await this.userService.init();
-    if (!this.userService.user._id) return;
+    if (!this.userService.self._id) return;
     
-    this._audio = this._audio ?? new AudioSources(this.userService.user._id);
+    this._audio = this._audio ?? new AudioSources(this.userService.self._id);
     // this._peer = this._peer ?? new Peer(this.userService.user._id);
 
-    this.log.info(`Peer connected with ID: ${this.userService.user._id}`, 'rtc');
+    this.log.info(`Peer connected with ID: ${this.userService.self._id}`, 'rtc');
   }
 
   async call(id: string) {
-    if (id === this.userService.user._id)
+    if (id === this.userService.self._id)
       throw new TypeError('You cannot call yourself!');
 
     const stream = await navigator.mediaDevices

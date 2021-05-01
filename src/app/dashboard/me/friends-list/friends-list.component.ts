@@ -14,7 +14,7 @@ export class FriendsListComponent {
   @Input() public tab: TabType;
 
   public get blockedUsers() {
-    return this.users.user.ignored?.userIds
+    return this.users.self.ignored?.userIds
       ?.map(id => this.users.getKnown(id));
   }
   public get onlineFriends() {
@@ -46,7 +46,7 @@ export class FriendsListComponent {
   }
 
   public isOutgoing(friend: Lean.User) {
-    return this.users.user.friendRequestIds.includes(friend._id);
+    return this.users.self.friendRequestIds.includes(friend._id);
   }
 }
 

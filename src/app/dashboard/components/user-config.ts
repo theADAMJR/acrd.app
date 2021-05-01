@@ -34,7 +34,7 @@ export abstract class UserConfig implements OnDestroy {
   public async init() {
     await this.usersService.init();
     
-    this.user = this.usersService.user;
+    this.user = this.usersService.self;
     this.originalUser = JSON.parse(JSON.stringify(this.user));
     
     await this.resetForm();
@@ -83,7 +83,7 @@ export abstract class UserConfig implements OnDestroy {
     try {
       if (this.form.invalid) return;
 
-      this.usersService.user = Object.assign(this.user, this.form.value);
+      this.usersService.self = Object.assign(this.user, this.form.value);
 
       this.ws.emit('USER_UPDATE', {
         key: localStorage.getItem('key'),

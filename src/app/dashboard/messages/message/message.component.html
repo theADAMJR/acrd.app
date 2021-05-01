@@ -85,7 +85,7 @@
 <ng-template #messageOptions>
   <span class="message-options float-right">
     <button
-      *ngIf="usersService.user._id === author._id"
+      *ngIf="usersService.self._id === author._id"
       matTooltip="Edit"
       (click)="toggleEditing()"
       mat-button>

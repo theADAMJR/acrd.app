@@ -42,7 +42,7 @@ export class UserAccountComponent implements OnInit {
   public async ngOnInit() {
     await this.usersService.init();
 
-    this.form = await this.buildForm(this.usersService.user);
+    this.form = await this.buildForm(this.usersService.self);
   }
 
   public async changeEmail() {
@@ -61,7 +61,7 @@ export class UserAccountComponent implements OnInit {
   public async changePassword() {
     try {      
       if (this.passwordForm.invalid) return;
-      if (!this.usersService.user.verified)
+      if (!this.usersService.self.verified)
         throw new TypeError('A verified email is needed to reset password.');
   
       const email = this.form.get('email').value;

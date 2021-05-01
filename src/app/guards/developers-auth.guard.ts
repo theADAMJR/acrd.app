@@ -16,7 +16,7 @@ export class DevelopersAuthGuard implements CanActivate {
     state: RouterStateSnapshot) {
     await this.userService.init();
 
-    if (!this.userService.user)
+    if (!this.userService.self)
       this.router.navigate(['/login'], {
         queryParams: { redirect: route.url },
       });

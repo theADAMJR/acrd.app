@@ -10,15 +10,15 @@ export class GuildAuthGuard implements CanActivate {
     private router: Router,
     private userService: UsersService) {}
 
-  async canActivate(next: ActivatedRouteSnapshot) {
-      await this.userService.init();
-      await this.guildService.init();
-      
-      const guildId = next.paramMap.get('guildId');
-      const guild = this.guildService.getGuild(guildId);      
-      if (!guild)
-        await this.router.navigate(['/channels/@me']);
+  public async canActivate(next: ActivatedRouteSnapshot) {
+    await this.userService.init();
+    await this.guildService.init();
+    
+    const guildId = next.paramMap.get('guildId');
+    const guild = this.guildService.get(guildId);      
+    if (!guild)
+      await this.router.navigate(['/channels/@me']);
 
-      return true;
+    return true;
   }  
 }

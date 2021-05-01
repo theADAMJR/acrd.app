@@ -18,7 +18,7 @@ export class ChannelTabComponent {
   @Input() public channel: Lean.Channel;
 
   public get guild() {
-    return this.guildService.getGuild(this.channel.guildId);
+    return this.guildService.get(this.channel.guildId);
   }
 
   constructor(
