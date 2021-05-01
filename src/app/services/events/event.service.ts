@@ -32,6 +32,7 @@ export class EventService {
       .on('PING', this.channels.ping, this.channels)
       .on('PRESENCE_UPDATE', this.me.updatePresence, this.me)
       .on('REMOVE_FRIEND', this.me.updateFriends, this.me)
+      .on('TYPING_START', this.channels.startTyping, this.channels)
       .on('USER_UPDATE', this.me.updateUser, this.me);
   }
 }

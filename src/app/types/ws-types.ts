@@ -152,6 +152,7 @@ export interface WSEventArgs {
 
 export namespace Params {
   export interface AddFriend {
+    /** Username of user (case insensitive). */
     username: string;
   }
   export interface ChannelCreate {
@@ -357,6 +358,7 @@ export namespace Args {
     sender: Lean.User;
   }
   export interface TypingStart {
+    channelId: string;
     userId: string;
   }
   /** PRIVATE - contains private data */

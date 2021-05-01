@@ -11,6 +11,7 @@ import { WSService } from './ws.service';
 @Injectable({ providedIn: 'root' })
 export class ChannelService extends HTTPWrapper<Lean.Channel> {
   protected endpoint = environment.endpoint + '/channels';
+  public typingUserIds = new Map<string, string[]>();
   public self: Lean.Channel; 
   
   protected _arr: Lean.Channel[] = [];
@@ -43,5 +44,27 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   public getDM(recipientId: string): ChannelTypes.DM {
     return this.dmChannels.find(c =>c.memberIds.includes(recipientId)
       && c.memberIds.includes(this.userService.self._id));
+  }
+
+
+  public startTyping(channelId: string, userId: string) {
+    const channelUsers = this.getTyping(channelId);
+    const selfIsTyping = channelUsers.includes(this.self._id);
+    if (!selfIsTyping)
+      channelUsers.push(userId);
+
+    setTimeout(() => this.stopTyping(channelId, userId), 5.1 * 1000);
+  }
+  public stopTyping(channelId: string, userId: string) {
+    const channelUsers = this.getTyping(channelId);
+    const index = channelUsers.indexOf(userId);
+
+    channelUsers.splice(index, 1);
+  }
+  public getTyping(channelId: string) {
+    return this.typingUserIds.get(channelId)
+      ?? this.typingUserIds
+        .set(channelId, [])
+        .get(channelId);
   }
 }

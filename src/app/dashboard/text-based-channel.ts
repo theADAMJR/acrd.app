@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GuildService } from '../services/guild.service';
@@ -8,17 +8,26 @@ import { PermissionsService } from '../services/permissions.service';
 import { SoundService } from '../services/sound.service';
 import { UsersService } from '../services/users.service';
 import { Args, WSService } from '../services/ws.service';
-import { Lean } from '../types/entity-types';
 import { MessageService } from '../services/message.service';
 import { ChannelService } from '../services/channel.service';
 
 @Component({ template: '' })
 export class TextBasedChannel {
+  private get channelId() {
+    return this.channelService.self?._id
+      ?? this.route.snapshot.paramMap.get('channelId');
+  }
+
   public get channel() {
-    return this.channelService.self;
+    return this.channelService.self
+      ?? this.channelService.getCached(this.channelId);
   }
   public get guild() {
     return this.guildService.self;
+  }
+
+  public get typingUserIds(): string[] {
+    return this.channelService.getTyping(this.channelId);
   }
   
   @ViewChild('message')
@@ -85,16 +94,7 @@ export class TextBasedChannel {
 
   public hookWSEvents() {    
     this.ws
-      .on('MESSAGE_CREATE', this.createMessage, this)
-      .on('TYPING_START', this.addTypingUser, this);
-  }
-
-  private addTypingUser({ userId }: Args.TypingStart) {
-    const selfIsTyping = this.typingUserIds.includes(this.userService.self._id);
-    if (!selfIsTyping)
-      this.typingUserIds.push(userId);
-
-    setTimeout(() => this.stopTyping(userId), 5.1 * 1000);
+      .on('MESSAGE_CREATE', this.createMessage, this);
   }
 
   private async createMessage({ message }: Args.MessageCreate) { 
@@ -128,7 +128,7 @@ export class TextBasedChannel {
       partialMessage: { content },
     }, this);
 
-    this.stopTyping(this.userService.self._id);
+    this.channelService.stopTyping(this.userService.self._id);
   }
 
   public async loadMoreMessages() {
@@ -173,11 +173,6 @@ export class TextBasedChannel {
     }, this);
 
     this.lastTypingEmissionAt = new Date();
-  }
-
-  private stopTyping(userId: string) {
-    const index = this.typingUserIds.indexOf(userId);
-    this.typingUserIds.splice(index, 1);
   }
 
   // emoji picker
