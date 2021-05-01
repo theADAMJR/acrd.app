@@ -10,7 +10,7 @@
       class="message-group"
       [ngClass]="{ 'd-mention': isMentioned }">
       <app-avatar-url
-        (click)="profileDialog()"
+        (click)="dialog.profile({ user: author })"
         matTooltip="View Profile"
         size="40px"
         [user]="(avatarURL) ? { username: author.username, avatarURL: avatarURL } : author"></app-avatar-url>

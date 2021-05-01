@@ -14,7 +14,7 @@
     [routerLink]="routerLink || './'">
     <app-avatar-url
       *ngIf="withAvatar"
-      (click)="profileDialog()"
+      (click)="dialog.profile({ user: user })"
       [user]="user"></app-avatar-url>
     <span
       class="status round"
@@ -66,7 +66,7 @@
   <hr class="my-2">
 
   <button
-    (click)="profileDialog()"
+    (click)="dialog.profile({ user: user })"
     mat-menu-item>
     <i class="fas fa-user text-muted mr-1"></i>
     <span>View Profile</span>

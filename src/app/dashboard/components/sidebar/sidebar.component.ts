@@ -6,6 +6,7 @@ import { ChannelService } from 'src/app/services/channel.service';
 import { PingService } from 'src/app/services/ping.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateGuildComponent } from 'src/app/dialog/create-guild/create-guild.component';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'sidebar',
@@ -22,7 +23,7 @@ export class SidebarComponent implements OnInit {
     public channelService: ChannelService,
     public guildService: GuildService,
     private usersService: UsersService,
-    private dialog: MatDialog,
+    public dialog: DialogService,
   ) {}
 
   async ngOnInit() {
@@ -34,11 +35,5 @@ export class SidebarComponent implements OnInit {
     const icon = document.querySelector('#nav-icon1');
     icon.classList.toggle('open');
     this.drawer.toggle();
-  }
-
-  public createGuildDialog() {
-    this.dialog.open(CreateGuildComponent, {
-      width: '500px',
-    });
   }
 }

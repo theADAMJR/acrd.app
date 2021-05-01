@@ -4,6 +4,7 @@ import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
+import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
@@ -127,7 +128,7 @@ export class MessageComponent implements OnInit {
     public usersService: UsersService,
     private ws: WSService,
     private perms: PermissionsService,
-    private dialog: MatDialog,
+    public dialog: DialogService,
   ) {}
 
   public async ngOnInit() {
@@ -188,13 +189,6 @@ export class MessageComponent implements OnInit {
     this.contextMenuPosition.y = event.clientY + 'px';
     menuTrigger.menu.focusFirstItem('mouse');
     menuTrigger.openMenu();
-  }
-
-  public profileDialog() {
-    this.dialog.open(ProfileComponent, {
-      width: '500px',
-      data: { user: this.author },
-    });
   }
 }
 

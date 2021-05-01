@@ -11,6 +11,7 @@ import { CreateChannelComponent } from 'src/app/dialog/create-channel/create-cha
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ChannelService } from 'src/app/services/channel.service';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'guild-sidebar',
@@ -20,10 +21,11 @@ import { ChannelService } from 'src/app/services/channel.service';
 export class GuildSidebarComponent {
   @Input('waitFor')
   public loaded = true;
-  
   public id: string;
-  public guild: Lean.Guild;
   
+  public get guild() {
+    return this.guildService.self;
+  }
   public get selectedChannel() {
     return this.channelService.self;
   }
@@ -37,29 +39,12 @@ export class GuildSidebarComponent {
 
   constructor(
     public channelService: ChannelService,
+    public guildService: GuildService,
     public perms: PermissionsService,
     public usersService: UsersService,
     public pings: PingService,
-    private dialog: MatDialog,
+    public dialog: DialogService,
   ) {}
-  
-  private getMember(userId: string) {
-    return this.guild.members.find(m => m.userId === userId);
-  }
-
-  public createInviteDialog() {
-    this.dialog.open(CreateInviteComponent, {
-      width: '500px',
-      data: { guild: this.guild },
-    });
-  }
-
-  public createChannelDialog() {
-    this.dialog.open(CreateChannelComponent, {
-      width: '350px',
-      data: { guild: this.guild },
-    });
-  }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
     event.preventDefault();

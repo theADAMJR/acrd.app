@@ -29,7 +29,7 @@ export class ChannelEventService {
   }
 
   public async addMessage({ message }: Args.MessageCreate) { 
-    this.messageService.add(message);
+    this.messageService.overrideAdd(message);
   }
 
   public deleteMessage({ channelId, messageId }: Args.MessageDelete) {

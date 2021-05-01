@@ -21,7 +21,7 @@
         [routerLink]="'/channels/' + guild._id"
         [matTooltip]="guild.name"></app-guild-icon>
       <div
-        (click)="createGuildDialog()"
+        (click)="dialog.createGuild()"
         class="guild-icon add-guild bg-transparent cursor-pointer"
         matTooltip="Add a Guild">
         <span class="add-guild pt-0 d-flex justify-content-center flex-column">+</span>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFriendComponent } from 'src/app/dialog/add-friend/add-friend.component';
+import { DialogService } from 'src/app/services/dialog.service';
 import { TabType } from '../friends-list/friends-list.component';
 
 @Component({
@@ -11,16 +12,9 @@ import { TabType } from '../friends-list/friends-list.component';
 export class DashboardOverviewComponent { 
   public tab: TabType = 'ONLINE';
 
-  constructor(private dialog: MatDialog) {
+  constructor(public dialog: DialogService) {
     document.title = 'Accord - Dashboard';
 
     this.tab = 'ONLINE';
-  }
-
-  public addFriendDialog() {
-    this.dialog.open(AddFriendComponent, {
-      width: '350px',
-      data: {},
-    });
   }
 }

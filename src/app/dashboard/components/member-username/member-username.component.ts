@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
 import { ChannelService } from 'src/app/services/channel.service';
+import { DialogService } from 'src/app/services/dialog.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
@@ -54,10 +55,9 @@ export class MemberUsernameComponent implements OnInit {
     private channelService: ChannelService,
     public perms: PermissionsService,
     public pings: PingService,
-    private log: LogService,
     public usersService: UsersService,
     private ws: WSService,
-    private dialog: MatDialog,
+    public dialog: DialogService,
   ) {}
 
   public ngOnInit() {
@@ -82,12 +82,5 @@ export class MemberUsernameComponent implements OnInit {
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
     event.preventDefault();
     menuTrigger.openMenu();
-  }
-
-  public profileDialog() {
-    this.dialog.open(ProfileComponent, {
-      width: '500px',
-      data: { user: this.user },
-    });
   }
 }
