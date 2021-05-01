@@ -71,14 +71,14 @@
   </button>
   <button
     *ngIf="isBlocked"  
-    (click)="usersService.unblock(user._id)"
+    (click)="userService.unblock(user._id)"
     mat-menu-item>
     <i class="fas fa-ban text-muted mr-1"></i>
     <span>Unblock</span>
   </button>
   <button
-    *ngIf="!isBlocked && user._id === usersService.self"  
-    (click)="usersService.block(user._id)"
+    *ngIf="!isBlocked && user._id === userService.self"  
+    (click)="userService.block(user._id)"
     mat-menu-item>
     <i class="fas fa-ban text-danger mr-1"></i>
     <span>Block</span>

@@ -3,14 +3,14 @@
 <waves></waves>
 
 <section class="main">
-  <div *ngIf="guild && usersService.self" class="text-center">
+  <div *ngIf="guild && userService.self" class="text-center">
     <p class="lead">You have been invited to</p>
     <h1>{{ guild._id }}</h1>
     <hr>
     <button (click)="join()" class="bg-primary" mat-button>Join</button>
   </div>
 
-  <div *ngIf="guild && !usersService.self" >
+  <div *ngIf="guild && !userService.self" >
     <p class="lead">You have been invited to</p>
     <h1>{{ guild._id }}</h1>
     <hr>
