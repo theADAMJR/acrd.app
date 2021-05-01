@@ -29,14 +29,10 @@ export class AddFriendComponent {
   public async sendFriendRequest() {
     if (this.addFriendForm.invalid) return;
 
-    try {
-      await this.ws.emitAsync('ADD_FRIEND', {
-        username: this.addFriendForm.value.username,
-      }, this);
-      await this.log.success();
-      await this.dialogRef.close();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    await this.ws.emitAsync('ADD_FRIEND', {
+      username: this.addFriendForm.value.username,
+    }, this);
+
+    this.dialogRef.close();
   }
 }

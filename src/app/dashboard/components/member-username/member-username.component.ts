@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Type } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
@@ -61,6 +61,9 @@ export class MemberUsernameComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
+    if (!this.user)
+      throw new TypeError('Input user undefined');
+
     this.oldMember = { ...this.member }; 
   }
 
@@ -68,17 +71,12 @@ export class MemberUsernameComponent implements OnInit {
     const unchanged = JSON.stringify(this.member) === JSON.stringify(this.oldMember);
     if (unchanged) return;
 
-    try {
-      await this.ws.emitAsync('GUILD_MEMBER_UPDATE', {
-        partialMember: { roleIds: [] },
-        memberId: this.member._id,
-      }, this);
+    await this.ws.emitAsync('GUILD_MEMBER_UPDATE', {
+      partialMember: { roleIds: [] },
+      memberId: this.member._id,
+    }, this);
 
-      this.oldMember = { ...this.member }; 
-      await this.log.success();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    this.oldMember = { ...this.member }; 
   }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {

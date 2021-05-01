@@ -13,7 +13,7 @@ export class DMChannelAuthGuard implements CanActivate {
     private router: Router,
     private userService: UsersService) {}
 
-  async canActivate(route: ActivatedRouteSnapshot) {
+  public async canActivate(route: ActivatedRouteSnapshot) {
     await this.userService.init();
     await this.channelService.init();
 

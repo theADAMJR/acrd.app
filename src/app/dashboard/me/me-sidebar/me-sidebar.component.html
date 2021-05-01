@@ -14,7 +14,7 @@
         *ngFor="let channel of channelService.dmChannels"
         class="mx-2 mb-1">
         <member-username
-          *ngIf="channel"
+          *ngIf="channel && getRecipient(channel)"
           class="cursor-pointer"
           [routerLink]="'/channels/@me/' + channel._id"
           [user]="getRecipient(channel)"></member-username>

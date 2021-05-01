@@ -5,18 +5,17 @@ import { GuildService } from '../services/guild.service';
 import { WSService } from '../services/ws.service';
 import { ChannelService } from '../services/channel.service';
 import { LogService } from '../services/log.service';
+import { UserAuthService } from '../services/user-auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardAuthGuard implements CanActivate {
   private already = false;
 
   constructor(
-    private channelService: ChannelService,
     private guildService: GuildService,
-    private log: LogService,
     private router: Router,
     private userService: UsersService,
-    private ws: WSService,
+    private auth: UserAuthService,
   ) {}
 
   public async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -29,8 +28,7 @@ export class DashboardAuthGuard implements CanActivate {
 
     if (!this.already) {
       this.already = true;
-
-      this.ws.emit('READY', { key: localStorage.getItem('key') }, this);
+      await this.auth.ready();
     }
     return canActivate;
   }

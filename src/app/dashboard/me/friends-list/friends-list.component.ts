@@ -15,7 +15,7 @@ export class FriendsListComponent {
 
   public get blockedUsers() {
     return this.users.self.ignored?.userIds
-      ?.map(id => this.users.getKnown(id));
+      ?.map(id => this.users.getCached(id));
   }
   public get onlineFriends() {
     return this.users.friends.filter(f => f.status !== 'OFFLINE');
@@ -23,26 +23,15 @@ export class FriendsListComponent {
 
   constructor(
     public channelService: ChannelService,
-    private log: LogService,
     public users: UsersService,
     private ws: WSService,
   ) {}
 
   public async add(username: string) {
-    try {
-      await this.ws.emitAsync('ADD_FRIEND', { username }, this);      
-      await this.log.success();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    await this.ws.emitAsync('ADD_FRIEND', { username }, this);
   }
   public async remove(friendId: string) {
-    try {
-      await this.ws.emitAsync('REMOVE_FRIEND', { friendId }, this);      
-      await this.log.success();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    await this.ws.emitAsync('REMOVE_FRIEND', { friendId }, this);
   }
 
   public isOutgoing(friend: Lean.User) {

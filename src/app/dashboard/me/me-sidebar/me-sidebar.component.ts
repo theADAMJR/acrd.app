@@ -22,6 +22,6 @@ export class MeSidebarComponent implements OnInit {
   public getRecipient(channel: Lean.Channel) { 
     const userId = channel.memberIds
       .filter(id => id !== this.usersService.self._id)[0];
-    return this.usersService.getKnown(userId);
+    return this.usersService.getCached(userId);
   }
 }

@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PermissionTypes } from 'src/app/types/entity-types';
-import { Location } from '@angular/common';
 import { UsersService } from 'src/app/services/users.service';
 import { GuildService } from 'src/app/services/guild.service';
 
@@ -54,7 +53,7 @@ export class SettingsSidebarComponent {
 
   public get tabCategory() {
     return (this.tabType === 'guild')
-      ? this.guildService.get(this.guildId)?.name
+      ? this.guildService.getCached(this.guildId)?.name
       : this.userService.self.username;
   }
 

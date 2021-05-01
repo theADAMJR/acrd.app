@@ -32,7 +32,7 @@ export class ApplicationComponent implements OnInit {
 
   async ngOnInit() {
     const appId = this.route.snapshot.paramMap.get('id');
-    this.app = await this.service.get(appId);
+    this.app = await this.service.getAsync(appId);
     this.form.setValue({
       description: this.app.description,
       name: this.app.name,

@@ -10,19 +10,23 @@ import { PingService } from 'src/app/services/ping.service';
 import { CreateChannelComponent } from 'src/app/dialog/create-channel/create-channel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { ChannelService } from 'src/app/services/channel.service';
 
 @Component({
   selector: 'guild-sidebar',
   templateUrl: './guild-sidebar.component.html',
   styleUrls: ['./guild-sidebar.component.css']
 })
-export class GuildSidebarComponent implements OnInit {
+export class GuildSidebarComponent {
   @Input('waitFor')
   public loaded = true;
   
   public id: string;
   public guild: Lean.Guild;
-  public selectedChannel: Lean.Channel;
+  
+  public get selectedChannel() {
+    return this.channelService.self;
+  }
 
   public get textChannels() {
     return this.guild.channels.filter(c => c.type === 'TEXT');
@@ -32,30 +36,13 @@ export class GuildSidebarComponent implements OnInit {
   }
 
   constructor(
-    private route: ActivatedRoute,
-    private guildService: GuildService,
+    public channelService: ChannelService,
     public perms: PermissionsService,
-    private router: Router,
     public usersService: UsersService,
-    private ws: WSService,
     public pings: PingService,
     private dialog: MatDialog,
   ) {}
-
-  public async ngOnInit() {
-    this.route.paramMap.subscribe(async(paramMap) => {
-      this.id = paramMap.get('guildId');
-      const channelId = paramMap.get('channelId');
-
-      this.guild = this.guildService.get(this.id);
-      this.selectedChannel = this.guild.channels
-        .find(c => c._id === channelId);
-      
-      if (!this.guild)
-        this.router.navigate(['/channels/@me']);
-    });
-  }
-
+  
   private getMember(userId: string) {
     return this.guild.members.find(m => m.userId === userId);
   }

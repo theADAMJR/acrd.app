@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DMChannelAuthGuard } from '../guards/dmchannel-auth.guard';
+import { DMChannelAuthGuard } from './dmchannel-auth.guard';
 
 describe('DMChannelAuthGuard', () => {
   let guard: DMChannelAuthGuard;

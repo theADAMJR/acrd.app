@@ -20,7 +20,7 @@ export class AuthComponent implements OnInit {
       const key = this.route.snapshot.queryParamMap.get('key');
       localStorage.setItem('key', key);
     
-      await this.userService.updateUser();
+      await this.userService.updateSelf();
       await this.guildService.fetchAll();
       
       this.router.navigate(['/channels/@me']);

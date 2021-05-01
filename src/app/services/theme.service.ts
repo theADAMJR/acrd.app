@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  readonly defaultTheme = 'HORIZON';
+  public readonly defaultTheme = 'HORIZON';
 
-  changeTheme(theme: string) {
+  public changeTheme(theme: string) {
     localStorage.setItem('theme', theme);
 
     this.updateTheme();
   }
 
-  updateTheme() {
+  public updateTheme() {
     const theme = localStorage.getItem('theme') ?? this.defaultTheme;
-    document.querySelector('html').setAttribute('theme', theme);
+    document
+      .querySelector('html')
+      .setAttribute('theme', theme);
   }
 }

@@ -34,14 +34,14 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   public async init() {
     await super.init();
 
-    this.route.paramMap.subscribe(async (paramMap) => {
-      const channelId = paramMap.get('channelId');
-      this.self = await this.get(channelId);
+    this.route.paramMap.subscribe((paramMap) => {
+      const id = paramMap.get('channelId');
+      this.self = this.getCached(id);
     });
   }
 
   public getDM(recipientId: string): ChannelTypes.DM {
-    return this.dmChannels.find(c => c.memberIds.includes(recipientId)
+    return this.dmChannels.find(c =>c.memberIds.includes(recipientId)
       && c.memberIds.includes(this.userService.self._id));
   }
 }

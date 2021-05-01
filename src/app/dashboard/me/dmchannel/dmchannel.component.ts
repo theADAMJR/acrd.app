@@ -10,32 +10,10 @@ import { TextChannelComponent } from '../../guilds/text-channel/text-channel.com
   templateUrl: './dmchannel.component.html',
   styleUrls: ['./dmchannel.component.css']
 })
-export class DMChannelComponent implements AfterViewInit {
+export class DMChannelComponent {
   public recipient: Lean.User;
   public channel: Lean.Channel;
 
   @ViewChild('textChannel')
   public textChannel: TextChannelComponent;
-
-  constructor(
-    private route: ActivatedRoute,
-    private channelService: ChannelService,
-    private userService: UsersService,
-  ) {}
-
-  public async ngAfterViewInit() {
-    this.route.paramMap.subscribe(async (paramMap) => {
-      await this.updateChannel(paramMap);
-      // this.textChannel
-    });
-  }
-
-  private async updateChannel(paramMap: ParamMap) {
-    const channelId = paramMap.get('channelId');
-    this.channel = this.channelService.getDMChannelById(channelId);
-
-    const recipientId = this.channel.memberIds
-      ?.find(id => id !== this.userService.self._id);
-    this.recipient = this.userService.getKnown(recipientId);
-  }
 }

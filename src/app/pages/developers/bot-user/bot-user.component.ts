@@ -43,7 +43,7 @@ export class BotUserComponent implements OnInit {
   public async ngOnInit() {
     const appId = this.route.snapshot.paramMap.get('id');
 
-    this.app = await this.service.get(appId);
+    this.app = await this.service.getAsync(appId);
     this.form.setValue({
       avatarURL: this.app.user.avatarURL,
       username: this.app.user.username,

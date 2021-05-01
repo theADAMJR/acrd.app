@@ -7,7 +7,7 @@
     <member-username
       *ngFor="let member of onlineMembers"
       class="cursor-pointer"
-      [user]="userService.getKnown(member.userId)"
+      [user]="userService.getCached(member.userId)"
       [guild]="guild"></member-username>
   </div>
 
@@ -18,7 +18,7 @@
     <member-username
       *ngFor="let member of offlineMembers"
       class="cursor-pointer"
-      [user]="userService.getKnown(member.userId)"
+      [user]="userService.getCached(member.userId)"
       [guild]="guild"></member-username>
   </div>
 </div>

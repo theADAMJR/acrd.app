@@ -27,7 +27,7 @@ export class GuildOverviewComponent implements AfterViewInit {
       const guildId = paramMap.get('guildId');
       const channelId = paramMap.get('channelId');
 
-      this.guild = this.guildService.get(guildId);
+      this.guild = this.guildService.getCached(guildId);
       
       const defaultChannel = this.guild.channels.filter(c => c.type === 'TEXT')[0];          
       if (defaultChannel && !channelId)

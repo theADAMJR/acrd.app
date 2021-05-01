@@ -35,7 +35,7 @@ export class TextBasedChannel {
   public get typingUsernames() {
     return this.typingUserIds
       .map(async (id) => {
-        const user = await this.userService.get(id);
+        const user = await this.userService.getAsync(id);
         return user.username;
       });
   }

@@ -54,16 +54,11 @@ export class CreateChannelComponent {
   public async create() {
     if (this.form.invalid) return;
 
-    try {
-      this.ws.emitAsync('CHANNEL_CREATE', {
-        partialChannel: this.form.value,
-        guildId: this.data.guild._id
-      }, this);
-  
-      await this.log.success();
-      this.dialogRef.close();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    this.ws.emitAsync('CHANNEL_CREATE', {
+      partialChannel: this.form.value,
+      guildId: this.data.guild._id
+    }, this);
+
+    this.dialogRef.close();
   }
 }

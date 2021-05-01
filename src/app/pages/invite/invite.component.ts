@@ -28,7 +28,7 @@ export class InviteComponent implements OnInit {
     const code = this.route.snapshot.paramMap.get('id');
     const invite = await this.invites.fetch(code);
 
-    if (this.guildService.get(invite.guildId))
+    if (this.guildService.getAsync(invite.guildId))
       return this.router.navigate([`/channels/${invite.guildId}`]);
   }
 

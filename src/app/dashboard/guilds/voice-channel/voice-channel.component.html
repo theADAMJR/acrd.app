@@ -6,7 +6,7 @@
     <div *ngFor="let id of channel.memberIds"
       class="ml-4">
       <member-username
-        [user]="usersService.getKnown(id)"
+        [user]="usersService.getCached(id)"
         [voice]="true"></member-username>
     </div>
 </div>

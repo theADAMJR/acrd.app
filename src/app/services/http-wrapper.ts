@@ -32,12 +32,16 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   public async init() {
     if (this.arr.length <= 0)
       await this.fetchAll();
+    if (!this.self)
+      await this.updateSelf?.();
   }
 
-  public getCached(id: string) {
+  public updateSelf?(): Promise<T>;
+
+  public getCached(id: string | undefined) {
     return this.arr?.find(i => i._id === id);
   }
-  public get(id: string) {
+  public getAsync(id: string) {
     return this.getCached(id) ?? this.fetch(id);
   }
   public add(val: T) {
@@ -68,6 +72,9 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   }
 
   public async fetch(id: string): Promise<T> {
+    if (!id)
+      throw new TypeError('ID must be defined');
+
     return await this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise() as any;
   }
   public async fetchAll() {

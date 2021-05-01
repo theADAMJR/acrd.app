@@ -18,7 +18,7 @@ export class ChannelTabComponent {
   @Input() public channel: Lean.Channel;
 
   public get guild() {
-    return this.guildService.get(this.channel.guildId);
+    return this.guildService.getCached(this.channel.guildId);
   }
 
   constructor(
@@ -44,13 +44,7 @@ export class ChannelTabComponent {
       .trim());
     if (!confirmation) return;
 
-    try {
-      await this.ws.emitAsync('CHANNEL_DELETE', { channelId: this.channel._id }, this);
-
-      await this.router.navigate([`/channels/${this.guild._id}`]);
-      await this.log.success();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    await this.ws.emitAsync('CHANNEL_DELETE', { channelId: this.channel._id }, this);
+    await this.router.navigate([`/channels/${this.guild._id}`]);
   }
 }

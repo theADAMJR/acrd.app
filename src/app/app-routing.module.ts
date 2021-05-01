@@ -55,7 +55,7 @@ const routes: Routes = [
   {
     path: 'channels/@me/:channelId',
     component: DMChannelComponent,
-    canActivate: [DMChannelAuthGuard, DashboardAuthGuard],
+    canActivate: [DashboardAuthGuard, DMChannelAuthGuard],
   },
   {
     path: 'channels/:guildId',

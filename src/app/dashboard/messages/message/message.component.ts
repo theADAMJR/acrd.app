@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { toHTML } from 'discord-markdown';
@@ -16,7 +16,7 @@ import { Lean } from 'src/app/types/entity-types';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })
-export class MessageComponent {
+export class MessageComponent implements OnInit {
   @Input() public message: Lean.Message;
   @Input() public isExtra = false;
   @Input() public guild: Lean.Guild;
@@ -30,6 +30,7 @@ export class MessageComponent {
 
   public embed: MessageEmbed;
   public contextMenuPosition = { x: '0px', y: '0px' };
+  public author: Lean.User;
 
   private _isEditing = false;
   public get isEditing() {
@@ -39,11 +40,6 @@ export class MessageComponent {
     this._isEditing = value;
     const div: HTMLDivElement = this.newMessage.nativeElement;
     if (value) div.focus();
-  }
-
-  public get author() {
-    return this.usersService.getKnown(this.message.authorId)
-      ?? this.usersService.getUnknown(this.message.authorId);
   }
   
   public get roleColor(): string {
@@ -92,7 +88,7 @@ export class MessageComponent {
 
   public get processed() {
     const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
-    const getUser = (id: string) => this.usersService.getKnown(id);
+    const getUser = (id: string) => this.usersService.getAsync(id);
 
     const getMention = (html: string, condition: boolean) => {
       return (condition)
@@ -106,8 +102,8 @@ export class MessageComponent {
   
     return toHTML(textEmoji(this.message.content), {
       discordCallback: {
-        user: (node) => getMention(
-          `@${getUser(node.id)?.username ?? `Invalid User`}`,
+        user: async (node) => getMention(
+          `@${(await getUser(node.id))?.username ?? `Invalid User`}`,
           this.usersService.self._id === node.id),
 
         role: (node) => getMention(
@@ -133,6 +129,10 @@ export class MessageComponent {
     private perms: PermissionsService,
     private dialog: MatDialog,
   ) {}
+
+  public async ngOnInit() {
+    this.author = await this.usersService.getAsync(this.message.authorId);
+  }
 
   public removeEmbed() {
     this.message.embed = null;

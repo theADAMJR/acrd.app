@@ -15,13 +15,13 @@ export class MemberListComponent {
 
   public get onlineMembers() {
     return this.guild.members.filter(m => {
-      const user = this.userService.getKnown(m.userId);
+      const user = this.userService.getCached(m.userId);
       return user.status !== 'OFFLINE';
     });
   }
   public get offlineMembers() {
     return this.guild.members.filter(m => {
-      const user = this.userService.getKnown(m.userId);
+      const user = this.userService.getCached(m.userId);
       return user.status === 'OFFLINE';
     });
   }

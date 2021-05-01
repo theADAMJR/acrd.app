@@ -10,10 +10,10 @@ export class UsersService extends HTTPWrapper<Lean.User> {
   protected _arr: Lean.User[] = [];
 
   public get friends() {
-    return this.self.friendIds.map(id => this.get(id));
+    return this.self.friendIds.map(id => this.getCached(id));
   }
   public get friendRequests() {
-    return this.self.friendRequestIds.map(id => this.get(id));
+    return this.self.friendRequestIds.map(id => this.getCached(id));
   }
   
   public avatarURL(id: string) {
@@ -22,6 +22,10 @@ export class UsersService extends HTTPWrapper<Lean.User> {
 
   public getBots(): Promise<Lean.User[]> {
     return this.http.get(`${this.endpoint}/bots`).toPromise() as any;
+  }
+
+  public async updateSelf(): Promise<Lean.User> {
+    return this.self = await this.http.get(`${this.endpoint}/self`, this.headers).toPromise() as any;
   }
 
   public async checkUsername(username: string): Promise<boolean> {

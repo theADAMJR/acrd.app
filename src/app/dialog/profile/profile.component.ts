@@ -16,7 +16,7 @@ export class ProfileComponent {
     const otherFriendIds = this.data.user.friendIds;
     return this.users.self.friendIds
       .filter(id => otherFriendIds.includes(id))
-      .map(id => this.users.getKnown(id));
+      .map(id => this.users.getCached(id));
   }
   public get mutualGuilds(): Lean.Guild[] {
     const otherGuilds = this.data.user.guilds;
@@ -47,14 +47,9 @@ export class ProfileComponent {
   ) {}
 
   public async addFriend() {
-    try {
-      await this.ws.emitAsync('ADD_FRIEND', {
-        username: this.data.user.username,
-      }, this);
-      await this.log.success();
-    } catch (error) {
-      await this.log.error(error.message);
-    }
+    await this.ws.emitAsync('ADD_FRIEND', {
+      username: this.data.user.username,
+    }, this);
   }
 
   public async removeFriend() {

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
+import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserAuthService {
@@ -23,6 +24,7 @@ export class UserAuthService {
   constructor(
     private http: HttpClient,
     private usersService: UsersService,
+    private ws: WSService,
   ) {}
 
   public async signUp(user: Credentials) {
@@ -30,7 +32,7 @@ export class UserAuthService {
 
     if (res) {
       localStorage.setItem('key', res);
-      await this.usersService.updateUser();
+      await this.usersService.updateSelf();
     }
     return Boolean(res);
   }
@@ -44,7 +46,7 @@ export class UserAuthService {
       return res;
 
     localStorage.setItem('key', res);
-    await this.usersService.updateUser();
+    await this.usersService.init();
   }
 
   public async verify(code: string): Promise<string> {
@@ -72,6 +74,10 @@ export class UserAuthService {
 
     localStorage.setItem('key', res);
     return true;
+  }
+
+  public ready() {
+    return this.ws.emitAsync('READY', { key: localStorage.getItem('key') }, this);
   }
 }
 

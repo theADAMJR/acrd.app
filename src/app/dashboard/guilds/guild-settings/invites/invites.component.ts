@@ -25,7 +25,7 @@ export class InvitesComponent implements OnInit {
 
   public async ngOnInit() {
     const guildId = this.route.snapshot.paramMap.get('guildId');
-    this.guild = this.guildService.get(guildId);
+    this.guild = this.guildService.getCached(guildId);
     this.invites = await this.guildService.getInvites(guildId);
 
     this.hookWSEvents();

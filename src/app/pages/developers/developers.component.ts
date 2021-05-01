@@ -10,8 +10,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./developers.component.css']
 })
 export class DevelopersComponent implements OnInit {
-  applications = [];
-  environment = environment;
+  public applications = [];
+  public environment = environment;
 
   constructor(
     private router: Router,
@@ -19,11 +19,11 @@ export class DevelopersComponent implements OnInit {
     public userService: UsersService,
   ) {}
 
-  async ngOnInit() {
-    this.applications = await this.service.getAll();
+  public async ngOnInit() {
+    this.applications = await this.service.fetchAll();
   }
 
-  async create() {
+  public async create() {
     try {
       const app = await this.service.create();
       

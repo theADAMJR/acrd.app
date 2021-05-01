@@ -40,7 +40,7 @@ export class BotListComponent extends ModuleConfig implements OnInit {
   public async ngOnInit() {
     await super.init();
     
-    this.apps = await this.dev.getAll();
+    this.apps = await this.dev.fetchAll();
     this.selectedApp = this.apps[0];
   }
 

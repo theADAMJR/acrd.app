@@ -7,11 +7,11 @@ export class PermissionsService {
   constructor(private guildService: GuildService) {}
 
   public async can(guildId: string, permission: PermissionTypes.PermissionString) {
-    const guild = await this.guildService.get(guildId);
+    const guild = await this.guildService.getAsync(guildId);
     if (!guild)
       throw new TypeError('Guild Not Found');
 
-    const member = await this.guildService.getSelfMember(guildId);
+    const member = this.guildService.getSelfMember(guildId);
     if (!member) return false;
 
     const totalPerms = guild.roles
