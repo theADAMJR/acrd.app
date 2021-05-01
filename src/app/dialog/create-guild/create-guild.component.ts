@@ -1,7 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class CreateGuildComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CreateGuildComponent>,
-    private userService: UsersService,
+    private userService: UserService,
     private ws: WSService,
   ) {}
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GuildService } from '../../services/guild.service';
-import { UsersService } from '../../services/users.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-logout',
@@ -12,7 +12,7 @@ export class LogoutComponent implements OnInit {
   constructor(
     private guildService: GuildService,
     private router: Router,
-    private userService: UsersService) {}
+    private userService: UserService) {}
 
   public async ngOnInit() {
     localStorage.removeItem('key');

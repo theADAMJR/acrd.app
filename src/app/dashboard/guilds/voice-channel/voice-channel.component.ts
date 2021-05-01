@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { ChannelTypes, Lean } from 'src/app/types/entity-types';
 
@@ -12,10 +12,10 @@ export class VoiceChannelComponent implements OnInit {
   @Input() channel: ChannelTypes.Voice;
   @Input() guild: Lean.Guild;
 
-  constructor(public usersService: UsersService) {}
+  constructor(public userService: UserService) {}
 
   async ngOnInit() {
-    await this.usersService.init();
+    await this.userService.init();
   }
   
   public async join() {

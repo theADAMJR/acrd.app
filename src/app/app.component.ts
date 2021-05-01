@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from './services/users.service';
+import { UserService } from './services/user.service';
 import { ThemeService } from './services/theme.service';
 import { ActivatedRoute } from '@angular/router';
 import { LogService } from './services/log.service';
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private themeService: ThemeService,
-    private userService: UsersService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private log: LogService,
   ) {}

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ChannelService } from 'src/app/services/channel.service';
 import { LogService } from 'src/app/services/log.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { Args, WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
@@ -23,7 +23,7 @@ export class FriendsListComponent {
 
   constructor(
     public channelService: ChannelService,
-    public users: UsersService,
+    public users: UserService,
     private ws: WSService,
   ) {}
 

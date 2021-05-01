@@ -4,7 +4,7 @@ import { PasswordValidators } from 'src/app/authentication/sign-up/password.vali
 import { UsernameValidators } from 'src/app/authentication/sign-up/username.validators';
 import { LogService } from 'src/app/services/log.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { patterns, UserTypes } from 'src/app/types/entity-types';
 
 @Component({
@@ -25,7 +25,7 @@ export class UserAccountComponent implements OnInit {
   public form: FormGroup;
 
   constructor(
-    public usersService: UsersService,
+    public userService: UserService,
     private usernameValidators: UsernameValidators,
     private userAuthService: UserAuthService,
     private log: LogService,
@@ -40,9 +40,9 @@ export class UserAccountComponent implements OnInit {
   }
 
   public async ngOnInit() {
-    await this.usersService.init();
+    await this.userService.init();
 
-    this.form = await this.buildForm(this.usersService.self);
+    this.form = await this.buildForm(this.userService.self);
   }
 
   public async changeEmail() {
@@ -61,7 +61,7 @@ export class UserAccountComponent implements OnInit {
   public async changePassword() {
     try {      
       if (this.passwordForm.invalid) return;
-      if (!this.usersService.self.verified)
+      if (!this.userService.self.verified)
         throw new TypeError('A verified email is needed to reset password.');
   
       const email = this.form.get('email').value;

@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogService } from 'src/app/services/log.service';
 import { ThemeService } from 'src/app/services/theme.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { UsernameValidators } from 'src/app/authentication/sign-up/username.validators';
 import { UserConfig } from 'src/app/dashboard/components/user-config';
@@ -51,14 +51,14 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
   constructor(
     route: ActivatedRoute,
     router: Router,
-    usersService: UsersService,
+    userService: UserService,
     snackbar: MatSnackBar,
     ws: WSService,
     log: LogService,
     public themes: ThemeService,
     private usernameValidators: UsernameValidators,
   ) {
-    super(usersService, route, snackbar, ws, log, router);
+    super(userService, route, snackbar, ws, log, router);
   }
 
   public async ngAfterViewInit() {

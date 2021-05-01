@@ -4,7 +4,7 @@ import { Lean, UserTypes } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
 
 @Injectable({ providedIn: 'root' })
-export class UsersService extends HTTPWrapper<Lean.User> {
+export class UserService extends HTTPWrapper<Lean.User> {
   public self: UserTypes.Self;
   public endpoint = `${environment.endpoint}/users`;
   protected _arr: Lean.User[] = [];

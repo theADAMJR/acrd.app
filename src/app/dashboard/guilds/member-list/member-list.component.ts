@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { Lean } from 'src/app/types/entity-types';
 import { widthExpandCollapse } from './member-list.animations';
 
@@ -27,6 +27,6 @@ export class MemberListComponent {
   }
 
   constructor(
-    public userService: UsersService,
+    public userService: UserService,
   ) {}
 }

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { GuildService } from '../services/guild.service';
-import { UsersService } from '../services/users.service';
+import { UserService } from '../services/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class GuildAuthGuard implements CanActivate {
   constructor(
     private guildService: GuildService,
     private router: Router,
-    private userService: UsersService) {}
+    private userService: UserService) {}
 
   public async canActivate(next: ActivatedRouteSnapshot) {
     await this.userService.init();

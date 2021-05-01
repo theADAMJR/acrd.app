@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GuildService } from '../../services/guild.service';
-import { UsersService } from '../../services/users.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-auth',
@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private guildService: GuildService,
-    private userService: UsersService) {}
+    private userService: UserService) {}
 
   async ngOnInit() {
     try {

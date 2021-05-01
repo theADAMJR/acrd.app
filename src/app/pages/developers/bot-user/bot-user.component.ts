@@ -7,7 +7,7 @@ import { UsernameValidators } from 'src/app/authentication/sign-up/username.vali
 import { SaveChangesComponent } from 'src/app/dashboard/components/save-changes/save-changes.component';
 import { DevelopersService } from 'src/app/services/developers.service';
 import { SoundService } from 'src/app/services/sound.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean, patterns } from 'src/app/types/entity-types';
 

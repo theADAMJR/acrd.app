@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { UsersService } from '../services/users.service';
+import { UserService } from '../services/user.service';
 import { GuildService } from '../services/guild.service';
 import { WSService } from '../services/ws.service';
 import { ChannelService } from '../services/channel.service';
@@ -14,7 +14,7 @@ export class DashboardAuthGuard implements CanActivate {
   constructor(
     private guildService: GuildService,
     private router: Router,
-    private userService: UsersService,
+    private userService: UserService,
     private auth: UserAuthService,
   ) {}
 

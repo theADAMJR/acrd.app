@@ -4,7 +4,7 @@ import { Args } from 'src/app/types/ws-types';
 import { ChannelService } from '../channel.service';
 import { MessageService } from '../message.service';
 import { SoundService } from '../sound.service';
-import { UsersService } from '../users.service';
+import { UserService } from '../user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ChannelEventService {
     private sounds: SoundService,
     private channelService: ChannelService,
     private messageService: MessageService,
-    private usersService: UsersService,
+    private userService: UserService,
   ) {}
 
   public async ping(args: Args.Ping) {

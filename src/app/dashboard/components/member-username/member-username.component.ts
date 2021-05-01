@@ -7,7 +7,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
@@ -45,7 +45,7 @@ export class MemberUsernameComponent implements OnInit {
       .filter(r => this.member.roleIds.includes(r._id));
   }
   public get isBlocked() {
-    return this.usersService.self.ignored.userIds.includes(this.user._id);
+    return this.userService.self.ignored.userIds.includes(this.user._id);
   }
   public get dmChannelId() {
     return this.channelService.getDM(this.user._id)?._id;
@@ -55,7 +55,7 @@ export class MemberUsernameComponent implements OnInit {
     private channelService: ChannelService,
     public perms: PermissionsService,
     public pings: PingService,
-    public usersService: UsersService,
+    public userService: UserService,
     private ws: WSService,
     public dialog: DialogService,
   ) {}

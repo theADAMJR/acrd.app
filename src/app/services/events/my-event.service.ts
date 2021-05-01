@@ -4,7 +4,7 @@ import { Lean } from 'src/app/types/entity-types';
 import { ChannelService } from '../channel.service';
 import { GuildService } from '../guild.service';
 import { SoundService } from '../sound.service';
-import { UsersService } from '../users.service';
+import { UserService } from '../user.service';
 import { Args, WSService } from '../ws.service';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class MyEventService {
     private guildService: GuildService,
     private router: Router,
     private sounds: SoundService,
-    private usersService: UsersService,
+    private userService: UserService,
   ) {}
 
   public async addFriend({ sender, friend, dmChannel }: Args.AddFriend) {
@@ -25,8 +25,8 @@ export class MyEventService {
       this.channelService.dmChannels.push(dmChannel);
   }
   public updateFriends({ sender, friend }: { sender: Lean.User, friend: Lean.User }) {
-    this.usersService.upsert(sender._id, sender);
-    this.usersService.upsert(friend._id, friend);
+    this.userService.upsert(sender._id, sender);
+    this.userService.upsert(friend._id, friend);
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {
@@ -37,11 +37,11 @@ export class MyEventService {
   }
 
   public updatePresence(args: Args.PresenceUpdate) {
-    this.usersService.upsert(args.userId, { status: args.status });
+    this.userService.upsert(args.userId, { status: args.status });
   }
 
   public updateUser(args: Args.UserUpdate) {
-    const user = this.usersService.self;
-    this.usersService.upsert(user._id, args.partialUser);
+    const user = this.userService.self;
+    this.userService.upsert(user._id, args.partialUser);
   }
 }

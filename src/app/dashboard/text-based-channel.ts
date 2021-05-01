@@ -6,7 +6,7 @@ import { LogService } from '../services/log.service';
 import { PingService } from '../services/ping.service';
 import { PermissionsService } from '../services/permissions.service';
 import { SoundService } from '../services/sound.service';
-import { UsersService } from '../services/users.service';
+import { UserService } from '../services/user.service';
 import { WSService } from '../services/ws.service';
 import { MessageService } from '../services/message.service';
 import { ChannelService } from '../services/channel.service';
@@ -59,7 +59,7 @@ export class TextBasedChannel implements OnInit {
     public perms: PermissionsService,
     public pings: PingService,
     public sounds: SoundService,
-    public userService: UsersService,
+    public userService: UserService,
     protected ws: WSService,
   ) {}
 

@@ -5,7 +5,7 @@ import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
@@ -27,7 +27,7 @@ export class ChannelTabComponent {
     public perms: PermissionsService,
     public pings: PingService,
     public router: Router,
-    public usersService: UsersService,
+    public userService: UserService,
     private ws: WSService,
   ) {}
 

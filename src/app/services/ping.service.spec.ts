@@ -3,11 +3,11 @@ import { AppModule } from '../app.module';
 import { Lean, UserTypes } from '../types/entity-types';
 
 import { PingService } from './ping.service';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 
 describe('PingService', () => {
   let service: PingService;
-  let usersService: UsersService;
+  let userService: UserService;
   let message: Lean.Message;
   let user: UserTypes.Self;
 
@@ -16,9 +16,9 @@ describe('PingService', () => {
       imports: [AppModule],
     });
     service = TestBed.inject(PingService);
-    usersService = TestBed.inject(UsersService);
+    userService = TestBed.inject(UserService);
 
-    user = usersService.self;
+    user = userService.self;
     user.username = 'test_user_123';
     user.ignored = {
       channelIds: [],

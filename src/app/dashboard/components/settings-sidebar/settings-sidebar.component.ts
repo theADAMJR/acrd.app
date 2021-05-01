@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PermissionTypes } from 'src/app/types/entity-types';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { GuildService } from 'src/app/services/guild.service';
 
 @Component({
@@ -61,7 +61,7 @@ export class SettingsSidebarComponent {
     private guildService: GuildService,
     private perms: PermissionsService,
     private router: Router,
-    private userService: UsersService,
+    private userService: UserService,
   ) {
     document.body.onkeyup = ({ key }) => {
       if (key === 'Escape')

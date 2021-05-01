@@ -77,7 +77,7 @@
     <span>Unblock</span>
   </button>
   <button
-    *ngIf="!isBlocked"  
+    *ngIf="!isBlocked && user._id === usersService.self"  
     (click)="usersService.block(user._id)"
     mat-menu-item>
     <i class="fas fa-ban text-danger mr-1"></i>

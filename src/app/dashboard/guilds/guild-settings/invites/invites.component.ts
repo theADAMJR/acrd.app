@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
@@ -19,7 +19,7 @@ export class InvitesComponent implements OnInit {
     private route: ActivatedRoute,
     private guildService: GuildService,
     public log: LogService,
-    public usersService: UsersService,
+    public userService: UserService,
     public ws: WSService,
   ) {}
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { Lean } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from './ws.service';
@@ -20,7 +20,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
     http: HttpClient,
     ws: WSService,
     private route: ActivatedRoute,
-    private usersService: UsersService,
+    private userService: UserService,
   ) { super(http, ws); }
 
   public getGuildFromChannel(channelId: string): Lean.Guild | undefined {
@@ -30,7 +30,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   }
 
   public getSelfMember(guildId: string): Lean.GuildMember {
-    return this.getMember(guildId, this.usersService.self._id);
+    return this.getMember(guildId, this.userService.self._id);
   }
 
   public getMemberById(memberId: string): Lean.GuildMember {
@@ -59,7 +59,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   }
 
   public async leave(guildId: string) {
-    const member = this.getMember(guildId, this.usersService.self._id);
+    const member = this.getMember(guildId, this.userService.self._id);
     await this.kick(guildId, member._id);
   }
 

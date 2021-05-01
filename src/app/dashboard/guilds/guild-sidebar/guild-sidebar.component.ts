@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { GuildService } from '../../../services/guild.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { PingService } from 'src/app/services/ping.service';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ChannelService } from 'src/app/services/channel.service';
@@ -35,7 +35,7 @@ export class GuildSidebarComponent implements OnInit {
     public channelService: ChannelService,
     public guildService: GuildService,
     public perms: PermissionsService,
-    public usersService: UsersService,
+    public userService: UserService,
     public pings: PingService,
     public dialog: DialogService,
   ) {}

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ChannelService } from '../services/channel.service';
-import { UsersService } from '../services/users.service';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class DMChannelAuthGuard implements CanActivate {
   constructor(
     private channelService: ChannelService,
     private router: Router,
-    private userService: UsersService) {}
+    private userService: UserService) {}
 
   public async canActivate(route: ActivatedRouteSnapshot) {
     await this.userService.init();

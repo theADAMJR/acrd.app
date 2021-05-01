@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsersService } from '../../../services/users.service';
+import { UserService } from '../../../services/user.service';
 import { GuildService } from '../../../services/guild.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ChannelService } from 'src/app/services/channel.service';
@@ -17,12 +17,12 @@ export class SidebarComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer;
 
   get guilds() { return this.guildService.guilds || []; }
-  get user() { return this.usersService.self; }
+  get user() { return this.userService.self; }
 
   constructor(
     public channelService: ChannelService,
     public guildService: GuildService,
-    private usersService: UsersService,
+    private userService: UserService,
     public dialog: DialogService,
   ) {}
 

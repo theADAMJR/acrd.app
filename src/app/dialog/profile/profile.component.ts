@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ChannelService } from 'src/app/services/channel.service';
 import { LogService } from 'src/app/services/log.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
@@ -42,7 +42,7 @@ export class ProfileComponent {
     @Inject(MAT_DIALOG_DATA) public data: { user: Lean.User },
     private channels: ChannelService,
     private log: LogService,
-    private users: UsersService,
+    private users: UserService,
     private ws: WSService,
   ) {}
 

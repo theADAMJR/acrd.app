@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../services/users.service';
+import { UserService } from '../../services/user.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit {
 
   get user() { return this.userService.self; }
 
-  constructor(private userService: UsersService) {}
+  constructor(private userService: UserService) {}
 
   async ngOnInit() {
     await this.userService.init();

@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { ChannelTypes, Lean } from '../types/entity-types';
 import { GuildService } from './guild.service';
 import { HTTPWrapper } from './http-wrapper';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +27,7 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
     http: HttpClient,
     ws: WSService,
     private guildService: GuildService,
-    private userService: UsersService,
+    private userService: UserService,
   ) { super(http, ws); }
 
   public getDM(recipientId: string): ChannelTypes.DM {

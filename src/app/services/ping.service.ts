@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Lean } from '../types/entity-types';
 import { SoundService } from './sound.service';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class PingService {
 
   constructor(
     private sounds: SoundService,
-    private usersService: UsersService,
+    private userService: UserService,
   ) {}
 
   public markAsRead(channelId: string) {
@@ -33,7 +33,7 @@ export class PingService {
   }
 
   public isIgnored(message: Lean.Message, guildId?: string): boolean {
-    const user = this.usersService.self;
+    const user = this.userService.self;
 
     return message.authorId === user._id
       || user.ignored.channelIds.includes(message.channelId)

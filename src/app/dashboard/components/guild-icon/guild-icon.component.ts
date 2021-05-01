@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({
@@ -14,7 +14,7 @@ export class GuildIconComponent {
 
   constructor(
     public dialogs: DialogService,
-    public users: UsersService,
+    public users: UserService,
     public guildService: GuildService,
   ) {}
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../../services/users.service';
+import { UserService } from '../../../services/user.service';
 import { ChannelService } from 'src/app/services/channel.service';
 import { Lean } from 'src/app/types/entity-types';
 
@@ -11,17 +11,17 @@ import { Lean } from 'src/app/types/entity-types';
 export class MeSidebarComponent implements OnInit {
   constructor(
     public channelService: ChannelService,
-    public usersService: UsersService,
+    public userService: UserService,
   ) {}
     
   public async ngOnInit() {
-    await this.usersService.init();
+    await this.userService.init();
     await this.channelService.init();
   }
 
   public getRecipient(channel: Lean.Channel) { 
     const userId = channel.memberIds
-      .filter(id => id !== this.usersService.self._id)[0];
-    return this.usersService.getCached(userId);
+      .filter(id => id !== this.userService.self._id)[0];
+    return this.userService.getCached(userId);
   }
 }

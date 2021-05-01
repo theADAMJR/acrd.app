@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
@@ -11,7 +11,7 @@ export class UserAuthService {
 
   public get loggedIn() {
     const expired = new JwtHelperService().isTokenExpired(this.key);
-    return this.usersService.self && !expired;
+    return this.userService.self && !expired;
   }
   public get key() {
     return localStorage.getItem('key');
@@ -23,7 +23,7 @@ export class UserAuthService {
 
   constructor(
     private http: HttpClient,
-    private usersService: UsersService,
+    private userService: UserService,
     private ws: WSService,
   ) {}
 
@@ -32,7 +32,7 @@ export class UserAuthService {
 
     if (res) {
       localStorage.setItem('key', res);
-      await this.usersService.updateSelf();
+      await this.userService.updateSelf();
     }
     return Boolean(res);
   }
@@ -46,7 +46,7 @@ export class UserAuthService {
       return res;
 
     localStorage.setItem('key', res);
-    await this.usersService.init();
+    await this.userService.init();
   }
 
   public async verify(code: string): Promise<string> {

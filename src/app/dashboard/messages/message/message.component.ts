@@ -8,7 +8,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
-import { UsersService } from 'src/app/services/users.service';
+import { UserService } from 'src/app/services/users.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
@@ -89,7 +89,7 @@ export class MessageComponent implements OnInit {
 
   public get processed() {
     const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
-    const getUser = (id: string) => this.usersService.getAsync(id);
+    const getUser = (id: string) => this.userService.getAsync(id);
 
     const getMention = (html: string, condition: boolean) => {
       return (condition)
@@ -98,41 +98,41 @@ export class MessageComponent implements OnInit {
     };
 
     const recipientHasRole = this.guildService
-      .getMember(this.guild?._id, this.usersService.self._id)?.roleIds
+      .getMember(this.guild?._id, this.userService.self._id)?.roleIds
       .some(id => this.guild?.roles.some(r => r._id === id));
   
     return toHTML(textEmoji(this.message.content), {
       discordCallback: {
         user: async (node) => getMention(
           `@${(await getUser(node.id))?.username ?? `Invalid User`}`,
-          this.usersService.self._id === node.id),
+          this.userService.self._id === node.id),
 
         role: (node) => getMention(
           `@${getRole(node.id)?.name ?? `Invalid Role`}`,
           recipientHasRole),
 
         everyone: (node) => getMention(`@everyone`, true),
-        here: (node) => getMention(`@here`, this.usersService.self.status !== 'OFFLINE')
+        here: (node) => getMention(`@here`, this.userService.self.status !== 'OFFLINE')
       }
     });
   }
 
   public get canManage() {
-    return this.author._id === this.usersService.self._id
+    return this.author._id === this.userService.self._id
       || (this.guild && this.perms.can(this.guild._id, 'SEND_MESSAGES'));
   }
 
   constructor(
     private log: LogService,
     private guildService: GuildService,
-    public usersService: UsersService,
+    public userService: UserService,
     private ws: WSService,
     private perms: PermissionsService,
     public dialog: DialogService,
   ) {}
 
   public async ngOnInit() {
-    this.author = await this.usersService.getAsync(this.message.authorId);
+    this.author = await this.userService.getAsync(this.message.authorId);
   }
 
   public removeEmbed() {

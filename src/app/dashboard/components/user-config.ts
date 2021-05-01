@@ -7,7 +7,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 import { WSService } from '../../services/ws.service';
 import { LogService } from '../../services/log.service';
-import { UsersService } from '../../services/users.service';
+import { UserService } from '../../services/user.service';
 import { Lean, UserTypes } from 'src/app/types/entity-types';
 
 @Directive()
@@ -20,7 +20,7 @@ export abstract class UserConfig implements OnDestroy {
   private valueChanges$: Subscription;  
   
   constructor(
-    protected usersService: UsersService,
+    protected userService: UserService,
     protected route: ActivatedRoute,
     public saveChanges: MatSnackBar,
     protected ws: WSService,
@@ -32,9 +32,9 @@ export abstract class UserConfig implements OnDestroy {
    * Load all required data for the form, and hook events.
    */
   public async init() {
-    await this.usersService.init();
+    await this.userService.init();
     
-    this.user = this.usersService.self;
+    this.user = this.userService.self;
     this.originalUser = JSON.parse(JSON.stringify(this.user));
     
     await this.resetForm();
@@ -82,7 +82,7 @@ export abstract class UserConfig implements OnDestroy {
   public async submit() {
     if (this.form.invalid) return;
 
-    this.usersService.self = Object.assign(this.user, this.form.value);
+    this.userService.self = Object.assign(this.user, this.form.value);
 
     this.ws.emitAsync('USER_UPDATE', {
       key: localStorage.getItem('key'),
