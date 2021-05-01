@@ -11,9 +11,6 @@ import { TextChannelComponent } from '../../guilds/text-channel/text-channel.com
   styleUrls: ['./dmchannel.component.css']
 })
 export class DMChannelComponent {
-  public recipient: Lean.User;
-  public channel: Lean.Channel;
-
   @ViewChild('textChannel')
   public textChannel: TextChannelComponent;
 }

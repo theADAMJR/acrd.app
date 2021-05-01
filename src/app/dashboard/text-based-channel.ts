@@ -25,7 +25,6 @@ export class TextBasedChannel {
   public get guild() {
     return this.guildService.self;
   }
-
   public get typingUserIds(): string[] {
     return this.channelService.getTyping(this.channelId);
   }
@@ -87,21 +86,7 @@ export class TextBasedChannel {
     
     setTimeout(() => this.scrollToMessage(), 100);
     
-    this.hookWSEvents();
     this.ready = true;
-  }
-
-  public hookWSEvents() {    
-    this.ws
-      .on('MESSAGE_CREATE', this.createMessage, this);
-  }
-
-  private async createMessage({ message }: Args.MessageCreate) { 
-    const selfIsAuthor = message.authorId === this.userService.self._id; 
-    if (selfIsAuthor)
-      await this.sounds.message();
-
-    setTimeout(() => this.scrollToMessage(), 100);
   }
 
   private scrollToMessage(end?: number) {
@@ -120,13 +105,16 @@ export class TextBasedChannel {
   public async chat(content: string) {
     if (!content.trim()) return;
     
+    content = content.replace(/\n+$/, '');
     this.messageInput.nativeElement.value = '';
 
-    this.ws.emit('MESSAGE_CREATE', {
+    this.ws.silentEmitAsync('MESSAGE_CREATE', {
       channelId: this.channel._id,
       partialMessage: { content },
     }, this);
+    await this.sounds.message();
 
+    this.scrollToMessage(this.messages.length);
     this.channelService.stopTyping(this.channelId, this.userService.self._id);
   }
 
@@ -141,7 +129,6 @@ export class TextBasedChannel {
         end: this.messages.length + 25
       });
     
-    this.scrollToMessage(this.messages.length);
 
     this.messages = moreMessages
       .concat(this.messages)
