@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { getConfig } from '../config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SoundService {
   private get sfxEnabled() {
-    return localStorage.getItem('sfx') !== 'disabled';
+    return getConfig('sfxEnabled');
   }
 
   public async ping() {

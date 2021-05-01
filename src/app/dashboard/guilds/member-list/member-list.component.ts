@@ -17,7 +17,8 @@ export class MemberListComponent {
   public get isExpanded() {
     return this._expanded;
   }
-  @Input('expanded') public set isExpanded(value: boolean) {
+  @Input('expanded')
+  public set isExpanded(value: boolean) {
     this._expanded = value;
     localStorage.setItem('memberListExpanded', value.toString());
   }
