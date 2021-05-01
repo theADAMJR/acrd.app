@@ -1,6 +1,6 @@
 <guild-sidebar>
   <app-guild-navbar
-    [activeChannel]="activeChannel"
+    [activeChannel]="textChannel.channel"
     [guild]="guild"
     (toggleMemberList)="memberList.expanded = !memberList.expanded"></app-guild-navbar>
 
@@ -18,11 +18,8 @@
         <p>No channels here, just emptiness.</p>
       </section>
 
-      <app-text-channel
-        *ngIf="activeChannel"
-        [channel]="activeChannel"
-        [guild]="guild"></app-text-channel>
-    </div>  
+      <app-text-channel #textChannel></app-text-channel>
+    </div>
 
     <div
       [hidden]="!memberList.expanded"

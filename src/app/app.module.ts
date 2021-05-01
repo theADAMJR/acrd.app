@@ -79,7 +79,7 @@ export class AlertErrorHandler implements ErrorHandler {
       await fetch(`${environment.endpoint}/error?key=${key}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: error.message })
+        body: JSON.stringify({ message: error.message }),
       });
     } finally {
       throw error;

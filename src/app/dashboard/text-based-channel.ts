@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GuildService } from '../services/guild.service';
@@ -14,8 +14,8 @@ import { Lean } from '../types/entity-types';
 
 @Component({ template: '' })
 export class TextBasedChannel implements OnInit {
-  @Input() public channel: Lean.Channel;
-  @Input() public guild: Lean.Guild;
+  public channel: Lean.Channel;
+  public guild: Lean.Guild;
   private messageBatchSize = 25;
   
   @ViewChild('message')
@@ -63,7 +63,23 @@ export class TextBasedChannel implements OnInit {
     protected ws: WSService,
   ) {}
 
-  public async ngOnInit() {    
+  public async ngOnInit() {
+    this.route.paramMap.subscribe(async (paramMap) => {
+      const guildId = paramMap.get('guildId');
+      const channelId = paramMap.get('channelId');
+
+      this.guild = this.guildService.getCached(guildId);
+      this.channel = await this.channelService.getAsync(channelId);
+      
+      const defaultChannel = this.guild.channels.filter(c => c.type === 'TEXT')[0];          
+      if (defaultChannel && !channelId)
+        await this.router.navigate([`/channels/${guildId}/${defaultChannel._id}`]);
+
+      await this.init();
+    });
+  }
+
+  private async init() {
     if (this.channel.type === 'VOICE')
       return this.router.navigate(['..']);
 

@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChannelService } from 'src/app/services/channel.service';
 import { Lean } from 'src/app/types/entity-types';
 import { GuildService } from '../../../services/guild.service';
-import { TextChannelComponent } from '../text-channel/text-channel.component';
 
 @Component({
   selector: 'app-guild-overview',
@@ -27,7 +26,7 @@ export class GuildOverviewComponent implements OnInit {
       const channelId = paramMap.get('channelId');
 
       this.guild = this.guildService.getCached(guildId);
-      this.activeChannel = this.channelService.getCached(channelId);
+      this.activeChannel = await this.channelService.getAsync(channelId);
       
       const defaultChannel = this.guild.channels.filter(c => c.type === 'TEXT')[0];          
       if (defaultChannel && !channelId)
