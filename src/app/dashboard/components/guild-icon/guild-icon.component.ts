@@ -14,7 +14,7 @@ export class GuildIconComponent {
 
   constructor(
     public dialogs: DialogService,
-    public users: UserService,
     public guildService: GuildService,
+    public userService: UserService,
   ) {}
 }

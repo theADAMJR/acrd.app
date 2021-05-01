@@ -14,7 +14,6 @@
     [routerLink]="routerLink || './'">
     <app-avatar-url
       *ngIf="withAvatar"
-      (click)="dialog.profile({ user: user })"
       [user]="user"></app-avatar-url>
     <span
       class="status round"

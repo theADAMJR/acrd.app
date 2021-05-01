@@ -159,10 +159,12 @@ export class TextBasedChannel implements OnInit {
   }
 
   public onClick({ path }) {
-    const emojiPickerWasClicked = path
-      .some(n => n && n.nodeName === 'EMOJI-MART'
-        || n.classList?.contains('emoji-icon'));
-    this.emojiPickerOpen = emojiPickerWasClicked;
+    const pickerClicked = path
+      .some(n => n
+        && n.nodeName === 'EMOJI-MART'
+        || n.classList?.contains('emoji-icon'));  
+
+    this.emojiPickerOpen = pickerClicked;
   }
   
   public identifyMessage(index: number, item: Lean.Message) {

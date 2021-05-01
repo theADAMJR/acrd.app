@@ -1,6 +1,7 @@
 const defaultValues = {
   sfxEnabled: true,
   memberListExpanded: true,
+  theme: 'HORIZON',
 }
 
 for (const key in defaultValues) {
@@ -12,6 +13,9 @@ for (const key in defaultValues) {
 
 export function getConfig(key: ConfigKey): boolean {
   return localStorage.getItem(key as string) == 'true';
+}
+export function getConfigValue(key: ConfigKey): string {
+  return localStorage.getItem(key as string);
 }
 export function setConfig(key: ConfigKey, value: any) {
   localStorage.setItem(key as string, value.toString());

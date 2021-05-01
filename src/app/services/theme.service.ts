@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
+import { getConfigValue, setConfig } from '../config';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  public readonly defaultTheme = 'HORIZON';
+  public get defaultTheme() {
+    return getConfigValue('theme');
+  }
 
   public changeTheme(theme: string) {
-    localStorage.setItem('theme', theme);
+    setConfig('theme', theme);
 
     this.updateTheme();
   }
 
   public updateTheme() {
-    const theme = localStorage.getItem('theme') ?? this.defaultTheme;
     document
       .querySelector('html')
-      .setAttribute('theme', theme);
+      .setAttribute('theme', getConfigValue('theme'));
   }
 }

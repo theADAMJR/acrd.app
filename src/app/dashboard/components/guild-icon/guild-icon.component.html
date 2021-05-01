@@ -20,15 +20,17 @@
 <mat-menu
   matMenuContent
   #contextMenu>
-  <button
-    (click)="guildService.leave(guild._id)"
-    class="text-danger p-2"
-    mat-menu-item>
-    <i class="fas fa-door-open"></i>
-    <span> Leave</span>
-  </button>
-  
-  <hr>
+  <div *ngIf="guild.ownerId !== userService.self._id">
+    <button
+      (click)="guildService.leave(guild._id)"
+      class="text-danger p-2"
+      mat-menu-item>
+      <i class="fas fa-door-open"></i>
+      <span> Leave</span>
+    </button>
+    
+    <hr>
+  </div>
 
   <div (click)="$event.stopPropagation()" class="p-2">
     <strong>ID: </strong>
