@@ -1,6 +1,6 @@
 <div
   *ngIf="guild"
-  [@expandCollapse]="(expanded) ? 'expanded' : 'collapsed'"
+  [@expandCollapse]="(isExpanded) ? 'expanded' : 'collapsed'"
   class="float-right member-list">
   <div class="category">Online—{{ onlineMembers.length }}</div>
   <div>

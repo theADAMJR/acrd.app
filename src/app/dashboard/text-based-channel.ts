@@ -84,7 +84,7 @@ export class TextBasedChannel implements OnInit {
     this.pings.markAsRead(this.channel._id);
     this.messages = await this.messageService.getAllAsync(this.channel._id);
 
-    this.ws.on('MESSAGE_CREATE', ({ message }) => {
+    this.ws.on('MESSAGE_CREATE', ({ message }) => {      
       this.messages.push(message);
     }, this);
     

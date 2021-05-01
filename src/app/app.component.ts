@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LogService } from './services/log.service';
 import devtools from 'devtools-detect';
 import { EventService } from './services/events/event.service';
+import { getConfig } from './config';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import { EventService } from './services/events/event.service';
 })
 export class AppComponent implements OnInit {
   public get sfxEnabled() {
-    return localStorage.getItem('sfx') !== 'disabled';
+    return getConfig('sfxEnabled');
   }
 
   constructor(

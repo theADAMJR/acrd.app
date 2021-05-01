@@ -12,6 +12,7 @@ import { UserConfig } from 'src/app/dashboard/components/user-config';
 import { environment } from 'src/environments/environment';
 import { Lean, patterns } from 'src/app/types/entity-types';
 import faker from 'faker';
+import { getConfig, setConfig } from 'src/app/config';
 
 @Component({
   selector: 'app-user-settings',
@@ -45,7 +46,7 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
     return localStorage.getItem('theme');
   }
   public get sfxEnabled() {
-    return localStorage.getItem('sfx') !== 'disabled';
+    return getConfig('sfxEnabled');
   }
 
   constructor(
@@ -93,14 +94,8 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
     });
   }
 
-  public toggleSounds(enabled: boolean) {    
-    (enabled)
-      ? localStorage.setItem('sfx', 'enabled')
-      : localStorage.setItem('sfx', 'disabled')
-  }
-
-  public async submit() {
-    await super.submit();
+  public toggleSounds(enabled: boolean) {
+    setConfig('sfxEnabled', enabled);
   }
 
   public setAvatar(name: string) {        

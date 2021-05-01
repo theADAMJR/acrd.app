@@ -34,7 +34,6 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     },
   };
   public permissionType = Object.keys(PermissionTypes.All);
-
   public permissionsForm: FormGroup;
 
   public get isEveryone() {
@@ -53,7 +52,6 @@ export class RolesComponent extends ModuleConfig implements OnInit {
           ? PermissionTypes.General[key] || PermissionTypes.Text[key] || PermissionTypes.Voice[key]
           : 0;
       }
-
     return permissions;
   }
 
@@ -73,18 +71,6 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     this.guild.roles.sort((a, b) => (a.position < b.position) ? 1 : -1);
 
     this.selectRole(this.guild.roles[0]);
-    this.hookWSEvents();
-  }
-
-  private hookWSEvents() {
-    this.ws.on('GUILD_ROLE_CREATE', async ({ role }) => {
-      this.guild.roles.push(role);
-      this.originalGuild = {...this.guild};
-
-      await this.log.success();
-    }, this)
-    .on('GUILD_ROLE_DELETE', () => this.log.success(), this)
-    .on('GUILD_ROLE_UPDATE', () => this.log.success(), this);
   }
 
   public async selectRole(role: Lean.Role) {
@@ -171,6 +157,12 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       guildId: this.guildId,
       partialRole: this.form.value,
     }, this);
+
+    const index = this.guild.roles.findIndex(r => r._id === roleId);
+    this.selectedRole = this.guild.roles[index] = {
+      ...this.guild.roles[index],
+      ...this.form.value,
+    };
 
     this.originalGuild = { ...this.guild };
   }

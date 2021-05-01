@@ -19,6 +19,17 @@ export class GuildEventService {
     private guildService: GuildService,
   ) {}
 
+  public createRole({ guildId, role }: Args.GuildRoleCreate) {
+    const guild = this.guildService.getCached(guildId);
+    const index = guild.roles.push(role);
+  }
+
+  public deleteRole({ guildId, roleId }: Args.GuildRoleDelete) {
+    const guild = this.guildService.getCached(guildId);
+    const index = guild.roles.findIndex(r => r._id === roleId);
+    guild.roles.splice(index, 1);
+  }
+
   public updateRole({ guildId, roleId, partialRole }: Args.GuildRoleUpdate) {
     const guild = this.guildService.getCached(guildId);
     const index = guild.roles.findIndex(r => r._id === roleId);
@@ -53,12 +64,7 @@ export class GuildEventService {
   }
 
   public update({ guildId, partialGuild }: Args.GuildUpdate) {
-    const guild = this.guildService.getAsync(guildId);
-
-    this.guildService.upsert(guildId, {
-      ...guild,
-      ...partialGuild,
-    });
+    this.guildService.upsert(guildId, partialGuild);
   }
   
   public async delete({ guildId }: Args.GuildDelete) {
