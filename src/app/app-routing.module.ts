@@ -16,7 +16,7 @@ import { GuildSettingsComponent } from './dashboard/guilds/guild-settings/overvi
 import { InvitesComponent } from './dashboard/guilds/guild-settings/invites/invites.component';
 import { RolesComponent } from './dashboard/guilds/guild-settings/roles/roles.component';
 import { DMChannelAuthGuard } from './guards/dmchannel-auth.guard';
-import { DMChannelComponent } from './dashboard/me/dmchannel/dmchannel.component';
+import { DMComponent } from './dashboard/me/dmchannel/dm.component';
 import { UserSettingsComponent } from './dashboard/me/user-settings/user-settings.component';
 import { DevelopersComponent } from './pages/developers/developers.component';
 import { ApplicationComponent } from './pages/developers/application/application.component';
@@ -54,7 +54,7 @@ const routes: Routes = [
   },
   {
     path: 'channels/@me/:channelId',
-    component: DMChannelComponent,
+    component: DMComponent,
     canActivate: [DashboardAuthGuard, DMChannelAuthGuard],
   },
   {

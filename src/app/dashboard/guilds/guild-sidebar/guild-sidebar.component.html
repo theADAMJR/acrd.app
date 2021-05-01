@@ -41,17 +41,17 @@
 </sidebar>
 
 <mat-menu #guildMenu="matMenu">
-  <a *ngIf="guild && perms.can(guild._id, 'CREATE_INVITE')"
+  <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
     (click)="dialog.createInvite({ guild: guild })"
     class="dropdown-item invite"
     mat-menu-item>Invite People <i class="fas fa-user-plus"></i></a>
     
-  <a *ngIf="guild && perms.can(guild._id, 'MANAGE_GUILD')"
+  <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
     class="dropdown-item"
     [routerLink]="'/channels/' + guild._id + '/settings'"
     mat-menu-item>Guild Settings <i class="fas fa-cogs"></i></a>
     
-  <a *ngIf="guild && perms.can(guild._id, 'MANAGE_CHANNELS')"
+  <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
     (click)="dialog.createChannel({ guild: guild })"
     class="dropdown-item"
     mat-menu-item>Create Channel <i class="fas fa-plus-circle"></i></a>

@@ -1,18 +1,15 @@
-import { Injectable, Type } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UsersService } from './users.service';
-import { Partial } from '../types/ws-types';
 import { Lean } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from './ws.service';
-import { LogService } from './log.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class GuildService extends HTTPWrapper<Lean.Guild> {
   protected endpoint = environment.endpoint + '/guilds';
-  public self: Lean.Guild;
   
   protected _arr: Lean.Guild[] = [];
   public get guilds() {
@@ -24,19 +21,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
     ws: WSService,
     private route: ActivatedRoute,
     private usersService: UsersService,
-    private log: LogService,
   ) { super(http, ws); }
-  
-  public async init() {
-    await super.init();
-
-    this.route.paramMap.subscribe((paramMap) => {
-      const id = paramMap.get('guildId');      
-      if (!id) return;
-
-      this.self = this.getCached(id);
-    });
-  }
 
   public getGuildFromChannel(channelId: string): Lean.Guild | undefined {
     return this.guilds
@@ -48,9 +33,10 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
     return this.getMember(guildId, this.usersService.self._id);
   }
 
-  public getMemberById(guildId: string, memberId: string): Lean.GuildMember {
-    const guild = this.getCached(guildId);
-    return guild?.members.find(m => m._id === memberId);
+  public getMemberById(memberId: string): Lean.GuildMember {
+    return this.guilds
+      .flatMap(g => g.members)
+      .find(m => m._id === memberId);
   }
   public getMember(guildId: string, userId: string): Lean.GuildMember {
     const guild = this.getCached(guildId);

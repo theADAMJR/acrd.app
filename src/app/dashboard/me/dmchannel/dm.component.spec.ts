@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DMChannelComponent } from './dmchannel.component';
+import { DMComponent } from './dm.component';
 
 describe('DMChannelComponent', () => {
-  let component: DMChannelComponent;
-  let fixture: ComponentFixture<DMChannelComponent>;
+  let component: DMComponent;
+  let fixture: ComponentFixture<DMComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DMChannelComponent ]
+      declarations: [ DMComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DMChannelComponent);
+    fixture = TestBed.createComponent(DMComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

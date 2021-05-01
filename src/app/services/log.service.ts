@@ -26,7 +26,7 @@ export class LogService {
   public async success(message?: string) {
     if (message) {
       const popup = document.querySelector('#successPopup') as HTMLDivElement;
-      popup.toggleAttribute('hidden');
+      popup.removeAttribute('hidden');
       popup.innerText = message;
 
       setTimeout(() => popup.toggleAttribute('hidden'), this.hidePopupMs);
@@ -38,7 +38,7 @@ export class LogService {
   public async error(message?: string) {
     if (message) {
       const popup = document.querySelector('#errorPopup') as HTMLDivElement;
-      popup.toggleAttribute('hidden');
+      popup.removeAttribute('hidden');
       popup.innerText = message;
 
       setTimeout(() => popup.toggleAttribute('hidden'), this.hidePopupMs);

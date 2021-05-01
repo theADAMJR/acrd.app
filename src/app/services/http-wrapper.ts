@@ -7,7 +7,7 @@ import { WSService } from './ws.service';
 @Injectable({ providedIn: 'root' })
 export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   /** Object of the client, or that is being currently used. */
-  public abstract self?: T;
+  public self?: T;
   protected abstract endpoint: string;
 
   protected get headers() {
@@ -44,6 +44,7 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   public getAsync(id: string) {
     return this.getCached(id) ?? this.fetch(id);
   }
+  /** @deprecated */
   public add(val: T) {
     this.arr.push(val);
     return this.arr;

@@ -5,8 +5,8 @@
 
     <i class="fas fa-plus mx-2"></i>
     <i class="fas fa-at pr-2 text-muted"></i>
-    <strong>{{ textChannel.recipient?.username }}</strong>
+    <strong>{{ channelService.getRecipient(activeChannel._id)?.username }}</strong>
   </dashboard-navbar>
 
-  <app-text-channel #textChannel></app-text-channel>
+  <app-text-channel [channel]="activeChannel"></app-text-channel>
 </dashboard-sidebar>

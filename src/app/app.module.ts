@@ -42,7 +42,7 @@ import { GuildSettingsComponent } from './dashboard/guilds/guild-settings/overvi
 import { RolesComponent } from './dashboard/guilds/guild-settings/roles/roles.component';
 import { InvitesComponent } from './dashboard/guilds/guild-settings/invites/invites.component';
 import { FriendsListComponent } from './dashboard/me/friends-list/friends-list.component';
-import { DMChannelComponent } from './dashboard/me/dmchannel/dmchannel.component';
+import { DMComponent } from './dashboard/me/dmchannel/dm.component';
 import { UserSettingsComponent } from './dashboard/me/user-settings/user-settings.component';
 import { BotListComponent } from './dashboard/guilds/guild-settings/bot-list/bot-list.component';
 import { MessageEmbedComponent } from './dashboard/messages/message-embed/message-embed.component';
@@ -124,7 +124,7 @@ export class AlertErrorHandler implements ErrorHandler {
     RolesComponent,
     InvitesComponent,
     FriendsListComponent,
-    DMChannelComponent,
+    DMComponent,
     UserSettingsComponent,
     BotListComponent,
     MemberListComponent,

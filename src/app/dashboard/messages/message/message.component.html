@@ -84,7 +84,8 @@
 </ng-template>
 
 <ng-template #messageOptions>
-  <span class="message-options float-right">
+  <!-- FIXME: weird positioning -->
+  <!-- <span class="message-options float-right">
     <button
       *ngIf="usersService.self._id === author._id"
       matTooltip="Edit"
@@ -107,7 +108,7 @@
       mat-button>
       <i class="fas fa-ellipsis-v text-light fa-2x"></i>
     </button>
-  </span>
+  </span> -->
 </ng-template>  
 
 <mat-menu

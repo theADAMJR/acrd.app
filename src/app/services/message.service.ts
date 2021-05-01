@@ -38,11 +38,14 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
   }
 
   // TODO: eventually use override keyword
-  public overrideAdd(message: Lean.Message) {
-    const messages = this.getAllCached(message.channelId);
-    messages.push(message);
+  public overrideAdd(messages: Lean.Message[]): Lean.Message[] {    
+    const channelId = messages[0]?.channelId;
+    if (!channelId) return [];
 
-    this.cached.set(message.channelId, messages);
+    const cached = this.getAllCached(channelId);
+    return this.cached
+      .set(channelId, cached.concat(messages))
+      .get(channelId);
   }
 
   // TODO: eventually use override keyword
@@ -52,8 +55,7 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
       .get(`${this.endpoint}/${channelId}/messages${query}`, this.headers)
       .toPromise() as any;
     
-    this.getAllCached(channelId).push(messages);
-    return messages;
+    return this.overrideAdd(messages);
   }
 }
 

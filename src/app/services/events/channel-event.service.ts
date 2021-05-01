@@ -10,10 +10,6 @@ import { UsersService } from '../users.service';
   providedIn: 'root'
 })
 export class ChannelEventService {
-  private get activeChannelId() {
-    return this.route.snapshot.paramMap.get('channelId');
-  }
-
   constructor(
     private route: ActivatedRoute,
     private sounds: SoundService,
@@ -23,13 +19,11 @@ export class ChannelEventService {
   ) {}
 
   public async ping(args: Args.Ping) {
-    const channelIsActive = this.activeChannelId === args.channelId;
-    if (!channelIsActive)
-      await this.sounds.ping();
+    await this.sounds.ping();
   }
 
   public async addMessage({ message }: Args.MessageCreate) { 
-    this.messageService.overrideAdd(message);
+    this.messageService.overrideAdd([message]);
   }
 
   public deleteMessage({ channelId, messageId }: Args.MessageDelete) {

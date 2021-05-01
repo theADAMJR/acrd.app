@@ -77,7 +77,7 @@ app-avatar-url {
 	position:relative;
 	cursor:default;
 	color:transparent;
-	margin:3px 23px 0 -55px;
+	margin:3px 0 0 -55px;
 }
 	
 .extra-message:hover .timestamp {

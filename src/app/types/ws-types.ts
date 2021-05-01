@@ -88,7 +88,9 @@ export interface WSEventAsyncArgs {
   'MESSAGE_DELETE': Args.MessageDelete;
   /** Called when an existing message is updated in a text-based channel. */
   'MESSAGE_UPDATE': Args.MessageUpdate;
+  /** Called when a message is sent in a channel you are not ignoring. */
   'PING': Args.Ping;
+  /** Called when a user goes online or offline. */
   'PRESENCE_UPDATE': Args.PresenceUpdate;
   /** Called when the websocket accepts that you are ready. */
   'READY': Args.Ready;
@@ -136,7 +138,9 @@ export interface WSEventArgs {
   'MESSAGE_DELETE': (args: Args.MessageDelete) => any;
   /** Called when an existing message is updated in a text-based channel. */
   'MESSAGE_UPDATE': (args: Args.MessageUpdate) => any;
+  /** Called when a message is sent in a channel you are not ignoring. */
   'PING': (args: Args.Ping) => any;
+  /** Called when a user goes online or offline. */
   'PRESENCE_UPDATE': (params: Args.PresenceUpdate) => any;
   /** Called when the websocket accepts that you are ready. */
   'READY': () => any;

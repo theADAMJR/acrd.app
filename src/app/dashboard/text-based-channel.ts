@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GuildService } from '../services/guild.service';
@@ -7,55 +7,41 @@ import { PingService } from '../services/ping.service';
 import { PermissionsService } from '../services/permissions.service';
 import { SoundService } from '../services/sound.service';
 import { UsersService } from '../services/users.service';
-import { Args, WSService } from '../services/ws.service';
+import { WSService } from '../services/ws.service';
 import { MessageService } from '../services/message.service';
 import { ChannelService } from '../services/channel.service';
+import { Lean } from '../types/entity-types';
 
 @Component({ template: '' })
 export class TextBasedChannel implements OnInit {
+  @Input() public channel: Lean.Channel;
+  @Input() public guild: Lean.Guild;
   private messageBatchSize = 25;
-
-  private get channelId() {
-    return this.channelService.self?._id
-      ?? this.route.snapshot.paramMap.get('channelId');
-  }
-
-  public get channel() {
-    return this.channelService.self
-      ?? this.channelService.getCached(this.channelId);
-  }
-  public get guild() {
-    return this.guildService.self;
-  }
-  public get typingUserIds(): string[] {
-    return this.channelService.getTyping(this.channelId);
-  }
   
   @ViewChild('message')
   private messageInput: ElementRef;
   
   public chatBox = new FormControl();
   public emojiPickerOpen = false;
-  public messages = [];
   public ready = false;
-
-  private lastTypingEmissionAt = null;
+  public messages = [];
+  private lastTypedAt = null;
 
   public get typingUsernames() {
-    return this.typingUserIds
+    return this.channelService
+      .getTyping(this.channel._id)
       .map(async (id) => {
         const user = await this.userService.getAsync(id);
         return user.username;
       });
   }
+
   public get loadedAllMessages() {
     return this.messages.length <= 0
       || this.messages.length % this.messageBatchSize !== 0;
   }
   public get recipient() {
-    const recipientId = this.channel.memberIds
-      ?.find(id => id !== this.userService.self._id);
-    return this.userService.getCached(recipientId);
+    return this.channelService.getRecipient(this.channel._id);
   }
   public get title() {
     return (this.channel.type === 'DM')
@@ -77,24 +63,29 @@ export class TextBasedChannel implements OnInit {
     protected ws: WSService,
   ) {}
 
-  public async ngOnInit() {
+  public async ngOnInit() {    
     if (this.channel.type === 'VOICE')
       return this.router.navigate(['..']);
 
-    this.pings.markAsRead(this.channel._id);
-
     document.title = this.title;
+      
+    this.pings.markAsRead(this.channel._id);
     this.messages = await this.messageService.getAllAsync(this.channel._id);
-    
-    setTimeout(() => this.scrollToMessage(), 100);
+
+    this.ws.on('MESSAGE_CREATE', ({ message }) => {
+      this.messages.push(message);
+    }, this);
     
     this.ready = true;
+    this.scrollToMessage();
   }
 
-  private scrollToMessage() {
-    const messages = document.querySelector('.messages');
-    const height = messages.scrollHeight;
-    messages.scrollTop = height;
+  private scrollToMessage(timeout = 100) {
+    setTimeout(() => {
+      const messages = document.querySelector('.messages');
+      const height = messages.scrollHeight;
+      messages.scrollTop = height;      
+    }, timeout);
   }
 
   public async chat(content: string) {
@@ -103,56 +94,51 @@ export class TextBasedChannel implements OnInit {
     content = content.replace(/\n+$/, '');
     this.messageInput.nativeElement.value = '';
 
-    this.ws.silentEmitAsync('MESSAGE_CREATE', {
+    this.ws.emit('MESSAGE_CREATE', {
       channelId: this.channel._id,
       partialMessage: { content },
     }, this);
     await this.sounds.message();
 
-    this.scrollToMessage();
-    this.channelService.stopTyping(this.channelId, this.userService.self._id);
+    this.scrollToMessage(50);
+
+    this.channelService.stopTyping(this.channel._id, this.userService.self._id);
   }
 
   public async loadMoreMessages() {
     if (this.loadedAllMessages) return;
 
-    this.log.info('Loading more messages', 'text');
-
-    const moreMessages = await this.messageService
+    await this.messageService
       .overrideFetchAll(this.channel._id, {
         start: this.messages.length,
         end: this.messages.length + this.messageBatchSize
-      });    
+      });
 
-    this.messages = moreMessages
-      .concat(this.messages)
-      .sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1);
+    this.scrollToMessage();
   }
   
   public shouldCombine(index: number) {
     const lastIndex = Math.max(0, index - 1);
     const lastMessage = (index) ? this.messages[lastIndex] : null;
-    if (!lastMessage)
-      return false;
+    if (!lastMessage) return false;
 
     const message = this.messages[index];
-    
     const msDifference = new Date(message.createdAt).getTime() - new Date(lastMessage?.createdAt).getTime();    
     const minsAgo = msDifference / 60 / 1000;    
 
-    return (message.authorId === lastMessage?.authorId)
-      && minsAgo < 5;
+    const maxTimeDifference = 5;
+    return message.authorId === lastMessage?.authorId && minsAgo < maxTimeDifference;
   }
 
-  public emitTypingStart() { 
-    const sinceLastTyped = new Date().getTime() - this.lastTypingEmissionAt?.getTime();    
+  public async emitTyping() { 
+    const sinceLastTyped = new Date().getTime() - this.lastTypedAt?.getTime();    
     if (sinceLastTyped < 5 * 1000) return;
     
-    this.ws.emit('TYPING_START', {
+    await this.ws.emitAsync('TYPING_START', {
       channelId: this.channel._id,
     }, this);
 
-    this.lastTypingEmissionAt = new Date();
+    this.lastTypedAt = new Date();
   }
 
   // emoji picker

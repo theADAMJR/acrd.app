@@ -10,9 +10,8 @@ import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
 export class ChannelService extends HTTPWrapper<Lean.Channel> {
-  protected endpoint = environment.endpoint + '/channels';
+  protected endpoint = `${environment.endpoint}/channels`;
   public typingUserIds = new Map<string, string[]>();
-  public self: Lean.Channel; 
   
   protected _arr: Lean.Channel[] = [];
   public get channels(): Lean.Channel[] {
@@ -27,27 +26,14 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   constructor(
     http: HttpClient,
     ws: WSService,
-    private route: ActivatedRoute,
     private guildService: GuildService,
     private userService: UsersService,
   ) { super(http, ws); }
-
-  public async init() {
-    await super.init();
-
-    this.route.paramMap.subscribe((paramMap) => {
-      const id = paramMap.get('channelId');
-      if (!id) return;
-
-      this.self = this.getCached(id);
-    });
-  }
 
   public getDM(recipientId: string): ChannelTypes.DM {
     return this.dmChannels.find(c =>c.memberIds.includes(recipientId)
       && c.memberIds.includes(this.userService.self._id));
   }
-
 
   public startTyping(channelId: string, userId: string) {
     const channelUsers = this.getTyping(channelId);
@@ -68,5 +54,12 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
       ?? this.typingUserIds
         .set(channelId, [])
         .get(channelId);
+  }
+
+  public getRecipient(channelId: string) {
+    const channel = this.getCached(channelId);
+    const recipientId = channel.memberIds
+      .find(id => id !== this.userService.self._id);
+    return this.userService.getCached(recipientId);
   }
 }

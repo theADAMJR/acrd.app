@@ -1,4 +1,5 @@
 .popup {
+  z-index: 1;
   position: static;
 }
 

@@ -42,7 +42,7 @@ export class GuildSidebarComponent implements OnInit {
 
   public async ngOnInit() {
     const guildId = this.route.snapshot.paramMap.get('guildId');    
-    this.guild = this.guildService.getCached(guildId);
+    this.guild = this.guildService.getCached(guildId);    
   }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
