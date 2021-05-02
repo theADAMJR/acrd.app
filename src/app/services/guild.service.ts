@@ -60,7 +60,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   }
 
   public async kick(guildId: string, userId: string) {
-    const member = this.getMember(guildId, userId);
+    const member = this.getMember(guildId, userId);    
     await this.ws.emitAsync('GUILD_MEMBER_REMOVE', {
       guildId,
       memberId: member._id,

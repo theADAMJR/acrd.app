@@ -43,6 +43,8 @@
   (closed)="perms.can(guild._id, 'MANAGE_ROLES')
     && perms.canManage(guild._id, user._id) && update()"
   #contextMenu>
+  <h6 class="pt-2 text-center">{{ user.username }}</h6>
+
   <div *ngIf="guild">
     <mat-form-field
       *ngIf="perms.can(guild._id, 'MANAGE_ROLES')"  
@@ -61,12 +63,14 @@
       </mat-select> 
     </mat-form-field>
 
+  </div>
+  <div *ngIf="guild">
     <button
       *ngIf="perms.can(guild._id, 'KICK_MEMBERS')
         && perms.canManage(guild._id, user._id)"
       (click)="guildService.kick(guild._id, user._id)"
       mat-menu-item>
-      <i class="fas fa-user text-muted mr-1"></i>
+      <i class="fas fa-times text-danger mr-1"></i>
       <span>Kick</span>
     </button>
   </div>
