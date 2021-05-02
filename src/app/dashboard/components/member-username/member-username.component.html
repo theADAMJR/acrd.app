@@ -59,10 +59,10 @@
           [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
       </mat-select> 
     </mat-form-field>
-    
 
     <button
-      *ngIf="perms.can(guild._id, 'KICK_MEMBERS') && userService.self._id !== user._id"
+      *ngIf="perms.can(guild._id, 'KICK_MEMBERS')
+        && perms.canManage(guild._id, user._id)"
       (click)="guildService.kick(guild._id, user._id)"
       mat-menu-item>
       <i class="fas fa-user text-muted mr-1"></i>

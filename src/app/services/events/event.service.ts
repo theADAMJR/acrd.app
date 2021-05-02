@@ -22,6 +22,7 @@ export class EventService {
       .on('CHANNEL_DELETE', this.guilds.deleteChannel, this.guilds)
       .on('GUILD_DELETE', this.guilds.delete, this.guilds)
       .on('GUILD_JOIN', this.me.joinGuild, this.me)
+      .on('GUILD_LEAVE', this.guilds.delete, this.guilds)
       .on('GUILD_MEMBER_ADD', this.guilds.addMember, this.guilds)
       .on('GUILD_MEMBER_UPDATE', this.guilds.updateMember, this.guilds)
       .on('GUILD_ROLE_CREATE', this.guilds.createRole, this.guilds)
