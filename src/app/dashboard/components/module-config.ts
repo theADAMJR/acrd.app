@@ -111,8 +111,8 @@ export abstract class ModuleConfig implements OnDestroy {
   }
   
   public async deleteGuild() {
-    const confirmation = prompt(`Please type 'CONFIRM' if you wish to delete this guild.`);
-    if (confirmation !== 'CONFIRM') return;
+    const confirmation = confirm(`Please confirm that you wish to delete ${this.guild.name}.`);
+    if (!confirmation) return;
 
     this.ws.emit('GUILD_DELETE', { guildId: this.guildId }, this);
 

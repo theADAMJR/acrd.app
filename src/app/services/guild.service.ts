@@ -5,7 +5,6 @@ import { UserService } from './user.service';
 import { Lean } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from './ws.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class GuildService extends HTTPWrapper<Lean.Guild> {
@@ -19,7 +18,6 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   constructor(
     http: HttpClient,
     ws: WSService,
-    private route: ActivatedRoute,
     private userService: UserService,
   ) { super(http, ws); }
 
@@ -54,8 +52,11 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   }
 
   public async leave(guildId: string) {
-    const member = this.getMember(guildId, this.userService.self._id);
-    await this.kick(guildId, member.userId);
+    const guild = this.getCached(guildId);
+    const confirmation = confirm(`Leave ${guild.name}?`);
+    if (!confirmation) return;
+
+    await this.kick(guildId, this.userService.self._id);
   }
 
   public async kick(guildId: string, userId: string) {

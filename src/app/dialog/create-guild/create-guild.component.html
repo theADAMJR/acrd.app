@@ -16,7 +16,9 @@
         <mat-error *ngIf="form.get('name').invalid">Required, and should be less than 32 characters.</mat-error>
       </mat-form-field>
       <div class="d-flex justify-content-center">
-        <button class="btn btn-success mt-2 mb-4">Create</button>
+        <button
+          class="bg-primary mt-2 mb-4"
+          mat-button>Create</button>
       </div>
     </form>
   </div>
@@ -37,5 +39,6 @@
     (click)="joinGuild()"
     id="joinGuildButton"
     type="button"
-    class="btn btn-secondary">Join a Guild</button>
+    class="bg-secondary"
+    mat-button>Join a Guild</button>
 </div>

@@ -227,17 +227,26 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
 .text-tertiary {
   color: var(--tertiary) !important;
 }
-.bg-primary {
-  background-color: var(--primary) !important;
-}
+.bg-primary,
 .bg-primary:hover {
   background-color: var(--primary) !important;
 }
-.bg-success {
-  background-color: var(--success) !important;
+.bg-secondary,
+.bg-secondary:hover {
+  color: var(--dark);
+  background-color: var(--secondary) !important;
 }
+.bg-success,
 .bg-success:hover {
   background-color: var(--success) !important;
+}
+
+// utils override
+a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
+  background-color: var(--primary) !important;
+}
+a.bg-secondary:focus, a.bg-secondary:hover, button.bg-secondary:focus, button.bg-secondary:hover {
+  background-color: var(--secondary) !important;
 }
 
 // global

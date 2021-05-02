@@ -73,9 +73,7 @@ export class GuildEventService {
   }
   
   public async delete({ guildId }: Args.GuildDelete) {
-    const index = this.guildService.delete(guildId);
-    const isActive = this.guildService.self._id == guildId;
-    if (isActive)
-      await this.router.navigate(['/channels/@me']);
+    this.guildService.delete(guildId);
+    await this.router.navigate(['/channels/@me']);
   }
 }

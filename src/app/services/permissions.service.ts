@@ -16,10 +16,10 @@ export class PermissionsService {
 
     const member = this.guildService.getSelfMember(guildId);
     const totalPerms = guild.roles
-      .filter(r => member.roleIds.includes(r._id))
+      .filter(r => member?.roleIds.includes(r._id))
       .reduce((acc, value) => value.permissions | acc, 0);
       
-    return guild.ownerId == member.userId
+    return guild.ownerId == member?.userId
       || this.hasPermission(totalPerms, PermissionTypes.All[permission] as number);
   }
   public hasPermission(totalPerms: number, permission: number) {
