@@ -40,7 +40,8 @@
 </div>
 
 <mat-menu
-  (closed)="update()"
+  (closed)="perms.can(guild._id, 'MANAGE_ROLES')
+    && perms.canManage(guild._id, user._id) && update()"
   #contextMenu>
   <div *ngIf="guild">
     <mat-form-field

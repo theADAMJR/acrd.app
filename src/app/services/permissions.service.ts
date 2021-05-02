@@ -7,17 +7,14 @@ import { UserService } from './user.service';
 export class PermissionsService {
   constructor(
     private guildService: GuildService,
-    private userService: UserService,
   ) {}
 
-  public async can(guildId: string, permission: PermissionTypes.PermissionString) {
+  public can(guildId: string, permission: PermissionTypes.PermissionString) {
     const guild = this.guildService.getCached(guildId);
     if (!guild)
       throw new TypeError('Guild Not Found');
 
     const member = this.guildService.getSelfMember(guildId);
-    if (!member) return false;
-
     const totalPerms = guild.roles
       .filter(r => member.roleIds.includes(r._id))
       .reduce((acc, value) => value.permissions | acc, 0);

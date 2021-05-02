@@ -227,7 +227,6 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
 .text-tertiary {
   color: var(--tertiary) !important;
 }
-
 .bg-primary {
   background-color: var(--primary) !important;
 }
@@ -274,6 +273,3 @@ a {
   color: var(--font) !important;
   border: none !important;
 }
-
-// colours:
-// 4A3050 (bg-primary), 4D426C, 4C429C (primary), 493A77, 372224

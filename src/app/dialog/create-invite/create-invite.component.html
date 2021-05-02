@@ -11,7 +11,7 @@
     <button
       (click)="copyToClipboard()"
       matTooltip="Copy"
-      class="btn p-4 mt-1 btn-outline-primary"
+      class="btn p-3 mt-1 bg-primary"
       color="primary">
       <i class="fas fa-clipboard"></i>
     </button>
@@ -20,8 +20,14 @@
 
 <hr>
 
-<div>
-  <h3 class="text-center">Options</h3>
+<a (click)="showOptions.value = true"
+  *ngIf="!showOptions.value"
+  class="cursor-pointer">Show Options</a>
+
+<input type="hidden" #showOptions>
+
+<div *ngIf="showOptions.value">
+  <h6 class="text-center">Options</h6>
   <form #f="ngForm" [formGroup]="form">
     <mat-form-field appearance="outline">
       <mat-label>Max Uses</mat-label>
@@ -37,12 +43,12 @@
         formControlName="expiresAt" matInput>
     </mat-form-field>
   </form>
-</div>
 
-<div class="d-flex justify-content-center" mat-dialog-actions>
-  <button
-    [disabled]="!recentlyUpdated"
-    class="bg-success text-dark"
-    (click)="updateInvite()"
-    mat-button>Update</button>
+  <div class="d-flex justify-content-center" mat-dialog-actions>
+    <button
+      [disabled]="!recentlyUpdated"
+      class="bg-success text-dark"
+      (click)="updateInvite()"
+      mat-button>Update</button>
+  </div>
 </div>
