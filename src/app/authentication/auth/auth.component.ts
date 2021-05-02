@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LogService } from 'src/app/services/log.service';
 import { GuildService } from '../../services/guild.service';
 import { UserService } from '../../services/user.service';
 
@@ -13,9 +14,11 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private guildService: GuildService,
-    private userService: UserService) {}
+    private log: LogService,
+    private userService: UserService,
+  ) {}
 
-  async ngOnInit() {
+  public async ngOnInit() {
     try {
       const key = this.route.snapshot.queryParamMap.get('key');
       localStorage.setItem('key', key);
@@ -23,10 +26,10 @@ export class AuthComponent implements OnInit {
       await this.userService.updateSelf();
       await this.guildService.fetchAll();
       
-      this.router.navigate(['/channels/@me']);
-    } catch {
-      alert('Invalid key - check console');
-      this.router.navigate(['/']);
+      await this.router.navigate(['/channels/@me']);
+    } catch(error) {
+      await this.log.error(error.message);
+      await this.router.navigate(['/']);
     }
   }
 }

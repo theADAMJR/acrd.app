@@ -28,6 +28,7 @@ import { InviteComponent } from './pages/invite/invite.component';
 import { externalRedirect } from './utils/external-redirect';
 import { environment } from 'src/environments/environment';
 import { ComingSoonComponent } from './utils/coming-soon/coming-soon.component';
+import { WhyComponent } from './pages/why/why.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },

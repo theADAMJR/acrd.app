@@ -68,6 +68,7 @@ import { GuildNavbarComponent } from './dashboard/components/guild-navbar/guild-
 import { ProfileComponent } from './dialog/profile/profile.component';
 import { GuildIconComponent } from './dashboard/components/guild-icon/guild-icon.component';
 import { AddFriendComponent } from './dialog/add-friend/add-friend.component';
+import { WhyComponent } from './pages/why/why.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -147,6 +148,7 @@ export class AlertErrorHandler implements ErrorHandler {
     ProfileComponent,
     GuildIconComponent,
     AddFriendComponent,
+    WhyComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -1,12 +1,9 @@
-import { Component, Input, OnInit, Type, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSelect } from '@angular/material/select';
-import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
 import { ChannelService } from 'src/app/services/channel.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
-import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
 import { UserService } from 'src/app/services/user.service';

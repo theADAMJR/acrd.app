@@ -1,0 +1,83 @@
+<navbar></navbar>
+
+<header class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">Chat With Ease</h1>
+    <p class="lead">
+      Seamlessly chat with friends within seconds. <br>
+      Accord is easy to use, and customizable.
+    </p>
+    <button routerLink="/login" class="bg-success text-dark" mat-button>Get Started</button>
+    <a href="#features">
+      <button class="bg-info ml-2 text-light" mat-button>Features</button>
+    </a>
+  </div>
+</header>
+
+<waves></waves>
+<section id="features" class="main">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="display-4">
+        <span class="text-muted">Ditch </span>
+        <span class="text-light">Discord</span>
+        <span class="text-secondary">, Go </span>
+        <span>Accord</span>
+        <span class="text-muted">.</span>
+      </h2>
+      <p class="lead"></p>
+    </div>
+    <hr>
+  
+    <div class="row">      
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <mat-card class="bg-transparent shadow-none">
+          <!-- <img src="assets/img/logo.png" alt="" mat-card-image> -->
+          <mat-card-title><i class="fas fa-check-circle"></i> Get More Done</mat-card-title>
+          <mat-card-subtitle>Built for Efficiency</mat-card-subtitle>
+          <mat-card-content class="text-secondary">Get started quicker with Accord, with easy sign-up, an easy to use UI, and 2FA.</mat-card-content>
+          <!-- <mat-card-actions class="text-center">
+            <button class="bg-info" mat-button>See How</button>
+          </mat-card-actions> -->
+        </mat-card>
+      </div>
+      
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <mat-card class="bg-transparent shadow-none">
+          <!-- <img src="assets/img/logo.png" alt="" mat-card-image> -->
+          <mat-card-title><i class="fas fa-paint-roller"></i> Custom Themes</mat-card-title>
+          <mat-card-subtitle>Customize to Your Accord</mat-card-subtitle>
+          <mat-card-content class="text-secondary">Choose from a wide range of premade themes to customize your experience.</mat-card-content>
+        </mat-card>
+      </div>
+    
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <mat-card class="bg-transparent shadow-none">
+          <mat-card-title>
+            <i class="fas fa-check-circle"></i> 
+            <span> More Features to Come</span>
+          </mat-card-title>
+          <mat-card-subtitle>Constant Innovation of Features</mat-card-subtitle>
+          <mat-card-content class="text-secondary">Lots of exciting features like voice channels, native mobile support, bot users and more are planned.</mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="col-12">
+    <div class="d-flex justify-content-center">
+      <button
+        routerLink="/login"
+        class="bg-success text-dark"
+        mat-button>Get Started</button>
+    </div>
+  </div>
+
+  <app-submarine></app-submarine>
+</section>
+  
+<footer>
+  <p class="float-right bg-tertiary">{{ version }}</p>
+</footer>
