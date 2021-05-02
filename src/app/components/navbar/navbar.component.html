@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand">
+<nav class="navbar navbar-expand-md">
   <a class="navbar-brand" routerLink="/">
     <h1>
       <span>accord</span>
@@ -6,24 +6,42 @@
       <span class="text-secondary">app</span>
     </h1>
   </a>
-  <div class="nav navbar-nav">
-    <a class="nav-item nav-link" 
-      routerLink="/docs" 
-      routerLinkActive="active">
-      <i class="fa fa-book" aria-hidden="true"></i> Docs
-    </a>
-  </div>
-  <div class="nav navbar-nav ml-auto">
-    <div *ngIf="!user">
-      <a class="nav-item nav-link" routerLink="/login">
-        <i class="fa fa-user" aria-hidden="true"></i> Login
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="nav navbar-nav">
+      <a class="nav-item nav-link" 
+        routerLink="/docs" 
+        routerLinkActive="active">
+        <i class="fa fa-book" aria-hidden="true"></i> Docs
       </a>
     </div>
-    <div *ngIf="user">
-      <button mat-button [matMenuTriggerFor]="menu">
-        <app-avatar-url [user]="user"></app-avatar-url>
-        <span class="pl-1">{{ user.username }}</span>
-      </button>
+  
+    <div class="nav navbar-nav ml-auto">
+      <div class="d-md-none d-block mt-2"></div>
+      <div *ngIf="!user">
+        <a class="nav-item nav-link" routerLink="/login">
+          <i class="fa fa-user" aria-hidden="true"></i> Login
+        </a>
+      </div>
+      <div *ngIf="user">
+        <div
+          class="cursor-pointer"
+          [matMenuTriggerFor]="menu">
+          <app-avatar-url [user]="user"></app-avatar-url>
+          <span class="pl-1">{{ user.username }}</span>
+          <i class="fas fa-caret-down pl-2"></i>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
