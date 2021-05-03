@@ -33,17 +33,19 @@ export class PermissionsService {
       || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR);
   }
 
-  public canManage(guildId: string, userId: string) {
+  public canManage(guildId: string, userId: string, permission: PermissionTypes.PermissionString) {
     const selfMember = this.guildService.getSelfMember(guildId);
     const userMember = this.guildService.getMember(guildId, userId);
 
-    return this.isHigher(guildId, selfMember.roleIds, userMember.roleIds);
+    return this.userService.self._id === userMember.userId
+      || (this.isHigher(guildId, selfMember.roleIds, userMember.roleIds)
+      && this.can(guildId, permission));
   }
 
   public canPunish(guildId: string, userId: string, permission: PermissionTypes.PermissionString) {
     return this.userService.self._id !== userId
       && this.can(guildId, permission)
-      && this.canManage(guildId, userId);
+      && this.canManage(guildId, userId, permission);
   }
 
   public isHigher(guildId: string, firstRoleIds: string[], secondRoleIds: string[]) {

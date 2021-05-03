@@ -16,7 +16,6 @@ export class GuildEventService {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private guildService: GuildService,
     private userService: UserService,
   ) {}

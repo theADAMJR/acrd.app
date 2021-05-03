@@ -28,6 +28,8 @@ export class SoundService {
     const audio: HTMLAudioElement = document.createElement('audio');
     audio.setAttribute('src', `assets/audio/${name}.wav`);
     audio.onended = () => audio.remove();
-    await audio.play();
+    try {
+      await audio.play();
+    } catch {}
   }
 }
