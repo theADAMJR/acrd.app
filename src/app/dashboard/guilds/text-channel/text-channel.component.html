@@ -1,6 +1,6 @@
 <div (click)="onClick($event)">
   <div
-    *ngIf="channel"
+    *ngIf="channel && messages"
     class="messages"
     infiniteScroll
     [scrollWindow]="false"

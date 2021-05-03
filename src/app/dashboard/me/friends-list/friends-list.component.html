@@ -89,7 +89,7 @@
     </div>
        
     <div *ngSwitchCase="'BLOCKED'">
-      <div class="category pl-0 mb-2">Blocked—{{ 0 }}</div>
+      <div class="category pl-0 mb-2">Blocked—{{ blockedUsers.length }}</div>
 
       <div *ngFor="let user of blockedUsers">
         <div class="float-right">
@@ -97,7 +97,7 @@
             matTooltip="Unblock"
             class="cursor-pointer fas fa-times-circle"></i>
         </div>
-        <member-username></member-username>
+        <member-username [user]="user"></member-username>
       </div>
 
       <div

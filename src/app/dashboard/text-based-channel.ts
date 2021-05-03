@@ -34,7 +34,8 @@ export class TextBasedChannel implements OnInit {
   }
 
   public get loadedAllMessages() {
-    return this.messages.length <= 0
+    return this.messages
+      || this.messages.length <= 0
       || this.messages.length % this.messageBatchSize !== 0;
   }
   public get recipient() {
