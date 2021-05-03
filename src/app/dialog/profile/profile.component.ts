@@ -19,9 +19,9 @@ export class ProfileComponent {
       .map(id => this.users.getCached(id));
   }
   public get mutualGuilds(): Lean.Guild[] {
-    const otherGuilds = this.data.user.guilds;
+    const otherGuilds = this.data.user.guilds;    
     return this.users.self.guilds
-      .filter(g => otherGuilds.some(g => g?._id ?? g));
+      .filter(ug => otherGuilds.some(og => og._id === ug._id));
   }
 
   public get isSelf() {
