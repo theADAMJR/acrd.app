@@ -57,12 +57,11 @@ export class UserService extends HTTPWrapper<Lean.User> {
 
   public unblock(userId: string) {
     const index = this.self.ignored?.userIds.indexOf(userId);
-    const userIds = this.self.ignored?.userIds.splice(index, 1);
+    this.self.ignored?.userIds.splice(index, 1);
 
     this.ws.emit('USER_UPDATE', {
       partialUser: {
-        ...this.self,
-        ignored: { ...this.self.ignored, userIds },
+        ignored: this.self.ignored,
       },
       key: localStorage.getItem('key'),
     }, this);
