@@ -29,6 +29,7 @@
             </span>
             <span class="highlight-separator"> - </span>
             <span class="timestamp">{{ message.createdAt | timestamp }}</span>
+            <ng-container *ngTemplateOutlet="edited"></ng-container>
           </h2>
 
           <ng-container *ngTemplateOutlet="messageContent"></ng-container>
@@ -47,7 +48,10 @@
     <span class="content">
       <span
         class="timestamp no-select"
-        [matTooltip]="message.createdAt">{{ timeString }}</span>
+        [matTooltip]="message.createdAt">
+        <span>{{ timeString }}</span>
+        <ng-container *ngTemplateOutlet="edited"></ng-container>
+      </span>
       <ng-container *ngTemplateOutlet="messageContent"></ng-container>
     </span>
   </div>
@@ -59,7 +63,7 @@
     [matTooltip]="'Edited - ' + updatedAt"
     class="edit-indicator cursor-pointer ml-1"
     #edited>
-    <i class="fas fa-pencil-alt text-muted fa-xs"></i>
+    <i class="fas fa-pencil-alt text-muted"></i>
   </span>
 </ng-template>
 
@@ -71,7 +75,6 @@
     class="message-text d-inline"
     #newMessage>
   </div>
-  <ng-container *ngTemplateOutlet="edited"></ng-container>
 
   <message-embed
     (close)="removeEmbed()"

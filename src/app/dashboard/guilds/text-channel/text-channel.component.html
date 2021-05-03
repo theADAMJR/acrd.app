@@ -4,7 +4,7 @@
     class="messages"
     infiniteScroll
     [scrollWindow]="false"
-    (scrolledUp)="loadMoreMessages()">
+    (scrolledUp)="false && loadMoreMessages()">
     <div *ngIf="loadedAllMessages"
       class="jumbotron pb-0">
       <p class="lead">Start of {{ title }} message history.</p>
