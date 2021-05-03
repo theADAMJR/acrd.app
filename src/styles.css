@@ -26,9 +26,16 @@ h1,h2,h3,h4,h5 {
 
 hr {
   opacity: 0;
+}
 
-  /* margin-top: 5px;
-  margin-bottom: 10px; */
+pre code {
+  border-radius: 5px;
+  padding: .75em !important;
+  margin-top: 5px;
+}
+
+strong {
+  font-weight: bold !important;
 }
 
 footer {

@@ -81,10 +81,7 @@ export class TextBasedChannel implements OnInit {
     this.pings.markAsRead(this.channel._id);
     this.messages = await this.messageService.getAllAsync(this.channel._id);    
 
-    this.ws.on('MESSAGE_CREATE', ({ message }) => {      
-      // this.messages.push(message);
-      this.scrollToMessage(50);
-    }, this);
+    this.ws.on('MESSAGE_CREATE', () => this.scrollToMessage(50), this);
     
     this.ready = true;
     this.scrollToMessage();

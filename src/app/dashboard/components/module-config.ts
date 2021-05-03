@@ -75,11 +75,8 @@ export abstract class ModuleConfig implements OnDestroy {
     this.saveChanges$?.unsubscribe();
   }
 
-  /**
-   * Send the form data to the API.
-   */
+  /** Send the form data to the API. */
   public async submit() {
-    console.log(this.form.value);
     try {
       if (!this.form.valid) return;
 

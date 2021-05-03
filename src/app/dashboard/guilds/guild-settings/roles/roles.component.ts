@@ -6,6 +6,7 @@ import { ModuleConfig } from 'src/app/dashboard/components/module-config';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
+import { array } from 'src/app/utils/utils';
 import { Lean, PermissionTypes } from '../../../../types/entity-types';
 
 @Component({
@@ -68,7 +69,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   public async ngOnInit() {
     await super.init();
 
-    this.guild.roles.sort((a, b) => (a.position < b.position) ? 1 : -1);
+    this.guild.roles.sort(array.descendingBy('_id'));
 
     this.selectRole(this.guild.roles[0]);
   }
@@ -154,17 +155,19 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
   private async updateRole() {
     const roleId = this.selectedRole._id;
-    await this.ws.emitAsync('GUILD_ROLE_UPDATE', {
+    this.ws.on('GUILD_ROLE_UPDATE', () => {
+      const index = this.guild.roles.findIndex(r => r._id === roleId);
+      this.selectedRole = this.guild.roles[index] = {
+        ...this.guild.roles[index],
+        ...this.form.value,
+      };
+    }, this);
+
+    this.ws.emit('GUILD_ROLE_UPDATE', {
       roleId,
       guildId: this.guildId,
       partialRole: this.form.value,
     }, this);
-
-    const index = this.guild.roles.findIndex(r => r._id === roleId);
-    this.selectedRole = this.guild.roles[index] = {
-      ...this.guild.roles[index],
-      ...this.form.value,
-    };
 
     this.originalGuild = { ...this.guild };
   }

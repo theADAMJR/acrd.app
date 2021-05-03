@@ -1,0 +1,6 @@
+.text-channel-container {
+  padding-right: 0;
+}
+.text-channel-container + div {
+  padding-left: 5px;
+}
