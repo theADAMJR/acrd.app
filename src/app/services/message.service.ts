@@ -43,9 +43,8 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
     if (!channelId) return [];
 
     const cached = this.getAllCached(channelId);
-    return this.cached
-      .set(channelId, cached.concat(messages))
-      .get(channelId);
+    cached.push(...messages);
+    return cached;
   }
 
   // TODO: eventually use override keyword
