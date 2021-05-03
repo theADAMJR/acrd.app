@@ -173,16 +173,18 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   public async newRole() {
-    const { role } = await this.ws.emitAsync('GUILD_ROLE_CREATE', {
+    this.ws.on('GUILD_ROLE_CREATE', ({ role }) => {
+      this.guild.roles.push(role);
+      this.selectedRole = role;
+    }, this);
+
+    this.ws.emit('GUILD_ROLE_CREATE', {
       guildId: this.guildId,
       partialRole: {
         ...this.form.value,
         name: 'New Role',
       },
     }, this);
-
-    this.guild.roles.push(role);
-    this.selectedRole = role;
   }
 
   public async deleteRole() {

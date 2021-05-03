@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   endpoint: 'http://localhost:3000/api/v1',
   rootEndpoint: 'http://localhost:3000',
-  githubURL: 'https://github.com/theADAMJR/Accord',
+  githubURL: 'https://github.com/accorddotapp',
   version: 'v0.1.7a',
 };
 
