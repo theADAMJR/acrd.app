@@ -24,7 +24,7 @@ export class TextBasedChannel implements OnInit {
   public chatBox = new FormControl();
   public emojiPickerOpen = false;
   public ready = false;
-  public messages = [];
+  public messages: Lean.Message[];
   private lastTypedAt = null;
 
   public get typingUsernames() {
@@ -81,8 +81,12 @@ export class TextBasedChannel implements OnInit {
     this.pings.markAsRead(this.channel._id);
     this.messages = await this.messageService.getAllAsync(this.channel._id);
 
+    alert(this.messages === this.messageService.getCached(this.channel._id));
+    
+
     this.ws.on('MESSAGE_CREATE', ({ message }) => {      
-      this.messages.push(message);
+      // this.messages.push(message);
+      this.scrollToMessage(50);
     }, this);
     
     this.ready = true;
@@ -103,13 +107,11 @@ export class TextBasedChannel implements OnInit {
     content = content.replace(/\n+$/, '');
     this.messageInput.nativeElement.value = '';
 
-    await this.ws.emitAsync('MESSAGE_CREATE', {
+    this.ws.emit('MESSAGE_CREATE', {
       channelId: this.channel._id,
       partialMessage: { content },
     }, this);
     await this.sounds.message();
-
-    this.scrollToMessage(50);
 
     this.channelService.stopTyping(this.channel._id, this.userService.self._id);
   }
