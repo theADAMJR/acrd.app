@@ -51,18 +51,15 @@ export class GuildEventService {
 
   public async removeMember({ memberId, guildId }: Args.GuildMemberRemove) {
     const guild = this.guildService.getCached(guildId);
-    const oldMember = this.guildService.getMemberInGuild(guildId, memberId);
-    const index = guild.members.indexOf(oldMember);
-    alert(index);
+    const index = guild.members.findIndex(m => m._id === memberId);
     
     guild.members.splice(index, 1);
   }
   
   public updateMember({ guildId, partialMember, memberId }: Args.GuildMemberUpdate) {
     const guild = this.guildService.getCached(guildId);
-    const oldMember = this.guildService.getMember(guildId, memberId);
-    const index = guild.members.indexOf(oldMember);
-    alert(index);
+    const oldMember = this.guildService.getMemberInGuild(guildId, memberId);
+    const index = guild.members.findIndex(m => m._id === memberId);    
 
     return guild.members[index] = { ...oldMember, ...partialMember };
   }
