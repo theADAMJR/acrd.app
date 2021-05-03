@@ -45,7 +45,7 @@ export class GuildEventService {
   public async removeMember({ memberId, guildId }: Args.GuildMemberRemove) {
     const guild = this.guildService.getCached(guildId);
     const index = guild.members.findIndex(m => m._id === memberId);
-    
+
     guild.members.splice(index, 1);
   }
   
@@ -72,7 +72,8 @@ export class GuildEventService {
     this.guildService.upsert(guildId, partialGuild);
   }
   
-  public async delete({ guildId }: Args.GuildDelete) {
-    this.guildService.delete(guildId);
+  public async delete({ guildId }: Args.GuildDelete | Args.GuildLeave) {
+    while (this.guildService.getCached(guildId))
+      this.guildService.delete(guildId);    
   }
 }

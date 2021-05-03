@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 import { Lean } from '../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from './ws.service';
+import { array } from '../utils/utils';
 
 @Injectable({ providedIn: 'root' })
 export class GuildService extends HTTPWrapper<Lean.Guild> {
@@ -12,7 +13,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   
   protected _arr: Lean.Guild[] = [];
   public get guilds() {
-    return this._arr;
+    return this._arr.filter(array.distinctBy('_id'));
   }
   
   constructor(

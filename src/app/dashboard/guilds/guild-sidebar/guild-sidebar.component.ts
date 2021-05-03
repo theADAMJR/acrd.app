@@ -8,7 +8,7 @@ import { ChannelService } from 'src/app/services/channel.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lean } from 'src/app/types/entity-types';
-import { WSService } from 'src/app/services/ws.service';
+import { Args, WSService } from 'src/app/services/ws.service';
 
 @Component({
   selector: 'guild-sidebar',
@@ -53,11 +53,15 @@ export class GuildSidebarComponent implements OnInit {
         await this.router.navigate(['/channels/@me']);
     });
 
-    this.ws.on('GUILD_DELETE', async ({ guildId }) => {
-      if (guildId !== this.guild._id) return;
+    this.ws
+      .on('GUILD_DELETE', this.returnFromGuild, this)
+      .on('GUILD_LEAVE', this.returnFromGuild, this);
+  }
 
-      await this.router.navigate(['/channels/@me']);
-    }, this);
+  private async returnFromGuild({ guildId }: Args.GuildDelete | Args.GuildLeave) {
+    if (guildId !== this.guild._id) return;
+
+    await this.router.navigate(['/channels/@me']);
   }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
