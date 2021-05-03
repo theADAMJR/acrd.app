@@ -11,11 +11,9 @@ import { UserService } from '../user.service';
 })
 export class ChannelEventService {
   constructor(
-    private route: ActivatedRoute,
     private sounds: SoundService,
     private channelService: ChannelService,
     private messageService: MessageService,
-    private userService: UserService,
   ) {}
 
   public async ping(args: Args.Ping) {

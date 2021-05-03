@@ -143,14 +143,11 @@ export class TextBasedChannel implements OnInit {
   }
 
   public async emitTyping() { 
-    const sinceLastTyped = new Date().getTime() - this.lastTypedAt?.getTime();    
-    if (sinceLastTyped < 5 * 1000) return;
+    const sinceLastTyped = new Date().getTime() - this.lastTypedAt?.getTime();      
+    if (sinceLastTyped && sinceLastTyped < 5 * 1000) return; 
     
-    await this.ws.emitAsync('TYPING_START', {
-      channelId: this.channel._id,
-    }, this);
-
     this.lastTypedAt = new Date();
+    await this.ws.emitAsync('TYPING_START', { channelId: this.channel._id }, this);
   }
 
   // emoji picker
