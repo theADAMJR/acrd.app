@@ -25,6 +25,7 @@ export class EventService {
       .on('GUILD_LEAVE', this.guilds.delete, this.guilds)
       .on('GUILD_MEMBER_ADD', this.guilds.addMember, this.guilds)
       .on('GUILD_MEMBER_UPDATE', this.guilds.updateMember, this.guilds)
+      .on('GUILD_MEMBER_REMOVE', this.guilds.removeMember, this.guilds)
       .on('GUILD_ROLE_CREATE', this.guilds.createRole, this.guilds)
       .on('GUILD_ROLE_DELETE', this.guilds.deleteRole, this.guilds)
       .on('GUILD_ROLE_UPDATE', this.guilds.updateRole, this.guilds)

@@ -35,6 +35,10 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
     const guild = this.getCached(guildId);
     return guild?.members.find(m => m.userId === userId);
   }
+  public getMemberInGuild(guildId: string, memberId: string): Lean.GuildMember {
+    const guild = this.getCached(guildId);
+    return guild?.members.find(m => m._id === memberId);
+  }
 
   public async ownsGuild(guildId: string, userId: string) {
     const guild = await this.getAsync(guildId);
@@ -60,10 +64,14 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   }
 
   public async kick(guildId: string, userId: string) {
-    const member = this.getMember(guildId, userId);    
+    const member = this.getMember(guildId, userId);
     await this.ws.emitAsync('GUILD_MEMBER_REMOVE', {
       guildId,
       memberId: member._id,
     }, this);
+  }
+
+  public deleteGuild(guildId: string) {
+    return this.ws.emitAsync('GUILD_DELETE', { guildId }, this);
   }
 }

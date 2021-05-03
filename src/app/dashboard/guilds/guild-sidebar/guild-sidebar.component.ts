@@ -6,8 +6,9 @@ import { PingService } from 'src/app/services/ping.service';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ChannelService } from 'src/app/services/channel.service';
 import { DialogService } from 'src/app/services/dialog.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Lean } from 'src/app/types/entity-types';
+import { WSService } from 'src/app/services/ws.service';
 
 @Component({
   selector: 'guild-sidebar',
@@ -38,6 +39,8 @@ export class GuildSidebarComponent implements OnInit {
     public userService: UserService,
     public pings: PingService,
     public dialog: DialogService,
+    private router: Router,
+    private ws: WSService,
   ) {}
 
   public async ngOnInit() {
@@ -45,6 +48,12 @@ export class GuildSidebarComponent implements OnInit {
       const guildId = paramMap.get('guildId');
       this.guild = this.guildService.getCached(guildId);
     });
+
+    this.ws.on('GUILD_DELETE', async ({ guildId }) => {
+      if (guildId !== this.guild._id) return;
+
+      await this.router.navigate(['/channels/@me'])
+    }, this);
   }
 
   public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {

@@ -70,6 +70,8 @@ export interface WSEventAsyncArgs {
   'GUILD_MEMBER_ADD': Args.GuildMemberAdd;
   /** Called when member roles are updated, or other properties. */
   'GUILD_MEMBER_UPDATE': Args.GuildMemberUpdate;
+  /** Called when a guild member is removed, or leaves the guild. */
+  'GUILD_MEMBER_REMOVE': Args.GuildMemberRemove;
   /** Called when a guild role is created. */
   'GUILD_ROLE_CREATE': Args.GuildRoleCreate;
   /** Called when a guild role is deleted. */
@@ -118,6 +120,8 @@ export interface WSEventArgs {
   'GUILD_LEAVE': (args: Args.GuildLeave) => any;
   /** Called when someone joins a guild by an invite, or a bot is added. */
   'GUILD_MEMBER_ADD': (args: Args.GuildMemberAdd) => any;
+  /** Called when a guild member is removed, or leaves the guild. */
+  'GUILD_MEMBER_REMOVE': (args: Args.GuildMemberRemove) => any;
   /** Called when member roles are updated, or other properties. */
   'GUILD_MEMBER_UPDATE': (args: Args.GuildMemberUpdate) => any;
   /** Called when a guild role is created. */

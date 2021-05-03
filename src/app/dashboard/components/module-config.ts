@@ -83,14 +83,7 @@ export abstract class ModuleConfig implements OnDestroy {
     try {
       if (!this.form.valid) return;
 
-      this.ws.on('GUILD_UPDATE', ({ partialGuild }) => {
-        this.guild = {
-          ...this.guild,
-          ...partialGuild,
-        }
-      }, this);
-
-      this.ws.emit('GUILD_UPDATE', {
+      await this.ws.emitAsync('GUILD_UPDATE', {
         guildId: this.guildId,
         partialGuild: this.form.value,
       }, this);
@@ -114,10 +107,7 @@ export abstract class ModuleConfig implements OnDestroy {
     const confirmation = confirm(`Please confirm that you wish to delete ${this.guild.name}.`);
     if (!confirmation) return;
 
-    this.ws.emit('GUILD_DELETE', { guildId: this.guildId }, this);
-
-    const index = this.guildService.guilds.findIndex(g => g._id === this.guildId);
-    this.guildService.guilds.splice(index, 1);
+    this.guildService.deleteGuild(this.guildId);
 
     await this.router.navigate(['/channels/@me']);
     await this.log.success();

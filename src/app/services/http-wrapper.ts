@@ -81,6 +81,6 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   public async fetchAll() {
     return this._arr = (this.key)
       ? await this.http.get(this.endpoint, this.headers).toPromise() as any ?? []
-      : [];
+      : [];    
   }
 }
