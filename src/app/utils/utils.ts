@@ -50,3 +50,27 @@ export function uuid() {
     .map(s4)
     .join('');  
 }
+
+export function timestamp(date: Date) { 
+  date = new Date(date);
+  const timestamp = date.toTimeString().slice(0, 5);
+  
+  if (getDaysAgo(date))
+    return `Today at ${timestamp}`;
+  else if (getDaysAgo(date, -1))
+    return `Yesterday at ${timestamp}`;
+  else if (getDaysAgo(date, 1))
+    return `Tomorrow at ${timestamp}`;
+
+  return date
+    .toJSON()
+    .slice(0,10)
+    .split('-')
+    .reverse()
+    .join('/');
+}
+function getDaysAgo(date: Date, days = 0) {
+  return date.getDate() === new Date().getDate() + days
+    && date.getMonth() === new Date().getMonth()
+    && date.getFullYear() === new Date().getFullYear()
+}

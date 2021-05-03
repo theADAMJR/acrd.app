@@ -49,30 +49,6 @@ export class MessageComponent implements OnInit {
     const roleId = this.member?.roleIds[this.member?.roleIds.length - 1];
     return this.guild.roles.find(r => r._id == roleId)?.color;
   }
-
-  public get timestamp() { 
-    const createdAt = new Date(this.message.createdAt);
-    const timestamp = createdAt.toTimeString().slice(0, 5);
-    
-    if (this.getDaysAgo(createdAt))
-      return `Today at ${timestamp}`;
-    else if (this.getDaysAgo(createdAt, -1))
-      return `Yesterday at ${timestamp}`;
-    else if (this.getDaysAgo(createdAt, 1))
-      return `Tomorrow at ${timestamp}`;
-
-    return createdAt
-      .toJSON()
-      .slice(0,10)
-      .split('-')
-      .reverse()
-      .join('/');
-  }
-  private getDaysAgo(date: Date, days = 0) {
-    return date.getDate() === new Date().getDate() + days
-      && date.getMonth() === new Date().getMonth()
-      && date.getFullYear() === new Date().getFullYear()
-  }
   
   public get timeString() {
     const date = new Date(this.message.createdAt);
@@ -118,7 +94,7 @@ export class MessageComponent implements OnInit {
   }
 
   public get selfIsAuthor() {
-    return this.author._id === this.userService.self._id;
+    return this.author?._id === this.userService.self._id;
   }
 
   public get canManage() {

@@ -30,10 +30,7 @@ export class TextBasedChannel implements OnInit {
   public get typingUsernames() {
     return this.channelService
       .getTyping(this.channel._id)
-      .map(async (id) => {
-        const user = await this.userService.getAsync(id);
-        return user.username;
-      });
+      .map(id => this.userService.getCached(id).username);
   }
 
   public get loadedAllMessages() {

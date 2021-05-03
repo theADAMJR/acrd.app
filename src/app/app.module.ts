@@ -69,6 +69,7 @@ import { ProfileComponent } from './dialog/profile/profile.component';
 import { GuildIconComponent } from './dashboard/components/guild-icon/guild-icon.component';
 import { AddFriendComponent } from './dialog/add-friend/add-friend.component';
 import { WhyComponent } from './pages/why/why.component';
+import { TimestampPipe } from './pipes/timestamp.pipe';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -149,6 +150,7 @@ export class AlertErrorHandler implements ErrorHandler {
     GuildIconComponent,
     AddFriendComponent,
     WhyComponent,
+    TimestampPipe,
   ],
   imports: [
     AppRoutingModule,

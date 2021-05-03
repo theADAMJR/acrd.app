@@ -28,7 +28,7 @@
                 class="username-badge badge badge-secondary ml-1">SYSTEM</div>
             </span>
             <span class="highlight-separator"> - </span>
-            <span class="timestamp">{{ timestamp }}</span>
+            <span class="timestamp">{{ message.createdAt | timestamp }}</span>
           </h2>
 
           <ng-container *ngTemplateOutlet="messageContent"></ng-container>
