@@ -37,8 +37,8 @@ export class MyEventService {
     await this.sounds.success();
   }
 
-  public updatePresence(args: Args.PresenceUpdate) {
-    this.userService.upsert(args.userId, { status: args.status });
+  public updatePresence({ userId, status }: Args.PresenceUpdate) {
+    this.userService.upsert(userId, { status });
   }
 
   public updateUser(args: Args.UserUpdate) {

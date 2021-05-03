@@ -103,7 +103,7 @@ export class TextBasedChannel implements OnInit {
     content = content.replace(/\n+$/, '');
     this.messageInput.nativeElement.value = '';
 
-    this.ws.emit('MESSAGE_CREATE', {
+    await this.ws.emitAsync('MESSAGE_CREATE', {
       channelId: this.channel._id,
       partialMessage: { content },
     }, this);
