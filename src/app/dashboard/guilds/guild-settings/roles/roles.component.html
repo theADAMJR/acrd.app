@@ -105,13 +105,18 @@
           </div>
 
           <div>
-            <button (click)="clearPermissions()"
-              class="border border-white text-white"
+            <button
+              (click)="setPermissions(0)"
+              class="bg-light text-dark"
               mat-button>Clear Permissions</button>
+              <button
+                (click)="setPermissions()"
+                class="bg-warning text-dark ml-2"
+                mat-button>Default Permissions</button>
             <button
               *ngIf="!isEveryone"
               (click)="deleteRole()"
-              class="btn bg-transparent border border-danger text-danger ml-2"
+              class="btn bg-transparent bg-danger text-danger ml-2"
               mat-button>Delete Role</button>
           </div>
         </form>

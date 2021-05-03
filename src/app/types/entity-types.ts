@@ -155,6 +155,15 @@ export namespace PermissionTypes {
   export type Permission = General | Text | Voice;
 
   export type PermissionString = keyof typeof All;
+  
+  export const defaultPermissions =
+    PermissionTypes.General.VIEW_CHANNELS
+    | PermissionTypes.General.CREATE_INVITE
+    | PermissionTypes.Text.SEND_MESSAGES
+    | PermissionTypes.Text.READ_MESSAGES
+    | PermissionTypes.Text.ADD_REACTIONS
+    | PermissionTypes.Voice.CONNECT
+    | PermissionTypes.Voice.SPEAK;
 }
 
 export namespace UserTypes {

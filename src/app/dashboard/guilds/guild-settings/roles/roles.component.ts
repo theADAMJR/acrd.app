@@ -131,13 +131,15 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     return group;
   } 
 
-  public clearPermissions() {
+  public setPermissions(permissions = PermissionTypes.defaultPermissions) {
     for (const formGroupName in this.permissionsForm.value)
-      for (const key in this.permissionsForm.get(formGroupName).value)
+      for (const key in this.permissionsForm.get(formGroupName).value) {
+        const hasPerm = Boolean(permissions & PermissionTypes.All[key]);
         this.permissionsForm
           .get(formGroupName)
           .get(key)
-          .setValue(false);
+          .setValue(hasPerm);
+      }
   }
 
   public async submit() {
