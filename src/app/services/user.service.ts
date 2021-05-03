@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Lean, UserTypes } from '../types/entity-types';
+import { array } from '../utils/utils';
 import { HTTPWrapper } from './http-wrapper';
 
 @Injectable({ providedIn: 'root' })
@@ -13,7 +14,13 @@ export class UserService extends HTTPWrapper<Lean.User> {
     return this.self.friendIds.map(id => this.getCached(id));
   }
   public get friendRequests() {
-    return this.self.friendRequestIds.map(id => this.getCached(id));
+    const isOutgoing = (u) => u.friendRequestIds.includes(this.self._id);
+    return this._arr
+      .filter(isOutgoing)
+      .concat(this.self.friendRequestIds
+        .map(id => this.getCached(id))
+      )
+      .filter(array.distinctBy('_id'));
   }
   
   public avatarURL(id: string) {

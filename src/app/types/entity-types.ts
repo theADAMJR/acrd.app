@@ -71,6 +71,7 @@ export namespace Lean {
     bot: boolean;
     createdAt: Date;
     friendIds: string[];
+    friendRequestIds: string[];
     guilds: string[] | Lean.Guild[];
     status: UserTypes.StatusType;
     username: string;
@@ -178,7 +179,6 @@ export namespace UserTypes {
     guilds: Lean.Guild[];
     email: string;
     verified: true;
-    friendRequestIds: string[];
     lastReadMessages: {
       [k: string]: string
     };

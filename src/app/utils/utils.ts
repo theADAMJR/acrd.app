@@ -74,3 +74,9 @@ function getDaysAgo(date: Date, days = 0) {
     && date.getMonth() === new Date().getMonth()
     && date.getFullYear() === new Date().getFullYear()
 }
+
+export const array = {
+  ascendingBy: (key: string) => (a, b) => (a[key] > b[key]) ? 1 : -1,
+  descendingBy: (key: string) => (a, b) => (a[key] < b[key]) ? 1 : -1,
+  distinctBy: (key: string) => (value, index, self) => self.findIndex(v => v[key] === value[key]) === index,
+}
