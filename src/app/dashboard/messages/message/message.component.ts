@@ -117,9 +117,13 @@ export class MessageComponent implements OnInit {
     });
   }
 
+  public get selfIsAuthor() {
+    return this.author._id === this.userService.self._id;
+  }
+
   public get canManage() {
-    return this.author._id === this.userService.self._id
-      || (this.guild && this.perms.can(this.guild._id, 'SEND_MESSAGES'));
+    return this.selfIsAuthor
+      || (this.guild && this.perms.can(this.guild._id, 'MANAGE_MESSAGES'));
   }
 
   constructor(

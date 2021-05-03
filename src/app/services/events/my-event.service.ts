@@ -30,9 +30,10 @@ export class MyEventService {
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {
-    this.guildService.guilds.push(guild);
-    await this.router.navigate([`/channels/${guild._id}`]);
+    await this.userService.fetchAll();
+    this.guildService.add(guild);
 
+    await this.router.navigate([`/channels/${guild._id}`]);
     await this.sounds.success();
   }
 

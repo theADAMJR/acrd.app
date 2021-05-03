@@ -83,19 +83,23 @@
   [style.left]="contextMenuPosition.x"
   [style.top]="contextMenuPosition.y"
   #contextMenu>
-  <button
-    (click)="toggleEditing()"
-    mat-menu-item>
-    <i class="fas fa-pencil-alt text-warning mr-1"></i>
-    <span>{{ (isEditing) ? 'Finish Editing' : 'Edit' }}</span>
-  </button>
-  <button
-    (click)="delete()"
-    mat-menu-item>
-    <i class="fas fa-times-circle text-danger mr-1"></i>
-    <span>Delete</span>
-  </button>
-  <hr>
+  <div *ngIf="canManage">
+    <button
+      (click)="toggleEditing()"
+      mat-menu-item>
+      <i class="fas fa-pencil-alt text-warning mr-1"></i>
+      <span>{{ (isEditing) ? 'Finish Editing' : 'Edit' }}</span>
+    </button>
+    <button
+      (click)="delete()"
+      mat-menu-item>
+      <i class="fas fa-times-circle text-danger mr-1"></i>
+      <span>Delete</span>
+    </button>
+  
+    <hr>
+  </div>
+
   <div (click)="$event.stopPropagation()" class="p-2">
     <strong>ID: </strong>
     <code>{{ message._id }}</code>

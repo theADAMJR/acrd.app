@@ -47,12 +47,16 @@ export class GuildSidebarComponent implements OnInit {
     this.route.paramMap.subscribe(async (paramMap) => {
       const guildId = paramMap.get('guildId');
       this.guild = this.guildService.getCached(guildId);
+      
+      const inGuild = this.guildService.getSelfMember(guildId);
+      if (!inGuild)
+        await this.router.navigate(['/channels/@me']);
     });
 
     this.ws.on('GUILD_DELETE', async ({ guildId }) => {
       if (guildId !== this.guild._id) return;
 
-      await this.router.navigate(['/channels/@me'])
+      await this.router.navigate(['/channels/@me']);
     }, this);
   }
 

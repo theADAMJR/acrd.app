@@ -9,13 +9,7 @@ import { UserService } from '../user.service';
   providedIn: 'root'
 })
 export class GuildEventService {
-  public get activeGuild() {
-    const guildId = this.route.snapshot.paramMap.get('guildId');
-    return this.guildService.getAsync(guildId);
-  }
-
   constructor(
-    private route: ActivatedRoute,
     private guildService: GuildService,
     private userService: UserService,
   ) {}
@@ -41,7 +35,6 @@ export class GuildEventService {
   }
 
   public async addMember({ member }: Args.GuildMemberAdd) {
-    alert(member.userId)
     const newUser = await this.userService.getAsync(member.userId);
     this.userService.add(newUser);
 
