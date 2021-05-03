@@ -38,7 +38,7 @@ export class ChannelEventService {
     messages[index] = message;
   }
 
-  public startTyping({ channelId, userId }: Args.TypingStart) {
+  public startTyping({ channelId, userId }: Args.TypingStart) {    
     this.channelService.startTyping(channelId, userId);
   }
 }
