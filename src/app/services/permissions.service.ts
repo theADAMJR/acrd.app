@@ -1,7 +1,6 @@
-import { Injectable, Type } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Lean, PermissionTypes } from '../types/entity-types';
 import { GuildService } from './guild.service';
-import { UserService } from './user.service';
 
 @Injectable({ providedIn: 'root' })
 export class PermissionsService {
@@ -10,9 +9,9 @@ export class PermissionsService {
   ) {}
 
   public can(guildId: string, permission: PermissionTypes.PermissionString) {
-    const guild = this.guildService.getCached(guildId);
-    if (!guild)
-      throw new TypeError('Guild Not Found');
+    if (!guildId)
+      throw new TypeError('Guild ID undefined');
+      const guild = this.guildService.getCached(guildId);
 
     const member = this.guildService.getSelfMember(guildId);
     const totalPerms = guild.roles

@@ -17,8 +17,6 @@
         [user]="(avatarURL) ? { username: author.username, avatarURL: avatarURL } : author"></app-avatar-url>
       <div class="comment">
         <div class="message first">
-          <ng-container *ngTemplateOutlet="messageOptions"></ng-container>
-
           <h2 style="line-height: 16px;">
             <span class="username-wrapper v-btm">
               <strong
@@ -46,8 +44,6 @@
     class="extra-message"
     [ngClass]="{ 'd-mention': isMentioned }"
     (click)="$event.stopPropagation()">
-    <ng-container *ngTemplateOutlet="messageOptions"></ng-container>
-
     <span class="content">
       <span
         class="timestamp no-select"
@@ -82,34 +78,6 @@
     [canManage]="canManage"
     [message]="message"></message-embed>
 </ng-template>
-
-<ng-template #messageOptions>
-  <!-- FIXME: weird positioning -->
-  <!-- <span class="message-options float-right">
-    <button
-      *ngIf="userService.self._id === author._id"
-      matTooltip="Edit"
-      (click)="toggleEditing()"
-      mat-button>
-      <i class="fas fa-pencil-alt text-warning fa-2x"></i>
-    </button>
-
-    <button
-      *ngIf="canManage"
-      matTooltip="Delete"
-      (click)="delete()"
-      mat-button>
-      <i class="fas fa-times-circle text-danger fa-2x"></i>
-    </button>
-
-    <button
-      matTooltip="More Options"
-      [matMenuTriggerFor]="contextMenu"
-      mat-button>
-      <i class="fas fa-ellipsis-v text-light fa-2x"></i>
-    </button>
-  </span> -->
-</ng-template>  
 
 <mat-menu
   [style.left]="contextMenuPosition.x"

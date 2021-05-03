@@ -19,6 +19,7 @@ footer {
   background-color: var(--background-secondary) !important;
 
   padding-top: 150px;
+  padding-bottom: 150px;
   min-height: 750px;
 }
 
@@ -46,6 +47,13 @@ app-submarine {
   transform: scale(0.5);
 
   animation: moveLeft 150s infinite;
+}
+
+mat-card-title {
+  font-size: 32px;
+}
+mat-card-subtitle {
+  font-size: 20px;
 }
 
 @keyframes moveLeft {
