@@ -42,6 +42,7 @@ export class GuildEventService {
   }
 
   public async addMember({ member }: Args.GuildMemberAdd) {
+    alert(member.userId)
     const newUser = await this.userService.getAsync(member.userId);
     this.userService.add(newUser);
 
