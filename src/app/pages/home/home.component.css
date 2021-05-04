@@ -6,15 +6,6 @@ header {
   margin-bottom: 300px;
 }
 
-p:not(.lead) {
-  color: var(--secondary);
-  cursor: pointer;
-}
-
-footer {
-  z-index: 1 !important;
-}
-
 .main {
   background-color: var(--background-secondary) !important;
 
@@ -41,11 +32,14 @@ mat-card-content {
   color: var(--secondary);
 }
 
+#features *:not(app-submarine) { 
+  z-index: 1;
+}
+
 app-submarine {
   position: absolute;
-  top: 160%;
+  top: 1500px;
   transform: scale(0.5);
-  z-index: -1;
 
   animation: moveLeft 150s infinite;
 }
@@ -66,9 +60,9 @@ img {
 
 @keyframes moveLeft {
   0% {
-    left: 90%;
+    left: 85%;
   }
   100% {
-    left: 10%;
+    left: 0%;
   }
 }

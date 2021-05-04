@@ -98,6 +98,9 @@ footer {
   margin-left: 0px;
   padding: 10px;
   width: 275px;
+
+  position: absolute;
+  bottom: 0;
 }
 
 .guilds .active {

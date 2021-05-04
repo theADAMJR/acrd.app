@@ -11,6 +11,15 @@
       <i class="mr-1" [class]="tab.icon"></i>
       <span>{{ tab.name }}</span>
     </a>
+
+    <div *ngIf="tabType === 'user'">
+      <hr>
+      <a routerLink="/logout"
+        class="text-danger nav-item nav-link">
+        <i class="fas fa-user-alt-slash"></i>
+        <span> Logout</span>
+      </a>
+    </div>
   </div>
 </div>
 

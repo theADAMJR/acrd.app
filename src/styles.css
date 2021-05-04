@@ -39,10 +39,9 @@ strong {
 }
 
 footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  background-color: var(--background-secondary);
   padding: 5px;
+  width: 100%;
 }
 
 footer p {

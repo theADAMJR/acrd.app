@@ -236,6 +236,10 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
   color: var(--dark);
   background-color: var(--secondary) !important;
 }
+.bg-tertiary,
+.bg-tertiary:hover {
+  background-color: var(--tertiary) !important;
+}
 .bg-success,
 .bg-success:hover {
   background-color: var(--success) !important;

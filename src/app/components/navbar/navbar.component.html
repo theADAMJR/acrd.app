@@ -22,7 +22,7 @@
       <a class="nav-item nav-link" 
         routerLink="/docs" 
         routerLinkActive="active">
-        <i class="fa fa-book" aria-hidden="true"></i> Docs
+        <i class="fas fa-book" aria-hidden="true"></i> Docs
       </a>
     </div>
   
@@ -30,17 +30,16 @@
       <div class="d-md-none d-block mt-2"></div>
       <div *ngIf="!user">
         <a class="nav-item nav-link" routerLink="/login">
-          <i class="fa fa-user" aria-hidden="true"></i> Login
+          <i class="fas fa-user" aria-hidden="true"></i> Login
         </a>
       </div>
       <div *ngIf="user">
-        <div
-          class="cursor-pointer"
-          [matMenuTriggerFor]="menu">
-          <app-avatar-url [user]="user"></app-avatar-url>
-          <span class="pl-1">{{ user.username }}</span>
-          <i class="fas fa-caret-down pl-2"></i>
-        </div>
+        <mat-button
+          class="nav-item nav-link bg-primary text-light rounded cursor-pointer mr-3"
+          routerLink="/channels/@me">
+          <i class="fas fa-chevron-circle-right" aria-hidden="true"></i>
+          <strong> Open</strong>
+        </mat-button>     
       </div>
     </div>
   </div>
