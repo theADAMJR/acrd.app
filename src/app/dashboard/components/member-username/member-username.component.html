@@ -41,7 +41,9 @@
 </div>
 
 <mat-menu
-  (closed)="guild && perms.canManage(guild._id, user._id, 'MANAGE_ROLES') && update()"
+  (closed)="guild
+    && perms.canManage(guild._id, user._id, 'MANAGE_ROLES')
+    && update()"
   #contextMenu>
   <h6 class="pt-2 text-center">{{ user.username }}</h6>
 

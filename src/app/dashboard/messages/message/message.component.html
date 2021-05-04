@@ -93,6 +93,8 @@
       <i class="fas fa-pencil-alt text-warning mr-1"></i>
       <span>{{ (isEditing) ? 'Finish Editing' : 'Edit' }}</span>
     </button>
+  </div>
+  <div *ngIf="canManage">
     <button
       (click)="delete()"
       mat-menu-item>
