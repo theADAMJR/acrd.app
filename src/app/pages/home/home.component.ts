@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css', './home.component.mobile.css']
 })
 export class HomeComponent {
   version = environment.version;

@@ -86,7 +86,7 @@
   [style.left]="contextMenuPosition.x"
   [style.top]="contextMenuPosition.y"
   #contextMenu>
-  <div *ngIf="canManage">
+  <div *ngIf="canManage && author._id === userService.self._id">
     <button
       (click)="toggleEditing()"
       mat-menu-item>

@@ -7,8 +7,8 @@ import { WSEventArgs, WSEventAsyncArgs, WSEventParams } from '../types/ws-types'
 @Injectable({ providedIn: 'root' })
 export class WSService {
   private socket = (io as any).connect(environment.rootEndpoint, {
-    path: '/ws',
     secure: true,
+    path: '/ws',
   });
   private listened: string[] = [];
 

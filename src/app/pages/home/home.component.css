@@ -45,6 +45,7 @@ app-submarine {
   position: absolute;
   top: 160%;
   transform: scale(0.5);
+  z-index: -1;
 
   animation: moveLeft 150s infinite;
 }
@@ -54,6 +55,13 @@ mat-card-title {
 }
 mat-card-subtitle {
   font-size: 20px;
+}
+
+img {
+  height: 250px;
+  width: auto;
+
+  image-rendering: auto;
 }
 
 @keyframes moveLeft {

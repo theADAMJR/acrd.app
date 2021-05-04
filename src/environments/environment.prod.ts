@@ -4,5 +4,5 @@ export const environment = {
   rootEndpoint: '/',
   githubURL: 'https://github.com/accorddotapp',
   production: true,
-  version: 'v0.1.7a',
+  version: 'v0.1.8a',
 };

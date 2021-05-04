@@ -55,8 +55,7 @@ import { AvatarUrlComponent } from './dashboard/components/avatar-url/avatar-url
 import { VerifyComponent } from './authentication/verify/verify.component';
 import { UserAccountComponent } from './dashboard/me/user-account/user-account.component';
 import { SettingsSidebarComponent } from './dashboard/components/settings-sidebar/settings-sidebar.component';
-import { UsernameValidators } from './authentication/sign-up/username.validators';
-import { SubmarineComponent } from './pages/home/submarine/submarine.component';
+import { SubmarineComponent } from './cool/submarine/submarine.component';
 import { InviteComponent } from './pages/invite/invite.component';
 import { CountdownPipe } from './countdown.pipe';
 import { CreateChannelComponent } from './dialog/create-channel/create-channel.component';
