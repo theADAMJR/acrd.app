@@ -23,7 +23,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/manifest.json",
-              "src/sitemap.xml"
+              "src/sitemap.xml",
+              "src/sw.js"
             ],
             "styles": [
               "src/styles.css",
