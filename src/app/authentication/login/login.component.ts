@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LogService } from 'src/app/services/log.service';
 import { patterns } from 'src/app/types/entity-types';
 import { Credentials, UserAuthService } from '../../services/user-auth.service';
 import { PasswordValidators } from '../sign-up/password.validators';
@@ -17,7 +18,9 @@ export class LoginComponent {
   constructor(
     private auth: UserAuthService,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router,
+    private log: LogService,
+  ) {}
 
   public form = new FormGroup({
     username: new FormControl('', [
@@ -53,9 +56,11 @@ export class LoginComponent {
         return this.router.navigate([`/auth/verify`]); 
 
       this.router.navigate([ this.redirect ]);
-    } catch {
+    } catch (error) {
       this.processing = false;
       this.form.setErrors({ invalidLogin: true });
+
+      await this.log.error(error.message);
     }
   }
 

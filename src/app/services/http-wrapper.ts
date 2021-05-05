@@ -47,14 +47,16 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   /** @deprecated */
   public add(val: T) {
     const has = this.arr.some(v => v._id === val._id);
-    if (has) this.arr;
-
+    if (has)
+      this.delete(val._id);
     this.arr.push(val);
+
     return this.arr;
   }
   public delete(id: string) {
-    const index = this.arr?.findIndex(i => i._id === id);
+    const index = this.arr.findIndex(v => v._id === id);
     this.arr.splice(index, 1);
+
     return this.arr;
   }
 
@@ -63,7 +65,7 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
     const existing = this.arr[index];
 
     if (this.self && this.self._id === id)
-      return this.self = { ...this.self, ...value as any };
+      return this.self = { ...this.self, ...value };
 
     if (!existing && !('_id' in value))
       throw new TypeError('Full object required for adding');

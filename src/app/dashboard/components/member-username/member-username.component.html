@@ -61,6 +61,7 @@
           *ngFor="let role of guildRoles"
           [value]="role._id"
           [style.color]="role.color"
+          [disabled]="!perms.isHigher(guild._id, [role])"
           [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
       </mat-select> 
     </mat-form-field>

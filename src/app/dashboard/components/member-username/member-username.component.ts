@@ -67,17 +67,15 @@ export class MemberUsernameComponent implements OnInit {
   }
 
   public async update() {
-    const everyoneRole = this.guildRoles[0]; 
-    const roleIds = []
-      .concat(everyoneRole)
-      .concat(this.rolesInput.value)
-      .filter(id => id);
-    if (JSON.stringify(roleIds) === JSON.stringify(this.member.roleIds)) return;
+    const roleIds = this.rolesInput.value
+      .filter(id => id)
+      .map(v => v._id ?? v);
 
-    this.member.roleIds = roleIds;
+    const noChange = JSON.stringify(roleIds) === JSON.stringify(this.member.roleIds);
+    if (noChange) return;
 
     await this.ws.emitAsync('GUILD_MEMBER_UPDATE', {
-      partialMember: { roleIds: this.member.roleIds },
+      partialMember: { roleIds },
       memberId: this.member._id,
     }, this);
   }

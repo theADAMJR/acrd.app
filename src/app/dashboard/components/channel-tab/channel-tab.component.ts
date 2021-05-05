@@ -23,7 +23,6 @@ export class ChannelTabComponent {
 
   constructor(
     private guildService: GuildService,
-    private log: LogService,
     public perms: PermissionsService,
     public pings: PingService,
     public router: Router,

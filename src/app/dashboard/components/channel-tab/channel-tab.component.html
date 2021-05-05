@@ -1,4 +1,5 @@
 <div
+  *ngIf="perms.can(guild._id, 'VIEW_CHANNELS')"
   #menuTrigger="matMenuTrigger"
   [matMenuTriggerFor]="channelMenu"
   (contextmenu)="openMenu($event, menuTrigger)">

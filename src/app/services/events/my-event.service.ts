@@ -24,8 +24,6 @@ export class MyEventService {
   public updateFriends({ sender, friend }: Args.RemoveFriend) {
     this.userService.upsert(sender._id, sender);    
     this.userService.upsert(friend._id, friend);
-    console.log(this.userService.friendRequests);
-    console.log(sender.friendRequestIds);
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {
