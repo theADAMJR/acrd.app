@@ -15,6 +15,7 @@ export class UserService extends HTTPWrapper<Lean.User> {
   }
   public get friendRequests() {
     const isOutgoing = (u) => u.friendRequestIds.includes(this.self._id);
+
     return this._arr
       .filter(isOutgoing)
       .concat(this.self.friendRequestIds

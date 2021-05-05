@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LogService } from 'src/app/services/log.service';
 import { UserService } from 'src/app/services/user.service';
 import { WSService } from 'src/app/services/ws.service';
 
@@ -22,6 +23,7 @@ export class CreateGuildComponent {
 
   constructor(
     public dialogRef: MatDialogRef<CreateGuildComponent>,
+    private log: LogService,
     private userService: UserService,
     private ws: WSService,
   ) {}
@@ -38,11 +40,12 @@ export class CreateGuildComponent {
     }, this);
   }
 
-  public joinGuild() {
+  public async joinGuild() {
     this.dialogRef.close();
 
-    this.ws.emit('GUILD_MEMBER_ADD', {
+    await this.ws.emitAsync('GUILD_MEMBER_ADD', {
       inviteCode: this.inviteInput.nativeElement.value,
     }, this);
+    await this.log.success();
   }
 }

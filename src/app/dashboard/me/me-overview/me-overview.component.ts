@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AddFriendComponent } from 'src/app/dialog/add-friend/add-friend.component';
 import { DialogService } from 'src/app/services/dialog.service';
 import { TabType } from '../friends-list/friends-list.component';
 

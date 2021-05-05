@@ -9,22 +9,36 @@
       <li class="nav-item">
         <a (click)="tab = 'ONLINE'" 
           [class.active]="tab === 'ONLINE'"
-          class="nav-link active">Online</a>
+          class="nav-link active">
+          <span>Online</span>
+        </a>
       </li>
       <li class="nav-item">
         <a (click)="tab = 'ALL'" 
           [class.active]="tab === 'ALL'"
-          class="nav-link">All</a>
+          class="nav-link">
+          <span>All</span>
+        </a>
       </li>
       <li class="nav-item">
         <a (click)="tab = 'PENDING'" 
           [class.active]="tab === 'PENDING'"
-          class="nav-link">Pending</a>
+          class="nav-link">
+          <span>Pending</span>
+          <strong
+            *ngIf="friendsList.users.friendRequests.length"
+            class="text-primary"> {{ friendsList.users.friendRequests.length }}</strong>
+        </a>
       </li>
       <li class="nav-item">
         <a (click)="tab = 'BLOCKED'" 
           [class.active]="tab === 'BLOCKED'"
-          class="nav-link text-warning">Blocked</a>
+          class="nav-link text-warning">
+          <span>Blocked</span>
+          <strong
+            *ngIf="friendsList.blockedUsers.length"
+            class="text-primary"> {{ friendsList.blockedUsers.length }}</strong>
+        </a>
       </li>
       <li class="nav-item">
         <a (click)="dialog.addFriend()"
@@ -33,5 +47,7 @@
     </ul>
   </dashboard-navbar>
 
-  <friends-list [tab]="tab"></friends-list>
+  <friends-list
+    [tab]="tab"
+    #friendsList></friends-list>
 </dashboard-sidebar>

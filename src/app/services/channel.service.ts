@@ -36,8 +36,8 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   }
 
   public startTyping(channelId: string, userId: string) {
-    const isSelf = this.userService.self._id === userId;
-    if (isSelf) return;
+    // const isSelf = this.userService.self._id === userId;
+    // if (isSelf) return;
 
     this.getTyping(channelId).push(userId);
 

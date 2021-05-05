@@ -46,6 +46,9 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   }
   /** @deprecated */
   public add(val: T) {
+    const has = this.arr.some(v => v._id === val._id);
+    if (has) this.arr;
+
     this.arr.push(val);
     return this.arr;
   }
