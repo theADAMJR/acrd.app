@@ -61,8 +61,8 @@
       <div *ngFor="let friend of users.friendRequests">
         <div class="float-right">
           <button
+            *ngIf="!isOutgoing(friend)"
             (click)="add(friend.username)"
-            [hidden]="isOutgoing(friend)"
             class="round bg-success px-0" mat-button>
             <i class="fas fa-check" aria-hidden="true"></i>
           </button>

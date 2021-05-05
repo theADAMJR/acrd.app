@@ -73,6 +73,7 @@
           }
         },
         "serve": {
+          "aot": true,
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "accord-app:build"

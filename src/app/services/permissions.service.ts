@@ -36,7 +36,7 @@ export class PermissionsService {
   public canManage(guildId: string, userId: string, permission: PermissionTypes.PermissionString) {
     const selfMember = this.guildService.getSelfMember(guildId);
     const userMember = this.guildService.getMember(guildId, userId);
-    if (!selfMember || userMember) return false;
+    if (!selfMember || !userMember) return false;
 
     return this.userService.self._id === userMember.userId
       || (this.isHigher(guildId, selfMember.roleIds, userMember.roleIds)
