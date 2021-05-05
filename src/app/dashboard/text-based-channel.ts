@@ -90,16 +90,23 @@ export class TextBasedChannel implements OnInit {
 
   private scrollToMessage(timeout = 100) {
     setTimeout(() => {
-      const messages = document.querySelector('.messages');
-      const height = messages.scrollHeight;
-      messages.scrollTop = height;      
+      try {
+        const messages = document.querySelector('.messages');
+        const height = messages.scrollHeight;
+        messages.scrollTop = height;        
+      } catch {}
     }, timeout);
   }
 
   public async chat(content: string) {
     if (!content.trim()) return;
     
-    content = content.replace(/\n+$/, '');
+    const firstNewLines = /\s+/;
+    const lastNewLines = /\s+$/;
+
+    content = content
+      .replace(firstNewLines, '')
+      .replace(lastNewLines, '');
     this.messageInput.nativeElement.value = '';
 
     this.ws.emit('MESSAGE_CREATE', {

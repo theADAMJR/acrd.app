@@ -11,10 +11,10 @@ export class PermissionsService {
   ) {}
 
   public can(guildId: string, permission: PermissionTypes.PermissionString) {
-    if (!guildId)
-      throw new TypeError('Guild ID undefined');
-
     const guild = this.guildService.getCached(guildId);
+    if (!guild)
+      throw new TypeError('Guild Not Found');
+
     const member = this.guildService.getSelfMember(guildId);
       
     return guild.ownerId == member?.userId
@@ -36,6 +36,7 @@ export class PermissionsService {
   public canManage(guildId: string, userId: string, permission: PermissionTypes.PermissionString) {
     const selfMember = this.guildService.getSelfMember(guildId);
     const userMember = this.guildService.getMember(guildId, userId);
+    if (!selfMember || userMember) return false;
 
     return this.userService.self._id === userMember.userId
       || (this.isHigher(guildId, selfMember.roleIds, userMember.roleIds)

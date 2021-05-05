@@ -35,7 +35,8 @@ export class SignUpComponent {
   public get confirmPassword() { return this.form.get('confirmPassword'); }
 
   public get redirect() {
-    return this.route.snapshot.queryParamMap.get('redirect') ?? '/';
+    return this.route.snapshot.queryParamMap.get('redirect')
+      ?? '/channels/@me';
   }
 
   constructor(

@@ -38,7 +38,8 @@ export class LoginComponent {
   public get username() { return this.form.get('username'); }
 
   public get redirect() {
-    return this.route.snapshot.queryParamMap.get('redirect') ?? '/';
+    return this.route.snapshot.queryParamMap.get('redirect')
+      ?? '/channels/@me';
   }
 
   public async login() {
