@@ -9,12 +9,12 @@
             [routerLink]="'/channels/@me/' + channelService.getDM(friend._id)?._id"
             matTooltip="Message"
             class="round px-0" mat-button>
-            <i class="fas fa-comment-alt"></i>
+            <i class="lni lni-bubble"></i>
           </button>
           <button
             matTooltip="Remove Friend"
             (click)="remove(friend._id)"
-            class="round px-0 ml-2" mat-button><i class="fas fa-times"></i></button>
+            class="round px-0 ml-2" mat-button><i class="lni lni-close"></i></button>
         </div>
         <member-username
           [routerLink]="'/channels/@me/' + channelService.getDM(friend._id)?._id"
@@ -37,12 +37,12 @@
             [routerLink]="'/channels/@me/' + channelService.getDM(friend._id)?._id"
             matTooltip="Message"
             class="round px-0" mat-button>
-            <i class="fas fa-comment-alt"></i>
+            <i class="lni lni-bubble"></i>
           </button>
           <button
             matTooltip="Remove Friend"
             (click)="remove(friend._id)"
-            class="round px-0 ml-2" mat-button><i class="fas fa-times"></i></button>
+            class="round px-0 ml-2" mat-button><i class="lni lni-close"></i></button>
         </div>
         <member-username [user]="users.getCached(friend._id)"></member-username>
       </div>
@@ -64,13 +64,13 @@
             *ngIf="!isOutgoing(friend)"
             (click)="add(friend.username)"
             class="round bg-success px-0" mat-button>
-            <i class="fas fa-check" aria-hidden="true"></i>
+            <i class="lni lni-checkmark-circle" aria-hidden="true"></i>
           </button>
 
           <button
             (click)="remove(friend._id)"
             class="round px-0 ml-2" mat-button>
-            <i class="fas fa-times"></i>
+            <i class="lni lni-close"></i>
           </button>
         </div>
         
@@ -95,7 +95,7 @@
         <div class="float-right">
           <i (click)="users.unblock(user._id)"
             matTooltip="Unblock"
-            class="cursor-pointer fas fa-times-circle"></i>
+            class="cursor-pointer lni lni-close"></i>
         </div>
         <member-username [user]="user"></member-username>
       </div>

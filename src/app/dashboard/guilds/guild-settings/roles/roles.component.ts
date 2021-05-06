@@ -69,7 +69,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   public async ngOnInit() {
     await super.init();
 
-    this.guild.roles.sort(array.descendingBy('_id'));
+    this.guild.roles.sort(array.ascendingBy('position'));
 
     this.selectRole(this.guild.roles[0]);
   }

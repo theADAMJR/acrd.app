@@ -2,7 +2,7 @@
   <strong>{{ guild.name }}</strong>
   
   <span *ngIf="activeChannel">
-    <i class="fas fa-chevron-right mx-2"></i>
+    <i class="lni lni-chevron-right mx-2"></i>
     <i class="fas fa-hashtag text-muted pr-1"></i>
     <strong>{{ activeChannel.name }}</strong>
   </span>
@@ -10,6 +10,7 @@
   <div class="float-right">
     <i (click)="toggleMemberList.emit()"
       matTooltip="Toggle Members"
-      class="fas fa-users cursor-pointer"></i>
+      class="lni cursor-pointer"
+      [class]="memberIcon"></i>
   </div>
 </dashboard-navbar>

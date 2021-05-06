@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md">
   <a class="navbar-brand" routerLink="/">
     <h1>
-      <span>accord</span>
+      <span class="text-light">accord</span>
       <span class="text-tertiary">.</span>
       <span class="text-secondary">app</span>
     </h1>
@@ -14,7 +14,7 @@
     aria-controls="navbarSupportedContent"
     aria-expanded="false"
     aria-label="Toggle navigation">
-    <i class="fas fa-bars"></i>
+    <i class="lni lni-menu"></i>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -22,7 +22,7 @@
       <a class="nav-item nav-link" 
         routerLink="/docs" 
         routerLinkActive="active">
-        <i class="fas fa-book" aria-hidden="true"></i> Docs
+        <i class="lni lni-library" aria-hidden="true"></i> Docs
       </a>
     </div>
   
@@ -30,14 +30,14 @@
       <div class="d-md-none d-block mt-2"></div>
       <div *ngIf="!user">
         <a class="nav-item nav-link" routerLink="/login">
-          <i class="fas fa-user" aria-hidden="true"></i> Login
+          <i class="lni lni-user" aria-hidden="true"></i> Login
         </a>
       </div>
       <div *ngIf="user">
         <mat-button
           class="nav-item nav-link bg-primary text-light rounded cursor-pointer mr-3"
           routerLink="/channels/@me">
-          <i class="fas fa-chevron-circle-right" aria-hidden="true"></i>
+          <i class="lni lni-chevron-right-circle" aria-hidden="true"></i>
           <strong> Open</strong>
         </mat-button>     
       </div>
@@ -47,13 +47,13 @@
 
 <mat-menu #menu="matMenu">
   <button routerLink="/channels/@me" mat-menu-item>
-    <i class="fas fa-cog"></i> Open
+    <i class="lni lni-cog"></i> Open
   </button>
   <hr>
   <button routerLink="/developers" mat-menu-item>
-    <i class="fas fa-code"></i> Developers
+    <i class="lni lni-code"></i> Developers
   </button>
   <button routerLink="/logout" mat-menu-item>
-    <i class="fas fa-sign-out-alt"></i> Logout
+    <i class="lni lni-sign-out-alt"></i> Logout
   </button>
 </mat-menu>

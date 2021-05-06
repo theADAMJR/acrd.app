@@ -11,7 +11,7 @@
           type="button">
           <h6 class="pt-2">
             <strong>{{ guild.name }}</strong>
-            <i class="fas fa-sort-down"></i>
+            <i class="lni lni-sort-down"></i>
           </h6>
         </button>
       </div>
@@ -41,15 +41,16 @@
   <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
     (click)="dialog.createInvite({ guild: guild })"
     class="dropdown-item invite"
-    mat-menu-item>Invite People <i class="fas fa-user-plus"></i></a>
+    mat-menu-item>
+    <i class="lni lni-user"></i> Invite People</a>
     
   <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
     class="dropdown-item"
     [routerLink]="'/channels/' + guild._id + '/settings'"
-    mat-menu-item>Guild Settings <i class="fas fa-cogs"></i></a>
+    mat-menu-item><i class="lni lni-cog"></i> Guild Settings</a>
     
   <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
     (click)="dialog.createChannel({ guild: guild })"
     class="dropdown-item"
-    mat-menu-item>Create Channel <i class="fas fa-plus-circle"></i></a>
+    mat-menu-item><i class="lni lni-plus"></i> Create Channel</a>
 </mat-menu>

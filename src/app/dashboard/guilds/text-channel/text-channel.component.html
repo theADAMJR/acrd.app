@@ -2,15 +2,20 @@
   *ngIf="channel && messages"
   (click)="onClick($event)">
   <div
+    *ngIf="(!guild && loadedAllMessages)
+      || (guild && perms.can(guild._id, 'READ_MESSAGES')); else lackingPerms"
     class="messages"
     infiniteScroll
     [scrollWindow]="false"
     (scrolledUp)="false && loadMoreMessages()">
-    <div *ngIf="loadedAllMessages"
+    <div
       class="jumbotron pb-0">
-      <p class="lead">Start of {{ title }} message history.</p>
+      <p class="lead">
+        Start of {{ title }} message history.
+      </p>
       <hr>
     </div>
+
     <spinner *ngIf="!loadedAllMessages"></spinner>
   
     <div
@@ -24,6 +29,18 @@
         [guild]="guild"></message>
     </div>
   </div>
+
+  <ng-template #lackingPerms>
+    <div class="messages">
+      <div class="jumbotron pb-0">
+        <p class="lead">
+          <i class="lni lni-eye-slash text-muted"></i>
+          <span> Message history of {{ title }} is hidden.</span>
+        </p>
+        <hr>
+      </div>
+    </div>
+  </ng-template>
   
   <div
     *ngIf="channel"
@@ -54,7 +71,7 @@
         class="cursor-pointer emoji-icon mb-3"
         align="end"
         matSuffix>
-        <i class="fas fa-surprise"></i>
+        <i class="lni lni-emoji-happy"></i>
       </mat-icon>
     </mat-form-field>
   
@@ -71,3 +88,4 @@
     <spinner></spinner>
   </div>  
 </div>
+

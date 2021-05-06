@@ -12,14 +12,14 @@
         <a routerLinkActive="active"
           class="nav-link"
           routerLink="/developers">
-          <i class="fas fa-code pt-2"></i>
+          <i class="lni lni-code pt-2"></i>
           <span>Apps</span>
         </a>
         <a routerLinkActive="active"
           class="nav-link"
           [href]="environment.docsURL"
           target="#">
-          <i class="fas fa-book-open pt-2"></i>
+          <i class="lni lni-library-open pt-2"></i>
           <span>Docs</span>
         </a>
       </nav>
@@ -39,14 +39,14 @@
 
     <mat-menu #menu="matMenu">
       <button routerLink="/channels/@me" mat-menu-item>
-        <i class="fas fa-cog"></i> Open
+        <i class="lni lni-cog"></i> Open
       </button>
       <hr>
       <button routerLink="/developers" mat-menu-item>
-        <i class="fas fa-code"></i> Developers
+        <i class="lni lni-code"></i> Developers
       </button>
       <button routerLink="/logout" mat-menu-item>
-        <i class="fas fa-sign-out-alt"></i> Logout
+        <i class="lni lni-sign-out-alt"></i> Logout
       </button>
     </mat-menu>
     
@@ -57,7 +57,7 @@
           class="float-right round bg-primary-gradient"
           matTooltip="New Application"
           mat-button>
-          <strong><i class="fas fa-plus text-light pt-2"></i></strong>
+          <strong><i class="lni lni-plus text-light pt-2"></i></strong>
         </button>
         <h1>Applications</h1>
         <p class="lead">Manage bot applications in the Accord developer dashboard.</p>

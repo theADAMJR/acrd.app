@@ -63,7 +63,7 @@
     [matTooltip]="'Edited - ' + updatedAt"
     class="edit-indicator cursor-pointer ml-1"
     #edited>
-    <i class="fas fa-pencil-alt text-muted"></i>
+    <i class="lni lni-pencil-alt text-muted"></i>
   </span>
 </ng-template>
 
@@ -90,7 +90,7 @@
     <button
       (click)="toggleEditing()"
       mat-menu-item>
-      <i class="fas fa-pencil-alt text-warning mr-1"></i>
+      <i class="lni lni-pencil-alt text-warning mr-1"></i>
       <span>{{ (isEditing) ? 'Finish Editing' : 'Edit' }}</span>
     </button>
   </div>
@@ -98,7 +98,7 @@
     <button
       (click)="delete()"
       mat-menu-item>
-      <i class="fas fa-times-circle text-danger mr-1"></i>
+      <i class="lni lni-close text-danger mr-1"></i>
       <span>Delete</span>
     </button>
   

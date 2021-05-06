@@ -14,29 +14,29 @@
           <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input formControlName="email" type="email" matInput>
-            <mat-hint *ngIf="form.get('email').pending"><i class="fas fa-circle-notch fa-spin"></i> Checking</mat-hint>
+            <mat-hint *ngIf="form.get('email').pending"><i class="lni lni-circle-notch fa-spin"></i> Checking</mat-hint>
             <mat-error *ngIf="form.get('email').errors?.emailInUse">Email is already in use.</mat-error>
             <mat-error *ngIf="form.get('email').errors?.pattern">Email must be valid.</mat-error>
           </mat-form-field>
 
           <button
             [disabled]="processingEmail"
-            class="ml-2"
-            color="success"
-            mat-button>Send Email</button>
+            matTooltip="Send"
+            class="ml-2 bg-success"
+            mat-button><i class="lni lni-envelope text-dark"></i></button>
         </form>
 
         <div>
           <span
             *ngIf="userService.self.verified"
             class="border border-success rounded p-3">
-            <i class="fas fa-check-circle text-success"></i>
+            <i class="lni lni-checkmark-circle text-success"></i>
             <span> Your account is verified by email.</span>
           </span>
           <span
             *ngIf="!userService.self.verified"
             class="border border-warning rounded p-3">
-            <i class="fas fa-times-circle text-danger"></i>
+            <i class="lni lni-close text-danger"></i>
             <span> Your email is not verified.</span>
           </span>
         </div>
@@ -73,18 +73,6 @@
               && passwordForm.errors?.passwordMatch"
             class="mb-2">New password should not equal old password.</mat-error>
         </form>
-      </div>
-
-      <hr>
-
-      <div class="col-lg-6 col-md-12 mt-5">
-        <h5>More Settings</h5>
-        <div>
-          <button
-            routerLink="/logout"
-            class="bg-danger"
-            mat-button>Logout</button>
-        </div>
       </div>
     </div>
   </div>
