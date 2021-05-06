@@ -82,10 +82,10 @@
         multiple
         #rolesInput>
         <mat-option
-          *ngFor="let role of guildRoles"
+          *ngFor="let role of guildRoles.reverse()"
           [value]="role._id"
           [style.color]="role.color"
-          [disabled]="!perms.isHigher(guild._id, [role])"
+          [disabled]="!perms.isHigher(guild._id, [role._id])"
           [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
       </mat-select> 
     </mat-form-field>
@@ -105,6 +105,6 @@
 
   <div (click)="$event.stopPropagation()" class="p-2">
     <i class="lni lni-dev"></i>
-    <code>{{ user._id }}</code>
+    <code> {{ user._id }}</code>
   </div>
 </mat-menu>

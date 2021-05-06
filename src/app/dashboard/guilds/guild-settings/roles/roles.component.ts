@@ -7,7 +7,6 @@ import { ModuleConfig } from 'src/app/dashboard/components/module-config';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
-import { array } from 'src/app/utils/utils';
 import { Lean, PermissionTypes } from '../../../../types/entity-types';
 
 @Component({
@@ -70,7 +69,6 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   public async ngOnInit() {
     await super.init();
 
-    this.guild.roles.sort(array.ascendingBy('position'));
     this.selectRole(this.guild.roles[0]);
   }
 
@@ -83,11 +81,10 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     if (!this.selectedRole)
       return new FormGroup({});
 
-    const role = guild.roles.find(r => r._id === this.selectedRole._id);    
     this.permissionsForm = new FormGroup({
-      general: this.permissionGroup(role, PermissionTypes.General),
-      text: this.permissionGroup(role, PermissionTypes.Text),
-      voice: this.permissionGroup(role, PermissionTypes.Voice),
+      general: this.permissionGroup(this.selectedRole, PermissionTypes.General),
+      text: this.permissionGroup(this.selectedRole, PermissionTypes.Text),
+      voice: this.permissionGroup(this.selectedRole, PermissionTypes.Voice),
     });
     this.permissionsForm.valueChanges
       .subscribe(() => this.openSaveChanges());
@@ -95,19 +92,19 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     return new FormGroup({
       color: new FormControl({
         disabled: this.isEveryone,
-        value: role.color,
+        value: this.selectedRole.color,
       }),
       hoisted: new FormControl({
         disabled: this.isEveryone,
-        value: (this.isEveryone) ? false : role.mentionable,
+        value: (this.isEveryone) ? false : this.selectedRole.mentionable,
       }),
       mentionable: new FormControl({
         disabled: this.isEveryone,
-        value: (this.isEveryone) ? false : role.mentionable,
+        value: this.selectedRole.mentionable,
       }),
       name: new FormControl({
         disabled: this.isEveryone,
-        value: role.name ?? '',
+        value: this.selectedRole.name ?? '',
       }, [
         Validators.required,
         Validators.maxLength(32),
@@ -139,7 +136,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   public async submit() {
-    if (!this.form.valid) return;
+    if (this.form.invalid) return;
 
     this.form.value.permissions = this.permissions;
     for (const key in this.form.value)
@@ -149,15 +146,16 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   private async updateRole() {
-    const roleId = this.selectedRole._id;
-
-    await this.ws.emitAsync('GUILD_ROLE_UPDATE', {
-      roleId,
+    const { partialRole } = await this.ws.emitAsync('GUILD_ROLE_UPDATE', {
+      roleId: this.selectedRole._id,
       guildId: this.guildId,
       partialRole: this.form.value,
     }, this);
 
-    this.originalGuild = { ...this.guild };
+    const index = this.guild.roles.findIndex(r => r._id === this.selectedRole._id);
+    this.guild.roles[index] = { ...this.guild.roles[index], ...partialRole };
+
+    this.form.patchValue(partialRole);
   }
 
   public async newRole() {
@@ -170,14 +168,16 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   public async deleteRole() {
-    const roleId = this.selectedRole._id;
-    await this.ws.emitAsync('GUILD_ROLE_DELETE', { roleId, guildId: this.guildId }, this);
+    await this.ws.emitAsync('GUILD_ROLE_DELETE', {
+      roleId: this.selectedRole._id,
+      guildId: this.guildId,
+    }, this);
     await this.selectRole(this.guild.roles[0]);
   }
 }
 
 export type DescriptionType = {
   general: { [key in keyof typeof PermissionTypes.General]: string };
-  text: { [key  in keyof typeof PermissionTypes.Text]: string };
-  voice: { [key  in keyof typeof PermissionTypes.Voice]: string };
+  text: { [key in keyof typeof PermissionTypes.Text]: string };
+  voice: { [key in keyof typeof PermissionTypes.Voice]: string };
 };

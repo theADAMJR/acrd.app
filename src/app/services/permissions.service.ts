@@ -37,8 +37,8 @@ export class PermissionsService {
     const userMember = this.guildService.getMember(guildId, userId);
     if (!userMember) return false;
 
-    return this.userService.self._id === userMember.userId
-      || (this.isHigher(guildId, userMember.roleIds)
+    return (this.userService.self._id === userMember.userId
+      || (this.isHigher(guildId, userMember.roleIds))
       && this.can(guildId, permission));
   }
 
@@ -52,10 +52,13 @@ export class PermissionsService {
     const selfMember = this.guildService.getSelfMember(guildId);
     const guild = this.guildService.getCached(guildId);
 
-    const highestRole: Lean.Role = guild.roles[guild.roles.length - 1];
-      
+    const joinedRoles = roleIds.concat(selfMember.roleIds);
+    const roles = guild.roles.filter(r => joinedRoles.includes(r._id));
+
+    const highestRole = roles[roles.length - 1];
+    
     return selfMember.userId === guild.ownerId
-      || (selfMember.roleIds.includes(highestRole?._id)
+      || (selfMember.roleIds.includes(highestRole._id)
       && !roleIds.includes(highestRole._id));
   }
 }

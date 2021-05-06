@@ -34,7 +34,7 @@ export abstract class ModuleConfig implements OnDestroy {
    */
   public async init() {    
     this.guild = this.guildService.getCached(this.guildId);
-    this.originalGuild = JSON.parse(JSON.stringify(this.guild));
+    this.originalGuild = { ...this.guild };
     
     await this.resetForm();
 
@@ -43,7 +43,7 @@ export abstract class ModuleConfig implements OnDestroy {
   }
 
   private async resetForm() {   
-    this.guild = JSON.parse(JSON.stringify(this.originalGuild));   
+    this.guild = { ...this.originalGuild };   
     this.form = await this.buildForm(this.guild);
   }
 
@@ -82,8 +82,8 @@ export abstract class ModuleConfig implements OnDestroy {
         guildId: this.guildId,
         partialGuild: this.form.value,
       }, this);
-    } catch {
-      alert('An error occurred when submitting the form - check console');
+    } catch (error) {
+      await this.log.error(error.message);
     }
   }
 

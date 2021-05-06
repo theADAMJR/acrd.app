@@ -10,7 +10,7 @@
             *ngFor="let role of guild.roles.reverse()"
             (click)="selectRole(role)"
             [style.color]="role.color + '!important'"
-            [class.active]="selectedRole._id === role._id"
+            [class.active]="selectedRole?._id === role._id"
             class="cursor-pointer nav-item nav-link">{{ role.name }}</a>
           <div class="float-right">
             <button
