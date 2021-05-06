@@ -62,7 +62,6 @@ export namespace Lean {
     mentionable: boolean;
     name: string;
     permissions: number;
-    position: number;
   }
   export interface User {
     _id: string;

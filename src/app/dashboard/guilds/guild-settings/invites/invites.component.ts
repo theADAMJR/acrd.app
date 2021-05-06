@@ -18,17 +18,14 @@ export class InvitesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private guildService: GuildService,
-    public log: LogService,
     public userService: UserService,
-    public ws: WSService,
+    private ws: WSService,
   ) {}
 
   public async ngOnInit() {
     const guildId = this.route.snapshot.paramMap.get('guildId');
     this.guild = this.guildService.getCached(guildId);
     this.invites = await this.guildService.getInvites(guildId);
-
-    this.hookWSEvents();
   }
 
   public usesString(invite: Lean.Invite) {
@@ -37,16 +34,10 @@ export class InvitesComponent implements OnInit {
       : invite.uses;
   }
 
-  private hookWSEvents() {
-    this.ws.on('INVITE_DELETE', async ({ inviteCode }) => {
-      await this.log.success();
-
-      const index = this.invites.findIndex(i => i._id === inviteCode);
-      this.invites.splice(index, 1);
-    }, this);
-  }
-
-  public delete(inviteCode: string) {
-    this.ws.emit('INVITE_DELETE', { inviteCode }, this);
+  public async delete(inviteCode: string) {
+    await this.ws.emitAsync('INVITE_DELETE', { inviteCode }, this);
+      
+    const index = this.invites.findIndex(i => i._id === inviteCode);
+    this.invites.splice(index, 1);
   }
 }
