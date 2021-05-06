@@ -32,9 +32,7 @@ export abstract class ModuleConfig implements OnDestroy {
   /**
    * Load all required data for the form, and hook events.
    */
-  public async init() {
-    await this.guildService.init();
-    
+  public async init() {    
     this.guild = this.guildService.getCached(this.guildId);
     this.originalGuild = JSON.parse(JSON.stringify(this.guild));
     

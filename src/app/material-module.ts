@@ -14,6 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {CdkTableModule} from '@angular/cdk/table';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -25,6 +26,7 @@ import {MatDialogModule} from '@angular/material/dialog';
   exports: [
     ColorPickerModule,
     CdkTableModule,
+    // DragDropModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatChipsModule,

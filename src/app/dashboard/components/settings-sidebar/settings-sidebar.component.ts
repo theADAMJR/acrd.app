@@ -18,7 +18,7 @@ export class SettingsSidebarComponent {
     guild: [
       {
         name: 'General', 
-        icon: 'fas fa-eye', 
+        icon: 'lni lni-eye', 
         href: () => `/channels/${this.guildId}/settings`,
         permission: PermissionTypes.General.MANAGE_GUILD, 
       },
@@ -30,7 +30,7 @@ export class SettingsSidebarComponent {
       // },
       {
         name: 'Invites',
-        icon: 'fas fa-user-plus',
+        icon: 'lni lni-user',
         href: () => `/channels/${this.guildId}/invites`,
         permission: PermissionTypes.General.MANAGE_GUILD, 
       },
@@ -42,8 +42,8 @@ export class SettingsSidebarComponent {
       },
     ],
     user: [
-      { name: 'Overview', icon: 'fas fa-eye', href: () => '/channels/@me/settings' },
-      { name: 'Account', icon: 'fas fa-lock', href: () => '/channels/@me/settings/account' },
+      { name: 'Overview', icon: 'lni lni-eye', href: () => '/channels/@me/settings' },
+      { name: 'Account', icon: 'lni lni-lock', href: () => '/channels/@me/settings/account' },
     ],
   };
 

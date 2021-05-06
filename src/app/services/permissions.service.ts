@@ -52,8 +52,7 @@ export class PermissionsService {
     const selfMember = this.guildService.getSelfMember(guildId);
     const guild = this.guildService.getCached(guildId);
 
-    const highestRole: Lean.Role = guild.roles
-      .sort((a, b) => (a.position > b.position) ? 1 : -1)[0];
+    const highestRole: Lean.Role = guild.roles[guild.roles.length - 1];
       
     return selfMember.userId === guild.ownerId
       || (selfMember.roleIds.includes(highestRole?._id)

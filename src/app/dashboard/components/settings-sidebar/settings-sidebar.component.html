@@ -3,7 +3,7 @@
     <h2 class="category text-secondary overflow-ellipsis">{{ tabCategory }}</h2>
 
     <a *ngFor="let tab of tabs[tabType]"
-      [routerLinkActiveOptions]="{exact:true}"
+      [routerLinkActiveOptions]="{ exact: true }"
       [routerLink]="canAccess(tab) ? tab.href() : './'"
       [class.disabled]="!canAccess(tab)"
       routerLinkActive="active"

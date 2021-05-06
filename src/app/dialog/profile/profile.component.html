@@ -39,7 +39,7 @@
 <hr>
 
 <div
-  *ngIf="mutualGuilds.length >= 0"
+  *ngIf="mutualGuilds.length"
   mat-dialog-content>
   <h6>Mutual Guilds—{{ mutualGuilds.length }}</h6>
   <div class="ml-4">
@@ -56,7 +56,7 @@
 <hr>
 
 <div
-  *ngIf="mutualFriends.length >= 0"
+  *ngIf="mutualFriends.length"
   mat-dialog-content>
   <h6>Mutual Friends—{{ mutualFriends.length }}</h6>
   <div class="ml-4">

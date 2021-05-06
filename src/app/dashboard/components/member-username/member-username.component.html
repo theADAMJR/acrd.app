@@ -47,6 +47,30 @@
   #contextMenu>
   <h6 class="p-2 text-center">{{ user.username }}</h6>
 
+  <button
+    (click)="dialog.profile({ user: user })"
+    mat-menu-item>
+    <i class="lni lni-user text-muted mr-1"></i>
+    <span>View Profile</span>
+  </button>
+
+  <button
+    *ngIf="isBlocked && user._id !== userService.self._id"  
+    (click)="userService.unblock(user._id)"
+    mat-menu-item>
+    <i class="lni lni-ban text-muted mr-1"></i>
+    <span>Unblock</span>
+  </button>
+  <button
+    *ngIf="!isBlocked && user._id !== userService.self._id"  
+    (click)="userService.block(user._id)"
+    mat-menu-item>
+    <i class="lni lni-ban text-danger mr-1"></i>
+    <span>Block</span>
+  </button>
+  
+  <hr class="my-2">
+  
   <div *ngIf="guild">
     <mat-form-field
       *ngIf="perms.canManage(guild._id, user._id, 'MANAGE_ROLES')"  
@@ -76,30 +100,6 @@
       <span>Kick</span>
     </button>
   </div>
-  
-  <hr class="my-2">
-
-  <button
-    (click)="dialog.profile({ user: user })"
-    mat-menu-item>
-    <i class="lni lni-user text-muted mr-1"></i>
-    <span>View Profile</span>
-  </button>
-
-  <button
-    *ngIf="isBlocked && user._id !== userService.self._id"  
-    (click)="userService.unblock(user._id)"
-    mat-menu-item>
-    <i class="lni lni-ban text-muted mr-1"></i>
-    <span>Unblock</span>
-  </button>
-  <button
-    *ngIf="!isBlocked && user._id !== userService.self._id"  
-    (click)="userService.block(user._id)"
-    mat-menu-item>
-    <i class="lni lni-ban text-danger mr-1"></i>
-    <span>Block</span>
-  </button>
   
   <hr class="my-2">
 

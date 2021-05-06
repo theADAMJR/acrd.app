@@ -32,6 +32,7 @@ export class GuildEventService {
       ...guild.roles[index],
       ...partialRole,
     };
+    
   }
 
   public async addMember({ member }: Args.GuildMemberAdd) {

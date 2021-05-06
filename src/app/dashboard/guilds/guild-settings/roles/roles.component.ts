@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -70,7 +71,6 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     await super.init();
 
     this.guild.roles.sort(array.ascendingBy('position'));
-
     this.selectRole(this.guild.roles[0]);
   }
 
@@ -99,11 +99,11 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       }),
       hoisted: new FormControl({
         disabled: this.isEveryone,
-        value: this.isEveryone ? false : role.mentionable,
+        value: (this.isEveryone) ? false : role.mentionable,
       }),
       mentionable: new FormControl({
         disabled: this.isEveryone,
-        value: this.isEveryone ? false : role.mentionable,
+        value: (this.isEveryone) ? false : role.mentionable,
       }),
       name: new FormControl({
         disabled: this.isEveryone,
@@ -113,12 +113,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
         Validators.maxLength(32),
         Validators.pattern(/^(?!everyone|here|someone).*$/),
       ]),
-      position: new FormControl(this.getPosition(role)),
     });
-  }
-
-  private getPosition(role: Lean.Role) {
-    return this.guild.roles.findIndex(r => r._id == role._id);
   }
 
   private permissionGroup(role: Lean.Role, type: object) {
@@ -155,15 +150,8 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
   private async updateRole() {
     const roleId = this.selectedRole._id;
-    this.ws.on('GUILD_ROLE_UPDATE', () => {
-      const index = this.guild.roles.findIndex(r => r._id === roleId);
-      this.selectedRole = this.guild.roles[index] = {
-        ...this.guild.roles[index],
-        ...this.form.value,
-      };
-    }, this);
 
-    this.ws.emit('GUILD_ROLE_UPDATE', {
+    await this.ws.emitAsync('GUILD_ROLE_UPDATE', {
       roleId,
       guildId: this.guildId,
       partialRole: this.form.value,
@@ -173,28 +161,17 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   public async newRole() {
-    this.ws.on('GUILD_ROLE_CREATE', ({ role }) => {
-      this.guild.roles.push(role);
-      this.selectedRole = role;
+    const { role } = await this.ws.emitAsync('GUILD_ROLE_CREATE', {
+      guildId: this.guildId,
+      partialRole: { ...this.form.value, name: 'New Role' },
     }, this);
 
-    this.ws.emit('GUILD_ROLE_CREATE', {
-      guildId: this.guildId,
-      partialRole: {
-        ...this.form.value,
-        name: 'New Role',
-      },
-    }, this);
+    this.selectedRole = role;
   }
 
   public async deleteRole() {
     const roleId = this.selectedRole._id;
-    this.ws.emit('GUILD_ROLE_DELETE', { roleId, guildId: this.guildId }, this);
-
-    const index = this.guild.roles.findIndex(r => r._id === roleId);
-    this.guild.roles.splice(index, 1);
-    this.originalGuild = {...this.guild};
-
+    await this.ws.emitAsync('GUILD_ROLE_DELETE', { roleId, guildId: this.guildId }, this);
     await this.selectRole(this.guild.roles[0]);
   }
 }

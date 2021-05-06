@@ -3,7 +3,8 @@
 }
 
 .side .category {
-  margin-left: 10px;  
+  margin-left: 10px;
+  max-width: 200px; 
 }
 .side a {
   padding-right: 10px !important;
