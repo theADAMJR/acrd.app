@@ -14,6 +14,14 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./guild-settings.component.css']
 })
 export class GuildSettingsComponent extends ModuleConfig implements OnInit {
+  public get previewGuild() {
+    return {
+      ...this.guild,
+      name: this.form.get('name').value || this.guild.name,
+      iconURL: this.form.get('iconURL').value || this.guild.iconURL,
+    };
+  }
+
   constructor(
     route: ActivatedRoute,
     router: Router,

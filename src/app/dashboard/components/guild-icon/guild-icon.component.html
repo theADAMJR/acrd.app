@@ -10,12 +10,19 @@
     <img
       *ngIf="guild.iconURL"
       [src]="guild.iconURL"
-      [alt]="guild.name">
-    <span *ngIf="!guild.iconURL"
-      class="d-flex justify-content-center">{{ guild.nameAcronym }}</span>
+      [alt]="guild.name"
+      [style.width]="size"
+      [style.height]="size"
+      #img>
+    <span
+      *ngIf="!guild.iconURL"
+      class="d-flex flex-column justify-content-center"
+      [style.width]="size"
+      [style.height]="size">
+      <span>{{ guild.nameAcronym }}</span>
+    </span>
   </div>
 </div>
-
 
 <mat-menu
   matMenuContent
@@ -25,7 +32,7 @@
       (click)="guildService.leave(guild._id)"
       class="text-danger p-2"
       mat-menu-item>
-      <i class="lni lni-door-open"></i>
+      <i class="lni lni-exit"></i>
       <span> Leave</span>
     </button>
     
@@ -33,7 +40,7 @@
   </div>
 
   <div (click)="$event.stopPropagation()" class="p-2">
-    <strong>ID: </strong>
-    <code>{{ guild._id }}</code>
+    <i class="lni lni-dev"></i>
+    <code> {{ guild._id }}</code>
   </div>
 </mat-menu>
