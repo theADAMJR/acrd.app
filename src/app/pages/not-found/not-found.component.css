@@ -240,4 +240,6 @@ h1 + p {
 
 footer {
   font-size: x-small;
+  position: absolute;
+  bottom: 0;
 }
