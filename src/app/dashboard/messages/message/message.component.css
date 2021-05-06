@@ -108,3 +108,7 @@ app-avatar-url {
 .extra-message:hover .edit-indicator {
 	display: inline;
 }
+
+.context-content {
+	max-height: 48px;
+}

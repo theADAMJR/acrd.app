@@ -37,6 +37,8 @@
 <mat-menu
   #channelMenu="matMenu"
   matMenuContent>
+  <h6 class="p-2 text-center">#{{ channel.name }}</h6>
+
   <div (click)="$event.stopPropagation()">
     <button
       *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"

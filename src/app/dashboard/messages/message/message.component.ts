@@ -64,6 +64,8 @@ export class MessageComponent implements OnInit {
   }
 
   public get processed() {
+    if (this.isEditing) return this.message.content;
+
     const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
     const getUser = (id: string) => this.userService.getAsync(id);
 

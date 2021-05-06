@@ -86,7 +86,11 @@
   [style.left]="contextMenuPosition.x"
   [style.top]="contextMenuPosition.y"
   #contextMenu>
-  <div *ngIf="canManage && author?._id === userService.self._id">
+  <h6 class="p-2 text-center overflow-hidden context-content"
+    [innerHTML]="processed"></h6>
+
+  <div
+    *ngIf="canManage && author?._id === userService.self._id">
     <button
       (click)="toggleEditing()"
       mat-menu-item>

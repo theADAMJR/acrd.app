@@ -27,6 +27,8 @@
 <mat-menu
   matMenuContent
   #contextMenu>
+  <h6 class="p-2 text-center">{{ guild.name }}</h6>
+
   <div *ngIf="guild.ownerId !== userService.self._id">
     <button
       (click)="guildService.leave(guild._id)"
