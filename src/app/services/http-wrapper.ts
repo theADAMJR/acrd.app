@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GeneralTypes } from '../types/entity-types';
+import { GeneralTypes, Lean, UserTypes } from '../types/entity-types';
 import { WSService } from './ws.service';
 
 // convention over configuration
@@ -33,7 +33,7 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
     if (this.arr.length <= 0)
       await this.fetchAll();
     if (!this.self)
-      await this.updateSelf?.();
+       await this.updateSelf?.();
   }
 
   public updateSelf?(): Promise<T>;

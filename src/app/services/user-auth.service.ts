@@ -24,7 +24,6 @@ export class UserAuthService {
   constructor(
     private http: HttpClient,
     private userService: UserService,
-    private ws: WSService,
   ) {}
 
   public async signUp(user: Credentials) {
@@ -74,10 +73,6 @@ export class UserAuthService {
 
     localStorage.setItem('key', res);
     return true;
-  }
-
-  public ready() {
-    return this.ws.emitAsync('READY', { key: localStorage.getItem('key') }, this);
   }
 }
 

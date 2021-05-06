@@ -80,3 +80,7 @@ export const array = {
   descendingBy: (key: string) => (a, b) => (a[key] < b[key]) ? 1 : -1,
   distinctBy: (key: string) => (value, index, self) => self.findIndex(v => v[key] === value[key]) === index,
 };
+
+export const commonPatterns = {
+  trailingNewLines: /^\s+|\s+$/,
+}

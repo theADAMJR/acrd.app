@@ -15,7 +15,6 @@ export class DashboardAuthGuard implements CanActivate {
     private guildService: GuildService,
     private router: Router,
     private userService: UserService,
-    private auth: UserAuthService,
   ) {}
 
   public async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -26,10 +25,9 @@ export class DashboardAuthGuard implements CanActivate {
     if (!canActivate)
       await this.router.navigateByUrl(`/login?redirect=${route.url.join('/')}`);
 
-    if (!this.already) {
+    if (!this.already)
       this.already = true;
-      await this.auth.ready();
-    }
+
     return canActivate;
   }
 }

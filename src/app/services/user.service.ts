@@ -1,8 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Lean, UserTypes } from '../types/entity-types';
 import { array } from '../utils/utils';
 import { HTTPWrapper } from './http-wrapper';
+import { UserAuthService } from './user-auth.service';
+import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService extends HTTPWrapper<Lean.User> {
@@ -23,6 +26,13 @@ export class UserService extends HTTPWrapper<Lean.User> {
       )
       .filter(array.distinctBy('_id'));
   }
+
+  constructor(
+    http: HttpClient,
+    ws: WSService,
+  ) {
+    super(http, ws);
+  }
   
   public avatarURL(id: string) {
     return `${this.endpoint}/${id}/avatar`;
@@ -41,6 +51,18 @@ export class UserService extends HTTPWrapper<Lean.User> {
   }
   public async checkEmail(email: string): Promise<boolean> {
     return this.http.get(`${this.endpoint}/check-email?value=${email}`).toPromise() as any;
+  }
+
+  public async init() {
+    if (!this.self) {
+      const { user } = await this.ready();
+      this.self = user;
+    }
+    await super.init();
+  }
+
+  private ready() {
+    return this.ws.emitAsync('READY', { key: localStorage.getItem('key') }, this);
   }
 
   public block(userId: string) {

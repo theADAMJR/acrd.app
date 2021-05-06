@@ -145,9 +145,9 @@ export interface WSEventArgs {
   /** Called when a message is sent in a channel you are not ignoring. */
   'PING': (args: Args.Ping) => any;
   /** Called when a user goes online or offline. */
-  'PRESENCE_UPDATE': (params: Args.PresenceUpdate) => any;
+  'PRESENCE_UPDATE': (args: Args.PresenceUpdate) => any;
   /** Called when the websocket accepts that you are ready. */
-  'READY': () => any;
+  'READY': (args: Args.Ready) => any;
   /** Called when you are removed as a friend, or you remove a friend request, or an existing friend. */
   'REMOVE_FRIEND': (args: Args.RemoveFriend) => any;
   /** Called when someone is typing in a text-based channel. */
@@ -360,7 +360,9 @@ export namespace Args {
     userId: string;
     status: UserTypes.StatusType;
   }
-  export interface Ready {}
+  export interface Ready {
+    user: UserTypes.Self;
+  }
   export interface RemoveFriend {
     friend: Lean.User;
     sender: Lean.User;

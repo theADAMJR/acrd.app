@@ -11,6 +11,7 @@ import { WSService } from '../services/ws.service';
 import { MessageService } from '../services/message.service';
 import { ChannelService } from '../services/channel.service';
 import { Lean } from '../types/entity-types';
+import { commonPatterns } from '../utils/utils';
 
 @Component({ template: '' })
 export class TextBasedChannel implements OnInit {
@@ -101,12 +102,7 @@ export class TextBasedChannel implements OnInit {
   public async chat(content: string) {
     if (!content.trim()) return;
     
-    const firstNewLines = /\s+/;
-    const lastNewLines = /\s+$/;
-
-    content = content
-      .replace(firstNewLines, '')
-      .replace(lastNewLines, '');
+    content = content.replace(commonPatterns.trailingNewLines, '');
     this.messageInput.nativeElement.value = '';
 
     this.ws.emit('MESSAGE_CREATE', {

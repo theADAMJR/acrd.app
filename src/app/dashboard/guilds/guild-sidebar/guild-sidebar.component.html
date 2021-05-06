@@ -2,30 +2,32 @@
   <div
     *ngIf="guild"
     class="side-nav navbar-dark">
-    <div class="header">
-      <div class="dropdown">
-        <button
-          id="heftyButton"
-          [matMenuTriggerFor]="guildMenu"
-          class="btn bg-transparent text-center"
-          type="button">
-          <h6 class="d-flex flex-column jusify-content-center mb-0">
-            <strong>{{ guild.name }}</strong>
-            <i class="lni lni-chevron-down ml-1"></i>
-          </h6>
-        </button>
+    <div class="channel-wrapper">
+      <div class="header">
+        <div class="dropdown">
+          <button
+            id="heftyButton"
+            [matMenuTriggerFor]="guildMenu"
+            class="btn bg-transparent text-center"
+            type="button">
+            <h6 class="d-flex flex-column jusify-content-center mb-0">
+              <strong>{{ guild.name }}</strong>
+              <i class="lni lni-chevron-down ml-1"></i>
+            </h6>
+          </button>
+        </div>
+      </div>
+  
+      <div class="category">Channels—{{ textChannels.length }}</div>
+      <div
+        *ngIf="perms.can(guild._id, 'VIEW_CHANNELS')"
+        class="navbar-nav">
+        <app-channel-tab
+          *ngFor="let channel of textChannels"
+          [channel]="channel"></app-channel-tab>
       </div>
     </div>
-
-    <div class="category">Channels—{{ textChannels.length }}</div>
-    <div
-      *ngIf="perms.can(guild._id, 'VIEW_CHANNELS')"
-      class="navbar-nav">
-      <app-channel-tab
-        *ngFor="let channel of textChannels"
-        [channel]="channel"></app-channel-tab>
     </div>
-  </div>
     
   <div id="content">    
     <div *ngIf="loaded">

@@ -67,7 +67,7 @@ export class MessageComponent implements OnInit {
     if (this.isEditing) return this.message.content;
 
     const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
-    const getUser = (id: string) => this.userService.getAsync(id);
+    const getUser = (id: string) => this.userService.getCached(id);
 
     const getMention = (html: string, condition: boolean) => {
       return (condition)
