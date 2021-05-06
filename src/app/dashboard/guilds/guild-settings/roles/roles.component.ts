@@ -104,7 +104,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       }),
       name: new FormControl({
         disabled: this.isEveryone,
-        value: this.selectedRole.name ?? '',
+        value: this.selectedRole.name,
       }, [
         Validators.required,
         Validators.maxLength(32),

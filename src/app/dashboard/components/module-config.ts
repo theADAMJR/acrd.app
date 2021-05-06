@@ -55,13 +55,13 @@ export abstract class ModuleConfig implements OnDestroy {
   
   public openSaveChanges() {
     const snackBarRef = this.saveChanges._openedSnackBarRef;
-    if (!this.form.valid || snackBarRef) return;
+    if (this.form.invalid || snackBarRef) return;
 
     this.saveChanges$ = this.saveChanges.openFromComponent(SaveChangesComponent).afterOpened()
     .subscribe(() => {
       const component = this.saveChanges._openedSnackBarRef.instance as SaveChangesComponent;
-      component.onSave.subscribe(async() => await this.submit());
-      component.onReset.subscribe(async() => await this.reset());
+      component.onSave.subscribe(() => this.submit());
+      component.onReset.subscribe(() => this.reset());
     });    
   }
 
@@ -92,7 +92,7 @@ export abstract class ModuleConfig implements OnDestroy {
    */
   public async reset() {
     await this.resetForm();
-    this.guild = JSON.parse(JSON.stringify(this.originalGuild));
+    this.guild = { ...this.originalGuild };
     
     this.form.valueChanges
       .subscribe(() => this.openSaveChanges()); 

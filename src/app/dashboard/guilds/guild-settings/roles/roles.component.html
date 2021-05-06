@@ -42,7 +42,8 @@
                     [readonly]="isEveryone"
                     formControlName="name"
                     type="text"
-                    matInput>
+                    matInput
+                    validate>
                 </mat-form-field>
               </div>
 
@@ -55,7 +56,8 @@
                     [(colorPicker)]="presetColors[1]"
                     [cpPresetColors]="presetColors"
                     formControlName="color"
-                    matInput>
+                    matInput
+                    validate>
                 </mat-form-field>
               </div>
             </div>
@@ -66,14 +68,16 @@
               <span>Display role members separately</span>
               <mat-slide-toggle 
                 formControlName="hoisted"
-                class="float-right"></mat-slide-toggle>
+                class="float-right"
+                validate></mat-slide-toggle>
               <hr>
             </div>
             <div>
               <span>Allow anyone to <span class="d-mention p-1 rounded">@mention</span> this role</span>
               <mat-slide-toggle
                 formControlName="mentionable"
-                class="float-right"></mat-slide-toggle>
+                class="float-right"
+                validate></mat-slide-toggle>
             </div>
             <hr>
           </div>

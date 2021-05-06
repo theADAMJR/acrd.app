@@ -37,9 +37,9 @@ export class PermissionsService {
     const userMember = this.guildService.getMember(guildId, userId);
     if (!userMember) return false;
 
-    return (this.userService.self._id === userMember.userId
-      || (this.isHigher(guildId, userMember.roleIds))
-      && this.can(guildId, permission));
+    return this.can(guildId, permission)
+      && (this.userService.self._id === userMember.userId
+      || (this.isHigher(guildId, userMember.roleIds)));
   }
 
   public canPunish(guildId: string, userId: string, permission: PermissionTypes.PermissionString) {
