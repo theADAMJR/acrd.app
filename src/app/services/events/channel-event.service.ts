@@ -4,7 +4,6 @@ import { ChannelService } from '../channel.service';
 import { GuildService } from '../guild.service';
 import { MessageService } from '../message.service';
 import { PingService } from '../ping.service';
-import { SoundService } from '../sound.service';
 
 @Injectable({
   providedIn: 'root'

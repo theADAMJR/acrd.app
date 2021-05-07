@@ -56,8 +56,8 @@ export class GuildEventService {
     return guild.members[index] = { ...oldMember, ...partialMember };
   }
 
-  public addChannel({ channel }: Args.ChannelCreate) {
-    const guild = this.guildService.getCached(channel.guildId);
+  public addChannel({ channel, guildId }: Args.ChannelCreate) {
+    const guild = this.guildService.getCached(guildId);
     guild.channels.push(channel);
   }
   public deleteChannel({ guildId, channelId }: Args.ChannelDelete) {

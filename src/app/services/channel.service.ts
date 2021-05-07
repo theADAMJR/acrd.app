@@ -35,9 +35,6 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   }
 
   public startTyping(channelId: string, userId: string) {
-    // const isSelf = this.userService.self._id === userId;
-    // if (isSelf) return;
-
     this.getTyping(channelId).push(userId);
 
     setTimeout(() => this.stopTyping(channelId, userId), 5.1 * 1000);
