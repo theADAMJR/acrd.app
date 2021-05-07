@@ -23,7 +23,7 @@ export class SoundService {
   }
 
   private async playSound(name: string) {
-    if (!this.sfxEnabled) return;
+    if (!this.sfxEnabled && name !== 'ping') return;
 
     const audio: HTMLAudioElement = document.createElement('audio');
     audio.setAttribute('src', `assets/audio/${name}.wav`);

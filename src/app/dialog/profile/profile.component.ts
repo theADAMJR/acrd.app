@@ -41,7 +41,6 @@ export class ProfileComponent {
     public dialogRef: MatDialogRef<ProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { user: Lean.User },
     private channels: ChannelService,
-    private log: LogService,
     private users: UserService,
     private ws: WSService,
   ) {}

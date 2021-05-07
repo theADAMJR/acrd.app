@@ -8,6 +8,7 @@ import { WSService } from './ws.service';
 export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   /** Object of the client, or that is being currently used. */
   public self?: T;
+  private initialized = false;
   protected abstract endpoint: string;
 
   protected get headers() {
@@ -29,11 +30,15 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
     protected ws: WSService,
   ) {}
 
-  public async init() {
+  public async init() {    
+    if (this.initialized) return;
+
     if (this.arr.length <= 0)
       await this.fetchAll();
     if (!this.self)
        await this.updateSelf?.();
+
+    this.initialized = true;
   }
 
   public updateSelf?(): Promise<T>;
