@@ -6,9 +6,9 @@ describe('WSService', () => {
   let service: WSService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
     service = TestBed.inject(WSService);
   });
 

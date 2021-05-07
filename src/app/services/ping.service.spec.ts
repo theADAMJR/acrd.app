@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { AccordMock } from 'src/tests/accord-mock';
 import { AppModule } from '../app.module';
 import { Lean, UserTypes } from '../types/entity-types';
 
@@ -12,27 +13,15 @@ describe('PingService', () => {
   let user: UserTypes.Self;
 
   beforeEach(async() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
+
     service = TestBed.inject(PingService);
     userService = TestBed.inject(UserService);
+    userService.self = AccordMock.self();
 
-    user = userService.self;
-    user.username = 'test_user_123';
-    user.ignored = {
-      channelIds: [],
-      guildIds: [],
-      userIds: [],
-    };
-    
-    message = {
-      _id: 'test_message_123',
-      channelId: 'test_channel_123',
-      createdAt: new Date(),
-      authorId: user.username,
-      content: 'hi',
-    };
+    message = AccordMock.message();
   });
 
   it('should be created', () => {
@@ -44,20 +33,20 @@ describe('PingService', () => {
   });
 
   it('isIgnored(), channel ignored returns true', () => {
-    user.ignored.channelIds.push(message.channelId);
+    userService.self.ignored.channelIds.push(message.channelId);
 
     expect(service.isIgnored(message)).toBe(true);
   });
 
   it('isIgnored(), guild ignored returns true', () => {
     const guildId = 'test_guild_123';
-    user.ignored.guildIds.push(guildId);
+    userService.self.ignored.guildIds.push(guildId);
 
     expect(service.isIgnored(message, guildId)).toBe(true);
   });
 
   it('isIgnored(), user ignored returns true', () => {
-    user.ignored.userIds.push(message.authorId);
+    userService.self.ignored.userIds.push(message.authorId);
 
     expect(service.isIgnored(message)).toBe(true);
   });

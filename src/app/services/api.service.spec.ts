@@ -7,9 +7,9 @@ describe('ApiService', () => {
   let service: APIService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
     service = TestBed.inject(APIService);
   });
 

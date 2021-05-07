@@ -7,9 +7,9 @@ describe('DevelopersAuthGuard', () => {
   let guard: DevelopersAuthGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
     guard = TestBed.inject(DevelopersAuthGuard);
   });
 

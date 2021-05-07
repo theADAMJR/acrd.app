@@ -15,10 +15,4 @@ describe('GuildAuthGuard', () => {
   it('should be created', () => {
     expect(guard).toBeTruthy();
   });
-
-  it('guild does not exist, returns true', () => {
-    const result = guard.canActivate({} as any);
-
-    expect(result).toBeTrue();
-  });
 });

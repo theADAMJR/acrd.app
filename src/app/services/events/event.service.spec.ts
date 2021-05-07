@@ -7,9 +7,9 @@ describe('EventService', () => {
   let service: EventService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
     service = TestBed.inject(EventService);
   });
 

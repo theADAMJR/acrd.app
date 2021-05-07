@@ -7,9 +7,9 @@ describe('ChannelService', () => {
   let service: ChannelService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
     service = TestBed.inject(ChannelService);
   });
 

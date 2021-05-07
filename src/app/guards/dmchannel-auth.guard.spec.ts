@@ -7,9 +7,9 @@ describe('DMChannelAuthGuard', () => {
   let guard: DMChannelAuthGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
     guard = TestBed.inject(DMChannelAuthGuard);
   });
 

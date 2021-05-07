@@ -75,7 +75,6 @@ export namespace Lean {
     guilds: string[] | Lean.Guild[];
     status: UserTypes.StatusType;
     username: string;
-    verified?: boolean;
   } 
 }
 

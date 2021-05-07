@@ -7,9 +7,9 @@ describe('PermissionsService', () => {
   let service: PermissionsService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
     service = TestBed.inject(PermissionsService);
   });
 

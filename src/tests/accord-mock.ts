@@ -1,4 +1,5 @@
-import { Lean, PermissionTypes } from 'src/app/types/entity-types';
+import { Lean, PermissionTypes, UserTypes } from 'src/app/types/entity-types';
+import faker from 'faker';
 
 export class AccordMock {
   public static guild(options?: Partial<Lean.Guild>): Lean.Guild {
@@ -44,6 +45,22 @@ export class AccordMock {
     }
   }
 
+  public static self(options?: Partial<UserTypes.Self>): UserTypes.Self {
+    return {
+      ...AccordMock.user(),
+      email: 'testing123@gmail.com',
+      verified: true,
+      lastReadMessages: {},
+      guilds: [],
+      ignored: {
+        channelIds: [],
+        guildIds: [],
+        userIds: [],
+      },
+      ...options,
+    }
+  }
+
   public static user(options?: Partial<Lean.User>): Lean.User {
     return {
       _id: AccordMock.snowflake(),
@@ -54,9 +71,19 @@ export class AccordMock {
       friendIds: [],
       friendRequestIds: [],
       guilds: [],
-      verified: false,
       status: 'ONLINE',
       username: 'Mock User',
+      ...options,
+    }
+  }
+
+  public static message(options?: Partial<Lean.Message>): Lean.Message {
+    return {
+      _id: AccordMock.snowflake(),
+      authorId: AccordMock.snowflake(),
+      createdAt: new Date(),
+      channelId: AccordMock.snowflake(),
+      content: faker.lorem.sentence(),
       ...options,
     }
   }

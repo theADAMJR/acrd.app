@@ -7,9 +7,9 @@ describe('InviteService', () => {
   let service: InviteService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
     service = TestBed.inject(InviteService);
   });
 

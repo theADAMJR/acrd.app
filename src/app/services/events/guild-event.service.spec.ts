@@ -11,9 +11,9 @@ describe('GuildEventService', () => {
   let guildService: GuildService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [AppModule],
-    }).compileComponents();
+    TestBed
+      .configureTestingModule({ imports: [AppModule] })
+      .compileComponents();
     service = TestBed.inject(GuildEventService);
     guildService = TestBed.inject(GuildService);
   });
@@ -25,12 +25,30 @@ describe('GuildEventService', () => {
   it('create role, adds role to guild', () => {
     const guild = AccordMock.guild();
     guildService.add(guild);
-
+    
+    const role = AccordMock.role(guild._id);
     service.createRole({
       guildId: guild._id,
-      role: AccordMock.role(guild._id),
+      role,
     });
     
-    expect(guild.roles.length).toBe(2);
+    expect(guild.roles).toContain(role);
+  });
+  
+  it('delete role, removes role from guild', () => {
+    const guild = AccordMock.guild();
+    guildService.add(guild);
+
+    const role = AccordMock.role(guild._id);
+    service.createRole({
+      guildId: guild._id,
+      role,
+    });
+    service.deleteRole({
+      guildId: guild._id,
+      roleId: role._id,
+    });
+    
+    expect(guild.roles).not.toContain(role);
   });
 });
