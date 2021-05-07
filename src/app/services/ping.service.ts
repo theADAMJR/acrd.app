@@ -18,10 +18,10 @@ export class PingService {
     this.unread.delete(channelId);
   }
 
-  public async add(message: Lean.Message) {
+  public async add(message: Lean.Message, withSound = true) {
     this.unread.set(message.channelId, message._id);
 
-    await this.sounds.ping();
+    if (withSound) await this.sounds.ping();
   }
 
   public lastRead(channelId: string) {

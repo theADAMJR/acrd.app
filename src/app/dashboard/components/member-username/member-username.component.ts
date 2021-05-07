@@ -56,7 +56,8 @@ export class MemberUsernameComponent implements OnInit {
   }
   public get isUnread() {
     return this.pings.isUnread(this.dmChannelId)
-      && this.dmChannelId !== this.activeChannelId;
+      && this.dmChannelId !== this.activeChannelId
+      && !this.guild;
   }
 
   constructor(
