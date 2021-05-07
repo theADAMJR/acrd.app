@@ -8,7 +8,8 @@ export class GuildAuthGuard implements CanActivate {
   constructor(
     private guildService: GuildService,
     private router: Router,
-    private userService: UserService) {}
+    private userService: UserService,
+  ) {}
 
   public async canActivate(next: ActivatedRouteSnapshot) {
     // FIXME

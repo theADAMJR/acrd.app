@@ -6,7 +6,7 @@ import { ModuleConfig } from 'src/app/dashboard/components/module-config';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
-import { Lean } from 'src/app/types/entity-types';
+import { Partial } from 'src/app/types/ws-types';
 
 @Component({
   selector: 'app-guild-settings',
@@ -37,7 +37,7 @@ export class GuildSettingsComponent extends ModuleConfig implements OnInit {
     await super.init();
   }
 
-  public buildForm(guild: Lean.Guild): FormGroup | Promise<FormGroup> {
+  public buildForm(guild: Partial.Guild): FormGroup | Promise<FormGroup> {
     return new FormGroup({
       iconURL: new FormControl(guild.iconURL),
       name: new FormControl(guild.name, [ Validators.required, Validators.maxLength(32) ]),

@@ -55,14 +55,25 @@ export abstract class ModuleConfig implements OnDestroy {
   
   public openSaveChanges() {
     const snackBarRef = this.saveChanges._openedSnackBarRef;
-    if (this.form.invalid || snackBarRef) return;
+    if (this.form.invalid || snackBarRef || !this.isChanged()) return;
 
     this.saveChanges$ = this.saveChanges.openFromComponent(SaveChangesComponent).afterOpened()
     .subscribe(() => {
       const component = this.saveChanges._openedSnackBarRef.instance as SaveChangesComponent;
       component.onSave.subscribe(() => this.submit());
       component.onReset.subscribe(() => this.reset());
-    });    
+    });
+  }
+
+  private isChanged() {
+    for (const key in this.form.value) {
+      const value = this.form.value[key];
+      if (!value) continue;
+ 
+      if (this.originalGuild[key] !== value)
+        return true;
+    }
+    return false;
   }
 
   /**
