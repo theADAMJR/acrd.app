@@ -2,7 +2,6 @@ const defaultValues = {
   sfxEnabled: true,
   memberListExpanded: true,
   theme: 'HORIZON',
-  
 }
 
 for (const key in defaultValues) {

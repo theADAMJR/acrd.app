@@ -14,7 +14,7 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   
   protected _arr: Lean.Channel[] = [];
   public get channels(): Lean.Channel[] {
-    return this._arr = this.guildService.guilds
+    return this.guildService.guilds
       .flatMap(c => c.channels)
       .concat(this._arr);
   }
