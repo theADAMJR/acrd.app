@@ -13,11 +13,16 @@ import { DialogService } from 'src/app/services/dialog.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
-  @ViewChild('drawer') drawer: MatDrawer;
+export class SidebarComponent {
+  @ViewChild('drawer')
+  private drawer: MatDrawer;
 
-  get guilds() { return this.guildService.guilds || []; }
-  get user() { return this.userService.self; }
+  public get guilds() {
+    return this.guildService.guilds || [];
+  }
+  public get user() {
+    return this.userService.self;
+  }
 
   constructor(
     public channelService: ChannelService,
@@ -25,11 +30,6 @@ export class SidebarComponent implements OnInit {
     private userService: UserService,
     public dialog: DialogService,
   ) {}
-
-  async ngOnInit() {
-    await this.channelService.init();
-    await this.guildService.init();
-  }
 
   public toggle() {
     const icon = document.querySelector('#nav-icon1');

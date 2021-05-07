@@ -1,26 +1,28 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Args } from 'src/app/types/ws-types';
 import { ChannelService } from '../channel.service';
+import { GuildService } from '../guild.service';
 import { MessageService } from '../message.service';
+import { PingService } from '../ping.service';
 import { SoundService } from '../sound.service';
-import { UserService } from '../user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelEventService {
   constructor(
-    private sounds: SoundService,
     private channelService: ChannelService,
+    private guildService: GuildService,
     private messageService: MessageService,
+    private pingService: PingService,
   ) {}
 
-  public async ping(args: Args.Ping) {
-    await this.sounds.ping();
-  }
-
   public async addMessage({ message }: Args.MessageCreate) { 
+    const guild = this.guildService.getGuildFromChannel(message.channelId);
+    const ignored = this.pingService.isIgnored(message, guild._id);
+    if (!ignored)
+      await this.pingService.add(message);
+
     this.messageService.overrideAdd([message]);
   }
 

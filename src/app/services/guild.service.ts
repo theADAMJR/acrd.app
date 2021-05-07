@@ -41,6 +41,11 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
     return guild?.members.find(m => m._id === memberId);
   }
 
+  public getRole(guildId: string | undefined, roleId: string | undefined) {
+    const guild = this.getCached(guildId);
+    return guild?.roles.find(r => r._id === roleId);
+  }
+
   public async ownsGuild(guildId: string, userId: string) {
     const guild = await this.getAsync(guildId);
     return guild.ownerId === userId;

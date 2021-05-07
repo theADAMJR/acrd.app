@@ -11,7 +11,10 @@ export class AccordMock {
       _id: guildId,
       createdAt: new Date(),
       members: [AccordMock.member(guildId, everyoneRole._id)],
-      channels: [],
+      channels: [
+        AccordMock.channel(guildId),
+        AccordMock.channel(guildId, { type: 'VOICE' }),
+      ],
       name: 'Mock Guild',
       nameAcronym: 'MG',
       roles: [everyoneRole],
@@ -30,6 +33,16 @@ export class AccordMock {
       mentionable: true,
       permissions: PermissionTypes.defaultPermissions,
       guildId,
+      ...options,
+    }
+  }
+
+  public static channel(guildId: string, options?: Partial<Lean.Channel>): Lean.Channel {
+    return {
+      _id: AccordMock.snowflake(),
+      createdAt: new Date(),
+      guildId,
+      type: 'TEXT',
       ...options,
     }
   }

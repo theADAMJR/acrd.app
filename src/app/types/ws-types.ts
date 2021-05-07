@@ -257,6 +257,8 @@ export namespace Args {
   }
   /**  */
   export interface ChannelCreate {
+    /** ID of guild that channel is in. */
+    guildId: string;
     /** The full object fo the channel that was created. */
     channel: Lean.Channel;
   }
@@ -295,7 +297,7 @@ export namespace Args {
     /** ID of the guild. */
     guildId: string;
     /** Properties of updated guild member. */
-    partialMember: Lean.GuildMember;
+    partialMember: Partial.GuildMember;
     /** ID of the guild member. Not the same as a user ID. */
     memberId: string;
   }
@@ -406,11 +408,11 @@ export namespace Partial {
   }
   /** Properties to update a role. */
   export interface Role {
-    name: string;
-    color: string;
-    hoisted: boolean;
-    mentionable: boolean;
-    permissions: number;
+    name?: string;
+    color?: string;
+    hoisted?: boolean;
+    mentionable?: boolean;
+    permissions?: number;
   }
   /** Properties to update a user. */
   export interface User {

@@ -18,8 +18,8 @@ export class PingService {
     this.unread.delete(channelId);
   }
 
-  public async add(channelId: string, lastMessageId: string) {
-    this.unread.set(channelId, lastMessageId);
+  public async add(message: Lean.Message) {
+    this.unread.set(message.channelId, message._id);
 
     await this.sounds.ping();
   }

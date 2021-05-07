@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Args } from 'src/app/types/ws-types';
-import { ChannelService } from '../channel.service';
 import { GuildService } from '../guild.service';
 import { UserService } from '../user.service';
 
@@ -22,6 +20,7 @@ export class GuildEventService {
   public deleteRole({ guildId, roleId }: Args.GuildRoleDelete) {
     const guild = this.guildService.getCached(guildId);
     const index = guild.roles.findIndex(r => r._id === roleId);
+
     guild.roles.splice(index, 1);
   }
 
@@ -42,7 +41,7 @@ export class GuildEventService {
     guild.members.push(member);
   }
 
-  public async removeMember({ memberId, guildId }: Args.GuildMemberRemove) {
+  public removeMember({ memberId, guildId }: Args.GuildMemberRemove) {
     const guild = this.guildService.getCached(guildId);
     const index = guild.members.findIndex(m => m._id === memberId);
 
@@ -68,11 +67,11 @@ export class GuildEventService {
     guild.channels.splice(index, 1);
   }
 
-  public update({ guildId, partialGuild }: Args.GuildUpdate) {
+  public updateGuild({ guildId, partialGuild }: Args.GuildUpdate) {
     this.guildService.upsert(guildId, partialGuild);
   }
   
-  public async delete({ guildId }: Args.GuildDelete | Args.GuildLeave) {
+  public deleteGuild({ guildId }: Args.GuildDelete | Args.GuildLeave) {
     while (this.guildService.getCached(guildId))
       this.guildService.delete(guildId);    
   }

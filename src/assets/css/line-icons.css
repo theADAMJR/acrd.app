@@ -6,8 +6,8 @@ Author: lineicons.com
 -------------------------------- */
 @font-face {
   font-family: 'LineIcons';
-  src: url('../font/LineIcons.eot');
-  src: url('../font/LineIcons.eot') format('embedded-opentype'), url('../font/LineIcons.woff2') format('woff2'), url('../font/LineIcons.woff') format('woff'), url('../font/LineIcons.ttf') format('truetype'), url('../font/LineIcons.svg') format('svg');
+  src: url('/assets/font/LineIcons.eot');
+  src: url('/assets/font/LineIcons.eot') format('embedded-opentype'), url('/assets/font/LineIcons.woff2') format('woff2'), url('/assets/font/LineIcons.woff') format('woff'), url('/assets/font/LineIcons.ttf') format('truetype'), url('/assets/font/LineIcons.svg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
