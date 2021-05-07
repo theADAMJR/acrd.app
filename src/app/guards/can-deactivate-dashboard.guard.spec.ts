@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { AppModule } from '../app.module';
 
 import { CanDeactivateDashboard } from './can-deactivate-dashboard.guard';
 
@@ -6,7 +7,9 @@ describe('SaveChangesGuard', () => {
   let guard: CanDeactivateDashboard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [AppModule],
+    }).compileComponents();
     guard = TestBed.inject(CanDeactivateDashboard);
   });
 

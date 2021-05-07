@@ -32,6 +32,7 @@ export namespace Lean {
   }
   export interface GuildMember {
     _id: string;
+    createdAt: Date;
     guildId: string;
     roleIds: string[];
     userId: string;

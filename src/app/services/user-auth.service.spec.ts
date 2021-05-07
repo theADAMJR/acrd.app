@@ -9,7 +9,7 @@ describe('UserAuthService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [AppModule],
-    });
+    }).compileComponents();
     service = TestBed.inject(UserAuthService);
   });
 

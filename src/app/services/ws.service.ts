@@ -43,14 +43,11 @@ export class WSService {
       this.on('message', (message: string) => {
         if (!message.includes('Server error')) return;
 
-        // this.log.error(message);
+        this.log.error(message);
         return reject(message);
       }, component);
 
-      this.on(name as keyof WSEventArgs, (args) => {
-        this.log.success();
-        return resolve(args);
-      }, component);
+      this.on(name as keyof WSEventArgs, (args) => resolve(args), component);
 
       this.emit(name, params, component);
     });

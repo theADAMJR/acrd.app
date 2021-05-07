@@ -8,7 +8,7 @@ describe('WSService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [AppModule],
-    });
+    }).compileComponents();
     service = TestBed.inject(WSService);
   });
 

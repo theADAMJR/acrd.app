@@ -14,7 +14,7 @@ describe('PingService', () => {
   beforeEach(async() => {
     TestBed.configureTestingModule({
       imports: [AppModule],
-    });
+    }).compileComponents();
     service = TestBed.inject(PingService);
     userService = TestBed.inject(UserService);
 
