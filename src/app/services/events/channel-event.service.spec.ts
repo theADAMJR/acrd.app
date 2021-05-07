@@ -15,7 +15,6 @@ describe('ChannelEventService', () => {
   let userService: UserService;
   let messageService: MessageService;
   let channelService: ChannelService;
-  let guildService: GuildService;
   let pingService: PingService;
 
   beforeEach(() => {
@@ -24,18 +23,19 @@ describe('ChannelEventService', () => {
       .compileComponents();
 
     service = TestBed.inject(ChannelEventService);
-    guildService = TestBed.inject(GuildService);
     messageService = TestBed.inject(MessageService);
     userService = TestBed.inject(UserService);
     pingService = TestBed.inject(PingService);
+
+    userService.self = AccordMock.self();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
   
-  it('add message, message added to cache', () => {
-    const message = addMessage();
+  it('add message, message added to cache', async () => {
+    const message = await addMessage();
     
     const messages = messageService.getAllCached(message.channelId);
     expect(messages).toContain(message);
@@ -48,9 +48,9 @@ describe('ChannelEventService', () => {
     expect(spy).not.toHaveBeenCalled();
   });
   
-  it('add message, ignored, ping not called', () => {
+  it('add message, ignored, ping not called', async () => {
     const spy = spyOn(pingService, 'add');
-    const message = AccordMock.message();
+    const message = await addMessage();
 
     userService.self.ignored.channelIds.push(message.channelId);
     service.addMessage({ message });
@@ -58,15 +58,15 @@ describe('ChannelEventService', () => {
     expect(spy).toHaveBeenCalled();
   });
   
-  it('delete message, removed from cache', () => {
-    const message = addMessage();
+  it('delete message, removed from cache', async () => {
+    const message = await addMessage();
     
     const messages = messageService.getAllCached(message.channelId);
     expect(messages).not.toContain(message);
   });
   
-  it('update message, updated in cache', () => {
-    let message = addMessage();
+  it('update message, updated in cache', async () => {
+    let message = await addMessage();
     message.content = 'hi';
 
     service.updateMessage({ message });
@@ -75,27 +75,21 @@ describe('ChannelEventService', () => {
     expect(message.content).toEqual('hi');
   });
   
-  it('start typing, updated in cache', () => {
-    let message = addMessage();
-    message.content = 'hi';
+  it('start typing, calls channel service to start typing', () => {
+    const spy = spyOn(channelService, 'startTyping');
 
-    service.updateMessage({ message });
-    
-    message = messageService.getCached(message._id);
-    expect(message.content).toEqual('hi');
+    service.startTyping({
+      channelId: AccordMock.snowflake(),
+      userId: AccordMock.snowflake(),
+    });
+
+    expect(spy).toHaveBeenCalled();
   });
 
-  function addMessage() {
+  async function addMessage() {
     const message = AccordMock.message();
-    service.addMessage({ message });
+    await service.addMessage({ message });
 
     return message;
-  }
-
-  function addChannel() {
-    const guild = AccordMock.guild();
-    const channel = AccordMock.channel(guild._id);
-    channelService.add(channel);
-    return channel;
   }
 });

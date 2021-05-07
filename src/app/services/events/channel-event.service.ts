@@ -18,7 +18,7 @@ export class ChannelEventService {
 
   public async addMessage({ message }: Args.MessageCreate) { 
     const guild = this.guildService.getGuildFromChannel(message.channelId);
-    const ignored = this.pingService.isIgnored(message, guild._id);
+    const ignored = this.pingService.isIgnored(message, guild?._id);
     if (!ignored)
       await this.pingService.add(message);
 
