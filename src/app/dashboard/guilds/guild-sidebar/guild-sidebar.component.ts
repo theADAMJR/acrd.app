@@ -16,13 +16,10 @@ import { Args, WSService } from 'src/app/services/ws.service';
   styleUrls: ['./guild-sidebar.component.css']
 })
 export class GuildSidebarComponent implements OnInit {
-  @Input('waitFor') public loaded = true;
+  @Input('waitFor')
+  public loaded = true;
 
   public guild: Lean.Guild;
-
-  public get selectedChannel() {
-    return this.channelService.self;
-  }
 
   public get textChannels() {
     return this.guild.channels.filter(c => c.type === 'TEXT');

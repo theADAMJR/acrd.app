@@ -7,6 +7,12 @@
   <div
     (click)="$event.stopPropagation()"
     [routerLink]="'/channels/' + guild._id">
+    <span
+      *ngIf="pings.isGuildUnread(guild)"
+      matTooltip="Unread"
+      class="alarm">
+      <i class="lni lni-alarm text-danger"></i>
+    </span>
     <img
       *ngIf="guild.iconURL"
       [src]="guild.iconURL"

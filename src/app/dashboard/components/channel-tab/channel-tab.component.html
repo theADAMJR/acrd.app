@@ -7,21 +7,15 @@
     <a (click)="$event.stopPropagation()"
       class="nav-item nav-link"
       [routerLink]="'/channels/' + guild._id + '/' + channel._id"
-      routerLinkActive="active">        
-      <span class="float-right text-muted p-1">
-        <i *ngIf="pings.isUnread(channel._id)"
-          matTooltip="Unread Pings"
-          class="lni lni-circle"></i>
-      </span>
-    
-      <i class="fas fa-hashtag pr-1"
-        [ngClass]="{
-          'text-muted': userService.self.ignored.channelIds.includes(channel._id),
-          'text-warning': pings.isUnread(channel._id)
-        }"></i>
+      routerLinkActive="active">    
+      <i class="fas fa-hashtag text-muted pr-1"></i>
       <span>{{ channel.name }}</span>
-      <span *ngIf="pings.isUnread(channel._id)" class="ml-2">
-        <i class="lni lni-circle text-danger"></i>
+
+      <span
+        *ngIf="isUnread"
+        matTooltip="Unread"
+        class="mr-2 float-right">
+        <i class="lni lni-alarm text-danger"></i>
       </span>
     </a>
   </div>

@@ -11,8 +11,7 @@
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   
-  <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/spinner.css">
+  <link rel="stylesheet" href="src/app/utils/spinner/spinner.component.css">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/animations.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
@@ -24,7 +23,17 @@
 
 </head>
 <body class="mat-app-background">
-  <app-root></app-root>
+  <app-root>
+    <div class="d-flex flex-column justify-content-center" style="height: 100%">
+      <div class="text-center jumbotron">
+        <h1>Loading</h1>
+        <div>
+          <i class="fas fa-info-circle text-info"></i>
+          <span id="hint" class="lead"></span>
+        </div>
+      </div>
+    </div>
+  </app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 
   <script>
@@ -37,6 +46,24 @@
       });
     });
   }
+  </script>
+
+  <script>
+    const hints = [
+      'Accord was started during a live stream.',
+      'The first version of Accord was released on 3rd May, 2021.',
+      'Accord is over 80,000 lines of code.',
+      'This hint was first typed at 22:25 on the 7th of May 2021.',
+      'Most original themes in Accord are based from previous Discord projects.',
+    ];
+
+    function hint() {
+      const index = Math.floor(Math.random() * hints.length);
+      document.querySelector('#hint').textContent = hints[index];
+    }
+    hint();
+
+    setInterval(() => hint(), 5000);
   </script>
 </body>
 </html>

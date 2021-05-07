@@ -36,6 +36,13 @@
         class="crown pl-1">
         <i class="lni lni-crown text-warning"></i>
       </span>
+
+      <span
+        *ngIf="isUnread"
+        matTooltip="Unread"
+        class="mr-2 float-right">
+        <i class="lni lni-alarm text-danger"></i>
+      </span>
     </div>
   </div>
 </div>

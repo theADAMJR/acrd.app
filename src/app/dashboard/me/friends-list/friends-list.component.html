@@ -8,13 +8,16 @@
           <button
             [routerLink]="'/channels/@me/' + channelService.getDM(friend._id)?._id"
             matTooltip="Message"
-            class="round px-0" mat-button>
+            class="px-0"
+            mat-button>
             <i class="lni lni-bubble"></i>
           </button>
           <button
             matTooltip="Remove Friend"
             (click)="remove(friend._id)"
-            class="round px-0 ml-2" mat-button><i class="lni lni-close"></i></button>
+            class="px-0 ml-2" mat-button>
+            <i class="text-danger lni lni-close"></i>
+        </button>
         </div>
         <member-username
           [routerLink]="'/channels/@me/' + channelService.getDM(friend._id)?._id"
@@ -36,13 +39,17 @@
           <button
             [routerLink]="'/channels/@me/' + channelService.getDM(friend._id)?._id"
             matTooltip="Message"
-            class="round px-0" mat-button>
+            class="px-0"
+            mat-button>
             <i class="lni lni-bubble"></i>
           </button>
           <button
             matTooltip="Remove Friend"
             (click)="remove(friend._id)"
-            class="round px-0 ml-2" mat-button><i class="lni lni-close"></i></button>
+            class="px-0 ml-2"
+            mat-button>
+            <i class="text-danger lni lni-close"></i>
+          </button>
         </div>
         <member-username [user]="users.getCached(friend._id)"></member-username>
       </div>
@@ -63,21 +70,23 @@
           <button
             *ngIf="!isOutgoing(friend)"
             (click)="add(friend.username)"
-            class="round bg-success px-0" mat-button>
-            <i class="lni lni-checkmark-circle" aria-hidden="true"></i>
+            class="px-0" mat-button>
+            <i class="text-success lni lni-checkmark-circle" aria-hidden="true"></i>
           </button>
 
           <button
             (click)="remove(friend._id)"
-            class="round px-0 ml-2" mat-button>
-            <i class="lni lni-close"></i>
+            class="px-0 ml-2" mat-button>
+            <i class="text-danger lni lni-close"></i>
           </button>
         </div>
         
         <span class="badge badge-secondary">{{ isOutgoing(friend) ? 'OUTGOING' : 'INCOMING' }}</span>
         <member-username
           [user]="friend"
-          [statusOverride]="isOutgoing(friend) ? 'Outgoing Friend Request' : 'Incoming Friend Request'"></member-username>
+          [statusOverride]="isOutgoing(friend)
+            ? 'Outgoing Friend Request'
+            : 'Incoming Friend Request'"></member-username>
       </div>
         
       <div

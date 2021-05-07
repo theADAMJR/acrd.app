@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
+import { PingService } from 'src/app/services/ping.service';
 import { UserService } from 'src/app/services/user.service';
 import { Lean } from 'src/app/types/entity-types';
 import { environment } from 'src/environments/environment';
@@ -21,6 +22,7 @@ export class GuildIconComponent implements AfterViewInit {
 
   constructor(
     public dialogs: DialogService,
+    public pings: PingService,
     public guildService: GuildService,
     public userService: UserService,
   ) {}

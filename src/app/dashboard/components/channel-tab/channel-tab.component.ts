@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
@@ -20,8 +20,16 @@ export class ChannelTabComponent {
   public get guild() {
     return this.guildService.getCached(this.channel.guildId);
   }
+  public get activeChannelId() {
+    return this.route.snapshot.paramMap.get('channelId');
+  }
+  public get isUnread() {
+    return this.pings.isUnread(this.channel._id)
+      && this.channel._id !== this.activeChannelId;
+  }
 
   constructor(
+    private route: ActivatedRoute,
     private guildService: GuildService,
     public perms: PermissionsService,
     public pings: PingService,

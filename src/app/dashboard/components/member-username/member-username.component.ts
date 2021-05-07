@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSelect } from '@angular/material/select';
+import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from 'src/app/services/channel.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
@@ -50,8 +51,16 @@ export class MemberUsernameComponent implements OnInit {
   public get dmChannelId() {
     return this.channelService.getDM(this.user._id)?._id;
   }
+  public get activeChannelId() {
+    return this.route.snapshot.paramMap.get('channelId');
+  }
+  public get isUnread() {
+    return this.pings.isUnread(this.dmChannelId)
+      && this.dmChannelId !== this.activeChannelId;
+  }
 
   constructor(
+    private route: ActivatedRoute,
     private channelService: ChannelService,
     public perms: PermissionsService,
     public pings: PingService,

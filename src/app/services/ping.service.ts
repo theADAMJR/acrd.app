@@ -28,6 +28,10 @@ export class PingService {
     return this.unread.get(channelId);
   }
 
+  public isGuildUnread(guild: Lean.Guild) {
+    return guild.channels.some(c => this.unread.has(c._id));
+  }
+
   public isUnread(channelId: string) {
     return this.unread.has(channelId);
   }

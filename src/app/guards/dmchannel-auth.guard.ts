@@ -15,6 +15,7 @@ export class DMChannelAuthGuard implements CanActivate {
   ) {}
 
   public async canActivate(route: ActivatedRouteSnapshot) {
+    // await this.userService.init(); // REMOVEME
     await this.channelService.init();
 
     const channelId = route.paramMap.get('channelId');
