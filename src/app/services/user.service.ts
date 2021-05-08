@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Lean, UserTypes } from '../types/entity-types';
+import { Partial } from '../types/ws-types';
 import { array } from '../utils/utils';
 import { HTTPWrapper } from './http-wrapper';
 import { UserAuthService } from './user-auth.service';
@@ -42,7 +43,7 @@ export class UserService extends HTTPWrapper<Lean.User> {
     return this.http.get(`${this.endpoint}/bots`).toPromise() as any;
   }
 
-  public async updateSelf(): Promise<Lean.User> {
+  public async fetchSelf(): Promise<Lean.User> {
     return this.self = await this.http.get(`${this.endpoint}/self`, this.headers).toPromise() as any;
   }
 
@@ -64,15 +65,15 @@ export class UserService extends HTTPWrapper<Lean.User> {
     this.self = user;
   }
 
-  public block(userId: string) {
-    const userIds = this.self.ignored?.userIds.concat(userId)
-      ?? [userId];
+  public block(id: string, type: keyof UserTypes.Self['ignored'] = 'userIds') {
+    const ids = this.self.ignored?.[type].concat(id)
+      ?? [id];
 
     this.ws.emit('USER_UPDATE', {
       key: this.key,
       partialUser: {
         ...this.self,
-        ignored: { ...this.self.ignored, userIds }
+        ignored: { ...this.self.ignored, [type]: ids }
       },
     }, this);
   }
@@ -86,6 +87,15 @@ export class UserService extends HTTPWrapper<Lean.User> {
         ignored: this.self.ignored,
       },
       key: localStorage.getItem('key'),
+    }, this);
+  }
+
+  public updateSelf(options: Partial.User) {
+    return this.ws.emitAsync('USER_UPDATE', {
+      key: localStorage.getItem('key'),
+      partialUser: {
+        ...options,
+      }
     }, this);
   }
 }

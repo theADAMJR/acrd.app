@@ -31,12 +31,20 @@ export class PingService {
     }
   }
 
-  public markAsRead(channelId: string) {
+  public async markAsRead(channelId: string) {
+    const messageId = this.unread.get(channelId);
     this.unread.delete(channelId);
+
+    await this.userService.updateSelf({
+      lastReadMessages: {
+        ...this.userService.self.lastReadMessages,
+        [channelId]: messageId,
+      }
+    });
   }
-  public markGuildAsRead(guild: Lean.Guild) {
+  public async markGuildAsRead(guild: Lean.Guild) {
     for (const channel of guild.channels)
-      this.markAsRead(channel._id);
+      await this.markAsRead(channel._id);
   }
 
   public async add(message: Lean.Message, withSound = true) {

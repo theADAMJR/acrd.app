@@ -17,12 +17,14 @@ export class ChannelEventService {
   ) {}
 
   public async addMessage({ message }: Args.MessageCreate) { 
-    const guild = this.guildService.getGuildFromChannel(message.channelId);
+    const channel = this.channelService.getCached(message.channelId);
+    const guild = this.guildService.getCached(channel.guildId);
     const ignored = this.pingService.isIgnored(message, guild?._id);
     if (!ignored)
       await this.pingService.add(message);
 
     this.messageService.overrideAdd([message]);
+    channel.lastMessageId = message._id;
   }
 
   public deleteMessage({ channelId, messageId }: Args.MessageDelete) {

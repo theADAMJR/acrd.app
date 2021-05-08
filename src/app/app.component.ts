@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     this.eventService.init();
 
     this.themeService.updateTheme();
-    await this.userService.updateSelf();
+    await this.userService.fetchSelf();
     
     this.handlePrompt();
     this.consoleWarning();

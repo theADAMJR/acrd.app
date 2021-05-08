@@ -36,12 +36,12 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
     if (this.arr.length <= 0)
       await this.fetchAll();
     if (!this.self)
-       await this.updateSelf?.();
+       await this.fetchSelf?.();
 
     this.initialized = true;
   }
 
-  public updateSelf?(): Promise<T>;
+  public fetchSelf?(): Promise<T>;
 
   public getCached(id: string | undefined) {
     return this.arr?.find(i => i._id === id);

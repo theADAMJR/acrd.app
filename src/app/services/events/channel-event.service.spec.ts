@@ -58,6 +58,13 @@ describe('ChannelEventService', () => {
     expect(spy).toHaveBeenCalled();
   });
   
+  it('add message, updates last message id in channel', async () => {
+    const message = await addMessage();
+    
+    const channel = channelService.getCached(message.channelId);
+    expect(channel.lastMessageId).toEqual(message._id);
+  });
+  
   it('delete message, removed from cache', async () => {
     const message = await addMessage();
     

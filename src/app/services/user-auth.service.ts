@@ -30,7 +30,7 @@ export class UserAuthService {
 
     if (res) {
       localStorage.setItem('key', res);
-      await this.userService.updateSelf();
+      await this.userService.fetchSelf();
     }
     return Boolean(res);
   }

@@ -415,13 +415,5 @@ export namespace Partial {
     permissions?: number;
   }
   /** Properties to update a user. */
-  export interface User {
-    avatarURL?: string;
-    username?: string;
-    ignored?: {
-      channelIds: string[];
-      guildIds: string[];
-      userIds: string[];
-    }
-  }
+  export type User = Partial<UserTypes.Self>
 }
