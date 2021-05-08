@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Lean } from '../types/entity-types';
 import { ChannelService } from './channel.service';
-import { MessageService } from './message.service';
 import { SoundService } from './sound.service';
 import { UserService } from './user.service';
 
@@ -12,16 +11,23 @@ export class PingService {
   private unread = new Map<string, string>();
 
   constructor(
+    private channelService: ChannelService,
     private sounds: SoundService,
     private userService: UserService,
   ) {}
 
   public async init() {
     const lastRead = this.userService.self.lastReadMessages;    
+
     for (const channelId in lastRead) {
       const lastReadMessageId = lastRead[channelId];
-      if (!lastReadMessageId) continue;
+      const channel = this.channelService.getCached(channelId);
+      if (!lastReadMessageId
+          || this.isChannelIgnored(channelId)
+          || channel?.lastMessageId === lastReadMessageId) continue;
 
+      console.log(lastReadMessageId);
+      
       await this.add({
         _id: lastReadMessageId,
         channelId,
@@ -29,20 +35,12 @@ export class PingService {
     }
   }
 
-  public async markAsRead(channelId: string) {
-    const messageId = this.unread.get(channelId);
+  public markAsRead(channelId: string) {
     this.unread.delete(channelId);
-
-    await this.userService.updateSelf({
-      lastReadMessages: {
-        ...this.userService.self.lastReadMessages,
-        [channelId]: messageId,
-      }
-    });
   }
   public async markGuildAsRead(guild: Lean.Guild) {
     for (const channel of guild.channels)
-      await this.markAsRead(channel._id);
+      this.markAsRead(channel._id);
   }
 
   public async add(message: Lean.Message, withSound = true) {
@@ -63,12 +61,18 @@ export class PingService {
     return this.unread.has(channelId);
   }
 
-  public isIgnored(message: Lean.Message, guildId?: string): boolean {    
+  public isIgnored(message: Lean.Message, guildId?: string): boolean {
     const user = this.userService.self;
 
     return message.authorId === user._id
-      || user.ignored.channelIds.includes(message.channelId)
-      || user.ignored.guildIds.includes(guildId)
+      || this.isChannelIgnored(message.channelId)
       || user.ignored.userIds.includes(message.authorId);
+  }
+  private isChannelIgnored(channelId: string) {
+    const channel = this.channelService.getCached(channelId);
+    const user = this.userService.self;
+
+    return user.ignored.channelIds.includes(channelId)
+      || user.ignored.guildIds.includes(channel?.guildId);
   }
 }

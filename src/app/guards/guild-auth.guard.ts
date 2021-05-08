@@ -8,12 +8,9 @@ export class GuildAuthGuard implements CanActivate {
   constructor(
     private guildService: GuildService,
     private router: Router,
-    private userService: UserService,
   ) {}
 
   public async canActivate(next: ActivatedRouteSnapshot) {
-    // FIXME
-    // await this.userService.init();
     await this.guildService.init();
     
     const guildId = next.paramMap.get('guildId');

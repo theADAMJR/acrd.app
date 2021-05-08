@@ -29,6 +29,7 @@ describe('PingService', () => {
     userService.self = AccordMock.self();
 
     service = new PingService(
+      channelService,
       TestBed.inject(SoundService),
       userService,
     );

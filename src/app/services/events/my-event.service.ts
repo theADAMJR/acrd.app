@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChannelService } from '../channel.service';
 import { GuildService } from '../guild.service';
+import { PingService } from '../ping.service';
 import { UserService } from '../user.service';
 import { Args } from '../ws.service';
 
@@ -12,6 +13,7 @@ export class MyEventService {
   constructor(
     private channelService: ChannelService,
     private guildService: GuildService,
+    private pings: PingService,
     private router: Router,
     private userService: UserService,
   ) {}
@@ -37,8 +39,18 @@ export class MyEventService {
     this.userService.upsert(userId, { status });
   }
 
-  public updateUser({ partialUser }: Args.UserUpdate) {
+  public async updateUser({ partialUser }: Args.UserUpdate) {
     const user = this.userService.self;
     this.userService.upsert(user._id, partialUser);
+
+    if ('lastReadMessages' in partialUser) {
+      for (const channelId in partialUser.lastReadMessages) {
+        const channel = await this.channelService.getAsync(channelId);
+        const messageId = partialUser.lastReadMessages[channelId];
+
+        if (channel?.lastMessageId === messageId)
+          this.pings.markAsRead(channelId);
+      }
+    }
   }
 }

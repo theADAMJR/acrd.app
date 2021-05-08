@@ -6,6 +6,8 @@ import { PingService } from '../services/ping.service';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardAuthGuard implements CanActivate {
+  private already = false;
+
   constructor(
     private guildService: GuildService,
     private pings: PingService,
@@ -14,6 +16,9 @@ export class DashboardAuthGuard implements CanActivate {
   ) {}
 
   public async canActivate(route: ActivatedRouteSnapshot) {
+    if (this.already) return true;
+    this.already = true;
+
     await this.userService.init();
     await this.guildService.init();
     await this.pings.init();
