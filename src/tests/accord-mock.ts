@@ -37,7 +37,7 @@ export class AccordMock {
     }
   }
 
-  public static channel(guildId: string, options?: Partial<Lean.Channel>): Lean.Channel {
+  public static channel(guildId?: string, options?: Partial<Lean.Channel>): Lean.Channel {
     return {
       _id: AccordMock.snowflake(),
       createdAt: new Date(),

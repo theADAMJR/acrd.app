@@ -10,7 +10,6 @@ describe('PingService', () => {
   let service: PingService;
   let userService: UserService;
   let message: Lean.Message;
-  let user: UserTypes.Self;
 
   beforeEach(async() => {
     TestBed
@@ -50,4 +49,42 @@ describe('PingService', () => {
 
     expect(service.isIgnored(message)).toBe(true);
   });
+
+  it('isGuildUnread(), no pings, returns false', () => {
+    const guild = AccordMock.guild();
+    expect(service.isGuildUnread(guild)).toBe(false);
+  });
+
+  it('isGuildUnread(), ping in channel, returns true', async () => {
+    const { guild } = await addPing();
+    expect(service.isGuildUnread(guild)).toBe(true);
+  });
+
+  it('lastUnread(), ping in channel, returns last read message', async () => {
+    const { message } = await addPing();
+    expect(service.lastRead(message.channelId)).toEqual(message._id);
+  });
+
+  it('isUnread(), ping in channel, returns true', async () => {
+    const { message } = await addPing();
+    expect(service.isUnread(message.channelId)).toBe(true);
+  });
+
+  it('markAsRead(), ping in channel, deletes ping', async () => {
+    const { message } = await addPing();
+    service.markAsRead(message.channelId);
+
+    expect(service.isUnread(message.channelId)).toBe(false);
+  });
+
+  async function addPing() {
+    const guild = AccordMock.guild();
+    const channel = AccordMock.channel(guild._id);
+    guild.channels.push(channel);
+
+    const message = AccordMock.message({ channelId: channel._id });
+    
+    await service.add(message);
+    return { message, channel, guild };
+  }
 });
