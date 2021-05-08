@@ -2,8 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { AccordMock } from 'src/tests/accord-mock';
 import { AppModule } from '../app.module';
 import { Lean, UserTypes } from '../types/entity-types';
+import { ChannelService } from './channel.service';
 
 import { PingService } from './ping.service';
+import { SoundService } from './sound.service';
 import { UserService } from './user.service';
 
 describe('PingService', () => {
@@ -16,9 +18,15 @@ describe('PingService', () => {
       .configureTestingModule({ imports: [AppModule] })
       .compileComponents();
 
-    service = TestBed.inject(PingService);
-    userService = TestBed.inject(UserService);
+    userService = {} as UserService;
+    userService.updateSelf = (): any => {};
     userService.self = AccordMock.self();
+
+    service = new PingService(
+      TestBed.inject(SoundService),
+      TestBed.inject(ChannelService),
+      userService,
+    );
 
     message = AccordMock.message();
   });
@@ -72,14 +80,14 @@ describe('PingService', () => {
 
   it('markAsRead(), ping in channel, deletes ping', async () => {
     const { message } = await addPing();
-    service.markAsRead(message.channelId);
+    await service.markAsRead(message.channelId);
 
     expect(service.isUnread(message.channelId)).toBe(false);
   });
 
   it('markGuildAsRead(), ping in guild channel, deletes ping', async () => {
     const { message, guild } = await addPing();
-    service.markGuildAsRead(guild);
+    await service.markGuildAsRead(guild);
 
     expect(service.isUnread(message.channelId)).toBe(false);
   });
