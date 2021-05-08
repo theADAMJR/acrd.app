@@ -69,7 +69,8 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   public async ngOnInit() {
     await super.init();
 
-    this.selectRole(this.guild.roles[0]);
+    const everyoneRole = this.guild.roles.find(r => r.name === '@everyone');
+    this.selectRole(everyoneRole);
   }
 
   public async selectRole(role: Lean.Role) {
