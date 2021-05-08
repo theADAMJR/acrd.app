@@ -21,12 +21,10 @@ export class PingService {
 
     for (const channelId in lastRead) {
       const lastReadMessageId = lastRead[channelId];
-      const channel = this.channelService.getCached(channelId);
+      const channel = await this.channelService.getAsync(channelId);
       if (!lastReadMessageId
           || this.isChannelIgnored(channelId)
           || channel?.lastMessageId === lastReadMessageId) continue;
-
-      console.log(lastReadMessageId);
       
       await this.add({
         _id: lastReadMessageId,
