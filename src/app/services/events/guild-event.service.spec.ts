@@ -101,9 +101,7 @@ describe('GuildEventService', () => {
     service.updateMember({
       guildId: guild._id,
       memberId: member._id,
-      partialMember: {
-        roleIds: [newRoleId],
-      }
+      partialMember: { roleIds: [newRoleId] },
     });
 
     expect(member.roleIds).toContain(newRoleId);
@@ -123,8 +121,8 @@ describe('GuildEventService', () => {
   
   it('delete channel, removes channel to guild', () => {
     const guild = addGuild();
-    
     const channel = AccordMock.channel(guild._id);
+    
     service.addChannel({
       guildId: guild._id,
       channel,

@@ -72,14 +72,12 @@ describe('ChannelEventService', () => {
   });
   
   it('update message, updated in cache', async () => {
-    let message = await addMessage();
-    message.content = 'hi';
+    const message = await addMessage();
 
-    service.updateMessage({ message });
+    service.updateMessage({
+      message: { ...message, content: 'hi' },
+    });
     
-    message = messageService
-      .getAllCached(message.channelId)
-      .find(m => m._id === message._id);
     expect(message.content).toEqual('hi');
   });
   
