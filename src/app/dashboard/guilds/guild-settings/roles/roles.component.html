@@ -15,7 +15,13 @@
             [matMenuTriggerFor]="contextMenu"
             [matMenuTriggerData]="{role:role}"
             #menuTrigger="matMenuTrigger"
-            class="cursor-pointer nav-item nav-link">{{ role.name }}</a>
+            class="cursor-pointer nav-item nav-link">
+            <span
+              (click)="selectRole(role) && $event.stopPropagation()"
+              class="d-flex">
+              {{ role.name }}
+            </span>
+          </a>
           <div class="float-right">
             <button
               (click)="newRole()"
