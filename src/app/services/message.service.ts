@@ -25,6 +25,13 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
     ws: WSService,
   ) { super(http, ws); }
 
+  public overrideGetAsync(channelId: string, messageId: string) {
+    if (!channelId || !messageId) return null;
+    
+    return this.getCached(messageId)
+      ?? this.overrideFetch(channelId, messageId);
+  }
+
   public async getAllAsync(channelId: string): Promise<Lean.Message[]> {    
     return this.cached.get(channelId)
       ?? await this.overrideFetchAll(channelId);
@@ -45,6 +52,13 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
     const cached = this.getAllCached(channelId);
     cached.push(...messages);
     return cached;
+  }
+
+  // TODO: eventually use override keyword
+  public overrideFetch(channelId: string, messageId: string): Promise<Lean.Message> {
+    return this.http
+      .get(`${this.endpoint}/${channelId}/messages/${messageId}`, this.headers)
+      .toPromise() as any;
   }
 
   // TODO: eventually use override keyword

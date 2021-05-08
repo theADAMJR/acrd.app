@@ -13,16 +13,14 @@ export class PingService {
 
   constructor(
     private sounds: SoundService,
-    private channelService: ChannelService,
     private userService: UserService,
   ) {}
 
   public async init() {
     const lastRead = this.userService.self.lastReadMessages;    
     for (const channelId in lastRead) {
-      const channel = this.channelService.getCached(channelId);
       const lastReadMessageId = lastRead[channelId];
-      if (channel?.lastMessageId === lastReadMessageId) continue;
+      if (!lastReadMessageId) continue;
 
       await this.add({
         _id: lastReadMessageId,
@@ -65,7 +63,7 @@ export class PingService {
     return this.unread.has(channelId);
   }
 
-  public isIgnored(message: Lean.Message, guildId?: string): boolean {
+  public isIgnored(message: Lean.Message, guildId?: string): boolean {    
     const user = this.userService.self;
 
     return message.authorId === user._id

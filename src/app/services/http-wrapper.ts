@@ -13,7 +13,9 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
 
   protected get headers() {
     return {
-      headers: { Authorization: `Bearer ${this.key}` }
+      headers: {
+        Authorization: `Bearer ${this.key}`,
+      }
     };
   }
   protected get key() {
@@ -83,14 +85,17 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   }
 
   public async fetch(id: string): Promise<T> {
-    if (!id)
-      throw new TypeError('ID must be defined');
+    if (!id) return null;
 
-    return await this.http.get(`${this.endpoint}/${id}`, this.headers).toPromise() as any;
+    return await this.http
+      .get(`${this.endpoint}/${id}`, this.headers)
+      .toPromise() as any;
   }
   public async fetchAll() {
     return this._arr = (this.key)
-      ? await this.http.get(this.endpoint, this.headers).toPromise() as any ?? []
+      ? await this.http
+        .get(this.endpoint, this.headers)
+        .toPromise() as any ?? []
       : [];    
   }
 }

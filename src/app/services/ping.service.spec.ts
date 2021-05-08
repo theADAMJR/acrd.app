@@ -1,8 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { AccordMock } from 'src/tests/accord-mock';
 import { AppModule } from '../app.module';
-import { Lean, UserTypes } from '../types/entity-types';
+import { Lean } from '../types/entity-types';
 import { ChannelService } from './channel.service';
+import { MessageService } from './message.service';
 
 import { PingService } from './ping.service';
 import { SoundService } from './sound.service';
@@ -10,6 +11,8 @@ import { UserService } from './user.service';
 
 describe('PingService', () => {
   let service: PingService;
+  let channelService: ChannelService;
+  let messageService: MessageService;
   let userService: UserService;
   let message: Lean.Message;
 
@@ -18,13 +21,15 @@ describe('PingService', () => {
       .configureTestingModule({ imports: [AppModule] })
       .compileComponents();
 
+    channelService = TestBed.inject(ChannelService);
+    messageService = TestBed.inject(MessageService);
+
     userService = {} as UserService;
     userService.updateSelf = (): any => {};
     userService.self = AccordMock.self();
 
     service = new PingService(
       TestBed.inject(SoundService),
-      TestBed.inject(ChannelService),
       userService,
     );
 
@@ -33,6 +38,45 @@ describe('PingService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('init, adds unread pings to correct channels', async () => {
+    const channel1 = addChannel();
+    channel1.lastMessageId = addMessage({ channelId: channel1._id })._id;
+
+    const channel2 = addChannel();
+    const previousMessageId = addMessage({ channelId: channel2._id })._id;
+    channel2.lastMessageId = addMessage({ channelId: channel2._id })._id;
+    
+    userService.self.lastReadMessages = {
+      [channel1._id]: channel1.lastMessageId,
+      [channel2._id]: previousMessageId,
+    };
+
+    await service.init();
+
+    expect(service.isUnread(channel1._id)).toBe(false);
+    expect(service.isUnread(channel2._id)).toBe(true);
+  });
+
+  it('init, no message in channel, marked as read', async () => {
+    const channel = addChannel();
+    userService.self.lastReadMessages = { [channel._id]: null };
+
+    await service.init();
+
+    expect(service.isUnread(channel._id)).toBe(false);
+  });
+
+  it('init, channel is ignored, ping not added', async () => {
+    const channel = addChannel();
+    const previousMessageId = AccordMock.snowflake();
+    channel.lastMessageId = previousMessageId;
+
+    userService.self.ignored.channelIds.push(channel._id);
+    await service.init();
+
+    expect(service.isUnread(channel._id)).toBe(false);
   });
 
   it('isIgnored(), not ignored returns false', () => {
@@ -91,6 +135,22 @@ describe('PingService', () => {
 
     expect(service.isUnread(message.channelId)).toBe(false);
   });
+
+  function addChannel() {
+    const guild = AccordMock.guild();
+    const channel = AccordMock.channel(guild._id);
+    guild.channels.push(channel);
+    channelService.add(channel);
+
+    return channel;
+  }
+
+  function addMessage(options?: Partial<Lean.Message>) {
+    message = AccordMock.message(options);
+    messageService.overrideAdd([message]);
+        
+    return message;
+  }
 
   async function addPing() {
     const guild = AccordMock.guild();
