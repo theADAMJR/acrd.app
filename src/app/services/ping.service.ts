@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Lean } from '../types/entity-types';
-import { ChannelService } from './channel.service';
+import { ChannelService } from './api/channel.service';
 import { SoundService } from './sound.service';
-import { UserService } from './user.service';
+import { UserService } from './api/user.service';
 
 @Injectable({
   providedIn: 'root'

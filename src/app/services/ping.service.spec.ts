@@ -7,7 +7,7 @@ import { MessageService } from './message.service';
 
 import { PingService } from './ping.service';
 import { SoundService } from './sound.service';
-import { UserService } from './user.service';
+import { UserService } from './api/user.service';
 
 describe('PingService', () => {
   let service: PingService;

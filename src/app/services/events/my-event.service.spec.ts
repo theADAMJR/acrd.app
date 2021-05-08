@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app/app.module';
 import { ChannelTypes } from 'src/app/types/entity-types';
 import { AccordMock } from 'src/tests/accord-mock';
-import { ChannelService } from '../channel.service';
-import { GuildService } from '../guild.service';
-import { UserService } from '../user.service';
+import { ChannelService } from '../api/channel.service';
+import { GuildService } from '../api/guild.service';
+import { UserService } from '../api/user.service';
 import { MyEventService } from './my-event.service';
 
 describe('MyEventService', () => {

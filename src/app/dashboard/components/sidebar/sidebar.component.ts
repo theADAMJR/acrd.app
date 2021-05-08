@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from '../../../services/user.service';
-import { GuildService } from '../../../services/guild.service';
+import { UserService } from '../../../services/api/user.service';
+import { GuildService } from '../../../services/api/guild.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { ChannelService } from 'src/app/services/channel.service';
+import { ChannelService } from 'src/app/services/api/channel.service';
 import { PingService } from 'src/app/services/ping.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateGuildComponent } from 'src/app/dialog/create-guild/create-guild.component';

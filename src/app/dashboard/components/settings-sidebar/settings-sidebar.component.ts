@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PermissionTypes } from 'src/app/types/entity-types';
-import { UserService } from 'src/app/services/user.service';
-import { GuildService } from 'src/app/services/guild.service';
+import { UserService } from 'src/app/services/api/user.service';
+import { GuildService } from 'src/app/services/api/guild.service';
 import { RedirectService } from 'src/app/services/redirect.service';
 
 @Component({

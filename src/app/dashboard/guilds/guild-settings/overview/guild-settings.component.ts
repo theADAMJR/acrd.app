@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModuleConfig } from 'src/app/dashboard/components/module-config';
-import { GuildService } from 'src/app/services/guild.service';
+import { GuildService } from 'src/app/services/api/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Partial } from 'src/app/types/ws-types';

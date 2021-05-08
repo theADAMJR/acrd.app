@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Lean } from '../types/entity-types';
-import { HTTPWrapper } from './http-wrapper';
+import { Lean } from '../../types/entity-types';
+import { HTTPWrapper } from '../http-wrapper';
 
 @Injectable({
   providedIn: 'root'

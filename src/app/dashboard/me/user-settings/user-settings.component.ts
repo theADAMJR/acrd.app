@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogService } from 'src/app/services/log.service';
 import { ThemeService } from 'src/app/services/theme.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/api/user.service';
 import { WSService } from 'src/app/services/ws.service';
 import { UsernameValidators } from 'src/app/authentication/sign-up/username.validators';
 import { UserConfig } from 'src/app/dashboard/components/user-config';

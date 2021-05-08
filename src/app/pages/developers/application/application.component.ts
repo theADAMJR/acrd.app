@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { SaveChangesComponent } from 'src/app/dashboard/components/save-changes/save-changes.component';
-import { DevelopersService } from 'src/app/services/developers.service';
+import { DevelopersService } from 'src/app/services/api/developers.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({

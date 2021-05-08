@@ -2,7 +2,7 @@ import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { LogService } from 'src/app/services/log.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/api/user.service';
 import { WSService } from 'src/app/services/ws.service';
 
 @Component({

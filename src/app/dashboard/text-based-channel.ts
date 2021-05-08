@@ -1,15 +1,15 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GuildService } from '../services/guild.service';
+import { GuildService } from '../services/api/guild.service';
 import { LogService } from '../services/log.service';
 import { PingService } from '../services/ping.service';
 import { PermissionsService } from '../services/permissions.service';
 import { SoundService } from '../services/sound.service';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/api/user.service';
 import { WSService } from '../services/ws.service';
-import { MessageService } from '../services/message.service';
-import { ChannelService } from '../services/channel.service';
+import { MessageService } from '../services/api/message.service';
+import { ChannelService } from '../services/api/channel.service';
 import { Lean } from '../types/entity-types';
 import { commonPatterns } from '../utils/utils';
 

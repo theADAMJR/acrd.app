@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PermissionsService } from 'src/app/services/permissions.service';
-import { GuildService } from '../../../services/guild.service';
-import { UserService } from 'src/app/services/user.service';
+import { GuildService } from '../../../services/api/guild.service';
+import { UserService } from 'src/app/services/api/user.service';
 import { PingService } from 'src/app/services/ping.service';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { ChannelService } from 'src/app/services/channel.service';
+import { ChannelService } from 'src/app/services/api/channel.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lean } from 'src/app/types/entity-types';

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogService } from 'src/app/services/log.service';
 import { patterns } from 'src/app/types/entity-types';
-import { Credentials, UserAuthService } from '../../services/user-auth.service';
+import { Credentials, UserAuthService } from '../../services/api/user-auth.service';
 import { PasswordValidators } from '../sign-up/password.validators';
 
 @Component({

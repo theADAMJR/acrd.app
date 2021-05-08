@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ConfigService } from 'src/app/services/config.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/api/user.service';
 import { Lean } from 'src/app/types/entity-types';
 import { widthExpandCollapse } from './member-list.animations';
 

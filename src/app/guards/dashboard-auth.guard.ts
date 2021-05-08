@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, RoutesRecognized } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { GuildService } from '../services/guild.service';
+import { UserService } from '../services/api/user.service';
+import { GuildService } from '../services/api/guild.service';
 import { PingService } from '../services/ping.service';
-import { ChannelService } from '../services/channel.service';
+import { ChannelService } from '../services/api/channel.service';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardAuthGuard implements CanActivate {

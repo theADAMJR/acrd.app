@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaveChangesComponent } from './save-changes/save-changes.component';
-import { GuildService } from '../../services/guild.service';
+import { GuildService } from '../../services/api/guild.service';
 import {  OnDestroy, Directive } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Subscription } from 'rxjs';

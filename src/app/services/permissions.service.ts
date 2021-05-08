@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Lean, PermissionTypes } from '../types/entity-types';
-import { GuildService } from './guild.service';
-import { UserService } from './user.service';
+import { GuildService } from './api/guild.service';
+import { UserService } from './api/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class PermissionsService {

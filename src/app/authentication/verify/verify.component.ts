@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserAuthService } from 'src/app/services/user-auth.service';
+import { UserAuthService } from 'src/app/services/api/user-auth.service';
 
 @Component({
   selector: 'app-verify',

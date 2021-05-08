@@ -2,13 +2,13 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
-import { ChannelService } from 'src/app/services/channel.service';
+import { ChannelService } from 'src/app/services/api/channel.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { DialogService } from 'src/app/services/dialog.service';
-import { GuildService } from 'src/app/services/guild.service';
+import { GuildService } from 'src/app/services/api/guild.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PingService } from 'src/app/services/ping.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/api/user.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 

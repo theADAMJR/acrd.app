@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app/app.module';
 import { Lean } from 'src/app/types/entity-types';
 import { AccordMock } from 'src/tests/accord-mock';
-import { GuildService } from '../guild.service';
-import { UserService } from '../user.service';
+import { GuildService } from '../api/guild.service';
+import { UserService } from '../api/user.service';
 
 import { GuildEventService } from './guild-event.service';
 

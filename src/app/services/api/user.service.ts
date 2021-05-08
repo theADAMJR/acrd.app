@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Lean, UserTypes } from '../types/entity-types';
-import { Partial } from '../types/ws-types';
-import { array } from '../utils/utils';
-import { HTTPWrapper } from './http-wrapper';
-import { UserAuthService } from './user-auth.service';
-import { WSService } from './ws.service';
+import { Lean, UserTypes } from '../../types/entity-types';
+import { Partial } from '../../types/ws-types';
+import { array } from '../../utils/utils';
+import { HTTPWrapper } from '../http-wrapper';
+import { WSService } from '../ws.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService extends HTTPWrapper<Lean.User> {

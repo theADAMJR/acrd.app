@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user.service';
-import { ChannelService } from 'src/app/services/channel.service';
+import { UserService } from '../../../services/api/user.service';
+import { ChannelService } from 'src/app/services/api/channel.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Credentials, UserAuthService } from '../../services/user-auth.service';
+import { Credentials, UserAuthService } from '../../services/api/user-auth.service';
 import { PasswordValidators } from './password.validators';
 import { UsernameValidators } from './username.validators';
 import { hacker } from 'faker';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/api/user.service';
 import { patterns } from 'src/app/types/entity-types';
 import { generateUsername } from 'src/app/utils/utils';
 

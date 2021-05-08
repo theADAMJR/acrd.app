@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app/app.module';
 import { AccordMock } from 'src/tests/accord-mock';
-import { ChannelService } from '../channel.service';
-import { MessageService } from '../message.service';
+import { ChannelService } from '../api/channel.service';
+import { MessageService } from '../api/message.service';
 import { PingService } from '../ping.service';
-import { UserService } from '../user.service';
-
+import { UserService } from '../api/user.service';
 import { ChannelEventService } from './channel-event.service';
 
 describe('ChannelEventService', () => {

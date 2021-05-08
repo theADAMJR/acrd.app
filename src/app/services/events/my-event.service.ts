@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserTypes } from 'src/app/types/entity-types';
-import { ChannelService } from '../channel.service';
-import { GuildService } from '../guild.service';
+import { ChannelService } from '../api/channel.service';
+import { GuildService } from '../api/guild.service';
 import { PingService } from '../ping.service';
-import { UserService } from '../user.service';
+import { UserService } from '../api/user.service';
 import { Args } from '../ws.service';
 
 @Injectable({

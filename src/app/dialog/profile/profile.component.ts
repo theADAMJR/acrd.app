@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ChannelService } from 'src/app/services/channel.service';
+import { ChannelService } from 'src/app/services/api/channel.service';
 import { LogService } from 'src/app/services/log.service';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/api/user.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 

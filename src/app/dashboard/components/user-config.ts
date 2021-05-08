@@ -7,7 +7,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 import { WSService } from '../../services/ws.service';
 import { LogService } from '../../services/log.service';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../services/api/user.service';
 import { Lean, UserTypes } from 'src/app/types/entity-types';
 
 @Directive()

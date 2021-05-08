@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GuildService } from '../../services/guild.service';
-import { UserService } from '../../services/user.service';
+import { GuildService } from '../../services/api/guild.service';
+import { UserService } from '../../services/api/user.service';
 
 @Component({
   selector: 'app-logout',

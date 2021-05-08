@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ChannelTypes, Lean } from '../types/entity-types';
-import { GuildService } from './guild.service';
-import { HTTPWrapper } from './http-wrapper';
+import { ChannelTypes, Lean } from '../../types/entity-types';
+import { HTTPWrapper } from '../http-wrapper';
 import { UserService } from './user.service';
-import { WSService } from './ws.service';
+import { WSService } from '../ws.service';
 
 @Injectable({ providedIn: 'root' })
 export class ChannelService extends HTTPWrapper<Lean.Channel> {

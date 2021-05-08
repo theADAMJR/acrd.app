@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChannelService } from 'src/app/services/channel.service';
+import { ChannelService } from 'src/app/services/api/channel.service';
 import { Lean } from 'src/app/types/entity-types';
-import { GuildService } from '../../../services/guild.service';
+import { GuildService } from '../../../services/api/guild.service';
 
 @Component({
   selector: 'app-guild-overview',

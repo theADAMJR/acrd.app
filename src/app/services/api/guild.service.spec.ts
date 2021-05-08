@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { GuildService } from './guild.service';
-import { AppModule } from '../app.module';
+import { AppModule } from '../../app.module';
 
 describe('GuildService', () => {
   let service: GuildService;

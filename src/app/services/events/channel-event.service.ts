@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Args } from 'src/app/types/ws-types';
-import { ChannelService } from '../channel.service';
-import { GuildService } from '../guild.service';
-import { MessageService } from '../message.service';
+import { ChannelService } from '../api/channel.service';
+import { GuildService } from '../api/guild.service';
+import { MessageService } from '../api/message.service';
 import { PingService } from '../ping.service';
 
 @Injectable({

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModuleConfig } from 'src/app/dashboard/components/module-config';
 import { ConfigService } from 'src/app/services/config.service';
 import { DialogService } from 'src/app/services/dialog.service';
-import { GuildService } from 'src/app/services/guild.service';
+import { GuildService } from 'src/app/services/api/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean, PermissionTypes } from '../../../../types/entity-types';
