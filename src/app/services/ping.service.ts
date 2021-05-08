@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Lean } from '../types/entity-types';
+import { ChannelService } from './channel.service';
+import { MessageService } from './message.service';
 import { SoundService } from './sound.service';
 import { UserService } from './user.service';
 
@@ -11,11 +13,30 @@ export class PingService {
 
   constructor(
     private sounds: SoundService,
+    private channelService: ChannelService,
     private userService: UserService,
   ) {}
 
+  public async init() {
+    const lastRead = this.userService.self.lastReadMessages;    
+    for (const channelId in lastRead) {
+      const channel = this.channelService.getCached(channelId);
+      const lastReadMessageId = lastRead[channelId];
+      if (channel?.lastMessageId === lastReadMessageId) continue;
+
+      await this.add({
+        _id: lastReadMessageId,
+        channelId,
+      } as any, false);
+    }
+  }
+
   public markAsRead(channelId: string) {
     this.unread.delete(channelId);
+  }
+  public markGuildAsRead(guild: Lean.Guild) {
+    for (const channel of guild.channels)
+      this.markAsRead(channel._id);
   }
 
   public async add(message: Lean.Message, withSound = true) {

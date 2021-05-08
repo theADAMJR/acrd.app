@@ -1,8 +1,10 @@
+// TODO: refactor to service
 const defaultValues = {
-  sfxEnabled: true,
-  memberListExpanded: true,
-  theme: 'HORIZON',
+  developerMode: false,
   lastReadChangelog: 'v0.0.0a',
+  memberListExpanded: true,
+  sfxEnabled: true,
+  theme: 'HORIZON',
 }
 
 for (const key in defaultValues) {

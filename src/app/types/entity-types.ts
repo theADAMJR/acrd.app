@@ -17,6 +17,7 @@ export namespace Lean {
     memberIds?: string[];
     name?: string;
     summary?: string;
+    lastMessageId?: string;
     type: ChannelTypes.Type;
   }
   export interface Guild {

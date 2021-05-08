@@ -77,14 +77,21 @@ describe('PingService', () => {
     expect(service.isUnread(message.channelId)).toBe(false);
   });
 
+  it('markGuildAsRead(), ping in guild channel, deletes ping', async () => {
+    const { message, guild } = await addPing();
+    service.markGuildAsRead(guild);
+
+    expect(service.isUnread(message.channelId)).toBe(false);
+  });
+
   async function addPing() {
     const guild = AccordMock.guild();
     const channel = AccordMock.channel(guild._id);
     guild.channels.push(channel);
 
     const message = AccordMock.message({ channelId: channel._id });
-    
     await service.add(message);
+    
     return { message, channel, guild };
   }
 });
