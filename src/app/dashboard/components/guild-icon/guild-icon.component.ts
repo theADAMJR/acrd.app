@@ -23,7 +23,7 @@ export class GuildIconComponent implements AfterViewInit {
 
   constructor(
     public config: ConfigService,
-    public dialogs: DialogService,
+    public dialog: DialogService,
     public pings: PingService,
     public guildService: GuildService,
     public userService: UserService,

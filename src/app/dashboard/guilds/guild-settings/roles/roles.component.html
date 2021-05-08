@@ -9,8 +9,12 @@
           <a
             *ngFor="let role of guild.roles.reverse()"
             (click)="selectRole(role)"
+            (contextmenu)="dialog.openMenu($event, menuTrigger)"
             [style.color]="role.color + '!important'"
             [class.active]="selectedRole?._id === role._id"
+            [matMenuTriggerFor]="contextMenu"
+            [matMenuTriggerData]="{role:role}"
+            #menuTrigger="matMenuTrigger"
             class="cursor-pointer nav-item nav-link">{{ role.name }}</a>
           <div class="float-right">
             <button
@@ -126,3 +130,21 @@
     </div>
   </div>
 </app-settings-sidebar>
+
+<mat-menu
+  matMenuContent
+  #contextMenu>
+  <ng-template
+    let-role="role"
+    matMenuContent>
+    <h6 class="p-2 text-center">{{ role.name }}</h6>
+
+    <div
+      *ngIf="config.get('developerMode')"
+      (click)="$event.stopPropagation()"
+      class="mt-2 p-2">
+      <i class="lni lni-dev"></i>
+      <code> {{ role._id }}</code>
+    </div>
+  </ng-template>
+</mat-menu>

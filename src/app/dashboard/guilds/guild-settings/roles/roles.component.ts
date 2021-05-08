@@ -1,9 +1,10 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModuleConfig } from 'src/app/dashboard/components/module-config';
+import { ConfigService } from 'src/app/services/config.service';
+import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
@@ -57,6 +58,8 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   constructor(
+    public config: ConfigService,
+    public dialog: DialogService,
     route: ActivatedRoute,
     router: Router,
     guildService: GuildService,
