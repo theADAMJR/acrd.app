@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { getConfig, setConfig } from 'src/app/config';
+import { ConfigService } from 'src/app/services/config.service';
 import { UserService } from 'src/app/services/user.service';
 import { Lean } from 'src/app/types/entity-types';
 import { widthExpandCollapse } from './member-list.animations';
@@ -19,7 +19,7 @@ export class MemberListComponent {
   }
   @Input('expanded')
   public set isExpanded(value: boolean) {
-    setConfig('memberListExpanded', this._expanded = value);
+    this.config.set('memberListExpanded', this._expanded = value);
   }
 
   public get onlineMembers() {
@@ -35,7 +35,10 @@ export class MemberListComponent {
     });
   }
 
-  constructor(public userService: UserService) {
-    this.isExpanded ||= getConfig('memberListExpanded');
+  constructor(
+    public config: ConfigService,
+    public userService: UserService,
+  ) {
+    this.isExpanded ||= this.config.get('memberListExpanded');
   }
 }

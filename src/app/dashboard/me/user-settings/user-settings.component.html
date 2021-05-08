@@ -73,7 +73,7 @@
         <mat-form-field appearance="outline" class="ml-3 m-2">
           <mat-label>Theme</mat-label>
           <mat-select
-            [value]="currentTheme"
+            [value]="config.getValue('theme')"
             (selectionChange)="themes.changeTheme(themeSelect.value)"
             #themeSelect>
               <mat-option value="CHOCOLATE">Chocolate</mat-option>
@@ -93,10 +93,22 @@
           <label for="sfxEnabled">Enable Sound Effects</label>
           <mat-checkbox
             id="sfxEnabled"
-            (input)="toggleSounds(sfxEnabledInput.checked)"
-            [checked]="sfxEnabled"
+            (input)="config.set('sfxEnabled', sfxEnabledInput.checked)"
+            [checked]="config.get('sfxEnabled')"
             class="ml-2"
             #sfxEnabledInput></mat-checkbox>
+        </div>
+      </div>
+  
+      <div class="col-lg-3 col-md-4 col-6">
+        <div class="pt-4">
+          <label for="developerMode">Enable Developer Mode</label>
+          <mat-checkbox
+            id="developerMode"
+            (input)="config.set('developerMode', developerModeInput.checked)"
+            [checked]="config.get('developerMode')"
+            class="ml-2"
+            #developerModeInput></mat-checkbox>
         </div>
       </div>
     </div>

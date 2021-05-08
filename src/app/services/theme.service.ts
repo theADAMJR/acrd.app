@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
-import { getConfigValue, setConfig } from '../config';
+import { ConfigService } from './config.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  public get defaultTheme() {
-    return getConfigValue('theme');
+  public get defaultTheme(): string {
+    return this.config.getValue('theme');
   }
 
+  constructor(
+    private config: ConfigService,
+  ) {}
+
   public changeTheme(theme: string) {
-    setConfig('theme', theme);
+    this.config.set('theme', theme);
 
     this.updateTheme();
   }
@@ -16,6 +20,6 @@ export class ThemeService {
   public updateTheme() {
     document
       .querySelector('html')
-      .setAttribute('theme', getConfigValue('theme'));
+      .setAttribute('theme', this.config.getValue('theme'));
   }
 }

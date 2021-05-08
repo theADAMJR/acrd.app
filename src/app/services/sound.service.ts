@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import { getConfig } from '../config';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SoundService {
-  private get sfxEnabled() {
-    return getConfig('sfxEnabled');
-  }
-
   public async ping() {
     await this.playSound('ping');
   }
@@ -22,8 +18,13 @@ export class SoundService {
     await this.playSound('error');
   }
 
+  constructor(
+    private config: ConfigService,
+  ) {}
+
   private async playSound(name: string) {
-    if (!this.sfxEnabled && name !== 'ping') return;
+    const enabled = this.config.get('sfxEnabled');
+    if (!enabled && name !== 'ping') return;
 
     const audio: HTMLAudioElement = document.createElement('audio');
     audio.setAttribute('src', `assets/audio/${name}.wav`);

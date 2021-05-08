@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { getConfigValue } from 'src/app/config';
+import { ConfigService } from 'src/app/services/config.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { environment } from 'src/environments/environment';
 import { TabType } from '../friends-list/friends-list.component';
@@ -12,12 +12,15 @@ import { TabType } from '../friends-list/friends-list.component';
 export class DashboardOverviewComponent { 
   public tab: TabType = 'ONLINE';
 
-  constructor(public dialog: DialogService) {
+  constructor(
+    public config: ConfigService,
+    public dialog: DialogService,
+  ) {
     document.title = 'Accord - Dashboard';
 
     this.tab = 'ONLINE';
 
-    const hasUpdated = getConfigValue('lastReadChangelog') !== environment.version;
+    const hasUpdated = this.config.getValue('lastReadChangelog') !== environment.version;
     if (hasUpdated)
       this.dialog.changelog();
   }

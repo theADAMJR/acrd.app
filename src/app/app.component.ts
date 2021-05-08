@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LogService } from './services/log.service';
 import devtools from 'devtools-detect';
 import { EventService } from './services/events/event.service';
-import { getConfig } from './config';
+import { ConfigService } from './services/config.service';
 
 @Component({
   selector: 'app-root',
@@ -13,11 +13,8 @@ import { getConfig } from './config';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public get sfxEnabled() {
-    return getConfig('sfxEnabled');
-  }
-
   constructor(
+    public config: ConfigService,
     private eventService: EventService,
     private themeService: ThemeService,
     private userService: UserService,
@@ -26,6 +23,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   public async ngOnInit() {
+    this.config.init();
     this.eventService.init();
 
     this.themeService.updateTheme();

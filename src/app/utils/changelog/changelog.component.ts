@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { setConfig } from 'src/app/config';
+import { ConfigService } from 'src/app/services/config.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,11 +12,12 @@ export class ChangelogComponent {
   public version = environment.version;
 
   constructor(
+    private config: ConfigService,
     private dialogRef: MatDialogRef<ChangelogComponent>,
   ) {}
 
   public ok() {
     this.dialogRef.close();
-    setConfig('lastReadChangelog', environment.version);
+    this.config.set('lastReadChangelog', environment.version);
   }
 }

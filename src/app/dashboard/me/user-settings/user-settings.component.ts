@@ -12,7 +12,7 @@ import { UserConfig } from 'src/app/dashboard/components/user-config';
 import { environment } from 'src/environments/environment';
 import { Lean, patterns } from 'src/app/types/entity-types';
 import faker from 'faker';
-import { getConfig, setConfig } from 'src/app/config';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -42,14 +42,9 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
       username: this.user.username,
     };
   }
-  public get currentTheme() {
-    return localStorage.getItem('theme');
-  }
-  public get sfxEnabled() {
-    return getConfig('sfxEnabled');
-  }
 
   constructor(
+    public config: ConfigService,
     route: ActivatedRoute,
     router: Router,
     userService: UserService,
@@ -92,10 +87,6 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
         Validators.pattern(patterns.username),
       ], [ this.usernameValidators.shouldBeUnique.bind(this.usernameValidators) ]),
     });
-  }
-
-  public toggleSounds(enabled: boolean) {
-    setConfig('sfxEnabled', enabled);
   }
 
   public setAvatar(name: string) {        
