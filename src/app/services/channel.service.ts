@@ -9,14 +9,12 @@ import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
 export class ChannelService extends HTTPWrapper<Lean.Channel> {
-  protected endpoint = `${environment.endpoint}/channels`;
   public typingUserIds = new Map<string, string[]>();
+  protected endpoint = `${environment.endpoint}/channels`;
   
   protected _arr: Lean.Channel[] = [];
-  public get channels(): Lean.Channel[] {
-    return this.guildService.guilds
-      .flatMap(c => c.channels)
-      .concat(this._arr);
+  public get channels(): Lean.Channel[] {    
+    return this._arr;
   }
   public get dmChannels(): ChannelTypes.DM[] {
     return this.channels.filter(c => c.type === 'DM') as ChannelTypes.DM[];
@@ -25,7 +23,6 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   constructor(
     http: HttpClient,
     ws: WSService,
-    private guildService: GuildService,
     private userService: UserService,
   ) { super(http, ws); }
 

@@ -3,12 +3,14 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, Route
 import { UserService } from '../services/user.service';
 import { GuildService } from '../services/guild.service';
 import { PingService } from '../services/ping.service';
+import { ChannelService } from '../services/channel.service';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardAuthGuard implements CanActivate {
   private already = false;
 
   constructor(
+    private channelService: ChannelService,
     private guildService: GuildService,
     private pings: PingService,
     private router: Router,
@@ -20,6 +22,7 @@ export class DashboardAuthGuard implements CanActivate {
     this.already = true;
 
     await this.userService.init();
+    await this.channelService.init();
     await this.guildService.init();
     await this.pings.init();
 
