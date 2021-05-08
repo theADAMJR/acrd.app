@@ -10,7 +10,7 @@ export class UsernameValidators {
 
   public async shouldBeUnique(control: AbstractControl): Promise<ValidationErrors> | null {
     const isTaken = await this.userService.checkUsername(control.value)
-      && this.userService.self.username !== control.value;       
+      && this.userService.self?.username !== control.value;       
     return (isTaken) ? { shouldBeUnique: true } : null;
   }
 

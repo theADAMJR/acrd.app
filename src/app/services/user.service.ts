@@ -54,15 +54,14 @@ export class UserService extends HTTPWrapper<Lean.User> {
   }
 
   public async init() {
-    if (!this.self) {
-      const { user } = await this.ready();
-      this.self = user;
-    }
+    if (!this.self && this.key)
+      await this.ready();
     await super.init();
   }
 
-  private ready() {
-    return this.ws.emitAsync('READY', { key: localStorage.getItem('key') }, this);
+  public async ready() {
+    const { user } = await this.ws.emitAsync('READY', { key: this.key }, this);
+    this.self = user;
   }
 
   public block(userId: string) {
@@ -70,11 +69,11 @@ export class UserService extends HTTPWrapper<Lean.User> {
       ?? [userId];
 
     this.ws.emit('USER_UPDATE', {
+      key: this.key,
       partialUser: {
         ...this.self,
         ignored: { ...this.self.ignored, userIds }
       },
-      key: localStorage.getItem('key'),
     }, this);
   }
 

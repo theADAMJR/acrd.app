@@ -75,7 +75,9 @@
 
     function hint() {
       const index = Math.floor(Math.random() * hints.length);
-      document.querySelector('#hint').textContent = hints[index];
+      const hint = document.querySelector('#hint');
+      if (hint)
+        hint.textContent = hints[index];
     }
     hint();
 

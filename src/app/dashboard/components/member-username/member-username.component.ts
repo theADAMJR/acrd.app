@@ -74,6 +74,8 @@ export class MemberUsernameComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
+    console.log(this.user);
+    
     if (!this.user)
       throw new TypeError('Input user undefined');
   }

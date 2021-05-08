@@ -63,9 +63,6 @@ a.dropdown-item.invite {
 a.dropdown-item:hover {
   color: var(--heading) !important;
 }
-a.dropdown-item:hover i {
-  color: var(--heading) !important;
-}
 
 .dropdown i {
   float: right;

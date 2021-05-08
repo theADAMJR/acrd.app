@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
-import { WSService } from './ws.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserAuthService {
@@ -45,7 +44,10 @@ export class UserAuthService {
       return res;
 
     localStorage.setItem('key', res);
+
+    // FIXME
     await this.userService.init();
+    await this.userService.ready();
   }
 
   public async verify(code: string): Promise<string> {
