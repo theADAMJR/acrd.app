@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfigService } from 'src/app/services/config.service';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
@@ -29,6 +30,7 @@ export class ChannelTabComponent {
   }
 
   constructor(
+    public config: ConfigService,
     private route: ActivatedRoute,
     private guildService: GuildService,
     public perms: PermissionsService,

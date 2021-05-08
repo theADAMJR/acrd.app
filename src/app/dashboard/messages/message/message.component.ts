@@ -4,6 +4,7 @@ import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
+import { ConfigService } from 'src/app/services/config.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
 import { LogService } from 'src/app/services/log.service';
@@ -105,6 +106,7 @@ export class MessageComponent implements OnInit {
   }
 
   constructor(
+    public config: ConfigService,
     private log: LogService,
     private guildService: GuildService,
     public userService: UserService,

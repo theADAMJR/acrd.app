@@ -43,8 +43,9 @@
       <span class="ml-2">Delete</span>
     </button>
     
-    <hr>
-    <div class="p-2">
+    <div
+      *ngIf="config.get('developerMode')"
+      class="mt-2 p-2">
       <i class="lni lni-dev"></i>
       <code> {{ channel._id }}</code>
     </div>

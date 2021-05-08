@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ConfigService } from 'src/app/services/config.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
 import { PingService } from 'src/app/services/ping.service';
@@ -21,6 +22,7 @@ export class GuildIconComponent implements AfterViewInit {
   private unknownImageURL = `${environment.endpoint}/avatars/unknown.png`;
 
   constructor(
+    public config: ConfigService,
     public dialogs: DialogService,
     public pings: PingService,
     public guildService: GuildService,

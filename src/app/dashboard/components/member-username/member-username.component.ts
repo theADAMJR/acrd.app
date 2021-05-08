@@ -3,6 +3,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from 'src/app/services/channel.service';
+import { ConfigService } from 'src/app/services/config.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/guild.service';
 import { PermissionsService } from 'src/app/services/permissions.service';
@@ -62,6 +63,7 @@ export class MemberUsernameComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    public config: ConfigService,
     private channelService: ChannelService,
     public perms: PermissionsService,
     public pings: PingService,

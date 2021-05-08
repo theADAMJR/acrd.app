@@ -105,11 +105,11 @@
       <i class="lni lni-close text-danger mr-1"></i>
       <span>Delete</span>
     </button>
-  
-    <hr>
   </div>
 
-  <div (click)="$event.stopPropagation()" class="p-2">
+  <div
+    *ngIf="config.get('developerMode')"
+    (click)="$event.stopPropagation()" class="mt-2 p-2">
     <i class="lni lni-dev"></i>
     <code> {{ message._id }}</code>
   </div>

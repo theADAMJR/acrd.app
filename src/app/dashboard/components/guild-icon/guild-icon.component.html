@@ -53,13 +53,12 @@
       <i class="lni lni-checkmark-circle"></i>
       <span> Mark As Read</span>
     </button>
-  
-    <hr>
   </div>
 
   <div
+    *ngIf="config.get('developerMode')"
     (click)="$event.stopPropagation()"
-    class="p-2">
+    class="mt-2 p-2">
     <i class="lni lni-dev"></i>
     <code> {{ guild._id }}</code>
   </div>
