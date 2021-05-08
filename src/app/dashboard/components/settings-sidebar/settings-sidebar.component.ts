@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
+import { Router } from '@angular/router';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PermissionTypes } from 'src/app/types/entity-types';
 import { UserService } from 'src/app/services/user.service';
 import { GuildService } from 'src/app/services/guild.service';
-import { Location } from '@angular/common';
-import { filter, pairwise } from 'rxjs/operators';
 import { RedirectService } from 'src/app/services/redirect.service';
 
 @Component({
@@ -13,12 +11,13 @@ import { RedirectService } from 'src/app/services/redirect.service';
   templateUrl: './settings-sidebar.component.html',
   styleUrls: ['./settings-sidebar.component.css'],
 })
-export class SettingsSidebarComponent {
+export class SettingsSidebarComponent implements OnInit {
   @Input() public tabType: TabType;
   @Input('id') public guildId: string;
   
-  public get redirect() {
-    return this.redirects.previousURL;
+  private get redirect() {
+    return this.redirects.settingsRedirect
+      ?? `/channels/${this.guildId || '@me'}`;
   }
 
   public readonly tabs: Tabs = {
@@ -75,6 +74,10 @@ export class SettingsSidebarComponent {
       if (key === 'Escape')
         this.close();
     };
+  }
+
+  public ngOnInit() {
+    this.redirects.settingsRedirect ??= this.redirects.previousURL;
   }
 
   public async close() {

@@ -7,6 +7,7 @@ import { filter, pairwise } from 'rxjs/operators';
 })
 export class RedirectService {
   public previousURL: string;
+  public settingsRedirect: string;
 
   constructor(
     private router: Router,
@@ -17,6 +18,8 @@ export class RedirectService {
       .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
       .subscribe((events: RoutesRecognized[]) => {
         this.previousURL = events[0].urlAfterRedirects;
+        if (!this.previousURL.includes('settings'))
+          this.settingsRedirect = this.previousURL;
       });
   }
 }
