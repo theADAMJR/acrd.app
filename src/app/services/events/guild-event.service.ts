@@ -27,10 +27,8 @@ export class GuildEventService {
   public updateRole({ guildId, roleId, partialRole }: Args.GuildRoleUpdate) {
     const guild = this.guildService.getCached(guildId);
     const index = guild.roles.findIndex(r => r._id === roleId);
-    guild.roles[index] = {
-      ...guild.roles[index],
-      ...partialRole,
-    };
+
+    guild.roles[index] = Object.assign(guild.roles[index], partialRole);
   }
 
   public async addMember({ member }: Args.GuildMemberAdd) {
@@ -53,7 +51,7 @@ export class GuildEventService {
     const oldMember = this.guildService.getMemberInGuild(guildId, memberId);
     const index = guild.members.findIndex(m => m._id === memberId);    
 
-    return guild.members[index] = { ...oldMember, ...partialMember };
+    return guild.members[index] = Object.assign(oldMember, partialMember);
   }
 
   public addChannel({ channel, guildId }: Args.ChannelCreate) {

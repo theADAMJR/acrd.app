@@ -72,14 +72,14 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
     const existing = this.arr[index];
 
     if (this.self && this.self._id === id)
-      return this.self = { ...this.self, ...value };
+      return this.self = Object.assign(this.self, value);
 
     if (!existing && !('_id' in value))
       throw new TypeError('Full object required for adding');
     
     ('_id' in value)
       ? this.add(value as T)
-      : this.arr[index] = { ...existing, ...value };
+      : this.arr[index] = Object.assign(this.arr[index], value);
 
     return existing;
   }

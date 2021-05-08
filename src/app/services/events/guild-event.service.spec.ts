@@ -71,7 +71,7 @@ describe('GuildEventService', () => {
       }
     });
 
-    expect(role.name).toEqual('Epic Name');
+    expect(role.name).toEqual('Epic Role');
   });
   
   it('add member, adds member to guild', async () => {

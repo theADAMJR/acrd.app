@@ -17,7 +17,7 @@ export class ChannelEventService {
   ) {}
 
   public async addMessage({ message }: Args.MessageCreate) { 
-    const channel = await this.channelService.getAsync(message.channelId);
+    const channel = this.channelService.getCached(message.channelId);
     const guild = this.guildService.getCached(channel.guildId);
     const ignored = this.pingService.isIgnored(message, guild?._id);
     if (!ignored)
@@ -38,7 +38,7 @@ export class ChannelEventService {
     const messages = this.messageService.getAllCached(message.channelId);
     let index = messages.findIndex(m => m._id === message._id);
 
-    messages[index] = message;
+    Object.assign(messages[index], message);
   }
 
   public startTyping({ channelId, userId }: Args.TypingStart) {    
