@@ -73,9 +73,7 @@ export class MemberUsernameComponent implements OnInit {
     public dialog: DialogService,
   ) {}
 
-  public ngOnInit() {
-    console.log(this.user);
-    
+  public ngOnInit() {    
     if (!this.user)
       throw new TypeError('Input user undefined');
   }

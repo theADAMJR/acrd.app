@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, RoutesRecognized } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { GuildService } from '../services/guild.service';
 import { PingService } from '../services/ping.service';

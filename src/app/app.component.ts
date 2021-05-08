@@ -6,6 +6,7 @@ import { LogService } from './services/log.service';
 import devtools from 'devtools-detect';
 import { EventService } from './services/events/event.service';
 import { ConfigService } from './services/config.service';
+import { RedirectService } from './services/redirect.service';
 
 @Component({
   selector: 'app-root',
@@ -19,12 +20,14 @@ export class AppComponent implements OnInit {
     private themeService: ThemeService,
     private userService: UserService,
     private route: ActivatedRoute,
+    private redirects: RedirectService,
     private log: LogService,
   ) {}
 
   public async ngOnInit() {
     this.config.init();
     this.eventService.init();
+    this.redirects.init();
 
     this.themeService.updateTheme();
     await this.userService.fetchSelf();
