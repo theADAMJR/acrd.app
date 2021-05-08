@@ -20,15 +20,14 @@ img {
 
 .username {
   padding: 4px;
-  max-width: 200px;
+  max-width: 225px;
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .username-text {
-  width: 70% !important;  
-
+  width: 75% !important;  
   text-overflow: ellipsis;
 }
 .status-override {
@@ -38,4 +37,8 @@ img {
 i.fa-crown {
   color: gold;
   font-size: small;
+}
+
+h6 {
+  max-width: 200px;
 }

@@ -96,8 +96,8 @@
           [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
       </mat-select> 
     </mat-form-field>
-
   </div>
+
   <div *ngIf="guild">
     <button
       *ngIf="perms.canPunish(guild._id, user._id, 'KICK_MEMBERS')"
