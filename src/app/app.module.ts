@@ -70,6 +70,7 @@ import { AddFriendComponent } from './dialog/add-friend/add-friend.component';
 import { WhyComponent } from './pages/why/why.component';
 import { TimestampPipe } from './pipes/timestamp.pipe';
 import { ModuleConfig } from './dashboard/components/module-config';
+import { ChangelogComponent } from './utils/changelog/changelog.component';
 
 @Injectable()
 export class AlertErrorHandler implements ErrorHandler {
@@ -151,6 +152,7 @@ export class AlertErrorHandler implements ErrorHandler {
     AddFriendComponent,
     WhyComponent,
     TimestampPipe,
+    ChangelogComponent,
   ],
   imports: [
     AppRoutingModule,

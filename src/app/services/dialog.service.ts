@@ -7,6 +7,7 @@ import { CreateGuildComponent } from '../dialog/create-guild/create-guild.compon
 import { CreateInviteComponent } from '../dialog/create-invite/create-invite.component';
 import { ProfileComponent } from '../dialog/profile/profile.component';
 import { Lean } from '../types/entity-types';
+import { ChangelogComponent } from '../utils/changelog/changelog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,10 @@ export class DialogService {
 
   public createGuild() {
     this.dialog.open(CreateGuildComponent, { width: '500px' });
+  }
+
+  public changelog() {
+    this.dialog.open(ChangelogComponent, { width: '500px' });
   }
 
   public addFriend() {

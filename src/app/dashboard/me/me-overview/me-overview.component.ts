@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { getConfigValue } from 'src/app/config';
 import { DialogService } from 'src/app/services/dialog.service';
+import { environment } from 'src/environments/environment';
 import { TabType } from '../friends-list/friends-list.component';
 
 @Component({
@@ -14,5 +16,9 @@ export class DashboardOverviewComponent {
     document.title = 'Accord - Dashboard';
 
     this.tab = 'ONLINE';
+
+    const hasUpdated = getConfigValue('lastReadChangelog') !== environment.version;
+    if (hasUpdated)
+      this.dialog.changelog();
   }
 }

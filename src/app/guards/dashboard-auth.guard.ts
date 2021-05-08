@@ -19,10 +19,14 @@ export class DashboardAuthGuard implements CanActivate {
     await this.userService.init();
     await this.guildService.init();
 
-    for (const channelId in this.userService.self.lastReadMessages) {
-      const messageId = this.userService.self.lastReadMessages[channelId];
-      await this.pings.add({ channelId, _id: messageId } as any, false);
-    }
+    const lastRead = this.userService.self.lastReadMessages;
+    console.log(lastRead);
+    
+    for (const channelId in lastRead)
+      await this.pings.add({
+        _id: lastRead[channelId],
+        channelId,
+      } as any, false);
 
     if (!this.userService.self)
       await this.router.navigateByUrl(`/login?redirect=${route.url.join('/')}`);
