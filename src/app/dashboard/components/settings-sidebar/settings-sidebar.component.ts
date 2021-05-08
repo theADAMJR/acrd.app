@@ -1,9 +1,12 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RoutesRecognized } from '@angular/router';
 import { PermissionsService } from 'src/app/services/permissions.service';
 import { PermissionTypes } from 'src/app/types/entity-types';
 import { UserService } from 'src/app/services/user.service';
 import { GuildService } from 'src/app/services/guild.service';
+import { Location } from '@angular/common';
+import { filter, pairwise } from 'rxjs/operators';
+import { RedirectService } from 'src/app/services/redirect.service';
 
 @Component({
   selector: 'app-settings-sidebar',
@@ -13,6 +16,10 @@ import { GuildService } from 'src/app/services/guild.service';
 export class SettingsSidebarComponent {
   @Input() public tabType: TabType;
   @Input('id') public guildId: string;
+  
+  public get redirect() {
+    return this.redirects.previousURL;
+  }
 
   public readonly tabs: Tabs = {
     guild: [
@@ -58,6 +65,7 @@ export class SettingsSidebarComponent {
   }
 
   constructor(
+    private redirects: RedirectService,
     private guildService: GuildService,
     private perms: PermissionsService,
     private router: Router,
@@ -70,11 +78,12 @@ export class SettingsSidebarComponent {
   }
 
   public async close() {
-    await this.router.navigate([`/channels/${this.guildId ?? '@me'}`]);
+    await this.router.navigate([ this.redirect ]);
   }
 
   public canAccess(tab: Tab) {
-    return !tab.permission || this.perms.can(this.guildId, tab.permission);
+    return !tab.permission
+      || this.perms.can(this.guildId, tab.permission);
   }
 }
 
