@@ -18,8 +18,6 @@ export class DashboardOverviewComponent {
   ) {
     document.title = 'Accord - @me';
 
-    this.tab = 'ONLINE';
-
     const hasUpdated = this.config.getValue('lastReadChangelog') !== environment.version;
     if (hasUpdated)
       this.dialog.changelog();

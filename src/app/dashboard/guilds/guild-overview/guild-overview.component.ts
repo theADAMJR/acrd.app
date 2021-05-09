@@ -26,7 +26,7 @@ export class GuildOverviewComponent implements OnInit {
       const channelId = paramMap.get('channelId');
 
       this.guild = this.guildService.getCached(guildId);
-      this.activeChannel = await this.channelService.getAsync(channelId);
+      this.activeChannel = this.channelService.getCached(channelId);
       
       const defaultChannel = this.guild.channels.filter(c => c.type === 'TEXT')[0];            
       if (defaultChannel && !channelId)

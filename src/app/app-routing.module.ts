@@ -39,36 +39,46 @@ const routes: Routes = [
   { path: 'terms', component: externalRedirect(`${environment.docsURL}/legal/terms`), },
   {
     path: 'channels',
-    component: DashboardOverviewComponent,
     canActivate: [DashboardAuthGuard],
     children: [
-      { path: '@me/settings', component: UserSettingsComponent, },
-      { path: '@me/settings/account', component: UserAccountComponent },
       {
-        path: '@me/:channelId',
-        component: DMComponent,
-        canActivate: [DMChannelAuthGuard],
+        path: '@me',
+        children: [
+          { path: '', component: DashboardOverviewComponent },
+          {
+            path: ':channelId',
+            component: DMComponent,
+            canActivate: [DMChannelAuthGuard],
+          },
+          {
+            path: 'settings',
+            canDeactivate: [CanDeactivateDashboard],
+            children: [
+              { path: '', component: UserSettingsComponent },
+              { path: 'account', component: UserAccountComponent },
+            ]
+          },
+        ]
       },
       {
         path: ':guildId',
-        component: GuildOverviewComponent,
         canActivate: [GuildAuthGuard],
         children: [
           {
-            path: 'settings',
-            component: GuildSettingsComponent,
-            canDeactivate: [CanDeactivateDashboard],
-            children: [
-              { path: '', component: GuildSettingsComponent },
-              { path: 'roles', component: RolesComponent },
-              { path: 'invites', component: InvitesComponent },
-            ],
-          },
-          {
             path: ':channelId',
-            component: GuildOverviewComponent,
-            canActivate: [DashboardAuthGuard, GuildAuthGuard],
-            canDeactivate: [CanDeactivateDashboard],
+            children: [
+              { path: '', component: GuildOverviewComponent },
+              {
+                path: 'settings',
+                component: GuildSettingsComponent,
+                canDeactivate: [CanDeactivateDashboard],
+                children: [
+                  { path: '', component: GuildSettingsComponent },
+                  { path: 'roles', component: RolesComponent },
+                  { path: 'invites', component: InvitesComponent },
+                ],
+              },
+            ]
           },
         ]
       },

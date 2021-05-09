@@ -28,6 +28,7 @@ export class SettingsSidebarComponent implements OnInit {
         href: () => `/channels/${this.guildId}/settings`,
         permission: PermissionTypes.General.MANAGE_GUILD, 
       },
+      // TODO: external links to bot websites
       // {
       //   name: 'Bots',
       //   icon: 'fas fa-robot',

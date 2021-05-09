@@ -25,8 +25,8 @@ describe('PingService', () => {
     messageService = TestBed.inject(MessageService);
 
     userService = {} as UserService;
-    userService.updateSelf = (): any => {};
-    userService.self = AccordMock.self();
+    userService.fetchSelf = async () => AccordMock.self();
+    userService.self = await userService.fetchSelf();
 
     service = new PingService(
       channelService,

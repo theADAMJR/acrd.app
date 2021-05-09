@@ -72,7 +72,7 @@ export class TextBasedChannel implements OnInit {
       const channelId = paramMap.get('channelId');
 
       this.guild = this.guildService.getCached(guildId);
-      this.channel = await this.channelService.getAsync(channelId);
+      this.channel = this.channelService.getCached(channelId);
 
       await this.init();
     });

@@ -21,7 +21,7 @@ export class PingService {
 
     for (const channelId in lastRead) {
       const lastReadMessageId = lastRead[channelId];
-      const channel = await this.channelService.getAsync(channelId);
+      const channel = this.channelService.getCached(channelId);
       if (!lastReadMessageId
           || this.isChannelIgnored(channelId)
           || channel?.lastMessageId === lastReadMessageId) continue;

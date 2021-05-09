@@ -14,10 +14,10 @@ export class ThemeService {
   public changeTheme(theme: string) {
     this.config.set('theme', theme);
 
-    this.updateTheme();
+    this.init();
   }
 
-  public updateTheme() {
+  public init() {
     document
       .querySelector('html')
       .setAttribute('theme', this.config.getValue('theme'));

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { GuildService } from '../services/api/guild.service';
-import { UserService } from '../services/api/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class GuildAuthGuard implements CanActivate {
@@ -10,13 +9,13 @@ export class GuildAuthGuard implements CanActivate {
     private router: Router,
   ) {}
 
-  public async canActivate(route: ActivatedRouteSnapshot) {
-    await this.guildService.init();
-    
+  public async canActivate(route: ActivatedRouteSnapshot) {    
     const guildId = route.paramMap.get('guildId');
-    const guild = await this.guildService.getAsync(guildId);      
-    if (!guild)
+    const guild = this.guildService.getCached(guildId);
+    if (!guild) {
       await this.router.navigate(['/channels/@me']);
+      return false;
+    }
     
     const defaultChannel = guild.channels.filter(c => c.type === 'TEXT')[0];      
     const channelId = route.url[2];    

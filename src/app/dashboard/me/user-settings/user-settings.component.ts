@@ -73,7 +73,7 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
       ?.writeValue(localStorage
         .getItem('theme') ?? this.themes.defaultTheme);
 
-    this.themes.updateTheme();    
+    this.themes.init();    
   }
 
   public buildForm(user: Lean.User): FormGroup | Promise<FormGroup> {

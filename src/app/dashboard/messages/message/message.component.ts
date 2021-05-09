@@ -116,7 +116,7 @@ export class MessageComponent implements OnInit {
   ) {}
 
   public async ngOnInit() {
-    this.author = await this.userService.getAsync(this.message.authorId);
+    this.author = await this.userService.getCached(this.message.authorId);
   }
 
   public removeEmbed() {

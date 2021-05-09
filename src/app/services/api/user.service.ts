@@ -39,18 +39,26 @@ export class UserService extends HTTPWrapper<Lean.User> {
   }
 
   public getBots(): Promise<Lean.User[]> {
-    return this.http.get(`${this.endpoint}/bots`).toPromise() as any;
+    return this.http
+      .get(`${this.endpoint}/bots`)
+      .toPromise() as any;
   }
 
-  public async fetchSelf(): Promise<Lean.User> {
-    return this.self = await this.http.get(`${this.endpoint}/self`, this.headers).toPromise() as any;
+  public async fetchSelf(): Promise<UserTypes.Self> {
+    return this.self = await this.http
+      .get(`${this.endpoint}/self`, this.headers)
+      .toPromise() as any;
   }
 
   public async checkUsername(username: string): Promise<boolean> {
-    return this.http.get(`${this.endpoint}/check-username?value=${username}`).toPromise() as any;
+    return this.http
+      .get(`${this.endpoint}/check-username?value=${username}`)
+      .toPromise() as any;
   }
   public async checkEmail(email: string): Promise<boolean> {
-    return this.http.get(`${this.endpoint}/check-email?value=${email}`).toPromise() as any;
+    return this.http
+      .get(`${this.endpoint}/check-email?value=${email}`)
+      .toPromise() as any;
   }
 
   public async init() {

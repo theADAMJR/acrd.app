@@ -47,7 +47,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   }
 
   public async ownsGuild(guildId: string, userId: string) {
-    const guild = await this.getAsync(guildId);
+    const guild = this.getCached(guildId);
     return guild.ownerId === userId;
   }
 

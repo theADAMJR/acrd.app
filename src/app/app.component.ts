@@ -25,12 +25,11 @@ export class AppComponent implements OnInit {
   ) {}
 
   public async ngOnInit() {
-    this.config.init();
-    this.eventService.init();
-    this.redirects.init();
+    await this.userService.init();
 
-    this.themeService.updateTheme();
-    await this.userService.fetchSelf();
+    this.config.init();
+    this.redirects.init();
+    this.themeService.init();
     
     this.handlePrompt();
     this.consoleWarning();
