@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
 import { Lean } from '../../types/entity-types';
-import { HTTPWrapper } from '../http-wrapper';
+import { HTTPWrapper } from './http-wrapper';
 import { WSService } from '../ws.service';
 import { array } from '../../utils/utils';
 

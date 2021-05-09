@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GeneralTypes, Lean, UserTypes } from '../types/entity-types';
-import { WSService } from './ws.service';
+import { GeneralTypes, Lean, UserTypes } from '../../types/entity-types';
+import { WSService } from '../ws.service';
 
 // convention over configuration
 @Injectable({ providedIn: 'root' })
@@ -53,10 +53,7 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   }
   /** @deprecated */
   public add(val: T) {
-    const has = this.arr.some(v => v._id === val._id);
-    if (has)
-      this.delete(val._id);
-    this.arr.push(val);
+    this.upsert(val._id, val);
 
     return this.arr;
   }
@@ -71,15 +68,16 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
     const index = this.arr.findIndex(g => g._id === id);
     const existing = this.arr[index];
 
-    if (this.self && this.self._id === id)
-      return this.self = Object.assign(this.self, value);
+    if (this.self && this.self?._id === id)
+      return Object.assign(this.self, value);
 
-    if (!existing && !('_id' in value))
+    const isFull = '_id' in value;
+    if (!existing && !isFull)
       throw new TypeError('Full object required for adding');
     
-    ('_id' in value)
-      ? this.add(value as T)
-      : this.arr[index] = Object.assign(this.arr[index], value);
+    (isFull)
+      ? this.arr.push(value as T)
+      : Object.assign(this.arr[index], value);
 
     return existing;
   }

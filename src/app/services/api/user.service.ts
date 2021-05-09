@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Lean, UserTypes } from '../../types/entity-types';
 import { Partial } from '../../types/ws-types';
 import { array } from '../../utils/utils';
-import { HTTPWrapper } from '../http-wrapper';
+import { HTTPWrapper } from './http-wrapper';
 import { WSService } from '../ws.service';
 
 @Injectable({ providedIn: 'root' })

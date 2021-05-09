@@ -91,10 +91,10 @@ describe('PingService', () => {
   });
 
   it('isIgnored(), guild ignored returns true', () => {
-    const guildId = 'test_guild_123';
-    userService.self.ignored.guildIds.push(guildId);
+    const channel = addChannel();
+    userService.self.ignored.guildIds.push(channel.guildId);
 
-    expect(service.isIgnored(message, guildId)).toBe(true);
+    expect(service.isIgnored(message, channel.guildId)).toBe(true);
   });
 
   it('isIgnored(), user ignored returns true', () => {
