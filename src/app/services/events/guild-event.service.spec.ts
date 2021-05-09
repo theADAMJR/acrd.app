@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AppModule } from 'src/app/app.module';
 import { Lean } from 'src/app/types/entity-types';
 import { AccordMock } from 'src/tests/accord-mock';
+import { ChannelService } from '../api/channel.service';
 import { GuildService } from '../api/guild.service';
 import { UserService } from '../api/user.service';
 
@@ -9,6 +10,7 @@ import { GuildEventService } from './guild-event.service';
 
 describe('GuildEventService', () => {
   let service: GuildEventService;
+  let channelService: ChannelService;
   let userService: UserService;
   let guildService: GuildService;
 
@@ -18,8 +20,9 @@ describe('GuildEventService', () => {
       .compileComponents();
 
     service = TestBed.inject(GuildEventService);
-    userService = TestBed.inject(UserService);
+    channelService = TestBed.inject(ChannelService);
     guildService = TestBed.inject(GuildService);
+    userService = TestBed.inject(UserService);
   });
 
   it('should be created', () => {
@@ -117,6 +120,18 @@ describe('GuildEventService', () => {
     });
 
     expect(guild.channels).toContain(channel);
+  });
+  
+  it('add channel, adds channel to channel service', () => {
+    const guild = addGuild();
+    
+    const channel = AccordMock.channel(guild._id);
+    service.addChannel({
+      guildId: guild._id,
+      channel,
+    });
+
+    expect(channelService.channels).toContain(channel);
   });
   
   it('delete channel, removes channel to guild', () => {

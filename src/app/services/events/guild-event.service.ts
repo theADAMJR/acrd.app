@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Args } from 'src/app/types/ws-types';
+import { ChannelService } from '../api/channel.service';
 import { GuildService } from '../api/guild.service';
 import { UserService } from '../api/user.service';
 
@@ -8,6 +9,7 @@ import { UserService } from '../api/user.service';
 })
 export class GuildEventService {
   constructor(
+    private channelService: ChannelService,
     private guildService: GuildService,
     private userService: UserService,
   ) {}
@@ -57,6 +59,7 @@ export class GuildEventService {
   public addChannel({ channel, guildId }: Args.ChannelCreate) {
     const guild = this.guildService.getCached(guildId);
     guild.channels.push(channel);
+    this.channelService.add(channel);
   }
   public deleteChannel({ guildId, channelId }: Args.ChannelDelete) {
     const guild = this.guildService.getCached(guildId);

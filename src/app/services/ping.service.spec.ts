@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { AccordMock } from 'src/tests/accord-mock';
 import { AppModule } from '../app.module';
 import { Lean } from '../types/entity-types';
-import { ChannelService } from './channel.service';
-import { MessageService } from './message.service';
+import { ChannelService } from './api/channel.service';
+import { MessageService } from './api/message.service';
 
 import { PingService } from './ping.service';
 import { SoundService } from './sound.service';
