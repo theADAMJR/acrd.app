@@ -16,7 +16,7 @@ export class DashboardOverviewComponent {
     public config: ConfigService,
     public dialog: DialogService,
   ) {
-    document.title = 'Accord - Dashboard';
+    document.title = 'Accord - @me';
 
     this.tab = 'ONLINE';
 

@@ -28,7 +28,6 @@ import { InviteComponent } from './pages/invite/invite.component';
 import { externalRedirect } from './utils/external-redirect';
 import { environment } from 'src/environments/environment';
 import { ComingSoonComponent } from './utils/coming-soon/coming-soon.component';
-import { WhyComponent } from './pages/why/why.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
@@ -39,78 +38,51 @@ const routes: Routes = [
   { path: 'privacy', component: externalRedirect(`${environment.docsURL}/legal/privacy`), },
   { path: 'terms', component: externalRedirect(`${environment.docsURL}/legal/terms`), },
   {
-    path: 'channels/@me',
+    path: 'channels',
     component: DashboardOverviewComponent,
     canActivate: [DashboardAuthGuard],
+    children: [
+      { path: '@me/settings', component: UserSettingsComponent, },
+      { path: '@me/settings/account', component: UserAccountComponent },
+      {
+        path: '@me/:channelId',
+        component: DMComponent,
+        canActivate: [DMChannelAuthGuard],
+      },
+      {
+        path: ':guildId',
+        component: GuildOverviewComponent,
+        canActivate: [GuildAuthGuard],
+        children: [
+          {
+            path: 'settings',
+            component: GuildSettingsComponent,
+            canDeactivate: [CanDeactivateDashboard],
+            children: [
+              { path: '', component: GuildSettingsComponent },
+              { path: 'roles', component: RolesComponent },
+              { path: 'invites', component: InvitesComponent },
+            ],
+          },
+          {
+            path: ':channelId',
+            component: GuildOverviewComponent,
+            canActivate: [DashboardAuthGuard, GuildAuthGuard],
+            canDeactivate: [CanDeactivateDashboard],
+          },
+        ]
+      },
+    ]
   },
   {
-    path: 'channels/@me/settings',
-    component: UserSettingsComponent,
-    canActivate: [DashboardAuthGuard],
-  },
-  {
-    path: 'channels/@me/settings/account',
-    component: UserAccountComponent,
-    canActivate: [DashboardAuthGuard],
-  },
-  {
-    path: 'channels/@me/:channelId',
-    component: DMComponent,
-    canActivate: [DashboardAuthGuard, DMChannelAuthGuard],
-  },
-  {
-    path: 'channels/:guildId',
-    component: GuildOverviewComponent,
-    canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard],
-  },
-  {
-    path: 'channels/:guildId/settings',
-    component: GuildSettingsComponent,
-    canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard],
-  },
-  {
-    path: 'channels/:guildId/roles',
-    component: RolesComponent,
-    canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard],
-  },
-  {
-    path: 'channels/:guildId/bots',
-    component: ComingSoonComponent,
-    // component: BotListComponent,
-    // canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    // canDeactivate: [CanDeactivateDashboard],
-  },
-  {
-    path: 'channels/:guildId/invites',
-    component: InvitesComponent,
-    canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard],
-  },
-  {
-    path: 'channels/:guildId/:channelId',
-    component: GuildOverviewComponent,
-    canActivate: [DashboardAuthGuard, GuildAuthGuard],
-    canDeactivate: [CanDeactivateDashboard],
-  },
-  { path: 'developers', component: ComingSoonComponent, },
-  {
-    path: `developers/applications/:id/user`,
+    path: 'dev',
     canActivate: [DevelopersAuthGuard],
-    component: BotUserComponent,
-  },
-  {
-    path: `developers/applications/:id`,
-    canActivate: [DevelopersAuthGuard],
-    component: ApplicationComponent,
-  },
-  { path: `developers/applications`, redirectTo: 'developers', },
-  {
-    path: 'developers',
-    canActivate: [DevelopersAuthGuard],
-    component: DevelopersComponent,
+    children: [
+      { path: '', component: ComingSoonComponent },
+      { path: 'apps', redirectTo: 'dev' },
+      { path: 'apps/:id/user', component: BotUserComponent },
+      { path: 'apps/:id', component: ApplicationComponent },
+    ]
   },
   { path: 'invite/:id', component: InviteComponent, },
   { path: 'login', component: LoginComponent, },
