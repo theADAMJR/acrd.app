@@ -14,19 +14,19 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {CdkTableModule} from '@angular/cdk/table';
-import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
+import {PickerModule} from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   exports: [
     ColorPickerModule,
     CdkTableModule,
-    DragDropModule,
+    // DragDropModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatChipsModule,
@@ -46,6 +46,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatTooltipModule,
     MatMenuModule,
     MatCardModule,
+    PickerModule,
   ]
 })
 export class MaterialModule {}

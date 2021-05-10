@@ -4,7 +4,6 @@ import { UserService } from '../services/api/user.service';
 import { GuildService } from '../services/api/guild.service';
 import { PingService } from '../services/ping.service';
 import { ChannelService } from '../services/api/channel.service';
-import { AccordMock } from 'src/tests/accord-mock';
 import { EventService } from '../services/events/event.service';
 
 @Injectable({ providedIn: 'root' })

@@ -8,7 +8,7 @@
   outline: none;
 }
 
-#nav-icon1 {
+#navIcon {
   width: 60px;
   height: 45px;
   position: relative;
@@ -23,7 +23,7 @@
   cursor: pointer;
 }
 
-#nav-icon1 span {
+#navIcon span {
   display: block;
   position: absolute;
   height: 5px;
@@ -42,19 +42,19 @@
   transition: .25s ease-in-out;
 }
 
-#nav-icon1 span:nth-child(1) {
+#navIcon span:nth-child(1) {
   top: 0px;
 }
 
-#nav-icon1 span:nth-child(2) {
+#navIcon span:nth-child(2) {
   top: 10px;
 }
 
-#nav-icon1 span:nth-child(3) {
+#navIcon span:nth-child(3) {
   top: 20px;
 }
 
-#nav-icon1.open span:nth-child(1) {
+#navIcon.open span:nth-child(1) {
   top: 18px;
   -webkit-transform: rotate(135deg);
   -moz-transform: rotate(135deg);
@@ -62,12 +62,12 @@
   transform: rotate(135deg);
 }
 
-#nav-icon1.open span:nth-child(2) {
+#navIcon.open span:nth-child(2) {
   opacity: 0;
   left: -60px;
 }
 
-#nav-icon1.open span:nth-child(3) {
+#navIcon.open span:nth-child(3) {
   top: 18px;
   -webkit-transform: rotate(-135deg);
   -moz-transform: rotate(-135deg);
@@ -75,7 +75,7 @@
   transform: rotate(-135deg);
 }
 
-#nav-icon1 {
+#navIcon {
     max-width: 50%;
     max-height: 50%;
 }

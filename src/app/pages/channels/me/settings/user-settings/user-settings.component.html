@@ -93,10 +93,9 @@
           <label for="sfxEnabled">Enable Sound Effects</label>
           <mat-checkbox
             id="sfxEnabled"
-            (input)="config.set('sfxEnabled', sfxEnabledInput.checked)"
+            (input)="config.toggle('sfxEnabled')"
             [checked]="config.get('sfxEnabled')"
-            class="ml-2"
-            #sfxEnabledInput></mat-checkbox>
+            class="ml-2"></mat-checkbox>
         </div>
       </div>
   

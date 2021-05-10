@@ -25,6 +25,9 @@ export class ConfigService {
   public get(key: ConfigKey): boolean {
     return localStorage.getItem(key as string) == 'true';
   }
+  public toggle(key: ConfigKey) {
+    this.set(key, !this.get(key));
+  }
   public getValue(key: ConfigKey): string {
     return localStorage.getItem(key as string);
   }

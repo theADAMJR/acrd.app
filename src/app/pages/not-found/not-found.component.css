@@ -174,7 +174,7 @@ h1 + p {
 }
 
 .stars{
-  background: url('../../../assets/img/overlay-stars.svg');
+  background: url('/assets/img/space/overlay-stars.svg');
   background-repeat: repeat;
   background-size: contain;
   background-position: left top;

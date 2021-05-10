@@ -60,24 +60,9 @@ import { GuildIconComponent } from './pages/channels/components/guild-icon/guild
 import { AddFriendComponent } from './components/dialog/add-friend/add-friend.component';
 import { TimestampPipe } from './pipes/timestamp.pipe';
 import { ChangelogComponent } from './components/dialog/changelog/changelog.component';
-
-@Injectable()
-export class AlertErrorHandler implements ErrorHandler {
-  async handleError(error: Error) {
-    try {
-      console.log(error.stack);
-
-      const key = localStorage.getItem('key');
-      await fetch(`${environment.endpoint}/error?key=${key}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: error.message }),
-      });
-    } finally {
-      throw error;
-    }
-  }
-}
+import { AlertErrorHandler } from './alert-error.handler';
+import { DevelopersComponent } from './pages/dev/developers.component';
+import { UserSettingsComponent } from './pages/channels/me/settings/user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -112,8 +97,10 @@ export class AlertErrorHandler implements ErrorHandler {
     InvitesComponent,
     FriendsListComponent,
     DMComponent,
+    UserSettingsComponent,
     BotListComponent,
     MemberListComponent,
+    DevelopersComponent,
     ApplicationComponent,
     BotUserComponent,
     AvatarUrlComponent,
@@ -148,6 +135,6 @@ export class AlertErrorHandler implements ErrorHandler {
     { provide: ErrorHandler, useClass: AlertErrorHandler },
     { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

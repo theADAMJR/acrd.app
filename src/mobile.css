@@ -1,7 +1,10 @@
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 576px) {
+  /* * {
+    overflow-x: hidden;
+  } */
   img {
-    width: 250px;
+    width: 300px;
     height: auto;
   }
 }

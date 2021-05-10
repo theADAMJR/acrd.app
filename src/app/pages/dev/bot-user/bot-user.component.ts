@@ -7,14 +7,13 @@ import { UsernameValidators } from 'src/app/pages/auth/sign-up/username.validato
 import { SaveChangesComponent } from 'src/app/pages/channels/components/save-changes/save-changes.component';
 import { DevelopersService } from 'src/app/services/api/developers.service';
 import { SoundService } from 'src/app/services/sound.service';
-import { UserService } from 'src/app/services/api/user.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean, patterns } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-bot-user',
   templateUrl: './bot-user.component.html',
-  styleUrls: ['../application/application.component.css', '../developers.component.css']
+  styleUrls: ['../app/application.component.css', '../developers.component.css']
 })
 export class BotUserComponent implements OnInit {
   public form = new FormGroup({

@@ -6,15 +6,21 @@
       <span class="text-secondary">app</span>
     </h1>
   </a>
+
+  <input type="hidden" #isOpen>
   <button
-    class="navbar-toggler"
+    id="navIcon"
+    (click)="isOpen.value = !isOpen"
+    [class.open]="isOpen.value"
     type="button"
     data-toggle="collapse"
     data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent"
     aria-expanded="false"
     aria-label="Toggle navigation">
-    <i class="lni lni-menu"></i>
+    <span></span>
+    <span></span>
+    <span></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">

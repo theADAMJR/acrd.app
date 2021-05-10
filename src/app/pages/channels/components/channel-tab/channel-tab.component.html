@@ -19,13 +19,6 @@
       </span>
     </a>
   </div>
-    
-  <div *ngIf="channel.type === 'VOICE'">
-    <voice-channel
-      (click)="$event.stopPropagation()"
-      [channel]="channel"
-      [guild]="guild"></voice-channel>
-  </div>
 </div>
 
 <mat-menu

@@ -16,7 +16,6 @@ import { RedirectService } from './services/redirect.service';
 export class AppComponent implements OnInit {
   constructor(
     public config: ConfigService,
-    private eventService: EventService,
     private themeService: ThemeService,
     private userService: UserService,
     private route: ActivatedRoute,
