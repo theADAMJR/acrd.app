@@ -26,7 +26,7 @@ import {MatDialogModule} from '@angular/material/dialog';
   exports: [
     ColorPickerModule,
     CdkTableModule,
-    // DragDropModule,
+    DragDropModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatChipsModule,

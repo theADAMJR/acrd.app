@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ModuleConfig } from '../dashboard/components/module-config';
+import { ModuleConfig } from '../pages/channels/components/module-config';
 
 @Injectable({
   providedIn: 'root'

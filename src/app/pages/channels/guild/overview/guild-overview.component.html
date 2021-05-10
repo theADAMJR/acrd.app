@@ -1,0 +1,45 @@
+<guild-sidebar>
+  <dashboard-navbar>
+    <strong>{{ guild.name }}</strong>
+    
+    <span *ngIf="activeChannel">
+      <i class="lni lni-chevron-right mx-2"></i>
+      <i class="fas fa-hashtag text-muted pr-1"></i>
+      <strong>{{ activeChannel?.name }}</strong>
+    </span>
+  
+    <div class="float-right">
+      <i (click)="toggleMemberList.emit()"
+        matTooltip="Toggle Members"
+        class="lni cursor-pointer"
+        [class]="memberIcon"></i>
+    </div>
+  </dashboard-navbar>
+
+  <div class="row">
+    <div
+      class="text-channel-container"
+      [class]="(memberList.isExpanded) ? 'col-lg-7 col-md-5 col-xl-9': 'col-12'">
+      <section
+        *ngIf="!activeChannel"
+        class="jumbotron">
+        <p class="lead">
+          <i class="lni lni-directions mr-1"></i>
+          <span>Nothing here yet.</span>
+        </p>
+        <hr>
+        <p>No channels here, just emptiness.</p>
+      </section>
+
+      <app-text-channel #textChannel></app-text-channel>
+    </div>
+
+    <div
+      [hidden]="!memberList.isExpanded"
+      class="col-xl-3 col-lg-5 col-md-7">
+      <app-member-list
+        [guild]="guild"
+        #memberList></app-member-list>
+    </div>
+  </div>
+</guild-sidebar>

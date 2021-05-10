@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { AddFriendComponent } from '../dialog/add-friend/add-friend.component';
-import { CreateChannelComponent } from '../dialog/create-channel/create-channel.component';
-import { CreateGuildComponent } from '../dialog/create-guild/create-guild.component';
-import { CreateInviteComponent } from '../dialog/create-invite/create-invite.component';
-import { ProfileComponent } from '../dialog/profile/profile.component';
+import { AddFriendComponent } from '../components/dialog/add-friend/add-friend.component';
+import { CreateChannelComponent } from '../components/dialog/create-channel/create-channel.component';
+import { CreateGuildComponent } from '../components/dialog/create-guild/create-guild.component';
+import { CreateInviteComponent } from '../components/dialog/create-invite/create-invite.component';
+import { ProfileComponent } from '../components/dialog/profile/profile.component';
 import { Lean } from '../types/entity-types';
-import { ChangelogComponent } from '../utils/changelog/changelog.component';
+import { ChangelogComponent } from '../components/dialog/changelog/changelog.component';
 
 @Injectable({
   providedIn: 'root'

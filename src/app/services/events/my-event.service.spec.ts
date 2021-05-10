@@ -21,7 +21,9 @@ describe('MyEventService', () => {
     service = TestBed.inject(MyEventService);
     channelService = TestBed.inject(ChannelService);
     guildService = TestBed.inject(GuildService);
+
     userService = TestBed.inject(UserService);
+    userService.self = AccordMock.self();
   });
 
   it('should be created', () => {
