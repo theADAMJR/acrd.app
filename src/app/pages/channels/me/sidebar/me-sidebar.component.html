@@ -16,7 +16,7 @@
         <member-username
           *ngIf="channel && getRecipient(channel)"
           class="cursor-pointer"
-          [routerLink]="'/channels/@me/' + channel._id"
+          [routerLink]="'/channels/@me/' + channel.id"
           [user]="getRecipient(channel)"></member-username>
       </div>
     </div>

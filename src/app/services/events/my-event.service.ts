@@ -25,15 +25,15 @@ export class MyEventService {
       this.channelService.add(dmChannel);
   }
   public updateFriends({ sender, friend }: Args.RemoveFriend) {
-    this.userService.upsert(sender._id, sender);    
-    this.userService.upsert(friend._id, friend);
+    this.userService.upsert(sender.id, sender);    
+    this.userService.upsert(friend.id, friend);
   }
 
   public async joinGuild({ guild }: Args.GuildJoin) {
     await this.userService.fetchAll();
     this.guildService.add(guild);
 
-    await this.router.navigate([`/channels/${guild._id}`]);
+    await this.router.navigate([`/channels/${guild.id}`]);
   }
 
   public updatePresence({ userId, status }: Args.PresenceUpdate) {
@@ -42,7 +42,7 @@ export class MyEventService {
 
   public async updateUser({ partialUser }: Args.UserUpdate) {
     const user = this.userService.self;
-    this.userService.upsert(user._id, partialUser);
+    this.userService.upsert(user.id, partialUser);
 
     if ('lastReadMessages' in partialUser)
       await this.updateReadMessages(partialUser);

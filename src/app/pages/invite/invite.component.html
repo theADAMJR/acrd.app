@@ -5,16 +5,16 @@
 <section class="main">
   <div *ngIf="guild && userService.self" class="text-center">
     <p class="lead">You have been invited to</p>
-    <h1>{{ guild._id }}</h1>
+    <h1>{{ guild.id }}</h1>
     <hr>
     <button (click)="join()" class="bg-primary" mat-button>Join</button>
   </div>
 
   <div *ngIf="guild && !userService.self" >
     <p class="lead">You have been invited to</p>
-    <h1>{{ guild._id }}</h1>
+    <h1>{{ guild.id }}</h1>
     <hr>
-    <button [routerLink]="'/sign-up&redirect=/invite/' + invite._id" class="bg-success" mat-button>Join</button>
+    <button [routerLink]="'/sign-up&redirect=/invite/' + invite.id" class="bg-success" mat-button>Join</button>
   </div>
   
   <div *ngIf="!guild" class="text-center">

@@ -68,7 +68,7 @@ export class ApplicationComponent implements OnInit {
     try {
       if (!this.form.valid) return;
 
-      await this.service.update(this.app._id, this.form.value);
+      await this.service.update(this.app.id, this.form.value);
       this.originalForm = { ...this.form.value };  
     } catch {
       alert('An error occurred when submitting the form - check console');

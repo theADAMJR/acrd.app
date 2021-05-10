@@ -25,8 +25,8 @@ export class ChannelTabComponent {
     return this.route.snapshot.paramMap.get('channelId');
   }
   public get isUnread() {
-    return this.pings.isUnread(this.channel._id)
-      && this.channel._id !== this.activeChannelId;
+    return this.pings.isUnread(this.channel.id)
+      && this.channel.id !== this.activeChannelId;
   }
 
   constructor(
@@ -53,7 +53,7 @@ export class ChannelTabComponent {
       .trim());
     if (!confirmation) return;
 
-    await this.ws.emitAsync('CHANNEL_DELETE', { channelId: this.channel._id }, this);
-    await this.router.navigate([`/channels/${this.guild._id}`]);
+    await this.ws.emitAsync('CHANNEL_DELETE', { channelId: this.channel.id }, this);
+    await this.router.navigate([`/channels/${this.guild.id}`]);
   }
 }

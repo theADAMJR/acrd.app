@@ -151,12 +151,12 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
   private async updateRole() {
     const { partialRole } = await this.ws.emitAsync('GUILD_ROLE_UPDATE', {
-      roleId: this.selectedRole._id,
+      roleId: this.selectedRole.id,
       guildId: this.guildId,
       partialRole: this.form.value,
     }, this);
 
-    const index = this.guild.roles.findIndex(r => r._id === this.selectedRole._id);
+    const index = this.guild.roles.findIndex(r => r.id === this.selectedRole.id);
     this.guild.roles[index] = { ...this.guild.roles[index], ...partialRole };
 
     this.form.patchValue(partialRole);
@@ -173,7 +173,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
   public async deleteRole() {
     await this.ws.emitAsync('GUILD_ROLE_DELETE', {
-      roleId: this.selectedRole._id,
+      roleId: this.selectedRole.id,
       guildId: this.guildId,
     }, this);
     await this.selectRole(this.guild.roles[0]);

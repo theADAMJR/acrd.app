@@ -48,7 +48,7 @@ export class MessageComponent implements OnInit {
     if (!this.guild) return;
 
     const roleId = this.member?.roleIds[this.member?.roleIds.length - 1];
-    return this.guild.roles.find(r => r._id == roleId)?.color;
+    return this.guild.roles.find(r => r.id == roleId)?.color;
   }
   
   public get timeString() {
@@ -57,7 +57,7 @@ export class MessageComponent implements OnInit {
   }
 
   public get isMentioned() {
-    return document.querySelector(`#message-${this.message._id} .self-mention`);
+    return document.querySelector(`#message-${this.message.id} .self-mention`);
   }
 
   public get updatedAt() {
@@ -67,7 +67,7 @@ export class MessageComponent implements OnInit {
   public get processed() {
     if (this.isEditing) return this.message.content;
 
-    const getRole = (id: string) => this.guild?.roles.find(r => r._id === id);
+    const getRole = (id: string) => this.guild?.roles.find(r => r.id === id);
     const getUser = (id: string) => this.userService.getCached(id);
 
     const getMention = (html: string, condition: boolean) => {
@@ -77,14 +77,14 @@ export class MessageComponent implements OnInit {
     };
 
     const recipientHasRole = this.guildService
-      .getMember(this.guild?._id, this.userService.self._id)?.roleIds
-      .some(id => this.guild?.roles.some(r => r._id === id));
+      .getMember(this.guild?.id, this.userService.self.id)?.roleIds
+      .some(id => this.guild?.roles.some(r => r.id === id));
   
     return toHTML(textEmoji(this.message.content), {
       discordCallback: {
         user: async (node) => getMention(
           `@${(await getUser(node.id))?.username ?? `Invalid User`}`,
-          this.userService.self._id === node.id),
+          this.userService.self.id === node.id),
 
         role: (node) => getMention(
           `@${getRole(node.id)?.name ?? `Invalid Role`}`,
@@ -97,12 +97,12 @@ export class MessageComponent implements OnInit {
   }
 
   public get selfIsAuthor() {
-    return this.author?._id === this.userService.self._id;
+    return this.author?.id === this.userService.self.id;
   }
 
   public get canManage() {
     return this.selfIsAuthor
-      || (this.guild && this.perms.can(this.guild._id, 'MANAGE_MESSAGES'));
+      || (this.guild && this.perms.can(this.guild.id, 'MANAGE_MESSAGES'));
   }
 
   constructor(
@@ -123,21 +123,21 @@ export class MessageComponent implements OnInit {
     this.message.embed = null;
     
     this.ws.emit('MESSAGE_UPDATE', {
-      messageId: this.message._id,
+      messageId: this.message.id,
       partialMessage: this.message,
       withEmbed: false
     }, this);
   }
 
   public delete() {
-    this.ws.emit('MESSAGE_DELETE', { messageId: this.message._id }, this);
+    this.ws.emit('MESSAGE_DELETE', { messageId: this.message.id }, this);
 
     document
-      .querySelector(`#message${this.message._id}`)
+      .querySelector(`#message${this.message.id}`)
       ?.remove();
 
     this.ws.on('MESSAGE_DELETE', async ({ messageId }) => {
-      if (messageId === this.message._id)
+      if (messageId === this.message.id)
         await this.log.success();
     }, this);
   }
@@ -150,7 +150,7 @@ export class MessageComponent implements OnInit {
     this.message.updatedAt = new Date();
 
     this.ws.emit('MESSAGE_UPDATE', {
-      messageId: this.message._id,
+      messageId: this.message.id,
       partialMessage: { content: this.message.content },
       withEmbed: Boolean(this.message.embed),
     }, this);

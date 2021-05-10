@@ -37,7 +37,7 @@ export class InvitesComponent implements OnInit {
   public async delete(inviteCode: string) {
     await this.ws.emitAsync('INVITE_DELETE', { inviteCode }, this);
       
-    const index = this.invites.findIndex(i => i._id === inviteCode);
+    const index = this.invites.findIndex(i => i.id === inviteCode);
     this.invites.splice(index, 1);
   }
 }

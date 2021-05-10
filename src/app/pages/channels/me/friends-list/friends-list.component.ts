@@ -34,7 +34,7 @@ export class FriendsListComponent {
   }
 
   public isOutgoing(friend: Lean.User) {
-    return this.users.self.friendRequestIds.includes(friend._id);
+    return this.users.self.friendRequestIds.includes(friend.id);
   }
 }
 

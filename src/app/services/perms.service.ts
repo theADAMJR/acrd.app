@@ -25,7 +25,7 @@ export class PermissionsService {
   }
   public getTotalPerms(guild: Lean.Guild, member: Lean.GuildMember) {
     return guild.roles
-      .filter(r => member?.roleIds.includes(r._id))
+      .filter(r => member?.roleIds.includes(r.id))
       .reduce((acc, value) => value.permissions | acc, 0);
   }
   public hasPermission(totalPerms: number, permission: number) {
@@ -38,12 +38,12 @@ export class PermissionsService {
     if (!userMember) return false;
 
     return this.can(guildId, permission)
-      && (this.userService.self._id === userMember.userId
+      && (this.userService.self.id === userMember.userId
       || (this.isHigher(guildId, userMember.roleIds)));
   }
 
   public canPunish(guildId: string, userId: string, permission: PermissionTypes.PermissionString) {
-    return this.userService.self._id !== userId
+    return this.userService.self.id !== userId
       && this.can(guildId, permission)
       && this.canManage(guildId, userId, permission);
   }
@@ -53,12 +53,12 @@ export class PermissionsService {
     const guild = this.guildService.getCached(guildId);
 
     const joinedRoles = roleIds.concat(selfMember.roleIds);
-    const roles = guild.roles.filter(r => joinedRoles.includes(r._id));
+    const roles = guild.roles.filter(r => joinedRoles.includes(r.id));
 
     const highestRole = roles[roles.length - 1];
     
     return selfMember.userId === guild.ownerId
-      || (selfMember.roleIds.includes(highestRole._id)
-      && !roleIds.includes(highestRole._id));
+      || (selfMember.roleIds.includes(highestRole.id)
+      && !roleIds.includes(highestRole.id));
   }
 }

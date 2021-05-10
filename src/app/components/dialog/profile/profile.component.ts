@@ -21,20 +21,20 @@ export class ProfileComponent {
   public get mutualGuilds(): Lean.Guild[] {
     const otherGuilds = this.data.user.guilds;    
     return this.users.self.guilds
-      .filter(ug => otherGuilds.some(og => og._id === ug._id));
+      .filter(ug => otherGuilds.some(og => og.id === ug.id));
   }
 
   public get isSelf() {
-    return this.users.self._id === this.data.user._id;
+    return this.users.self.id === this.data.user.id;
   }
   public get isFriend() {
-    return this.users.self.friendIds.includes(this.data.user._id);
+    return this.users.self.friendIds.includes(this.data.user.id);
   }
   public get sentRequest() {
-    return this.users.self.friendRequestIds.includes(this.data.user._id);
+    return this.users.self.friendRequestIds.includes(this.data.user.id);
   }
   public get dmChannel() {
-    return this.channels.getDM(this.data.user._id);
+    return this.channels.getDM(this.data.user.id);
   }
 
   constructor(
@@ -53,7 +53,7 @@ export class ProfileComponent {
 
   public async removeFriend() {
     await this.ws.emitAsync('REMOVE_FRIEND', {
-      friendId: this.data.user._id,
+      friendId: this.data.user.id,
     }, this);
   }
 }

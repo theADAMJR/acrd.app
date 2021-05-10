@@ -5,7 +5,7 @@
   (contextmenu)="openMenu($event, menuTrigger)">
   <div
     *ngIf="!isExtra; else extraMessage"
-    [id]="'message-' + message._id"
+    [id]="'message-' + message.id"
     (click)="$event.stopPropagation()">
     <div
       class="message-group"
@@ -41,7 +41,7 @@
 
 <ng-template #extraMessage>
   <div
-    [id]="'message-' + message._id"
+    [id]="'message-' + message.id"
     class="extra-message"
     [ngClass]="{ 'd-mention': isMentioned }"
     (click)="$event.stopPropagation()">
@@ -90,7 +90,7 @@
     [innerHTML]="processed"></h6>
 
   <div
-    *ngIf="canManage && author?._id === userService.self._id">
+    *ngIf="canManage && author?.id === userService.self.id">
     <button
       (click)="toggleEditing()"
       mat-menu-item>
@@ -111,6 +111,6 @@
     *ngIf="config.get('developerMode')"
     (click)="$event.stopPropagation()" class="mt-2 p-2">
     <i class="lni lni-dev"></i>
-    <code> {{ message._id }}</code>
+    <code> {{ message.id }}</code>
   </div>
 </mat-menu>

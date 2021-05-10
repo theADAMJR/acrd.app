@@ -43,30 +43,30 @@ describe('PingService', () => {
 
   it('init, adds unread pings to correct channels', async () => {
     const channel1 = addChannel();
-    channel1.lastMessageId = addMessage({ channelId: channel1._id })._id;
+    channel1.lastMessageId = addMessage({ channelId: channel1.id }).id;
 
     const channel2 = addChannel();
-    const previousMessageId = addMessage({ channelId: channel2._id })._id;
-    channel2.lastMessageId = addMessage({ channelId: channel2._id })._id;
+    const previousMessageId = addMessage({ channelId: channel2.id }).id;
+    channel2.lastMessageId = addMessage({ channelId: channel2.id }).id;
     
     userService.self.lastReadMessages = {
-      [channel1._id]: channel1.lastMessageId,
-      [channel2._id]: previousMessageId,
+      [channel1.id]: channel1.lastMessageId,
+      [channel2.id]: previousMessageId,
     };
 
     await service.init();
 
-    expect(service.isUnread(channel1._id)).toBe(false);
-    expect(service.isUnread(channel2._id)).toBe(true);
+    expect(service.isUnread(channel1.id)).toBe(false);
+    expect(service.isUnread(channel2.id)).toBe(true);
   });
 
   it('init, no message in channel, marked as read', async () => {
     const channel = addChannel();
-    userService.self.lastReadMessages = { [channel._id]: null };
+    userService.self.lastReadMessages = { [channel.id]: null };
 
     await service.init();
 
-    expect(service.isUnread(channel._id)).toBe(false);
+    expect(service.isUnread(channel.id)).toBe(false);
   });
 
   it('init, channel is ignored, ping not added', async () => {
@@ -74,10 +74,10 @@ describe('PingService', () => {
     const previousMessageId = AccordMock.snowflake();
     channel.lastMessageId = previousMessageId;
 
-    userService.self.ignored.channelIds.push(channel._id);
+    userService.self.ignored.channelIds.push(channel.id);
     await service.init();
 
-    expect(service.isUnread(channel._id)).toBe(false);
+    expect(service.isUnread(channel.id)).toBe(false);
   });
 
   it('isIgnored(), not ignored returns false', () => {
@@ -115,7 +115,7 @@ describe('PingService', () => {
 
   it('lastUnread(), ping in channel, returns last read message', async () => {
     const { message } = await addPing();
-    expect(service.lastRead(message.channelId)).toEqual(message._id);
+    expect(service.lastRead(message.channelId)).toEqual(message.id);
   });
 
   it('isUnread(), ping in channel, returns true', async () => {
@@ -139,7 +139,7 @@ describe('PingService', () => {
 
   function addChannel() {
     const guild = AccordMock.guild();
-    const channel = AccordMock.channel(guild._id);
+    const channel = AccordMock.channel(guild.id);
     guild.channels.push(channel);
     channelService.add(channel);
 
@@ -155,10 +155,10 @@ describe('PingService', () => {
 
   async function addPing() {
     const guild = AccordMock.guild();
-    const channel = AccordMock.channel(guild._id);
+    const channel = AccordMock.channel(guild.id);
     guild.channels.push(channel);
 
-    const message = AccordMock.message({ channelId: channel._id });
+    const message = AccordMock.message({ channelId: channel.id });
     await service.add(message);
     
     return { message, channel, guild };

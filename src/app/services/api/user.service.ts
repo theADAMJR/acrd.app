@@ -17,14 +17,14 @@ export class UserService extends HTTPWrapper<Lean.User> {
     return this.self.friendIds.map(id => this.getCached(id));
   }
   public get friendRequests() {
-    const isOutgoing = (u: Lean.User) => u.friendRequestIds.includes(this.self._id);    
+    const isOutgoing = (u: Lean.User) => u.friendRequestIds.includes(this.self.id);    
 
     return this._arr
       .filter(isOutgoing)
       .concat(this.self.friendRequestIds
         .map(id => this.getCached(id))
       )
-      .filter(array.distinctBy('_id'));
+      .filter(array.distinctBy('id'));
   }
 
   constructor(

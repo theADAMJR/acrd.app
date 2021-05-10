@@ -32,7 +32,7 @@ export class MemberUsernameComponent implements OnInit {
     return this.guild.roles.filter(r => r.name !== '@everyone');
   }
   public get member() {
-    return this.guild?.members.find(m => m.userId === this.user._id);
+    return this.guild?.members.find(m => m.userId === this.user.id);
   }
   public get roleColor() {
     if (!this.guild) return null;
@@ -44,13 +44,13 @@ export class MemberUsernameComponent implements OnInit {
     if (!this.guild) return null;
     
     return this.guild.roles
-      .filter(r => this.member.roleIds.includes(r._id));
+      .filter(r => this.member.roleIds.includes(r.id));
   }
   public get isBlocked() {
-    return this.userService.self.ignored.userIds.includes(this.user._id);
+    return this.userService.self.ignored.userIds.includes(this.user.id);
   }
   public get dmChannelId() {
-    return this.channelService.getDM(this.user._id)?._id;
+    return this.channelService.getDM(this.user.id)?.id;
   }
   public get activeChannelId() {
     return this.route.snapshot.paramMap.get('channelId');
@@ -81,14 +81,14 @@ export class MemberUsernameComponent implements OnInit {
   public async update() {
     const roleIds = this.rolesInput.value
       .filter(id => id)
-      .map(v => v._id ?? v);
+      .map(v => v.id ?? v);
 
     const noChange = JSON.stringify(roleIds) === JSON.stringify(this.member.roleIds);
     if (noChange) return;
 
     await this.ws.emitAsync('GUILD_MEMBER_UPDATE', {
       partialMember: { roleIds },
-      memberId: this.member._id,
+      memberId: this.member.id,
     }, this);
   }
 

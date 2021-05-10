@@ -5,12 +5,12 @@ export class AccordMock {
   public static guild(options?: Partial<Lean.Guild>): Lean.Guild {
     const guildId = AccordMock.snowflake();
     const everyoneRole = AccordMock.role(guildId);
-    const owner = AccordMock.member(guildId, everyoneRole._id);
+    const owner = AccordMock.member(guildId, everyoneRole.id);
 
     return {
-      _id: guildId,
+      id: guildId,
       createdAt: new Date(),
-      members: [AccordMock.member(guildId, everyoneRole._id)],
+      members: [AccordMock.member(guildId, everyoneRole.id)],
       channels: [
         AccordMock.channel(guildId),
         AccordMock.channel(guildId, { type: 'VOICE' }),
@@ -18,14 +18,14 @@ export class AccordMock {
       name: 'Mock Guild',
       nameAcronym: 'MG',
       roles: [everyoneRole],
-      ownerId: owner._id,
+      ownerId: owner.id,
       ...options,
     }
   }
 
   public static role(guildId: string, options?: Partial<Lean.Role>): Lean.Role {
     return {
-      _id: AccordMock.snowflake(),
+      id: AccordMock.snowflake(),
       createdAt: new Date(),
       name: 'Mock Role',
       color: '#ffffff',
@@ -39,7 +39,7 @@ export class AccordMock {
 
   public static channel(guildId?: string, options?: Partial<Lean.Channel>): Lean.Channel {
     return {
-      _id: AccordMock.snowflake(),
+      id: AccordMock.snowflake(),
       createdAt: new Date(),
       guildId,
       type: 'TEXT',
@@ -49,11 +49,11 @@ export class AccordMock {
 
   public static member(guildId: string, everyoneId: string, options?: Partial<Lean.GuildMember>): Lean.GuildMember {
     return {
-      _id: AccordMock.snowflake(),
+      id: AccordMock.snowflake(),
       createdAt: new Date(),
       guildId,
       roleIds: [everyoneId],
-      userId: AccordMock.user()._id,
+      userId: AccordMock.user().id,
       ...options,
     }
   }
@@ -76,7 +76,7 @@ export class AccordMock {
 
   public static user(options?: Partial<Lean.User>): Lean.User {
     return {
-      _id: AccordMock.snowflake(),
+      id: AccordMock.snowflake(),
       avatarURL: '',
       badges: [],
       bot: false,
@@ -92,7 +92,7 @@ export class AccordMock {
 
   public static message(options?: Partial<Lean.Message>): Lean.Message {
     return {
-      _id: AccordMock.snowflake(),
+      id: AccordMock.snowflake(),
       authorId: AccordMock.snowflake(),
       createdAt: new Date(),
       channelId: AccordMock.snowflake(),

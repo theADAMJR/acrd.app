@@ -13,11 +13,11 @@
       <nav *ngIf="app" class="side-nav mt-3">
         <a routerLinkActive="active"
           class="nav-link"
-          [routerLink]="'/developers/applications/' + app._id">
+          [routerLink]="'/developers/applications/' + app.id">
           <i class="lni lni-eye"></i> Overview</a>
         <a routerLinkActive="active"
           class="nav-link"
-          [routerLink]="'/developers/applications/' + app._id + '/user'">
+          [routerLink]="'/developers/applications/' + app.id + '/user'">
           <i class="lni lni-robot"></i> User</a>
       </nav>
     </div>
@@ -87,13 +87,13 @@
           <div>
             <mat-form-field appearance="outline">
               <mat-label>Client ID</mat-label>
-              <input [value]="app._id" type="text" disabled matInput>
+              <input [value]="app.id" type="text" disabled matInput>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field appearance="outline">
               <mat-label>Bot ID</mat-label>
-              <input [value]="app.user._id" type="text" disabled matInput>
+              <input [value]="app.user.id" type="text" disabled matInput>
             </mat-form-field>
           </div>
         </div>

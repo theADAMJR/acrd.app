@@ -52,13 +52,13 @@ describe('MyEventService', () => {
     service.updateFriends({
       sender: {
         ...sender,
-        friendRequestIds: [friend._id],
+        friendRequestIds: [friend.id],
       },
       friend,
     });
 
-    const updatedSender = userService.getCached(sender._id); 
-    expect(updatedSender.friendRequestIds).toContain(friend._id);
+    const updatedSender = userService.getCached(sender.id); 
+    expect(updatedSender.friendRequestIds).toContain(friend.id);
   });
 
   it('join guild, guild added', async () => {
@@ -73,7 +73,7 @@ describe('MyEventService', () => {
     const user = AccordMock.user();
     userService.add(user);
 
-    service.updatePresence({ userId: user._id, status: 'OFFLINE' });
+    service.updatePresence({ userId: user.id, status: 'OFFLINE' });
 
     expect(user.status).toEqual('OFFLINE');
   });
@@ -82,7 +82,7 @@ describe('MyEventService', () => {
     const user = AccordMock.user();
     userService.add(user);
 
-    service.updatePresence({ userId: user._id, status: 'OFFLINE' });
+    service.updatePresence({ userId: user.id, status: 'OFFLINE' });
 
     expect(user.status).toEqual('OFFLINE');
   });

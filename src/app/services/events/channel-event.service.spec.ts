@@ -60,7 +60,7 @@ describe('ChannelEventService', () => {
     const message = await addMessage();
     
     const channel = channelService.getCached(message.channelId);
-    expect(channel.lastMessageId).toEqual(message._id);
+    expect(channel.lastMessageId).toEqual(message.id);
   });
   
   it('delete message, removed from cache', async () => {
@@ -93,7 +93,7 @@ describe('ChannelEventService', () => {
 
   async function addMessage() {
     const channel = AccordMock.channel();
-    const message = AccordMock.message({ channelId: channel._id });
+    const message = AccordMock.message({ channelId: channel.id });
     channelService.add(channel);
 
     await service.addMessage({ message });

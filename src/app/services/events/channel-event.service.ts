@@ -19,24 +19,24 @@ export class ChannelEventService {
   public async addMessage({ message }: Args.MessageCreate) { 
     const channel = this.channelService.getCached(message.channelId);
     const guild = this.guildService.getCached(channel.guildId);
-    const ignored = this.pingService.isIgnored(message, guild?._id);
+    const ignored = this.pingService.isIgnored(message, guild?.id);
     if (!ignored)
       await this.pingService.add(message);
 
     this.messageService.overrideAdd([message]);
-    channel.lastMessageId = message._id;
+    channel.lastMessageId = message.id;
   }
 
   public deleteMessage({ channelId, messageId }: Args.MessageDelete) {
     const messages = this.messageService.getAllCached(channelId);
-    const index = messages.findIndex(m => m._id === messageId);
+    const index = messages.findIndex(m => m.id === messageId);
 
     messages.splice(index, 1);
   }
 
   public updateMessage({ message }: Args.MessageUpdate) {
     const messages = this.messageService.getAllCached(message.channelId);
-    let index = messages.findIndex(m => m._id === message._id);
+    let index = messages.findIndex(m => m.id === message.id);
 
     Object.assign(messages[index], message);
   }

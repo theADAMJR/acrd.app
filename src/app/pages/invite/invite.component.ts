@@ -34,8 +34,8 @@ export class InviteComponent implements OnInit {
 
   public join() {
     this.ws.on('GUILD_JOIN', (args) =>
-      this.guildService.upsert(args.guild._id, args.guild), this);
+      this.guildService.upsert(args.guild.id, args.guild), this);
 
-    this.ws.emit('GUILD_MEMBER_ADD', { inviteCode: this.invite._id }, this);
+    this.ws.emit('GUILD_MEMBER_ADD', { inviteCode: this.invite.id }, this);
   }
 }

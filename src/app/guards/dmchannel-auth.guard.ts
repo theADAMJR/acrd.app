@@ -15,7 +15,7 @@ export class DMChannelAuthGuard implements CanActivate {
 
   public async canActivate(route: ActivatedRouteSnapshot) {
     const channelId = route.paramMap.get('channelId');
-    const dmChannelExists = this.channelService.dmChannels.find(c => c._id === channelId);
+    const dmChannelExists = this.channelService.dmChannels.find(c => c.id === channelId);
       
     if (!dmChannelExists) {
       await this.router.navigate(['/channels/@me']);

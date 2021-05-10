@@ -5,7 +5,7 @@
   (contextmenu)="openMenu($event, menuTrigger)"
   class="member-username"
   [title]="user.username"
-  [class]="(guild) ? 'user-' + user._id + ' ' + user.status?.toLowerCase() : ''">
+  [class]="(guild) ? 'user-' + user.id + ' ' + user.status?.toLowerCase() : ''">
   <div
     [routerLink]="routerLink || './'"
     class="username-wrapper"
@@ -38,7 +38,7 @@
         textContent="user.username === 'Accord' ? 'SYSTEM' : 'BOT'"
         class="ml-1 badge badge-secondary"></span>
       <span
-        *ngIf="user._id === guild?.ownerId"
+        *ngIf="user.id === guild?.ownerId"
         matTooltip="Guild Owner"
         class="crown pl-1">
         <i class="lni lni-crown text-warning"></i>
@@ -49,7 +49,7 @@
 
 <mat-menu
   (closed)="guild
-    && perms.canManage(guild._id, user._id, 'MANAGE_ROLES')
+    && perms.canManage(guild.id, user.id, 'MANAGE_ROLES')
     && update()"
   #contextMenu>
   <h6 class="p-2 text-center">{{ user.username }}</h6>
@@ -62,15 +62,15 @@
   </button>
 
   <button
-    *ngIf="isBlocked && user._id !== userService.self._id"  
-    (click)="userService.unblock(user._id)"
+    *ngIf="isBlocked && user.id !== userService.self.id"  
+    (click)="userService.unblock(user.id)"
     mat-menu-item>
     <i class="lni lni-ban text-muted mr-1"></i>
     <span>Unblock</span>
   </button>
   <button
-    *ngIf="!isBlocked && user._id !== userService.self._id"  
-    (click)="userService.block(user._id)"
+    *ngIf="!isBlocked && user.id !== userService.self.id"  
+    (click)="userService.block(user.id)"
     mat-menu-item>
     <i class="lni lni-ban text-danger mr-1"></i>
     <span>Block</span>
@@ -80,7 +80,7 @@
     *ngIf="guild"
     class="mt-2">
     <mat-form-field
-      *ngIf="perms.canManage(guild._id, user._id, 'MANAGE_ROLES')"  
+      *ngIf="perms.canManage(guild.id, user.id, 'MANAGE_ROLES')"  
       (click)="$event.stopPropagation()"
       appearance="outline">
       <mat-label>Roles</mat-label>
@@ -90,18 +90,18 @@
         #rolesInput>
         <mat-option
           *ngFor="let role of guildRoles.reverse()"
-          [value]="role._id"
+          [value]="role.id"
           [style.color]="role.color"
-          [disabled]="!perms.isHigher(guild._id, [role._id])"
-          [attr.selected]="member.roleIds.includes(role._id)">{{ role.name }}</mat-option>
+          [disabled]="!perms.isHigher(guild.id, [role.id])"
+          [attr.selected]="member.roleIds.includes(role.id)">{{ role.name }}</mat-option>
       </mat-select> 
     </mat-form-field>
   </div>
 
   <div *ngIf="guild">
     <button
-      *ngIf="perms.canPunish(guild._id, user._id, 'KICK_MEMBERS')"
-      (click)="guildService.kick(guild._id, user._id)"
+      *ngIf="perms.canPunish(guild.id, user.id, 'KICK_MEMBERS')"
+      (click)="guildService.kick(guild.id, user.id)"
       mat-menu-item>
       <i class="lni lni-close text-danger mr-1"></i>
       <span>Kick</span>
@@ -112,6 +112,6 @@
     *ngIf="config.get('developerMode')"
     (click)="$event.stopPropagation()" class="p-2">
     <i class="mt-2 lni lni-dev"></i>
-    <code> {{ user._id }}</code>
+    <code> {{ user.id }}</code>
   </div>
 </mat-menu>

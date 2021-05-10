@@ -28,7 +28,7 @@ export class CreateInviteComponent implements OnInit {
 
   public ngOnInit() {
     this.ws.emit('INVITE_CREATE', {
-      guildId: this.data.guild._id,
+      guildId: this.data.guild.id,
       options: this.form.value,
     }, this);
 
@@ -47,14 +47,14 @@ export class CreateInviteComponent implements OnInit {
 
     this.recentlyUpdated = true;
 
-    this.ws.emit('INVITE_DELETE', { inviteCode: this.invite._id }, this);
+    this.ws.emit('INVITE_DELETE', { inviteCode: this.invite.id }, this);
     this.ws.emit('INVITE_CREATE', {
-      guildId: this.data.guild._id,
+      guildId: this.data.guild.id,
       options: this.form.value,
     }, this);    
   }
 
   public copyToClipboard() {
-    navigator.clipboard.writeText(this.invite?._id);
+    navigator.clipboard.writeText(this.invite?.id);
   }
 }

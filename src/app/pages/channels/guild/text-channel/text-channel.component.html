@@ -3,7 +3,7 @@
   (click)="onClick($event)">
   <div
     *ngIf="(!guild && loadedAllMessages)
-      || (guild && perms.can(guild._id, 'READ_MESSAGES')); else lackingPerms"
+      || (guild && perms.can(guild.id, 'READ_MESSAGES')); else lackingPerms"
     class="messages"
     infiniteScroll
     [scrollWindow]="false"
@@ -21,11 +21,11 @@
     <div
       *ngFor="let message of messages; index as i; trackBy: identifyMessage"
       class="message"
-      [id]="'message' + message._id">
+      [id]="'message' + message.id">
       <message
         [message]="message"
         [isExtra]="shouldCombine(i)"
-        [member]="guildService.getMember(guild?._id, message.authorId)"
+        [member]="guildService.getMember(guild?.id, message.authorId)"
         [guild]="guild"></message>
     </div>
   </div>
@@ -61,15 +61,14 @@
       class="d-block">
       <mat-label>Message {{ title }}</mat-label>
       <textarea
-        [disabled]="guild && !perms.can(guild._id, 'SEND_MESSAGES')"
+        [disabled]="guild && !perms.can(guild.id, 'SEND_MESSAGES')"
         id="chatBox"
         matInput
         #message></textarea>
   
       <mat-icon
         (click)="emojiPickerOpen = true"
-        class="cursor-pointer emoji-icon mb-3"
-        align="end"
+        class="cursor-pointer"
         matSuffix>
         <i class="lni lni-emoji-happy"></i>
       </mat-icon>

@@ -1,6 +1,6 @@
 <app-settings-sidebar
   tabType="guild"
-  [id]="guild?._id">
+  [id]="guild?.id">
   <div class="content">
     <div class="row">
       <div class="col-3 side-nav navbar-dark">
@@ -32,12 +32,12 @@
         <div class="mt-3">
           <button
             *ngIf="!botInGuild"
-            (click)="addBot(selectedApp.user._id)"
+            (click)="addBot(selectedApp.user.id)"
             class="bg-success rounded"
             mat-button>Add</button>
           <button
             *ngIf="botInGuild"
-            (click)="removeBot(selectedApp.user._id)"
+            (click)="removeBot(selectedApp.user.id)"
             class="bg-danger rounded"
             mat-button>Remove</button>
         </div>

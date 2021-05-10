@@ -1,12 +1,12 @@
 <div
-  *ngIf="perms.can(guild._id, 'VIEW_CHANNELS')"
+  *ngIf="perms.can(guild.id, 'VIEW_CHANNELS')"
   #menuTrigger="matMenuTrigger"
   [matMenuTriggerFor]="channelMenu"
   (contextmenu)="openMenu($event, menuTrigger)">
   <div *ngIf="channel.type === 'TEXT'">
     <a (click)="$event.stopPropagation()"
       class="nav-item nav-link"
-      [routerLink]="'/channels/' + guild._id + '/' + channel._id"
+      [routerLink]="'/channels/' + guild.id + '/' + channel.id"
       routerLinkActive="active">    
       <i class="fas fa-hashtag text-muted pr-1"></i>
       <span>{{ channel.name }}</span>
@@ -28,7 +28,7 @@
 
   <div (click)="$event.stopPropagation()">
     <button
-      *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
+      *ngIf="perms.can(guild.id, 'MANAGE_CHANNELS')"
       (click)="delete()"
       class="text-danger"
       mat-menu-item>
@@ -40,7 +40,7 @@
       *ngIf="config.get('developerMode')"
       class="mt-2 p-2">
       <i class="lni lni-dev"></i>
-      <code> {{ channel._id }}</code>
+      <code> {{ channel.id }}</code>
     </div>
   </div>
 </mat-menu>

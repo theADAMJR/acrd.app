@@ -27,7 +27,7 @@ export class DevelopersComponent implements OnInit {
     try {
       const app = await this.service.create();
       
-      await this.router.navigate([`/developers/applications/`, app?._id]);
+      await this.router.navigate([`/developers/applications/`, app?.id]);
     } catch (apiError) {
       alert(apiError.message);
     }

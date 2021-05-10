@@ -27,7 +27,7 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
 
   public getDM(recipientId: string): ChannelTypes.DM {
     return this.dmChannels.find(c =>c.memberIds.includes(recipientId)
-      && c.memberIds.includes(this.userService.self._id));
+      && c.memberIds.includes(this.userService.self.id));
   }
 
   public startTyping(channelId: string, userId: string) {
@@ -51,7 +51,7 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   public getRecipient(channelId: string) {
     const channel = this.getCached(channelId);
     const recipientId = channel.memberIds
-      .find(id => id !== this.userService.self._id);
+      .find(id => id !== this.userService.self.id);
     return this.userService.getCached(recipientId);
   }
 }

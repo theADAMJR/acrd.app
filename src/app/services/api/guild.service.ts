@@ -13,7 +13,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   
   protected _arr: Lean.Guild[] = [];
   public get guilds() {
-    return this._arr.filter(array.distinctBy('_id'));
+    return this._arr.filter(array.distinctBy('id'));
   }
   
   constructor(
@@ -25,11 +25,11 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   public getGuildFromChannel(channelId: string): Lean.Guild | undefined {
     return this.guilds
       ?.find(g => g.channels
-        .find(c => c._id === channelId));
+        .find(c => c.id === channelId));
   }
 
   public getSelfMember(guildId: string): Lean.GuildMember {
-    return this.getMember(guildId, this.userService.self._id);
+    return this.getMember(guildId, this.userService.self.id);
   }
 
   public getMember(guildId: string, userId: string): Lean.GuildMember {
@@ -38,12 +38,12 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
   }
   public getMemberInGuild(guildId: string, memberId: string): Lean.GuildMember {
     const guild = this.getCached(guildId);
-    return guild?.members.find(m => m._id === memberId);
+    return guild?.members.find(m => m.id === memberId);
   }
 
   public getRole(guildId: string | undefined, roleId: string | undefined) {
     const guild = this.getCached(guildId);
-    return guild?.roles.find(r => r._id === roleId);
+    return guild?.roles.find(r => r.id === roleId);
   }
 
   public async ownsGuild(guildId: string, userId: string) {
@@ -57,7 +57,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
 
   public addBot(guildId: string, botId: string): Promise<any> {
     return this.http
-      .get(`${this.endpoint}/${guildId}/authorize/user?client_id=${botId}`, this.headers)
+      .get(`${this.endpoint}/${guildId}/authorize/user?clientid=${botId}`, this.headers)
       .toPromise() as any;
   }
 
@@ -66,14 +66,14 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
     const confirmation = confirm(`Leave ${guild.name}?`);
     if (!confirmation) return;
 
-    await this.kick(guildId, this.userService.self._id);
+    await this.kick(guildId, this.userService.self.id);
   }
 
   public async kick(guildId: string, userId: string) {
     const member = this.getMember(guildId, userId);
     await this.ws.emitAsync('GUILD_MEMBER_REMOVE', {
       guildId,
-      memberId: member._id,
+      memberId: member.id,
     }, this);
   }
 

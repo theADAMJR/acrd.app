@@ -30,11 +30,11 @@ export class TextBasedChannel implements OnInit {
   public get messages(): Lean.Message[] {
     if (!this.channel) return [];
 
-    return this.messageService.getAllCached(this.channel._id);
+    return this.messageService.getAllCached(this.channel.id);
   }
   public get typingUsernames() {
     return this.channelService
-      .getTyping(this.channel._id)
+      .getTyping(this.channel.id)
       .map(id => this.userService.getCached(id).username);
   }
 
@@ -44,7 +44,7 @@ export class TextBasedChannel implements OnInit {
       || this.messages.length % this.messageBatchSize !== 0;
   }
   public get recipient() {
-    return this.channelService.getRecipient(this.channel._id);
+    return this.channelService.getRecipient(this.channel.id);
   }
   public get title() {
     return (this.channel.type === 'DM')
@@ -84,8 +84,8 @@ export class TextBasedChannel implements OnInit {
 
     document.title = this.title;
 
-    this.pings.markAsRead(this.channel._id);
-    await this.messageService.getAllAsync(this.channel._id);
+    this.pings.markAsRead(this.channel.id);
+    await this.messageService.getAllAsync(this.channel.id);
 
     this.ws.on('MESSAGE_CREATE', () => this.scrollToMessage(50), this);
     
@@ -110,19 +110,19 @@ export class TextBasedChannel implements OnInit {
     this.messageInput.nativeElement.value = '';
 
     this.ws.emit('MESSAGE_CREATE', {
-      channelId: this.channel._id,
+      channelId: this.channel.id,
       partialMessage: { content },
     }, this);
     await this.sounds.message();
 
-    this.channelService.stopTyping(this.channel._id, this.userService.self._id);
+    this.channelService.stopTyping(this.channel.id, this.userService.self.id);
   }
 
   public async loadMoreMessages() {
     if (this.loadedAllMessages) return;
 
     await this.messageService
-      .overrideFetchAll(this.channel._id, {
+      .overrideFetchAll(this.channel.id, {
         start: this.messages.length,
         end: this.messages.length + this.messageBatchSize
       });
@@ -148,7 +148,7 @@ export class TextBasedChannel implements OnInit {
     if (sinceLastTyped && sinceLastTyped < 5 * 1000) return; 
     
     this.lastTypedAt = new Date();
-    await this.ws.emitAsync('TYPING_START', { channelId: this.channel._id }, this);
+    await this.ws.emitAsync('TYPING_START', { channelId: this.channel.id }, this);
   }
 
   // emoji picker
@@ -166,6 +166,6 @@ export class TextBasedChannel implements OnInit {
   }
   
   public identifyMessage(index: number, item: Lean.Message) {
-    return item._id;
+    return item.id;
   }
 }

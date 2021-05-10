@@ -22,7 +22,7 @@ export class BotListComponent extends ModuleConfig implements OnInit {
   public selectedApp: Lean.Application;
 
   public get botInGuild() {
-    return this.guild.members.some(m => m.userId === this.selectedApp._id);
+    return this.guild.members.some(m => m.userId === this.selectedApp.id);
   }
 
   constructor(
@@ -55,7 +55,7 @@ export class BotListComponent extends ModuleConfig implements OnInit {
 
   public async removeBot(botId: string) {
     const member = this.guildService.getMember(this.guildId, botId);
-    await this.guildService.kick(this.guildId, member._id);
+    await this.guildService.kick(this.guildId, member.id);
     await this.guildService.fetchAll();
   }
 }

@@ -1,6 +1,6 @@
 <div class="embed-wrapper" *ngIf="message.embed">
     <span *ngIf="canManage"
-        (click)="close.emit(message._id)"
+        (click)="close.emit(message.id)"
         class="hide-embed text-muted cursor-pointer">×</span>
     <div class="embed">
       <a class="title" [href]="message.embed.url">{{ message.embed.title || 'Untitled' }}</a>

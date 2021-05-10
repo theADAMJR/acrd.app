@@ -27,7 +27,7 @@ export class PingService {
           || channel?.lastMessageId === lastReadMessageId) continue;
       
       await this.add({
-        _id: lastReadMessageId,
+        id: lastReadMessageId,
         channelId,
       } as any, false);
     }
@@ -38,11 +38,11 @@ export class PingService {
   }
   public async markGuildAsRead(guild: Lean.Guild) {
     for (const channel of guild.channels)
-      this.markAsRead(channel._id);
+      this.markAsRead(channel.id);
   }
 
   public async add(message: Lean.Message, withSound = true) {
-    this.unread.set(message.channelId, message._id);
+    this.unread.set(message.channelId, message.id);
 
     if (withSound) await this.sounds.ping();
   }
@@ -52,7 +52,7 @@ export class PingService {
   }
 
   public isGuildUnread(guild: Lean.Guild) {
-    return guild.channels.some(c => this.unread.has(c._id));
+    return guild.channels.some(c => this.unread.has(c.id));
   }
 
   public isUnread(channelId: string) {
@@ -62,7 +62,7 @@ export class PingService {
   public isIgnored(message: Lean.Message, guildId?: string): boolean {
     const user = this.userService.self;
 
-    return message.authorId === user._id
+    return message.authorId === user.id
       || this.isChannelIgnored(message.channelId)
       || user.ignored.userIds.includes(message.authorId);
   }

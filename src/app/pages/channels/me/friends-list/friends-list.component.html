@@ -6,7 +6,7 @@
       <div *ngFor="let friend of onlineFriends">
         <div class="float-right">
           <button
-            [routerLink]="'/channels/@me/' + channelService.getDM(friend._id)?._id"
+            [routerLink]="'/channels/@me/' + channelService.getDM(friend.id)?.id"
             matTooltip="Message"
             class="px-0"
             mat-button>
@@ -14,14 +14,14 @@
           </button>
           <button
             matTooltip="Remove Friend"
-            (click)="remove(friend._id)"
+            (click)="remove(friend.id)"
             class="px-0 ml-2" mat-button>
             <i class="text-danger lni lni-close"></i>
         </button>
         </div>
         <member-username
-          [routerLink]="'/channels/@me/' + channelService.getDM(friend._id)?._id"
-          [user]="users.getCached(friend._id)"></member-username>
+          [routerLink]="'/channels/@me/' + channelService.getDM(friend.id)?.id"
+          [user]="users.getCached(friend.id)"></member-username>
       </div>
       <div
         *ngIf="users.friends.length <= 0"
@@ -37,7 +37,7 @@
       <div *ngFor="let friend of users.friends">
         <div class="float-right">
           <button
-            [routerLink]="'/channels/@me/' + channelService.getDM(friend._id)?._id"
+            [routerLink]="'/channels/@me/' + channelService.getDM(friend.id)?.id"
             matTooltip="Message"
             class="px-0"
             mat-button>
@@ -45,13 +45,13 @@
           </button>
           <button
             matTooltip="Remove Friend"
-            (click)="remove(friend._id)"
+            (click)="remove(friend.id)"
             class="px-0 ml-2"
             mat-button>
             <i class="text-danger lni lni-close"></i>
           </button>
         </div>
-        <member-username [user]="users.getCached(friend._id)"></member-username>
+        <member-username [user]="users.getCached(friend.id)"></member-username>
       </div>
 
       <div
@@ -75,7 +75,7 @@
           </button>
 
           <button
-            (click)="remove(friend._id)"
+            (click)="remove(friend.id)"
             class="px-0 ml-2" mat-button>
             <i class="text-danger lni lni-close"></i>
           </button>
@@ -102,7 +102,7 @@
 
       <div *ngFor="let user of blockedUsers">
         <div class="float-right">
-          <i (click)="users.unblock(user._id)"
+          <i (click)="users.unblock(user.id)"
             matTooltip="Unblock"
             class="cursor-pointer lni lni-close"></i>
         </div>

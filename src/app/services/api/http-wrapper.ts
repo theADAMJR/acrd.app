@@ -46,39 +46,39 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   public fetchSelf?(): Promise<T>;
 
   public getCached(id: string | undefined) {
-    return this.arr?.find(i => i._id === id);
+    return this.arr?.find(i => i.id === id);
   }
   public getAsync(id: string) {
     return this.getCached(id) ?? this.fetch(id);
   }
   /** @deprecated */
-  public add(val: T) {
-    this.upsert(val._id, val);
+  public add(value: T) {
+    this.upsert(value.id, value);
 
     return this.arr;
   }
   public delete(id: string) {
-    const index = this.arr.findIndex(v => v._id === id);
+    const index = this.arr.findIndex(v => v.id === id);
     this.arr.splice(index, 1);
 
     return this.arr;
   }
 
-  public upsert(id: string, value: Partial<T>): T {
-    const index = this.arr.findIndex(g => g._id === id);
+  public upsert(id: string, value: Partial<T> | T): T {
+    const index = this.arr.findIndex(g => g.id === id);
     const existing = this.arr[index];
 
-    if (this.self && this.self?._id === id)
+    if (this.self && this.self?.id === id)
       return Object.assign(this.self, value);
 
-    const isFull = '_id' in value;
+    const isFull = 'id' in value;
     if (!existing && !isFull)
       throw new TypeError('Full object required for adding');
     
-    (isFull)
-      ? this.arr.push(value as T)
-      : Object.assign(this.arr[index], value);
-
+    // if (isFull) {
+    //   // // this.arr.push(value as T);
+    //   // return value as T;
+    // }
     return existing;
   }
 

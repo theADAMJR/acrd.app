@@ -56,7 +56,7 @@ export class GuildSidebarComponent implements OnInit {
   }
 
   private async returnFromGuild({ guildId }: Args.GuildDelete | Args.GuildLeave) {
-    if (guildId !== this.guild._id) return;
+    if (guildId !== this.guild.id) return;
 
     await this.router.navigate(['/channels/@me']);
   }

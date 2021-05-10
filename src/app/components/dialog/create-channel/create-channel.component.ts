@@ -39,7 +39,7 @@ export class CreateChannelComponent {
 
     await this.ws.emitAsync('CHANNEL_CREATE', {
       partialChannel: this.form.value,
-      guildId: this.data.guild._id
+      guildId: this.data.guild.id
     }, this);
   }
 }

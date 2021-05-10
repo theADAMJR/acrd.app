@@ -20,7 +20,7 @@
   
       <div class="category">Channels—{{ textChannels.length }}</div>
       <div
-        *ngIf="perms.can(guild._id, 'VIEW_CHANNELS')"
+        *ngIf="perms.can(guild.id, 'VIEW_CHANNELS')"
         class="navbar-nav">
         <app-channel-tab
           *ngFor="let channel of textChannels"
@@ -40,18 +40,18 @@
 </sidebar>
 
 <mat-menu #guildMenu="matMenu">
-  <a *ngIf="perms.can(guild._id, 'CREATE_INVITE')"
+  <a *ngIf="perms.can(guild.id, 'CREATE_INVITE')"
     (click)="dialog.createInvite({ guild: guild })"
     class="dropdown-item invite"
     mat-menu-item>
     <i class="lni lni-user "></i> Invite People</a>
     
-  <a *ngIf="perms.can(guild._id, 'MANAGE_GUILD')"
+  <a *ngIf="perms.can(guild.id, 'MANAGE_GUILD')"
     class="dropdown-item"
-    [routerLink]="'/channels/' + guild._id + '/settings'"
+    [routerLink]="'/channels/' + guild.id + '/settings'"
     mat-menu-item><i class="lni lni-cog"></i> Guild Settings</a>
     
-  <a *ngIf="perms.can(guild._id, 'MANAGE_CHANNELS')"
+  <a *ngIf="perms.can(guild.id, 'MANAGE_CHANNELS')"
     (click)="dialog.createChannel({ guild: guild })"
     class="dropdown-item"
     mat-menu-item><i class="lni lni-circle-plus"></i> Create Channel</a>

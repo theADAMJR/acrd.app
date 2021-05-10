@@ -38,7 +38,7 @@ export class GuildOverviewComponent implements OnInit {
       
       const defaultChannel = this.guild.channels.filter(c => c.type === 'TEXT')[0];            
       if (defaultChannel && !channelId)
-        await this.router.navigate([`/channels/${guildId}/${defaultChannel._id}`]);
+        await this.router.navigate([`/channels/${guildId}/${defaultChannel.id}`]);
     });
   }
 }

@@ -63,7 +63,7 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
     const messageCount = 3;
     for (let i = 0; i < messageCount; i++)
       this.previewMessages.push({
-        authorId: this.user._id,
+        authorId: this.user.id,
         content: faker.lorem.sentence(),
         channelId: '',
         createdAt: new Date(),

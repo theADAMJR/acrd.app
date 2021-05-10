@@ -1,7 +1,7 @@
 <app-settings-sidebar
   tabType="guild"
   *ngIf="guild"
-  [id]="guild._id">
+  [id]="guild.id">
   <div class="content">
     <div class="row">
       <div class="col-lg-3 side-nav navbar-dark">
@@ -11,7 +11,7 @@
             (click)="selectRole(role)"
             (contextmenu)="dialog.openMenu($event, menuTrigger)"
             [style.color]="role.color + '!important'"
-            [class.active]="selectedRole?._id === role._id"
+            [class.active]="selectedRole?.id === role.id"
             [matMenuTriggerFor]="contextMenu"
             [matMenuTriggerData]="{role:role}"
             #menuTrigger="matMenuTrigger"
@@ -150,7 +150,7 @@
       (click)="$event.stopPropagation()"
       class="mt-2 p-2">
       <i class="lni lni-dev"></i>
-      <code> {{ role._id }}</code>
+      <code> {{ role.id }}</code>
     </div>
   </ng-template>
 </mat-menu>

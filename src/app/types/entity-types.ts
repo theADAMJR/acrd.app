@@ -2,7 +2,7 @@
 // -> in entity-types.ts
 export namespace Lean {
   export interface Application {
-    _id: string;
+    id: string;
     createdAt: Date;
     description: string;
     name: string;
@@ -11,7 +11,7 @@ export namespace Lean {
     token: string | never;
   }
   export interface Channel {
-    _id: string;
+    id: string;
     createdAt: Date;
     guildId?: string;
     memberIds?: string[];
@@ -21,7 +21,7 @@ export namespace Lean {
     type: ChannelTypes.Type;
   }
   export interface Guild {
-    _id: string;
+    id: string;
     name: string;
     createdAt: Date;
     nameAcronym: string;
@@ -32,14 +32,14 @@ export namespace Lean {
     roles: Role[];
   }
   export interface GuildMember {
-    _id: string;
+    id: string;
     createdAt: Date;
     guildId: string;
     roleIds: string[];
     userId: string;
   }  
   export interface Invite {
-    _id: string;
+    id: string;
     createdAt: Date;
     options?: InviteTypes.Options;
     inviterId: string;
@@ -47,7 +47,7 @@ export namespace Lean {
     uses: number;
   }  
   export interface Message {
-    _id: string;
+    id: string;
     authorId: string;
     channelId: string;
     content: string;
@@ -56,7 +56,7 @@ export namespace Lean {
     updatedAt?: Date;
   }
   export interface Role {
-    _id: string;
+    id: string;
     color?: string;
     createdAt: Date;
     guildId: string;
@@ -66,7 +66,7 @@ export namespace Lean {
     permissions: number;
   }
   export interface User {
-    _id: string;
+    id: string;
     avatarURL: string;
     badges: UserTypes.BadgeType[];
     bot: boolean;
@@ -101,7 +101,7 @@ export namespace ChannelTypes {
 
 export namespace GeneralTypes {
   export interface SnowflakeEntity {
-    _id: string;
+    id: string;
   }
 }
 

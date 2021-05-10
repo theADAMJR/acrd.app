@@ -142,6 +142,6 @@ export abstract class ModuleConfig implements OnDestroy {
   }
 
   public getChannel(id: string) {
-    return this.guild.channels.find(c => c._id === id);
+    return this.guild.channels.find(c => c.id === id);
   }
 }

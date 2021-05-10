@@ -94,7 +94,7 @@ export class BotUserComponent implements OnInit {
   }
 
   public async regenToken() {
-    this.app.token = await this.service.regenToken(this.app._id);
+    this.app.token = await this.service.regenToken(this.app.id);
   }
 
   public copyToken() {

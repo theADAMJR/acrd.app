@@ -32,9 +32,9 @@ describe('GuildEventService', () => {
   it('create role, adds role to guild', () => {
     const guild = addGuild();
     
-    const role = AccordMock.role(guild._id);
+    const role = AccordMock.role(guild.id);
     service.createRole({
-      guildId: guild._id,
+      guildId: guild.id,
       role,
     });
     
@@ -44,14 +44,14 @@ describe('GuildEventService', () => {
   it('delete role, removes role from guild', () => {
     const guild = addGuild();
 
-    const role = AccordMock.role(guild._id);
+    const role = AccordMock.role(guild.id);
     service.createRole({
-      guildId: guild._id,
+      guildId: guild.id,
       role,
     });
     service.deleteRole({
-      guildId: guild._id,
-      roleId: role._id,
+      guildId: guild.id,
+      roleId: role.id,
     });
     
     expect(guild.roles).not.toContain(role);
@@ -60,14 +60,14 @@ describe('GuildEventService', () => {
   it('update role, updates existing role', () => {
     const guild = addGuild();
     
-    const role = AccordMock.role(guild._id);
+    const role = AccordMock.role(guild.id);
     service.createRole({
-      guildId: guild._id,
+      guildId: guild.id,
       role,
     });
     service.updateRole({
-      guildId: guild._id,
-      roleId: role._id,
+      guildId: guild.id,
+      roleId: role.id,
       partialRole: {
         name: 'Epic Role',
         color: '#FFFFFF',
@@ -89,8 +89,8 @@ describe('GuildEventService', () => {
     const member = await addMember(guild);
     
     service.removeMember({
-      guildId: guild._id,
-      memberId: member._id,
+      guildId: guild.id,
+      memberId: member.id,
     });
 
     expect(guild.members).not.toContain(member);
@@ -102,8 +102,8 @@ describe('GuildEventService', () => {
 
     const newRoleId = AccordMock.snowflake();
     service.updateMember({
-      guildId: guild._id,
-      memberId: member._id,
+      guildId: guild.id,
+      memberId: member.id,
       partialMember: { roleIds: [newRoleId] },
     });
 
@@ -113,9 +113,9 @@ describe('GuildEventService', () => {
   it('add channel, adds channel to guild', () => {
     const guild = addGuild();
     
-    const channel = AccordMock.channel(guild._id);
+    const channel = AccordMock.channel(guild.id);
     service.addChannel({
-      guildId: guild._id,
+      guildId: guild.id,
       channel,
     });
 
@@ -125,9 +125,9 @@ describe('GuildEventService', () => {
   it('add channel, adds channel to channel service', () => {
     const guild = addGuild();
     
-    const channel = AccordMock.channel(guild._id);
+    const channel = AccordMock.channel(guild.id);
     service.addChannel({
-      guildId: guild._id,
+      guildId: guild.id,
       channel,
     });
 
@@ -136,15 +136,15 @@ describe('GuildEventService', () => {
   
   it('delete channel, removes channel to guild', () => {
     const guild = addGuild();
-    const channel = AccordMock.channel(guild._id);
+    const channel = AccordMock.channel(guild.id);
     
     service.addChannel({
-      guildId: guild._id,
+      guildId: guild.id,
       channel,
     });
     service.deleteChannel({
-      guildId: guild._id,
-      channelId: channel._id,
+      guildId: guild.id,
+      channelId: channel.id,
     });
 
     expect(guild.channels).not.toContain(channel);
@@ -154,7 +154,7 @@ describe('GuildEventService', () => {
     const guild = addGuild();
     
     service.updateGuild({
-      guildId: guild._id,
+      guildId: guild.id,
       partialGuild: { name: 'Epic Guild' },
     });
 
@@ -165,7 +165,7 @@ describe('GuildEventService', () => {
     const guild = addGuild();
     
     service.updateGuild({
-      guildId: guild._id,
+      guildId: guild.id,
       partialGuild: { name: 'Epic Guild' },
     });
 
@@ -179,12 +179,12 @@ describe('GuildEventService', () => {
   }
 
   async function addMember(guild: Lean.Guild) {
-    const everyoneRoleId = guild.roles[0]._id;
+    const everyoneRoleId = guild.roles[0].id;
     const user = AccordMock.user();
     userService.add(user);
 
-    const member = AccordMock.member(guild._id, everyoneRoleId, { userId: user._id });
-    await service.addMember({ guildId: guild._id, member });
+    const member = AccordMock.member(guild.id, everyoneRoleId, { userId: user.id });
+    await service.addMember({ guildId: guild.id, member });
     
     return member;
   }

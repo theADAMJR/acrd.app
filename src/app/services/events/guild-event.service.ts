@@ -21,14 +21,14 @@ export class GuildEventService {
 
   public deleteRole({ guildId, roleId }: Args.GuildRoleDelete) {
     const guild = this.guildService.getCached(guildId);
-    const index = guild.roles.findIndex(r => r._id === roleId);
+    const index = guild.roles.findIndex(r => r.id === roleId);
 
     guild.roles.splice(index, 1);
   }
 
   public updateRole({ guildId, roleId, partialRole }: Args.GuildRoleUpdate) {
     const guild = this.guildService.getCached(guildId);
-    const index = guild.roles.findIndex(r => r._id === roleId);
+    const index = guild.roles.findIndex(r => r.id === roleId);
 
     guild.roles[index] = Object.assign(guild.roles[index], partialRole);
   }
@@ -43,7 +43,7 @@ export class GuildEventService {
 
   public removeMember({ memberId, guildId }: Args.GuildMemberRemove) {
     const guild = this.guildService.getCached(guildId);
-    const index = guild.members.findIndex(m => m._id === memberId);
+    const index = guild.members.findIndex(m => m.id === memberId);
 
     guild.members.splice(index, 1);
   }
@@ -51,7 +51,7 @@ export class GuildEventService {
   public updateMember({ guildId, partialMember, memberId }: Args.GuildMemberUpdate) {
     const guild = this.guildService.getCached(guildId);
     const oldMember = this.guildService.getMemberInGuild(guildId, memberId);
-    const index = guild.members.findIndex(m => m._id === memberId);    
+    const index = guild.members.findIndex(m => m.id === memberId);    
 
     return guild.members[index] = Object.assign(oldMember, partialMember);
   }
@@ -63,7 +63,7 @@ export class GuildEventService {
   }
   public deleteChannel({ guildId, channelId }: Args.ChannelDelete) {
     const guild = this.guildService.getCached(guildId);
-    const index = guild.channels.findIndex(c => c._id === channelId);
+    const index = guild.channels.findIndex(c => c.id === channelId);
 
     guild.channels.splice(index, 1);
   }

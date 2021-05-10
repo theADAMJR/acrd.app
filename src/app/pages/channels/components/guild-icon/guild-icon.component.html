@@ -6,7 +6,7 @@
   #menuTrigger="matMenuTrigger">
   <div
     (click)="$event.stopPropagation()"
-    [routerLink]="'/channels/' + guild._id">
+    [routerLink]="'/channels/' + guild.id">
     <span
       *ngIf="pings.isGuildUnread(guild)"
       matTooltip="Unread"
@@ -35,9 +35,9 @@
   #contextMenu>
   <h6 class="p-2 text-center">{{ guild.name }}</h6>
 
-  <div *ngIf="guild.ownerId !== userService.self._id">
+  <div *ngIf="guild.ownerId !== userService.self.id">
     <button
-      (click)="guildService.leave(guild._id)"
+      (click)="guildService.leave(guild.id)"
       class="text-danger p-2"
       mat-menu-item>
       <i class="lni lni-exit"></i>
@@ -60,6 +60,6 @@
     (click)="$event.stopPropagation()"
     class="mt-2 p-2">
     <i class="lni lni-dev"></i>
-    <code> {{ guild._id }}</code>
+    <code> {{ guild.id }}</code>
   </div>
 </mat-menu>
