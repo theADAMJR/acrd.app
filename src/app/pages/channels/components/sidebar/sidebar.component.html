@@ -1,5 +1,11 @@
-<mat-sidenav-container fullscreen>
-  <mat-sidenav mode="side" opened #drawer>
+<mat-sidenav-container
+  class="scroll-container"
+  fullscreen>
+  <mat-sidenav
+    class="scroll-section"
+    mode="side"
+    opened
+    #drawer>
     <div class="guilds px-2">
       <div class="user">
         <div
@@ -48,7 +54,8 @@
       </footer>
     </div>
   </mat-sidenav>
-  <mat-sidenav-content>
+
+  <mat-sidenav-content class="scroll-section">
     <ng-content select="#content"></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

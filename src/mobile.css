@@ -1,20 +1,26 @@
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 576px) {
-  /* * {
-    overflow-x: hidden;
-  } */
-
   #features img {
     width: 300px;
     height: auto !important;
+  }
+  #content {
+    min-width: 360px;
+  }
+
+  .scroll-container {
+    width: 200%;
+    scroll-snap-type: x mandatory;
+    overflow-x: hidden !important;
+  }
+  .scroll-container > .scroll-section {
+    max-width: 100vw;
+    scroll-snap-align: start;
   }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (max-width: 768px) {
-  .mat-drawer.mat-drawer-side {
-    overflow-x: hidden;
-  }
   mat-sidenav .options {
     width: 105%;
   }

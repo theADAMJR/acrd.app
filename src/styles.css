@@ -184,11 +184,6 @@ snack-bar-container.mat-snack-bar-container {
 }
 
 /* sidebar */
-
-mat-sidenav-content {
-  overflow-x: hidden !important;
-}
-
 .mat-drawer-content {
   height: unset !important;
 }
