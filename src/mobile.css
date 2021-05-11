@@ -3,6 +3,7 @@
   /* * {
     overflow-x: hidden;
   } */
+
   #features img {
     width: 300px;
     height: auto !important;
@@ -11,7 +12,12 @@
 
 /* Medium devices (tablets, 768px and up) */
 @media (max-width: 768px) {
-
+  .mat-drawer.mat-drawer-side {
+    overflow-x: hidden;
+  }
+  mat-sidenav .options {
+    width: 105%;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */

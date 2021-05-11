@@ -5,26 +5,26 @@
         <div
           routerLinkActive="active"
           routerLink="/channels/@me"
-          class="guild-icon">
+          class="icon-wrapper">
           <app-avatar-url
             [user]="user"
             [size]="'52px'"></app-avatar-url>
         </div>
-        <span class="d-flex justify-content-center">
-          <h5 class="text-muted">.</h5>
-        </span>
+        <h5 class="text-muted seperator">.</h5>
       </div>
+
       <app-guild-icon
         *ngFor="let guild of guilds"
         [guild]="guild"
         [matTooltip]="guild.name"></app-guild-icon>
       <div
         (click)="dialog.createGuild()"
-        class="guild-icon add-guild bg-transparent cursor-pointer"
+        class="icon-wrapper add-guild bg-transparent cursor-pointer text-primary"
         matTooltip="Add a Guild">
         <span class="add-guild pt-0 d-flex justify-content-center flex-column">+</span>
       </div>
     </div>
+
     <div class="options">
       <ng-content select=".side-nav"></ng-content>
 

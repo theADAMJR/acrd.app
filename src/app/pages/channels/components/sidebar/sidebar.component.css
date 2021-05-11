@@ -1,33 +1,27 @@
-.guild-icon {
-  border-radius: 50%;
-
-  margin: 5px;
+.icon-wrapper {
   width: 52px;
   height: 52px;
-
-  background-color: var(--background-primary);
-  transition: all .35s;
-
-  cursor: pointer;
 }
 
-.guild-icon img:hover,
-.guild-icon:hover,
-.guild-icon span:hover,
-.guild-icon.active img,
-.guild-icon.active span {
-  border-radius: 25%;
+.seperator {
+  margin-left: 22.5px;
 }
 
-.guild-icon span {
+.user {
+  margin-left: 6.5px;
+}
+
+mat-sidenav {
+  height: 100vh;
+  background-color: var(--background-tertiary);
+}
+
+.icon-wrapper span {
   text-align: center;
-  font-size: 18px;
+  font-size: 32px;
+  line-height: 52px;
 
-  transition: all .35s;
-
-  width: 52px;
-  height: 48px;
-  padding-top: 14px;
+  margin-left: 10px;
 }
 
 button {
@@ -43,6 +37,11 @@ button {
   float: left;
   height: inherit;
   padding-top: 12px;
+  width: 80px;
+}
+.guilds .active {
+  background-color: var(--primary);
+  border-radius: 15px !important;
 }
 
 .options {
@@ -50,30 +49,10 @@ button {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   overflow-x: hidden;
 
-  width: 275px;
+  width: 280px;
   height: inherit;
 
   margin-left: 75px;
-}
-
-.toggle {
-  position: absolute;
-  bottom: 0;
-
-  visibility: visible;
-
-  margin: 50px 0 0 15px;
-}
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  .toggle {
-    visibility: hidden;
-  }
-}
-
-mat-sidenav {
-  height: 100vh;
-  background-color: var(--background-tertiary);
 }
 
 .guild-icon .add-guild {
@@ -97,15 +76,10 @@ footer {
 
   margin-left: 0px;
   padding: 10px;
-  width: 275px;
+  width: 280px;
 
   position: absolute;
   bottom: 0;
-}
-
-.guilds .active {
-  background-color: var(--primary);
-  border-radius: 15px !important;
 }
 
 .connected-to {
@@ -114,9 +88,6 @@ footer {
 
 footer i {
   font-size: 20px;
-}
-footer button {
-  margin-top: 150x;
 }
 .username {
   padding-top: 25px;
