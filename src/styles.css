@@ -7,11 +7,6 @@
 @import 'assets/css/inter-font.css';
 @import 'assets/css/line-icons.css';
 
-.mat-form-field-flex .mat-icon {
-  position: absolute !important;
-  bottom: 15px;
-}
-
 :root {
   scroll-behavior: smooth;
 }

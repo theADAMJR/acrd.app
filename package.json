@@ -47,6 +47,7 @@
     "ngx-infinite-scroll": "^9.1.0",
     "rxjs": "^6.6.3",
     "socket.io-client": "^4.0.0",
+    "tailwindcss": "^2.1.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
