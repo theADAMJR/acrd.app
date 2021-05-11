@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChannelService } from 'src/app/services/api/channel.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -11,6 +11,9 @@ import { GuildService } from '../../../../services/api/guild.service';
   styleUrls: ['./guild-overview.component.css']
 })
 export class GuildOverviewComponent implements OnInit {
+  @ViewChild('memberList')
+  public memberList: any;
+  
   public activeChannel: Lean.Channel;
   public guild: Lean.Guild;
 

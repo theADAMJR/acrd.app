@@ -3,8 +3,8 @@
   /* * {
     overflow-x: hidden;
   } */
-  img {
-    width: 300px !important;
+  #features img {
+    width: 300px;
     height: auto !important;
   }
 }

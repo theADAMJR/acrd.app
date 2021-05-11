@@ -21,8 +21,8 @@
   </button>
 
   <button
+    *ngIf="isFriend"
     [routerLink]="'/channels/@me/' + dmChannel?.id"
-    [disabled]="!isFriend"
     matTooltip="Message"
     class="bg-primary"
     mat-button>
