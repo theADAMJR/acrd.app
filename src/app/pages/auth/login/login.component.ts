@@ -60,7 +60,7 @@ export class LoginComponent {
       this.processing = false;
       this.form.setErrors({ invalidLogin: true });
 
-      await this.log.error(error.message);
+      await this.log.error(error.error.message);
     }
   }
 

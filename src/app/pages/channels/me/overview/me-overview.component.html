@@ -1,50 +1,54 @@
 <dashboard-sidebar>
-  <dashboard-navbar>
-    <i class="lni lni-users pr-2"></i>
-    <strong>Friends</strong>
+  <dashboard-navbar hasToggle="true">
+    <span class="float-left">
+      <i class="lni lni-users pr-2"></i>
+      <strong>Friends</strong>      
+    </span>
 
-    <span class="mx-3 py-1"></span>
-
-    <ul class="nav nav-pills float-right">
-      <li class="nav-item">
-        <a (click)="tab = 'ONLINE'" 
-          [class.active]="tab === 'ONLINE'"
-          class="nav-link active">
-          <span>Online</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a (click)="tab = 'ALL'" 
-          [class.active]="tab === 'ALL'"
-          class="nav-link">
-          <span>All</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a (click)="tab = 'PENDING'" 
-          [class.active]="tab === 'PENDING'"
-          class="nav-link">
-          <span>Pending</span>
-          <strong
-            *ngIf="friendsList.users.friendRequests.length"
-            class="text-primary"> {{ friendsList.users.friendRequests.length }}</strong>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a (click)="tab = 'BLOCKED'" 
-          [class.active]="tab === 'BLOCKED'"
-          class="nav-link text-warning">
-          <span>Blocked</span>
-          <strong
-            *ngIf="friendsList.blockedUsers.length"
-            class="text-primary"> {{ friendsList.blockedUsers.length }}</strong>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a (click)="dialog.addFriend()"
-          class="nav-link bg-success text-dark">Add Friend</a>
-      </li>
-    </ul>
+    <div class="collapse" id="navbarSupportedContent">  
+      <span class="mx-3 py-1"></span>
+  
+      <ul class="nav nav-pills float-right">
+        <li class="nav-item">
+          <a (click)="tab = 'ONLINE'" 
+            [class.active]="tab === 'ONLINE'"
+            class="nav-link active">
+            <span>Online</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a (click)="tab = 'ALL'" 
+            [class.active]="tab === 'ALL'"
+            class="nav-link">
+            <span>All</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a (click)="tab = 'PENDING'" 
+            [class.active]="tab === 'PENDING'"
+            class="nav-link">
+            <span>Pending</span>
+            <strong
+              *ngIf="friendsList.users.friendRequests.length"
+              class="text-primary"> {{ friendsList.users.friendRequests.length }}</strong>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a (click)="tab = 'BLOCKED'" 
+            [class.active]="tab === 'BLOCKED'"
+            class="nav-link text-warning">
+            <span>Blocked</span>
+            <strong
+              *ngIf="friendsList.blockedUsers.length"
+              class="text-primary"> {{ friendsList.blockedUsers.length }}</strong>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a (click)="dialog.addFriend()"
+            class="nav-link bg-success text-dark">Add Friend</a>
+        </li>
+      </ul>
+    </div>
   </dashboard-navbar>
 
   <friends-list

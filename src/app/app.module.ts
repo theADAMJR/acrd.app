@@ -63,6 +63,7 @@ import { ChangelogComponent } from './components/dialog/changelog/changelog.comp
 import { AlertErrorHandler } from './alert-error.handler';
 import { DevelopersComponent } from './pages/dev/developers.component';
 import { UserSettingsComponent } from './pages/channels/me/settings/user-settings/user-settings.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { UserSettingsComponent } from './pages/channels/me/settings/user-setting
     AddFriendComponent,
     TimestampPipe,
     ChangelogComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     AppRoutingModule,

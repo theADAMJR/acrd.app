@@ -27,7 +27,6 @@ export class UserAuthService {
 
   public async signUp(user: Credentials) {
     const res: any = await this.http.post(`${this.endpoint}/users`, user).toPromise();
-
     if (res) {
       localStorage.setItem('key', res);
       await this.userService.fetchSelf();
@@ -59,8 +58,8 @@ export class UserAuthService {
     return res;
   }
 
-  public async sendVerifyEmail(email: string): Promise<boolean> {
-    const res = await this.http.get(`${this.endpoint}/send-verify-email?email=${email}`, this.headers).toPromise() as any;
+  public async sendVerifyEmail(email: string, type = ''): Promise<boolean> {
+    const res = await this.http.get(`${this.endpoint}/send-verify-email?email=${email}&type=${type}`, this.headers).toPromise() as any;
     return 'verify' in res;
   }
 

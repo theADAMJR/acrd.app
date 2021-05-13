@@ -41,7 +41,8 @@ export class VerifyComponent implements OnInit {
       const key = await this.authService.verify(code);
       localStorage.setItem('key', key);
 
-      await this.router.navigate(['/channels/@me']);
+      const redirect = this.route.snapshot.paramMap.get('redirect') || '/channels/@me';
+      await this.router.navigate([redirect]);
     } catch (error) {
       this.form.setErrors({ invalidCode: error.message });
     }

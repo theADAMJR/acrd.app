@@ -1,7 +1,7 @@
 // REMEMBER: Sync types below with Website project.
 // -> in entity-types.ts
 export namespace Lean {
-  export interface Application {
+  export interface App {
     id: string;
     createdAt: Date;
     description: string;

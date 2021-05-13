@@ -18,8 +18,12 @@
         *ngIf="loginWith.value === 'username'"
         appearance="outline">
         <mat-label for="username">Username</mat-label>
-        <input formControlName="username"
-          id="username" type="text" autocomplete="username" matInput>
+        <input
+          formControlName="username"
+          id="username"
+          type="text"
+          autocomplete="username"
+          matInput>
         <mat-error *ngIf="username.errors?.pattern">Username is invalid.</mat-error>
       </mat-form-field>
 
@@ -27,8 +31,12 @@
         *ngIf="loginWith.value === 'email'"
         appearance="outline">
         <mat-label for="email">Email</mat-label>
-        <input formControlName="email"
-          id="email" type="email" autocomplete="email" matInput>
+        <input
+          formControlName="email"
+          id="email"
+          type="email"
+          autocomplete="email"
+          matInput>
         <mat-error *ngIf="email.errors?.pattern">Email is invalid.</mat-error>
       </mat-form-field>
 
@@ -58,6 +66,9 @@
         aria-hidden="true"></span>
       Login
     </button>
+    <div><a
+      [routerLink]="['/forgot-password']"
+      [queryParams]="{ email: form.get('email').value }">Forgot Password?</a></div>
     <div>Or <a
       [routerLink]="['/sign-up']"
       [queryParams]="{ redirect: redirect }">create an account</a>.</div>

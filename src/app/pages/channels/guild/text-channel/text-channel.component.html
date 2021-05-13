@@ -80,7 +80,8 @@
     <div
       *ngIf="typingUsernames.length > 0"
       class="typing">
-      <strong>{{ typingUsernames.join(', ') }}</strong> {{ typingUsernames.length > 1 ? 'are' : 'is' }} typing...
+      <strong>{{ typingUsernames.join(', ') }}</strong>
+      <span> {{ typingUsernames.length > 1 ? 'are' : 'is' }} typing...</span>
     </div>
   </div>
   <div *ngIf="!channel">

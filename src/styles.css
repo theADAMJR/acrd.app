@@ -6,6 +6,7 @@
 @import '~bootstrap-select/dist/css/bootstrap-select.min.css';
 @import 'assets/css/inter-font.css';
 @import 'assets/css/line-icons.css';
+@import '~tailwindcss/tailwind.css';
 
 :root {
   scroll-behavior: smooth;
@@ -327,6 +328,9 @@ div.arrow::before {
 
 .dropdown-item:focus, .dropdown-item:hover {
   background-color: unset;
+}
+.navbar-dark .navbar-toggler {
+  border: none !important;
 }
 
 /* discord */

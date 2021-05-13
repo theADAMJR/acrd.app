@@ -24,8 +24,8 @@ export class BotUserComponent implements OnInit {
     ], [ this.usernameValidators.shouldBeUnique.bind(this.usernameValidators) ]),
   });
 
-  public originalForm: Lean.Application;
-  public app: Lean.Application;
+  public originalForm: Lean.App;
+  public app: Lean.App;
 
   private saveChanges$: Subscription;  
   private valueChanges$: Subscription;

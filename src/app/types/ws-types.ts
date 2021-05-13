@@ -380,40 +380,65 @@ export namespace Args {
 }
 
 /** Partial classes involved in updating things.
- * Only specified properties will be updated. */
+ * Some properties (e.g. id) cannot be updated.
+ * 
+ * **Tip**: Only provide what properties are being updated. */
 export namespace Partial {
-  /** Properties to update bot applications. */
-  export interface Application {
-    description?: string;
-    name?: string;
-  }
-  /** Properties to update channels. */
-  export interface Channel {
-    name?: string;
-    type: ChannelTypes.Type;
-    summary?: string;
-  }
-  /** Properties to update a class. */
-  export interface Guild {
-    name: string;
-    iconURL?: string;
-  }
-  /** Properties to update a guild member. */
-  export interface GuildMember {
-    roleIds?: string[];
-  }
-  /** Properties to update a message. */
-  export interface Message {
-    content: string;
-  }
-  /** Properties to update a role. */
-  export interface Role {
-    name?: string;
-    color?: string;
-    hoisted?: boolean;
-    mentionable?: boolean;
-    permissions?: number;
-  }
-  /** Properties to update a user. */
-  export type User = Partial<UserTypes.Self>
+  export type Application = Partial<Lean.App>;
+  export type Channel = Partial<Lean.Channel>;
+  export type Guild = Partial<Lean.Guild>;
+  export type GuildMember = Partial<Lean.GuildMember>;
+  export type Message = Partial<Lean.Message>;
+  export type Role = Partial<Lean.Role>;
+  export type User = Partial<UserTypes.Self>;
+}
+
+/** Keys of objects that cannot be updated. */
+export namespace Prohibited {
+  export const general: any = ['id', 'createdAt'];
+
+  export const app: (keyof Lean.App)[] = [
+    ...general,
+    'owner',
+    'user',
+  ];
+  export const channel: (keyof Lean.Channel)[] = [
+    ...general,
+    'guildId',
+    'lastMessageId',
+    'memberIds',
+    'type',
+  ];
+  export const guild: (keyof Lean.Guild)[] = [
+    ...general,
+    'channels',
+    'members',
+    'nameAcronym',
+    'roles',
+  ];
+  export const guildMember: (keyof Lean.GuildMember)[] = [
+    ...general,
+    'guildId',
+    'userId',
+  ];
+  export const message: (keyof Lean.Message)[] = [
+    ...general,
+    'authorId',
+    'channelId',
+    'updatedAt',
+  ];
+  export const role: (keyof Lean.Role)[] = [
+    ...general,
+    'guildId',
+  ];
+  export const user: (keyof UserTypes.Self)[] = [
+    ...general,
+    'badges',
+    'bot',
+    'email',
+    'friendIds',
+    'friendRequestIds',
+    'guilds',
+    'verified',
+  ];
 }

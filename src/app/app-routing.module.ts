@@ -26,6 +26,7 @@ import { InviteComponent } from './pages/invite/invite.component';
 import { externalRedirect } from './utils/external-redirect';
 import { environment } from 'src/environments/environment';
 import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
@@ -94,6 +95,7 @@ const routes: Routes = [
   },
   { path: 'invite/:id', component: InviteComponent, },
   { path: 'login', component: LoginComponent, },
+  { path: 'forgot-password', component: ForgotPasswordComponent, },
   { path: 'logout', component: LogoutComponent, },
   { path: 'sign-up', component: SignUpComponent, },
   { path: '**', component: NotFoundComponent, },

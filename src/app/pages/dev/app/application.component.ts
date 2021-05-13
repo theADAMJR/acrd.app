@@ -18,8 +18,8 @@ export class ApplicationComponent implements OnInit {
     name: new FormControl('', [ Validators.required ]),
   });
 
-  originalForm: Lean.Application;
-  app: Lean.Application;
+  originalForm: Lean.App;
+  app: Lean.App;
 
   private saveChanges$: Subscription;  
   private valueChanges$: Subscription;  

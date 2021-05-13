@@ -18,8 +18,8 @@ import { Lean } from 'src/app/types/entity-types';
   ]
 })
 export class BotListComponent extends ModuleConfig implements OnInit {
-  public apps: Lean.Application[];
-  public selectedApp: Lean.Application;
+  public apps: Lean.App[];
+  public selectedApp: Lean.App;
 
   public get botInGuild() {
     return this.guild.members.some(m => m.userId === this.selectedApp.id);
