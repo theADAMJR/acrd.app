@@ -22,10 +22,7 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
     return localStorage.getItem('key');
   }
 
-  protected abstract _arr: T[];
-  private get arr(): T[] {
-    return this._arr;
-  };
+  protected abstract arr: T[];
 
   constructor(
     protected http: HttpClient,
@@ -53,7 +50,7 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
   }
   /** @deprecated */
   public add(value: T) {
-    this.upsert(value.id, value);
+    this.arr.push(value);
 
     return this.arr;
   }
@@ -75,10 +72,12 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
     if (!existing && !isFull)
       throw new TypeError('Full object required for adding');
     
-    // if (isFull) {
-    //   // // this.arr.push(value as T);
-    //   // return value as T;
-    // }
+    if (isFull) {
+      // stackoverflowexception
+      console.log(value);
+      
+      // this.arr.concat(value as T);
+    }
     return existing;
   }
 
@@ -90,7 +89,7 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
       .toPromise() as any;
   }
   public async fetchAll() {
-    return this._arr = (this.key)
+    return this.arr = (this.key)
       ? await this.http
         .get(this.endpoint, this.headers)
         .toPromise() as any ?? []

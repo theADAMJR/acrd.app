@@ -11,9 +11,9 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   public typingUserIds = new Map<string, string[]>();
   protected endpoint = `${environment.endpoint}/channels`;
   
-  protected _arr: Lean.Channel[] = [];
+  protected arr: Lean.Channel[] = [];
   public get channels(): Lean.Channel[] {    
-    return this._arr;
+    return this.arr;
   }
   public get dmChannels(): ChannelTypes.DM[] {
     return this.channels.filter(c => c.type === 'DM') as ChannelTypes.DM[];

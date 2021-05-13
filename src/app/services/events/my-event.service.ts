@@ -31,7 +31,7 @@ export class MyEventService {
 
   public async joinGuild({ guild }: Args.GuildJoin) {
     await this.userService.fetchAll();
-    this.guildService.add(guild);
+    this.guildService.upsert(guild.id, guild);
 
     await this.router.navigate([`/channels/${guild.id}`]);
   }

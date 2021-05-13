@@ -9,7 +9,7 @@ import { HTTPWrapper } from './http-wrapper';
 export class DevelopersService extends HTTPWrapper<Lean.App> {
   protected readonly endpoint = `${environment.endpoint}/dev/apps`;
 
-  protected _arr: Lean.App[];
+  protected arr: Lean.App[];
   // TODO: make update as current application
   public self: Lean.App;
 

@@ -13,9 +13,9 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
   private cached = new Map<string, Lean.Message[]>();
   public self = undefined;
 
-  protected _arr: Lean.Message[];
+  protected arr: Lean.Message[];
   public get messages(): Lean.Message[] {
-    return this._arr = Array
+    return this.arr = Array
       .from(this.cached.values())
       .flat();
   }

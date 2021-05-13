@@ -11,7 +11,7 @@ import { WSService } from '../ws.service';
 export class UserService extends HTTPWrapper<Lean.User> {
   public self: UserTypes.Self;
   public endpoint = `${environment.endpoint}/users`;
-  protected _arr: Lean.User[] = [];
+  protected arr: Lean.User[] = [];
 
   public get friends() {
     return this.self.friendIds.map(id => this.getCached(id));
@@ -19,7 +19,7 @@ export class UserService extends HTTPWrapper<Lean.User> {
   public get friendRequests() {
     const isOutgoing = (u: Lean.User) => u.friendRequestIds.includes(this.self.id);    
 
-    return this._arr
+    return this.arr
       .filter(isOutgoing)
       .concat(this.self.friendRequestIds
         .map(id => this.getCached(id))
