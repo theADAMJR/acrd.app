@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router, RoutesRecognized } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
+import { Lean } from '../types/entity-types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RedirectService {
+  public data: {
+    channel?: Lean.Channel;
+    guild?: Lean.Guild;
+  };
+
   public previousURL: string;
   public settingsRedirect: string;
 

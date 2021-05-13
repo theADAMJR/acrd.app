@@ -63,21 +63,19 @@ export abstract class HTTPWrapper<T extends GeneralTypes.SnowflakeEntity> {
 
   public upsert(id: string, value: Partial<T> | T): T {
     const index = this.arr.findIndex(g => g.id === id);
-    const existing = this.arr[index];
+    const existing = this.arr[index];    
 
     if (this.self && this.self?.id === id)
       return Object.assign(this.self, value);
-
-    const isFull = 'id' in value;
-    if (!existing && !isFull)
+    
+    const isFullValue = 'id' in value;
+    if (!existing && !isFullValue)
       throw new TypeError('Full object required for adding');
     
-    if (isFull) {
-      // stackoverflowexception
-      console.log(value);
-      
-      // this.arr.concat(value as T);
-    }
+    (isFullValue)
+      ? this.arr.push(value as T)
+      : Object.assign(existing, value);
+
     return existing;
   }
 

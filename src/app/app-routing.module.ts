@@ -68,6 +68,7 @@ const routes: Routes = [
         path: ':guildId',
         canActivate: [GuildAuthGuard],
         children: [
+          { path: '', component: GuildOverviewComponent },
           {
             path: ':channelId',
             children: [

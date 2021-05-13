@@ -5,6 +5,7 @@ import { GuildService } from '../services/api/guild.service';
 import { PingService } from '../services/ping.service';
 import { ChannelService } from '../services/api/channel.service';
 import { EventService } from '../services/events/event.service';
+import { RedirectService } from '../services/redirect.service';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardAuthGuard implements CanActivate {
@@ -23,11 +24,11 @@ export class DashboardAuthGuard implements CanActivate {
     if (this.already) return true;
     this.already = true;
 
-    this.eventService.init();
     await this.userService.init();
     await this.guildService.init();
     await this.channelService.init();
     await this.pings.init();
+    this.eventService.init();
 
     if (!this.userService.self) {
       await this.router.navigateByUrl(`/login?redirect=${route.url.join('/')}`);

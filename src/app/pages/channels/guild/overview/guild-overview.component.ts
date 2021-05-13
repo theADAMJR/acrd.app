@@ -1,21 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ChannelService } from 'src/app/services/api/channel.service';
+import { ActivatedRoute } from '@angular/router';
 import { ConfigService } from 'src/app/services/config.service';
+import { RedirectService } from 'src/app/services/redirect.service';
 import { Lean } from 'src/app/types/entity-types';
-import { GuildService } from '../../../../services/api/guild.service';
 
 @Component({
   selector: 'app-guild-overview',
   templateUrl: './guild-overview.component.html',
   styleUrls: ['./guild-overview.component.css']
 })
-export class GuildOverviewComponent implements OnInit {
-  @ViewChild('memberList')
-  public memberList: any;
+export class GuildOverviewComponent {
+  // @ViewChild('memberList')
+  // public memberList: any;
   
-  public activeChannel: Lean.Channel;
-  public guild: Lean.Guild;
+  public activeChannel: Lean.Channel = this.redirects.data.channel;
+  public guild: Lean.Guild = this.redirects.data.guild;
 
   public get memberIcon() {
     return (this.config.get('memberListExpanded'))
@@ -26,22 +25,6 @@ export class GuildOverviewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public config: ConfigService,
-    private channelService: ChannelService,
-    private guildService: GuildService,
-    private router: Router,
+    private redirects: RedirectService,
   ) {}
-
-  public async ngOnInit() {
-    this.route.paramMap.subscribe(async (paramMap) => {
-      const guildId = paramMap.get('guildId');
-      const channelId = paramMap.get('channelId');
-
-      this.guild = this.guildService.getCached(guildId);
-      this.activeChannel = this.channelService.getCached(channelId);
-      
-      const defaultChannel = this.guild.channels.filter(c => c.type === 'TEXT')[0];            
-      if (defaultChannel && !channelId)
-        await this.router.navigate([`/channels/${guildId}/${defaultChannel.id}`]);
-    });
-  }
 }
