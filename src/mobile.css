@@ -8,13 +8,8 @@
     min-width: 360px;
   }
 
-  mat-sidenav .options {
-    /* border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px; */
-  }
-
   .scroll-container {
-    width: 200%;
+    width: 300%;
     scroll-snap-type: x mandatory;
     overflow-x: hidden !important;
   }
