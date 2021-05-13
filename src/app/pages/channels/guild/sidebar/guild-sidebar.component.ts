@@ -9,6 +9,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lean } from 'src/app/types/entity-types';
 import { Args, WSService } from 'src/app/services/ws.service';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'guild-sidebar',
@@ -29,6 +30,7 @@ export class GuildSidebarComponent implements OnInit {
   }
 
   constructor(
+    public config: ConfigService,
     public route: ActivatedRoute,
     public channelService: ChannelService,
     public guildService: GuildService,
@@ -59,11 +61,5 @@ export class GuildSidebarComponent implements OnInit {
     if (guildId !== this.guild.id) return;
 
     await this.router.navigate(['/channels/@me']);
-  }
-
-  public openMenu(event: MouseEvent, menuTrigger: MatMenuTrigger) {
-    event.preventDefault();
-    menuTrigger.menu.focusFirstItem('mouse');
-    menuTrigger.openMenu();
   }
 }

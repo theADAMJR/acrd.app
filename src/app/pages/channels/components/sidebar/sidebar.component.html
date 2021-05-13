@@ -55,7 +55,11 @@
     </div>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content class="scroll-section">
     <ng-content select="#content"></ng-content>
+  </mat-sidenav-content>
+
+  <mat-sidenav-content class="scroll-section">
+    <ng-content select="#content2"></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

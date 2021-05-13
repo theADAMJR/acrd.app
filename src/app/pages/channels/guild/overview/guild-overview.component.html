@@ -18,11 +18,12 @@
 
   <div
     *ngIf="config.get('memberListExpanded')"
-    class="scroll-section d-md-none d-block float-right">
+    id="content2"
+    class="d-md-none d-block float-right">
     <app-member-list [guild]="guild"></app-member-list>
   </div>
 
-  <div class="scroll-section">
+  <div>
     <div class="row">
       <div
         class="text-channel-container"
