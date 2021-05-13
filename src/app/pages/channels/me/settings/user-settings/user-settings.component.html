@@ -7,9 +7,9 @@
       <div class="col-xl-6 col-12">
         <div
           routerLinkActive="active"
-          class="user-icon round">
+          class="user-icon round d-flex justify-content-center">
           <app-avatar-url
-            class="pl-2 pb-3 ml-4 mt-3"
+            class="pl-md-2 pb-3 ml-md-4 mt-md-3"
             [user]="avatarUser"
             size="128px"></app-avatar-url>
         </div>
@@ -43,7 +43,7 @@
             </div>
             <div
               *ngFor="let name of avatarNames"
-              class="col-xl-3 col-sm-4 col-12">
+              class="col-xl-3 col-4">
               <img (click)="setAvatar(name)"
                 [src]="environment.endpoint + '/avatars/' + name + '.png'" [alt]="name">
             </div>
@@ -69,7 +69,7 @@
     <hr>
 
     <div class="row">
-      <div class="col-lg-3 col-md-4 col-6">    
+      <div class="col-lg-3 col-md-4 col-12">    
         <mat-form-field appearance="outline" class="ml-3 m-2">
           <mat-label>Theme</mat-label>
           <mat-select
@@ -88,7 +88,7 @@
         </mat-form-field>
       </div>
   
-      <div class="col-lg-3 col-md-4 col-6">
+      <div class="col-lg-3 col-md-4 col-12">
         <div class="pt-4">
           <label for="sfxEnabled">Enable Sound Effects</label>
           <mat-checkbox
@@ -99,7 +99,7 @@
         </div>
       </div>
   
-      <div class="col-lg-3 col-md-4 col-6">
+      <div class="col-lg-3 col-md-4 col-12">
         <div class="pt-4">
           <label for="developerMode">Enable Developer Mode</label>
           <mat-checkbox

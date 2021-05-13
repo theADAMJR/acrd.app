@@ -69,3 +69,10 @@
 .nav-item i {
   width: 20px !important;
 }
+
+@media (max-width: 576px) {
+  .close-container {
+    top: unset;
+    right: 25px;
+  }
+}

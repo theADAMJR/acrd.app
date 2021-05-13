@@ -23,9 +23,20 @@
     overflow-x: hidden;
   }
   .main,
+  .main-content,
   .member-list,
   .side {
     width: 100vw !important;
+  }
+
+  .side {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+
+  .member-list {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;    
   }
 }
 
@@ -33,6 +44,11 @@
 @media (max-width: 768px) {
   mat-sidenav .options {
     width: 105%;
+  }
+  .mat-snack-bar-handset .mat-snack-bar-container {
+    margin: 15px;
+    max-width: 100%;
+    width: 95vw !important;
   }
 }
 
