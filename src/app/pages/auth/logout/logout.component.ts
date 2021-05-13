@@ -10,15 +10,13 @@ import { UserService } from '../../../services/api/user.service';
 })
 export class LogoutComponent implements OnInit {
   constructor(
-    private guildService: GuildService,
     private router: Router,
     private userService: UserService) {}
 
   public async ngOnInit() {
     localStorage.removeItem('key');
     
-    await this.userService.fetchSelf();    
-    await this.guildService.fetchAll();
+    this.userService.self = null; 
 
     this.router.navigate(['/']);
   }

@@ -14,8 +14,8 @@ export class VerifyComponent implements OnInit {
   public form = new FormGroup({
     code: new FormControl('', [
       Validators.required,
-      Validators.minLength(7),
-      Validators.maxLength(7),
+      Validators.minLength(16),
+      Validators.maxLength(16),
     ])
   });
 
@@ -41,7 +41,7 @@ export class VerifyComponent implements OnInit {
       const key = await this.authService.verify(code);
       localStorage.setItem('key', key);
 
-      const redirect = this.route.snapshot.paramMap.get('redirect') || '/channels/@me';
+      const redirect = this.route.snapshot.queryParamMap.get('redirect') || '/channels/@me';
       await this.router.navigate([redirect]);
     } catch (error) {
       this.form.setErrors({ invalidCode: error.message });

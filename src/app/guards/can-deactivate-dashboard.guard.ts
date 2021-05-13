@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanDeactivate } from '@angular/router';
 import { ModuleConfig } from '../pages/channels/components/module-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanDeactivateDashboard implements CanDeactivate<ModuleConfig> {
-  canDeactivate(
-    component: ModuleConfig,
-    currentRoute: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot) {
-    return !Boolean(component.saveChanges?._openedSnackBarRef);
-  }
-  
+  canDeactivate(component: ModuleConfig) {
+    return !component?.saveChanges?._openedSnackBarRef;
+  }  
 }

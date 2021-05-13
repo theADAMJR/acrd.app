@@ -18,9 +18,9 @@ export class RedirectService {
       .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
       .subscribe((events: RoutesRecognized[]) => {
         this.previousURL = events[0].urlAfterRedirects;
-        // FIXME
-        if (!this.previousURL.includes('settings' || 'roles' || 'invites'))
-          this.settingsRedirect = this.previousURL;
+
+        if (!this.previousURL.includes('settings'))
+          this.settingsRedirect = this.previousURL || '/channels/@me';
       });
   }
 }

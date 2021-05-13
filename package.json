@@ -7,13 +7,8 @@
     "build": "ng build --prod",
     "kill": "kill -9 $(lsof -i :4200 | tail -n 1 | cut -d ' ' -f5)",
     "test": "ng test --code-coverage",
-    "test:api": "cd api && ts-mocha tests/*/*.spec.ts",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "dev:ssr": "ng run accord-app:serve-ssr",
-    "serve:ssr": "node dist/accord-app/server/main.js",
-    "build:ssr": "ng build --prod && ng run accord-app:server:production",
-    "prerender": "ng run accord-app:prerender"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {

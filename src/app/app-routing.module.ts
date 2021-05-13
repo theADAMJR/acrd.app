@@ -36,6 +36,11 @@ const routes: Routes = [
   { path: 'docs', component: externalRedirect(`${environment.docsURL}`), },
   { path: 'privacy', component: externalRedirect(`${environment.docsURL}/legal/privacy`), },
   { path: 'terms', component: externalRedirect(`${environment.docsURL}/legal/terms`), },
+  { path: 'invite/:id', component: InviteComponent, },
+  { path: 'login', component: LoginComponent, },
+  { path: 'forgot-password', component: ForgotPasswordComponent, },
+  { path: 'logout', component: LogoutComponent, },
+  { path: 'sign-up', component: SignUpComponent, },
   {
     path: 'channels',
     canActivate: [DashboardAuthGuard],
@@ -45,17 +50,17 @@ const routes: Routes = [
         children: [
           { path: '', component: DashboardOverviewComponent },
           {
-            path: ':channelId',
-            component: DMComponent,
-            canActivate: [DMChannelAuthGuard],
-          },
-          {
             path: 'settings',
             canDeactivate: [CanDeactivateDashboard],
             children: [
               { path: '', component: UserSettingsComponent },
               { path: 'account', component: UserAccountComponent },
             ]
+          },
+          {
+            path: ':channelId',
+            component: DMComponent,
+            canActivate: [DMChannelAuthGuard],
           },
         ]
       },
@@ -93,11 +98,6 @@ const routes: Routes = [
       { path: 'apps/:id', component: ApplicationComponent },
     ]
   },
-  { path: 'invite/:id', component: InviteComponent, },
-  { path: 'login', component: LoginComponent, },
-  { path: 'forgot-password', component: ForgotPasswordComponent, },
-  { path: 'logout', component: LogoutComponent, },
-  { path: 'sign-up', component: SignUpComponent, },
   { path: '**', component: NotFoundComponent, },
 ];
 
