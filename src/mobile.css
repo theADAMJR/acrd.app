@@ -9,8 +9,8 @@
   }
 
   mat-sidenav .options {
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    /* border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px; */
   }
 
   .scroll-container {

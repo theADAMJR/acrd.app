@@ -5,28 +5,28 @@
       <strong>Friends</strong>      
     </span>
 
-    <div class="collapse" id="navbarSupportedContent">  
+    <div class="collapse navbar-collapse float-right" id="navbarSupportedContent">  
       <span class="mx-3 py-1"></span>
   
       <ul class="nav nav-pills float-right">
         <li class="nav-item">
           <a (click)="tab = 'ONLINE'" 
             [class.active]="tab === 'ONLINE'"
-            class="nav-link active">
+            class="nav-link active mt-sm-0 mt-1">
             <span>Online</span>
           </a>
         </li>
         <li class="nav-item">
           <a (click)="tab = 'ALL'" 
             [class.active]="tab === 'ALL'"
-            class="nav-link">
+            class="nav-link mt-sm-0 mt-1">
             <span>All</span>
           </a>
         </li>
         <li class="nav-item">
           <a (click)="tab = 'PENDING'" 
             [class.active]="tab === 'PENDING'"
-            class="nav-link">
+            class="nav-link mt-sm-0 mt-1">
             <span>Pending</span>
             <strong
               *ngIf="friendsList.users.friendRequests.length"
@@ -36,7 +36,7 @@
         <li class="nav-item">
           <a (click)="tab = 'BLOCKED'" 
             [class.active]="tab === 'BLOCKED'"
-            class="nav-link text-warning">
+            class="nav-link text-warning mt-sm-0 mt-1">
             <span>Blocked</span>
             <strong
               *ngIf="friendsList.blockedUsers.length"
@@ -45,7 +45,7 @@
         </li>
         <li class="nav-item">
           <a (click)="dialog.addFriend()"
-            class="nav-link bg-success text-dark">Add Friend</a>
+            class="nav-link bg-success text-dark mt-sm-0 mt-1">Add Friend</a>
         </li>
       </ul>
     </div>

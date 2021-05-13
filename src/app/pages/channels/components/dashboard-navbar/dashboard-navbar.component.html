@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-dark">
-  <a class="navbar-brand text-overflow-ellipsis">
+<nav class="navbar navbar-expand-md">
+  <a class="navbar-brand text-overflow-ellipsis mr-0">
     <button
       *ngIf="hasToggle"
       class="navbar-toggler float-right"
@@ -8,7 +8,8 @@
       data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
-      aria-label="Toggle navigation">
+      aria-label="Toggle navigation"
+      #toggle>
       <i class="lni lni-menu"></i>
     </button>
 

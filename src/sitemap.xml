@@ -2,4 +2,13 @@
   <sitemap>
     <loc>https://accord.app</loc>
   </sitemap>
+  <sitemap>
+    <loc>https://accord.app/login</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://accord.app/forgot-password</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://accord.app/sign-up</loc>
+  </sitemap>
 </sitemapindex>
