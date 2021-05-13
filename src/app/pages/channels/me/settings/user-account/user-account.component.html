@@ -26,23 +26,25 @@
             mat-button><i class="lni lni-envelope text-dark"></i></button>
         </form>
 
-        <div>
-          <span
+        <div class="d-flex mb-3">
+          <div
             *ngIf="userService.self.verified"
             class="border border-success rounded p-3">
             <i class="lni lni-checkmark-circle text-success"></i>
-            <span> Your account is verified by email.</span>
-          </span>
-          <span
+            <span> Your email is verified.</span>
+          </div>
+          <div
             *ngIf="!userService.self.verified"
             class="border border-warning rounded p-3">
             <i class="lni lni-close text-danger"></i>
             <span> Your email is not verified.</span>
-          </span>
+          </div>
         </div>
       </div>
 
       <div class="col-lg-6 col-md-12">
+        <hr class="d-md-none d-block">
+
         <form
           #f="ngForm"
           (submit)="changePassword()"
@@ -65,7 +67,7 @@
           
           <button
             [disabled]="processingPassword"
-            class="bg-warning float-right mt-3 mr-3"
+            class="bg-warning float-md-right mt-3 mr-3"
             mat-button>Change</button>
 
           <mat-error
