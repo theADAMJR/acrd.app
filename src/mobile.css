@@ -14,14 +14,17 @@
     display: flex;
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
-    width: 300%;
+    width: 200%;
   }
   .scroll-container .scroll-section {
     min-width: 100vw;
     height: 100vh;
-    scroll-snap-align: start
+    scroll-snap-align: start;
+    overflow-x: hidden;
   }
-  .member-list {
+  .main,
+  .member-list,
+  .side {
     width: 100vw !important;
   }
 }
