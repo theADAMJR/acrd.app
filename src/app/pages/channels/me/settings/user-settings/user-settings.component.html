@@ -4,26 +4,28 @@
   <div class="content">
     <h5 class="mb-4">User Overview</h5>
     <div class="row">
-      <div class="col-xl-6 col-12">
+      <div class="col-xl-6 col-md-12">
         <div
           routerLinkActive="active"
-          class="user-icon round d-flex justify-content-center">
+          class="user-icon round">
           <app-avatar-url
-            class="pl-md-2 pb-3 ml-md-4 mt-md-3"
+            class="pl-md-5 pb-3 ml-md-5 mt-md-3"
             [user]="avatarUser"
             size="128px"></app-avatar-url>
         </div>
+      </div>
 
+      <div class="col-lg-6 col-md-12">
         <form
           *ngIf="form"
           #f="ngForm"
           [formGroup]="form">
-          <mat-form-field appearance="outline" class="ml-5">
+          <mat-form-field appearance="outline" class="ml-5 d-flex">
             <mat-label>Avatar URL</mat-label>
             <input formControlName="avatarURL" type="url" matInput>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" class="ml-5">
+          <mat-form-field appearance="outline" class="ml-5 d-flex">
             <mat-label>Username</mat-label>
             <input formControlName="username" type="text" matInput>
             <mat-hint *ngIf="form.get('username').pending"><i class="lni lni-circle-notch fa-spin"></i> Checking</mat-hint>
@@ -35,7 +37,7 @@
         </form>
       </div>
 
-      <div class="col-lg-6 col-12">
+      <div class="col-lg-6 col-md-12">
         <div class="avatars rounded p-3">
           <div class="row">
             <div class="col-12">
@@ -51,7 +53,7 @@
         </div>
       </div>
       
-      <div class="col-lg-6 col-12 mt-4">
+      <div class="col-lg-6 col-md-12 mt-4">
         <h6>Message Preview</h6>
         <message
           [message]="previewMessages[0]"
@@ -69,7 +71,7 @@
     <hr>
 
     <div class="row">
-      <div class="col-lg-3 col-md-4 col-12">    
+      <div class="col-lg-3 col-md-4 col-md-12">    
         <mat-form-field appearance="outline" class="ml-3 m-2">
           <mat-label>Theme</mat-label>
           <mat-select
@@ -88,7 +90,9 @@
         </mat-form-field>
       </div>
   
-      <div class="col-lg-3 col-md-4 col-12">
+      <div class="col-lg-3 col-md-4 col-md-12">
+        <h6>Sounds</h6>
+
         <div class="pt-4">
           <label for="sfxEnabled">Enable Sound Effects</label>
           <mat-checkbox
@@ -99,7 +103,7 @@
         </div>
       </div>
   
-      <div class="col-lg-3 col-md-4 col-12">
+      <div class="col-lg-3 col-md-4 col-md-12">
         <div class="pt-4">
           <label for="developerMode">Enable Developer Mode</label>
           <mat-checkbox

@@ -1,21 +1,10 @@
-.side, .main, .main .content {
-  min-height: 100%;
-}
-
-.side .category {
-  margin-left: 10px;
-  max-width: 200px; 
-}
-.side a {
-  padding-right: 10px !important;
-  cursor: pointer;
+.side, .main {
+  height: 100vh;
 }
 
 .side {
-  float: left;
-  width: 25%;
-  
-  position: fixed;
+  min-width: 300px;
+  max-width: 25vw;
 
   background-color: var(--background-secondary);
 }
@@ -27,24 +16,9 @@
   padding: 35px;
   padding-top: 40px;
 }
-.side hr {
-  color: var(--font);
-}
 
 .main-content {
   padding: 60px 40px;
-  width: 90%;  
-}
-
-.main {
-  float: right;
-  width: 75%;
-}
-
-.close-container {
-  position: absolute;
-  top: 25px;
-  right: -50px;
 }
 
 .close {
@@ -64,6 +38,10 @@
 }
 .close-container {
   margin: 50px 7.5vw;
+
+  position: absolute;
+  top: 25px;
+  right: -50px;
 }
 
 .nav-item i {
@@ -75,4 +53,8 @@
     top: unset;
     right: 25px;
   }
+}
+
+* {
+  float: none !important;
 }

@@ -18,21 +18,14 @@
 
   .scroll-container {
     scroll-snap-type: x mandatory;	
-    display: flex;
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
   }
   .scroll-container .scroll-section {
-    width: 100vw;
-    height: 100vh;
+    width: 100vw !important;
+    height: 100vh !important;
     scroll-snap-align: start;
     overflow-x: hidden;
-  }
-  .main,
-  .main-content,
-  .member-list,
-  .side {
-    width: 100vw !important;
   }
 
   .scroll-section:nth-of-type(1) {

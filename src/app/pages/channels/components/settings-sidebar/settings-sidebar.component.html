@@ -1,43 +1,39 @@
 <div class="scroll-container">
-  <div class="scroll-section">
-    <div class="side side-nav navbar-dark">
-      <div class="navbar-nav float-md-right float-left">
-        <h2 class="category text-secondary overflow-ellipsis">{{ tabCategory }}</h2>
-    
-        <a *ngFor="let tab of tabs[tabType]"
-          [routerLinkActiveOptions]="{ exact: true }"
-          [routerLink]="canAccess(tab) ? tab.href() : './'"
-          [class.disabled]="!canAccess(tab)"
-          routerLinkActive="active"
-          class="nav-item nav-link">
-          <i class="mr-1" [class]="tab.icon"></i>
-          <span>{{ tab.name }}</span>
+  <div class="scroll-section side side-nav navbar-dark">
+    <div class="navbar-nav float-md-right float-left">
+      <h2 class="category text-secondary overflow-ellipsis">{{ tabCategory }}</h2>
+  
+      <a *ngFor="let tab of tabs[tabType]"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLink]="canAccess(tab) ? tab.href() : './'"
+        [class.disabled]="!canAccess(tab)"
+        routerLinkActive="active"
+        class="nav-item nav-link cursor-pointer pr-3">
+        <i class="mr-1" [class]="tab.icon"></i>
+        <span>{{ tab.name }}</span>
+      </a>
+  
+      <div *ngIf="tabType === 'user'">
+        <hr>
+        <a routerLink="/logout"
+          class="text-danger nav-item nav-link cursor-pointer">
+          <i class="lni lni-user text-danger"></i>
+          <span> Logout</span>
         </a>
-    
-        <div *ngIf="tabType === 'user'">
-          <hr>
-          <a routerLink="/logout"
-            class="text-danger nav-item nav-link">
-            <i class="lni lni-user text-danger"></i>
-            <span> Logout</span>
-          </a>
-        </div>
       </div>
     </div>
   </div>
   
-  <div class="scroll-section">
-    <div class="main">
-      <div class="close-container">
-        <div
-          (click)="close()"
-          class="close round btn float-right"
-          mat-button><i class="lni lni-close"></i></div>
-      </div>
-    
-      <div class="main-content">
-        <ng-content select=".content"></ng-content>
-      </div>
+  <div class="scroll-section main">
+    <div class="close-container">
+      <div
+        (click)="close()"
+        class="close round btn float-right"
+        mat-button><i class="lni lni-close"></i></div>
+    </div>
+  
+    <div class="main-content">
+      <ng-content select=".content"></ng-content>
     </div>
   </div>
 </div>
