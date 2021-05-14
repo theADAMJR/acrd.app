@@ -9,15 +9,21 @@
     height: auto !important;
   }
 
+  .mat-sidenav-container {
+    overflow-x: scroll !important;
+  }
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
   .scroll-container {
     scroll-snap-type: x mandatory;	
     display: flex;
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
-    width: 200%;
   }
   .scroll-container .scroll-section {
-    min-width: 100vw;
+    width: 100vw;
     height: 100vh;
     scroll-snap-align: start;
     overflow-x: hidden;
@@ -29,14 +35,18 @@
     width: 100vw !important;
   }
 
-  .side {
+  .scroll-section:nth-of-type(1) {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
   }
 
-  .member-list {
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;    
+  /* arc.io */
+  #arc-page-shadow {
+    display: none;
+  }
+  #arc-widget-container #arc-widget.intrinsic-ignore[id="arc-widget"] {
+    top: 91.5% !important;
+    position: absolute !important;
   }
 }
 
