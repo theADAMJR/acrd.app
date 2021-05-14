@@ -1,9 +1,9 @@
 .side, .main {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .side {
-  min-width: 300px;
+  min-width: 360px;
   max-width: 25vw;
 
   background-color: var(--background-secondary);
@@ -15,10 +15,6 @@
 .side .navbar-nav {
   padding: 35px;
   padding-top: 40px;
-}
-
-.main-content {
-  padding: 60px 40px;
 }
 
 .close {
@@ -44,6 +40,10 @@
   right: -50px;
 }
 
+.main-content {
+  padding: 60px 40px;
+}
+
 .nav-item i {
   width: 20px !important;
 }
@@ -53,8 +53,4 @@
     top: unset;
     right: 25px;
   }
-}
-
-* {
-  float: none !important;
 }

@@ -32,19 +32,19 @@ export class SettingsSidebarComponent implements OnInit {
       // {
       //   name: 'Bots',
       //   icon: 'fas fa-robot',
-      //   href: () => `/channels/${this.guildId}/bots`,
+      //   href: () => `/channels/${this.guildId}/settings/bots`,
       //   permission: PermissionTypes.General.MANAGE_GUILD, 
       // },
       {
         name: 'Invites',
         icon: 'lni lni-user',
-        href: () => `/channels/${this.guildId}/invites`,
+        href: () => `/channels/${this.guildId}/settings/invites`,
         permission: PermissionTypes.General.MANAGE_GUILD, 
       },
       {
         name: 'Roles',
         icon: 'fas fa-at',
-        href: () => `/channels/${this.guildId}/roles`,
+        href: () => `/channels/${this.guildId}/settings/roles`,
         permission: PermissionTypes.General.MANAGE_ROLES, 
       },
     ],

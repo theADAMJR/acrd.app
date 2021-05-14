@@ -12,7 +12,7 @@ export class RedirectService {
     guild?: Lean.Guild;
   };
 
-  public previousURL: string;
+  public previousURL = '/channels/@me';
   public settingsRedirect: string;
 
   constructor(
@@ -26,7 +26,7 @@ export class RedirectService {
         this.previousURL = events[0].urlAfterRedirects;
 
         if (!this.previousURL.includes('settings'))
-          this.settingsRedirect = this.previousURL || '/channels/@me';
+          this.settingsRedirect = this.previousURL;
       });
   }
 }

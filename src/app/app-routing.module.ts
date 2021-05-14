@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -70,20 +70,17 @@ const routes: Routes = [
         children: [
           { path: '', component: GuildOverviewComponent },
           {
-            path: ':channelId',
+            path: 'settings',
+            canDeactivate: [CanDeactivateDashboard],
             children: [
-              { path: '', component: GuildOverviewComponent },
-              {
-                path: 'settings',
-                component: GuildSettingsComponent,
-                canDeactivate: [CanDeactivateDashboard],
-                children: [
-                  { path: '', component: GuildSettingsComponent },
-                  { path: 'roles', component: RolesComponent },
-                  { path: 'invites', component: InvitesComponent },
-                ],
-              },
-            ]
+              { path: '', component: GuildSettingsComponent },
+              { path: 'roles', component: RolesComponent },
+              { path: 'invites', component: InvitesComponent },
+            ],
+          },
+          {
+            path: ':channelId',
+            component: GuildOverviewComponent,
           },
         ]
       },
