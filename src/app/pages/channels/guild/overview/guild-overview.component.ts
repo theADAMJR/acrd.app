@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChannelService } from 'src/app/services/api/channel.service';
 import { GuildService } from 'src/app/services/api/guild.service';
 import { ConfigService } from 'src/app/services/config.service';
@@ -22,17 +22,22 @@ export class GuildOverviewComponent implements OnInit {
   }
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private channelService: ChannelService,
     private guildService: GuildService,
     public config: ConfigService,
   ) {}
 
-  public ngOnInit() {
+  public async ngOnInit() {
     const channelId = this.route.snapshot.paramMap.get('channelId');
     const guildId = this.route.snapshot.paramMap.get('guildId');
 
     this.activeChannel = this.channelService.getCached(channelId);
     this.guild = this.guildService.getCached(guildId);
+
+    const defaultChannel = this.guild.channels.find(c => c.type === 'TEXT'); 
+    if (defaultChannel && !channelId)
+      await this.router.navigate([`/channels/${guildId}/${defaultChannel.id}`]);
   }
 }

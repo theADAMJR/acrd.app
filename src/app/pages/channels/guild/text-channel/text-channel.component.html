@@ -58,7 +58,7 @@
       (keyup)="emitTyping()"
       (keyup.enter)="chat(message.value)"
       appearance="fill"
-      class="d-block">
+      class="d-block mr-lg-3">
       <mat-label>Message {{ title }}</mat-label>
       <textarea
         [disabled]="guild && !perms.can(guild.id, 'SEND_MESSAGES')"

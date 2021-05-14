@@ -24,12 +24,6 @@ export class GuildAuthGuard implements CanActivate {
       await this.router.navigate(['/channels/@me']);
       return false;
     }
-    
-    // FIXME: crashes browser
-    // const defaultChannel = guild.channels.find(c => c.type === 'TEXT');      
-    // const channelId = route.url[2];    
-    // if (defaultChannel && !channelId)
-    //   await this.router.navigate([`/channels/${guild.id}/${defaultChannel.id}`]);
 
     this.redirects.data = { channel, guild };
 

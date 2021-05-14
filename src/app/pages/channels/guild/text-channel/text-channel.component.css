@@ -14,3 +14,9 @@
   font-size: small;
   margin-top: -3px;
 }
+
+@media (max-width: 576px) {
+  .messages {
+    height: 75vh;
+  }
+}
