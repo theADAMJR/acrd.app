@@ -1,9 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
-import { ProfileComponent } from 'src/app/components/dialog/profile/profile.component';
 import { ConfigService } from 'src/app/services/config.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/api/guild.service';
@@ -125,40 +123,32 @@ export class MessageComponent implements OnInit {
     this.ws.emit('MESSAGE_UPDATE', {
       messageId: this.message.id,
       partialMessage: this.message,
-      withEmbed: false
+      withEmbed: false,
     }, this);
   }
 
-  public delete() {
-    this.ws.emit('MESSAGE_DELETE', { messageId: this.message.id }, this);
+  public async delete() {
+    await this.ws.emitAsync('MESSAGE_DELETE', {
+      messageId: this.message.id,
+    }, this);
 
     document
       .querySelector(`#message${this.message.id}`)
       ?.remove();
-
-    this.ws.on('MESSAGE_DELETE', async ({ messageId }) => {
-      if (messageId === this.message.id)
-        await this.log.success();
-    }, this);
   }
 
   public async edit(value: string, $event?: KeyboardEvent) {
     if ($event && ($event.shiftKey || $event.code !== 'Enter')) return;
 
     this.isEditing = false;
-    this.message.content = value;
-    this.message.updatedAt = new Date();
-
-    this.ws.emit('MESSAGE_UPDATE', {
+    
+    const { message } = await this.ws.emitAsync('MESSAGE_UPDATE', {
       messageId: this.message.id,
       partialMessage: { content: this.message.content },
       withEmbed: Boolean(this.message.embed),
     }, this);
-
-    this.ws.on('MESSAGE_UPDATE', async ({ message }) => {
-      if (message.content === this.message.content)
-        await this.log.success();
-    }, this);
+    
+    this.message = message;
   }
 
   public async toggleEditing($event?: KeyboardEvent) {
