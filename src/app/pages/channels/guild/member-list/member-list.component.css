@@ -13,3 +13,9 @@
 .offline {
   opacity: 0.5;
 }
+
+@media (max-width: 576px) {
+  .member-list {
+    width: 100vw !important;
+  }
+}

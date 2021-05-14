@@ -27,7 +27,9 @@
     <div class="row">
       <div
         class="text-channel-container"
-        [class]="config.get('memberListExpanded') ? 'col-lg-7 col-md-5 col-xl-9': 'col-12'">
+        [class]="config.get('memberListExpanded')
+          ? 'col-lg-7 col-md-5 col-xl-9'
+          : 'col-12'">
         <section
           *ngIf="!activeChannel"
           class="jumbotron no-channels">
@@ -39,7 +41,9 @@
           <p>No channels here, just emptiness.</p>
         </section>
   
-        <app-text-channel #textChannel></app-text-channel>
+        <app-text-channel
+          *ngIf="activeChannel"
+          #textChannel></app-text-channel>
       </div>
       
       <div

@@ -48,6 +48,10 @@
   width: 20px !important;
 }
 
+.scroll-container {
+  display: flex;
+}
+
 @media (max-width: 576px) {
   .close-container {
     top: unset;
