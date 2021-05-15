@@ -2,7 +2,7 @@
   class="scroll-container"
   fullscreen>
   <mat-sidenav
-    class="scroll-section"
+    class="scroll-section d-flex"
     mode="side"
     opened
     #drawer>
@@ -34,14 +34,16 @@
     <div class="options shadow-xl">
       <ng-content select=".side-nav"></ng-content>
 
-      <footer class="d-flex">
-        <app-avatar-url
-          [user]="user"
-          size="48px"
-          class="pt-2"></app-avatar-url>
-        <h6 class="username text-overflow-ellipsis">{{ user.username }}</h6>
+      <footer class="d-flex justify-content-between">
+        <div>
+          <app-avatar-url
+            [user]="user"
+            size="48px"
+            class="pt-2"></app-avatar-url>
+          <h6 class="username text-overflow-ellipsis">{{ user.username }}</h6>
+        </div>
 
-        <div class="ml-auto">
+        <div>
           <button
             id="settingsButton"
             matTooltip="Settings"

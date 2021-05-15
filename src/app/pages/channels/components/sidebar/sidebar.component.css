@@ -51,8 +51,6 @@ button {
 
   width: 280px;
   height: inherit;
-
-  margin-left: 75px;
 }
 
 .guild-icon .add-guild {
@@ -76,10 +74,11 @@ footer {
 
   margin-left: 0px;
   padding: 10px;
-  width: 280px;
+  min-width: 280px;
 
   position: absolute;
   bottom: 0;
+  width: inherit;
 }
 
 .connected-to {
@@ -95,4 +94,13 @@ footer i {
 
   max-width: 142px;
   max-height: 42px;
+}
+
+@media (max-width: 576px) {
+  .options {
+    width: auto;
+  }
+  footer {
+    width: calc(100vw - 80px);
+  }
 }

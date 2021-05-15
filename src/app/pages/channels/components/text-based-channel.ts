@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GuildService } from '../../../services/api/guild.service';
@@ -85,12 +85,11 @@ export class TextBasedChannel implements OnInit {
     document.title = this.title;
 
     this.pings.markAsRead(this.channel.id);
-    await this.messageService.getAllAsync(this.channel.id);
+    await this.loadMoreMessages();
 
     this.ws.on('MESSAGE_CREATE', () => this.scrollToMessage(50), this);
     
     this.ready = true;
-    this.scrollToMessage();
   }
 
   private scrollToMessage(timeout = 100) {
@@ -124,7 +123,7 @@ export class TextBasedChannel implements OnInit {
     await this.messageService
       .overrideFetchAll(this.channel.id, {
         start: this.messages.length,
-        end: this.messages.length + this.messageBatchSize
+        end: this.messages.length + this.messageBatchSize,
       });
 
     this.scrollToMessage();

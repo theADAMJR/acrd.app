@@ -1,4 +1,4 @@
-/* Small devices (landscape phones, 576px and up) */
+/* Small devices (landscape phones, 576px and below) */
 @media (max-width: 576px) {
   body {
     overflow-y: hidden;
@@ -27,7 +27,6 @@
     scroll-snap-align: start;
     overflow-x: hidden;
   }
-
   .scroll-section:nth-of-type(1) {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
@@ -43,7 +42,7 @@
   }
 }
 
-/* Medium devices (tablets, 768px and up) */
+/* Medium devices (tablets, 768px and below) */
 @media (max-width: 768px) {
   mat-sidenav .options {
     width: 105%;
@@ -55,19 +54,19 @@
   }
 }
 
-/* Large devices (desktops, 992px and up) */
+/* Large devices (desktops, 992px and below) */
 @media (max-width: 992px) {
   app-submarine {
     display: none;
   }
 }
 
-/* X-Large devices (large desktops, 1200px and up) */
+/* X-Large devices (large desktops, 1200px and below) */
 @media (max-width: 1200px) {
 
 }
 
-/* XX-Large devices (larger desktops, 1400px and up) */
+/* XX-Large devices (larger desktops, 1400px and below) */
 @media (max-width: 1400px) {
 
 }

@@ -1,6 +1,5 @@
 # Accord - Website
 Seamless chat website built from the [2PG Dashboard](https://github.com/twopg/Dashboard), like Discord.
-Not tested, so less stable than API code.
 
 ![Lines of Code](https://img.shields.io/tokei/lines/github/d-clone/Website?color=46828d&style=for-the-badge)
 

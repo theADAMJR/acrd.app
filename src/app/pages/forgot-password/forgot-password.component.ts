@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserAuthService } from 'src/app/services/api/user-auth.service';
+import { LogService } from 'src/app/services/log.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,6 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
   });
 
   constructor(
+    private log: LogService,
     private route: ActivatedRoute,
     private auth: UserAuthService,
   ) {}
@@ -33,5 +35,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.processing = this.sent = true;
     await this.auth.sendVerifyEmail(email, 'FORGOT_PASSWORD');
     this.processing = false;
+
+    await this.log.success('Email sent!');
   }
 }

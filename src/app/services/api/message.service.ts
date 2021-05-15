@@ -66,7 +66,7 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
     const query = `?start=${options?.start ?? 0}&end=${options?.end ?? 25}`;
     const messages = await this.http
       .get(`${this.endpoint}/${channelId}/messages${query}`, this.headers)
-      .toPromise() as any;
+      .toPromise() as any;      
     
     return this.overrideAdd(messages);
   }
