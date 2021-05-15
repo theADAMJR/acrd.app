@@ -1,4 +1,5 @@
 .member-list {
+  overflow-y: auto;
   background-color: var(--background-secondary);
 
   width: 100%;

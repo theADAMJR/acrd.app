@@ -16,6 +16,10 @@ mat-sidenav {
   background-color: var(--background-tertiary);
 }
 
+mat-sidenav-content {
+  overflow-y: hidden;
+}
+
 .icon-wrapper span {
   text-align: center;
   font-size: 32px;
