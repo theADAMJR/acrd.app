@@ -68,7 +68,7 @@ export namespace Lean {
   export interface User {
     id: string;
     avatarURL: string;
-    badges: UserTypes.BadgeType[];
+    badges: UserTypes.Badge[];
     bot: boolean;
     createdAt: Date;
     friendIds: string[];
@@ -168,13 +168,18 @@ export namespace PermissionTypes {
 }
 
 export namespace UserTypes {
-  export type BadgeType = 'VIEWER' | 'DEVELOPER';
+  export type Badge =
+    | 'BUG_1'
+    | 'BUG_2'
+    | 'BUG_3'
+    | 'OG'
+    | 'STAFF';
   export class Ignored {
     channelIds: string[] = [];
     guildIds: string[] = [];
     userIds: string[] = [];
   }
-  export type StatusType = 'ONLINE' | 'BUSY' | 'AFK' | 'OFFLINE';
+  export type StatusType = 'ONLINE' | 'OFFLINE';
   export interface Self extends Lean.User {
     guilds: Lean.Guild[];
     email: string;

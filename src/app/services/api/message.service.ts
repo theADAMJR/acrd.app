@@ -64,6 +64,8 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
   // TODO: eventually use override keyword
   public async overrideFetchAll(channelId: string, options?: LazyLoadOptions): Promise<Lean.Message[]> {
     const query = `?start=${options?.start ?? 0}&end=${options?.end ?? 25}`;
+    console.log(options);
+    alert('fetch all')
     const messages = await this.http
       .get(`${this.endpoint}/${channelId}/messages${query}`, this.headers)
       .toPromise() as any;      
