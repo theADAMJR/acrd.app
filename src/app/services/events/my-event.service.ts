@@ -33,6 +33,9 @@ export class MyEventService {
     await this.userService.fetchAll();
     this.guildService.upsert(guild.id, guild);
 
+    for (const channel of guild.channels)
+      this.channelService.add(channel);
+
     await this.router.navigate([`/channels/${guild.id}`]);
   }
 

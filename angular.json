@@ -24,6 +24,7 @@
               "src/assets",
               "src/manifest.json",
               "src/sitemap.xml",
+              "src/arc-sw.js",
               "src/sw.js"
             ],
             "styles": [

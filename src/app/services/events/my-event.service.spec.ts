@@ -24,6 +24,7 @@ describe('MyEventService', () => {
 
     userService = TestBed.inject(UserService);
     userService.self = AccordMock.self();
+    userService.fetchAll = async () => [];
   });
 
   it('should be created', () => {
@@ -67,6 +68,15 @@ describe('MyEventService', () => {
     await service.joinGuild({ guild });
 
     expect(guildService.guilds).toContain(guild);
+  });
+
+  it('join guild, guild channels added', async () => {
+    const guild = AccordMock.guild();
+
+    await service.joinGuild({ guild });
+
+    expect(channelService.channels).toContain(guild.channels[0]);
+    expect(channelService.channels).toContain(guild.channels[1]);
   });
 
   it('update presence, user updated', async () => {
