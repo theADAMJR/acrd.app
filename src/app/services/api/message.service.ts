@@ -46,14 +46,18 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
   }
 
   // TODO: eventually use override keyword
-  public overrideAdd(messages: Lean.Message[]): Lean.Message[] {    
+  public overrideAdd(messages: Lean.Message[], toStart = false): Lean.Message[] {    
     const channelId = messages[0]?.channelId;    
     if (!channelId) return [];
 
     const cached = this.getAllCached(channelId);
     const uncached = (m: Lean.Message) => !cached.some(c => c.id === m.id);
+    
+    const uniqueMsgs = messages.filter(uncached);
+    (toStart)
+      ? cached.unshift(...uniqueMsgs)
+      : cached.push(...uniqueMsgs);
 
-    cached.unshift(...messages.filter(uncached));
     return cached;
   }
 
@@ -71,6 +75,6 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
       .get(`${this.endpoint}/${channelId}/messages${query}`, this.headers)
       .toPromise() as any;    
     
-    return this.overrideAdd(messages);
+    return this.overrideAdd(messages, true);
   }
 }
