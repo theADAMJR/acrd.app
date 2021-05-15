@@ -21,6 +21,10 @@ export class GuildIconComponent implements AfterViewInit {
 
   private unknownImageURL = `${environment.endpoint}/avatars/unknown.png`;
 
+  public get fontSize() {
+    return `calc(${this.size}/3)`;
+  }
+
   constructor(
     public config: ConfigService,
     public dialog: DialogService,

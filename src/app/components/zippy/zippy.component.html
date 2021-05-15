@@ -3,10 +3,10 @@
     <div class="zippy-heading"
       [class.expanded]="expanded" 
       (click)="toggle()">
-      {{ title }}
-      <span>
-        <i class="float-right lni lni-down-chevron"></i>
+      <span class="py-3">
+        <i class="float-right lni lni-chevron-down"></i>
       </span>
+      <span>{{ title }}</span>
     </div>
     <div
       class="zippy-body"
