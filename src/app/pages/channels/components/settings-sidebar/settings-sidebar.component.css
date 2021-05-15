@@ -22,7 +22,7 @@
 }
 
 .main-content {
-  padding: 60px 160px 60px 40px;
+  padding: 20px 160px 60px 40px;
 }
 
 .nav-item i {
@@ -41,6 +41,8 @@ mat-sidenav {
     right: 25px;
     margin: 0;
   }
+}
+@media (max-width: 992px) {
   .main-content {
     padding: 60px 40px;
   }
