@@ -22,7 +22,6 @@
     width: 100vw !important;
     height: 100vh !important;
     scroll-snap-align: start;
-    overflow-x: hidden;
   }
   .scroll-section:nth-of-type(1) {
     border-top-right-radius: 15px;

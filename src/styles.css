@@ -185,6 +185,10 @@ snack-bar-container.mat-snack-bar-container {
 }
 
 /* sidebar */
+.mat-drawer-content {
+  overflow-x: hidden !important;
+}
+
 .active app-avatar-url img,
 .guild-icon.active img,
 .guild-icon.active {
