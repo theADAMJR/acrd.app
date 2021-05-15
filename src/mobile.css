@@ -1,9 +1,5 @@
 /* Small devices (landscape phones, 576px and below) */
 @media (max-width: 576px) {
-  body {
-    overflow-y: hidden;
-  }
-
   #features img {
     width: 300px;
     height: auto !important;
