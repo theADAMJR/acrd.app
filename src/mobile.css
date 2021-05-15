@@ -9,16 +9,13 @@
     height: auto !important;
   }
 
-  .mat-sidenav-container {
-    overflow-x: scroll !important;
-  }
   ::-webkit-scrollbar {
-    display: none !important;
+    /* height: 0; */
   }
 
   .scroll-container {
     scroll-snap-type: x mandatory;	
-    overflow-x: scroll;
+    overflow-x: scroll !important;
     -webkit-overflow-scrolling: touch;
   }
   .scroll-container .scroll-section {
