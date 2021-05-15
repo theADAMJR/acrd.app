@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Lean } from '../../types/entity-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from '../ws.service';
+import { array } from 'src/app/utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -46,11 +47,13 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
 
   // TODO: eventually use override keyword
   public overrideAdd(messages: Lean.Message[]): Lean.Message[] {    
-    const channelId = messages[0]?.channelId;
+    const channelId = messages[0]?.channelId;    
     if (!channelId) return [];
 
     const cached = this.getAllCached(channelId);
-    cached.push(...messages);
+    const uncached = (m: Lean.Message) => !cached.some(c => c.id === m.id);
+
+    cached.unshift(...messages.filter(uncached));
     return cached;
   }
 
@@ -62,16 +65,12 @@ export class MessageService extends HTTPWrapper<Lean.Message> {
   }
 
   // TODO: eventually use override keyword
-  public async overrideFetchAll(channelId: string, options?: LazyLoadOptions): Promise<Lean.Message[]> {
-    const query = `?start=${options?.start ?? 0}&end=${options?.end ?? 25}`;
-    console.log(options);
-    alert('fetch all')
+  public async overrideFetchAll(channelId: string, back = 25): Promise<Lean.Message[]> {
+    const query = `?back=${back}`;
     const messages = await this.http
       .get(`${this.endpoint}/${channelId}/messages${query}`, this.headers)
-      .toPromise() as any;      
+      .toPromise() as any;    
     
     return this.overrideAdd(messages);
   }
 }
-
-interface LazyLoadOptions { start: number, end: number }

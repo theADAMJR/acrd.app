@@ -18,8 +18,7 @@
 
   <div
     *ngIf="config.get('memberListExpanded')"
-    id="content2"
-    class="d-md-none d-block float-right">
+    class="d-sm-none d-block float-right">
     <app-member-list [guild]="guild"></app-member-list>
   </div>
 
@@ -48,7 +47,7 @@
       
       <div
         *ngIf="config.get('memberListExpanded')"
-        class="col-xl-3 col-lg-5 col-md-7">
+        class="col-xl-3 col-lg-5 col-md-7 d-sm-block d-none">
         <app-member-list [guild]="guild"></app-member-list>
       </div>
     </div>

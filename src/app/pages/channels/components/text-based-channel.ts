@@ -91,12 +91,12 @@ export class TextBasedChannel implements OnInit {
     this.ready = true;
   }
 
-  private scrollToMessage(timeout = 100) {
+  private scrollToMessage(timeout = 100, scrollTop?: number) {
     setTimeout(() => {
       try {
         const messages = document.querySelector('.messages');
         const height = messages.scrollHeight;
-        messages.scrollTop = height;        
+        messages.scrollTop = scrollTop ?? height;        
       } catch {}
     }, timeout);
   }
@@ -119,13 +119,12 @@ export class TextBasedChannel implements OnInit {
   public async loadMoreMessages() {
     if (this.loadedAllMessages) return;
 
+    const back = this.messages.length + this.messageBatchSize;
     await this.messageService
-      .overrideFetchAll(this.channel.id, {
-        start: this.messages.length,
-        end: this.messages.length + this.messageBatchSize,
-      });
-
-    this.scrollToMessage();
+      .overrideFetchAll(this.channel.id, back);
+      
+    const scrollTop = (back > this.messageBatchSize) ? 0 : null;
+    this.scrollToMessage(100, scrollTop);
   }
   
   public shouldCombine(index: number) {
