@@ -80,8 +80,8 @@ export class MessageComponent implements OnInit {
   
     return toHTML(textEmoji(this.message.content), {
       discordCallback: {
-        user: async (node) => getMention(
-          `@${(await getUser(node.id))?.username ?? `Invalid User`}`,
+        user: (node) => getMention(
+          `@${getUser(node.id)?.username ?? `Unknown User`}`,
           this.userService.self.id === node.id),
 
         role: (node) => getMention(

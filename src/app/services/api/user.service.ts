@@ -72,6 +72,10 @@ export class UserService extends HTTPWrapper<Lean.User> {
     this.self = user;
   }
 
+  public getByUsername(username: string) {
+    return this.arr.find(u => u.username === username);
+  }
+
   public block(id: string, type: keyof UserTypes.Self['ignored'] = 'userIds') {
     const ids = this.self.ignored?.[type].concat(id)
       ?? [id];
