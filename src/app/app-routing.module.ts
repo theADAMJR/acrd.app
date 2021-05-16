@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'changelog', component: externalRedirect(`${environment.docsURL}/general/changelog`), },
   { path: 'docs', component: externalRedirect(`${environment.docsURL}`), },
   { path: 'privacy', component: externalRedirect(`${environment.docsURL}/legal/privacy`), },
-  { path: 'terms', component: externalRedirect(`${environment.docsURL}/legal/terms`), },
+  { path: 'status', component: externalRedirect(environment.statusURL), },
   { path: 'invite/:id', component: InviteComponent, },
   { path: 'login', component: LoginComponent, },
   { path: 'forgot-password', component: ForgotPasswordComponent, },
