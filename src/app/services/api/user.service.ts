@@ -83,7 +83,6 @@ export class UserService extends HTTPWrapper<Lean.User> {
     this.ws.emit('USER_UPDATE', {
       key: this.key,
       partialUser: {
-        ...this.self,
         ignored: { ...this.self.ignored, [type]: ids }
       },
     }, this);
