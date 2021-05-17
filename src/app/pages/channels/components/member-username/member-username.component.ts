@@ -17,7 +17,7 @@ import { Lean } from 'src/app/types/entity-types';
   templateUrl: './member-username.component.html',
   styleUrls: ['./member-username.component.css']
 })
-export class MemberUsernameComponent implements OnInit {
+export class MemberUsernameComponent {
   @Input() public user: Lean.User;
   @Input() public guild: Lean.Guild;
   @Input() public withAvatar = true;
@@ -72,11 +72,6 @@ export class MemberUsernameComponent implements OnInit {
     private ws: WSService,
     public dialog: DialogService,
   ) {}
-
-  public ngOnInit() {    
-    if (!this.user)
-      throw new TypeError('Input user undefined');
-  }
 
   public async update() {
     const roleIds = this.rolesInput.value

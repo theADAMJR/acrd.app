@@ -66,12 +66,12 @@
         matInput
         #message></textarea>
   
-      <!-- <mat-icon
-        (click)="emojiPickerOpen = true"
+      <mat-icon
+        (click)="emojiPickerOpen = true && $event.stopPropagation()"
         class="cursor-pointer"
         matSuffix>
         <i class="lni lni-emoji-happy"></i>
-      </mat-icon> -->
+      </mat-icon>
     </mat-form-field>
   
     <div

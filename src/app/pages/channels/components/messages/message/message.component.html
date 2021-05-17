@@ -9,7 +9,7 @@
     (click)="$event.stopPropagation()">
     <div
       class="message-group"
-      [ngClass]="{ 'd-mention': isMentioned }">
+      [ngClass]="{ 'mention': isMentioned }">
       <app-avatar-url
         (click)="dialog.profile({ user: author })"
         matTooltip="View Profile"
@@ -43,7 +43,7 @@
   <div
     [id]="'message-' + message.id"
     class="extra-message"
-    [ngClass]="{ 'd-mention': isMentioned }"
+    [ngClass]="{ 'mention': isMentioned }"
     (click)="$event.stopPropagation()">
     <span class="content">
       <span

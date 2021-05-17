@@ -329,16 +329,15 @@ div.arrow::before {
   border: none !important;
 }
 
-/* discord */
-.d-mention {
-  border-radius: 5px;
+/* accord */
+.mention {
   background-color: rgba(255,255,255,.15);
   cursor: pointer;
 
   transition: background-color .3s ease;
 }
-.d-mention:hover {
-  background-color: rgba(255,255,255,.25) !important;
+.mention:hover {
+  background-color: rgba(255,255,255,.25);
 }
 
 .self-mention {
