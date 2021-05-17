@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { UserService } from '../../../../services/api/user.service';
 import { GuildService } from '../../../../services/api/guild.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ChannelService } from 'src/app/services/api/channel.service';
-import { PingService } from 'src/app/services/ping.service';
-import { MatDialog } from '@angular/material/dialog';
-import { CreateGuildComponent } from 'src/app/components/dialog/create-guild/create-guild.component';
 import { DialogService } from 'src/app/services/dialog.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'sidebar',
@@ -35,5 +34,15 @@ export class SidebarComponent {
     const icon = document.querySelector('#nav-icon1');
     icon.classList.toggle('open');
     this.drawer.toggle();
+  }
+
+  public async moveGuild(event: CdkDragDrop<Lean.Guild[]>) {
+    const prev = event.previousIndex;
+    const curr = event.currentIndex;
+    if (!prev || !curr) return;
+    
+    moveItemInArray(this.user.guilds, prev, curr);
+
+    await this.userService.updateSelf({ guilds:  });
   }
 }

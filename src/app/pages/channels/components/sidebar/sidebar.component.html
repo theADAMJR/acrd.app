@@ -22,7 +22,8 @@
       <app-guild-icon
         *ngFor="let guild of guilds"
         [guild]="guild"
-        [matTooltip]="guild.name"></app-guild-icon>
+        [matTooltip]="guild.name"
+        cdkDropList></app-guild-icon>
       <div
         (click)="dialog.createGuild()"
         class="icon-wrapper add-guild bg-transparent cursor-pointer text-primary"

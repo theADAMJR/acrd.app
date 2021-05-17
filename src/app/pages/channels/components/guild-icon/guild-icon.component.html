@@ -3,7 +3,8 @@
   (contextmenu)="dialog.openMenu($event, menuTrigger)"
   [matMenuTriggerFor]="contextMenu"
   routerLinkActive="active"
-  #menuTrigger="matMenuTrigger">
+  #menuTrigger="matMenuTrigger"
+  cdkDrag>
   <div
     (click)="$event.stopPropagation()"
     [routerLink]="'/channels/' + guild.id">
