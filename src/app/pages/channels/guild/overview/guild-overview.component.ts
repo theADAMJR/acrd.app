@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChannelService } from 'src/app/services/api/channel.service';
 import { GuildService } from 'src/app/services/api/guild.service';
 import { ConfigService } from 'src/app/services/config.service';
-import { RedirectService } from 'src/app/services/redirect.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({

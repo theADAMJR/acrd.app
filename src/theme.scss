@@ -244,6 +244,10 @@ $theme: mat-dark-theme($primary, $secondary, $warn);
 .bg-success:hover {
   background-color: var(--success) !important;
 }
+.bg-danger,
+.bg-danger:hover {
+  background-color: var(--danger) !important;
+}
 
 // utils override
 a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
