@@ -9,6 +9,8 @@ import { GuildService } from 'src/app/services/api/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean, PermissionTypes } from '../../../../../types/entity-types';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { array } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-roles-component',
@@ -38,6 +40,9 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   public permissionType = Object.keys(PermissionTypes.All);
   public permissionsForm: FormGroup;
 
+  public get reversedRoles() {
+    return this.guild.roles.slice().reverse();
+  }
   public get isEveryone() {
     return this.selectedRole?.name === '@everyone';
   }
@@ -175,10 +180,29 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     await this.ws.emitAsync('GUILD_ROLE_DELETE', {
       roleId: this.selectedRole.id,
       guildId: this.guildId,
-    }, this);
+    }, this);    
     await this.selectRole(this.guild.roles[0]);
-    
+
     document.querySelector('mat-sidenav-content').scrollTop = 0;
+  }
+
+  public identify(role: Lean.Role) {
+    return role.id;
+  }
+
+  public async moveRole(event: CdkDragDrop<Lean.Role[]>) {
+    const prev = this.guild.roles.length - event.previousIndex - 1;
+    const curr = this.guild.roles.length - event.currentIndex - 1;
+    if (!prev || !curr) return;
+    
+    moveItemInArray(this.guild.roles, prev, curr);
+
+    await this.ws.emitAsync('GUILD_UPDATE', {
+      guildId: this.guild.id,
+      partialGuild: {
+        roles: this.guild.roles.map(r => r.id) as any
+      } 
+    }, this);
   }
 }
 

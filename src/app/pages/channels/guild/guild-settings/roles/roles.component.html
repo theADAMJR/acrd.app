@@ -5,9 +5,12 @@
   <div class="content">
     <div class="row">
       <div class="col-lg-3 side-nav navbar-dark">
-        <div class="navbar-nav">
+        <div
+          (cdkDropListDropped)="moveRole($event)"
+          class="navbar-nav"
+          cdkDropList>
           <a
-            *ngFor="let role of guild.roles.reverse()"
+            *ngFor="let role of guild.roles.slice().reverse(); trackBy: identify"
             (click)="selectRole(role)"
             (contextmenu)="dialog.openMenu($event, menuTrigger)"
             [style.color]="role.color + '!important'"
@@ -15,12 +18,11 @@
             [matMenuTriggerFor]="contextMenu"
             [matMenuTriggerData]="{role:role}"
             #menuTrigger="matMenuTrigger"
-            class="cursor-pointer nav-item nav-link">
+            class="nav-item nav-link"
+            cdkDrag>
             <span
               (click)="selectRole(role) && $event.stopPropagation()"
-              class="d-flex">
-              {{ role.name }}
-            </span>
+              class="d-flex">{{ role.name }}</span>
           </a>
           <div class="float-right">
             <button
@@ -39,7 +41,9 @@
           *ngIf="selectedRole"
           #f="ngForm"
           [formGroup]="form">
-          <p>Roles decide what members can do in {{ guild.name }}.</p>
+          <p *ngIf="selectedRole.name === '@everyone'">
+            <span class="mention p-1 rounded">{{ selectedRole.name }}</span> is the default role, and decides what everyone can do in {{ guild.name }}.
+          </p>
           
           <hr>
 
@@ -144,6 +148,10 @@
     let-role="role"
     matMenuContent>
     <h6 class="p-2 text-center">{{ role.name }}</h6>
+    <div class="mt-2 p-2">
+      <i class="fas fa-hashtag"></i>
+      <code> {{ guild.roles.indexOf(role) }}</code>
+    </div>
 
     <div
       *ngIf="config.get('developerMode')"

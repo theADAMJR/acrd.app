@@ -21,12 +21,13 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
 import {PickerModule} from '@ctrl/ngx-emoji-mart';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   exports: [
     ColorPickerModule,
     CdkTableModule,
-    // DragDropModule,
+    DragDropModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatChipsModule,
