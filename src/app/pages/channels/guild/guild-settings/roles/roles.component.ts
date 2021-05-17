@@ -177,6 +177,8 @@ export class RolesComponent extends ModuleConfig implements OnInit {
       guildId: this.guildId,
     }, this);
     await this.selectRole(this.guild.roles[0]);
+    
+    document.querySelector('mat-sidenav-content').scrollTop = 0;
   }
 }
 
