@@ -411,10 +411,8 @@ export namespace Prohibited {
   ];
   export const guild: (keyof Lean.Guild)[] = [
     ...general,
-    'channels',
     'members',
     'nameAcronym',
-    'roles',
   ];
   export const guildMember: (keyof Lean.GuildMember)[] = [
     ...general,

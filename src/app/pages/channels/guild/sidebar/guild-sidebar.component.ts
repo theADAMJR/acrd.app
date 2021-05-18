@@ -3,13 +3,13 @@ import { PermissionsService } from 'src/app/services/perms.service';
 import { GuildService } from '../../../../services/api/guild.service';
 import { UserService } from 'src/app/services/api/user.service';
 import { PingService } from 'src/app/services/ping.service';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { ChannelService } from 'src/app/services/api/channel.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lean } from 'src/app/types/entity-types';
 import { Args, WSService } from 'src/app/services/ws.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'guild-sidebar',
@@ -55,6 +55,17 @@ export class GuildSidebarComponent implements OnInit {
     this.ws
       .on('GUILD_DELETE', this.returnFromGuild, this)
       .on('GUILD_LEAVE', this.returnFromGuild, this);
+  }
+
+  public async moveGuild(event: CdkDragDrop<Lean.Guild[]>) {
+    const prev = event.previousIndex;
+    const curr = event.currentIndex;
+    if (!prev || !curr) return;
+    
+    moveItemInArray(this.guild.channels, prev, curr);
+
+    const channelIds = this.guild.channels.map(g => g.id);
+    await this.guildService.patch(this.guild.id, { channels: channelIds as any });
   }
 
   private async returnFromGuild({ guildId }: Args.GuildDelete | Args.GuildLeave) {

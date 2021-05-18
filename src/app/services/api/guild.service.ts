@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
 import { Lean } from '../../types/entity-types';
+import { Partial } from '../../types/ws-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from '../ws.service';
 
@@ -78,5 +79,9 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
 
   public deleteGuild(guildId: string) {
     return this.ws.emitAsync('GUILD_DELETE', { guildId }, this);
+  }
+
+  public patch(guildId: string, partialGuild: Partial.Guild) {
+    return this.ws.emitAsync('GUILD_UPDATE', { guildId, partialGuild }, this);
   }
 }

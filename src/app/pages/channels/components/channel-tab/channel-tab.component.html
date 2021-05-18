@@ -2,7 +2,8 @@
   *ngIf="perms.can(guild.id, 'VIEW_CHANNELS')"
   #menuTrigger="matMenuTrigger"
   [matMenuTriggerFor]="channelMenu"
-  (contextmenu)="openMenu($event, menuTrigger)">
+  (contextmenu)="openMenu($event, menuTrigger)"
+  cdkDrag>
   <div *ngIf="channel.type === 'TEXT'">
     <a (click)="$event.stopPropagation()"
       class="nav-item nav-link"

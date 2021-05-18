@@ -21,6 +21,7 @@
 
       <app-guild-icon
         *ngFor="let guild of guilds"
+        (cdkDropListDropped)="moveGuild($event)"
         [guild]="guild"
         [matTooltip]="guild.name"
         cdkDropList></app-guild-icon>
