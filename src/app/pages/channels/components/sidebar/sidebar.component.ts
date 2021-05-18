@@ -43,6 +43,7 @@ export class SidebarComponent {
     
     moveItemInArray(this.user.guilds, prev, curr);
 
-    await this.userService.updateSelf({ guilds:  });
+    const guildIds = this.user.guilds.map(g => g.id);
+    await this.userService.updateSelf({ guilds: guildIds as any });
   }
 }
