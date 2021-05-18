@@ -13,6 +13,10 @@ import { widthExpandCollapse } from './member-list.animations';
 export class MemberListComponent {
   @Input() public guild: Lean.Guild;
 
+  public get hoistedRoles() {
+    return this.guild.roles.filter(r => r.hoisted);
+  }
+
   private _expanded: boolean;
   public get isExpanded() {
     return this._expanded;
@@ -40,5 +44,17 @@ export class MemberListComponent {
     public userService: UserService,
   ) {
     this.isExpanded ||= this.config.get('memberListExpanded');
+  }
+
+  public getOnlineRoleMembers(role: Lean.Role) {
+    return this.guild.members.filter(m => {
+      const hasRole = m.roleIds.includes(role.id);
+      const isOnline = this.userService.getCached(m.userId);
+      return hasRole && isOnline;
+    });
+  }
+
+  public identifyMember(member: Lean.GuildMember) {
+    return member.id;
   }
 }

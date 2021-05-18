@@ -57,7 +57,7 @@ export class GuildSidebarComponent implements OnInit {
       .on('GUILD_LEAVE', this.returnFromGuild, this);
   }
 
-  public async moveGuild(event: CdkDragDrop<Lean.Guild[]>) {
+  public async moveChannel(event: CdkDragDrop<Lean.Guild[]>) {
     const prev = event.previousIndex;
     const curr = event.currentIndex;
     if (!prev || !curr) return;
