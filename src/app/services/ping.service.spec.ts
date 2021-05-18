@@ -60,8 +60,8 @@ describe('PingService', () => {
     expect(service.isUnread(channel2.id)).toBe(true);
   });
 
-  it('init, no message in channel, marked as read', async () => {
-    const channel = addChannel();
+  it('init, channel is empty, marked as read', async () => {
+    const channel = addChannel({ lastMessageId: null });
     userService.self.lastReadMessages = { [channel.id]: null };
 
     await service.init();
@@ -137,9 +137,9 @@ describe('PingService', () => {
     expect(service.isUnread(message.channelId)).toBe(false);
   });
 
-  function addChannel() {
+  function addChannel(options?: Partial<Lean.Channel>) {
     const guild = AccordMock.guild();
-    const channel = AccordMock.channel(guild.id);
+    const channel = AccordMock.channel(guild.id, options);
     guild.channels.push(channel);
     channelService.add(channel);
 
@@ -160,6 +160,8 @@ describe('PingService', () => {
 
     const message = AccordMock.message({ channelId: channel.id });
     await service.add(message);
+
+    channel.lastMessageId = message.id;
     
     return { message, channel, guild };
   }

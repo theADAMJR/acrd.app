@@ -24,6 +24,7 @@ export class PingService {
       const channel = this.channelService.getCached(channelId);
       if (!lastReadMessageId
           || this.isChannelIgnored(channelId)
+          || !lastReadMessageId
           || channel?.lastMessageId === lastReadMessageId) continue;
       
       await this.add({
