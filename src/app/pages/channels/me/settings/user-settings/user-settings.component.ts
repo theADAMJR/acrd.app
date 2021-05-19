@@ -94,4 +94,11 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
       .get('avatarURL')
       .setValue(`${environment.endpoint}/avatars/${name}.png`);
   }
+
+  public async deleteSelf() {
+    const confirmation = prompt(`Please type your username to confirm this.\nWarning: this action is irreversible and your account cannot be recovered.`);
+    if (confirmation !== this.userService.self.username) return;
+    
+    await this.userService.deleteSelf();
+  }
 }

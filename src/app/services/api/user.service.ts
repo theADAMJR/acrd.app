@@ -102,6 +102,12 @@ export class UserService extends HTTPWrapper<Lean.User> {
     return this.ws.emitAsync('USER_UPDATE', { key: this.key, partialUser }, this);
   }
 
+  public deleteSelf(): Promise<any> {
+    return this.http
+      .delete(`${this.endpoint}/${this.self.id}`, this.headers)
+      .toPromise() as any;
+  }
+
   public reorder<T extends 'guilds'>(key: T, event: CdkDragDrop<UserTypes.Self[T]>) {
     const prev = event.previousIndex;
     const curr = event.currentIndex;

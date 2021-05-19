@@ -20,7 +20,7 @@ export abstract class UserConfig implements OnDestroy {
   private valueChanges$: Subscription;  
   
   constructor(
-    protected userService: UserService,
+    public userService: UserService,
     protected route: ActivatedRoute,
     public saveChanges: MatSnackBar,
     protected ws: WSService,

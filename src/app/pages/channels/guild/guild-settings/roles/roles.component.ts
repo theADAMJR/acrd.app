@@ -104,6 +104,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
         value: this.selectedRole.color,
       }),
       hoisted: new FormControl({
+        disabled: this.isEveryone,
         value: this.selectedRole.hoisted,
       }),
       name: new FormControl({
@@ -144,7 +145,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
     this.form.value.permissions = this.permissions;
     for (const key in this.form.value)
-      this.selectedRole[key] = this.form.value[key];
+      this.selectedRole[key] = this.form.get(key).value;
 
     await this.updateRole();
   }
