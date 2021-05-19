@@ -7,11 +7,9 @@
         <div class="dropdown">
           <button
             id="heftyButton"
-            (cdkDropListDropped)="moveChannel($event)"
             [matMenuTriggerFor]="guildMenu"
             class="btn bg-transparent text-center"
-            type="button"
-            cdkDropList>
+            type="button">
             <h6 class="d-flex flex-column jusify-content-center mb-0">
               <strong>{{ guild.name }}</strong>
               <i class="lni lni-chevron-down ml-1"></i>
@@ -23,7 +21,9 @@
       <div class="category">Channels—{{ textChannels.length }}</div>
       <div
         *ngIf="perms.can(guild.id, 'VIEW_CHANNELS')"
-        class="navbar-nav">
+        (cdkDropListDropped)="moveChannel($event)"
+        class="navbar-nav"
+        cdkDropList>
         <app-channel-tab
           *ngFor="let channel of textChannels"
           [channel]="channel"></app-channel-tab>

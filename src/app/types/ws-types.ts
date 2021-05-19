@@ -436,7 +436,6 @@ export namespace Prohibited {
     'email',
     'friendIds',
     'friendRequestIds',
-    'guilds',
     'verified',
   ];
 }

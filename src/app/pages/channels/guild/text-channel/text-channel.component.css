@@ -8,15 +8,10 @@
   margin-top: 5px;
   padding-bottom: 1vh;
   height: 82.5vh;
+  max-height: 76vh;
 }
 
 .typing {
   font-size: small;
   margin-top: -3px;
-}
-
-@media (max-width: 576px) {
-  .messages {
-    height: 75vh;
-  }
 }

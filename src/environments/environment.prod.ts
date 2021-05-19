@@ -5,5 +5,5 @@ export const environment = {
   githubURL: 'https://github.com/accorddotapp',
   production: true,
   statusURL: 'https://accord.statuspage.io',
-  version: 'v0.2.0a',
+  version: 'v0.2.1a',
 };

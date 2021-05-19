@@ -83,15 +83,9 @@
               <mat-slide-toggle 
                 formControlName="hoisted"
                 class="float-right"
+                [disabled]="isEveryone"
                 validate></mat-slide-toggle>
               <hr>
-            </div>
-            <div>
-              <span>Allow anyone to <span class="mention p-1 rounded">@mention</span> this role</span>
-              <mat-slide-toggle
-                formControlName="mentionable"
-                class="float-right"
-                validate></mat-slide-toggle>
             </div>
             <hr>
           </div>

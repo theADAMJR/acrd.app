@@ -2,18 +2,20 @@
   *ngIf="guild"
   [@expandCollapse]="(isExpanded) ? 'expanded' : 'collapsed'"
   class="float-right member-list">
-  <ng-template *ngFor="let role of hoistedRoles; else noHoistedRoles">
-    <div class="category">{{ role.name }}—{{ getOnlineRoleMembers(role).length }}</div>
-    <div>
-      <member-username
-        *ngFor="let member of getOnlineRoleMembers(role); trackBy: identifyMember"
-        class="cursor-pointer"
-        [user]="userService.getCached(member.userId)"
-        [guild]="guild"></member-username>      
+  <div *ngFor="let role of hoistedRoles">
+    <div *ngIf="getOnlineRoleMembers(role).length">
+      <div class="category">{{ role.name }}—{{ getOnlineRoleMembers(role).length }}</div>
+      <div>
+        <member-username
+          *ngFor="let member of getOnlineRoleMembers(role); trackBy: identifyMember"
+          class="cursor-pointer"
+          [user]="userService.getCached(member.userId)"
+          [guild]="guild"></member-username>      
+      </div>
     </div>
-  </ng-template>
+  </div>
 
-  <ng-template #noHoistedRoles>
+  <div>
     <div class="category">Online—{{ onlineMembers.length }}</div>
     <div>
       <member-username
@@ -22,7 +24,7 @@
         [user]="userService.getCached(member.userId)"
         [guild]="guild"></member-username>
     </div>
-  </ng-template>
+  </div>
 
   <div
     *ngIf="offlineMembers.length"

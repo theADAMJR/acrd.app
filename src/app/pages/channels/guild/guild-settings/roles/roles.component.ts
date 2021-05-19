@@ -104,12 +104,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
         value: this.selectedRole.color,
       }),
       hoisted: new FormControl({
-        disabled: this.isEveryone,
-        value: (this.isEveryone) ? false : this.selectedRole.mentionable,
-      }),
-      mentionable: new FormControl({
-        disabled: this.isEveryone,
-        value: this.selectedRole.mentionable,
+        value: this.selectedRole.hoisted,
       }),
       name: new FormControl({
         disabled: this.isEveryone,

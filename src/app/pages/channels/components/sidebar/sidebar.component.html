@@ -6,7 +6,9 @@
     mode="side"
     opened
     #drawer>
-    <div class="guilds px-2">
+    <div class="guilds px-2"
+      (cdkDropListDropped)="moveGuild($event)"
+      cdkDropList>
       <div class="user">
         <div
           routerLinkActive="active"
@@ -21,10 +23,8 @@
 
       <app-guild-icon
         *ngFor="let guild of guilds"
-        (cdkDropListDropped)="moveGuild($event)"
         [guild]="guild"
-        [matTooltip]="guild.name"
-        cdkDropList></app-guild-icon>
+        [matTooltip]="guild.name"></app-guild-icon>
       <div
         (click)="dialog.createGuild()"
         class="icon-wrapper add-guild bg-transparent cursor-pointer text-primary"

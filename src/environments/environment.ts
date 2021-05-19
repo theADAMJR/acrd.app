@@ -9,7 +9,7 @@ export const environment = {
   rootEndpoint: 'http://localhost:3000',
   githubURL: 'https://github.com/accorddotapp',
   statusURL: 'https://accord.statuspage.io',
-  version: 'v0.2.0a',
+  version: 'v0.2.1a',
 };
 
 /*

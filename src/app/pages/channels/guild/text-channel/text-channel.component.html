@@ -10,9 +10,7 @@
     (scrolledUp)="loadMoreMessages()">
     <div
       class="jumbotron pb-0">
-      <p class="lead">
-        Start of {{ title }} message history.
-      </p>
+      <p class="lead">Start of {{ title }} message history.</p>
       <hr>
     </div>
 
@@ -66,12 +64,12 @@
         matInput
         #message></textarea>
   
-      <mat-icon
+      <!-- <mat-icon
         (click)="emojiPickerOpen = true && $event.stopPropagation()"
         class="cursor-pointer"
         matSuffix>
         <i class="lni lni-emoji-happy"></i>
-      </mat-icon>
+      </mat-icon> -->
     </mat-form-field>
   
     <div
