@@ -37,11 +37,6 @@ export class SidebarComponent {
   }
 
   public async moveGuild(event: CdkDragDrop<Lean.Guild[]>) {
-    // if (!event.previousIndex || !event.currentIndex) return;
-    
-    moveItemInArray(this.user.guilds, event.previousIndex, event.currentIndex);
-
-    const guildIds = this.user.guilds.map(g => g.id);
-    await this.userService.updateSelf({ guilds: guildIds as any });
+    await this.userService.reorder('guilds', event);
   }
 }

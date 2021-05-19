@@ -87,7 +87,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
     return this.ws.emitAsync('GUILD_UPDATE', { guildId, partialGuild }, this);
   }
 
-  public reorder<T extends keyof Lean.Guild>(guild: Lean.Guild, key: T, event: CdkDragDrop<Lean.Guild[T]>) {
+  public reorder<T extends 'channels' | 'roles'>(guild: Lean.Guild, key: T, event: CdkDragDrop<Lean.Guild[T]>) {
     const prev = event.previousIndex;
     const curr = event.currentIndex;
     if (!prev || !curr || prev === curr) return;
@@ -95,11 +95,6 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
     const arr = guild[key] as any[];
     moveItemInArray(arr, prev, curr);
 
-    return this.ws.emitAsync('GUILD_UPDATE', {
-      guildId: guild.id,
-      partialGuild: {
-        [key]: arr.map(r => r.id) as any
-      },
-    }, this);
+    return this.patch(guild.id, { [key]: arr.map(r => r.id) });
   }
 }

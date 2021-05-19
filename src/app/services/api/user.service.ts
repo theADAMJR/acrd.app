@@ -6,6 +6,7 @@ import { Partial } from '../../types/ws-types';
 import { array } from '../../utils/utils';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from '../ws.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Injectable({ providedIn: 'root' })
 export class UserService extends HTTPWrapper<Lean.User> {
@@ -27,10 +28,7 @@ export class UserService extends HTTPWrapper<Lean.User> {
       .filter(array.distinctBy('id'));
   }
 
-  constructor(
-    http: HttpClient,
-    ws: WSService,
-  ) {
+  constructor(http: HttpClient, ws: WSService) {
     super(http, ws);
   }
   
@@ -100,12 +98,18 @@ export class UserService extends HTTPWrapper<Lean.User> {
     }, this);
   }
 
-  public updateSelf(options: Partial.User) {
-    return this.ws.emitAsync('USER_UPDATE', {
-      key: localStorage.getItem('key'),
-      partialUser: {
-        ...options,
-      }
-    }, this);
+  public patchSelf(partialUser: Partial.User) {
+    return this.ws.emitAsync('USER_UPDATE', { key: this.key, partialUser }, this);
+  }
+
+  public reorder<T extends 'guilds'>(key: T, event: CdkDragDrop<UserTypes.Self[T]>) {
+    const prev = event.previousIndex;
+    const curr = event.currentIndex;
+    if (!prev || !curr || prev === curr) return;
+    
+    const arr = this.self[key] as any[];
+    moveItemInArray(arr, prev, curr);
+
+    return this.patchSelf({ [key]: arr.map(r => r.id) });
   }
 }

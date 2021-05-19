@@ -57,15 +57,8 @@ export class GuildSidebarComponent implements OnInit {
       .on('GUILD_LEAVE', this.returnFromGuild, this);
   }
 
-  public async moveChannel(event: CdkDragDrop<Lean.Guild[]>) {
-    const prev = event.previousIndex;
-    const curr = event.currentIndex;
-    if (!prev || !curr) return;
-    
-    moveItemInArray(this.guild.channels, prev, curr);
-
-    const channelIds = this.guild.channels.map(g => g.id);
-    await this.guildService.patch(this.guild.id, { channels: channelIds as any });
+  public async moveChannel(event: CdkDragDrop<Lean.Channel[]>) {
+    await this.guildService.reorder(this.guild, 'channels', event);
   }
 
   private async returnFromGuild({ guildId }: Args.GuildDelete | Args.GuildLeave) {
