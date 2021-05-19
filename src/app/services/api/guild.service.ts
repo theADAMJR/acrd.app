@@ -6,6 +6,8 @@ import { Lean } from '../../types/entity-types';
 import { Partial } from '../../types/ws-types';
 import { HTTPWrapper } from './http-wrapper';
 import { WSService } from '../ws.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ListKeyManager } from '@angular/cdk/a11y';
 
 @Injectable({ providedIn: 'root' })
 export class GuildService extends HTTPWrapper<Lean.Guild> {
@@ -83,5 +85,21 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
 
   public patch(guildId: string, partialGuild: Partial.Guild) {
     return this.ws.emitAsync('GUILD_UPDATE', { guildId, partialGuild }, this);
+  }
+
+  public reorder<T extends keyof Lean.Guild>(guild: Lean.Guild, key: T, event: CdkDragDrop<Lean.Guild[T]>) {
+    const prev = event.previousIndex;
+    const curr = event.currentIndex;
+    if (!prev || !curr || prev === curr) return;
+    
+    const arr = guild[key] as any[];
+    moveItemInArray(arr, prev, curr);
+
+    return this.ws.emitAsync('GUILD_UPDATE', {
+      guildId: guild.id,
+      partialGuild: {
+        [key]: arr.map(r => r.id) as any
+      },
+    }, this);
   }
 }

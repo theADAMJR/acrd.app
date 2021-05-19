@@ -186,18 +186,10 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   }
 
   public async moveRole(event: CdkDragDrop<Lean.Role[]>) {
-    const prev = this.guild.roles.length - event.previousIndex - 1;
-    const curr = this.guild.roles.length - event.currentIndex - 1;
-    if (!prev || !curr) return;
-    
-    moveItemInArray(this.guild.roles, prev, curr);
+    event.previousIndex = this.guild.roles.length - event.previousIndex - 1;
+    event.currentIndex = this.guild.roles.length - event.currentIndex - 1;
 
-    await this.ws.emitAsync('GUILD_UPDATE', {
-      guildId: this.guild.id,
-      partialGuild: {
-        roles: this.guild.roles.map(r => r.id) as any
-      } 
-    }, this);
+    await this.guildService.reorder(this.guild, 'roles', event);
   }
 }
 
