@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build --aot=false --build-optimizer=false",
     "kill": "kill -9 $(lsof -i :4200 | tail -n 1 | cut -d ' ' -f5)",
     "test": "ng test --code-coverage",
     "lint": "ng lint",
