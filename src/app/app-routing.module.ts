@@ -20,17 +20,14 @@ import { UserSettingsComponent } from './pages/channels/me/settings/user-setting
 import { ApplicationComponent } from './pages/dev/app/application.component';
 import { BotUserComponent } from './pages/dev/bot-user/bot-user.component';
 import { DevelopersAuthGuard } from './guards/developers-auth.guard';
-import { VerifyComponent } from './pages/auth/verify/verify.component';
 import { UserAccountComponent } from './pages/channels/me/settings/user-account/user-account.component';
 import { InviteComponent } from './pages/invite/invite.component';
 import { externalRedirect } from './utils/external-redirect';
 import { environment } from 'src/environments/environment';
 import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, },
-  { path: 'auth/verify', component: VerifyComponent, },
   { path: 'auth', component: AuthComponent, },
   { path: 'changelog', component: externalRedirect(`${environment.docsURL}/general/changelog`), },
   { path: 'docs', component: externalRedirect(`${environment.docsURL}`), },
@@ -38,7 +35,6 @@ const routes: Routes = [
   { path: 'status', component: externalRedirect(environment.statusURL), },
   { path: 'invite/:id', component: InviteComponent, },
   { path: 'login', component: LoginComponent, },
-  { path: 'forgot-password', component: ForgotPasswordComponent, },
   { path: 'logout', component: LogoutComponent, },
   { path: 'sign-up', component: SignUpComponent, },
   {

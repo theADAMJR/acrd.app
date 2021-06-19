@@ -14,22 +14,7 @@
       #loginWith>
 
     <div class="form-group">
-      <mat-form-field
-        *ngIf="loginWith.value === 'username'"
-        appearance="outline">
-        <mat-label for="username">Username</mat-label>
-        <input
-          formControlName="username"
-          id="username"
-          type="text"
-          autocomplete="username"
-          matInput>
-        <mat-error *ngIf="username.errors?.pattern">Username is invalid.</mat-error>
-      </mat-form-field>
-
-      <mat-form-field
-        *ngIf="loginWith.value === 'email'"
-        appearance="outline">
+      <mat-form-field appearance="outline">
         <mat-label for="email">Email</mat-label>
         <input
           formControlName="email"
@@ -39,11 +24,6 @@
           matInput>
         <mat-error *ngIf="email.errors?.pattern">Email is invalid.</mat-error>
       </mat-form-field>
-
-      <a (click)="toggleLoginWith()"
-        class="cursor-pointer d-block">
-        Login with {{ (loginWith.value === 'email') ? 'Username' : 'Email' }}
-      </a>
     </div>
     <div class="form-group">
       <mat-form-field appearance="outline">
@@ -52,6 +32,20 @@
           id="password" type="password" autocomplete="current-password" matInput>
         <mat-error *ngIf="password.errors">Password is required.</mat-error>
       </mat-form-field>
+    </div>
+
+    <div *ngIf="shouldVerify">
+      <hr>
+  
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label for="code">2FA Code</mat-label>
+          <mat-hint>Check your email.</mat-hint>
+          <input formControlName="code"
+            id="code" type="text" autocomplete="code" matInput>
+          <mat-error *ngIf="form.get('code').errors">code is required.</mat-error>
+        </mat-form-field>
+      </div>
     </div>
 
     <button
@@ -67,8 +61,9 @@
       Login
     </button>
     <div><a
-      [routerLink]="['/forgot-password']"
-      [queryParams]="{ email: form.get('email').value }">Forgot Password?</a></div>
+      matTooltip="Fill in your email first."
+      (click)="forgotPassword()"
+      [class.text-muted]="email.invalid">Forgot Password?</a></div>
     <div>Or <a
       [routerLink]="['/sign-up']"
       [queryParams]="{ redirect: redirect }">create an account</a>.</div>

@@ -45,7 +45,6 @@ import { MemberListComponent } from './pages/channels/guild/member-list/member-l
 import { ApplicationComponent } from './pages/dev/app/application.component';
 import { BotUserComponent } from './pages/dev/bot-user/bot-user.component';
 import { AvatarUrlComponent } from './pages/channels/components/avatar-url/avatar-url.component';
-import { VerifyComponent } from './pages/auth/verify/verify.component';
 import { UserAccountComponent } from './pages/channels/me/settings/user-account/user-account.component';
 import { SettingsSidebarComponent } from './pages/channels/components/settings-sidebar/settings-sidebar.component';
 import { SubmarineComponent } from './components/cool/submarine/submarine.component';
@@ -63,7 +62,6 @@ import { ChangelogComponent } from './components/dialog/changelog/changelog.comp
 import { AlertErrorHandler } from './alert-error.handler';
 import { DevelopersComponent } from './pages/dev/developers.component';
 import { UserSettingsComponent } from './pages/channels/me/settings/user-settings/user-settings.component';
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +103,6 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     ApplicationComponent,
     BotUserComponent,
     AvatarUrlComponent,
-    VerifyComponent,
     UserAccountComponent,
     SettingsSidebarComponent,
     SubmarineComponent,
@@ -120,7 +117,6 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
     AddFriendComponent,
     TimestampPipe,
     ChangelogComponent,
-    ForgotPasswordComponent,
   ],
   imports: [
     AppRoutingModule,

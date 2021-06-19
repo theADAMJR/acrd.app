@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogService } from 'src/app/services/log.service';
@@ -11,38 +11,49 @@ import { PasswordValidators } from '../sign-up/password.validators';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  @ViewChild('loginWith')
-  public loginWith: ElementRef;
-
-  constructor(
-    private auth: UserAuthService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private log: LogService,
-  ) {}
-
+export class LoginComponent implements OnInit {
   public form = new FormGroup({
-    username: new FormControl('', [
-      Validators.pattern(patterns.username),
+    code: new FormControl('', [
+      Validators.minLength(6),
+      Validators.maxLength(6),
     ]),
     email: new FormControl('', [
       Validators.pattern(patterns.email),
+      Validators.required,
     ]),
     password: new FormControl('', [
       Validators.required,
       Validators.pattern(patterns.password),
     ]),
-  }, [ PasswordValidators.emailOrUsernameRequired ]);
+  });
+  forgotPasswordSent = false;
   processing = false;
+  shouldVerify = false;
 
-  public get email() { return this.form.get('email'); }
-  public get password() { return this.form.get('password'); }
-  public get username() { return this.form.get('username'); }
+  public get email() {
+    return this.form.get('email');
+  }
+  public get password() {
+    return this.form.get('password');
+  }
 
+  public get code() {
+    return this.route.snapshot.queryParamMap.get('code');
+  }
   public get redirect() {
     return this.route.snapshot.queryParamMap.get('redirect')
       ?? '/channels/@me';
+  }
+
+  constructor(
+    private auth: UserAuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
+
+  public async ngOnInit() {
+    if (this.code)
+      await this.verify();
   }
 
   public async login() {
@@ -52,34 +63,27 @@ export class LoginComponent {
     try {
       this.processing = true;
       const res = await this.auth.login(user);
-      if (res.verify)        
-        return this.router.navigate([`/auth/verify`]); 
+      if (res.verify)
+        return this.shouldVerify = true;
 
-      this.router.navigate([ this.redirect ]);
+      this.router.navigate([this.redirect]);
     } catch (error) {
       this.processing = false;
       this.form.setErrors({ invalidLogin: true });
-
-      await this.log.error(error.error.message);
     }
   }
 
-  public toggleLoginWith() {
-    const value = this.loginWith.nativeElement.value;
-    const email = this.form.get('email');
-    const username = this.form.get('username');
+  public async forgotPassword() {
+    if (this.email.invalid || this.forgotPasswordSent) return;
 
-    if (value === 'email') {
-      username.setValue(email.value);
-      email.reset();
-    }
-    else {
-      email.setValue(username.value);
-      username.reset();
-    }
-    
-    this.loginWith.nativeElement.value = (value === 'email')
-      ? 'username'
-      : 'email';
+    this.forgotPasswordSent = await this.auth
+      .sendVerifyEmail(this.email.value, 'FORGOT_PASSWORD');
+  }
+
+  public async verify() {
+    const key = await this.auth.verify(this.code);
+    localStorage.setItem('key', key);
+
+    await this.router.navigate([this.redirect]);
   }
 }
