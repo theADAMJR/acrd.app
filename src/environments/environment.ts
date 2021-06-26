@@ -5,11 +5,11 @@
 export const environment = {
   docsURL: 'https://docs.accord.app',
   production: false,
-  endpoint: 'http://localhost:3000/api/v1',
+  endpoint: 'http://localhost:3000/api/v2',
   rootEndpoint: 'http://localhost:3000',
   githubURL: 'https://github.com/accorddotapp',
   statusURL: 'https://accord.statuspage.io',
-  version: 'v0.2.1a',
+  version: 'Solace v0.3.0a',
 };
 
 /*

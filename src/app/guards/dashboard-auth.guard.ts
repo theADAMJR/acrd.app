@@ -5,7 +5,6 @@ import { GuildService } from '../services/api/guild.service';
 import { PingService } from '../services/ping.service';
 import { ChannelService } from '../services/api/channel.service';
 import { EventService } from '../services/events/event.service';
-import { RedirectService } from '../services/redirect.service';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardAuthGuard implements CanActivate {

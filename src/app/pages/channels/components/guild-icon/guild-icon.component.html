@@ -36,7 +36,7 @@
   #contextMenu>
   <h6 class="p-2 text-center">{{ guild.name }}</h6>
 
-  <div *ngIf="guild.ownerId !== userService.self.id">
+  <div *ngIf="guild.ownerIds.includes(userService.self.id)">
     <button
       (click)="guildService.leave(guild.id)"
       class="text-danger p-2"

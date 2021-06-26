@@ -19,7 +19,7 @@ body {
   font-size: 16px;
 }
 
-h1,h2,h3,h4,h5 {
+h1,h2 {
   font-family: 'Inter';
   font-weight: 800 !important;
   letter-spacing: -.025em;
@@ -59,7 +59,7 @@ table.dataTable tbody tr {
 }
 
 i {
-  color: var(--secondary);
+  color: var(--primary);
 }
 
 .jumbotron {
@@ -193,9 +193,9 @@ snack-bar-container.mat-snack-bar-container {
 }
 
 .active app-avatar-url img,
-.guild-icon.active img,
+.active img,
 .guild-icon.active {
-  border-radius: 25% !important;
+  border-radius: 50% !important;
   background-color: var(--primary) !important;
 }
 
@@ -372,7 +372,7 @@ app-avatar-url {
 
 /* navigation */
 a i {
-  color: var(--secondary);
+  color: var(--primary);
 }
 
 [contentEditable='true'] {

@@ -1,7 +1,8 @@
 <div
   *ngIf="!isSelf"
   class="d-flex justify-content-center float-right">
-  <button
+  <!-- TODO: replace with create dm guild -->
+  <!-- <button
     *ngIf="!isFriend && !sentRequest"
     (click)="addFriend()"
     matTooltip="Add Friend"
@@ -18,17 +19,7 @@
     mat-button>
     <i class="lni lni-close"></i>
     <span></span>
-  </button>
-
-  <button
-    *ngIf="isFriend"
-    [routerLink]="'/channels/@me/' + dmChannel?.id"
-    matTooltip="Message"
-    class="bg-primary"
-    mat-button>
-    <i class="lni lni-bubble"></i>
-    <span></span>
-  </button>
+  </button> -->
 </div>
 
 <app-avatar-url
@@ -39,33 +30,26 @@
 <hr>
 
 <div
+  *ngIf="data.user.badges"
+  class="mb-4"
+  mat-dialog-content>
+  <h6>Badges—{{ data.user.badges.length }}</h6>
+  <div class="ml-4">
+    <i *ngFor="let badge of data.user.badges">{{ badge }}</i>
+  </div>
+</div>
+
+<div
   *ngIf="mutualGuilds.length"
   mat-dialog-content>
   <h6>Mutual Guilds—{{ mutualGuilds.length }}</h6>
   <div class="ml-4">
     <app-guild-icon 
-      *ngFor="let guild of mutualGuilds; else noMutualGuilds"
+      *ngFor="let guild of mutualGuilds"
       class="float-left"
       style="margin-left: -25px;"
       [matTooltip]="guild.name"
       [guild]="guild"></app-guild-icon>
   </div>
   <hr>
-</div>
-
-<hr>
-
-<div
-  *ngIf="mutualFriends.length"
-  mat-dialog-content>
-  <h6>Mutual Friends—{{ mutualFriends.length }}</h6>
-  <div class="ml-4">
-    <app-avatar-url 
-      *ngFor="let friend of mutualFriends"
-      class="float-left cursor-pointer"
-      size="52px"
-      style="margin-left: -25px;"
-      [matTooltip]="friend.username"
-      [user]="friend"></app-avatar-url>
-  </div>
 </div>

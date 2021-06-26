@@ -115,7 +115,7 @@ export abstract class ModuleConfig implements OnDestroy {
 
     this.guildService.deleteGuild(this.guildId);
 
-    await this.router.navigate(['/channels/@me']);
+    await this.router.navigate(['/channels']);
     await this.log.success();
   }
 

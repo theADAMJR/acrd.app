@@ -11,13 +11,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthComponent } from './pages/auth/auth/auth.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { LogoutComponent } from './pages/auth/logout/logout.component';
-import { DashboardOverviewComponent } from './pages/channels/me/overview/me-overview.component';
 import { SidebarComponent } from './pages/channels/components/sidebar/sidebar.component';
 import { GuildOverviewComponent } from './pages/channels/guild/overview/guild-overview.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { HomeComponent } from './pages/home/home.component';
 import { GuildSidebarComponent } from './pages/channels/guild/sidebar/guild-sidebar.component';
-import { MeSidebarComponent } from './pages/channels/me/sidebar/me-sidebar.component';
 import { MaterialModule } from './material-module';
 import { SaveChangesComponent } from './pages/channels/components/save-changes/save-changes.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -36,9 +34,6 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { GuildSettingsComponent } from './pages/channels/guild/guild-settings/overview/guild-settings.component';
 import { RolesComponent } from './pages/channels/guild/guild-settings/roles/roles.component';
 import { InvitesComponent } from './pages/channels/guild/guild-settings/invites/invites.component';
-import { FriendsListComponent } from './pages/channels/me/friends-list/friends-list.component';
-import { DMComponent } from './pages/channels/me/dmchannel/dm.component';
-import { BotListComponent } from './pages/channels/guild/guild-settings/bot-list/bot-list.component';
 import { MessageEmbedComponent } from './pages/channels/components/messages/message-embed/message-embed.component';
 import { MessageComponent } from './pages/channels/components/messages/message/message.component';
 import { MemberListComponent } from './pages/channels/guild/member-list/member-list.component';
@@ -51,17 +46,16 @@ import { SubmarineComponent } from './components/cool/submarine/submarine.compon
 import { InviteComponent } from './pages/invite/invite.component';
 import { CreateChannelComponent } from './components/dialog/create-channel/create-channel.component';
 import { CreateGuildComponent } from './components/dialog/create-guild/create-guild.component';
-import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
 import { LighthouseComponent } from './components/cool/lighthouse/lighthouse.component';
 import { ChannelTabComponent } from './pages/channels/components/channel-tab/channel-tab.component';
 import { ProfileComponent } from './components/dialog/profile/profile.component';
 import { GuildIconComponent } from './pages/channels/components/guild-icon/guild-icon.component';
-import { AddFriendComponent } from './components/dialog/add-friend/add-friend.component';
 import { TimestampPipe } from './pipes/timestamp.pipe';
 import { ChangelogComponent } from './components/dialog/changelog/changelog.component';
 import { AlertErrorHandler } from './alert-error.handler';
 import { DevelopersComponent } from './pages/dev/developers.component';
 import { UserSettingsComponent } from './pages/channels/me/settings/user-settings/user-settings.component';
+import { OverviewComponent } from './pages/channels/me/overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -71,12 +65,10 @@ import { UserSettingsComponent } from './pages/channels/me/settings/user-setting
     AuthComponent,
     LoginComponent,
     LogoutComponent,
-    DashboardOverviewComponent,
     SidebarComponent,
     GuildOverviewComponent,
     SpinnerComponent,
     GuildSidebarComponent,
-    MeSidebarComponent,
     SaveChangesComponent,
     NotFoundComponent,
     MemberUsernameComponent,
@@ -94,10 +86,7 @@ import { UserSettingsComponent } from './pages/channels/me/settings/user-setting
     GuildSettingsComponent,
     RolesComponent,
     InvitesComponent,
-    FriendsListComponent,
-    DMComponent,
     UserSettingsComponent,
-    BotListComponent,
     MemberListComponent,
     DevelopersComponent,
     ApplicationComponent,
@@ -109,14 +98,13 @@ import { UserSettingsComponent } from './pages/channels/me/settings/user-setting
     InviteComponent,
     CreateChannelComponent,
     CreateGuildComponent,
-    ComingSoonComponent,
     LighthouseComponent,
     ChannelTabComponent,
     ProfileComponent,
     GuildIconComponent,
-    AddFriendComponent,
     TimestampPipe,
     ChangelogComponent,
+    OverviewComponent,
   ],
   imports: [
     AppRoutingModule,

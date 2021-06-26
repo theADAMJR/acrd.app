@@ -54,8 +54,6 @@ export interface WSEventParams {
 }
 
 export interface WSEventAsyncArgs {
-  /** Called after you sent an outgoing friend request, or of an incoming friend request. */
-  'ADD_FRIEND': Args.AddFriend;
   /** Called when a guild channel is created. */
   'CHANNEL_CREATE': Args.ChannelCreate;
   /** Callled when a guild channel is deleted. */
@@ -96,8 +94,6 @@ export interface WSEventAsyncArgs {
   'PRESENCE_UPDATE': Args.PresenceUpdate;
   /** Called when the websocket accepts that you are ready. */
   'READY': Args.Ready;
-  /** Called when you are removed as a friend, or you remove a friend request, or an existing friend. */
-  'REMOVE_FRIEND': Args.RemoveFriend;
   /** Called when someone is typing in a text-based channel. */
   'TYPING_START': Args.TypingStart;
   /** Called the client user settings are updated. */
@@ -106,8 +102,6 @@ export interface WSEventAsyncArgs {
 
 /** WS Args are what is received from the websocket. */
 export interface WSEventArgs {
-  /** Called after you sent an outgoing friend request, or of an incoming friend request. */
-  'ADD_FRIEND': (args: Args.AddFriend) => any;
   /** Called when a guild channel is created. */
   'CHANNEL_CREATE': (args: Args.ChannelCreate) => any;
   /** Callled when a guild channel is deleted. */
@@ -247,15 +241,6 @@ export namespace Params {
 }
 
 export namespace Args {
-  export interface AddFriend {
-    /** The recipient who received the friend request. */
-    friend: Lean.User;
-    /** User who sent or accepted the friend request. */
-    sender: Lean.User;
-    /** Only available if both users add each other as a friend.  */
-    dmChannel?: ChannelTypes.DM;
-  }
-  /**  */
   export interface ChannelCreate {
     /** ID of guild that channel is in. */
     guildId: string;

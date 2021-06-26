@@ -26,7 +26,7 @@ export class AuthComponent implements OnInit {
       await this.userService.fetchSelf();
       await this.guildService.fetchAll();
       
-      await this.router.navigate(['/channels/@me']);
+      await this.router.navigate(['/channels']);
     } catch(error) {
       await this.log.error(error.message);
       await this.router.navigate(['/']);

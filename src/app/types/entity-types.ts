@@ -26,7 +26,7 @@ export namespace Lean {
     createdAt: Date;
     nameAcronym: string;
     iconURL?: string;
-    ownerId: string;
+    ownerIds: string[];
     channels: Channel[];
     members: GuildMember[];
     roles: Role[];
@@ -71,8 +71,6 @@ export namespace Lean {
     badges: UserTypes.Badge[];
     bot: boolean;
     createdAt: Date;
-    friendIds: string[];
-    friendRequestIds: string[];
     guilds: string[] | Lean.Guild[];
     status: UserTypes.StatusType;
     username: string;
@@ -80,14 +78,8 @@ export namespace Lean {
 }
 
 export namespace ChannelTypes {
-  export type Type = 'DM' | 'TEXT' | 'VOICE';
+  export type Type = 'TEXT' | 'VOICE';
 
-  export interface DM extends Lean.Channel {
-    memberIds: string[];
-    guildId: never;
-    summary: never;
-    type: 'DM';
-  }
   export interface Text extends Lean.Channel {
     memberIds: never;
     type: 'TEXT';

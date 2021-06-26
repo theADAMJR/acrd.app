@@ -50,7 +50,7 @@ export class GuildService extends HTTPWrapper<Lean.Guild> {
 
   public async ownsGuild(guildId: string, userId: string) {
     const guild = this.getCached(guildId);
-    return guild.ownerId === userId;
+    return guild.ownerIds.includes(userId);
   }
 
   public getInvites(guildId: string): Promise<Lean.Invite[]> {

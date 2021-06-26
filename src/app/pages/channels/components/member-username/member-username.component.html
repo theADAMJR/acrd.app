@@ -10,13 +10,6 @@
     [routerLink]="routerLink || './'"
     class="username-wrapper"
     (click)="$event.stopPropagation()">
-    <span
-      *ngIf="isUnread"
-      matTooltip="Unread"
-      class="float-right p-1">
-      <i class="lni lni-alarm text-danger"></i>
-    </span>
-
     <app-avatar-url
       *ngIf="withAvatar"
       [user]="user"></app-avatar-url>
@@ -25,20 +18,14 @@
       [class]="user.status?.toLowerCase()"></span>
     <div
       [style.color]="member ? roleColor : 'var(--light)'"
-      class="username">
-      <span class="float-right text-muted">
-        <i *ngIf="pings.isUnread(dmChannelId)"
-          matTooltip="Unread Pings"
-          class="text-danger lni lni-circle"></i>
-      </span>
-  
+      class="username">  
       <span class="username-text">{{ user.username }}</span>
       <span
         *ngIf="user.bot"
         textContent="user.username === 'Accord' ? 'SYSTEM' : 'BOT'"
         class="ml-1 badge badge-secondary"></span>
       <span
-        *ngIf="user.id === guild?.ownerId"
+        *ngIf="guild?.ownerIds.includes(user.id)"
         matTooltip="Guild Owner"
         class="crown pl-1">
         <i class="lni lni-crown text-warning"></i>
@@ -53,13 +40,6 @@
     && update()"
   #contextMenu>
   <h6 class="p-2 text-center">{{ user.username }}</h6>
-
-  <button
-    (click)="dialog.profile({ user: user })"
-    mat-menu-item>
-    <i class="lni lni-user text-muted mr-1"></i>
-    <span>View Profile</span>
-  </button>
 
   <button
     *ngIf="isBlocked && user.id !== userService.self.id"  

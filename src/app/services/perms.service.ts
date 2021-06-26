@@ -17,7 +17,7 @@ export class PermissionsService {
 
     const member = this.guildService.getSelfMember(guildId);
       
-    return guild.ownerId == member?.userId
+    return guild.ownerIds.includes(member?.userId)
       || this.hasPermission(
           this.getTotalPerms(guild, member),
           PermissionTypes.All[permission] as number
@@ -57,7 +57,7 @@ export class PermissionsService {
 
     const highestRole = roles[roles.length - 1];
     
-    return selfMember.userId === guild.ownerId
+    return guild.ownerIds.includes(selfMember.userId)
       || (selfMember.roleIds.includes(highestRole.id)
       && !roleIds.includes(highestRole.id));
   }

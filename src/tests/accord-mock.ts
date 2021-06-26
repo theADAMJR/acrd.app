@@ -18,7 +18,7 @@ export class AccordMock {
       name: 'Mock Guild',
       nameAcronym: 'MG',
       roles: [everyoneRole],
-      ownerId: owner.id,
+      ownerIds: [owner.id],
       ...options,
     }
   }

@@ -14,20 +14,6 @@ export class UserService extends HTTPWrapper<Lean.User> {
   public endpoint = `${environment.endpoint}/users`;
   protected arr: Lean.User[] = [];
 
-  public get friends() {
-    return this.self.friendIds.map(id => this.getCached(id));
-  }
-  public get friendRequests() {
-    const isOutgoing = (u: Lean.User) => u.friendRequestIds.includes(this.self.id);    
-
-    return this.arr
-      .filter(isOutgoing)
-      .concat(this.self.friendRequestIds
-        .map(id => this.getCached(id))
-      )
-      .filter(array.distinctBy('id'));
-  }
-
   constructor(http: HttpClient, ws: WSService) {
     super(http, ws);
   }

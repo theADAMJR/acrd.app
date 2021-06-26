@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
   public get redirect() {
     return this.route.snapshot.queryParamMap.get('redirect')
-      ?? '/channels/@me';
+      ?? '/channels';
   }
 
   constructor(

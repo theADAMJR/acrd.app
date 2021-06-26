@@ -1,9 +1,9 @@
 export const environment = {
   docsURL: 'https://docs.accord.app',
-  endpoint: '/api/v1',
+  endpoint: '/api/v2',
   rootEndpoint: '/',
   githubURL: 'https://github.com/accorddotapp',
   production: true,
   statusURL: 'https://accord.statuspage.io',
-  version: 'v0.2.1a',
+  version: 'Solace v0.3.0a',
 };

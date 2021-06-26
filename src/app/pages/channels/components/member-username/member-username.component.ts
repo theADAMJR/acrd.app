@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSelect } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
@@ -49,22 +49,13 @@ export class MemberUsernameComponent {
   public get isBlocked() {
     return this.userService.self.ignored.userIds.includes(this.user.id);
   }
-  public get dmChannelId() {
-    return this.channelService.getDM(this.user.id)?.id;
-  }
   public get activeChannelId() {
     return this.route.snapshot.paramMap.get('channelId');
-  }
-  public get isUnread() {
-    return this.pings.isUnread(this.dmChannelId)
-      && this.dmChannelId !== this.activeChannelId
-      && !this.guild;
   }
 
   constructor(
     private route: ActivatedRoute,
     public config: ConfigService,
-    private channelService: ChannelService,
     public perms: PermissionsService,
     public pings: PingService,
     public guildService: GuildService,

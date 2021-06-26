@@ -49,8 +49,8 @@ export class SettingsSidebarComponent implements OnInit {
       },
     ],
     user: [
-      { name: 'Overview', icon: 'lni lni-eye', href: () => '/channels/@me/settings' },
-      { name: 'Account', icon: 'lni lni-lock', href: () => '/channels/@me/settings/account' },
+      { name: 'Overview', icon: 'lni lni-eye', href: () => '/channels/settings' },
+      { name: 'Account', icon: 'lni lni-lock', href: () => '/channels/settings/account' },
     ],
   };
 

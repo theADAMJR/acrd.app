@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Credentials, UserAuthService } from '../../../services/api/user-auth.service';
 import { PasswordValidators } from './password.validators';
 import { UsernameValidators } from './username.validators';
-import { hacker } from 'faker';
-import { UserService } from '../../../services/api/user.service';
 import { patterns } from 'src/app/types/entity-types';
 import { generateUsername } from 'src/app/utils/utils';
 
@@ -30,13 +28,19 @@ export class SignUpComponent {
     confirmPassword: new FormControl('', Validators.required)
   }, { validators: PasswordValidators.passwordsShouldMatch });
 
-  public get username() { return this.form.get('username'); }
-  public get password() { return this.form.get('password'); }
-  public get confirmPassword() { return this.form.get('confirmPassword'); }
+  public get username() { 
+    return this.form.get('username');
+  }
+  public get password() { 
+    return this.form.get('password');
+  }
+  public get confirmPassword() { 
+    return this.form.get('confirmPassword');
+  }
 
   public get redirect() {
     return this.route.snapshot.queryParamMap.get('redirect')
-      ?? '/channels/@me';
+      ?? '/channels';
   }
 
   constructor(
@@ -51,7 +55,6 @@ export class SignUpComponent {
     if (this.form.invalid) return;
 
     await this.auth.signUp(user);
-    await this.auth.login(user);
     await this.router.navigate([this.redirect]);
   }
 }

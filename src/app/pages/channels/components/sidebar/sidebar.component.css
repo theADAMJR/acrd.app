@@ -96,6 +96,11 @@ footer i {
   max-height: 42px;
 }
 
+.user-settings {
+  position: absolute;
+  bottom: 0;
+}
+
 @media (max-width: 576px) {
   .options {
     width: auto;

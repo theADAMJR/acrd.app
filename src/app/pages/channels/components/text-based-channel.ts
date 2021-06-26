@@ -46,9 +46,7 @@ export class TextBasedChannel implements OnInit {
     return this.channelService.getRecipient(this.channel.id);
   }
   public get title() {
-    return (this.channel.type === 'DM')
-      ? `@me + @${this.recipient.username}`
-      : `${this.guild.name} > #${this.channel.name}`;
+    return `${this.guild.name} > #${this.channel.name}`;
   }
 
   constructor(

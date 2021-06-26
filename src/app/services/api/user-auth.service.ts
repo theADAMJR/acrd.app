@@ -26,7 +26,10 @@ export class UserAuthService {
   ) {}
 
   public async signUp(user: Credentials) {
-    const res: any = await this.http.post(`${this.endpoint}/users`, user).toPromise();
+    const res: any = await this.http
+      .post(`${this.endpoint}/users`, user)
+      .toPromise();
+    
     if (res) {
       localStorage.setItem('key', res);
       await this.userService.fetchSelf();

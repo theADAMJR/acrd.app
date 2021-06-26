@@ -49,7 +49,7 @@ export class GuildSidebarComponent implements OnInit {
       
       const inGuild = this.guildService.getSelfMember(guildId);
       if (!inGuild)
-        await this.router.navigate(['/channels/@me']);
+        await this.router.navigate(['/channels']);
     });
 
     this.ws
@@ -64,6 +64,6 @@ export class GuildSidebarComponent implements OnInit {
   private async returnFromGuild({ guildId }: Args.GuildDelete | Args.GuildLeave) {
     if (guildId !== this.guild.id) return;
 
-    await this.router.navigate(['/channels/@me']);
+    await this.router.navigate(['/channels']);
   }
 }

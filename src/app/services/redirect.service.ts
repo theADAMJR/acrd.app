@@ -12,7 +12,7 @@ export class RedirectService {
     guild?: Lean.Guild;
   };
 
-  public previousURL = '/channels/@me';
+  public previousURL = '/channels';
   public settingsRedirect: string;
 
   constructor(

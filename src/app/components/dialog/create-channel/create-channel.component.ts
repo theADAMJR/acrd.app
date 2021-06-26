@@ -1,9 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { GuildService } from 'src/app/services/api/guild.service';
-import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean, patterns } from 'src/app/types/entity-types';
 

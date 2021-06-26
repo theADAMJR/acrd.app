@@ -2,9 +2,9 @@
 <section class="container text-center pb-5">
   <div class="py-2 mt-5 d-none d-sm-block"></div>
 
-  <div class="text-info mt-5">
-    <i class="fas fa-info-circle text-info"></i>
-    Max users have been reached for Alpha testing, and the limit may be increased soon.
+  <div class="text-warning mt-5">
+    <i class="fas fa-info-circle text-warning"></i>
+    Sign-up may be disabled during Alpha testing.
   </div>
 
   <form
@@ -41,12 +41,14 @@
       </mat-form-field>
     </div>
 
-    <div class="form-group">
+    <div
+      *ngIf="password.dirty"
+      class="form-group">
       <mat-form-field appearance="outline">
-        <mat-label for="confirmPassword">Confirm Password</mat-label>
+        <mat-label for="confirmPassword">Repeat Password</mat-label>
         <input formControlName="confirmPassword"
           id="confirmPassword" type="password"  autocomplete="new-password" matInput>
-        <mat-hint>Repeat password.</mat-hint>
+        <mat-hint>Type password again.</mat-hint>
         <mat-error *ngIf="confirmPassword.errors?.required">Confirm Password is required.</mat-error>
       </mat-form-field>
     </div>

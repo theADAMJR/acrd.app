@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { AddFriendComponent } from '../components/dialog/add-friend/add-friend.component';
 import { CreateChannelComponent } from '../components/dialog/create-channel/create-channel.component';
 import { CreateGuildComponent } from '../components/dialog/create-guild/create-guild.component';
 import { CreateInviteComponent } from '../components/dialog/create-invite/create-invite.component';
 import { ProfileComponent } from '../components/dialog/profile/profile.component';
 import { Lean } from '../types/entity-types';
 import { ChangelogComponent } from '../components/dialog/changelog/changelog.component';
+import { UserSettingsComponent } from '../components/dialog/user-settings/user-settings.component';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,8 @@ export class DialogService {
     this.dialog.open(ChangelogComponent, { width: '500px' });
   }
 
-  public addFriend() {
-    this.dialog.open(AddFriendComponent, { width: '350px' });
+  public async userSettings() {
+    const dialog = this.dialog.open(UserSettingsComponent, { width: '750px' });
+    await dialog.componentInstance.ngAfterViewInit();
   }
 }

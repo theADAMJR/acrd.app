@@ -21,7 +21,7 @@ export class GuildAuthGuard implements CanActivate {
     const channel = this.channelService.getCached(channelId);
 
     if (!guild) {
-      await this.router.navigate(['/channels/@me']);
+      await this.router.navigate(['/channels']);
       return false;
     }
 

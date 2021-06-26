@@ -19,11 +19,6 @@ export class MyEventService {
     private userService: UserService,
   ) {}
 
-  public async addFriend({ sender, friend, dmChannel }: Args.AddFriend) {
-    this.updateFriends({ sender, friend });
-    if (dmChannel)
-      this.channelService.add(dmChannel);
-  }
   public updateFriends({ sender, friend }: Args.RemoveFriend) {
     this.userService.upsert(sender.id, sender);    
     this.userService.upsert(friend.id, friend);

@@ -1,5 +1,5 @@
 .guild-icon {
-  border-radius: 50%;
+  border-radius: 25%;
 
   margin: 5px;
 
@@ -12,7 +12,7 @@
 .guild-icon img:hover,
 .guild-icon:hover,
 .guild-icon span:hover {
-  border-radius: 25%;
+  border-radius: 50%;
 }
 
 .guild-icon span {
@@ -26,7 +26,7 @@
   width: 52px;
   height: 52px;
 
-  border-radius: 50%;
+  border-radius: 25%;
   transition: all .35s;
 }
 

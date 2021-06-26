@@ -17,7 +17,6 @@ export class EventService {
 
   public init() {
     this.ws
-      .on('ADD_FRIEND', this.me.addFriend, this.me)
       .on('CHANNEL_CREATE', this.guilds.addChannel, this.guilds)
       .on('CHANNEL_DELETE', this.guilds.deleteChannel, this.guilds)
       .on('GUILD_DELETE', this.guilds.deleteGuild, this.guilds)
@@ -34,7 +33,6 @@ export class EventService {
       .on('MESSAGE_UPDATE', this.channels.updateMessage, this.channels)
       .on('MESSAGE_DELETE', this.channels.deleteMessage, this.channels)
       .on('PRESENCE_UPDATE', this.me.updatePresence, this.me)
-      .on('REMOVE_FRIEND', this.me.updateFriends, this.me)
       .on('TYPING_START', this.channels.startTyping, this.channels)
       .on('USER_UPDATE', this.me.updateUser, this.me);
   }

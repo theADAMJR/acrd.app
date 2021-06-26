@@ -15,20 +15,12 @@ export class ChannelService extends HTTPWrapper<Lean.Channel> {
   public get channels(): Lean.Channel[] {    
     return this.arr;
   }
-  public get dmChannels(): ChannelTypes.DM[] {
-    return this.channels.filter(c => c.type === 'DM') as ChannelTypes.DM[];
-  }
 
   constructor(
     http: HttpClient,
     ws: WSService,
     private userService: UserService,
   ) { super(http, ws); }
-
-  public getDM(recipientId: string): ChannelTypes.DM {
-    return this.dmChannels.find(c =>c.memberIds.includes(recipientId)
-      && c.memberIds.includes(this.userService.self.id));
-  }
 
   public startTyping(channelId: string, userId: string) {
     this.getTyping(channelId).push(userId);
