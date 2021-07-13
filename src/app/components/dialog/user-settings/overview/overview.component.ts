@@ -6,6 +6,7 @@ import { UsernameValidators } from 'src/app/pages/auth/sign-up/username.validato
 import { UserConfig } from 'src/app/pages/channels/components/user-config';
 import { UserService } from 'src/app/services/api/user.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { DialogService } from 'src/app/services/dialog.service';
 import { LogService } from 'src/app/services/log.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { WSService } from 'src/app/services/ws.service';
@@ -37,14 +38,14 @@ export class OverviewComponent extends UserConfig implements AfterViewInit {
   }
 
   constructor(
+    public themes: ThemeService,
+    private usernameValidators: UsernameValidators,
     route: ActivatedRoute,
     router: Router,
     userService: UserService,
     snackbar: MatSnackBar,
     ws: WSService,
     log: LogService,
-    public themes: ThemeService,
-    private usernameValidators: UsernameValidators,
   ) {
     super(userService, route, snackbar, ws, log, router);
   }

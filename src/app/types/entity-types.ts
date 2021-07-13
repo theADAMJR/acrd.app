@@ -55,6 +55,13 @@ export namespace Lean {
     embed?: MessageTypes.Embed;
     updatedAt?: Date;
   }
+  export interface Theme {
+    id: string;
+    name: string;
+    styles: Date;
+    author: Lean.User;
+    createdAt: Date;
+  }
   export interface Role {
     id: string;
     color?: string;

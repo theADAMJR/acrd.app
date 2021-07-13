@@ -50,7 +50,7 @@
     
   <a *ngIf="perms.can(guild.id, 'MANAGE_GUILD')"
     class="dropdown-item"
-    [routerLink]="'/channels/' + guild.id + '/settings'"
+    (click)="dialog.guildSettings()"
     mat-menu-item><i class="lni lni-cog"></i> Guild Settings</a>
     
   <a *ngIf="perms.can(guild.id, 'MANAGE_CHANNELS')"

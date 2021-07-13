@@ -9,6 +9,8 @@ import { Lean } from '../types/entity-types';
 import { ChangelogComponent } from '../components/dialog/changelog/changelog.component';
 import { UserSettingsComponent } from '../components/dialog/user-settings/user-settings.component';
 import { GuildSettingsComponent } from '../components/dialog/guild-settings/guild-settings.component';
+import { ThemesComponent } from '../components/dialog/themes/themes.component';
+import { DevComponent } from '../components/dialog/dev/dev.component';
 
 @Injectable({
   providedIn: 'root'
@@ -47,5 +49,13 @@ export class DialogService {
 
   public async guildSettings() {
     this.dialog.open(GuildSettingsComponent, { width: '750px' });
+  }
+
+  public async dev() {
+    this.dialog.open(DevComponent, { width: '750px' });
+  }
+
+  public async themes() {
+    this.dialog.open(ThemesComponent, { width: '750px' });
   }
 }

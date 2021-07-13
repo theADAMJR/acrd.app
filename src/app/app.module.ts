@@ -53,6 +53,10 @@ import { OverviewComponent } from './pages/channels/me/overview/overview.compone
 import { CommonModule } from '@angular/common';
 import { TabMenuComponent } from './components/dialog/tab-menu/tab-menu.component';
 import { PreferencesComponent } from './components/dialog/user-settings/preferences/preferences.component';
+import { ThemesComponent } from './components/dialog/themes/themes.component';
+import { DevComponent } from './components/dialog/dev/dev.component';
+import { ApplyComponent } from './components/dialog/themes/apply/apply.component';
+import { CreateComponent } from './components/dialog/themes/create/create.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +103,10 @@ import { PreferencesComponent } from './components/dialog/user-settings/preferen
     OverviewComponent,
     TabMenuComponent,
     PreferencesComponent,
+    ThemesComponent,
+    DevComponent,
+    ApplyComponent,
+    CreateComponent,
   ],
   imports: [
     AppRoutingModule,

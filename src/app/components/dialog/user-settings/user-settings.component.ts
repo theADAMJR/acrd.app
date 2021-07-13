@@ -9,4 +9,3 @@ export class UserSettingsComponent {
   public tabs = ['OVERVIEW', 'PREFERENCES', 'ACCOUNT'];
   public defaultTab = this.tabs[0];
 }
-
