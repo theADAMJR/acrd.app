@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/api/user.service';
-import { Lean } from 'src/app/types/entity-types';
+import { ConfigService } from 'src/app/services/config.service';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-theme-apply',
@@ -8,5 +9,11 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./apply.component.css']
 })
 export class ApplyComponent {  
-  constructor(public userService: UserService) {}
+  public defaultThemes = ['HORIZON', 'TWILIGHT'];
+
+  constructor(
+    public config: ConfigService,
+    public themes: ThemeService,
+    public userService: UserService,
+  ) {}
 }

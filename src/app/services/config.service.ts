@@ -12,7 +12,6 @@ const defaultValues = {
   providedIn: 'root'
 })
 export class ConfigService {
-
   public init() {
     for (const key in defaultValues) {
       const currentValue = localStorage.getItem(key);

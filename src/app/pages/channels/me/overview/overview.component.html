@@ -4,8 +4,12 @@
     <div
       class="navbar-nav"
       cdkDropList>
-      <a (click)="dialog.dev()"><i class="lni lni-code"></i> Bots</a>
-      <a (click)="dialog.themes()"><i class="lni lni-paint-roller"></i> Themes</a>
+      <a (click)="dialog.dev()" class="cursor-pointer">
+        <i class="lni lni-code"></i> Bots
+      </a>
+      <a (click)="dialog.themes()" class="cursor-pointer">
+        <i class="lni lni-paint-roller"></i> Themes
+      </a>
     </div>
   </div>
   <div id="content">

@@ -18,6 +18,8 @@ export class ThemeService {
   }
 
   public init() {
+    // load inline theme from API
+
     document
       .querySelector('html')
       .setAttribute('theme', this.config.getValue('theme'));
