@@ -9,11 +9,14 @@ import { WSService } from 'src/app/services/ws.service';
 import { Partial } from 'src/app/types/ws-types';
 
 @Component({
-  selector: 'app-guild-settings',
-  templateUrl: './guild-settings.component.html',
-  styleUrls: ['./guild-settings.component.css']
+  selector: 'app-guild-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.css']
 })
-export class GuildSettingsComponent extends ModuleConfig implements OnInit {
+export class OverviewComponent extends ModuleConfig implements OnInit {
+  public tabs = ['OVERVIEW', 'INVITES', 'ROLES'];
+  public defaultTab = this.tabs[0];
+
   public get previewGuild() {
     return {
       ...this.guild,

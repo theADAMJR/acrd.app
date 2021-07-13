@@ -9,8 +9,8 @@ import { patterns, UserTypes } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-user-account',
-  templateUrl: './user-account.component.html',
-  styleUrls: ['./user-account.component.css']
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css']
 })
 export class UserAccountComponent implements OnInit {
   public passwordForm = new FormGroup({
@@ -75,5 +75,12 @@ export class UserAccountComponent implements OnInit {
       await this.log.error(error.message);
       this.passwordForm.setErrors({ oldPasswordInvalid: true });
     }
+  }
+
+  public async deleteSelf() {
+    const confirmation = prompt(`Please type your username to confirm this.\nWarning: this action is irreversible and your account cannot be recovered.`);
+    if (confirmation !== this.userService.self.username) return;
+    
+    await this.userService.deleteSelf();
   }
 }

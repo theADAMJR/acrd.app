@@ -1,0 +1,151 @@
+<div class="col-lg-3 side-nav navbar-dark">
+  <div
+    (cdkDropListDropped)="moveRole($event)"
+    class="navbar-nav"
+    cdkDropList>
+    <a
+      *ngFor="let role of guild.roles.slice().reverse(); trackBy: identify"
+      (click)="selectRole(role)"
+      (contextmenu)="dialog.openMenu($event, menuTrigger)"
+      [style.color]="role.color + '!important'"
+      [class.active]="selectedRole?.id === role.id"
+      [matMenuTriggerFor]="contextMenu"
+      [matMenuTriggerData]="{role:role}"
+      #menuTrigger="matMenuTrigger"
+      class="nav-item nav-link"
+      cdkDrag>
+      <span
+        (click)="selectRole(role) && $event.stopPropagation()"
+        class="d-flex">{{ role.name }}</span>
+    </a>
+    <div class="float-right">
+      <button
+        (click)="newRole()"
+        class="btn bg-transparent bg-success text-dark mt-2 mx-3"
+        mat-button>New Role</button>
+    </div>
+  </div>
+
+  <hr class="my-4">
+
+  <p class="text-muted">Members use the color of the highest role they have in this list.</p>
+</div>
+<div class="col-lg-9 role-details">
+  <form
+    *ngIf="selectedRole"
+    #f="ngForm"
+    [formGroup]="form">
+    <p *ngIf="selectedRole.name === '@everyone'">
+      <span class="mention p-1 rounded">{{ selectedRole.name }}</span> is the default role, and decides what everyone can do in {{ guild.name }}.
+    </p>
+    
+    <hr>
+
+    <div>
+      <div class="row">
+        <div class="col-lg-4 col-md-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Role Name</mat-label>
+            <input
+              [readonly]="isEveryone"
+              formControlName="name"
+              type="text"
+              matInput
+              validate>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+          <mat-form-field
+            appearance="outline"
+            class="ml-sm-2">
+            <mat-label>Role Color</mat-label>            
+            <input
+              (colorPickerChange)="openSaveChanges()"
+              (colorPickerChange)="form.get('color').setValue($event)"
+              [(colorPicker)]="presetColors[1]"
+              [cpPresetColors]="presetColors"
+              formControlName="color"
+              matInput
+              validate>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <p class="category text-muted pl-0">Role</p>
+
+      <div>
+        <span>Display role members separately</span>
+        <mat-slide-toggle 
+          formControlName="hoisted"
+          class="float-right"
+          [disabled]="isEveryone"
+          validate></mat-slide-toggle>
+        <hr>
+      </div>
+      <hr>
+    </div>
+  </form>
+
+  <form
+    *ngIf="selectedRole"
+    #f="ngForm"
+    [formGroup]="permissionsForm">
+    
+    <div *ngFor="let container of description | keyvalue">
+      <p class="category text-muted pl-0">{{ container.key | snakeToSentenceCase }}</p>
+      <div
+        [formGroupName]="container.key"
+        class="form-group">
+        <div *ngFor="let item of description[container.key] | keyvalue">
+          <span [matTooltip]="item.value" class="cursor-pointer">
+            <i class="fas fa-info-circle mr-1"></i>
+          </span>
+          <span>{{ item.key | snakeToSentenceCase }}</span>
+          <mat-slide-toggle 
+            [formControlName]="item.key"
+            class="float-right"></mat-slide-toggle>
+          <hr>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <button
+        (click)="setPermissions(0)"
+        class="bg-light text-dark"
+        mat-button>Clear Permissions</button>
+        <button
+          (click)="setPermissions()"
+          class="bg-warning text-dark ml-sm-2 mt-2"
+          mat-button>Default Permissions</button>
+      <button
+        *ngIf="!isEveryone"
+        (click)="deleteRole()"
+        class="btn bg-danger text-light ml-sm-2 mt-2"
+        mat-button>Delete Role</button>
+    </div>
+  </form>
+</div>
+
+<mat-menu
+  matMenuContent
+  #contextMenu>
+  <ng-template
+    let-role="role"
+    matMenuContent>
+    <h6 class="p-2 text-center">{{ role.name }}</h6>
+    <div class="mt-2 p-2">
+      <i class="fas fa-hashtag"></i>
+      <code> {{ guild.roles.indexOf(role) }}</code>
+    </div>
+
+    <div
+      *ngIf="config.get('developerMode')"
+      (click)="$event.stopPropagation()"
+      class="mt-2 p-2">
+      <i class="lni lni-dev"></i>
+      <code> {{ role.id }}</code>
+    </div>
+  </ng-template>
+</mat-menu>

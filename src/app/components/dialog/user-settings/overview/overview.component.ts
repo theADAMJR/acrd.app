@@ -1,30 +1,23 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatSelect } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LogService } from 'src/app/services/log.service';
-import { ThemeService } from 'src/app/services/theme.service';
-import { UserService } from 'src/app/services/api/user.service';
-import { WSService } from 'src/app/services/ws.service';
 import { UsernameValidators } from 'src/app/pages/auth/sign-up/username.validators';
 import { UserConfig } from 'src/app/pages/channels/components/user-config';
-import { environment } from 'src/environments/environment';
-import { Lean, patterns } from 'src/app/types/entity-types';
-import faker from 'faker';
+import { UserService } from 'src/app/services/api/user.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { LogService } from 'src/app/services/log.service';
+import { ThemeService } from 'src/app/services/theme.service';
+import { WSService } from 'src/app/services/ws.service';
+import { Lean, patterns } from 'src/app/types/entity-types';
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-user-settings',
-  templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.css'],
+  selector: 'app-user-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.css']
 })
-export class UserSettingsComponent extends UserConfig implements AfterViewInit {
-  @ViewChild('themeSelect')
-  public themeSelect: MatSelect;
-  public environment = environment;
-  public previewMessages: Lean.Message[] = [];
-
+export class OverviewComponent extends UserConfig implements AfterViewInit {
   public readonly avatarNames = [
     'avatar_aqua',
     'avatar_coffee',
@@ -44,7 +37,6 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
   }
 
   constructor(
-    public config: ConfigService,
     route: ActivatedRoute,
     router: Router,
     userService: UserService,
@@ -59,21 +51,6 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
 
   public async ngAfterViewInit() {
     await super.init();
-
-    const messageCount = 3;
-    for (let i = 0; i < messageCount; i++)
-      this.previewMessages.push({
-        authorId: this.user.id,
-        content: faker.lorem.sentence(),
-        channelId: '',
-        createdAt: new Date(),
-      } as any);      
-
-    this.themeSelect
-      ?.writeValue(localStorage
-        .getItem('theme') ?? this.themes.defaultTheme);
-
-    this.themes.init();    
   }
 
   public buildForm(user: Lean.User): FormGroup | Promise<FormGroup> {
@@ -93,12 +70,5 @@ export class UserSettingsComponent extends UserConfig implements AfterViewInit {
     this.form
       .get('avatarURL')
       .setValue(`${environment.endpoint}/avatars/${name}.png`);
-  }
-
-  public async deleteSelf() {
-    const confirmation = prompt(`Please type your username to confirm this.\nWarning: this action is irreversible and your account cannot be recovered.`);
-    if (confirmation !== this.userService.self.username) return;
-    
-    await this.userService.deleteSelf();
   }
 }

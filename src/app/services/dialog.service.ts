@@ -8,6 +8,7 @@ import { ProfileComponent } from '../components/dialog/profile/profile.component
 import { Lean } from '../types/entity-types';
 import { ChangelogComponent } from '../components/dialog/changelog/changelog.component';
 import { UserSettingsComponent } from '../components/dialog/user-settings/user-settings.component';
+import { GuildSettingsComponent } from '../components/dialog/guild-settings/guild-settings.component';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,10 @@ export class DialogService {
   }
 
   public async userSettings() {
-    const dialog = this.dialog.open(UserSettingsComponent, { width: '750px' });
-    await dialog.componentInstance.ngAfterViewInit();
+    this.dialog.open(UserSettingsComponent, { width: '750px' });
+  }
+
+  public async guildSettings() {
+    this.dialog.open(GuildSettingsComponent, { width: '750px' });
   }
 }

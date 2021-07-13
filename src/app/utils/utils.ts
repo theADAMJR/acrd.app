@@ -56,7 +56,7 @@ export function timestamp(date: Date) {
   const timestamp = date.toTimeString().slice(0, 5);
   
   if (getDaysAgo(date))
-    return `Today at ${timestamp}`;
+    return timestamp;
   else if (getDaysAgo(date, -1))
     return `Yesterday at ${timestamp}`;
   else if (getDaysAgo(date, 1))

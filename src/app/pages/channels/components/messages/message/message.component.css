@@ -22,9 +22,6 @@ app-avatar-url {
 	cursor:pointer;
 	padding-bottom:5px;
 }
-.username:hover {
-	text-decoration:underline;
-}
 	
 .message-group:last-of-type,.message-group:last-of-type:after {
 	border-bottom:none;

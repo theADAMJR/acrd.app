@@ -1,0 +1,22 @@
+<div class="col-lg-3 col-md-4 col-md-12">
+  <div class="pt-4">
+    <label for="sfxEnabled">Enable Sound Effects</label>
+    <mat-checkbox
+      id="sfxEnabled"
+      (input)="config.toggle('sfxEnabled')"
+      [checked]="config.get('sfxEnabled')"
+      class="ml-2"></mat-checkbox>
+  </div>
+</div>
+
+<div class="col-lg-3 col-md-4 col-md-12">
+  <div class="pt-4">
+    <label for="developerMode">Enable Developer Mode</label>
+    <mat-checkbox
+      id="developerMode"
+      (input)="config.set('developerMode', developerModeInput.checked)"
+      [checked]="config.get('developerMode')"
+      class="ml-2"
+      #developerModeInput></mat-checkbox>
+  </div>
+</div>

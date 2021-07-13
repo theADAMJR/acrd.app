@@ -1,0 +1,41 @@
+<div
+  *ngFor="let invite of invites"
+  class="col-12">
+  <zippy [title]="invite.id">
+    <div class="row">
+      <div class="col-md-4">
+        <span>Created By</span>
+        <member-username [user]="userService.getCached(invite.inviterId)"></member-username>              
+      </div>
+      <div class="col-md-2">
+        <div><strong>Uses</strong></div>
+        <code>{{ usesString(invite) }}</code>
+      </div>
+      <div class="col-md-2">
+        <div><strong>Created At</strong></div>
+        <code>{{ invite.createdAt | date:'medium' }}</code>
+      </div>
+      <div class="col-md-2">
+        <div><strong>Expires</strong></div>
+        <code>{{ (invite.options.expiresAt | date) || 'Never' }}</code>
+      </div>
+      <div class="col-md-2">
+        <div
+          (click)="delete(invite.id)"
+          matTooltip="Delete"
+          class="float-right">
+          <button class="bg-danger" mat-button>
+            <i class="lni lni-close text-light"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </zippy>
+</div>
+
+<div *ngIf="invites?.length <= 0">
+  <span>
+    <i class="fas fa-info-circle mr-2"></i>
+    <span>No invites created yet.</span>
+  </span>
+</div>

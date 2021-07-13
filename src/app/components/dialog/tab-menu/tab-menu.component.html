@@ -1,0 +1,15 @@
+<input
+  type="hidden"
+  [value]="defaultTab"
+  #option>
+
+<nav class="nav nav-pills flex-column flex-sm-row">
+  <a *ngFor="let tab of tabs"
+    class="flex-sm-fill text-sm-center nav-link active cursor-pointer"
+    [class.active]="tab === defaultTab"
+    (click)="option.value = tab">{{ tab | snakeToSentenceCase }}</a>
+</nav>
+
+<div class="content row" [ngSwitch]="option.value">
+  <ng-content></ng-content>
+</div>

@@ -8,18 +8,17 @@ import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/api/guild.service';
 import { LogService } from 'src/app/services/log.service';
 import { WSService } from 'src/app/services/ws.service';
-import { Lean, PermissionTypes } from '../../../../../types/entity-types';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { array } from 'src/app/utils/utils';
+import { Lean, PermissionTypes } from '../../../../types/entity-types';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
-  selector: 'app-roles-component',
+  selector: 'app-guild-roles',
   templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.css', '../overview/guild-settings.component.css']
+  styleUrls: ['./roles.component.css']
 })
 export class RolesComponent extends ModuleConfig implements OnInit {
   public selectedRole: Lean.Role;
-  public presetColors = [ '#6E8481', '#A2B6AD', '#576067' ];
+  public presetColors = ['#6E8481', '#A2B6AD', '#576067'];
   public description/**: DescriptionType */ = {
     general: {
       'ADMINISTRATOR': `Gives all permissions. This is a dangerous permission.`,

@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from 'src/app/services/api/guild.service';
-import { LogService } from 'src/app/services/log.service';
 import { UserService } from 'src/app/services/api/user.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Component({
-  selector: 'app-invites',
+  selector: 'app-guild-invites',
   templateUrl: './invites.component.html',
-  styleUrls: ['./invites.component.css', '../overview/guild-settings.component.css']
+  styleUrls: ['./invites.component.css']
 })
 export class InvitesComponent implements OnInit {
   public invites: Lean.Invite[];

@@ -21,7 +21,6 @@ import { SaveChangesComponent } from './pages/channels/components/save-changes/s
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MemberUsernameComponent } from './pages/channels/components/member-username/member-username.component';
 import { ZippyComponent } from './components/zippy/zippy.component';
-import { environment } from 'src/environments/environment';
 import { SnakeToSentenceCasePipe } from './pipes/snake-to-sentence-case.pipe';
 import { DurationStringPipe } from './pipes/duration-string.pipe';
 import { WavesComponent } from './components/waves/waves.component';
@@ -31,17 +30,13 @@ import { TextChannelComponent } from './pages/channels/guild/text-channel/text-c
 import { CreateInviteComponent } from './components/dialog/create-invite/create-invite.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
-import { GuildSettingsComponent } from './pages/channels/guild/guild-settings/overview/guild-settings.component';
-import { RolesComponent } from './pages/channels/guild/guild-settings/roles/roles.component';
-import { InvitesComponent } from './pages/channels/guild/guild-settings/invites/invites.component';
 import { MessageEmbedComponent } from './pages/channels/components/messages/message-embed/message-embed.component';
 import { MessageComponent } from './pages/channels/components/messages/message/message.component';
 import { MemberListComponent } from './pages/channels/guild/member-list/member-list.component';
 import { ApplicationComponent } from './pages/dev/app/application.component';
 import { BotUserComponent } from './pages/dev/bot-user/bot-user.component';
 import { AvatarUrlComponent } from './pages/channels/components/avatar-url/avatar-url.component';
-import { UserAccountComponent } from './pages/channels/me/settings/user-account/user-account.component';
-import { SettingsSidebarComponent } from './pages/channels/components/settings-sidebar/settings-sidebar.component';
+import { UserAccountComponent } from './components/dialog/user-settings/account/account.component';
 import { SubmarineComponent } from './components/cool/submarine/submarine.component';
 import { InviteComponent } from './pages/invite/invite.component';
 import { CreateChannelComponent } from './components/dialog/create-channel/create-channel.component';
@@ -54,8 +49,10 @@ import { TimestampPipe } from './pipes/timestamp.pipe';
 import { ChangelogComponent } from './components/dialog/changelog/changelog.component';
 import { AlertErrorHandler } from './alert-error.handler';
 import { DevelopersComponent } from './pages/dev/developers.component';
-import { UserSettingsComponent } from './pages/channels/me/settings/user-settings/user-settings.component';
 import { OverviewComponent } from './pages/channels/me/overview/overview.component';
+import { CommonModule } from '@angular/common';
+import { TabMenuComponent } from './components/dialog/tab-menu/tab-menu.component';
+import { PreferencesComponent } from './components/dialog/user-settings/preferences/preferences.component';
 
 @NgModule({
   declarations: [
@@ -83,17 +80,12 @@ import { OverviewComponent } from './pages/channels/me/overview/overview.compone
     TextChannelComponent,
     CreateInviteComponent,
     MessageEmbedComponent,
-    GuildSettingsComponent,
-    RolesComponent,
-    InvitesComponent,
-    UserSettingsComponent,
     MemberListComponent,
     DevelopersComponent,
     ApplicationComponent,
     BotUserComponent,
     AvatarUrlComponent,
     UserAccountComponent,
-    SettingsSidebarComponent,
     SubmarineComponent,
     InviteComponent,
     CreateChannelComponent,
@@ -105,17 +97,20 @@ import { OverviewComponent } from './pages/channels/me/overview/overview.compone
     TimestampPipe,
     ChangelogComponent,
     OverviewComponent,
+    TabMenuComponent,
+    PreferencesComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
     InfiniteScrollModule,
-    PickerModule
+    PickerModule,
   ],
   providers: [
     { provide: ErrorHandler, useClass: AlertErrorHandler },
