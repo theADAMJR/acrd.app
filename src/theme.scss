@@ -1,9 +1,10 @@
+@use '~@angular/material' as mat;
 // https://stackoverflow.com/questions/41440998/how-can-i-use-custom-theme-palettes-in-angular
 // to generate palettes
 
 @import '~@angular/material/theming';
 
-@include mat-core();
+@include mat.core();
 
 body {  
   background-color: var(--background-primary) !important;
@@ -108,13 +109,13 @@ $secondary-palette: (
   )
 );
 
-$primary: mat-palette($primary-palette);
-$secondary: mat-palette($secondary-palette);
-$warn: mat-palette($mat-yellow);
+$primary: mat.define-palette($primary-palette);
+$secondary: mat.define-palette($secondary-palette);
+$warn: mat.define-palette(mat.$yellow-palette);
 
-$theme: mat-dark-theme($primary, $secondary, $warn);
+$theme: mat.define-dark-theme($primary, $secondary, $warn);
 
-@include angular-material-theme($theme);
+@include mat.all-component-themes($theme);
 
 // utils
 
