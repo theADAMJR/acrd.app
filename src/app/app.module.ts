@@ -111,7 +111,6 @@ import { CreateComponent } from './components/dialog/themes/create/create.compon
   imports: [
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
