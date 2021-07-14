@@ -18,7 +18,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent extends UserConfig implements AfterViewInit {
+export class UserOverviewComponent extends UserConfig implements AfterViewInit {
   public readonly avatarNames = [
     'avatar_aqua',
     'avatar_coffee',
@@ -65,6 +65,10 @@ export class OverviewComponent extends UserConfig implements AfterViewInit {
         Validators.pattern(patterns.username),
       ], [ this.usernameValidators.shouldBeUnique.bind(this.usernameValidators) ]),
     });
+  }
+
+  public getAvatar(name: string) {
+    return `${environment.endpoint}/avatars/${name}.png`;
   }
 
   public setAvatar(name: string) {        

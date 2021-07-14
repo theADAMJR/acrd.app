@@ -1,6 +1,9 @@
-<!-- <app-tab-menu [tabs]="tabs" [defaultTab]="defaultTab">
+<app-tab-menu
+  [tabs]="tabs"
+  [defaultTab]="defaultTab"
+  #menu></app-tab-menu>
+
+<div class="content row" [ngSwitch]="menu.option">
   <app-theme-apply *ngSwitchDefault></app-theme-apply>
   <app-theme-create *ngSwitchCase="'CREATE'"></app-theme-create>
-</app-tab-menu> -->
-
-<app-theme-apply></app-theme-apply>
+</div>

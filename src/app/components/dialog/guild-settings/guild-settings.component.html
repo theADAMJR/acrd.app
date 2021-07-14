@@ -1,5 +1,10 @@
-<app-tab-menu [tabs]="tabs" [defaultTab]="defaultTab">
-  <app-guild-overview *ngSwitchDefault></app-guild-overview>
+<app-tab-menu
+  [tabs]="tabs"
+  [defaultTab]="defaultTab"
+  #menu></app-tab-menu>
+
+<div class="content row" [ngSwitch]="menu.option">
+  <app-guild-settings-overview *ngSwitchDefault></app-guild-settings-overview>
   <app-guild-invites *ngSwitchCase="'INVITES'"></app-guild-invites>
   <app-guild-roles *ngSwitchCase="'ROLES'"></app-guild-roles>
-</app-tab-menu>
+</div>

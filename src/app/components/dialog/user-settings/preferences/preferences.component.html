@@ -1,22 +1,24 @@
-<div class="col-lg-3 col-md-4 col-md-12">
-  <div class="pt-4">
-    <label for="sfxEnabled">Enable Sound Effects</label>
-    <mat-checkbox
-      id="sfxEnabled"
-      (input)="config.toggle('sfxEnabled')"
-      [checked]="config.get('sfxEnabled')"
-      class="ml-2"></mat-checkbox>
+<div class="row">
+  <div class="col-6">
+    <div class="pt-4">
+      <label for="sfxEnabled">Enable Sound Effects</label>
+      <mat-slide-toggle
+        id="sfxEnabled"
+        (input)="config.toggle('sfxEnabled')"
+        [checked]="config.get('sfxEnabled')"
+        class="ml-2"></mat-slide-toggle>
+    </div>
   </div>
-</div>
-
-<div class="col-lg-3 col-md-4 col-md-12">
-  <div class="pt-4">
-    <label for="developerMode">Enable Developer Mode</label>
-    <mat-checkbox
-      id="developerMode"
-      (input)="config.set('developerMode', developerModeInput.checked)"
-      [checked]="config.get('developerMode')"
-      class="ml-2"
-      #developerModeInput></mat-checkbox>
+  
+  <div class="col-6">
+    <div class="pt-4">
+      <label for="developerMode">Enable Developer Mode</label>
+      <mat-slide-toggle
+        id="developerMode"
+        (input)="config.set('developerMode', developerModeInput.checked)"
+        [checked]="config.get('developerMode')"
+        class="ml-2"
+        #developerModeInput></mat-slide-toggle>
+    </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler, Injectable } from '@angular/core';
+import { NgModule, ErrorHandler, Injectable, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowOnDirtyErrorStateMatcher, ErrorStateMatcher } from '@angular/material/core';
@@ -50,13 +50,18 @@ import { ChangelogComponent } from './components/dialog/changelog/changelog.comp
 import { AlertErrorHandler } from './alert-error.handler';
 import { DevelopersComponent } from './pages/dev/developers.component';
 import { OverviewComponent } from './pages/channels/me/overview/overview.component';
-import { CommonModule } from '@angular/common';
 import { TabMenuComponent } from './components/dialog/tab-menu/tab-menu.component';
 import { PreferencesComponent } from './components/dialog/user-settings/preferences/preferences.component';
 import { ThemesComponent } from './components/dialog/themes/themes.component';
 import { DevComponent } from './components/dialog/dev/dev.component';
 import { ApplyComponent } from './components/dialog/themes/apply/apply.component';
 import { CreateComponent } from './components/dialog/themes/create/create.component';
+import { UserOverviewComponent } from './components/dialog/user-settings/overview/overview.component';
+import { RolesComponent } from './components/dialog/guild-settings/roles/roles.component';
+import { InvitesComponent } from './components/dialog/guild-settings/invites/invites.component';
+import { UserSettingsComponent } from './components/dialog/user-settings/user-settings.component';
+import { GuildSettingsComponent } from './components/dialog/guild-settings/guild-settings.component';
+import { GuildSettingsOverviewComponent } from './components/dialog/guild-settings/overview/overview.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +112,12 @@ import { CreateComponent } from './components/dialog/themes/create/create.compon
     DevComponent,
     ApplyComponent,
     CreateComponent,
+    UserOverviewComponent,
+    RolesComponent,
+    InvitesComponent,
+    UserSettingsComponent,
+    GuildSettingsComponent,
+    GuildSettingsOverviewComponent,
   ],
   imports: [
     AppRoutingModule,

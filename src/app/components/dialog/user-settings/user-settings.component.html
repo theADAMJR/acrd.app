@@ -1,6 +1,10 @@
-<app-tab-menu [tabs]="tabs" [defaultTab]="defaultTab">
-  <!-- Can't bind to 'ngSwitchCase' since it isn't a known property of 'app-user-account'. -->
+<app-tab-menu
+  [tabs]="tabs"
+  [defaultTab]="defaultTab"
+  #menu></app-tab-menu>
+
+<div class="content row" [ngSwitch]="menu.option">
   <app-user-overview *ngSwitchDefault></app-user-overview>
   <app-user-preferences *ngSwitchCase="'PREFERENCES'"></app-user-preferences>
   <app-user-account *ngSwitchCase="'ACCOUNT'"></app-user-account>
-</app-tab-menu>
+</div>
