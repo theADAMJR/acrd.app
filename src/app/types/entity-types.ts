@@ -186,6 +186,7 @@ export namespace UserTypes {
     lastReadMessages: {
       [k: string]: string
     };
+    themes: string[];
     ignored: {
       channelIds: string[];
       guildIds: string[];

@@ -57,12 +57,13 @@ button {
   height: inherit;
 }
 
-.guild-icon .add-guild {
+.add-guild {
   font-size: 40px;
-  color: var(--tertiary);
+  transition: color .3s ease;
+  color: var(--secondary) !important;
 }
 .add-guild:hover {
-  background-color: var(--primary);
+  color: var(--primary) !important;
 }
 
 .guild-seperator {

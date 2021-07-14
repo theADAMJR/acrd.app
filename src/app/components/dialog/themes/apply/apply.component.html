@@ -5,7 +5,7 @@
     <div
       (click)="themes.changeTheme(theme.id)"
       [class.border.border-success]="name === config.get('theme')"
-      class="rounded bg-secondary cursor-pointer p-3">{{ theme.name | slice:0:3 }}</div>
+      class="rounded bg-secondary cursor-pointer text-center py-4 px-1">{{ theme.name | slice:0:3 }}</div>
   </div>    
   <div
     *ngFor="let name of defaultThemes"
@@ -13,7 +13,7 @@
     <div
       (click)="themes.changeTheme(name)"
       [class.border.border-success]="name === config.get('theme')"
-      class="rounded bg-tertiary cursor-pointer p-3">{{ name | slice:0:3 }}</div>
+      class="rounded bg-tertiary cursor-pointer text-center py-4 px-1">{{ name | slice:0:3 }}</div>
   </div>
 </div>
 
