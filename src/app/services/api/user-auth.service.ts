@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
 
@@ -8,10 +7,6 @@ import { UserService } from './user.service';
 export class UserAuthService {
   private endpoint = environment.endpoint;
 
-  public get loggedIn() {
-    const expired = new JwtHelperService().isTokenExpired(this.key);
-    return this.userService.self && !expired;
-  }
   public get key() {
     return localStorage.getItem('key');
   }

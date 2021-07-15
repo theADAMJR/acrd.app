@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import '~highlight.js/styles/arta.css';
 @import '~@ctrl/ngx-emoji-mart/picker.css';
-@import '~bootstrap-select/dist/css/bootstrap-select.min.css';
 @import 'assets/css/inter-font.css';
 @import 'assets/css/line-icons.css';
 @import '~tailwindcss/tailwind.css';

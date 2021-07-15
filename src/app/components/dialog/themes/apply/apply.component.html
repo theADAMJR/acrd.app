@@ -6,7 +6,7 @@
       (click)="themes.changeTheme(theme.id)"
       [class.border.border-success]="theme.name === config.get('theme')"
       class="rounded bg-secondary cursor-pointer text-center py-4 px-1">{{ theme.name | slice:0:3 }}</div>
-  </div>    
+  </div>
   <div
     *ngFor="let name of defaultThemes"
     class="col-lg-2 col-3">

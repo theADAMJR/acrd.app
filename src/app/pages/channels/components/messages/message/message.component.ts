@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { toHTML } from 'discord-markdown';
 import { textEmoji } from 'markdown-to-text-emoji';
 import { ConfigService } from 'src/app/services/config.service';
 import { DialogService } from 'src/app/services/dialog.service';
@@ -63,35 +62,10 @@ export class MessageComponent implements OnInit {
   }
 
   public get processed() {
-    if (this.isEditing) return this.message.content;
-
-    const getRole = (id: string) => this.guild?.roles.find(r => r.id === id);
-    const getUser = (id: string) => this.userService.getCached(id);
-
-    const getMention = (html: string, condition: boolean) => {
-      return (condition)
-        ? `<span matTooltip="test" class="self-mention">${html}</span>`
-        : html;
-    };
-
-    const recipientHasRole = this.guildService
-      .getMember(this.guild?.id, this.userService.self.id)?.roleIds
-      .some(id => this.guild?.roles.some(r => r.id === id));
+    if (this.isEditing)
+      return this.message.content;
   
-    return toHTML(textEmoji(this.message.content), {
-      discordCallback: {
-        user: (node) => getMention(
-          `@${getUser(node.id)?.username ?? `Unknown User`}`,
-          this.userService.self.id === node.id),
-
-        role: (node) => getMention(
-          `@${getRole(node.id)?.name ?? `Invalid Role`}`,
-          recipientHasRole),
-
-        everyone: (node) => getMention(`@everyone`, true),
-        here: (node) => getMention(`@here`, this.userService.self.status !== 'OFFLINE')
-      }
-    });
+    return textEmoji(this.message.content);
   }
 
   public get selfIsAuthor() {
