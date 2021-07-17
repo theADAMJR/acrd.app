@@ -52,7 +52,7 @@ export class PingService {
     return this.unread.get(channelId);
   }
 
-  public isGuildUnread(guild: Lean.Guild) {
+  public isGuildUnread(guild: Lean.Guild) {    
     return guild.channels.some(c => this.unread.has(c.id));
   }
 

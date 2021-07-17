@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModuleConfig } from 'src/app/pages/channels/components/module-config';
+import { GuildConfig } from 'src/app/pages/channels/components/guild-config';
 import { GuildService } from 'src/app/services/api/guild.service';
 import { LogService } from 'src/app/services/log.service';
+import { RedirectService } from 'src/app/services/redirect.service';
 import { WSService } from 'src/app/services/ws.service';
 import { Partial } from 'src/app/types/ws-types';
 
@@ -13,7 +14,7 @@ import { Partial } from 'src/app/types/ws-types';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class GuildSettingsOverviewComponent extends ModuleConfig implements OnInit {
+export class GuildSettingsOverviewComponent extends GuildConfig implements OnInit {
   public tabs = ['OVERVIEW', 'INVITES', 'ROLES'];
   public defaultTab = this.tabs[0];
 
@@ -26,6 +27,7 @@ export class GuildSettingsOverviewComponent extends ModuleConfig implements OnIn
   }
 
   constructor(
+    protected redirects: RedirectService,
     route: ActivatedRoute,
     router: Router,
     guildService: GuildService,
@@ -37,7 +39,7 @@ export class GuildSettingsOverviewComponent extends ModuleConfig implements OnIn
     }
 
   public async ngOnInit() {
-    await super.init();
+    await super.init();    
   }
 
   public buildForm(guild: Partial.Guild): FormGroup | Promise<FormGroup> {

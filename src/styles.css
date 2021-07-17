@@ -164,6 +164,7 @@ snack-bar-container.mat-snack-bar-container {
 
 .mat-dialog-container {
   background-color: var(--background-primary) !important;
+  max-height: 80vh !important;
 }
 .mat-dialog-container .mat-form-field-wrapper {
   padding-bottom: 0 !important;

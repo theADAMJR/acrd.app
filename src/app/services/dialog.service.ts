@@ -47,8 +47,8 @@ export class DialogService {
     this.dialog.open(UserSettingsComponent, { width: '750px' });
   }
 
-  public async guildSettings() {
-    this.dialog.open(GuildSettingsComponent, { width: '750px' });
+  public async guildSettings(data: { guild: Lean.Guild }) {
+    this.dialog.open(GuildSettingsComponent, { width: '750px', data });
   }
 
   public async dev() {

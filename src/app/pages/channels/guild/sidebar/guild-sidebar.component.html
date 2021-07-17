@@ -50,7 +50,7 @@
     
   <a *ngIf="perms.can(guild.id, 'MANAGE_GUILD')"
     class="dropdown-item"
-    (click)="dialog.guildSettings()"
+    (click)="dialog.guildSettings({ guild })"
     mat-menu-item><i class="lni lni-cog"></i> Guild Settings</a>
     
   <a *ngIf="perms.can(guild.id, 'MANAGE_CHANNELS')"

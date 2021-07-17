@@ -100,26 +100,4 @@ export abstract class UserConfig implements OnDestroy {
     this.form.valueChanges
       .subscribe(() => this.openSaveChanges()); 
   }
-
-  // input events
-
-  public add(event: MatChipInputEvent, array: any[]) {    
-    const { value, input } = event;
-  
-    if ((value || '').trim())
-      array.push(value.trim());
-  
-    if (input) 
-      input.value = '';
-
-    this.openSaveChanges();
-  }
-  
-  public remove(item: any, array: any[]) {
-    const index = array.indexOf(item);
-    if (index >= 0)
-      array.splice(index, 1);
-    
-    this.openSaveChanges();
-  }
 }

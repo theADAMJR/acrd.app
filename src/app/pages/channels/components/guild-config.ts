@@ -3,20 +3,18 @@ import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaveChangesComponent } from './save-changes/save-changes.component';
 import { GuildService } from '../../../services/api/guild.service';
-import {  OnDestroy, Directive } from '@angular/core';
-import { MatChipInputEvent } from '@angular/material/chips';
+import {  OnDestroy, Directive, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WSService } from '../../../services/ws.service';
 import { LogService } from '../../../services/log.service';
 import { Lean } from 'src/app/types/entity-types';
 
 @Directive()
-export abstract class ModuleConfig implements OnDestroy {
-  public form: FormGroup;
-  public guild: Lean.Guild;
-  public originalGuild: Lean.Guild;
+export abstract class GuildConfig implements OnDestroy {
+  @Input() public guild: Lean.Guild;
 
-  public get guildId() { return this.route.snapshot.paramMap.get('guildId'); }
+  public form: FormGroup;
+  public originalGuild: Lean.Guild;
 
   private saveChanges$: Subscription;  
   private valueChanges$: Subscription;  
@@ -29,11 +27,8 @@ export abstract class ModuleConfig implements OnDestroy {
     protected log: LogService,
     protected router: Router) {}
 
-  /**
-   * Load all required data for the form, and hook events.
-   */
-  public async init() {    
-    this.guild = this.guildService.getCached(this.guildId);
+  /** Load all required data for the form, and hook events. */
+  public async init() { 
     this.originalGuild = { ...this.guild };
     
     await this.resetForm();
@@ -47,10 +42,7 @@ export abstract class ModuleConfig implements OnDestroy {
     this.form = await this.buildForm(this.guild);
   }
 
-  /**
-   * Build the form to be used.
-   * Called when on form init.
-   */
+  /** Build the form to be used. Called when on form init. */
   public abstract buildForm(guild: Lean.Guild): FormGroup | Promise<FormGroup>;
   
   public openSaveChanges() {
@@ -76,9 +68,7 @@ export abstract class ModuleConfig implements OnDestroy {
     return false;
   }
 
-  /**
-   * Clean up subscriptions - to prevent memory leak.
-   */  
+  /** Clean up subscriptions - to prevent memory leak. */  
   public ngOnDestroy() {    
     this.valueChanges$?.unsubscribe();
     this.saveChanges$?.unsubscribe();
@@ -90,7 +80,7 @@ export abstract class ModuleConfig implements OnDestroy {
       if (!this.form.valid) return;
 
       await this.ws.emitAsync('GUILD_UPDATE', {
-        guildId: this.guildId,
+        guildId: this.guild.id,
         partialGuild: this.form.value,
       }, this);
     } catch (error) {
@@ -98,9 +88,7 @@ export abstract class ModuleConfig implements OnDestroy {
     }
   }
 
-  /**
-   * Reset form values, and rebuild form.
-   */
+  /** Reset form values, and rebuild form. */
   public async reset() {
     await this.resetForm();
     this.guild = { ...this.originalGuild };
@@ -113,32 +101,10 @@ export abstract class ModuleConfig implements OnDestroy {
     const confirmation = confirm(`Please confirm that you wish to delete ${this.guild.name}.`);
     if (!confirmation) return;
 
-    this.guildService.deleteGuild(this.guildId);
+    this.guildService.deleteGuild(this.guild.id);
 
     await this.router.navigate(['/channels']);
     await this.log.success();
-  }
-
-  // input events
-
-  public add(event: MatChipInputEvent, array: any[]) {    
-    const { value, input } = event;
-  
-    if ((value || '').trim())
-      array.push(value.trim());
-  
-    if (input) 
-      input.value = '';
-
-    this.openSaveChanges();
-  }
-  
-  public remove(item: any, array: any[]) {
-    const index = array.indexOf(item);
-    if (index >= 0)
-      array.splice(index, 1);
-    
-    this.openSaveChanges();
   }
 
   public getChannel(id: string) {

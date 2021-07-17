@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModuleConfig } from 'src/app/pages/channels/components/module-config';
+import { GuildConfig } from 'src/app/pages/channels/components/guild-config';
 import { ConfigService } from 'src/app/services/config.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { GuildService } from 'src/app/services/api/guild.service';
@@ -16,7 +16,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.css']
 })
-export class RolesComponent extends ModuleConfig implements OnInit {
+export class RolesComponent extends GuildConfig implements OnInit {
   public selectedRole: Lean.Role;
   public presetColors = ['#6E8481', '#A2B6AD', '#576067'];
   public description/**: DescriptionType */ = {
@@ -74,7 +74,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
     }
 
   public async ngOnInit() {
-    await super.init();
+    await super.init();    
 
     const everyoneRole = this.guild.roles.find(r => r.name === '@everyone');
     this.selectRole(everyoneRole);
@@ -152,7 +152,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   private async updateRole() {
     const { partialRole } = await this.ws.emitAsync('GUILD_ROLE_UPDATE', {
       roleId: this.selectedRole.id,
-      guildId: this.guildId,
+      guildId: this.guild.id,
       partialRole: this.form.value,
     }, this);
 
@@ -164,7 +164,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
 
   public async newRole() {
     const { role } = await this.ws.emitAsync('GUILD_ROLE_CREATE', {
-      guildId: this.guildId,
+      guildId: this.guild.id,
       partialRole: { ...this.form.value, name: 'New Role' },
     }, this);
 
@@ -174,7 +174,7 @@ export class RolesComponent extends ModuleConfig implements OnInit {
   public async deleteRole() {
     await this.ws.emitAsync('GUILD_ROLE_DELETE', {
       roleId: this.selectedRole.id,
-      guildId: this.guildId,
+      guildId: this.guild.id,
     }, this);    
     await this.selectRole(this.guild.roles[0]);
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GuildService } from 'src/app/services/api/guild.service';
 import { UserService } from 'src/app/services/api/user.service';
@@ -11,8 +11,8 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./invites.component.css']
 })
 export class InvitesComponent implements OnInit {
+  @Input() public guild: Lean.Guild;
   public invites: Lean.Invite[];
-  public guild: Lean.Guild;
 
   constructor(
     private route: ActivatedRoute,

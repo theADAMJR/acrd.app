@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Lean } from 'src/app/types/entity-types';
 
 @Component({
   selector: 'app-guild-settings',
@@ -8,4 +10,8 @@ import { Component } from '@angular/core';
 export class GuildSettingsComponent {
   public tabs = ['OVERVIEW', 'INVITES', 'ROLES'];
   public defaultTab = this.tabs[0];
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { guild: Lean.Guild },
+  ) {}
 }
