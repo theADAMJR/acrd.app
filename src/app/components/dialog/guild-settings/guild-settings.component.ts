@@ -8,7 +8,7 @@ import { Lean } from 'src/app/types/entity-types';
   styleUrls: ['./guild-settings.component.css']
 })
 export class GuildSettingsComponent {
-  public tabs = ['OVERVIEW', 'INVITES', 'ROLES'];
+  public tabs = ['OVERVIEW', 'INVITES', 'ROLES', 'ADVANCED'];
   public defaultTab = this.tabs[0];
 
   constructor(

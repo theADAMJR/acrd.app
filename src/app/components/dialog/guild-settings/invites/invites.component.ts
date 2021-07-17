@@ -15,16 +15,14 @@ export class InvitesComponent implements OnInit {
   public invites: Lean.Invite[];
 
   constructor(
-    private route: ActivatedRoute,
     private guildService: GuildService,
     public userService: UserService,
     private ws: WSService,
   ) {}
 
   public async ngOnInit() {
-    const guildId = this.route.snapshot.paramMap.get('guildId');
-    this.guild = this.guildService.getCached(guildId);
-    this.invites = await this.guildService.getInvites(guildId);
+    this.guild = this.guildService.getCached(this.guild.id);
+    this.invites = await this.guildService.getInvites(this.guild.id);
   }
 
   public usesString(invite: Lean.Invite) {

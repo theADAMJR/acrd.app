@@ -7,4 +7,5 @@
   <app-guild-settings-overview *ngSwitchDefault [guild]="data.guild"></app-guild-settings-overview>
   <app-guild-invites *ngSwitchCase="'INVITES'" [guild]="data.guild"></app-guild-invites>
   <app-guild-roles *ngSwitchCase="'ROLES'" [guild]="data.guild"></app-guild-roles>
+  <app-guild-settings-advanced *ngSwitchCase="'ADVANCED'" [guild]="data.guild"></app-guild-settings-advanced>
 </div>

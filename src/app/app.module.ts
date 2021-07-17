@@ -62,6 +62,7 @@ import { InvitesComponent } from './components/dialog/guild-settings/invites/inv
 import { UserSettingsComponent } from './components/dialog/user-settings/user-settings.component';
 import { GuildSettingsComponent } from './components/dialog/guild-settings/guild-settings.component';
 import { GuildSettingsOverviewComponent } from './components/dialog/guild-settings/overview/overview.component';
+import { AdvancedComponent } from './components/dialog/guild-settings/advanced/advanced.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +119,7 @@ import { GuildSettingsOverviewComponent } from './components/dialog/guild-settin
     UserSettingsComponent,
     GuildSettingsComponent,
     GuildSettingsOverviewComponent,
+    AdvancedComponent,
   ],
   imports: [
     AppRoutingModule,
