@@ -1,7 +1,7 @@
 import { Server } from 'socket.io';
 import { REST } from '../rest/server';
-import { Deps } from '../../../types/src/utils/deps';
-import { snowflake } from '../../../types/src/utils/snowflake';
+import { Deps } from '../../../utils/src/utils/deps';
+import { snowflake } from '../../../utils/src/utils/snowflake';
 
 export class WS {
   public readonly server = new Server();
