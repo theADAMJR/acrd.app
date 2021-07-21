@@ -5,7 +5,8 @@ import App from './components/app';
 import reportWebVitals from './reportWebVitals';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-svg-core/styles.css'
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import './theme/discord-theme.css';
 
 import { config } from 'dotenv';
 config({ path: '../env' });

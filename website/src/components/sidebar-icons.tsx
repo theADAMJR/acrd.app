@@ -15,7 +15,7 @@ class SidebarIcons extends React.Component<SidebarIconsProps, SidebarIconsState>
 
   render() { 
     return (
-      <div className="sidebar-icons">
+      <div className="sidebar-icons background-tertiary">
         {this.guildIcons}
       </div>
     );

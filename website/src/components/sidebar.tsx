@@ -18,7 +18,7 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
     return (
       <div className="sidebar">
         <SidebarIcons guilds={temp.guilds}></SidebarIcons>
-        <div className="sidebar-content">
+        <div className="sidebar-content background-secondary">
           Imported
           <SidebarFooter></SidebarFooter>
         </div>

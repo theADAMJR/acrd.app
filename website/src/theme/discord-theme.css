@@ -1,0 +1,44 @@
+:root {
+  --primary: #7289da;
+  --secondary: #99aab5;
+  --tertiary: #43b582;
+
+  --heading: white;
+  --font: #99aab5;
+
+  --background-primary: #36393f;
+  --background-secondary: #2f3136;
+  --background-tertiary: #202225;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--heading);
+}
+
+body {
+  color: var(--font);
+}
+
+.color-primary {
+  color: var(--primary) !important;
+}
+.color-secondary {
+  color: var(--secondary) !important;
+}
+.color-tertiary {
+  color: var(--tertiary) !important;
+}
+
+.background-primary {
+  background-color: var(--background-primary) !important;
+}
+.background-secondary {
+  background-color: var(--background-secondary) !important;
+}
+.background-tertiary {
+  background-color: var(--background-tertiary) !important;
+}

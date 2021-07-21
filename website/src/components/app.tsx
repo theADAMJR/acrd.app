@@ -10,7 +10,7 @@ export default function App() {
   return (
     <>
       <Sidebar></Sidebar>
-      <div className="content">
+      <div className="content background-primary">
         <AppNavbar></AppNavbar>
         <Guild guild={guild}></Guild>
       </div>
