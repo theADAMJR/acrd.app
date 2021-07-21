@@ -16,7 +16,7 @@ class SidebarContent extends React.Component<SidebarContentProps, SidebarContent
       <div className="flex flex-col sidebar-content background-secondary">
         <div className="sidebar-header">
           <div className="inline-flex justify-content-between">
-            <h1 className="flex-grow">{this.props.guild?.name}</h1>
+            <h1 className="flex-grow font-bold">{this.props.guild?.name}</h1>
             <FontAwesomeIcon icon={faChevronDown} />
           </div>
         </div>

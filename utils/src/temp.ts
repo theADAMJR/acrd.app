@@ -1,18 +1,26 @@
 import { snowflake } from './snowflake';
 
+const authorId = snowflake.generate();
+
 export const temp = {
   messages: [
     {
       id: snowflake.generate(),
       content: 'hi',
-      authorId: snowflake.generate(),
+      authorId: authorId,
       createdAt: new Date('07-21-2021 00:28:01'),
     },
     {
       id: snowflake.generate(),
       content: 'hi again',
-      authorId: snowflake.generate(),
+      authorId: authorId,
       createdAt: new Date('07-21-2021 03:33:00'),
+    },
+    {
+      id: snowflake.generate(),
+      content: 'hi again again',
+      authorId: authorId,
+      createdAt: new Date('07-21-2021 03:34:00'),
     }
   ],
   users: [

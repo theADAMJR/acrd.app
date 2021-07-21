@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { temp } from '../utils/src/temp';
+import moment from 'moment';
 import './message.css';
 
 export interface MessageProps {
@@ -10,19 +11,29 @@ export interface MessageState {}
  
 class Message extends React.Component<MessageProps, MessageState> {
   get isExtra() {
-    const currentIndex = temp.messages.findIndex(m => m.id === this.props.message.id);
-    const previousMessage = temp.messages[currentIndex - 1];
+    const { message } = this.props;
+    const messages = temp.messages;
 
-    return previousMessage
-      && new Date() > new Date(previousMessage.createdAt);
+    const i = messages.findIndex(m => m.id === message.id);
+    const prev = messages[i - 1];
+    if (!prev) return false;
+
+    const minsSince = moment(message.createdAt).diff(prev.createdAt, 'minutes');    
+    const minsToSeparate = 5;
+
+    return minsSince <= minsToSeparate
+      && prev.authorId === message.authorId;
   }
 
   get leftSide() {
-    const { author } = this.props;
+    const { message, author } = this.props;
+    const time = message.createdAt
+      .toLocaleTimeString()
+      .slice(0, 5);
 
     return (this.isExtra)
-      ? '00:00'
-      : <img className="rounded-full" src={author.avatarURL} alt={author.username} />;
+      ? <span className="timestamp text-xs">{time}</span>
+      : <img className="rounded-full cursor-pointer" src={author.avatarURL} alt={author.username} />;
   }
 
   get messageHeader() {
@@ -38,8 +49,9 @@ class Message extends React.Component<MessageProps, MessageState> {
   }
   
   render() {
+    const messageClass = `message flex ${!this.isExtra && 'mt-4'}`;
     return (
-      <div className="message flex mt-4">
+      <div className={messageClass}>
         <div className="left-side pl-5">{this.leftSide}</div>
         <div className="message-content flex-grow">
           {this.messageHeader}

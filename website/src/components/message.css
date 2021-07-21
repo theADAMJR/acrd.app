@@ -10,6 +10,13 @@
   height: 40px;
 }
 
-.message-content {
+.message .message-content {
   padding: 0 8px;
+}
+
+.message:hover .timestamp {
+  opacity: 1;
+}
+.message .timestamp {
+  opacity: 0;
 }
