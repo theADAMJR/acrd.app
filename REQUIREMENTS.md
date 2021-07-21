@@ -3,6 +3,7 @@ DClone Basic: Chat app like DChat, built with React, with more UI.
 -> Needs to be progressive and feel good, not 3 hours and it'll work.
 
 > Ability to chat with mock users, in a mock guild channel.
+> -> Each version should have their individual bug fixes, instead of the full app.
 
 1. Basic text channel
 

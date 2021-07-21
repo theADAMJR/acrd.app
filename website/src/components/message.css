@@ -1,0 +1,15 @@
+.message .left-side {
+  width: 72px;
+}
+.message .right-side {
+  width: 48px;
+}
+
+.message .left-side img {
+  width: 40px;
+  height: 40px;
+}
+
+.message-content {
+  padding: 0 8px;
+}

@@ -16,6 +16,7 @@ declare namespace Entity {
     id: string;
     authorId: string;
     content: string;
+    createdAt: Date;
   }
 
   export interface User {

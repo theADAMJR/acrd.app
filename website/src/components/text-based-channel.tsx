@@ -1,19 +1,20 @@
 import * as React from 'react';
+import { temp } from '../utils/src/temp';
+import Message from './message';
 
-export interface TextBasedChannelProps {
-  
-}
- 
-export interface TextBasedChannelState {
-  
-}
+export interface TextBasedChannelProps {}
+export interface TextBasedChannelState {}
  
 class TextBasedChannel extends React.Component<TextBasedChannelProps, TextBasedChannelState> {
-  state = {}
+  get messages() {
+    return temp.messages
+      .map(m => <Message key={m.id} author={temp.users[0]} message={m} />);
+  }
+  
   render() { 
     return (
       <div className="text-based-channel flex-grow">
-        Text Based Channel
+        {this.messages}
       </div>
     );
   }

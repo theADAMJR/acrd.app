@@ -10,7 +10,7 @@ export interface SidebarIconsState {}
 class SidebarIcons extends React.Component<SidebarIconsProps, SidebarIconsState> {
   get guildIcons() {
     return this.props.guilds
-      .map(g => <span className="icon">{g.name.slice(0, 3)}</span>);
+      .map(g => <span key={g.id} className="icon">{g.name.slice(0, 3)}</span>);
   }
 
   render() { 

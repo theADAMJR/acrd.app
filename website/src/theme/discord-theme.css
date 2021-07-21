@@ -5,6 +5,7 @@
 
   --heading: white;
   --font: #99aab5;
+  --normal: #dcddde;
 
   --background-primary: #36393f;
   --background-secondary: #2f3136;
@@ -27,6 +28,12 @@ body {
   color: var(--font);
 }
 
+.color-normal {
+  color: var(--normal) !important;
+}
+.color-heading {
+  color: var(--heading) !important;
+}
 .color-primary {
   color: var(--primary) !important;
 }

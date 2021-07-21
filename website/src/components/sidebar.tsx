@@ -6,7 +6,6 @@ import SidebarIcons from './sidebar-icons';
 import './sidebar.css';
 
 export interface SidebarProps {}
- 
 export interface SidebarState {
   guilds: Entity.Guild[];
 }

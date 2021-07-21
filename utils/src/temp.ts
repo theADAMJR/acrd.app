@@ -1,7 +1,20 @@
 import { snowflake } from './snowflake';
 
 export const temp = {
-  messages: [],
+  messages: [
+    {
+      id: snowflake.generate(),
+      content: 'hi',
+      authorId: snowflake.generate(),
+      createdAt: new Date('07-21-2021 00:28:01'),
+    },
+    {
+      id: snowflake.generate(),
+      content: 'hi again',
+      authorId: snowflake.generate(),
+      createdAt: new Date('07-21-2021 03:33:00'),
+    }
+  ],
   users: [
     {
       id: snowflake.generate(),
