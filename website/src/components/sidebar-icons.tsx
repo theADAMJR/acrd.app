@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './sidebar-icons.css';
 
 export interface SidebarIconsProps {
   guilds: Entity.Guild[];

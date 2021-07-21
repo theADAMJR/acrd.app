@@ -1,3 +1,5 @@
+import './sidebar-footer.css';
+
 export interface SidebarFooterProps {
   
 }

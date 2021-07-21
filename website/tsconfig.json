@@ -9,6 +9,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -22,6 +23,5 @@
   },
   "include": [
     "src"
-  ],
-  "exclude": ["src/lib"]
+  ]
 }

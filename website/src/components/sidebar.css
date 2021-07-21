@@ -1,0 +1,4 @@
+.sidebar {
+  float: left;
+  width: calc(240px + 72px);
+}
