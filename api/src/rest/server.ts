@@ -1,5 +1,5 @@
 import express from 'express';
-import { temp } from '../../../utils/src/utils/temp';
+import { temp } from '../../../utils/src/temp';
 
 export class REST {
   public readonly app = express();

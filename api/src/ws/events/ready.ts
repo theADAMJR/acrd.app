@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
-import { snowflake } from '../../utils/snowflake';
-import { temp } from '../../utils/temp';
+import { snowflake } from '../../../../utils/src/snowflake';
+import { temp } from '../../../../utils/src/temp';
 import { WS } from '../websocket';
 import { WSEvent } from './ws-event';
 

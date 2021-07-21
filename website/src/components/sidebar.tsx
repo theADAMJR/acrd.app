@@ -1,6 +1,8 @@
 import { Component } from 'react';
-import { temp } from '../../../utils/src/utils/temp';
+import { temp } from '../utils/src/temp';
 import SidebarFooter from './sidebar-footer';
+import SidebarIcons from './sidebar-icons';
+
 import './sidebar.css';
 
 export interface SidebarProps {
@@ -15,9 +17,7 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
   render() { 
     return (
       <div className="sidebar">
-        <div guilds={temp.guilds} className="sidebar-icons">
-          {this.guildIcons}
-        </div>
+        <SidebarIcons guilds={temp.guilds}></SidebarIcons>
         <div className="sidebar-content">
           {/* imported */}
         </div>

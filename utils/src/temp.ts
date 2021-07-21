@@ -1,9 +1,8 @@
 import { snowflake } from './snowflake';
 
 export const temp = {
-  messages: [] as Entity.Message[],
-  users: [] as Entity.User[],
-
+  messages: [],
+  users: [],
   guilds: [
     {
       id: snowflake.generate(),
@@ -11,5 +10,5 @@ export const temp = {
       name: 'Epic Guild',
       ownerId: snowflake.generate(),
     }
-  ] as Entity.Guild[],
+  ],
 }
