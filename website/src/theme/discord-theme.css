@@ -8,6 +8,7 @@
 
   --background-primary: #36393f;
   --background-secondary: #2f3136;
+  --background-secondary-alt: #292b2f;
   --background-tertiary: #202225;
 
   --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05),
@@ -41,6 +42,9 @@ body {
 }
 .background-secondary {
   background-color: var(--background-secondary) !important;
+}
+.background-secondary-alt {
+  background-color: var(--background-secondary-alt) !important;
 }
 .background-tertiary {
   background-color: var(--background-tertiary) !important;

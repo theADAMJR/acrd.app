@@ -6,7 +6,7 @@ export interface SidebarFooterProps {
  
 const SidebarFooter: React.FunctionComponent<SidebarFooterProps> = () => {
   return (
-    <div className="sidebar-footer">Sidebar Footer</div>
+    <div className="sidebar-footer background-secondary-alt">Sidebar Footer</div>
   );
 }
  

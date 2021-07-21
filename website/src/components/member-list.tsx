@@ -13,7 +13,7 @@ class MemberList extends React.Component<MemberListProps, MemberListState> {
   state = {}
   render() { 
     return (
-      <div className="member-list">Member List</div>
+      <div className="member-list background-secondary">Member List</div>
     );
   }
 }
