@@ -21,9 +21,8 @@ export const temp = {
   channels: [
     {
       id: snowflake.generate(),
-      iconURL: '',
       name: 'general',
-      ownerId: snowflake.generate(),
+      guildId: snowflake.generate(),
     }
   ]
 }

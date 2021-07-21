@@ -12,7 +12,7 @@ class TextBasedChannel extends React.Component<TextBasedChannelProps, TextBasedC
   state = {}
   render() { 
     return (
-      <div className="text-based-channel flex-grow-1">
+      <div className="text-based-channel flex-grow">
         Text Based Channel
       </div>
     );

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './components/app';
 import reportWebVitals from './reportWebVitals';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-svg-core/styles.css';
+import './index.css';
 import './theme/discord-theme.css';
+import 'tailwindcss/dist/tailwind.min.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 import { config } from 'dotenv';
 config({ path: '../env' });

@@ -13,14 +13,14 @@ export interface SidebarContentState {}
 class SidebarContent extends React.Component<SidebarContentProps, SidebarContentState> {
   get guildContent() {
     return (
-      <div className="d-flex flex-column sidebar-content background-secondary">
+      <div className="flex flex-col sidebar-content background-secondary">
         <div className="sidebar-header">
-          <div className="d-inline-flex justify-content-between">
+          <div className="inline-flex justify-content-between">
           <h1>{this.props.guild?.name}</h1>
             <FontAwesomeIcon icon={faChevronDown} />
           </div>
         </div>
-        <div className="sidebar-details flex-grow-1">
+        <div className="sidebar-details flex-grow">
 
         </div>
         <SidebarFooter />
