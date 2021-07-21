@@ -2,6 +2,7 @@ import * as React from 'react';
 import { temp } from '../utils/src/temp';
 import Message from './message';
 import MessageBox from './message-box';
+import './text-based-channel.css';
 
 export interface TextBasedChannelProps {}
 export interface TextBasedChannelState {}
@@ -15,7 +16,7 @@ class TextBasedChannel extends React.Component<TextBasedChannelProps, TextBasedC
   render() { 
     return (
       <div className="text-based-channel flex flex-col flex-grow">
-        <div className="messages flex-grow">{this.messages}</div>
+        <div className="messages">{this.messages}</div>
         <MessageBox />
       </div>
     );

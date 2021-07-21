@@ -1,10 +1,12 @@
 .message-box {
   padding: 0 16px;
   height: 68px;
+  flex-shrink: 0;
 }
 
 .message-box textarea {
-  max-height: 44px;
+  height: 44px;
+  max-height: 50vh;
 }
 .message-box-footer {
   height: 24px;
