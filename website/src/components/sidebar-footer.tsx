@@ -1,12 +1,14 @@
+import { temp } from '../utils/src/temp';
 import './sidebar-footer.css';
+import Username from './username';
 
-export interface SidebarFooterProps {
-  
-}
+export interface SidebarFooterProps {}
  
 const SidebarFooter: React.FunctionComponent<SidebarFooterProps> = () => {
   return (
-    <div className="sidebar-footer background-secondary-alt">Sidebar Footer</div>
+    <div className="sidebar-footer background-secondary-alt">
+      <Username user={temp.users[0]} />
+    </div>
   );
 }
  

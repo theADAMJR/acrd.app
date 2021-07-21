@@ -2,7 +2,14 @@ import { snowflake } from './snowflake';
 
 export const temp = {
   messages: [],
-  users: [],
+  users: [
+    {
+      id: snowflake.generate(),
+      avatarURL: 'https://i.redd.it/28y7kc7ibn071.jpg',
+      username: 'epic-user',
+      discriminator: '0001',
+    }
+  ],
   guilds: [
     {
       id: snowflake.generate(),
