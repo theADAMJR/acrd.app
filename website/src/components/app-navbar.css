@@ -1,0 +1,11 @@
+.app-navbar {
+  height: 48px;
+  display: flex;
+  box-shadow: var(--elevation);
+  padding: 14px;
+}
+
+.app-navbar h3 {
+  font-size: 16px;
+  margin-left: 5px;
+}

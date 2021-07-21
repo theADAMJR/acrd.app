@@ -1,0 +1,20 @@
+.sidebar-content {
+  margin-left: 72px;
+  width: 240px;
+  height: 100vh;
+}
+
+.sidebar-content h1 {
+  font-size: 15px;
+}
+
+.sidebar-header {
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 16px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+
+  box-shadow: var(--elevation);
+}

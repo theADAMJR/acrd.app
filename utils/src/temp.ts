@@ -11,4 +11,12 @@ export const temp = {
       ownerId: snowflake.generate(),
     }
   ],
+  channels: [
+    {
+      id: snowflake.generate(),
+      iconURL: '',
+      name: 'general',
+      ownerId: snowflake.generate(),
+    }
+  ]
 }

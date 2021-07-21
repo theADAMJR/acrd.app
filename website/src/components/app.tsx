@@ -9,10 +9,10 @@ export default function App() {
 
   return (
     <>
-      <Sidebar></Sidebar>
+      <Sidebar />
       <div className="content background-primary">
-        <AppNavbar></AppNavbar>
-        <Guild guild={guild}></Guild>
+        <AppNavbar guild={guild} channel={temp.channels[0]} />
+        <Guild guild={guild} />
       </div>
     </>
   );

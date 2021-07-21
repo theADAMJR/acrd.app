@@ -9,6 +9,9 @@
   --background-primary: #36393f;
   --background-secondary: #2f3136;
   --background-tertiary: #202225;
+
+  --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05),
+    0 2px 0 rgba(4, 4, 5, 0.05);
 }
 
 h1,

@@ -1,4 +1,17 @@
 declare namespace Entity {
+  export interface Guild {
+    id: string;
+    iconURL?: string;
+    name: string;
+    ownerId: string;
+  }
+
+  export interface Channel {
+    id: string;
+    name: string;
+    guildId?: string;
+  }
+
   export interface Message {
     id: string;
     authorId: string;
@@ -11,10 +24,4 @@ declare namespace Entity {
     username: string;
   }
 
-  export interface Guild {
-    id: string;
-    iconURL?: string;
-    name: string;
-    ownerId: string;
-  }
 }

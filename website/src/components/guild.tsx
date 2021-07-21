@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { temp } from '../utils/src/temp';
 import MemberList from './member-list';
 import TextBasedChannel from './text-based-channel';
 
@@ -11,13 +12,15 @@ export interface GuildState {
 }
  
 class Guild extends Component<GuildProps, GuildState> {
-  state = { guild: undefined as any };
+  state = {
+    guild: temp.guilds[0],
+  };
 
   render() { 
     return (
       <div className="guild">
-        <TextBasedChannel></TextBasedChannel>
-        <MemberList></MemberList>
+        <TextBasedChannel />
+        <MemberList />
       </div>
     );
   }

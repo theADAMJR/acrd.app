@@ -1,3 +1,4 @@
 .content {
   height: 100vh;
+  margin-left: calc(72px + 240px);
 }
