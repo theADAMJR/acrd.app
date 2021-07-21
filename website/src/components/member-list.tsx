@@ -1,5 +1,5 @@
-
 import * as React from 'react';
+import './member-list.css';
 
 export interface MemberListProps {
   
