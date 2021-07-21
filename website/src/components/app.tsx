@@ -1,22 +1,18 @@
+import AppNavbar from './app-navbar';
 import './app.css';
-import Sidebar from './sidebar/sidebar';
+import Guild from './guild';
+import Sidebar from './sidebar';
+import { temp } from '../../../utils/src/utils/temp';
 
 export default function App() {
+  const guild = temp.guilds[0];
+
   return (
     <>
       <Sidebar></Sidebar>
-
-      <div className="app-navbar"></div>
-
-      <div className="text-based-channel">
-        {/* ng for message */}
-        {/* <div className="message"></div> */}
-        <div className="message-box"></div>
-      </div>
-
-      <div className="member-list">
-        {/* ng for user */}
-        {/* <div className="user-tab"></div> */}
+      <div className="content">
+        <AppNavbar></AppNavbar>
+        <Guild guild={guild}></Guild>
       </div>
     </>
   );
