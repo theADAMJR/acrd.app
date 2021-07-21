@@ -17,6 +17,7 @@ declare namespace Entity {
     authorId: string;
     content: string;
     createdAt: Date;
+    channelId: string;
   }
 
   export interface User {
