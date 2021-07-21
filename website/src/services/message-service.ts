@@ -1,7 +1,9 @@
 import { RESTService } from './rest-service';
 
-export class UserService extends RESTService {
-  protected endpoint = process.env.API_ENDPOINT;
+export class MessageService extends RESTService {
+  protected endpoint = `messages`;
 
-  constructor() {}
+  public fetchAll() {
+    return this.get('/');
+  }
 }

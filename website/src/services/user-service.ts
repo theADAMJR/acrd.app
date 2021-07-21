@@ -1,7 +1,9 @@
 import { RESTService } from './rest-service';
 
 export class UserService extends RESTService {
-  protected endpoint = process.env.
+  protected endpoint = `users`;
 
-  constructor() {}
+  public fetchAll() {
+    return this.get('/');
+  }
 }

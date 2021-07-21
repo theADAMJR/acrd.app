@@ -2,7 +2,7 @@ export abstract class RESTService {
   protected abstract endpoint: string;
 
   private async fetch(route: string, init?: RequestInit) {
-    const res = await fetch(`${this.endpoint}/${route}`, init);
+    const res = await fetch(`${process.env.PORT}/${this.endpoint}/${route}`, init);
     return await res.json();
   }
 
