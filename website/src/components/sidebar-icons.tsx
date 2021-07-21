@@ -1,5 +1,7 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import GuildIcon from './guild-icon';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import './sidebar-icons.css';
 
 export interface SidebarIconsProps {
@@ -22,12 +24,19 @@ class SidebarIcons extends React.Component<SidebarIconsProps, SidebarIconsState>
     );
   }
 
+  get plusIcon() {
+    return this.iconify(
+      <div className="flex items-center justify-center rounded-full h-12 w-12 background-primary color-success text-4xl font-light pb-1">+</div>
+    );
+  }
+
   render() { 
     return (
       <div className="sidebar-icons flex flex-col background-tertiary px-2">
         {this.iconify(this.userAvatar)}
         {this.iconify(<div className="icon-separator mb-1"></div>)}
         {this.guildIcons}
+        {this.plusIcon}
       </div>
     );
   }

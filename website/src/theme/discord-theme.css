@@ -7,6 +7,8 @@
   --font: #99aab5;
   --normal: #dcddde;
 
+  --success: hsl(139, calc(var(--saturation-factor, 1) * 47.3%), 43.9%);
+
   --background-primary: #36393f;
   --background-secondary: #2f3136;
   --background-secondary-alt: #292b2f;
@@ -33,6 +35,9 @@ textarea {
   background-color: var(--background-textarea) !important;
 }
 
+.color-success {
+  color: var(--success) !important;
+}
 .color-normal {
   color: var(--normal) !important;
 }
