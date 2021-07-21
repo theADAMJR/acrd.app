@@ -1,4 +1,9 @@
 .sidebar {
   float: left;
-  width: calc(240px + 72px);
+}
+
+.sidebar-content {
+  margin-left: 72px;
+  width: 240px;
+  height: 100vh;
 }

@@ -19,9 +19,9 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
       <div className="sidebar">
         <SidebarIcons guilds={temp.guilds}></SidebarIcons>
         <div className="sidebar-content">
-          {/* imported */}
+          Imported
+          <SidebarFooter></SidebarFooter>
         </div>
-        <SidebarFooter></SidebarFooter>
       </div>
     );
   }
