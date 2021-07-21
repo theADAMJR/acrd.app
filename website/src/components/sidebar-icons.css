@@ -2,4 +2,12 @@
   width: 72px;
   height: 100vh;
   float: left;
+  padding: 12px;
+}
+
+.icon-separator {
+  height: 2px;
+  width: 32px;
+  border-radius: 1px;
+  background-color: var(--background-primary);
 }

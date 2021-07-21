@@ -14,7 +14,7 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
   render() { 
     return (
       <div className="sidebar flex">
-        <SidebarIcons guilds={temp.guilds} />
+        <SidebarIcons user={temp.users[0]} guilds={temp.guilds} />
         <SidebarContent guild={temp.guilds[0]} />
       </div>
     );

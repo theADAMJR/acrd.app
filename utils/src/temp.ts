@@ -37,6 +37,12 @@ export const temp = {
       iconURL: '',
       name: 'Epic Guild',
       ownerId: authorId,
+    },
+    {
+      id: snowflake.generate(),
+      iconURL: '',
+      name: 'Not as Epic Guild',
+      ownerId: authorId,
     }
   ],
   channels: [
