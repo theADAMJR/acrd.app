@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-config({ path: '.env' });
+config({ path: '../.env' });
 
 import { Deps } from '../../utils/src/utils/deps';
 import { WS } from './ws/websocket';

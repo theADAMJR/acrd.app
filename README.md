@@ -23,8 +23,10 @@
 
 # Setup
 
-`api/.env`
+`.env`
 
 ```
-PORT=3000
+API_PORT=3000
+API_PREFIX="/api/v1"
+WEBSITE_PORT=4200
 ```
