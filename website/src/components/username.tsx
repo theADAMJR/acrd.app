@@ -3,6 +3,7 @@ import './username.css';
 
 export interface UsernameProps {
   user: Entity.User;
+  guild?: Entity.Guild;
 }
  
 export interface UsernameState {}

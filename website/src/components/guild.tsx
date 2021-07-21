@@ -13,15 +13,11 @@ export interface GuildState {
 }
  
 class Guild extends Component<GuildProps, GuildState> {
-  state = {
-    guild: temp.guilds[0],
-  };
-
   render() { 
     return (
       <div className="guild">
         <TextBasedChannel />
-        <MemberList />
+        <MemberList users={temp.users} guild={this.props.guild} />
       </div>
     );
   }
