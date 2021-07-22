@@ -2,7 +2,7 @@ import AppNavbar from './app-navbar';
 import Guild from './guild';
 import Sidebar from './sidebar';
 import { temp } from '../utils/src/temp';
-import './app.css';
+import './app.scoped.css';
 
 export default function App() {
   const guild = temp.guilds[0];

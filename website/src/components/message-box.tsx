@@ -1,6 +1,6 @@
 import * as React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-import './message-box.css';
+import './message-box.scoped.css';
 
 export interface MessageBoxProps {}
 export interface MessageBoxState {}

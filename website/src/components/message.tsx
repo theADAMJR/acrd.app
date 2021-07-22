@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { temp } from '../utils/src/temp';
 import moment from 'moment';
-import './message.css';
+import './message.scoped.css';
 
 export interface MessageProps {
   author: Entity.User;

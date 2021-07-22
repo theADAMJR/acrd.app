@@ -3,7 +3,7 @@ import { temp } from '../utils/src/temp';
 import SidebarContent from './sidebar-content';
 import SidebarIcons from './sidebar-icons';
 
-import './sidebar.css';
+import './sidebar.scoped.css';
 
 export interface SidebarProps {}
 export interface SidebarState {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { temp } from '../utils/src/temp';
 import Category from './category';
-import './member-list.css';
+import './member-list.scoped.css';
 import Username from './username';
 
 export interface MemberListProps {

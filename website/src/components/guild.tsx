@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { temp } from '../utils/src/temp';
 import MemberList from './member-list';
 import TextBasedChannel from './text-based-channel';
-import './guild.css';
+import './guild.scoped.css';
 
 export interface GuildProps {
   guild: Entity.Guild;

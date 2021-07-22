@@ -3,7 +3,7 @@ import { MessageService } from '../services/message-service';
 import { temp } from '../utils/src/temp';
 import Message from './message';
 import MessageBox from './message-box';
-import './text-based-channel.css';
+import './text-based-channel.scoped.css';
 
 export interface TextBasedChannelProps {}
 export interface TextBasedChannelState {}

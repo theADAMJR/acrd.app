@@ -1,5 +1,5 @@
 import { temp } from '../utils/src/temp';
-import './sidebar-footer.css';
+import './sidebar-footer.scoped.css';
 import Username from './username';
 
 export interface SidebarFooterProps {}

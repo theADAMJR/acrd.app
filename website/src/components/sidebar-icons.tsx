@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import GuildIcon from './guild-icon';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import './sidebar-icons.css';
+import './sidebar-icons.scoped.css';
 
 export interface SidebarIconsProps {
   user: Entity.User;

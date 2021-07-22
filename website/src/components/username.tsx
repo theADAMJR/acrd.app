@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import './username.css';
+import './username.scoped.css';
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
 
 export interface UsernameProps {

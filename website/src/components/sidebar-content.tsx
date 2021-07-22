@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import './sidebar-content.css';
+import './sidebar-content.scoped.css';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
 

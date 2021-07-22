@@ -1,4 +1,4 @@
-import './category.css';
+import './category.scoped.css';
 
 export interface CategoryProps {
   title: string;
