@@ -1,17 +1,11 @@
 import * as React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-import { MessageService } from '../services/message-service';
-import { Deps } from '../utils/src/deps';
 import './message-box.css';
 
 export interface MessageBoxProps {}
 export interface MessageBoxState {}
  
-class MessageBox extends React.Component<MessageBoxProps, MessageBoxState> {
-  constructor(
-    private messageService = Deps.get<MessageService>(MessageService),
-  ) { super({}); }
-  
+class MessageBox extends React.Component<MessageBoxProps, MessageBoxState> {  
   render() { 
     return (
       <div className="message-box block">

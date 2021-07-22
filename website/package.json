@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^5.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@testing-library/jest-dom": "^5.14.1",
@@ -12,6 +13,8 @@
     "@types/node": "^12.20.16",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
+    "babel-plugin-react-scoped-css": "^1.1.1",
+    "craco-plugin-scoped-css": "^1.1.1",
     "dotenv": "^8.2.0",
     "javascript-time-ago": "^2.3.8",
     "moment": "^2.29.1",
@@ -26,9 +29,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "PORT=4200 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "PORT=4200 craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

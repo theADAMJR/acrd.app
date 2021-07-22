@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import './app-navbar.css';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faHashtag, faAt } from '@fortawesome/free-solid-svg-icons';
+import './app-navbar.scoped.css';
 
 export interface AppNavbarProps {
   guild?: Entity.Guild;
