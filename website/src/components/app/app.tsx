@@ -5,6 +5,7 @@ import store from '../../redux/store';
 import { useEffect } from 'react';
 import { readyUp } from '../../redux/actions/self-user-actions';
 import './app.scoped.css';
+import { emit, on } from '../../redux/api-client';
 
 export default function App() {
   const { activeGuild, activeChannel, selfUser } = store.getState();
@@ -13,6 +14,11 @@ export default function App() {
     if (selfUser) return;
 
     readyUp();
+    emit('READY', {});
+    on('READY', (payload) => {
+      alert(payload)
+      store.dispatch({ type: 'READY', payload })
+    });
   });
 
   return (selfUser) ? (
