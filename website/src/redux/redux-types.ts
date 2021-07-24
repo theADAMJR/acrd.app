@@ -5,9 +5,9 @@ export interface FromRestAPI {
   'FETCH_USERS': Entity.User[];
 }
 
-interface WSAction<K extends keyof WSToAPI> {
+interface WSAction<K extends keyof ToWSAPI> {
   type: K;
-  payload: WSToAPI[K];
+  payload: ToWSAPI[K];
 }
 interface RestAction<K extends keyof FromRestAPI> {
   type: K;
@@ -15,10 +15,14 @@ interface RestAction<K extends keyof FromRestAPI> {
 }
 
 export interface APIDispatch {
-  <K extends keyof WSToAPI>(action: WSAction<K>): WSAction<K>;
+  <K extends keyof ToWSAPI>(action: WSAction<K>): WSAction<K>;
 }
 export interface APIDispatch {
   <K extends keyof FromRestAPI>(action: RestAction<K>): RestAction<K>;
 }
 
-export type Action = WSAction<keyof WSToAPI> | RestAction<keyof FromRestAPI>; 
+// TODO: perfectionism - How to not require as assertions here?
+export interface Action {
+  type: keyof FromWSAPI | keyof FromRestAPI,
+  payload: any;
+}

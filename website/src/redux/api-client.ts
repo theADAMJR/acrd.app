@@ -4,11 +4,11 @@ import io from 'socket.io-client';
 const ws = io();
 ws.io.connect();
 
-export function emit<K extends keyof WSToAPI>(name: K, payload: WSToAPI[K]) {
+export function emit<K extends keyof ToWSAPI>(name: K, payload: ToWSAPI[K]) {
   ws.emit(name, payload);
   return payload;
 }
-export function on<K extends keyof WSFromAPI>(name: K, callback: WSFromAPI[K]) {
+export function on<K extends keyof FromWSAPI>(name: K, callback: (args: FromWSAPI[K]) => any) {
   ws.on(name, callback as any);
 }
 

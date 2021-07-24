@@ -1,21 +1,21 @@
 declare global {
-  export interface WSToAPI extends WSOnAPI {
+  export interface ToWSAPI {
     'MESSAGE_CREATE': Params.MessageCreate;
     'MESSAGE_DELETE': Params.MessageDelete;
     'READY': Params.Ready;
     'TYPING_START': Params.TypingStart;
   }
 
-  export interface WSOnAPI {
+  export interface OnWSAPI {
     'disconnect': any;
     'message': string;
   }
 
-  export interface WSFromAPI {
-    'MESSAGE_CREATE': (args: Args.MessageCreate) => any;
-    'MESSAGE_DELETE': (args: Args.MessageDelete) => any;
-    'READY': (args: Args.Ready) => any;
-    'TYPING_START': (args: Args.TypingStart) => any;
+  export interface FromWSAPI {
+    'MESSAGE_CREATE': Args.MessageCreate;
+    'MESSAGE_DELETE': Args.MessageDelete;
+    'READY': Args.Ready;
+    'TYPING_START': Args.TypingStart;
   }
 
   export namespace Params {
@@ -31,8 +31,7 @@ declare global {
   
   export namespace Args {
     export interface MessageCreate {
-      authorId: string;
-      content: string;
+      message: Entity.Message;
     }
     export interface MessageDelete {
       messageId: string;
