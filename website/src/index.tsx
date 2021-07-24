@@ -1,19 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app';
+import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { config } from 'dotenv';
 
 import './index.css';
 import './theme/discord-theme.css';
 import 'tailwindcss/dist/tailwind.min.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
-import { config } from 'dotenv';
 config({ path: '../env' });
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
