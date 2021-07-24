@@ -1,13 +1,14 @@
-import { temp } from '../utils/src/temp';
 import './sidebar-footer.scoped.css';
 import Username from './username';
 
-export interface SidebarFooterProps {}
+export interface SidebarFooterProps {
+  user: Entity.User;
+}
  
-const SidebarFooter: React.FunctionComponent<SidebarFooterProps> = () => {
+const SidebarFooter: React.FunctionComponent<SidebarFooterProps> = (props: SidebarFooterProps) => {
   return (
     <div className="sidebar-footer background-secondary-alt">
-      <Username user={temp.users[0]} />
+      <Username user={props.user} />
     </div>
   );
 }

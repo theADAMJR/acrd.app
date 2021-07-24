@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { temp } from '../utils/src/temp';
+import store from '../redux/store';
 import SidebarContent from './sidebar-content';
 import SidebarIcons from './sidebar-icons';
 
@@ -9,16 +9,17 @@ export interface SidebarProps {}
 export interface SidebarState {
   guilds: Entity.Guild[];
 }
+ 
+const Sidebar: React.FunctionComponent<SidebarProps> = () => {
+  let state = store.getState();
+  store.subscribe(() => state = store.getState());
 
-class Sidebar extends Component<SidebarProps, SidebarState> {
-  render() { 
-    return (
-      <div className="sidebar flex">
-        <SidebarIcons user={temp.users[0]} guilds={temp.guilds} />
-        <SidebarContent guild={temp.guilds[0]} />
-      </div>
-    );
-  }
+  return (
+    <div className="sidebar flex">
+      <SidebarIcons user={state.selfUser} guilds={state.guilds} />
+      <SidebarContent guild={state.activeGuild} />
+    </div>
+  );
 }
  
 export default Sidebar;
