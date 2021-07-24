@@ -7,6 +7,8 @@ export default class Ready implements WSEvent<'READY'> {
   public on = 'READY' as const;
 
   public async invoke(ws: WS, client: Socket) {
+    console.log('ready! on api');
+    
     const user = await User.create({
       avatarURL: '',
       username: fakerStatic.hacker.noun(),

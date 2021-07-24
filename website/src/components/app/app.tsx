@@ -11,14 +11,12 @@ export default function App() {
   const { activeGuild, activeChannel, selfUser } = store.getState();
 
   useEffect(() => {
-    if (selfUser) return;
+    // if (selfUser) return;
 
-    readyUp();
+    // readyUp();
+    on('READY', (a) => console.log(a))
     emit('READY', {});
-    on('READY', (payload) => {
-      alert(payload)
-      store.dispatch({ type: 'READY', payload })
-    });
+    alert('ready')
   });
 
   return (selfUser) ? (

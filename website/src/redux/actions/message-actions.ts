@@ -7,15 +7,15 @@ export const fetchMessages = (channelId: string) => async (dispatch: APIDispatch
 }
 
 export const createMessage = (params: ToWSAPI['MESSAGE_CREATE']) => (dispatch: APIDispatch) => {
-  emit('MESSAGE_CREATE', params);
   on('MESSAGE_CREATE', (payload) =>
     dispatch({ type: 'MESSAGE_CREATE', payload })
   );
+  emit('MESSAGE_CREATE', params);
 }
 
 export const deleteMessage = (params: ToWSAPI['MESSAGE_DELETE']) => (dispatch: APIDispatch) => {
-  emit('MESSAGE_DELETE', params);
   on('MESSAGE_DELETE', (payload) =>
     dispatch({ type: 'MESSAGE_DELETE', payload })
   );
+  emit('MESSAGE_DELETE', params);
 }
