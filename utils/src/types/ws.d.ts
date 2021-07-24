@@ -20,6 +20,7 @@ declare global {
 
   export namespace Params {
     export interface MessageCreate {
+      channelId: string;
       content: string;
     }
     export interface MessageDelete {

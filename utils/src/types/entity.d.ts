@@ -7,7 +7,9 @@ declare namespace Entity {
 
   export interface Guild {
     id: string;
+    channels: Entity.Channel[];
     iconURL?: string;
+    members: Entity.User[];
     name: string;
     ownerId: string;
   }
@@ -18,6 +20,7 @@ declare namespace Entity {
     content: string;
     createdAt: Date;
     channelId: string;
+    updatedAt: Date;
   }
 
   export interface User {

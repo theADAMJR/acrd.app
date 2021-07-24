@@ -1,5 +1,6 @@
 import express from 'express';
-import { temp } from '../../../utils/src/temp';
+import { Guild } from '../data/guild';
+import { Message } from '../data/message';
 
 export class REST {
   public readonly app = express();
@@ -11,7 +12,15 @@ export class REST {
   
   public serve() {
     const prefix = process.env.API_PREFIX;
-    this.app.get(`${prefix}/messages`, (req, res) => res.json(temp.messages));
-    this.app.get(`${prefix}/users`, (req, res) => res.json(temp.users));
+    
+    this.app.get(`${prefix}/channels/:channelId/messages`, async (req, res) => {
+      const messages = await Message.find({ channelId: req.params.channelId });
+      res.json(messages);
+    });
+    
+    this.app.get(`${prefix}/guilds/:id`, async (req, res) => {
+      const users = await Guild.findById(req.params.id);
+      res.json(users);
+    });
   }
 }

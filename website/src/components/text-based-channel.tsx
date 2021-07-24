@@ -1,18 +1,22 @@
 import * as React from 'react';
-import { MessageService } from '../services/message-service';
-import { temp } from '../utils/src/temp';
+import { fetchMessages } from '../redux/actions/message-actions';
+import store from '../redux/store';
 import Message from './message';
 import MessageBox from './message-box';
 import './text-based-channel.scoped.css';
 
-export interface TextBasedChannelProps {}
+export interface TextBasedChannelProps {
+  channel: Entity.Channel;
+}
 export interface TextBasedChannelState {}
  
 class TextBasedChannel extends React.Component<TextBasedChannelProps, TextBasedChannelState> {  
   get messages() {
-    return '';
-    // return this.messageService.getAll('123')
-    //   .map(m => <Message key={m.id} author={temp.users[0]} message={m} />);
+    return store.getState().messages;
+  }
+
+  async componentWillMount() {
+    fetchMessages(this.props.channel.id);
   }
   
   render() { 

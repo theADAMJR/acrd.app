@@ -1,23 +1,17 @@
 import { emit, fetchAsync } from '../api-client';
 import { APIDispatch } from '../redux-types';
 
-export function fetchMessages(channelId: string) {
-  return async function(dispatch: APIDispatch) {
-    const payload = await fetchAsync(`channels/${channelId}/messages`);
-    dispatch({ type: 'FETCH_MESSAGES', payload });
-  }
+export const fetchMessages = (channelId: string) => async (dispatch: APIDispatch) => {
+  const payload = await fetchAsync(`channels/${channelId}/messages`);
+  dispatch({ type: 'FETCH_MESSAGES', payload });
 }
 
-export function createMessage(payload: ToWSAPI['MESSAGE_CREATE']) {
-  return function(dispatch: APIDispatch) {
-    emit('MESSAGE_CREATE', payload);
-    dispatch({ type: 'MESSAGE_CREATE', payload });
-  }
+export const createMessage = (payload: ToWSAPI['MESSAGE_CREATE']) => (dispatch: APIDispatch) => {
+  emit('MESSAGE_CREATE', payload);
+  dispatch({ type: 'MESSAGE_CREATE', payload });
 }
 
-export function deleteMessage(payload: ToWSAPI['MESSAGE_DELETE']) {
-  return function(dispatch: APIDispatch) {
-    emit('MESSAGE_DELETE', payload);
-    dispatch({ type: 'MESSAGE_DELETE', payload });
-  }
+export const deleteMessage = (payload: ToWSAPI['MESSAGE_DELETE']) => (dispatch: APIDispatch) => {
+  emit('MESSAGE_DELETE', payload);
+  dispatch({ type: 'MESSAGE_DELETE', payload });
 }

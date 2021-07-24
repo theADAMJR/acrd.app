@@ -1,10 +1,13 @@
 import * as React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
+import * as messageActions from '../redux/actions/message-actions';
+import store from '../redux/store';
 import './message-box.scoped.css';
 
 export interface MessageBoxProps {}
 export interface MessageBoxState {}
  
+
 class MessageBox extends React.Component<MessageBoxProps, MessageBoxState> {  
   render() { 
     return (
@@ -18,9 +21,12 @@ class MessageBox extends React.Component<MessageBoxProps, MessageBoxState> {
   }
 
   create = (event: any) => {
-    event.persist();
-    console.log(event.key); // this will return string of key name like 'Enter'
-    alert('send')
+    if (event.key === 'Enter' || event.shiftKey) return;
+    
+    messageActions.createMessage({
+      channelId: store.getState().activeChannelId,
+      content: 'hi',
+    });
   }
 }
  
