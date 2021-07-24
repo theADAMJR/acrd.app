@@ -8,15 +8,18 @@ import './app.scoped.css';
 import { emit, on } from '../../redux/api-client';
 
 export default function App() {
-  const { activeGuild, activeChannel, selfUser } = store.getState();
+  let state = store.getState();
+  const { activeGuild, activeChannel, selfUser } = state;
+  store.subscribe(() => state = store.getState());
 
   useEffect(() => {
-    // if (selfUser) return;
+    if (selfUser) return;
 
-    // readyUp();
-    on('READY', (a) => console.log(a))
-    emit('READY', {});
-    alert('ready')
+    emit('READY', {})
+    on('READY', (a) => {
+      console.log(a);      
+      store.dispatch({ type: 'READY', payload: a });
+    });
   });
 
   return (selfUser) ? (
