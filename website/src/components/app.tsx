@@ -1,18 +1,18 @@
 import AppNavbar from './app-navbar';
 import Guild from './guild';
 import Sidebar from './sidebar';
-import { temp } from '../utils/src/temp';
 import './app.scoped.css';
+import store from '../redux/store';
 
 export default function App() {
-  const guild = temp.guilds[0];
+  const state = store.getState();
 
   return (
     <>
       <Sidebar />
       <div className="content background-primary">
-        <AppNavbar guild={guild} channel={temp.channels[0]} />
-        <Guild guild={guild} />
+        <AppNavbar guild={state.activeGuild} channel={state.activeChannel} />
+        <Guild guild={state.activeGuild} />
       </div>
     </>
   );

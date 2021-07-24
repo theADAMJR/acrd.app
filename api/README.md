@@ -32,8 +32,6 @@ Deps.get<REST>(REST);
 
 SNAKE_CASE is used as lowercase to avoid possible conflict with socket.io event names.
 
-`utils/temp.ts` is used as a temporary database, before MongoDB.
-
 ## Events
 
 | NAME           | DESCRIPTION                        |

@@ -4,7 +4,7 @@ import { snowflake } from '../utils/src/snowflake';
 
 export interface UserDocument extends Entity.User, Document {}
 
-export const user = model<UserDocument>('user', new Schema({
+export const User = model<UserDocument>('user', new Schema({
   _id: { type: String, default: snowflake.generate() },
   authorId: String,
   content: String,
