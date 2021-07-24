@@ -3,7 +3,7 @@ import { Message } from '../../data/message';
 import { WS } from '../websocket';
 import { WSEvent } from './ws-event';
 
-export class MessageCreate implements WSEvent<'MESSAGE_CREATE'> {
+export default class MessageCreate implements WSEvent<'MESSAGE_CREATE'> {
   public on = 'MESSAGE_CREATE' as const;
 
   public async invoke(ws: WS, client: Socket, params: Params.MessageCreate) {

@@ -1,8 +1,13 @@
 import environment from '../environment';
 import io from 'socket.io-client';
 
-const ws = io();
-ws.io.connect();
+const ws = (io as any).connect(environment.rootAPIURL,
+  {
+    secure: true,
+    path: `/ws`,
+    transports: ['websocket', 'polling', 'flashsocket'],
+  });
+ws.io.on('open', () => console.log('Connected to WS Server'));
 
 export function emit<K extends keyof ToWSAPI>(name: K, payload: ToWSAPI[K]) {
   ws.emit(name, payload);

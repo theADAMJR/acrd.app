@@ -1,11 +1,14 @@
 import express from 'express';
 import { Guild } from '../data/guild';
 import { Message } from '../data/message';
+import cors from 'cors';
 
 export class REST {
   public readonly app = express();
 
   public listen() {
+    this.app.use(cors());
+    
     const port = process.env.API_PORT;
     return this.app.listen(port, () => console.log(`Connected to server on port ${port}`));
   }

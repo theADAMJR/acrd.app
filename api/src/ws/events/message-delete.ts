@@ -3,7 +3,7 @@ import { WS } from '../websocket';
 import { Message } from '../../data/message';
 import { WSEvent } from './ws-event';
 
-export class MessageDelete implements WSEvent<'MESSAGE_DELETE'> {
+export default class MessageDelete implements WSEvent<'MESSAGE_DELETE'> {
   public on = 'MESSAGE_DELETE' as const;
 
   public async invoke(ws: WS, client: Socket, params: Params.MessageDelete) {

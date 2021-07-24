@@ -3,7 +3,7 @@ import { User } from '../../data/user';
 import { WS } from '../websocket';
 import { WSEvent } from './ws-event';
 
-export class Ready implements WSEvent<'READY'> {
+export default class Ready implements WSEvent<'READY'> {
   public on = 'READY' as const;
 
   public async invoke(ws: WS, client: Socket) {
