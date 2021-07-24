@@ -11,6 +11,7 @@ export default class Ready implements WSEvent<'READY'> {
     const user = await User.create({
       avatarURL: '',
       username: faker.hacker.noun(),
+      discriminator: 1,
     });
 
     client.emit('READY', user as Args.Ready);

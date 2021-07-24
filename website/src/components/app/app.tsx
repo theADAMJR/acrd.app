@@ -9,25 +9,27 @@ import { emit, on } from '../../redux/api-client';
 
 export default function App() {
   let state = store.getState();
-  const { activeGuild, activeChannel, selfUser } = state;
-  store.subscribe(() => state = store.getState());
+
+  store.subscribe(() => {
+    state = store.getState();
+    console.log(state);
+  });
 
   useEffect(() => {
-    if (selfUser) return;
+    if (state.selfUser) return;
 
     emit('READY', {})
-    on('READY', (a) => {
-      console.log(a);      
-      store.dispatch({ type: 'READY', payload: a });
+    on('READY', (args) => {
+      store.dispatch({ type: 'READY', payload: args });
     });
   });
 
-  return (selfUser) ? (
+  return (state.selfUser) ? (
     <>
-      <Sidebar user={selfUser} />
+      <Sidebar user={state.selfUser} />
       <div className="content background-primary">
-        <AppNavbar guild={activeGuild} channel={activeChannel} />
-        {activeGuild && <Guild guild={activeGuild} />}
+        <AppNavbar guild={state.activeGuild} channel={state.activeChannel} />
+        {state.activeGuild && <Guild guild={state.activeGuild} />}
       </div>
     </>
   ) : <h1 className="text-black">Not logged in.</h1>;

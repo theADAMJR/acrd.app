@@ -28,7 +28,7 @@ declare namespace Entity {
   export interface User {
     avatarURL: string;
     createdAt: Date;
-    discriminator: string;
+    discriminator: number;
     id: string;
     username: string;
   }

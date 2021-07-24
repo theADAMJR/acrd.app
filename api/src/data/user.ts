@@ -10,5 +10,6 @@ export const User = model<UserDocument>('user', new Schema({
   content: String,
   createdAt: { type: String, default: new Date() },
   channelId: String,
+  discriminator: Number,
   updatedAt: Date,
 }, { toJSON: { getters: true } }).method('toClient', useId));
