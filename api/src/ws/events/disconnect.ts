@@ -6,9 +6,6 @@ export default class Disconnect implements WSEvent<'disconnect'> {
   public on = 'disconnect' as const;
 
   public async invoke(ws: WS, client: Socket) {
-console.log('disco');
-
-
     ws.sessions.delete(client.id);
   }
 }

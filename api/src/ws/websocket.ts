@@ -44,7 +44,7 @@ export class WS {
 
   private hook() {
     this.server.on('connection', (client) => {
-      for (const event of this.events.values() as any)
+      for (const event of Array.from(this.events.values()))
         client.on(event.on, async (data: any) => {
           try {
             await event.invoke.bind(event)(this, client, data);
