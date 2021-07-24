@@ -5,9 +5,9 @@ export interface FromRestAPI {
   'FETCH_USERS': Entity.User[];
 }
 
-interface WSAction<K extends keyof ToWSAPI> {
+interface WSAction<K extends keyof FromWSAPI> {
   type: K;
-  payload: ToWSAPI[K];
+  payload: FromWSAPI[K];
 }
 interface RestAction<K extends keyof FromRestAPI> {
   type: K;
@@ -15,7 +15,7 @@ interface RestAction<K extends keyof FromRestAPI> {
 }
 
 export interface APIDispatch {
-  <K extends keyof ToWSAPI>(action: WSAction<K>): WSAction<K>;
+  <K extends keyof FromWSAPI>(action: WSAction<K>): WSAction<K>;
 }
 export interface APIDispatch {
   <K extends keyof FromRestAPI>(action: RestAction<K>): RestAction<K>;
