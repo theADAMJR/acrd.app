@@ -1,17 +1,17 @@
 declare global {
-  export interface WSEventParams extends WSDefaultEventParams {
+  export interface WSToAPI extends WSOnAPI {
     'MESSAGE_CREATE': Params.MessageCreate;
     'MESSAGE_DELETE': Params.MessageDelete;
     'READY': Params.Ready;
     'TYPING_START': Params.TypingStart;
   }
 
-  export interface WSDefaultEventParams {
+  export interface WSOnAPI {
     'disconnect': any;
     'message': string;
   }
 
-  export interface WSEventArgs {
+  export interface WSFromAPI {
     'MESSAGE_CREATE': (args: Args.MessageCreate) => any;
     'MESSAGE_DELETE': (args: Args.MessageDelete) => any;
     'READY': (args: Args.Ready) => any;

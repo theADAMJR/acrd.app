@@ -1,25 +1,24 @@
-import { Dispatch } from "redux";
-
-// expected json response from server
-export interface RESTArgs {
+export interface FromRestAPI {
   'FETCH_CHANNELS': Entity.Channel[];
   'FETCH_GUILDS': Entity.Guild[];
   'FETCH_MESSAGES': Entity.Message[];
   'FETCH_USERS': Entity.User[];
 }
 
-interface WSAction<T extends keyof WSEventParams> {
-  type: T;
-  payload: WSEventParams[T];
+interface WSAction<K extends keyof WSToAPI> {
+  type: K;
+  payload: WSToAPI[K];
 }
-interface RESTAction<T extends keyof RESTArgs> {
-  type: T;
-  payload: RESTArgs[T];
+interface RestAction<K extends keyof FromRestAPI> {
+  type: K;
+  payload: FromRestAPI[K];
 }
 
 export interface APIDispatch {
-  <T extends keyof WSEventParams>(action: WSAction<T>): WSAction<T>;
+  <K extends keyof WSToAPI>(action: WSAction<K>): WSAction<K>;
 }
 export interface APIDispatch {
-  <T extends keyof RESTArgs>(action: RESTAction<T>): RESTAction<T>;
+  <K extends keyof FromRestAPI>(action: RestAction<K>): RestAction<K>;
 }
+
+export type Action = WSAction<keyof WSToAPI> | RestAction<keyof FromRestAPI>; 
