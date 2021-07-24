@@ -1,13 +1,15 @@
 import { createStore, Store } from 'redux';
 import { combineReducers } from 'redux-immer';
-import produce from 'immer';
+import produce, { enableMapSet } from 'immer';
 import messages from './reducers/messages-reducer';
 import selfUser from './reducers/self-user-reducer';
 import temp from './temp';
 
+enableMapSet();
+
 const combinedReducer = combineReducers(produce, {
-  messages,
-  selfUser,
+  messages: messages as any,
+  selfUser: selfUser as any,
 });
 
 const initialStore: AppStore = temp;

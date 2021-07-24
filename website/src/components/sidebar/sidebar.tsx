@@ -1,4 +1,4 @@
-import store from '../redux/store';
+import store from '../../redux/store';
 import SidebarContent from './sidebar-content';
 import SidebarIcons from './sidebar-icons';
 import './sidebar.scoped.css';

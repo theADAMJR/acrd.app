@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
-import * as messageActions from '../redux/actions/message-actions';
-import store from '../redux/store';
+import * as messageActions from '../../redux/actions/message-actions';
+import store from '../../redux/store';
 import './message-box.scoped.css';
 
 export interface MessageBoxProps {}

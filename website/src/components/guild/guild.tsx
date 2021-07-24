@@ -1,6 +1,5 @@
-import { Component } from 'react';
-import MemberList from '../member-list';
-import TextBasedChannel from '../text-based-channel';
+import MemberList from '../member-list/member-list';
+import TextBasedChannel from '../text-based-channel/text-based-channel';
 import './guild.scoped.css';
 import store from '../../redux/store';
 

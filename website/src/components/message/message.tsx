@@ -1,7 +1,7 @@
 import * as React from 'react';
 import moment from 'moment';
 import './message.scoped.css';
-import store from '../redux/store';
+import store from '../../redux/store';
 
 export interface MessageProps {
   author: Entity.User;

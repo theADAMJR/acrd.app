@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import GuildIcon from './guild-icon/guild-icon';
+import GuildIcon from '../guild-icon/guild-icon';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import './sidebar-icons.scoped.css';
 

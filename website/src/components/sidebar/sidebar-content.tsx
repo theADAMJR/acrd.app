@@ -3,7 +3,7 @@ import * as React from 'react';
 import './sidebar-content.scoped.css';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
-import store from '../redux/store';
+import store from '../../redux/store';
 
 export interface SidebarContentProps {
   user: Entity.User;

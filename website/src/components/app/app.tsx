@@ -1,10 +1,10 @@
-import AppNavbar from '../app-navbar';
+import AppNavbar from '../app-navbar/app-navbar';
 import Guild from '../guild/guild';
-import Sidebar from '../sidebar';
-import './app.scoped.css';
+import Sidebar from '../sidebar/sidebar';
 import store from '../../redux/store';
 import { useEffect } from 'react';
 import { readyUp } from '../../redux/actions/self-user-actions';
+import './app.scoped.css';
 
 export default function App() {
   const { activeGuild, activeChannel, selfUser } = store.getState();
@@ -23,5 +23,5 @@ export default function App() {
         {activeGuild && <Guild guild={activeGuild} />}
       </div>
     </>
-  ) : <h1>Not logged in.</h1>;
+  ) : <h1 className="text-black">Not logged in.</h1>;
 }
