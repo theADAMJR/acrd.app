@@ -1,14 +1,10 @@
-import AppNavbar from '../app-navbar/app-navbar';
-import Guild from '../guild/guild';
-import Sidebar from '../sidebar/sidebar';
 import store from '../../redux/store';
 import { useEffect } from 'react';
-import { readyUp } from '../../redux/actions/self-user-actions';
-import './app.scoped.css';
 import { emit, on } from '../../redux/api-client';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from '../home-page/home-page';
 import GuildPage from '../guild-page/guild-page';
+import './app.scoped.css';
 
 export default function App() {
   let state = store.getState();

@@ -1,7 +1,7 @@
 import MemberList from '../member-list/member-list';
 import TextBasedChannel from '../text-based-channel/text-based-channel';
-import './guild.scoped.css';
 import store from '../../redux/store';
+import './guild.scoped.css';
 
 export interface GuildProps {
   guild: Entity.Guild;
@@ -14,6 +14,7 @@ const Guild: React.FunctionComponent<GuildProps> = (props: GuildProps) => {
   return (
     <div className="guild">
       {channel && <TextBasedChannel channel={channel} />}
+      {!channel && 'TODO: no channel'}
       <MemberList users={props.guild.members} guild={props.guild} />
     </div>
   );

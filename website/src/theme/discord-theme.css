@@ -29,6 +29,7 @@ h5 {
 
 body {
   color: var(--font);
+  background-color: var(--background-primary);
 }
 
 textarea {

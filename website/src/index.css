@@ -31,7 +31,7 @@ code {
   background-color: var(--background-secondary);
   border-radius: 10px;
 }
+
 body {
-  /* overflow-y: hidden; */
   text-rendering: optimizeLegibility;
 }
