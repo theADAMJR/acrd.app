@@ -1,2 +1,10 @@
-h1 {
+section {
+  text-align: center;
+  padding: 72px 50px 0;
+}
+section h1 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 44px;
+  margin: 0;
 }
