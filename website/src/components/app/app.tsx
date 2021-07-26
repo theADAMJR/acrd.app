@@ -6,6 +6,9 @@ import { useEffect } from 'react';
 import { readyUp } from '../../redux/actions/self-user-actions';
 import './app.scoped.css';
 import { emit, on } from '../../redux/api-client';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import HomePage from '../home-page/home-page';
+import GuildPage from '../guild-page/guild-page';
 
 export default function App() {
   let state = store.getState();
@@ -24,13 +27,17 @@ export default function App() {
     });
   });
 
-  return (state.selfUser) ? (
-    <>
-      <Sidebar user={state.selfUser} />
-      <div className="content background-primary">
-        <AppNavbar guild={state.activeGuild} channel={state.activeChannel} />
-        {state.activeGuild && <Guild guild={state.activeGuild} />}
-      </div>
-    </>
-  ) : <h1 className="text-black">Not logged in.</h1>;
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        {/* <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/register" component={RegisterPage} />
+
+        <Route path="/channels/@me/settings" component={UserSettingsPage} />
+        <Route path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}
+        <Route path="/channels/:guildId/:channelId?" component={GuildPage} />
+      </Switch>
+    </Router>
+  );
 }
