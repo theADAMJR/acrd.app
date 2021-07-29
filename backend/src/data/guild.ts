@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { snowflake } from '../utils/src/snowflake';
+import { snowflake } from '../utils/snowflake';
 import { useId } from './data-utils';
 
 export interface GuildDocument extends Entity.Guild, Document {}

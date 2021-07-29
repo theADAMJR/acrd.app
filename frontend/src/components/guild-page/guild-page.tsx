@@ -1,4 +1,4 @@
-import store from '../../redux/store';
+import store from '../../store/store';
 import AppNavbar from '../app-navbar/app-navbar';
 import Guild from '../guild/guild';
 import Sidebar from '../sidebar/sidebar';

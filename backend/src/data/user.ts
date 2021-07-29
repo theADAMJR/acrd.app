@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 import { useId } from './data-utils';
-import { snowflake } from '../utils/src/snowflake';
+import { snowflake } from '../utils/snowflake';
 
 export interface UserDocument extends Entity.User, Document {}
 

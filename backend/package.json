@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/app.ts",
-    "dev": "ts-node-dev src/app.ts"
+    "dev": "ts-node-dev src/app.ts",
+    "shush": "ts-node-dev src/app.ts --transpile-only"
   },
   "keywords": [],
   "author": "",

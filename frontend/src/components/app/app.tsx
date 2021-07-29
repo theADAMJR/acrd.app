@@ -1,6 +1,6 @@
-import store from '../../redux/store';
+import store from '../../store/store';
 import { useEffect } from 'react';
-import { emit, on } from '../../redux/api-client';
+import { emit, on } from '../../store/api-client';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from '../home-page/home-page';
 import GuildPage from '../guild-page/guild-page';

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { fetchMessages } from '../../redux/actions/message-actions';
-import store from '../../redux/store';
+import { fetchMessages } from '../../store/actions/message-actions';
+import store from '../../store/store';
 import Message from '../message/message';
 import MessageBox from '../message-box/message-box';
 import './text-based-channel.scoped.css';

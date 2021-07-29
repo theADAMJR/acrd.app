@@ -28,5 +28,6 @@
 ```
 API_PORT=3000
 API_PREFIX="/api/v1"
+MONGO_URI="mongodb://localhost/dclone-essential"
 WEBSITE_PORT=4200
 ```
