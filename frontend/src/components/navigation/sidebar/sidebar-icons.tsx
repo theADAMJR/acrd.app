@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { useStore } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import GuildIcon from '../../guild/guild-icon/guild-icon';
 import './sidebar-icons.scoped.css';
  
 const SidebarIcons: React.FunctionComponent = () => {
-  const state: Store.AppStore = useStore().getState();
-  const user = state.auth.user as Entity.User;
-  const guilds = state.entities.guilds;
+  const user = useSelector((s: Store.AppStore) => s.auth.user)!;
+  const guilds = useSelector((s: Store.AppStore) => s.entities.guilds)!;
   
   const iconify = (content: JSX.Element) => 
       <div className="guild-icon flex justify-center mb-1">{content}</div>;

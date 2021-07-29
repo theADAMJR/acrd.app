@@ -1,5 +1,8 @@
 import SnowflakeId from 'snowflake-id';
 
-export const snowflake = {
-  generate: () => (Math.random() * 12912812).toString().replace('.', '')
-}
+const snowflake = new SnowflakeId({
+  mid : 42,
+  offset : (2019-1970)*31536000*1000
+});
+
+export const generate = (): string => snowflake.generate();
