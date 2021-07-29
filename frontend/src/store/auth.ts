@@ -38,6 +38,7 @@ export const loginUser = (credentials: Auth.Credentials) => (dispatch) => {
     method: 'post',
     data: credentials,
     url: `/auth/login`,
+    callback: () => dispatch(ready()),
   }));
 }
 
@@ -47,6 +48,7 @@ export const registerUser = (credentials: Auth.Credentials) => (dispatch) => {
     method: 'post',
     data: credentials,
     url: `/auth/register`,
+    callback: () => dispatch(ready()),
   }));
 }
 

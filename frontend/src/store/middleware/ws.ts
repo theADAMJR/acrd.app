@@ -1,4 +1,5 @@
 import { actions } from '../api';
+import { ready } from '../auth';
 import ws from '../services/ws';
 
 export default store => next => async action => {
@@ -13,7 +14,7 @@ export default store => next => async action => {
 
   const callback = (payload) => {
     onSuccess && store.dispatch({ type: onSuccess, payload });
-    store.dispatch(actions.wsCallSucceded(payload))
+    store.dispatch(actions.wsCallSucceded(payload));
     // ws.off(event, callback);
     // ws.off('error', errorCallback);    
   };
