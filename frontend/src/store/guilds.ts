@@ -53,3 +53,9 @@ export const fetchMyGuilds = () => (dispatch, getState) => {
 
 export const actions = slice.actions;
 export default slice.reducer;
+
+export const getAbbr = (name: string) => name
+  .split(' ')
+  .map(n => n[0])
+  .join('')
+  .slice(0, 3);

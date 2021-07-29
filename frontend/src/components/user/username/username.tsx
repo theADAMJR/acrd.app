@@ -8,33 +8,25 @@ export interface UsernameProps {
   guild?: Entity.Guild;
 }
  
-export interface UsernameState {}
- 
-class Username extends React.Component<UsernameProps, UsernameState> {
-  render() {
-    const { guild, user } = this.props; 
-    console.log(user);
-    console.log(guild);
-    
-    const userOwnsGuild = guild?.ownerId === user.id;
+const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
+  const userOwnsGuild = guild?.ownerId === user.id;
 
-    return (
-      <div className="username flex p-3">
-        <div className="avatar mr-2">
-          <img className="rounded-full" src={user.avatarURL} />
-        </div>
-        <div className="tag leading-4">
-          <h4 className="font-bold">
-            <span>{user.username}</span>
-            <span className="text-yellow-400 ml-1">
-              {userOwnsGuild && <FontAwesomeIcon icon={faCrown} />}
-            </span>
-          </h4>
-          <div className="discriminator text-xs">#{user.discriminator}</div>
-        </div>
+  return (
+    <div className="username flex p-3">
+      <div className="avatar mr-2">
+        <img className="rounded-full" src={user.avatarURL} />
       </div>
-    );
-  }
+      <div className="tag leading-4">
+        <h4 className="font-bold">
+          <span>{user.username}</span>
+          <span className="text-yellow-400 ml-1">
+            {userOwnsGuild && <FontAwesomeIcon icon={faCrown} />}
+          </span>
+        </h4>
+        <div className="discriminator text-xs">#{user.discriminator}</div>
+      </div>
+    </div>
+  );
 }
  
 export default Username;
