@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import configureStore from '../../store/configure-store';
 import LoginPage from '../pages/login-page';
 import RegisterPage from '../pages/register-page';
+import OverviewPage from '../pages/overview-page';
 
 export default function App() {
   return (
