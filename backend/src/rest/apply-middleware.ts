@@ -10,7 +10,11 @@ export default (app: Express) => {
   app.use(bodyParser.json());
   app.use(passport.initialize(), passport.session());
   
-  passport.use(new LocalStrategy((User as any).authenticate()));
+  passport.use(new LocalStrategy({
+      usernameField: 'email',
+    },
+    (User as any).authenticate(),
+  ));
   passport.serializeUser((User as any).serializeUser());
   passport.deserializeUser((User as any).deserializeUser());
 };

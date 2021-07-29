@@ -6,9 +6,9 @@ import jwt from 'jsonwebtoken';
 
 export const router = Router();
 
-router.post('/login',
-  authenticate('local', { failureRedirect: '/login' }),
-  (req, res) => {
+router.post('/login', authenticate('local'), (req, res) => {
+  console.log('wee woo');
+    
   const userId = (req.user as Entity.User).id;
   const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY);
 
@@ -25,6 +25,7 @@ router.post('/register', async (req, res) => {
 
   const user = await (User as any).register({
     username,
+    email: req.body.email,
     discriminator: usernameCount + 1,
   }, req.body.password);
 

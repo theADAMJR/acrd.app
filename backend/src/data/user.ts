@@ -13,10 +13,11 @@ const UserSchema = new Schema({
   channelId: String,
   discriminator: Number,
   email: String,
+  username: String,
   updatedAt: Date,
   guilds: [{ type: String, ref: 'guild' }],
 }, { toJSON: { getters: true } })
 .method('toClient', useId)
-.plugin(passportLocalMongoose);
+.plugin(passportLocalMongoose, { usernameField: 'email' });
 
 export const User = model<UserDocument>('user', UserSchema);
