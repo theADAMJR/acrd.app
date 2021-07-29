@@ -4,6 +4,8 @@ declare namespace Entity {
     id: string;
     name: string;
     guildId?: string;
+    firstMessageId?: string;
+    lastMessageId?: string;
   }
 
   export interface Guild {

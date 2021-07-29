@@ -31,21 +31,21 @@ export const fetchMyGuilds = () => (dispatch, getState) => {
   }));
 }
 
-export const updateSelf = (id: string) => (dispatch) => {
-  dispatch(api.callBegan({
-    onSuccess: actions.updated.type,
-    method: 'patch',
-    url: `/guilds/${id}`,
-  }));
-}
+// export const updateSelf = (id: string) => (dispatch) => {
+//   dispatch(api.callBegan({
+//     onSuccess: actions.updated.type,
+//     method: 'patch',
+//     url: `/guilds/${id}`,
+//   }));
+// }
 
-export const deleteSelf = (id: string) => (dispatch) => {
-  dispatch(api.callBegan({
-    onSuccess: actions.updated.type,
-    method: 'delete',
-    url: `/guilds/${id}`,
-  }));
-}
+// export const deleteSelf = (id: string) => (dispatch) => {
+//   dispatch(api.callBegan({
+//     onSuccess: actions.deleted.type,
+//     method: 'delete',
+//     url: `/guilds/${id}`,
+//   }));
+// }
 
 export const actions = slice.actions;
 export default slice.reducer;

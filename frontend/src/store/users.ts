@@ -41,8 +41,8 @@ export const updateSelf = (id: string) => (dispatch) => {
 
 export const deleteSelf = (id: string) => (dispatch) => {
   dispatch(api.callBegan({
-    onSuccess: actions.updated.type,
-    method: '/delete',
+    onSuccess: actions.deleted.type,
+    method: 'delete',
     url: `/users/${id}`,
   }));
 }

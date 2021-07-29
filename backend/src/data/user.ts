@@ -1,10 +1,11 @@
 import { model, Schema } from 'mongoose';
 import { useId } from './data-utils';
 import { snowflake } from '../utils/snowflake';
+import passportLocalMongoose from 'passport-local-mongoose';
 
 export interface UserDocument extends Entity.User, Document {}
 
-export const User = model<UserDocument>('user', new Schema({
+const UserSchema = new Schema({
   _id: { type: String, default: snowflake.generate() },
   authorId: String,
   content: String,
@@ -12,4 +13,8 @@ export const User = model<UserDocument>('user', new Schema({
   channelId: String,
   discriminator: Number,
   updatedAt: Date,
-}, { toJSON: { getters: true } }).method('toClient', useId));
+}, { toJSON: { getters: true } })
+.method('toClient', useId)
+.plugin(passportLocalMongoose);
+
+export const User = model<UserDocument>('user', UserSchema);
