@@ -1,7 +1,10 @@
 import { createAction } from '@reduxjs/toolkit';
 
 export const actions = {
-  callBegan: createAction('api/callBegan') as any,
-  callSucceded: createAction('api/callSucceeded') as any,
-  callFailed: createAction('api/callFailed') as any,
+  restCallBegan: createAction('api/restCallBegan') as any,
+  restCallSucceded: createAction('api/restCallSucceeded') as any,
+  restCallFailed: createAction('api/restCallFailed') as any,
+  wsCallBegan: createAction('api/wsCallBegan') as any,
+  wsCallSucceded: createAction('api/wscallSucceeded') as any,
+  wsCallFailed: createAction('api/wscallFailed') as any,
 };

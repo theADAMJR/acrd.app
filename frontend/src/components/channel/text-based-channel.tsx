@@ -13,10 +13,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   return (
     <div className="text-based-channel flex flex-col flex-grow">
       <div className="messages">
-        {messages.map(m => <Message
-          key={m.id}
-          author={getUser(m.authorId)(state)}
-          message={m} />)}
+        {messages.map(m => <Message key={m.id} message={m} />)}
       </div>
       <MessageBox />
     </div>

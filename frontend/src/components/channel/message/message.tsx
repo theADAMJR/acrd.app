@@ -3,14 +3,15 @@ import moment from 'moment';
 import './message.scoped.css';
 import { useStore } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
+import { getUser } from '../../../store/users';
 
 export interface MessageProps {
-  author: Entity.User;
   message: Entity.Message;
 }
 
-const Message: React.FunctionComponent<MessageProps> = ({ message, author }: MessageProps) => {
+const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProps) => {
   const state = useStore().getState();
+  const author = getUser(message.authorId)(state) as Entity.User;
   const messages = getChannelMessages(message.channelId)(state);
 
   const isExtra = () => {

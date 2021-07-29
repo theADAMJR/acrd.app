@@ -25,14 +25,14 @@ export const fetchAllUsers = () => (dispatch, getState) => {
   const diffMins = moment().diff(moment(lastFetch), 'minutes');
   if (diffMins < 10) return;
 
-  dispatch(api.callBegan({
+  dispatch(api.restCallBegan({
     onSuccess: actions.fetched.type,
     url: '/users',
   }));
 }
 
 export const updateSelf = (id: string) => (dispatch) => {
-  dispatch(api.callBegan({
+  dispatch(api.restCallBegan({
     onSuccess: actions.updated.type,
     method: 'patch',
     url: `/users/${id}`,
@@ -40,18 +40,18 @@ export const updateSelf = (id: string) => (dispatch) => {
 }
 
 export const deleteSelf = (id: string) => (dispatch) => {
-  dispatch(api.callBegan({
+  dispatch(api.restCallBegan({
     onSuccess: actions.deleted.type,
     method: 'delete',
     url: `/users/${id}`,
   }));
 }
 
-export const actions = slice.actions;
-export default slice.reducer;
-
 export const getUser = (id: string) =>
-  createSelector<Store.AppStore, Entity.User[], Entity.User>(
+  createSelector<Store.AppStore, Entity.User[], Entity.User | undefined>(
   state => state.entities.users,
   users => users.find(u => u.id === id),
 )
+
+export const actions = slice.actions;
+export default slice.reducer;

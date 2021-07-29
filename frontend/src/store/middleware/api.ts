@@ -3,7 +3,7 @@ import { actions } from '../api';
 import env from '../../environment';
 
 export default store => next => async action => {
-  if (action.type !== actions.callBegan.type)
+  if (action.type !== actions.restCallBegan.type)
     return next(action);
   
   const { url, method, data, onStart, onSuccess } = action.payload;
@@ -20,10 +20,10 @@ export default store => next => async action => {
       url,
     });
 
-    store.dispatch(actions.callSucceded(payload));
+    store.dispatch(actions.restCallSucceded(payload));
     if (onSuccess)
       store.dispatch({ type: onSuccess, payload });
   } catch (error) {
-    store.dispatch(actions.callFailed(error));
+    store.dispatch(actions.restCallFailed(error));
   }
 };

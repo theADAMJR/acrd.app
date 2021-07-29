@@ -49,9 +49,7 @@ export class WS {
           try {
             await event.invoke.bind(event)(this, client, data);
           } catch (error) {
-            console.log(error);
-            
-            client.send(`Server error on executing: ${event.on}\n${error.message}`);
+            client.emit('error', { on: event.on, error });
           }
         });
     });

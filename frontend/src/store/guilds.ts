@@ -29,7 +29,7 @@ export const fetchMyGuilds = () => (dispatch, getState) => {
   const diffMins = moment().diff(moment(lastFetch), 'minutes');
   if (diffMins < 10) return;
 
-  dispatch(api.callBegan({
+  dispatch(api.restCallBegan({
     onSuccess: actions.fetched.type,
     url: '/guilds',
   }));

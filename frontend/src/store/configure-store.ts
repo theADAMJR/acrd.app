@@ -11,7 +11,7 @@ export default () => configureStore<Store.AppStore>({
     api,
   ] as any,
   reducer: combineReducers({
-    auth,
+    auth: combineReducers({}),
     entities: combineReducers({ guilds, messages, users }),
     ui: combineReducers({}),
   }),

@@ -37,9 +37,17 @@ export const fetchAllMessages = (channelId: string) => (dispatch, getState) => {
   const diffMins = moment().diff(moment(lastFetch), 'minutes');
   if (diffMins < 10) return;
 
-  dispatch(api.callBegan({
+  dispatch(api.restCallBegan({
     onSuccess: actions.fetched.type,
     url: `/channels/${channelId}/messages`,
+  }));
+}
+
+export const createMessage = (channelId: string, data: Partial<Entity.Message>) => (dispatch) => {
+  dispatch(api.restCallBegan({
+    onSuccess: actions.created.type,
+    method: 'post',
+    data,
   }));
 }
 
