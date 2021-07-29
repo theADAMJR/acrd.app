@@ -6,7 +6,7 @@ const LoginPage: React.FunctionComponent = () => {
   return (
     <>
       <div style={style} className="flex items-center justify-center h-screen">
-        <form style={{width: '450px'}} className="rounded-md shadow bg-bg-secondary p-8">
+        <form style={{width: '478px', height: '408px'}} className="rounded-md shadow bg-bg-primary p-8">
           <h1 className="text-3xl font-bold">Welcome back!</h1>
           <p className="lead">We're so excited to see you again!</p>
 
@@ -16,7 +16,7 @@ const LoginPage: React.FunctionComponent = () => {
             <input
               id="username"
               type="text"
-              className="block w-full h-10" />
+              className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
           </div>
 
           <div className="form-group mt-3">
@@ -24,14 +24,14 @@ const LoginPage: React.FunctionComponent = () => {
             <input
               id="password"
               type="password"
-              className="block w-full h-10" />
+              className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
           </div>
 
           <button className="background bg-primary heading w-full h-11 rounded-md mt-8">Login</button>
           <p className="mt-2">Need an account? <Link to="/register">Register</Link></p>
         </form>
       </div>
-      <Particles width="100%" height="100%" />
+      <Particles width="100%" height="100%"/>
     </>
   );
 }
