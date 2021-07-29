@@ -16,7 +16,7 @@ export default (app: Express) => {
     res.json(guild);
   });
 
-  app.use('/auth', authRoutes);
+  app.use(`${prefix}/auth`, authRoutes);
 
   app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
   app.use((err, req, res, next) => res.status(400).json(err));
