@@ -1,4 +1,4 @@
-import environment from '../environment';
+import environment from '../../environment';
 import io from 'socket.io-client';
 
 const ws = (io as any).connect(environment.rootAPIURL,

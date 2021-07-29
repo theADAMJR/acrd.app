@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
+import users from './users';
 
 export default () => configureStore({
   middleware: [
@@ -7,7 +8,9 @@ export default () => configureStore({
   ],
   reducer: combineReducers({
     auth: combineReducers({}),
-    entities: combineReducers({}),
+    entities: combineReducers({
+      users,
+    }),
     ui: combineReducers({}),
   }),
 });
