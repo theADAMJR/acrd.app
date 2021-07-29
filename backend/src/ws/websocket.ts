@@ -1,6 +1,6 @@
 import { Server } from 'socket.io';
 import { REST } from '../rest/server';
-import { Deps } from '../../../utils/src/deps';
+import { Deps } from '../utils/deps';
 import { WSEvent } from './events/ws-event';
 import path from 'path';
 import fs from 'fs';

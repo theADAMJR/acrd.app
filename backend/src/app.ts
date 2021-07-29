@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 config({ path: '.env' });
 
 import { connect } from 'mongoose';
-import { Deps } from '../../utils/src/deps';
+import { Deps } from './utils/deps';
 import { WS } from './ws/websocket';
 
 connect(process.env.MONGO_URI,
