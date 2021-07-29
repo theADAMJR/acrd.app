@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../store/auth';
 
-const LoginPage: React.FunctionComponent = () => {  
+const LoginPage: React.FunctionComponent = () => {
+  const user = useSelector((s: Store.AppStore) => s.auth.user);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
 
@@ -12,7 +13,9 @@ const LoginPage: React.FunctionComponent = () => {
     dispatch(loginUser(data));
   }
 
-  return (
+  return (user)
+    ? <Redirect to="/channels/@me" />
+    : (
     <>
       <div
         style={{position: 'absolute', left: '35%'}}
