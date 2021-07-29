@@ -3,15 +3,12 @@ import * as React from 'react';
 import './sidebar-content.scoped.css';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
-import store from '../../store/store';
 
 export interface SidebarContentProps {
   user: Entity.User;
 }
 
-const SidebarContent: React.FunctionComponent<SidebarContentProps> = (props) => {
-  const state = store.getState();
-  
+const SidebarContent: React.FunctionComponent<SidebarContentProps> = (props) => {  
   return (
     <div className="flex flex-col sidebar-content background-secondary">
       <div className="sidebar-header">

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { actions as api } from './api';
 
@@ -23,6 +23,12 @@ const slice = createSlice({
     },
   },
 });
+
+export const getChannelMessages = (channelId: string) =>
+  createSelector<any, Entity.Message[], Entity.Message[]>(
+  state => state.entities.messages,
+  messages => messages.filter(m => m.channelId === channelId),
+);
 
 // 'inspired by' - https://discord.com/developers/docs/resources/channel#get-channel-messages
 export const fetchAllMessages = (channelId: string) => (dispatch, getState) => {

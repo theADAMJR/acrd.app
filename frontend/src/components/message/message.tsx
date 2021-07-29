@@ -1,7 +1,8 @@
 import * as React from 'react';
 import moment from 'moment';
 import './message.scoped.css';
-import store from '../../store/store';
+import { useStore } from 'react-redux';
+import { getChannelMessages } from '../../store/messages';
 
 export interface MessageProps {
   author: Entity.User;
@@ -9,8 +10,8 @@ export interface MessageProps {
 }
 
 const Message: React.FunctionComponent<MessageProps> = ({ message, author }: MessageProps) => {
-  const state = store.getState();
-  const messages = state.messages.get(message.channelId) as Entity.Message[];
+  const state = useStore().getState();
+  const messages = getChannelMessages(message.channelId)(state);
 
   const isExtra = () => {
     const i = messages.findIndex(m => m.id === message.id);
@@ -31,7 +32,10 @@ const Message: React.FunctionComponent<MessageProps> = ({ message, author }: Mes
 
     return (isExtra())
       ? <span className="timestamp text-xs">{time}</span>
-      : <img className="rounded-full cursor-pointer" src={author.avatarURL} alt={author.username} />;
+      : <img
+          className="rounded-full cursor-pointer"
+          src={author.avatarURL}
+          alt={author.username} />;
   }
   
   const messageHeader = () => {

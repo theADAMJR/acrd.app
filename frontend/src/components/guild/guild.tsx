@@ -1,6 +1,5 @@
 import MemberList from '../member-list/member-list';
 import TextBasedChannel from '../text-based-channel/text-based-channel';
-import store from '../../store/store';
 import './guild.scoped.css';
 
 export interface GuildProps {
