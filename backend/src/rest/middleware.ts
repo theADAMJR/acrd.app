@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import createError from 'http-errors';
 
 export const loggedIn = (req, res, next) => {
   const payload = jwt.verify(
@@ -6,5 +7,8 @@ export const loggedIn = (req, res, next) => {
     process.env.JWT_SECRET_KEY,
   ) as Auth.Payload;
   
-  return Boolean(payload.userId);
+  if (!payload.userId)
+    createError(401, 'Unauthorized');
+
+  return next();
 };
