@@ -28,12 +28,12 @@ const LoginPage: React.FunctionComponent = () => {
           <p className="lead">We're so excited to see you again!</p>
 
           <div className="form-group mt-3">
-            <label htmlFor="username" className="uppercase">Username</label>
+            <label htmlFor="email" className="uppercase">Email</label>
             {/* make inputs own components? */}
             <input
-              id="username"
+              id="email"
               type="text"
-              {...register('username')}
+              {...register('email')}
               className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
           </div>
 

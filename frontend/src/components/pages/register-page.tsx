@@ -27,6 +27,15 @@ const RegisterPage: React.FunctionComponent = () => {
           <h1 className="text-2xl font-bold mb-8 text-center">Create an account</h1>
 
           <div className="form-group mt-3">
+            <label htmlFor="email" className="uppercase">Email</label>
+            <input
+              id="email"
+              type="text"
+              {...register('email')}
+              className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+          </div>
+
+          <div className="form-group mt-3">
             <label htmlFor="username" className="uppercase">Username</label>
             <input
               id="username"
@@ -41,15 +50,6 @@ const RegisterPage: React.FunctionComponent = () => {
               id="password"
               type="password"
               {...register('password')}
-              className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-          </div>
-
-          <div className="form-group mt-3">
-            <label htmlFor="confirmPassword" className="uppercase">Confirm Password</label>
-            <input
-              id="confirmPassword"
-              type="password"
-              {...register('confirmPassword')}
               className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
           </div>
 

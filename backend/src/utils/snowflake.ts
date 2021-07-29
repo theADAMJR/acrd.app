@@ -2,10 +2,10 @@ import cluster from 'cluster';
 
 let inc = 0;
 let lastSnowflake: string;
-const accordEpoch = 1609459200000;
+const dcloneEpoch = 1609459200000;
 
 export function generate() {
-  const msSince = (new Date().getTime() - accordEpoch)
+  const msSince = (new Date().getTime() - dcloneEpoch)
     .toString(2)
     .padStart(42, '0');  
   const pid = process.pid

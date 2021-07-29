@@ -31,6 +31,7 @@ declare namespace Entity {
     avatarURL: string;
     createdAt: Date;
     discriminator: number;
+    email: string;
     id: string;
     username: string;
     guilds: string[];
