@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 export const router = Router();
 
-router.get('/login',
+router.post('/login',
   authenticate('local', { failureRedirect: '/login' }),
   (req, res) => {
   const userId = (req.user as Entity.User).id;
@@ -15,7 +15,7 @@ router.get('/login',
   res.json(token);
 });
 
-router.get('/register', async (req, res) => {
+router.post('/register', async (req, res) => {
   const username = req.body.username;
   const usernameCount = await User.countDocuments({ username });
 

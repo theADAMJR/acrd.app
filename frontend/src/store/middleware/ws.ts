@@ -17,7 +17,8 @@ export default store => next => async action => {
     ws.off(event, callback);
     ws.off('error', errorCallback);
   };
-  const errorCallback = payload => store.dispatch(actions.restCallFailed(payload));
+  const errorCallback = payload =>
+    store.dispatch(actions.restCallFailed(payload));
 
   ws.on(event, callback);
   ws.on('error', errorCallback);

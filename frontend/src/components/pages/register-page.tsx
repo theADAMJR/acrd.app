@@ -1,16 +1,23 @@
 import Particles from 'react-particles-js';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { register } from '../../store/auth';
+import { useDispatch } from 'react-redux';
 
-const RegisterPage: React.FunctionComponent = () => {
-  const style: any = {position: 'absolute', left: '35%'}!;
+const RegisterPage: React.FunctionComponent = () => {  
+  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (credentials: any) => dispatch(register(credentials));
+
   return (
     <>
       <div
-        style={style}
+        style={{position: 'absolute', left: '35%'}}
         className="flex items-center justify-center h-screen">
         <form
           style={{ width: '480px' }}
-          className="rounded-md shadow bg-bg-primary p-8">
+          className="rounded-md shadow bg-bg-primary p-8"
+          onSubmit={handleSubmit(onSubmit)}>
           <h1 className="text-2xl font-bold mb-8 text-center">Create an account</h1>
 
           <div className="form-group mt-3">
@@ -18,6 +25,7 @@ const RegisterPage: React.FunctionComponent = () => {
             <input
               id="username"
               type="text"
+              {...register('username')}
               className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
           </div>
 
@@ -26,14 +34,16 @@ const RegisterPage: React.FunctionComponent = () => {
             <input
               id="password"
               type="password"
+              {...register('password')}
               className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
           </div>
 
           <div className="form-group mt-3">
-            <label htmlFor="password" className="uppercase">Confirm Password</label>
+            <label htmlFor="confirmPassword" className="uppercase">Confirm Password</label>
             <input
-              id="password"
+              id="confirmPassword"
               type="password"
+              {...register('confirmPassword')}
               className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
           </div>
 
