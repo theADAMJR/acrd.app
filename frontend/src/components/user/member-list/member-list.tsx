@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Category from '../category/category';
+import Category from '../../category/category';
 import './member-list.scoped.css';
 import Username from '../username/username';
 import { useStore } from 'react-redux';

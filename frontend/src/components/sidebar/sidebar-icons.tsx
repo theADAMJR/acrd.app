@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { useStore } from 'react-redux';
-import GuildIcon from '../guild-icon/guild-icon';
+import GuildIcon from '../guild/guild-icon/guild-icon';
 import './sidebar-icons.scoped.css';
  
 const SidebarIcons: React.FunctionComponent = () => {

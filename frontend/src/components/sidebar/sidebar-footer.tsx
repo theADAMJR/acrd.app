@@ -1,5 +1,5 @@
 import './sidebar-footer.scoped.css';
-import Username from '../username/username';
+import Username from '../user/username/username';
 
 export interface SidebarFooterProps {
   user: Entity.User;

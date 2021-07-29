@@ -1,3 +1,4 @@
+// TODO: declare own module
 declare global {
   export interface ToWSAPI {
     'MESSAGE_CREATE': Params.MessageCreate;

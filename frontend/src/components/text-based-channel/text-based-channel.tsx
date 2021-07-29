@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Message from '../message/message';
-import MessageBox from '../message-box/message-box';
+import MessageBox from './message-box/message-box';
 import './text-based-channel.scoped.css';
 
 export interface TextBasedChannelProps {

@@ -6,6 +6,10 @@ const slice = createSlice({
   name: 'guilds',
   initialState: [] as Entity.Guild[],
   reducers: {
+    memberAdded: (guilds, { payload }) => {
+      const guild = guilds.find(i => i.id === payload.guildId);
+      guild?.members.push(payload.member);
+    },
     fetched: (guilds, { payload }) => {
       guilds = guilds.concat(payload);
     },

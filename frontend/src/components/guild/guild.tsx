@@ -1,20 +1,18 @@
-import MemberList from '../member-list/member-list';
+import MemberList from '../user/member-list/member-list';
 import TextBasedChannel from '../text-based-channel/text-based-channel';
+import { useStore } from 'react-redux';
 import './guild.scoped.css';
-
-export interface GuildProps {
-  guild: Entity.Guild;
-}
  
-const Guild: React.FunctionComponent<GuildProps> = (props: GuildProps) => {
-  const state = store.getState();
-  const channel = state.activeChannel;
-  
+const Guild: React.FunctionComponent = () => {
+  const state: Store.AppStore = useStore().getState();
+  const { activeChannel } = state.ui;
+  const guild = state.ui.activeGuild as Entity.Guild;
+
   return (
     <div className="guild">
-      {channel && <TextBasedChannel channel={channel} />}
-      {!channel && 'TODO: no channel'}
-      <MemberList users={props.guild.members} guild={props.guild} />
+      {activeChannel && <TextBasedChannel />}
+      {!activeChannel && 'TODO: no channel'}
+      <MemberList users={guild.members} />
     </div>
   );
 }
