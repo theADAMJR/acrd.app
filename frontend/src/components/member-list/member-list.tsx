@@ -14,7 +14,7 @@ const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListP
   const members = props.users.map(u => <Username
     key={u.id}
     user={u}
-    guild={guild} />
+    guild={activeGuild} />
   );
 
   return (
