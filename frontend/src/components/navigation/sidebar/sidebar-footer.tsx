@@ -6,7 +6,7 @@ const SidebarFooter: React.FunctionComponent = () => {
   const state = useStore().getState();
   
   return (
-    <div className="sidebar-footer background-secondary-alt">
+    <div className="sidebar-footer bg-bg-secondary-alt">
       <Username user={state.auth.user} />
     </div>
   );

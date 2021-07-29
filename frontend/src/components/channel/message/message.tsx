@@ -44,7 +44,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
 
     return (
       <>
-        <span className="text-base color-heading hover:underline cursor-pointer mr-1">{author.username}</span>
+        <span className="text-base heading hover:underline cursor-pointer mr-1">{author.username}</span>
         <span className="text-xs">{message.createdAt.toDateString()}</span>
       </>
     );
@@ -56,7 +56,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
       <div className="left-side pl-5">{leftSide()}</div>
       <div className="message-content flex-grow">
         {messageHeader()}
-        <div className="color-normal">{message.content}</div>
+        <div className="normal">{message.content}</div>
       </div>
       <div className="right-side" />
     </div>

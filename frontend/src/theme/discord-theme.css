@@ -9,11 +9,11 @@
 
   --success: hsl(139, calc(var(--saturation-factor, 1) * 47.3%), 43.9%);
 
-  --background-primary: #36393f;
-  --background-secondary: #2f3136;
-  --background-secondary-alt: #292b2f;
-  --background-tertiary: #202225;
-  --background-textarea: #40444b;
+  --bg-primary: #36393f;
+  --bg-secondary: #2f3136;
+  --bg-secondary-alt: #292b2f;
+  --bg-tertiary: #202225;
+  --bg-textarea: #40444b;
 
   --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05),
     0 2px 0 rgba(4, 4, 5, 0.05);
@@ -30,41 +30,50 @@ h5 {
 
 body {
   color: var(--font);
-  background-color: var(--background-tertiary);
+  background-color: var(--bg-tertiary);
 }
 
 textarea {
-  background-color: var(--background-textarea) !important;
+  background-color: var(--bg-textarea) !important;
 }
 
-.color-success {
+.success {
   color: var(--success) !important;
 }
-.color-normal {
+.normal {
   color: var(--normal) !important;
 }
-.color-heading {
+.heading {
   color: var(--heading) !important;
 }
-.color-primary {
+.primary {
   color: var(--primary) !important;
 }
-.color-secondary {
+.secondary {
   color: var(--secondary) !important;
 }
-.color-tertiary {
+.tertiary {
   color: var(--tertiary) !important;
 }
 
-.background-primary {
-  background-color: var(--background-primary) !important;
+.bg-primary {
+  background-color: var(--primary) !important;
 }
-.background-secondary {
-  background-color: var(--background-secondary) !important;
+.bg-secondary {
+  background-color: var(--secondary) !important;
 }
-.background-secondary-alt {
-  background-color: var(--background-secondary-alt) !important;
+.bg-tertiary {
+  background-color: var(--tertiary) !important;
 }
-.background-tertiary {
-  background-color: var(--background-tertiary) !important;
+.bg-bg-primary {
+  background-color: var(--bg-primary) !important;
+}
+.bg-bg-secondary {
+  background-color: var(--bg-secondary) !important;
+}
+.bg-bg-secondary-alt {
+  background-color: var(--bg-secondary-alt) !important;
+}
+.bg-bg-tertiary {
+  background-color: var(--bg-tertiary) !important;
 }

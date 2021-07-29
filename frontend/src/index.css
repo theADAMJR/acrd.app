@@ -28,7 +28,7 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--background-secondary);
+  background-color: var(--bg-secondary);
   border-radius: 10px;
 }
 

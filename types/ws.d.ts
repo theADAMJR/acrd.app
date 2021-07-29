@@ -27,8 +27,12 @@ declare global {
     export interface MessageDelete {
       messageId: string;
     }
-    export interface Ready {}
-    export interface TypingStart {}
+    export interface Ready {
+      token: string;
+    }
+    export interface TypingStart {
+      channelId: string;
+    }
   }
   
   export namespace Args {
@@ -38,8 +42,12 @@ declare global {
     export interface MessageDelete {
       messageId: string;
     }
-    export interface Ready extends Entity.User {}
-    export interface TypingStart {}
+    export interface Ready {
+      user: Entity.User;
+    }
+    export interface TypingStart {
+      channelId: string;
+    }
   }
 }
 export {};

@@ -22,7 +22,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = () => {
     <div className="message-box block">
       <TextareaAutosize
         onKeyDown={create}
-        className="color-normal appearance-none rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none" />
+        className="normal appearance-none rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none" />
       <div className="message-box-footer" />
     </div>
   );

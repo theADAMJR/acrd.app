@@ -18,7 +18,7 @@ const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListP
   );
 
   return (
-    <div className="member-list background-secondary">
+    <div className="member-list bg-bg-secondary">
       <Category title="Online" count={props.users.length} />
       <div>{members}</div>
     </div>

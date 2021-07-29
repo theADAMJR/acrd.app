@@ -18,10 +18,10 @@ const SidebarIcons: React.FunctionComponent = () => {
       src={user.avatarURL}
       alt={user.username} />
   );
-  const plusIcon = <div className="flex items-center justify-center rounded-full h-12 w-12 background-primary color-success text-4xl font-light pb-1">+</div>;
+  const plusIcon = <div className="flex items-center justify-center rounded-full h-12 w-12 bg-bg-primary success text-4xl font-light pb-1">+</div>;
   
   return (
-    <div className="sidebar-icons flex flex-col background-tertiary px-2">
+    <div className="sidebar-icons flex flex-col bg-bg-tertiary px-2">
       {iconify(userAvatar)}
       {iconify(<div className="icon-separator mb-1" />)}
       {guildIcons}

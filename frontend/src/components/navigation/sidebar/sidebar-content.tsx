@@ -9,7 +9,7 @@ const SidebarContent: React.FunctionComponent = (props) => {
   const state: Store.AppStore = useStore().getState();
   
   return (
-    <div className="flex flex-col sidebar-content background-secondary">
+    <div className="flex flex-col sidebar-content bg-bg-secondary">
       <div className="sidebar-header">
         <div className="inline-flex justify-content-between">
           <h1 className="flex-grow font-bold">{state.ui.activeGuild?.name}</h1>

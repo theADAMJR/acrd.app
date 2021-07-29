@@ -9,7 +9,7 @@ const GuildPage: React.FunctionComponent = () => {
   return (
     <>
       <Sidebar />
-      <div className="content background-primary">
+      <div className="content bg-bg-primary">
         <AppNavbar />
         {state.ui.activeGuild && <Guild />}
       </div>
