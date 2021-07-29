@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Navbar from '../navbar/navbar';
+import Navbar from '../navigation/navbar';
 import './home-page.scoped.css';
 
 const HomePage: React.FunctionComponent = () => {

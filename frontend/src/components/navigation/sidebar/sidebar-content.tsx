@@ -17,7 +17,7 @@ const SidebarContent: React.FunctionComponent = (props) => {
         </div>
       </div>
       <div className="sidebar-details flex-grow"></div>
-      <SidebarFooter user={state.auth.user} />
+      <SidebarFooter />
     </div>
   );
 }
