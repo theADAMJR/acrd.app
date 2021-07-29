@@ -14,4 +14,7 @@ export default (app: Express) => {
     const guild = await Guild.findById(req.params.id);
     res.json(guild);
   });
+
+  app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
+  app.use((err, req, res, next) => res.status(400).json(err));
 }

@@ -10,12 +10,16 @@ router.get('/login',
   
 });
 
-router.get('/logout', (req, res) => {
+router.get('/register', async (req, res) => {
+  const username = req.body.username;
+  const usernameCount = await User.countDocuments({ username });
 
-});
+  const maxDiscriminator = 9999;
+  if (usernameCount === maxDiscriminator)
+    throw new TypeError('Username is unavailable');
 
-router.get('/register', (req, res) => {
-  User.register({
-    username
+  (User as any).register({
+    username,
+    discriminator: usernameCount + 1,
   }, req.body.password);
 });
