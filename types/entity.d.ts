@@ -33,5 +33,6 @@ declare namespace Entity {
     discriminator: number;
     id: string;
     username: string;
+    guilds: string[];
   }
 }

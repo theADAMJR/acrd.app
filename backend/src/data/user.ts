@@ -13,6 +13,7 @@ const UserSchema = new Schema({
   channelId: String,
   discriminator: Number,
   updatedAt: Date,
+  guilds: [{ type: String, ref: 'guild' }],
 }, { toJSON: { getters: true } })
 .method('toClient', useId)
 .plugin(passportLocalMongoose);

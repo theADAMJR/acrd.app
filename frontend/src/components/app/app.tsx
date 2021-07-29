@@ -18,6 +18,7 @@ export default function App() {
 
           {/* <Route path="/channels/@me/settings" component={UserSettingsPage} />
           <Route path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}
+          <Route path="/channels/@me" component={OverviewPage} />
           <Route path="/channels/:guildId/:channelId?" component={GuildPage} />
         </Switch>
       </Router>
