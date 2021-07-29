@@ -1,7 +1,7 @@
 import { useStore } from 'react-redux';
 import { getChannelMessages } from '../../store/messages';
 import { getUser } from '../../store/users';
-import Message from '../message/message';
+import Message from './message/message';
 import MessageBox from './message-box/message-box';
 import './text-based-channel.scoped.css';
  

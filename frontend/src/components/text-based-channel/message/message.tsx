@@ -2,7 +2,7 @@ import * as React from 'react';
 import moment from 'moment';
 import './message.scoped.css';
 import { useStore } from 'react-redux';
-import { getChannelMessages } from '../../store/messages';
+import { getChannelMessages } from '../../../store/messages';
 
 export interface MessageProps {
   author: Entity.User;

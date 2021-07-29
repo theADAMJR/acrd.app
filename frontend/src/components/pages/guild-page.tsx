@@ -1,14 +1,17 @@
-import AppNavbar from '../app-navbar/app-navbar';
+import { useStore } from 'react-redux';
+import AppNavbar from '../../navigation/app-navbar';
 import Guild from '../guild/guild';
 import Sidebar from '../sidebar/sidebar';
 
 const GuildPage: React.FunctionComponent = () => {  
+  const state = useStore().getState();
+  
   return (
     <>
       <Sidebar />
       <div className="content background-primary">
         <AppNavbar />
-        {state.activeGuild && <Guild />}
+        {state.ui.activeGuild && <Guild />}
       </div>
     </>
   );
