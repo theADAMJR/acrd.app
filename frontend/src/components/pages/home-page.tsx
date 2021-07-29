@@ -1,8 +1,9 @@
+import { useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Navbar from '../navigation/navbar';
 import './home-page.scoped.css';
 
-const HomePage: React.FunctionComponent = () => {
+const HomePage: React.FunctionComponent = () => {  
   return (
     <div>
       <Navbar />

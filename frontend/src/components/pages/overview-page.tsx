@@ -1,10 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ready } from '../../store/auth';
 import AppNavbar from '../navigation/app-navbar';
-import Sidebar from '../navigation/sidebar/sidebar';
 
 const OverviewPage: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
   const user = useSelector((s: Store.AppStore) => s.auth.user);
-  
+
+  dispatch(ready());
+
   return (
     <>
       <AppNavbar />

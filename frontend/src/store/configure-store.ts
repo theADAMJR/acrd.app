@@ -1,5 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { combineReducers } from 'redux';
 import guilds from './guilds';
 import messages from './messages';
 import api from './middleware/api';

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 import { config } from 'dotenv';
+import { Provider } from 'react-redux';
+import configureStore from './store/configure-store';
 
 import './index.css';
 import './theme/discord-theme.css';
@@ -12,9 +14,11 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 config({ path: '../env' });
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={configureStore()}>
+    <React.StrictMode>
     <App />
-  </React.StrictMode>,
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

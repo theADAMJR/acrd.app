@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
+import moment from 'moment';
 
 const slice = createSlice({
   name: 'auth',
@@ -21,11 +22,13 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const ready = () => (dispatch) => {
+export const ready = () => (dispatch, getState) => {
+  if (getState().user || !localStorage.getItem('token')) return;
+
   dispatch(api.wsCallBegan({
     onSuccess: actions.ready.type,
     event: 'READY',
-    data: { token: localStorage.getItem('key') },
+    data: { token: localStorage.getItem('token') },
   }));
 }
 
