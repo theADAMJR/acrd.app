@@ -1,6 +1,7 @@
 import { Express } from 'express-serve-static-core';
 import { Guild } from '../data/guild';
 import { Message } from '../data/message';
+import { router as authRoutes } from './routes/auth-routes';
 
 export default (app: Express) => {
   const prefix = process.env.API_PREFIX;
@@ -14,6 +15,8 @@ export default (app: Express) => {
     const guild = await Guild.findById(req.params.id);
     res.json(guild);
   });
+
+  app.use(authRoutes);
 
   app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
   app.use((err, req, res, next) => res.status(400).json(err));
