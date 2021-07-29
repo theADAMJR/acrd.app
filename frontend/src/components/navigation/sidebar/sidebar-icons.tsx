@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useStore } from 'react-redux';
-import GuildIcon from '../guild/guild-icon/guild-icon';
+import GuildIcon from '../../guild/guild-icon/guild-icon';
 import './sidebar-icons.scoped.css';
  
 const SidebarIcons: React.FunctionComponent = () => {
   const state: Store.AppStore = useStore().getState();
-  const user = state.auth.user;
+  const user = state.auth.user as Entity.User;
   const guilds = state.entities.guilds;
   
   const iconify = (content: JSX.Element) => 

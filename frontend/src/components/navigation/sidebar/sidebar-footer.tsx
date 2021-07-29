@@ -1,5 +1,5 @@
 import './sidebar-footer.scoped.css';
-import Username from '../user/username/username';
+import Username from '../../user/username/username';
 import { useStore } from 'react-redux';
  
 const SidebarFooter: React.FunctionComponent = () => {

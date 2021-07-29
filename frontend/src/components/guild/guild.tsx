@@ -1,5 +1,5 @@
 import MemberList from '../user/member-list/member-list';
-import TextBasedChannel from '../text-based-channel/text-based-channel';
+import TextBasedChannel from '../channel/text-based-channel';
 import { useStore } from 'react-redux';
 import './guild.scoped.css';
  
