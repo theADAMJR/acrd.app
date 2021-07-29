@@ -1,5 +1,5 @@
 import { useStore } from 'react-redux';
-import AppNavbar from '../../navigation/app-navbar';
+import AppNavbar from '../navigation/app-navbar';
 import Guild from '../guild/guild';
 import Sidebar from '../sidebar/sidebar';
 
