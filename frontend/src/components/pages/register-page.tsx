@@ -1,13 +1,13 @@
 import Particles from 'react-particles-js';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { register } from '../../store/auth';
+import { registerUser } from '../../store/auth';
 import { useDispatch } from 'react-redux';
 
 const RegisterPage: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  const onSubmit = (credentials: any) => dispatch(register(credentials));
+  const onSubmit = (credentials) => dispatch(registerUser(credentials));
 
   return (
     <>

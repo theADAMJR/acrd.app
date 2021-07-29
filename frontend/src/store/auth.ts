@@ -1,12 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import moment from 'moment';
 import { actions as api } from './api';
 
 const slice = createSlice({
   name: 'auth',
-  initialState: {
-    user: undefined as Entity.User | undefined,
-  },
+  initialState: {} as Store.AppStore['auth'],
   reducers: {
     ready: (auth, { payload }) => {
       auth.user = payload.user;
@@ -32,7 +29,7 @@ export const ready = () => (dispatch) => {
   }));
 }
 
-export const login = (credentials: Auth.Credentials) => (dispatch) => {
+export const loginUser = (credentials: Auth.Credentials) => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: actions.loggedIn.type,
     method: 'post',
@@ -41,7 +38,7 @@ export const login = (credentials: Auth.Credentials) => (dispatch) => {
   }));
 }
 
-export const register = (credentials: Auth.Credentials) => (dispatch) => {
+export const registerUser = (credentials: Auth.Credentials) => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: actions.loggedIn.type,
     method: 'post',
