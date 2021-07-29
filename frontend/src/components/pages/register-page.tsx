@@ -7,7 +7,10 @@ import { useDispatch } from 'react-redux';
 const RegisterPage: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  const onSubmit = (credentials) => dispatch(registerUser(credentials));
+
+  const onSubmit = (data) => {
+    dispatch(registerUser(data));
+  }
 
   return (
     <>
@@ -17,7 +20,7 @@ const RegisterPage: React.FunctionComponent = () => {
         <form
           style={{ width: '480px' }}
           className="rounded-md shadow bg-bg-primary p-8"
-          onSubmit={e => { e.preventDefault(); handleSubmit(onSubmit) }}>
+          onSubmit={handleSubmit(onSubmit)}>
           <h1 className="text-2xl font-bold mb-8 text-center">Create an account</h1>
 
           <div className="form-group mt-3">

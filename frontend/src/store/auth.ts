@@ -39,6 +39,7 @@ export const loginUser = (credentials: Auth.Credentials) => (dispatch) => {
 }
 
 export const registerUser = (credentials: Auth.Credentials) => (dispatch) => {
+  alert(JSON.stringify(credentials))
   dispatch(api.restCallBegan({
     onSuccess: actions.loggedIn.type,
     method: 'post',
