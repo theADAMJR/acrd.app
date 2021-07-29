@@ -8,6 +8,7 @@ import RegisterPage from '../pages/register-page';
 import OverviewPage from '../pages/overview-page';
 import { ready } from '../../store/auth';
 import { useEffect } from 'react';
+import LogoutPage from '../pages/logout-page';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
+        <Route exact path="/logout" component={LogoutPage} />
 
         {/* <Route path="/channels/@me/settings" component={UserSettingsPage} />
         <Route path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}

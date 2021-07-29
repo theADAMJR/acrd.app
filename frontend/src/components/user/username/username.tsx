@@ -10,6 +10,9 @@ export interface UsernameProps {
  
 const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
   const userOwnsGuild = guild?.ownerId === user.id;
+  const paddedDiscrim = user.discriminator
+    .toString()
+    .padStart(4, '0');
 
   return (
     <div className="username flex p-3">
@@ -23,7 +26,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
             {userOwnsGuild && <FontAwesomeIcon icon={faCrown} />}
           </span>
         </h4>
-        <div className="discriminator text-xs">#{user.discriminator}</div>
+        <div className="discriminator text-xs">#{paddedDiscrim}</div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import AppNavbar from '../navigation/app-navbar';
 import Sidebar from '../navigation/sidebar/sidebar';
 import LoadingPage from './loading-page';
@@ -6,7 +6,7 @@ import LoadingPage from './loading-page';
 const OverviewPage: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppStore) => s.auth.user);
 
-  return (false) ? (
+  return (user) ? (
     <>
       <Sidebar />
       <AppNavbar />
