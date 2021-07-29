@@ -34,7 +34,7 @@ export const loginUser = (credentials: Auth.Credentials) => (dispatch) => {
     onSuccess: actions.loggedIn.type,
     method: 'post',
     data: credentials,
-    url: `/login`,
+    url: `/auth/login`,
   }));
 }
 
@@ -43,7 +43,7 @@ export const registerUser = (credentials: Auth.Credentials) => (dispatch) => {
     onSuccess: actions.loggedIn.type,
     method: 'post',
     data: credentials,
-    url: `/register`,
+    url: `/auth/register`,
   }));
 }
 
