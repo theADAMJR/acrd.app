@@ -25,7 +25,7 @@ const slice = createSlice({
 });
 
 export const getChannelMessages = (channelId: string) =>
-  createSelector<any, Entity.Message[], Entity.Message[]>(
+  createSelector<Store.AppStore, Entity.Message[], Entity.Message[]>(
   state => state.entities.messages,
   messages => messages.filter(m => m.channelId === channelId),
 );

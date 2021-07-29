@@ -1,14 +1,13 @@
 import './sidebar-footer.scoped.css';
 import Username from '../user/username/username';
-
-export interface SidebarFooterProps {
-  user: Entity.User;
-}
+import { useStore } from 'react-redux';
  
-const SidebarFooter: React.FunctionComponent<SidebarFooterProps> = (props: SidebarFooterProps) => {
+const SidebarFooter: React.FunctionComponent = () => {
+  const state = useStore().getState();
+  
   return (
     <div className="sidebar-footer background-secondary-alt">
-      <Username user={props.user} />
+      <Username user={state.auth.user} />
     </div>
   );
 }

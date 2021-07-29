@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { actions as api } from './api';
 
@@ -49,3 +49,9 @@ export const deleteSelf = (id: string) => (dispatch) => {
 
 export const actions = slice.actions;
 export default slice.reducer;
+
+export const getUser = (id: string) =>
+  createSelector<Store.AppStore, Entity.User[], Entity.User>(
+  state => state.entities.users,
+  users => users.find(u => u.id === id),
+)

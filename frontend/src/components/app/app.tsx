@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import HomePage from '../home-page/home-page';
+import HomePage from '../pages/home-page';
 import GuildPage from '../pages/guild-page';
 import './app.scoped.css';
 import { Provider } from 'react-redux';
