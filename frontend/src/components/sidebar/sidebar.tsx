@@ -1,11 +1,7 @@
 import SidebarContent from './sidebar-content';
 import SidebarIcons from './sidebar-icons';
-
-export interface SidebarProps {
-  user: Entity.User;
-}
  
-const Sidebar: React.FunctionComponent<SidebarProps> = (props) => {
+const Sidebar: React.FunctionComponent = (props) => {
   return (
     <div className="sidebar flex float-left">
       <SidebarIcons />

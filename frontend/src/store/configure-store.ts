@@ -5,7 +5,7 @@ import messages from './messages';
 import api from './middleware/api';
 import users from './users';
 
-export default () => configureStore<AppStore>({
+export default () => configureStore<Store.AppStore>({
   middleware: [
     ...getDefaultMiddleware({ serializableCheck: false }),
     api,
@@ -20,18 +20,3 @@ export default () => configureStore<AppStore>({
     ui: combineReducers({}),
   }),
 });
-
-interface AppStore {
-  auth: {
-    user?: Entity.User;
-  };
-  entities: {
-    guilds: Entity.Guild[];
-    messages: Entity.Message[];
-    users: Entity.User[];
-  };
-  ui: {
-    activeGuild?: Entity.Guild;
-    activeChannel?: Entity.Channel;
-  }
-}
