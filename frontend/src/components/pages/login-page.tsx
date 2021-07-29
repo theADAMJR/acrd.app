@@ -1,12 +1,26 @@
 import { Link } from 'react-router-dom';
 import Particles from 'react-particles-js';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../store/auth';
 
-const LoginPage: React.FunctionComponent = () => {
-  const style: any = {position: 'absolute', left: '35%'}!;
+const LoginPage: React.FunctionComponent = () => {  
+  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    dispatch(loginUser(data));
+  }
+
   return (
     <>
-      <div style={style} className="flex items-center justify-center h-screen">
-        <form style={{width: '478px', height: '408px'}} className="rounded-md shadow bg-bg-primary p-8">
+      <div
+        style={{position: 'absolute', left: '35%'}}
+        className="flex items-center justify-center h-screen">
+        <form
+          style={{width: '478px', height: '408px'}}
+          className="rounded-md shadow bg-bg-primary p-8"
+          onSubmit={handleSubmit(onSubmit)}>
           <h1 className="text-3xl font-bold">Welcome back!</h1>
           <p className="lead">We're so excited to see you again!</p>
 
@@ -16,6 +30,7 @@ const LoginPage: React.FunctionComponent = () => {
             <input
               id="username"
               type="text"
+              {...register('username')}
               className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
           </div>
 
@@ -24,6 +39,7 @@ const LoginPage: React.FunctionComponent = () => {
             <input
               id="password"
               type="password"
+              {...register('password')}
               className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
           </div>
 
