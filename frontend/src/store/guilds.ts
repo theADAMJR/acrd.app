@@ -3,31 +3,31 @@ import moment from 'moment';
 import { actions as api } from './api';
 
 const slice = createSlice({
-  name: 'users',
-  initialState: [] as Entity.User[],
+  name: 'guilds',
+  initialState: [] as Entity.Guild[],
   reducers: {
-    fetched: (users, { payload }) => {
-      users = users.concat(payload);
+    fetched: (guilds, { payload }) => {
+      guilds = guilds.concat(payload);
     },
-    updated: (users, { payload }) => {
-      const user = users.find(u => u.id === payload.id);
-      Object.assign(user, payload);
+    updated: (guilds, { payload }) => {
+      const guild = guilds.find(i => i.id === payload.id);
+      Object.assign(guild, payload);
     },
-    deleted: (users, { payload }) => {
-      users = users.filter(u => u.id !== payload.id);
+    deleted: (guilds, { payload }) => {
+      guilds = guilds.filter(u => u.id !== payload.id);
     },
   },
 });
 
-export const fetchAllUsers = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.users.list;
+export const fetchMyGuilds = () => (dispatch, getState) => {
+  const { lastFetch } = getState().entities.guilds.list;
 
   const diffMins = moment().diff(moment(lastFetch), 'minutes');
   if (diffMins < 10) return;
 
   dispatch(api.callBegan({
     onSuccess: actions.fetched.type,
-    url: '/users',
+    url: '/guilds',
   }));
 }
 
@@ -35,15 +35,15 @@ export const updateSelf = (id: string) => (dispatch) => {
   dispatch(api.callBegan({
     onSuccess: actions.updated.type,
     method: 'patch',
-    url: `/users/${id}`,
+    url: `/guilds/${id}`,
   }));
 }
 
 export const deleteSelf = (id: string) => (dispatch) => {
   dispatch(api.callBegan({
     onSuccess: actions.updated.type,
-    method: '/delete',
-    url: `/users/${id}`,
+    method: 'delete',
+    url: `/guilds/${id}`,
   }));
 }
 
