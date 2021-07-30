@@ -1,18 +1,18 @@
 // TODO: declare own module
 declare global {
   export interface ToWSAPI {
-    'GUILD_CREATE': Params.GuildCreate;
-    // 'GUILD_DELETE': Params.GuildDelete; // v4
-    'GUILD_MEMBER_ADD': Params.GuildMemberAdd;
-    'GUILD_MEMBER_REMOVE': Params.GuildMemberRemove;
+    'GUILD_CREATE': WSPayload.GuildCreate;
+    'GUILD_DELETE': WSPayload.GuildDelete;
+    'GUILD_MEMBER_ADD': WSPayload.GuildMemberAdd;
+    'GUILD_MEMBER_REMOVE': WSPayload.GuildMemberRemove;
     // 'GUILD_MEMBER_UPDATE': Params.GuildMemberUpdate; // >v6
     // 'GUILD_UPDATE': Params.GuildUpdate;
-    'INVITE_CREATE': Params.InviteCreate;
-    'MESSAGE_CREATE': Params.MessageCreate;
-    'MESSAGE_DELETE': Params.MessageDelete;
-    'MESSAGE_UPDATE': Params.MessageUpdate;
-    'READY': Params.Ready;
-    'TYPING_START': Params.TypingStart;
+    'INVITE_CREATE': WSPayload.InviteCreate;
+    'MESSAGE_CREATE': WSPayload.MessageCreate;
+    'MESSAGE_DELETE': WSPayload.MessageDelete;
+    'MESSAGE_UPDATE': WSPayload.MessageUpdate;
+    'READY': WSPayload.Ready;
+    'TYPING_START': WSPayload.TypingStart;
     // 'USER_UPDATE': Params.UserUpdate;
   }
 
@@ -22,24 +22,29 @@ declare global {
   }
 
   export interface FromWSAPI {
-    'GUILD_CREATE': Args.GuildCreate;
-    // 'GUILD_DELETE': Args.GuildDelete; // v4
-    'GUILD_MEMBER_ADD': Args.GuildMemberAdd;
-    'GUILD_MEMBER_REMOVE': Args.GuildMemberRemove;
+    'GUILD_CREATE': WSResponse.GuildCreate;
+    'GUILD_DELETE': WSResponse.GuildDelete;
+    'GUILD_MEMBER_ADD': WSResponse.GuildMemberAdd;
+    'GUILD_MEMBER_REMOVE': WSResponse.GuildMemberRemove;
     // 'GUILD_MEMBER_UPDATE': Args.GuildMemberUpdate; // >v6
     // 'GUILD_UPDATE': Args.GuildUpdate;
-    'INVITE_CREATE': Args.InviteCreate;
-    'MESSAGE_CREATE': Args.MessageCreate;
-    'MESSAGE_DELETE': Args.MessageDelete;
-    'MESSAGE_UPDATE': Args.MessageUpdate;
-    'READY': Args.Ready;
-    'TYPING_START': Args.TypingStart;
+    'INVITE_CREATE': WSResponse.InviteCreate;
+    'MESSAGE_CREATE': WSResponse.MessageCreate;
+    'MESSAGE_DELETE': WSResponse.MessageDelete;
+    'MESSAGE_UPDATE': WSResponse.MessageUpdate;
+    'READY': WSResponse.Ready;
+    'TYPING_START': WSResponse.TypingStart;
     // 'USER_UPDATE': Args.UserUpdate;
   }
 
-  export namespace Params {
+  // payload to server
+  // - only needed properties
+  export namespace WSPayload {
     export interface GuildCreate {
       name: string;
+    }
+    export interface GuildDelete {
+      guildId: string;
     }
     export interface GuildMemberAdd {
       inviteCode: string;
@@ -70,9 +75,14 @@ declare global {
     }
   }
   
-  export namespace Args {
+  // full data, not payload
+  // - data that will be likely stored and used by redux on client side
+  export namespace WSResponse {
     export interface GuildCreate {
       guild: Entity.Guild;
+    }
+    export interface GuildDelete {
+      guildId: string;
     }
     export interface GuildMemberAdd {
       guildId: string;

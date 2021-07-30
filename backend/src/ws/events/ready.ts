@@ -18,6 +18,6 @@ export default class Ready implements WSEvent<'READY'> {
 
     ws.sessions.set(client.id, user.id);
 
-    client.emit('READY', { user } as Args.Ready); 
+    client.emit('READY', { user } as WSResponse.Ready); 
   }
 }
