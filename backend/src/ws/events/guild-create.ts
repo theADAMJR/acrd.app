@@ -9,7 +9,7 @@ export default class implements WSEvent<'GUILD_CREATE'> {
 
   public async invoke({ sessions }: WS, client: Socket, params: WSPayload.GuildCreate) {
     const guild = new Guild({
-      ...params,
+      name: params.name,
       ownerId: sessions.get(client.id),
     });
 
