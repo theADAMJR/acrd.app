@@ -15,8 +15,8 @@ const SidebarIcons: React.FunctionComponent = () => {
     <div className="guild-icon flex justify-center mb-1">{content}</div>;
 
   const guildIcons = guilds.map(g => (
-    <Link to={`/channels/${g.id}`}>
-      <GuildIcon key={g.id} guild={g} />
+    <Link key={g.id} to={`/channels/${g.id}`}>
+      <GuildIcon guild={g} />
     </Link>
   ));
   const userAvatar = iconify(

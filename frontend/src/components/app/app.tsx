@@ -28,18 +28,23 @@ export default function App() {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/logout" component={LogoutPage} />
 
+        {/* FIXME: blocks 404 page */}
         {(user)
           ? <div className="app">
               <Router>
                 <Switch>
-                {/* <Route path="/channels/@me/settings" component={UserSettingsPage} />
-                <Route path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}
-                <Route path="/channels/@me" component={OverviewPage} />
-                <Route path="/channels/:guildId/:channelId?" component={GuildPage} />
+                  {/* <Route exact path="/channels/@me/settings" component={UserSettingsPage} />
+                  <Route exact path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}
+                  <Route exact path="/channels/@me" component={OverviewPage} />
+                  <Route exact path="/channels/:guildId/:channelId?" component={GuildPage} />
                 </Switch>
               </Router>
             </div>
           : <Redirect to="/login" />}
+        
+        <Route path="*">
+          <h1>404</h1>
+        </Route>
       </Switch>
     </Router>
   );

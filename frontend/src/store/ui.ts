@@ -7,6 +7,9 @@ const slice = createSlice({
     channelSwitched: (state, { payload }) => {
       state.activeChannel = payload;
     },
+    guildSwitched: (state, { payload }) => {
+      state.activeGuild = payload;
+    },
     openModal: (state, { payload }) => {      
       state.openModal = payload.typeName;
     },
@@ -16,5 +19,5 @@ const slice = createSlice({
   },
 });
 
-export const { channelSwitched, openModal, closeModal } = slice.actions;
+export const { channelSwitched, guildSwitched, openModal, closeModal } = slice.actions;
 export default slice.reducer;

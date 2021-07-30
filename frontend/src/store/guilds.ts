@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { actions as api } from './api';
 
@@ -11,7 +11,7 @@ const slice = createSlice({
       guild?.members.push(payload.member);
     },
     fetched: (guilds, { payload }) => {
-      guilds.push(...payload);
+      guilds.push(...(payload ?? []));
     },
     updated: (guilds, { payload }) => {
       const guild = guilds.find(i => i.id === payload.id);
@@ -63,6 +63,12 @@ export const createGuild = (name: string) => (dispatch) => {
 
 export const actions = slice.actions;
 export default slice.reducer;
+
+export const getGuild = (id: string) =>
+  createSelector<Store.AppStore, Entity.Guild[], Entity.Guild | undefined>(
+  state => state.entities.guilds,
+  guilds => guilds.find(g => g.id === id),
+)
 
 export const getAbbr = (name: string) => name
   .split(' ')

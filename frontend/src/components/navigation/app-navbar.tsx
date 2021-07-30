@@ -7,11 +7,10 @@ import './app-navbar.scoped.css';
 const AppNavbar: React.FunctionComponent = () => {
   const ui = useSelector((s: Store.AppStore) => s.ui);
 
-  const title = ui.activeChannel?.name ?? ui.activeGuild?.name;
   return (
     <div className="app-navbar">
       {ui.activeChannel && <FontAwesomeIcon icon={faHashtag} />}
-      <h3>{title}</h3>
+      <h3>{ui.activeChannel?.name}</h3>
     </div>
   );
 }
