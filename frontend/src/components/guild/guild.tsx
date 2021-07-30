@@ -1,17 +1,23 @@
 import MemberList from '../user/member-list/member-list';
 import TextBasedChannel from '../channel/text-based-channel';
-import { useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import './guild.scoped.css';
+import { channelSwitched } from '../../store/ui';
  
 const Guild: React.FunctionComponent = () => {
-  const state: Store.AppStore = useStore().getState();
-  const { activeChannel } = state.ui;
-  const guild = state.ui.activeGuild as Entity.Guild;
+  const dispatch = useDispatch();
+  const ui = useSelector((s: Store.AppStore) => s.ui);
+  const guild = ui.activeGuild as Entity.Guild;
+
+  if (guild.channels.length && !ui.activeChannel) {
+    const systemChannel = guild.channels[0];
+    dispatch(channelSwitched(systemChannel));
+  }
 
   return (
     <div className="guild">
-      {activeChannel && <TextBasedChannel />}
-      {!activeChannel && 'TODO: no channel'}
+      {ui.activeChannel && <TextBasedChannel />}
+      {!ui.activeChannel && 'TODO: no channel'}
       <MemberList users={guild.members} />
     </div>
   );

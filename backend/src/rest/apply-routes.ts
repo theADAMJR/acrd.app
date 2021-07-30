@@ -33,7 +33,9 @@ export default (app: Express) => {
     const user: Entity.User = res.locals.user;    
     const guilds = await Guild
       .find({ _id: user.guildIds })
+      .populate({ path: 'channels' })
       .populate({ path: 'members' })
+      // .populate({ path: 'roles' })
       .exec();
 
     res.json(guilds);
