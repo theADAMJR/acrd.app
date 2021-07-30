@@ -7,10 +7,8 @@ export interface UserDocument extends Entity.User, Document {}
 
 const UserSchema = new Schema({
   _id: { type: String, default: generate },
-  authorId: String,
-  content: String,
+  avatarURL: { type: String, default: `/assets/avatars/avatar_grey.png` },
   createdAt: { type: String, default: new Date() },
-  channelId: String,
   discriminator: Number,
   email: String,
   username: String,
