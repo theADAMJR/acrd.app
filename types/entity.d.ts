@@ -4,6 +4,7 @@ declare namespace Entity {
     id: string;
     name: string;
     guildId?: string;
+    // type: string;
     // firstMessageId?: string;
     // lastMessageId?: string;
   }
