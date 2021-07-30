@@ -5,7 +5,6 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { loginUser } from '../../store/auth';
 
 const LoginPage: React.FunctionComponent = () => {
-  const store = useStore();
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const user = useSelector((s: Store.AppStore) => s.auth.user);
@@ -30,7 +29,7 @@ const LoginPage: React.FunctionComponent = () => {
 
           <div className="form-group mt-3">
             <label htmlFor="email" className="uppercase">Email</label>
-            {/* make inputs own components? */}
+            {/* TODO: make inputs own components */}
             <input
               id="email"
               type="text"

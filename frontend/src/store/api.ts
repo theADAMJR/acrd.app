@@ -5,6 +5,6 @@ export const actions = {
   restCallSucceded: createAction('api/restCallSucceeded') as any,
   restCallFailed: createAction('api/restCallFailed') as any,
   wsCallBegan: createAction('api/wsCallBegan') as any,
-  wsCallSucceded: createAction('api/wscallSucceeded') as any,
-  wsCallFailed: createAction('api/wscallFailed') as any,
+  wsCallSucceded: createAction('api/wsCallSucceeded') as any,
+  wsCallFailed: createAction('api/wsCallFailed') as any,
 };

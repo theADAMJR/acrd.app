@@ -23,25 +23,21 @@ const slice = createSlice({
   },
 });
 
-export const fetchMyGuilds = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.guilds.list;
-
-  const diffMins = moment().diff(moment(lastFetch), 'minutes');
-  if (diffMins < 10) return;
-
-  dispatch(api.restCallBegan({
+export const joinGuild = (inviteCode: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
     onSuccess: actions.fetched.type,
-    url: '/guilds',
+    event: 'GUILD_MEMBER_ADD',
+    data: { inviteCode },
   }));
 }
 
-// export const updateSelf = (id: string) => (dispatch) => {
-//   dispatch(api.callBegan({
-//     onSuccess: actions.updated.type,
-//     method: 'patch',
-//     url: `/guilds/${id}`,
-//   }));
-// }
+export const createGuild = (name: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    onSuccess: actions.fetched.type,
+    event: 'GUILD_CREATE',
+    data: { name },
+  }));
+}
 
 // export const deleteSelf = (id: string) => (dispatch) => {
 //   dispatch(api.callBegan({
