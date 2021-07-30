@@ -9,6 +9,7 @@ declare namespace Store {
       users: Entity.User[];
     };
     ui: {
+      openModal?: string;
       activeGuild?: Entity.Guild;
       activeChannel?: Entity.Channel;
     }
