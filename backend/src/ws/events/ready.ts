@@ -3,6 +3,7 @@ import { User } from '../../data/user';
 import { WS } from '../websocket';
 import { WSEvent } from './ws-event';
 import jwt from 'jsonwebtoken';
+import { Guild } from '../../data/guild';
 
 export default class Ready implements WSEvent<'READY'> {
   public on = 'READY' as const;
@@ -18,18 +19,14 @@ export default class Ready implements WSEvent<'READY'> {
 
     ws.sessions.set(client.id, user.id);
 
-    const guildIds = user.guilds;
-    const populatedUser = await user
-      .populate('guilds')
-      .execPopulate();
-    
-    const channelIds = (user.guilds as any as Entity.Guild[])
+    const guilds = await Guild.find({ _id: user.guildIds });
+    const channelIds = guilds
       .flatMap(g => g.channels
-        .map(c => c.channelId)); 
+        .map(c => c.id)); 
 
-    await client.join(guildIds);
+    await client.join(user.guildIds);
     await client.join(channelIds);
     
-    client.emit('READY', { user: populatedUser } as WSResponse.Ready); 
+    client.emit('READY', { user } as WSResponse.Ready); 
   }
 }

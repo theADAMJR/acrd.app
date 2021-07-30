@@ -13,7 +13,7 @@ const UserSchema = new Schema({
   email: String,
   username: String,
   updatedAt: Date,
-  guilds: [{ type: String, ref: 'guild' }],
+  guildIds: [String],
 }, { toJSON: { getters: true } })
 .method('toClient', useId)
 .plugin(passportLocalMongoose, { usernameField: 'email' });

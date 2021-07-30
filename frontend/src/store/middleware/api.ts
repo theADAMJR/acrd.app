@@ -24,7 +24,7 @@ export default store => next => async action => {
     if (onSuccess)
       store.dispatch({ type: onSuccess, payload });
 
-    callback(payload);
+    callback && callback(payload);
   } catch (error) {
     store.dispatch(actions.restCallFailed(error));
   }

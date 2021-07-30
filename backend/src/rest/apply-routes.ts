@@ -4,19 +4,47 @@ import { Guild } from '../data/guild';
 import { Message } from '../data/message';
 import { router as authRoutes } from './routes/auth-routes';
 import path from 'path';
+import { User } from '../data/user';
+import { loggedIn } from './middleware';
 
 export default (app: Express) => {
   const prefix = process.env.API_PREFIX;
 
   app.get(`${prefix}/channels/:channelId/messages`, async (req, res) => {
+    // v6: has access to the channel
+    
     const messages = await Message.find({ channelId: req.params.channelId });
     res.json(messages);
   });
   
-  app.get(`${prefix}/guilds/:id`, async (req, res) => {
-    const guild = await Guild.findById(req.params.id);
-    res.json(guild);
+
+  /* user.guilds:
+  + can be populated easily to get user guilds
+  - extra baggage
+  - confusing to store guilds on user
+  
+  GET .../guilds
+  + guilds are separate to user
+  + http is faster than ws for larger objects
+  - an extra http call needed to fetch items
+
+  = guild reordering can still be done either way
+  */
+  app.get(`${prefix}/guilds`, loggedIn, async (req, res) => {
+    const user: Entity.User = res.locals.user;
+    
+    const guilds = await Guild.find({ _id: user.guildIds });
+    res.json(guilds);
   });
+  
+  // v7: guild members
+  // app.get(`${prefix}/users`, loggedIn, async (req, res) => {
+  //   // v6: validate has access to users
+  //   const user = res.locals.user;
+    
+  //   const guild = await User.findById(req);
+  //   res.json(guild);
+  // });
 
   app.use(`${prefix}/auth`, authRoutes);
 

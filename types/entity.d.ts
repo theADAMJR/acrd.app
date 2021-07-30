@@ -14,7 +14,7 @@ declare namespace Entity {
     channels: Entity.Channel[];
     iconURL?: string;
     id: string;
-    members: Entity.User[];
+    memberIds: Entity.User[];
     name: string;
     ownerId: string;
   }
@@ -47,6 +47,6 @@ declare namespace Entity {
     email: string;
     id: string;
     username: string;
-    guilds: string[];
+    guildIds: string[];
   }
 }
