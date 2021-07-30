@@ -18,6 +18,18 @@ declare namespace Entity {
     ownerId: string;
   }
 
+  export interface Invite {
+    id: string;
+    creatorId: string;
+    createdAt: Date;
+    guildId: string;
+    // options?: {
+    //   expiresAt: Date;
+    //   maxUses?: number;
+    // }
+    uses: number;
+  }
+
   export interface Message {
     authorId: string;
     channelId: string;

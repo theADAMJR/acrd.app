@@ -7,6 +7,7 @@ declare global {
     'GUILD_MEMBER_REMOVE': Params.GuildMemberRemove;
     // 'GUILD_MEMBER_UPDATE': Params.GuildMemberUpdate; // >v6
     // 'GUILD_UPDATE': Params.GuildUpdate;
+    'INVITE_CREATE': Params.InviteCreate;
     'MESSAGE_CREATE': Params.MessageCreate;
     'MESSAGE_DELETE': Params.MessageDelete;
     'MESSAGE_UPDATE': Params.MessageUpdate;
@@ -27,6 +28,7 @@ declare global {
     'GUILD_MEMBER_REMOVE': Args.GuildMemberRemove;
     // 'GUILD_MEMBER_UPDATE': Args.GuildMemberUpdate; // >v6
     // 'GUILD_UPDATE': Args.GuildUpdate;
+    'INVITE_CREATE': Args.InviteCreate;
     'MESSAGE_CREATE': Args.MessageCreate;
     'MESSAGE_DELETE': Args.MessageDelete;
     'MESSAGE_UPDATE': Args.MessageUpdate;
@@ -44,6 +46,9 @@ declare global {
     }
     export interface GuildMemberRemove {
       userId: string;
+      guildId: string;
+    }
+    export interface InviteCreate {
       guildId: string;
     }
     export interface MessageCreate {
@@ -72,6 +77,9 @@ declare global {
     export interface GuildMemberAdd {
       guildId: string;
       member: Entity.User;
+    }
+    export interface InviteCreate {
+      invite: Entity.Invite;
     }
     export interface GuildMemberRemove {
       userId: string;

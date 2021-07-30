@@ -4,7 +4,7 @@ let inc = 0;
 let lastSnowflake: string;
 const dcloneEpoch = 1609459200000;
 
-export function generate() {
+export function generateSnowflake() {
   const msSince = (new Date().getTime() - dcloneEpoch)
     .toString(2)
     .padStart(42, '0');  
