@@ -25,14 +25,6 @@ export default function App() {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/logout" component={LogoutPage} />
 
-        <Route
-          path="/assets"
-          render={() => {
-            const loc = window.location;
-            const redirectTo = loc.pathname.replace('/assets/', '');
-            return loc.href = `${environment.cdnURL}/${redirectTo}`;
-          }} />
-
         {/* <Route path="/channels/@me/settings" component={UserSettingsPage} />
         <Route path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}
         <Route path="/channels/@me" component={OverviewPage} />

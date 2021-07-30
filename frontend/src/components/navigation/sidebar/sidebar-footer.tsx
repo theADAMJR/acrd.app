@@ -1,13 +1,13 @@
 import './sidebar-footer.scoped.css';
 import Username from '../../user/username/username';
-import { useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
  
 const SidebarFooter: React.FunctionComponent = () => {
-  const state = useStore().getState();
+  const user = useSelector((s: Store.AppStore) => s.auth.user)!;
   
   return (
     <div className="sidebar-footer bg-bg-secondary-alt">
-      <Username user={state.auth.user} />
+      <Username user={user} />
     </div>
   );
 }

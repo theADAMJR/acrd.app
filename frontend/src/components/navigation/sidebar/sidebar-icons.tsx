@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import environment from '../../../environment';
 import GuildIcon from '../../guild/guild-icon/guild-icon';
 import './sidebar-icons.scoped.css';
  
@@ -13,7 +14,7 @@ const SidebarIcons: React.FunctionComponent = () => {
   const userAvatar = iconify(
     <img
       className="cursor-pointer h-12 w-12 rounded-full"
-      src={user.avatarURL}
+      src={`${environment.rootAPIURL}${user.avatarURL}`}
       alt={user.username} />
   );
   const plusIcon = <div className="flex items-center justify-center rounded-full h-12 w-12 bg-bg-primary success text-4xl font-light pb-1">+</div>;

@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import './username.scoped.css';
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
+import environment from '../../../environment';
 
 export interface UsernameProps {
   user: Entity.User;
@@ -17,7 +18,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
   return (
     <div className="username flex p-3">
       <div className="avatar mr-2">
-        <img className="rounded-full" src={user.avatarURL} />
+        <img className="rounded-full" src={`${environment.rootAPIURL}${user.avatarURL}`} />
       </div>
       <div className="tag leading-4">
         <h4 className="font-bold">
