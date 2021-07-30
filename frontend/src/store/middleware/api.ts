@@ -6,7 +6,7 @@ export default store => next => async action => {
   if (action.type !== actions.restCallBegan.type)
     return next(action);
   
-  const { url, method, data, onStart, onSuccess, callback } = action.payload;
+  const { url, method, data, onStart, onSuccess, callback, headers } = action.payload;
   if (onStart)
     store.dispatch({ type: onStart });
 
@@ -18,6 +18,7 @@ export default store => next => async action => {
       data,
       method,
       url,
+      headers,
     });
 
     store.dispatch(actions.restCallSucceded(payload));

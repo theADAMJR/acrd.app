@@ -4,15 +4,15 @@ import { User } from '../data/user';
 
 export const loggedIn = (req, res, next) => {
   const payload = jwt.verify(
-    req.get('Authorization'),
+    req.headers.authorization,
     process.env.JWT_SECRET_KEY,
-  ) as Auth.Payload;
+  ) as Auth.Payload;  
   
   if (!payload.userId)
     createError(401, 'Unauthorized');
 
   res.locals.userId = payload.userId;
-
+  
   return next();
 };
 

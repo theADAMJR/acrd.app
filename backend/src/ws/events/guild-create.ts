@@ -14,10 +14,13 @@ export default class implements WSEvent<'GUILD_CREATE'> {
 
     const systemChannel = await Channel.create({ guildId: guild.id })
     const selfMember = await User.findById(ownerId);
+    selfMember!.guildIds.push(guild.id);
+    await selfMember!.save();
     
     guild.channels.push(systemChannel);
     guild.members.push(selfMember!);
     await guild.save();
+    
     
     client.emit('GUILD_CREATE', { guild } as WSResponse.GuildCreate);
   }

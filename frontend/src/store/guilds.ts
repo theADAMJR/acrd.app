@@ -11,7 +11,7 @@ const slice = createSlice({
       guild?.members.push(payload.member);
     },
     fetched: (guilds, { payload }) => {
-      guilds = guilds.concat(payload);
+      guilds.push(...payload);
     },
     updated: (guilds, { payload }) => {
       const guild = guilds.find(i => i.id === payload.id);

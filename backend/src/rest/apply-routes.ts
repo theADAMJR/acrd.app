@@ -4,8 +4,7 @@ import { Guild } from '../data/guild';
 import { Message } from '../data/message';
 import { router as authRoutes } from './routes/auth-routes';
 import path from 'path';
-import { User } from '../data/user';
-import { loggedIn } from './middleware';
+import { loggedIn, updateUser } from './middleware';
 
 export default (app: Express) => {
   const prefix = process.env.API_PREFIX;
@@ -30,9 +29,8 @@ export default (app: Express) => {
 
   = guild reordering can still be done either way
   */
-  app.get(`${prefix}/guilds`, loggedIn, async (req, res) => {
-    const user: Entity.User = res.locals.user;
-    
+  app.get(`${prefix}/guilds`, loggedIn, updateUser, async (req, res) => {
+    const user: Entity.User = res.locals.user;    
     const guilds = await Guild
       .find({ _id: user.guildIds })
       .populate({ path: 'members' })
