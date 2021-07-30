@@ -16,8 +16,8 @@ const CreateGuild: React.FunctionComponent = (props) => {
     },
   };
 
-  const submitCreate = (data) => { dispatch(createGuild(data)); }
-  const submitJoin = (data) => { dispatch(joinGuild(data)); }
+  const submitCreate = (data) => { dispatch(createGuild(data.name)); }
+  const submitJoin = (data) => { dispatch(joinGuild(data.inviteCode)); }
   
   return (
     <ReactModal
