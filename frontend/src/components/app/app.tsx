@@ -9,7 +9,6 @@ import OverviewPage from '../pages/overview-page';
 import { ready } from '../../store/auth';
 import { useEffect } from 'react';
 import LogoutPage from '../pages/logout-page';
-import environment from '../../environment';
 
 export default function App() {
   const dispatch = useDispatch();

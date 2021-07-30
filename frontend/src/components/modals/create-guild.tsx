@@ -9,10 +9,9 @@ const CreateGuild: React.FunctionComponent = (props) => {
   return (
     <ReactModal
       className="bg-bg-tertiary w-1/2 flex self-center"
+      appElement={document.querySelector('#root')!}
       isOpen={openModal === CreateGuild.name}
-      onAfterClose={() => dispatch(closeModal())}
-      shouldCloseOnEsc
-      shouldCloseOnOverlayClick>
+      onRequestClose={() => dispatch(closeModal())}>
       <h1>Create Guild</h1>
     </ReactModal>
   );
