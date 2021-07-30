@@ -21,13 +21,24 @@ declare global {
   }
 
   export interface FromWSAPI {
+    'GUILD_CREATE': Args.GuildCreate;
+    // 'GUILD_DELETE': Args.GuildDelete; // v4
+    'GUILD_MEMBER_ADD': Args.GuildMemberAdd;
+    'GUILD_MEMBER_REMOVE': Args.GuildMemberRemove;
+    // 'GUILD_MEMBER_UPDATE': Args.GuildMemberUpdate; // >v6
+    // 'GUILD_UPDATE': Args.GuildUpdate;
     'MESSAGE_CREATE': Args.MessageCreate;
     'MESSAGE_DELETE': Args.MessageDelete;
+    'MESSAGE_UPDATE': Args.MessageUpdate;
     'READY': Args.Ready;
     'TYPING_START': Args.TypingStart;
+    // 'USER_UPDATE': Args.UserUpdate;
   }
 
   export namespace Params {
+    export interface GuildCreate {
+      name: string;
+    }
     export interface GuildMemberAdd {
       inviteCode: string;
     }
@@ -55,6 +66,9 @@ declare global {
   }
   
   export namespace Args {
+    export interface GuildCreate {
+      guild: Entity.Guild;
+    }
     export interface GuildMemberAdd {
       guildId: string;
       member: Entity.User;

@@ -9,6 +9,6 @@ export default class MessageDelete implements WSEvent<'MESSAGE_DELETE'> {
   public async invoke(ws: WS, client: Socket, params: Params.MessageDelete) {
     await Message.deleteOne({ _id: params.messageId });
 
-    ws.server.emit('MESSAGE_DELETE', params as Args.MessageDelete);
+    ws.io.emit('MESSAGE_DELETE', params as Args.MessageDelete);
   }
 }

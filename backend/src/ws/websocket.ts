@@ -4,15 +4,16 @@ import { Deps } from '../utils/deps';
 import { WSEvent } from './events/ws-event';
 import path from 'path';
 import fs from 'fs';
+import SessionManager from './session-manager';
 
 export class WS {
   public events = new Map<keyof ToWSAPI, WSEvent<keyof FromWSAPI>>();
-  public readonly server = new Server();
-  public readonly sessions = new Map<string, string>();
+  public readonly io = new Server();
+  public readonly sessions = new SessionManager();
 
   constructor(rest = Deps.get<REST>(REST)) {
     const app = rest.listen();
-    this.server.listen(app, {
+    this.io.listen(app, {
       cors: {
         origin: process.env.WEBSITE_URL,
         methods: ['GET', 'POST'],
@@ -43,7 +44,7 @@ export class WS {
   }
 
   private hook() {
-    this.server.on('connection', (client) => {
+    this.io.on('connection', (client) => {
       for (const event of Array.from(this.events.values()))
         client.on(event.on, async (data: any) => {
           try {

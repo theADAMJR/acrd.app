@@ -12,6 +12,6 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
       authorId: ws.sessions.get(client.id) as string,
     });
 
-    ws.server.emit('MESSAGE_CREATE', { message } as Args.MessageCreate);
+    ws.io.emit('MESSAGE_CREATE', { message } as Args.MessageCreate);
   }
 }
