@@ -10,7 +10,7 @@ const AppNavbar: React.FunctionComponent = () => {
   const title = ui.activeChannel?.name ?? ui.activeGuild?.name;
   return (
     <div className="app-navbar">
-      <FontAwesomeIcon icon={faHashtag} />
+      {ui.activeChannel && <FontAwesomeIcon icon={faHashtag} />}
       <h3>{title}</h3>
     </div>
   );
