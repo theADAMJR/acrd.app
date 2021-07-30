@@ -14,7 +14,7 @@ declare namespace Entity {
     channels: Entity.Channel[];
     iconURL?: string;
     id: string;
-    memberIds: Entity.User[];
+    members: Entity.User[];
     name: string;
     ownerId: string;
   }

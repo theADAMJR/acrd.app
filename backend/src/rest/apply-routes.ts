@@ -33,7 +33,11 @@ export default (app: Express) => {
   app.get(`${prefix}/guilds`, loggedIn, async (req, res) => {
     const user: Entity.User = res.locals.user;
     
-    const guilds = await Guild.find({ _id: user.guildIds });
+    const guilds = await Guild
+      .find({ _id: user.guildIds })
+      .populate({ path: 'members' })
+      .exec();
+
     res.json(guilds);
   });
   

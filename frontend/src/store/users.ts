@@ -19,17 +19,17 @@ const slice = createSlice({
   },
 });
 
-export const fetchAllUsers = () => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.users.list;
+// export const fetchAllUsers = () => (dispatch, getState) => {
+//   const { lastFetch } = getState().entities.users.list;
 
-  const diffMins = moment().diff(moment(lastFetch), 'minutes');
-  if (diffMins < 10) return;
+//   const diffMins = moment().diff(moment(lastFetch), 'minutes');
+//   if (diffMins < 10) return;
 
-  dispatch(api.restCallBegan({
-    onSuccess: actions.fetched.type,
-    url: '/users',
-  }));
-}
+//   dispatch(api.restCallBegan({
+//     onSuccess: actions.fetched.type,
+//     url: '/users',
+//   }));
+// }
 
 export const updateSelf = (id: string) => (dispatch) => {
   dispatch(api.restCallBegan({

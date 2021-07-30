@@ -21,7 +21,7 @@ export default store => next => async action => {
 
     onSuccess && store.dispatch({ type: onSuccess, payload });
     store.dispatch(actions.wsCallSucceded(payload));
-    callback();
+    callback && callback();
   };
   const errorCallback = payload => {
     unsub();

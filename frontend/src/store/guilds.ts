@@ -23,6 +23,19 @@ const slice = createSlice({
   },
 });
 
+export const fetchMyGuilds = () => (dispatch, getState) => {  
+  // const { lastFetch } = getState().entities.guilds.list;
+
+  // const diffMins = moment().diff(moment(lastFetch), 'minutes');
+  // if (diffMins < 10) return;
+
+  dispatch(api.restCallBegan({
+    onSuccess: actions.fetched.type,
+    headers: { 'Authorization': localStorage.getItem('token') },
+    url: '/guilds',
+  }));
+}
+
 export const joinGuild = (inviteCode: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     onSuccess: actions.fetched.type,
@@ -39,6 +52,7 @@ export const createGuild = (name: string) => (dispatch) => {
   }));
 }
 
+// v4
 // export const deleteSelf = (id: string) => (dispatch) => {
 //   dispatch(api.callBegan({
 //     onSuccess: actions.deleted.type,

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
-import { actions as guilds } from './guilds';
 
 const slice = createSlice({
   name: 'auth',
@@ -29,7 +28,6 @@ export const ready = () => (dispatch, getState) => {
     onSuccess: actions.ready.type,
     event: 'READY',
     data: { token: localStorage.getItem('token') },
-    callback: (payload) => dispatch(guilds.fetched(payload)),
   }));
 }
 
