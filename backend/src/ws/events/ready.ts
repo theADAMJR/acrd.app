@@ -18,6 +18,18 @@ export default class Ready implements WSEvent<'READY'> {
 
     ws.sessions.set(client.id, user.id);
 
-    client.emit('READY', { user } as WSResponse.Ready); 
+    const guildIds = user.guilds;
+    const populatedUser = await user
+      .populate('guilds')
+      .execPopulate();
+    
+    const channelIds = (user.guilds as any as Entity.Guild[])
+      .flatMap(g => g.channels
+        .map(c => c.channelId)); 
+
+    await client.join(guildIds);
+    await client.join(channelIds);
+    
+    client.emit('READY', { user: populatedUser } as WSResponse.Ready); 
   }
 }

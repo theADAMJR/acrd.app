@@ -30,7 +30,7 @@ h5 {
 
 body {
   color: var(--font);
-  background-color: var(--bg-primary);
+  background-color: var(--bg-tertiary);
 }
 
 textarea {

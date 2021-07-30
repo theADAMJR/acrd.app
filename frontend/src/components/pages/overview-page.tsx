@@ -7,13 +7,12 @@ const OverviewPage: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppStore) => s.auth.user);
 
   return (user) ? (
-    <>
+    <div className="bg-bg-primary h-full w-full">
       <Sidebar />
       <AppNavbar />
-      <h1>Welcome to the dashboard!</h1>
-      {!user && <strong>No user :(</strong>}
-      {user && <strong>{JSON.stringify(user)}</strong>}
-    </>
+      <div className="bg-bg-primary h-full w-full flex flex-col flex-grow">
+      </div>
+    </div>
   ) : <LoadingPage />;
 }
  
