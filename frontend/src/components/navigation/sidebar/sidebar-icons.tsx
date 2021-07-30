@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import environment from '../../../environment';
 import { openModal } from '../../../store/ui';
 import GuildIcon from '../../guild/guild-icon/guild-icon';
@@ -13,7 +14,11 @@ const SidebarIcons: React.FunctionComponent = () => {
   const iconify = (content: JSX.Element) => 
     <div className="guild-icon flex justify-center mb-1">{content}</div>;
 
-  const guildIcons = guilds.map(g => <GuildIcon key={g.id} guild={g} />);
+  const guildIcons = guilds.map(g => (
+    <Link to={`/channels/${g.id}`}>
+      <GuildIcon key={g.id} guild={g} />
+    </Link>
+  ));
   const userAvatar = iconify(
     <img
       className="cursor-pointer h-12 w-12 rounded-full"
