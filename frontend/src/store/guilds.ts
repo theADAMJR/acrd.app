@@ -7,7 +7,7 @@ const slice = createSlice({
   initialState: [] as Entity.Guild[],
   reducers: {
     inviteCreated: (guilds, { payload }) => {
-      const guild = guilds.find(i => i.id === payload.id);
+      const guild = guilds.find(g => g.id === payload.invite.guildId);
       guild?.invites.push(payload.invite);
     },
     memberAdded: (guilds, { payload }) => {
