@@ -1,5 +1,4 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-import moment from 'moment';
 import { actions as api } from './api';
 
 const slice = createSlice({
@@ -7,7 +6,7 @@ const slice = createSlice({
   initialState: [] as Entity.User[],
   reducers: {
     fetched: (users, { payload }) => {
-      users = users.concat(payload);
+      users.push(...payload);
     },
     updated: (users, { payload }) => {
       const user = users.find(u => u.id === payload.id);
@@ -19,17 +18,17 @@ const slice = createSlice({
   },
 });
 
-// export const fetchAllUsers = () => (dispatch, getState) => {
-//   const { lastFetch } = getState().entities.users.list;
+const actions = slice.actions;
+export default slice.reducer;
 
-//   const diffMins = moment().diff(moment(lastFetch), 'minutes');
-//   if (diffMins < 10) return;
-
-//   dispatch(api.restCallBegan({
-//     onSuccess: actions.fetched.type,
-//     url: '/users',
-//   }));
-// }
+// >v6: replace with REST when adding dms
+export const fetchUsers = () => (dispatch) => {
+  dispatch(api.restCallBegan({
+    onSuccess: actions.fetched.type,
+    headers: { 'Authorization': localStorage.getItem('token') },
+    url: '/users',
+  }));
+}
 
 export const updateSelf = (id: string) => (dispatch) => {
   dispatch(api.restCallBegan({
@@ -51,7 +50,4 @@ export const getUser = (id: string) =>
   createSelector<Store.AppStore, Entity.User[], Entity.User | undefined>(
   state => state.entities.users,
   users => users.find(u => u.id === id),
-)
-
-export const actions = slice.actions;
-export default slice.reducer;
+);

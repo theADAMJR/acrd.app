@@ -1,5 +1,4 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import moment from 'moment';
 import { actions as api } from './api';
 
 const slice = createSlice({
@@ -23,12 +22,10 @@ const slice = createSlice({
   },
 });
 
-export const fetchMyGuilds = () => (dispatch, getState) => {  
-  // const { lastFetch } = getState().entities.guilds.list;
+export const actions = slice.actions;
+export default slice.reducer;
 
-  // const diffMins = moment().diff(moment(lastFetch), 'minutes');
-  // if (diffMins < 10) return;
-
+export const fetchMyGuilds = () => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: actions.fetched.type,
     headers: { 'Authorization': localStorage.getItem('token') },
@@ -60,9 +57,6 @@ export const createGuild = (name: string) => (dispatch) => {
 //     url: `/guilds/${id}`,
 //   }));
 // }
-
-export const actions = slice.actions;
-export default slice.reducer;
 
 export const getGuild = (id: string) =>
   createSelector<Store.AppStore, Entity.Guild[], Entity.Guild | undefined>(

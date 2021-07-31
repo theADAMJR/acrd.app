@@ -10,6 +10,7 @@ import { ready } from '../../store/auth';
 import { useEffect } from 'react';
 import LogoutPage from '../pages/logout-page';
 import { fetchMyGuilds } from '../../store/guilds';
+import { fetchUsers } from '../../store/users';
 
 export default function App() {
   const user = useSelector((s: Store.AppStore) => s.auth.user);
@@ -18,6 +19,7 @@ export default function App() {
   useEffect(() => {
     dispatch(ready());
     dispatch(fetchMyGuilds());
+    dispatch(fetchUsers());
   }, []);
   
   return (

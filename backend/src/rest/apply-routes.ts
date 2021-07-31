@@ -30,7 +30,7 @@ export default (app: Express) => {
   = guild reordering can still be done either way
   */
   app.get(`${prefix}/guilds`, loggedIn, updateUser, async (req, res) => {
-    const user: Entity.User = res.locals.user;    
+    const user: Entity.User = res.locals.user;
     const guilds = await Guild
       .find({ _id: user.guildIds })
       .populate({ path: 'channels' })
@@ -42,13 +42,21 @@ export default (app: Express) => {
   });
   
   // v7: guild members
-  // app.get(`${prefix}/users`, loggedIn, async (req, res) => {
-  //   // v6: validate has access to users
-  //   const user = res.locals.user;
+  // v6: validate has access to users
+  app.get(`${prefix}/users`, loggedIn, updateUser, async (req, res) => {
+    const user: Entity.User = res.locals.user;
+    const guilds = await Guild
+      .find({ _id: user.guildIds })
+      .populate({ path: 'members' });
+
+    const members = guilds.flatMap(g => g.members);
     
-  //   const guild = await User.findById(req);
-  //   res.json(guild);
-  // });
+    res.json([
+      ...new Set([
+        ...members,
+      ].filter(u => u.id))
+    ]);
+  });
 
   app.use(`${prefix}/auth`, authRoutes);
 

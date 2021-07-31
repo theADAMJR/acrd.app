@@ -12,13 +12,14 @@ export interface MessageProps {
 const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProps) => {
   const author = useSelector(getUser(message.authorId)) as Entity.User;
   const messages = useSelector(getChannelMessages(message.channelId));
+  const createdAt = new Date(message.createdAt);
 
   const isExtra = () => {
     const i = messages.findIndex(m => m.id === message.id);
     const prev = messages[i - 1];
     if (!prev) return false;
 
-    const minsSince = moment(message.createdAt).diff(prev.createdAt, 'minutes');    
+    const minsSince = moment(createdAt).diff(prev.createdAt, 'minutes');    
     const minsToSeparate = 5;
 
     return minsSince <= minsToSeparate
@@ -26,9 +27,9 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   }
 
   const leftSide = () => {
-    const time = message.createdAt
-      // .toLocaleTimeString()
-      // .slice(0, 5);
+    const time = createdAt
+      .toLocaleTimeString()
+      .slice(0, 5);
 
     return (isExtra())
       ? <span className="timestamp text-xs">{time}</span>
@@ -44,7 +45,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     return (
       <>
         <span className="text-base heading hover:underline cursor-pointer mr-1">{author.username}</span>
-        <span className="text-xs">{message.createdAt.toDateString()}</span>
+        <span className="text-xs">{createdAt.toDateString()}</span>
       </>
     );
   }
