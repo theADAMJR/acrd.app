@@ -18,7 +18,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   }, []);
 
   const welcome = (
-    <div className="m-4 pb-4 border-bottom">
+    <div className="m-4 pb-6 border-bottom">
       <span className="rounded-full heading">
         <FontAwesomeIcon icon={faHashtag} size="3x" />
       </span>
@@ -29,7 +29,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   
   return (
     <div className="text-based-channel flex flex-col flex-grow">
-      <div className="messages overflow-auto">
+      <div className="messages overflow-auto pb-5 mr-1">
         {welcome}
         {messages.map(m => <Message key={m.id} message={m} />)}
       </div>
