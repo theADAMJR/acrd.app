@@ -12,11 +12,12 @@ const CreateInvite: React.FunctionComponent = () => {
 
   setValue('inviteCode', activeInvite?.id);
 
+  const isOpen = openModal === CreateInvite.name;
   useEffect(() => {
-    if (!openModal) return;
+    if (!isOpen) return;
 
     dispatch(createInvite(activeGuild!.id));
-  }, [openModal === CreateInvite.name && !activeInvite]);
+  }, [isOpen && !activeInvite]);
 
   const style: any = {
     overlay: {

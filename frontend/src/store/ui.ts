@@ -12,6 +12,7 @@ const slice = createSlice({
       state.activeChannel = payload.channel;
       state.activeGuild = payload.guild;
     },
+    // TODO: remove typeName
     openedModal: (state, { payload }) => {      
       state.openModal = payload.typeName;
     },

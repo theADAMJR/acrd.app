@@ -4,13 +4,15 @@ import { actions as guilds } from '../store/guilds';
 import { actions as messages } from '../store/messages';
 import { actions as channels } from '../store/channels';
 import { actions as auth } from '../store/auth';
-import { focusedInvite } from '../store/ui';
+import { closedModal, focusedInvite } from '../store/ui';
 import { useEffect } from 'react';
 import { actions as meta } from '../store/meta';
+import { useHistory } from 'react-router-dom';
 
 // should this go in guilds reducer file?
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const hasListenedToWS = useSelector((s: Store.AppStore) => s.meta.hasListenedToWS);
 
   useEffect(() => {
@@ -27,7 +29,8 @@ const WSListener: React.FunctionComponent = () => {
     });
     ws.on('GUILD_CREATE', (args) => {
       dispatch(guilds.created(args));
-      window.location.href = `/channels/${args.guild}`;
+      closedModal();
+      history.push(`/channels/${args.guild.id}`);
     });
     // ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated (args)));
     ws.on('TYPING_START', (args) => dispatch(channels.userTyped(args)));
