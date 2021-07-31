@@ -85,6 +85,12 @@ a.active {
 .bg-tertiary {
   background-color: var(--tertiary);
 }
+.bg-danger {
+  background-color: var(--danger);
+}
+.bg-success {
+  background-color: var(--success);
+}
 .bg-bg-primary {
   background-color: var(--bg-primary);
 }

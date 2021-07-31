@@ -11,6 +11,8 @@ import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import './sidebar-content.scoped.css';
 import CreateChannel from '../../modals/create-channel';
 import { deleteChannel } from '../../../store/guilds';
+import GuildSettings from '../../modals/guild-settings';
+import UserSettings from '../../modals/user-settings';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
@@ -43,11 +45,15 @@ const SidebarContent: React.FunctionComponent = () => {
     </ContextMenuTrigger>
   ));
 
+  // TODO: remove typeName
   const openCreateChannel = () => dispatch(openedModal({
     typeName: CreateChannel.name,
   }));
   const openCreateInvite = () => dispatch(openedModal({
     typeName: CreateInvite.name,
+  }));
+  const openGuildSettings = () => dispatch(openedModal({
+    typeName: GuildSettings.name,
   }));
   
   // guild sidebar content
@@ -72,14 +78,13 @@ const SidebarContent: React.FunctionComponent = () => {
                 icon={faPlusCircle} />
             </a>
 
-            <Link
-              to={`/channels/${ui.activeGuild.id}/settings`}
+            <a onClick={openGuildSettings}
               className="rounded-sm flex items-center justify-between p-2 h-8 text-sm">
               <span className="font">Server settings</span>
               <FontAwesomeIcon
                 className="float-right w-1"
                 icon={faCog} />
-            </Link>
+            </a>
           </Dropdown>
         )}
       </div>
@@ -90,6 +95,8 @@ const SidebarContent: React.FunctionComponent = () => {
       <SidebarFooter />
       <CreateInvite />
       <CreateChannel />
+      <GuildSettings />
+      <UserSettings />
     </div>
   );
 }

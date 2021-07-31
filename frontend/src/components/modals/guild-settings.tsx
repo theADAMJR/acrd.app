@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateGuild } from '../../store/guilds';
+import { deleteGuild, updateGuild } from '../../store/guilds';
 import { closedModal } from '../../store/ui';
+import Category from '../category/category';
 
 const GuildSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -10,49 +11,73 @@ const GuildSettings: React.FunctionComponent = () => {
   const openModal = useSelector((s: Store.AppStore) => s.ui.openModal)!;
   const { register, handleSubmit } = useForm();
 
-  const style: any = {
-    overlay: {
-      position: 'fixed',
-      backgroundColor: 'rgba(0, 0, 0, 0.75)'
-    },
-  };
-
   const update = (payload) => dispatch(updateGuild(guild.id, payload));
+  const del = () => {
+    const confirmation = window.confirm('Are you sure you want to delete this server?');
+    confirmation && dispatch(deleteGuild(guild.id));
+  }
   
   return (
     <ReactModal
-      style={style}
-      className="overflow-auto absolute bg-bg-primary h-full w-full rounded-lg outline-none"
+      className="overflow-auto absolute bg-bg-primary h-full w-full outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === GuildSettings.name}
       onRequestClose={() => dispatch(closedModal())}>
-      <form
-        style={{height: '100%'}}
-        className="flex flex-col"
-        onSubmit={handleSubmit(update)}>
-        <header className="text-center mb-5 p-5">
-          <h1 className="text-2xl font-bold inline">Create Text Channel</h1>
-        </header>
-      
-        <div className="flex-grow p-5">
-          <label
-            htmlFor="name"
-            className="uppercase">Channel Name</label>
-          <input
-            id="name"
-            type="text"
-            {...register('name')}
-            className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+      <div className="grid grid-cols-12 h-full">
+        <div className="col-span-3 bg-bg-secondary">
+          Sidebar
         </div>
+        <div className="col-span-8 h-full">
+          <form
+            style={{height: '100%', padding: '60px 40px 80px'}}
+            className="flex flex-col"
+            onSubmit={handleSubmit(update)}>
+            <header>
+              <h1 className="text-xl font-bold inline">Server Overview</h1>
+            </header>
+          
+            <div className="flex-grow">
+              <div className="pt-5">
+                <label
+                  htmlFor="name"
+                  className="uppercase">Server Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  {...register('name')}
+                  className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+              </div>
 
-        <footer
-          style={{height: '70px'}}
-          className="bg-bg-secondary">
-          <button
-            style={{height: '38px', padding: '2px 16px'}}
-            className="float-right background bg-primary heading rounded-md m-4">Create</button>
-        </footer>
-      </form>
+              <div className="pt-5">
+                <label
+                  htmlFor="iconURL"
+                  className="uppercase">Icon URL</label>
+                <input
+                  id="iconURL"
+                  type="text"
+                  {...register('iconURL')}
+                  className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+              </div>
+            </div>
+
+            <Category title="Advanced Settings" />
+
+            <div>
+              <button
+                onClick={del}
+                type="button"
+                style={{height: '38px', padding: '2px 16px'}}
+                className="background bg-danger heading rounded-md m-4">Delete</button>
+
+              <button
+                onClick={update}
+                type="button"
+                style={{height: '38px', padding: '2px 16px'}}
+                className="background bg-success heading rounded-md m-4">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </ReactModal>
   );
 }

@@ -1,8 +1,6 @@
 
 const UserSettings: React.FunctionComponent = () => {
-  return (
-    <h1>User Settings</h1>
-  );
+  return null;
 }
  
 export default UserSettings;

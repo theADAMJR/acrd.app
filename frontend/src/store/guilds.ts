@@ -107,6 +107,12 @@ export const updateGuild = (guildId: string, payload: Partial<Entity.Guild>) => 
   }));
 }
 
+export const deleteGuild = (guildId: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'GUILD_DELETE',
+    data: { guildId },
+  }));
+}
 
 export const createInvite = (guildId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
