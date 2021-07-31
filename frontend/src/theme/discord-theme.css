@@ -14,6 +14,8 @@
   --bg-secondary-alt: #292b2f;
   --bg-tertiary: #202225;
   --bg-textarea: #40444b;
+  --bg-modifier-accent: hsla(0, 0%, 100%, 0.06);
+  --bg-modifier-selected: rgba(79, 84, 92, 0.32);
 
   --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05),
     0 2px 0 rgba(4, 4, 5, 0.05);
@@ -34,46 +36,56 @@ body {
 }
 
 textarea {
-  background-color: var(--bg-textarea) !important;
+  background-color: var(--bg-textarea);
+}
+
+.active {
+  background-color: var(--bg-modifier-selected);
 }
 
 .success {
-  color: var(--success) !important;
+  color: var(--success);
 }
 .normal {
-  color: var(--normal) !important;
+  color: var(--normal);
 }
 .heading {
-  color: var(--heading) !important;
+  color: var(--heading);
 }
 .primary {
-  color: var(--primary) !important;
+  color: var(--primary);
 }
 .secondary {
-  color: var(--secondary) !important;
+  color: var(--secondary);
 }
 .tertiary {
-  color: var(--tertiary) !important;
+  color: var(--tertiary);
 }
 
 .bg-primary {
-  background-color: var(--primary) !important;
+  background-color: var(--primary);
 }
 .bg-secondary {
-  background-color: var(--secondary) !important;
+  background-color: var(--secondary);
 }
 .bg-tertiary {
-  background-color: var(--tertiary) !important;
+  background-color: var(--tertiary);
 }
 .bg-bg-primary {
-  background-color: var(--bg-primary) !important;
+  background-color: var(--bg-primary);
 }
 .bg-bg-secondary {
-  background-color: var(--bg-secondary) !important;
+  background-color: var(--bg-secondary);
 }
 .bg-bg-secondary-alt {
-  background-color: var(--bg-secondary-alt) !important;
+  background-color: var(--bg-secondary-alt);
 }
 .bg-bg-tertiary {
-  background-color: var(--bg-tertiary) !important;
+  background-color: var(--bg-tertiary);
+}
+
+/* \/ should be replaced with tag name selector */
+.bg-bg-modifier-accent {
+  background-color: var(--bg-modifier-accent);
+  color: var(--heading);
 }

@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import { faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
+
 import './app-navbar.scoped.css';
  
 const AppNavbar: React.FunctionComponent = () => {

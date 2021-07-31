@@ -5,7 +5,9 @@ const SidebarFooter: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppStore) => s.auth.user)!;
   
   return (
-    <div className="flex items-center sidebar-footer bg-bg-secondary-alt h-14">
+    <div
+      style={{height: '52px'}}
+      className="flex items-center sidebar-footer bg-bg-secondary-alt">
       <Username user={user} />
     </div>
   );

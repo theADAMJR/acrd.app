@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AppNavbar from '../navigation/app-navbar';
 import Sidebar from '../navigation/sidebar/sidebar';
 import { Redirect, useParams } from 'react-router-dom';
-import { channelSwitched, guildSwitched } from '../../store/ui';
+import { pageSwitched } from '../../store/ui';
 import TextBasedChannel from '../channel/text-based-channel';
 import MemberList from '../user/member-list/member-list';
 import './guild-page.scoped.css';
@@ -19,9 +19,8 @@ const GuildPage: React.FunctionComponent = (props: any) => {
   const channel = useSelector(getChannel(params.guildId, params.channelId));
 
   useEffect(() => {
-    dispatch(guildSwitched(guild));
-    dispatch(channelSwitched(channel));
-  }, [window.location.href]);
+    dispatch(pageSwitched({ channel, guild }));
+  }, [guild, channel]);
 
   if (!guild)
     return <Redirect to="/channels/@me" />

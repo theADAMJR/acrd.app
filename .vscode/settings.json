@@ -1,3 +1,6 @@
 {
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "prettier.singleQuote": true,
+  "typescript.preferences.quoteStyle": "single",
+  "editor.tabSize": 2,
 }

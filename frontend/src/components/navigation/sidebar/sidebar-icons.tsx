@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import environment from '../../../environment';
 import { openModal } from '../../../store/ui';
 import GuildIcon from '../../guild/guild-icon/guild-icon';
@@ -36,7 +36,7 @@ const SidebarIcons: React.FunctionComponent = () => {
   return (
     <div className="sidebar-icons flex flex-col bg-bg-tertiary px-2">
       {iconify(userAvatar)}
-      {iconify(<div className="icon-separator mb-1" />)}
+      {iconify(<div className="icon-separator bg-bg-modifier-accent mb-1" />)}
       {guildIcons}
       {plusIcon}
       <CreateGuild />
