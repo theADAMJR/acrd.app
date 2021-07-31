@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useState } from 'react';
 import { useDispatch, useStore } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -13,18 +14,25 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = () => {
   const [content, setContent] = useState('');
   
   const create = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key !== 'Enter' || event.shiftKey) return;
+    if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); }
+    if (event.key !== 'Enter'
+      || event.shiftKey
+      || !content.replaceAll('\n', '')) return;
     
-    dispatch(createMessage(channelId, { content: 'hi' }));
+    dispatch(createMessage(channelId, { content }));
+    setContent('');
   }
   
+  // TODO: expand vertically
   return (
     <div className="message-box block">
       <TextareaAutosize
         onChange={e => setContent(e.target.value)}
+        maxRows={1}
         onKeyDown={create}
         value={content}
-        className="normal appearance-none rounded-lg w-full py-3 px-4 leading-tight focus:outline-none" />
+        className="normal appearance-none rounded-lg w-full py-3 px-4 leading-tight focus:outline-none"
+        autoFocus />
       <div className="message-box-footer" />
     </div>
   );

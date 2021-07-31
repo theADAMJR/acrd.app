@@ -1,5 +1,4 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-import moment from 'moment';
 import { actions as api } from './api';
 
 const slice = createSlice({
@@ -30,13 +29,11 @@ export const getChannelMessages = (channelId: string) =>
   messages => messages.filter(m => m.channelId === channelId),
 );
 
-// 'inspired by' - https://discord.com/developers/docs/resources/channel#get-channel-messages
-export const fetchAllMessages = (channelId: string) => (dispatch, getState) => {
-  const { lastFetch } = getState().entities.messages.list;
-
-  const diffMins = moment().diff(moment(lastFetch), 'minutes');
-  if (diffMins < 10) return;
-
+// v6: add lazy message loading
+export const fetchMessages = (channelId: string) => (dispatch, getState) => {
+  const cached = getState().entities.messages;
+  if (cached.length) return;
+  
   dispatch(api.restCallBegan({
     onSuccess: actions.fetched.type,
     url: `/channels/${channelId}/messages`,

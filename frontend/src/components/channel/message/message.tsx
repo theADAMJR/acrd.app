@@ -4,6 +4,7 @@ import './message.scoped.css';
 import { useSelector, useStore } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
 import { getUser } from '../../../store/users';
+import environment from '../../../environment';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -35,7 +36,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
       ? <span className="timestamp text-xs">{time}</span>
       : <img
           className="rounded-full cursor-pointer"
-          src={author.avatarURL}
+          src={`${environment.rootAPIURL}${author.avatarURL}`}
           alt={author.username} />;
   }
   
@@ -44,7 +45,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
 
     return (
       <>
-        <span className="text-base heading hover:underline cursor-pointer mr-1">{author.username}</span>
+        <span className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
         <span className="text-xs">{createdAt.toDateString()}</span>
       </>
     );
