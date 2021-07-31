@@ -12,11 +12,15 @@ declare namespace Store {
       messages: Entity.Message[];
       users: Entity.User[];
     };
+    // metadata about store
+    meta: {
+      hasListenedToWS: boolean;
+    };
     ui: {
       openModal?: string;
       activeChannel?: Entity.Channel;
       activeGuild?: Entity.Guild;
       activeInvite?: Entity.Invite;
-    }
+    };
   }  
 }

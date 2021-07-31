@@ -8,6 +8,7 @@ import MemberList from '../user/member-list/member-list';
 import './guild-page.scoped.css';
 import { getChannel, getGuild } from '../../store/guilds';
 import { useEffect } from 'react';
+import PageWrapper from './page-wrapper';
 
 const GuildPage: React.FunctionComponent = (props: any) => {  
   const params: any = useParams();
@@ -31,7 +32,7 @@ const GuildPage: React.FunctionComponent = (props: any) => {
   }
   
   return (
-    <>
+    <PageWrapper>
       <Sidebar />
       <div className="content bg-bg-primary">
         <AppNavbar />
@@ -41,7 +42,7 @@ const GuildPage: React.FunctionComponent = (props: any) => {
           <MemberList users={guild.members} />
         </div>
       </div>
-    </>
+    </PageWrapper>
   );
 }
  

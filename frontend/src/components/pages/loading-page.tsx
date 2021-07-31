@@ -1,3 +1,6 @@
+import WSListener from '../ws-listener';
+import PageWrapper from './page-wrapper';
+
 const LoadingPage: React.FunctionComponent = () => {
   const tips = [
     'This app took 2 weeks longer than expected to make.',
@@ -7,12 +10,12 @@ const LoadingPage: React.FunctionComponent = () => {
   const randomIndex = Math.floor(Math.random() * tips.length);
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <PageWrapper className="flex items-center justify-center h-screen">
       <div className="text-center">
         <h1 className="text-3xl">Loading...</h1>
         <p className="lead block">{tips[randomIndex]}</p>
       </div>
-    </div>
+    </PageWrapper>
   );
 }
  

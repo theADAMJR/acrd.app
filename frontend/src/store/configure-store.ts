@@ -7,6 +7,7 @@ import ws from './middleware/ws';
 import users from './users';
 import channels from './channels';
 import auth from './auth';
+import meta from './meta';
 import ui from './ui';
 
 export default () => configureStore<Store.AppStore>({
@@ -18,6 +19,7 @@ export default () => configureStore<Store.AppStore>({
   reducer: combineReducers({
     auth,
     entities: combineReducers({ channels, guilds, messages, users }),
+    meta,
     ui,
   }),
 });

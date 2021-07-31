@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ws from '../store/services/ws';
 import { actions as guilds } from '../store/guilds';
 import { actions as messages } from '../store/messages';
@@ -6,12 +6,16 @@ import { actions as channels } from '../store/channels';
 import { actions as auth } from '../store/auth';
 import { focusedInvite } from '../store/ui';
 import { useEffect } from 'react';
+import { actions as meta } from '../store/meta';
 
 // should this go in guilds reducer file?
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
+  const hasListenedToWS = useSelector((s: Store.AppStore) => s.meta.hasListenedToWS);
 
   useEffect(() => {
+    if (hasListenedToWS) return;
+
     ws.on('error', (error: any) => alert(error?.message));
 
     // listen to passive events (not received by api middleware)
@@ -32,7 +36,9 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('MESSAGE_DELETE', (args) => dispatch(messages.deleted(args)));
     ws.on('MESSAGE_UPDATE', (args) => dispatch(messages.updated(args)));
     ws.on('READY', (args) => dispatch(auth.ready(args)));
-  }, []);
+
+    dispatch(meta.listenedToWS());
+  }, [hasListenedToWS]);
   
   return null;
 }

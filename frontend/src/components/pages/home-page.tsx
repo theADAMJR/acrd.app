@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import Navbar from '../navigation/navbar';
+import WSListener from '../ws-listener';
 import './home-page.scoped.css';
+import PageWrapper from './page-wrapper';
 
 const HomePage: React.FunctionComponent = () => {  
   return (
-    <div style={{height: '100vh'}} className="bg-bg-tertiary">
+    <PageWrapper
+      style={{height: '100vh'}}
+      className="bg-bg-tertiary">
       <Navbar />
       <main>
         <section>
@@ -18,7 +22,7 @@ const HomePage: React.FunctionComponent = () => {
           </button>
         </section>
       </main>
-    </div>
+    </PageWrapper>
   );
 }
  

@@ -3,6 +3,8 @@ import Particles from 'react-particles-js';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { loginUser } from '../../store/auth';
+import WSListener from '../ws-listener';
+import PageWrapper from './page-wrapper';
 
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const LoginPage: React.FunctionComponent = () => {
   return (user)
     ? <Redirect to="/channels/@me" />
     : (
-    <>
+    <PageWrapper>
       <div
         style={{position: 'absolute', left: '35%'}}
         className="flex items-center justify-center h-screen">
@@ -51,7 +53,7 @@ const LoginPage: React.FunctionComponent = () => {
         </form>
       </div>
       <Particles width="100%" height="100%"/>
-    </>
+    </PageWrapper>
   );
 }
  
