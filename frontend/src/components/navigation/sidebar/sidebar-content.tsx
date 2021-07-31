@@ -1,14 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import { faHashtag } from '@fortawesome/free-solid-svg-icons';
+import { faHashtag, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Dropdown from '../../utils/dropdown';
 
 import './sidebar-content.scoped.css';
+import { openModal } from '../../../store/ui';
+import CreateInvite from '../../modals/create-invite';
 
 const SidebarContent: React.FunctionComponent = () => {  
+  const dispatch = useDispatch();
   const ui = useSelector((s: Store.AppStore) => s.ui);
   
   const channels = ui.activeGuild?.channels.map(c => (
@@ -24,6 +27,10 @@ const SidebarContent: React.FunctionComponent = () => {
       <span>{c.name}</span>
     </Link>
   ));
+
+  const openCreateInvite = () => dispatch(openModal({
+    typeName: CreateInvite.name,
+  }));
   
   // guild sidebar content
   return (
@@ -31,7 +38,13 @@ const SidebarContent: React.FunctionComponent = () => {
       <div className="sidebar-header pl-2.5 pr-4">
         {ui.activeGuild && (
           <Dropdown title={ui.activeGuild.name}>
-            
+            <a className="rounded-sm secondary flex items-center justify-between p-2 h-8 text-sm"
+              onClick={openCreateInvite}>
+              <span>Invite people</span>
+              <FontAwesomeIcon
+                className="float-right"
+                icon={faUserPlus} />
+            </a>
           </Dropdown>
         )}
       </div>
@@ -40,6 +53,7 @@ const SidebarContent: React.FunctionComponent = () => {
         {channels}
       </div>
       <SidebarFooter />
+      <CreateInvite />
     </div>
   );
 }
