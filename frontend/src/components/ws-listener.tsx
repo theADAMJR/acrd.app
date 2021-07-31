@@ -1,24 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import ws from '../store/services/ws';
 import { actions as guilds } from '../store/guilds';
 import { actions as messages } from '../store/messages';
 import { actions as channels } from '../store/channels';
 import { actions as auth } from '../store/auth';
-import ui, { closedModal, focusedInvite } from '../store/ui';
+import ui, { closedModal, focusedInvite, openedModal } from '../store/ui';
 import { useEffect } from 'react';
 import { actions as meta } from '../store/meta';
 import { actions as users } from '../store/users';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 // should this go in guilds reducer file?
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  const store = useStore();
 
   const hasListenedToWS = useSelector((s: Store.AppStore) => s.meta.hasListenedToWS);
-  const activeChannel = useSelector((s: Store.AppStore) => s.ui.activeChannel);
-  const activeGuild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
-  const user = useSelector((s: Store.AppStore) => s.auth.user);
 
   useEffect(() => {
     if (hasListenedToWS) return;
@@ -26,16 +25,29 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('error', (error: any) => alert(error?.message));
 
     // add channel to guilds.channels
-    ws.on('CHANNEL_CREATE', (args) => {
-      // if we made it, we want to navigate there\
-    if (args.creatorId === user!.id)
-      dispatch(closedModal());
+    ws.on('CHANNEL_CREATE', (args) => {      
+      // if we created it, we want to navigate there
+      // we'd expect the user to exist, as they should be logged in to receive ws events
+      const state = store.getState() as Store.AppStore;      
+      const weCreated = args.creatorId === state.auth.user!.id;
+      const guild = state.ui.activeGuild;
+      
+      // we cannot go to the channel if not in store 
+      dispatch(guilds.channelCreated(args));
+
+      if (weCreated && guild) {
+        dispatch(closedModal());
+        history.push(`/channels/${guild.id}/${args.channel.id}`);
+      }
     });
     ws.on('CHANNEL_DELETE', (args) => {
       // if in channel, go away from it
-      const inChannel = args.channelId === activeChannel?.id;
-      if (inChannel && activeGuild)
-        history.push(`/channels/${activeGuild.id}`);
+      const state = store.getState() as Store.AppStore;
+      const inChannel = args.channelId === state.ui.activeChannel?.id;
+      const guild = state.ui.activeGuild;
+
+      if (inChannel && guild)
+        history.push(`/channels/${guild.id}`);
 
       dispatch(guilds.channelDeleted(args));
     });
