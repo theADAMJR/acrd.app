@@ -17,6 +17,13 @@ const slice = createSlice({
       const guild = guilds.find(i => i.id === payload.guildId);
       guild?.members.push(payload.member);
     },
+    memberRemoved: (guilds, { payload }) => {
+      const guild = guilds.find(i => i.id === payload.guildId)!;
+      guild.members = guild.members.filter(m => m.id !== payload.userId);
+    },
+    leftGuild: (guilds, { payload }) => {
+      guilds = guilds.filter(g => g.id !== payload.guildId);
+    },
     fetched: (guilds, { payload }) => {
       guilds.push(...(payload ?? []));
     },
@@ -46,7 +53,6 @@ export const fetchMyGuilds = () => (dispatch, getState: () => Store.AppStore) =>
 
 export const joinGuild = (inviteCode: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
-    onSuccess: actions.fetched.type,
     event: 'GUILD_MEMBER_ADD',
     data: { inviteCode },
   }));
@@ -56,11 +62,19 @@ export const leaveGuild = (guildId: string) => (dispatch, getState) => {
   const user = getState().auth.user;
 
   dispatch(api.wsCallBegan({
-    onSuccess: actions.fetched.type,
+    onSuccess: actions.leftGuild.type,
     event: 'GUILD_MEMBER_REMOVE',
     data: { guildId, userId: user.id },
   }));
 }
+
+// export const kickMember = (guildId: string, userId: string) => (dispatch) => {
+//   dispatch(api.wsCallBegan({
+//     onSuccess: actions.leftGuild.type,
+//     event: 'GUILD_MEMBER_REMOVE',
+//     data: { guildId, userId },
+//   }));
+// }
 
 export const createGuild = (name: string) => (dispatch) => {
   dispatch(api.wsCallBegan({

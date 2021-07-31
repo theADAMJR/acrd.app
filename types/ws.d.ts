@@ -108,6 +108,7 @@ declare global {
     }
     export interface TypingStart {
       channelId: string;
+      userId: string;
     }
   }
 }

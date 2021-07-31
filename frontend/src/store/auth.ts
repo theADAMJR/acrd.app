@@ -28,7 +28,6 @@ export const ready = () => (dispatch, getState) => {
   if (getState().user || !localStorage.getItem('token')) return;
 
   dispatch(api.wsCallBegan({
-    onSuccess: actions.ready.type,
     event: 'READY',
     data: { token: localStorage.getItem('token') },
   }));

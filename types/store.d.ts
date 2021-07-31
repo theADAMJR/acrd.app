@@ -5,6 +5,9 @@ declare namespace Store {
       attemptedLogin: boolean;
     };
     entities: {
+      channels: {
+        typing: { userId: string, channelId: string }[];
+      };
       guilds: Entity.Guild[];
       messages: Entity.Message[];
       users: Entity.User[];

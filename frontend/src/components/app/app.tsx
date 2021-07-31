@@ -12,6 +12,7 @@ import LogoutPage from '../pages/logout-page';
 import { fetchMyGuilds } from '../../store/guilds';
 import { fetchUsers } from '../../store/users';
 import LoadingPage from '../pages/loading-page';
+import WSListener from '../ws-listener';
 
 export default function App() {
   const user = useSelector((s: Store.AppStore) => s.auth.user);
@@ -30,7 +31,8 @@ export default function App() {
     else if (!user)
       return <LoadingPage />;
     
-    return (
+    return (<>
+      <WSListener />
       <Router>
         <Switch>
           {/* <Route exact path="/channels/@me/settings" component={UserSettingsPage} />
@@ -39,7 +41,7 @@ export default function App() {
           <Route exact path="/channels/:guildId/:channelId?" component={GuildPage} />
         </Switch>
       </Router>
-    );
+    </>);
   }
   
   return (

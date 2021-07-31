@@ -38,8 +38,17 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
 
     guild.members.push(user);
     await guild.save();
-    
+
     io.to(invite.guildId)
       .emit('GUILD_MEMBER_ADD', { guildId, member: user } as WSResponse.GuildMemberAdd);
+
+    await guild
+      .populate({ path: 'channels' })
+      .populate({ path: 'invites' })
+      .populate({ path: 'members' })
+    // .populate({ path: 'roles' })
+      .execPopulate();
+
+    client.emit('GUILD_CREATE', { guild } as WSResponse.GuildCreate);    
   }
 }
