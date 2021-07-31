@@ -60,7 +60,7 @@ declare global {
     }
     export interface GuildUpdate {
       guildId: string;
-      partialGuild: Partial<Entity.Guild>;
+      payload: Partial<Entity.Guild>;
     }
     export interface GuildMemberAdd {
       inviteCode: string;
@@ -90,7 +90,7 @@ declare global {
       channelId: string;
     }
     export interface UserUpdate {
-      partialUser: Partial<Entity.User>;
+      payload: Partial<Entity.User>;
     }
   }
   
@@ -111,8 +111,7 @@ declare global {
     }
     export interface GuildUpdate {
       guildId: string;
-      name?: string;
-      iconURL?: string;
+      payload: Partial<Entity.Guild>;
     }
     export interface GuildMemberAdd {
       guildId: string;
@@ -131,7 +130,8 @@ declare global {
       messageId: string;
     }
     export interface MessageUpdate {
-      message: Entity.Message;
+      messageId: string;
+      payload: Partial<Entity.Message>;
     }
     export interface Ready {
       user: Entity.User;
@@ -141,9 +141,8 @@ declare global {
       userId: string;
     }
     export interface UserUpdate {
+      payload: Partial<Entity.User>;
       userId: string;
-      username?: string;
-      avatarURL?: string;
     }
   }
 }
