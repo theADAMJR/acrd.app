@@ -1,6 +1,5 @@
-import { useRef } from 'react';
 import { useState } from 'react';
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { createMessage } from '../../../store/messages';
@@ -21,6 +20,14 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = () => {
     
     dispatch(createMessage(channelId, { content }));
     setContent('');
+
+    scrollToBottom();
+  }
+
+  // TODO: move to text-based-channel
+  const scrollToBottom = () => {
+    const element = document.querySelector('.messages')!;
+    element.scrollTop = element.scrollHeight;
   }
   
   // TODO: expand vertically
