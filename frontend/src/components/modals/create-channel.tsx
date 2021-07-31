@@ -47,6 +47,7 @@ const CreateChannel: React.FunctionComponent = () => {
         style={{height: '70px'}}
         className="bg-bg-secondary flex-end">
         <button
+          onClick={submitCreate}
           style={{height: '38px', padding: '2px 16px'}}
           className="float-right background bg-primary heading rounded-md m-4">Create</button>
       </footer>

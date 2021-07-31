@@ -16,10 +16,20 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
     if (guild.ownerId !== userId)
       throw new TypeError('Only the guild owner can do this');
 
+    // actually create channel
     const channel = await Channel.create({
       guildId: params.guildId,
       name: params.name,
     });
+
+    // add channel to guild
+    guild.channels.push(channel);
+    await guild.save();
+
+    // join all sockets to channel, when created
+    const connectedClients = await io.in(guild.id).fetchSockets();
+    for (const client of connectedClients)
+      client.join(channel.id);
 
     io.to(guild.id)
       .emit('CHANNEL_CREATE', { channel } as WSResponse.ChannelCreate);
