@@ -72,13 +72,12 @@ export const leaveGuild = (guildId: string) => (dispatch, getState) => {
   }));
 }
 
-// export const kickMember = (guildId: string, userId: string) => (dispatch) => {
-//   dispatch(api.wsCallBegan({
-//     onSuccess: actions.leftGuild.type,
-//     event: 'GUILD_MEMBER_REMOVE',
-//     data: { guildId, userId },
-//   }));
-// }
+export const kickMember = (guildId: string, userId: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'GUILD_MEMBER_REMOVE',
+    data: { guildId, userId },
+  }));
+}
 
 export const createChannel = (guildId: string, name: string) => (dispatch) => {
   dispatch(api.wsCallBegan({

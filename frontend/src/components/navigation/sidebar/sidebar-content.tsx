@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as React from 'react';
 import { faCog, faHashtag, faPlusCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,16 +31,15 @@ const SidebarContent: React.FunctionComponent = () => {
       </Link>
 
       <ContextMenu
-          key={c.id}
-          id={c.id}
-          style={{width: '188px'}}
-          className="bg-bg-tertiary p-2 rounded shadow">
-          <MenuItem
-            className="danger cursor-pointer"
-            onClick={() => dispatch(deleteChannel(c.guildId!, c.id))}>
-            <span>Delete channel</span>
-          </MenuItem>
-        </ContextMenu>
+        id={c.id}
+        style={{width: '188px'}}
+        className="bg-bg-tertiary p-2 rounded shadow">
+        <MenuItem
+          className="danger cursor-pointer"
+          onClick={() => dispatch(deleteChannel(c.guildId!, c.id))}>
+          <span>Delete channel</span>
+        </MenuItem>
+      </ContextMenu>
     </ContextMenuTrigger>
   ));
 

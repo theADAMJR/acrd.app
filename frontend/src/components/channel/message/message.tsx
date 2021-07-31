@@ -1,10 +1,10 @@
-import * as React from 'react';
 import moment from 'moment';
-import './message.scoped.css';
-import { useSelector, useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
 import { getUser } from '../../../store/users';
 import environment from '../../../environment';
+
+import './message.scoped.css';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -46,7 +46,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     const days = moment(new Date()).diff(createdAt, 'day');
     const day = { [1]: 'Yesterday', [0]: 'Today', [-1]: 'Tomorrow' }[days];
     const format = (day)
-      ? `[${day}] [at] hh:mm`
+      ? `[${day}] [at] HH:MM`
       : 'DD/MM/YYYY';
 
     const timestamp = moment(createdAt).format(format);
