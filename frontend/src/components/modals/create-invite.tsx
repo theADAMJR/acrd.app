@@ -11,7 +11,7 @@ const CreateInvite: React.FunctionComponent = () => {
   const { activeGuild, activeInvite, openModal } = useSelector((s: Store.AppStore) => s.ui);
 
   useEffect(() => {
-    if (openModal !== CreateInvite.name) return;
+    if (!openModal) return;
 
     dispatch(createInvite(activeGuild!.id));
     setValue('inviteCode', activeInvite?.id);
@@ -24,20 +24,19 @@ const CreateInvite: React.FunctionComponent = () => {
     },
   };
 
-  if (!activeGuild || !activeInvite) return null;
+  if (!activeInvite) return null;
   
   return (
     <ReactModal
       style={style}
-      className="overflow-auto absolute bg-bg-tertiary w-1/3 inset-x-1/3 inset-y-3/4 p-5 rounded-lg outline-none"
+      className="overflow-auto absolute bg-bg-tertiary w-1/3 inset-x-1/3 inset-y-1/4 p-5 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === CreateInvite.name}
       onRequestClose={() => dispatch(closedModal())}>
-      <header className="mb-5">
-        <h1 className="font-bold inline uppercase">Invite Friends to {activeGuild.name}</h1>
+      <header className="mb-3">
+        <h1 className="font-bold inline uppercase">Invite Friends to {activeGuild?.name}</h1>
       </header>
 
-      <div className="mt-10" />
       <h4 className="text-xs uppercase font-bold muted">Or Send A Server Invite To A Friend</h4>
 
       <form>
@@ -51,7 +50,6 @@ const CreateInvite: React.FunctionComponent = () => {
             type="text"
             {...register('inviteCode')}
             className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-
         </div>
       </form>
     </ReactModal>

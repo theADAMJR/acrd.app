@@ -62,7 +62,7 @@ export const createInvite = (guildId: string) => (dispatch) => {
     onSuccess: actions.inviteCreated.type,
     event: 'INVITE_CREATE',
     data: { guildId },
-    callback: (args) => focusedInvite(args.invite),
+    callback: (args) => dispatch(focusedInvite(args.invite)),
   }));
 }
 
