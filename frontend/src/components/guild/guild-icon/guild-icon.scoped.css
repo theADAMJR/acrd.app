@@ -1,0 +1,17 @@
+.selected {
+  width: 0;
+  height: 0;
+  transition: width 0.3s ease;
+}
+
+div.wrapper.active .selected {
+  height: 40px;
+  width: 8px;
+  margin-top: 4px;
+}
+.wrapper:hover .selected {
+  display: block;
+  height: 20px;
+  width: 8px;
+  margin-top: 14px;
+}

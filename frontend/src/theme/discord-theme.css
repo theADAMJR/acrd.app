@@ -40,7 +40,7 @@ textarea {
   background-color: var(--bg-textarea);
 }
 
-.active {
+a.active {
   background-color: var(--bg-modifier-selected);
   color: var(--heading);
 }
