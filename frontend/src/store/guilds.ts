@@ -9,13 +9,21 @@ const slice = createSlice({
     created: (guilds, { payload }) => {
       guilds.push(payload.guild);
     },
+    channelCreated: (guilds, { payload }) => {
+      const guild = guilds.find(g => g.id === payload.channel.guildId);
+      guild!.channels.push(payload.channel);
+    },
+    channelDeleted: (guilds, { payload }) => {
+      const guild = guilds.find(g => g.id === payload.channel.guildId);
+      guild!.channels = guild!.channels.filter(c => c.id !== payload.channelId);
+    },
     inviteCreated: (guilds, { payload }) => {
       const guild = guilds.find(g => g.id === payload.invite.guildId);
-      guild?.invites.push(payload.invite);
+      guild!.invites.push(payload.invite);
     },
     memberAdded: (guilds, { payload }) => {
       const guild = guilds.find(i => i.id === payload.guildId);
-      guild?.members.push(payload.member);
+      guild!.members.push(payload.member);
     },
     memberRemoved: (guilds, { payload }) => {
       const guild = guilds.find(i => i.id === payload.guildId)!;
