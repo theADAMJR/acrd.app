@@ -20,7 +20,6 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = () => {
     
     dispatch(createMessage(channelId, { content }));
     setContent('');
-
     scrollToBottom();
   }
 

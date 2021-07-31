@@ -25,8 +25,7 @@ const CreateGuild: React.FunctionComponent = () => {
       className="overflow-auto absolute bg-bg-tertiary w-1/3 inset-x-1/3 inset-y-1/4 p-5 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === CreateGuild.name}
-      onRequestClose={() => dispatch(closeModal())}
-    >
+      onRequestClose={() => dispatch(closeModal())}>
       <header className="text-center mb-5">
         <h1 className="text-3xl font-bold inline">Create Guild</h1>
         <p className="lead">
