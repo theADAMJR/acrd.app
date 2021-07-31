@@ -12,6 +12,7 @@ declare namespace Store {
       openModal?: string;
       activeGuild?: Entity.Guild;
       activeChannel?: Entity.Channel;
+      activeInvite: Entity.Invite;
     }
   }  
 }

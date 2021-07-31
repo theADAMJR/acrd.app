@@ -1,9 +1,9 @@
 import { WSEvent } from './ws-event';
 import { Socket } from 'socket.io';
 import { WS } from '../websocket';
-import { Guild } from '../../data/guild';
-import { Channel } from '../../data/channel';
-import { User } from '../../data/user';
+import { Guild } from '../../data/models/guild';
+import { Channel } from '../../data/models/channel';
+import { User } from '../../data/models/user';
 
 export default class implements WSEvent<'GUILD_CREATE'> {
   public on = 'GUILD_CREATE' as const;

@@ -5,6 +5,10 @@ const slice = createSlice({
   name: 'guilds',
   initialState: [] as Entity.Guild[],
   reducers: {
+    inviteCreated: (guilds, { payload }) => {
+      const guild = guilds.find(i => i.id === payload.id);
+      guild?.invites.push(payload.invite);
+    },
     memberAdded: (guilds, { payload }) => {
       const guild = guilds.find(i => i.id === payload.guildId);
       guild?.members.push(payload.member);
@@ -46,6 +50,14 @@ export const createGuild = (name: string) => (dispatch) => {
     onSuccess: actions.fetched.type,
     event: 'GUILD_CREATE',
     data: { name },
+  }));
+}
+
+export const createInvite = (guildId: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    onSuccess: actions.inviteCreated.type,
+    event: 'INVITE_CREATE',
+    data: { guildId },
   }));
 }
 

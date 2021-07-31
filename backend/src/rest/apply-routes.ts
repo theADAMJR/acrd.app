@@ -1,7 +1,7 @@
 import { Express } from 'express-serve-static-core';
 import express from 'express';
-import { Guild } from '../data/guild';
-import { Message } from '../data/message';
+import { Guild } from '../data/models/guild';
+import { Message } from '../data/models/message';
 import { router as authRoutes } from './routes/auth-routes';
 import path from 'path';
 import { loggedIn, updateUser } from './middleware';
@@ -34,6 +34,7 @@ export default (app: Express) => {
     const guilds = await Guild
       .find({ _id: user.guildIds })
       .populate({ path: 'channels' })
+      .populate({ path: 'invites' })
       .populate({ path: 'members' })
       // .populate({ path: 'roles' })
       .exec();

@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
 import { WS } from '../websocket';
-import { Message } from '../../data/message';
+import { Message } from '../../data/models/message';
 import { WSEvent } from './ws-event';
 
 export default class MessageDelete implements WSEvent<'MESSAGE_DELETE'> {

@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
-import { Invite } from '../../data/invite';
-import { User } from '../../data/user';
+import { Invite } from '../../data/models/invite';
+import { User } from '../../data/models/user';
 import { WS } from '../websocket';
 import { WSEvent } from './ws-event';
 

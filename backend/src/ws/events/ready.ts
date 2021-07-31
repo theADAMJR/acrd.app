@@ -1,9 +1,9 @@
 import { Socket } from 'socket.io';
-import { User } from '../../data/user';
+import { User } from '../../data/models/user';
 import { WS } from '../websocket';
 import { WSEvent } from './ws-event';
 import jwt from 'jsonwebtoken';
-import { Guild } from '../../data/guild';
+import { Guild } from '../../data/models/guild';
 
 export default class Ready implements WSEvent<'READY'> {
   public on = 'READY' as const;

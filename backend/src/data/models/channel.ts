@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
-import { generateSnowflake } from '../utils/snowflake';
-import { useId } from './data-utils';
+import { generateSnowflake } from '../../utils/snowflake';
+import { useId } from '../data-utils';
 
 export interface ChannelDocument extends Entity.Channel, Document {}
 

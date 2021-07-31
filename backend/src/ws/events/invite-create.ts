@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
-import { Guild } from '../../data/guild';
-import { Invite } from '../../data/invite';
+import { Guild } from '../../data/models/guild';
+import { Invite } from '../../data/models/invite';
 import { WS } from '../websocket';
 import { WSEvent } from './ws-event';
 

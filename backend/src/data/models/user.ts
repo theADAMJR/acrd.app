@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
-import { useId } from './data-utils';
-import { generateSnowflake } from '../utils/snowflake';
+import { useId } from '../data-utils';
+import { generateSnowflake } from '../../utils/snowflake';
 import passportLocalMongoose from 'passport-local-mongoose';
 
 export interface UserDocument extends Entity.User, Document {}

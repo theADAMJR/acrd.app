@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authenticate } from 'passport';
-import { User } from '../../data/user';
+import { User } from '../../data/models/user';
 import createError from 'http-errors';
 import jwt from 'jsonwebtoken';
 

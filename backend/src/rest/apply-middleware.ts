@@ -1,6 +1,6 @@
 import cors from 'cors';
 import passport from 'passport';
-import { User } from '../data/user';
+import { User } from '../data/models/user';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Express } from 'express-serve-static-core';
 import bodyParser from 'body-parser';
