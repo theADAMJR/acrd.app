@@ -14,7 +14,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = () => {
   const [content, setContent] = useState('');
   
   const create = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); }
+    if (event.key === 'Enter'&& !event.shiftKey) { event.preventDefault(); }
     if (event.key !== 'Enter'
       || event.shiftKey
       || !content.replaceAll('\n', '')) return;

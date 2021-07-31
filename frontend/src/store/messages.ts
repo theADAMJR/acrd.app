@@ -14,7 +14,7 @@ const slice = createSlice({
       messages = messages.filter(m => m.id !== payload.id);
     },
     fetched: (messages, { payload }) => {
-      messages.concat(payload);
+      messages.push(...payload);
     },
     updated: (messages, { payload }) => {
       const message = messages.find(m => m.id === payload.id);

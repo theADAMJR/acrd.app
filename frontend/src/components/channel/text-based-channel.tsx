@@ -13,7 +13,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel)!;  
   const messages = useSelector(getChannelMessages(channel.id));
 
-  useEffect(() => {
+  useEffect(() => {    
     dispatch(fetchMessages(channel.id));
   }, []);
 
@@ -29,7 +29,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   
   return (
     <div className="text-based-channel flex flex-col flex-grow">
-      <div className="messages">
+      <div className="messages overflow-auto">
         {welcome}
         {messages.map(m => <Message key={m.id} message={m} />)}
       </div>
