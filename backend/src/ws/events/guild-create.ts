@@ -12,19 +12,26 @@ export default class implements WSEvent<'GUILD_CREATE'> {
     const ownerId = sessions.get(client.id);
     const guild = new Guild({ name: params.name, ownerId });
 
+    // create guild
     const systemChannel = await Channel.create({
       name: 'general',
       guildId: guild.id,
     });
-    const selfMember = await User.findById(ownerId);
-    selfMember!.guildIds.push(guild.id);
-    await selfMember!.save();
+    const selfMember = (await User.findById(ownerId))!;
+    selfMember.guildIds.push(guild.id);
+    await selfMember.save();
     
+    // add default channels and members
     guild.channels.push(systemChannel);
-    guild.members.push(selfMember!);
+    guild.members.push(selfMember);
+    // guild.roles.push(everyoneRole);
     await guild.save();
     
-    
+    // join guild rooms
+    await client.join(guild.id);
+    for (const channel of guild.channels)
+      await client.join(channel.id);
+
     client.emit('GUILD_CREATE', { guild } as WSResponse.GuildCreate);
   }
 }

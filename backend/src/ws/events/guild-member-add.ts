@@ -49,6 +49,11 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     // .populate({ path: 'roles' })
       .execPopulate();
 
+    // join guild rooms
+    await client.join(guild.id);
+    for (const channel of guild.channels)
+      await client.join(channel.id);
+
     client.emit('GUILD_CREATE', { guild } as WSResponse.GuildCreate);    
   }
 }
