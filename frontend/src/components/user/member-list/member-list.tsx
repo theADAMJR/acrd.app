@@ -10,23 +10,26 @@ export interface MemberListProps {
 
 const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListProps) => {
   const dispatch = useDispatch();
-  const { activeGuild } = useSelector((s: Store.AppStore) => s.ui);
+  const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild)!;
+  const selfUser = useSelector((s: Store.AppStore) => s.auth.user)!;
+  
+  const canManage = selfUser.id === guild.ownerId;
   
   const members = props.users.map(u => (
     <ContextMenuTrigger id={u.id} key={u.id}>
       <div className="mb-2">
-        <Username user={u} guild={activeGuild} />
+        <Username user={u} guild={guild} />
       </div>
 
       <ContextMenu
         id={u.id}
         style={{width: '188px'}}
         className="bg-bg-tertiary p-2 rounded shadow">
-        <MenuItem
+        {canManage && u.id !== selfUser.id && <MenuItem
           className="danger cursor-pointer"
-          onClick={() => dispatch(kickMember(activeGuild!.id, u.id))}>
+          onClick={() => dispatch(kickMember(guild.id, u.id))}>
           <span>Kick {u.username}</span>
-        </MenuItem>
+        </MenuItem>}
       </ContextMenu>
     </ContextMenuTrigger>
   ));

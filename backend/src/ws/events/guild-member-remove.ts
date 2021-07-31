@@ -14,10 +14,15 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     if (!guild)
       throw new TypeError('Guild not found');
     
-    if (guild.ownerId === userId)
+    const selfUserId = sessions.get(client.id);
+    const isOwner = guild.ownerId === selfUserId;
+    if (isOwner && userId === selfUserId)
       throw new TypeError('You cannot leave a server you own');
+    else if (!isOwner)
+      throw new TypeError('You cannot manage other members');
     
     // remove guildId from user.guilds
+    // FIXME:
     const user = await User.findById(userId);
     user!.guildIds = user!.guildIds.filter(id => id !== guildId);
     await user!.save();    
@@ -27,7 +32,6 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     await guild.save();
     
     // if self user left, emit GUILD_DELETE
-    const selfUserId = sessions.get(client.id);
     if (selfUserId === userId)
       io.to(guildId)
         .emit('GUILD_DELETE', { guildId } as WSResponse.GuildDelete);
