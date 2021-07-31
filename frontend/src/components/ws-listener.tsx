@@ -68,6 +68,12 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(closedModal());
       history.push(`/channels/${args.guild.id}`);
     });
+    ws.on('GUILD_DELETE', (args) => {
+      const state = store.getState() as Store.AppStore;
+      const guildIsActive = args.guildId === state.ui.activeGuild?.id;
+      if (guildIsActive)
+        dispatch(closedModal());
+    });
     // ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated (args)));
     ws.on('TYPING_START', (args) => dispatch(channels.userTyped(args)));
     ws.on('GUILD_DELETE', (args) => dispatch(guilds.deleted(args)));

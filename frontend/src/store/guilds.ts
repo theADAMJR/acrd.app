@@ -37,7 +37,8 @@ const slice = createSlice({
       Object.assign(guild, payload);
     },
     deleted: (guilds, { payload }) => {
-      guilds = guilds.filter(u => u.id !== payload.guildId);
+      const index = guilds.findIndex(u => u.id === payload.guildId);
+      guilds.splice(index, 1);
     },
   },
 });
