@@ -81,6 +81,8 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('MESSAGE_DELETE', (args) => dispatch(messages.deleted(args)));
     ws.on('MESSAGE_UPDATE', (args) => dispatch(messages.updated(args)));
     ws.on('READY', (args) => dispatch(auth.ready(args)));
+    ws.on('USER_DELETE', (args) => dispatch(users.deleted(args)));
+    ws.on('USER_UPDATE', (args) => dispatch(users.updated(args)));
 
     dispatch(meta.listenedToWS());
   }, [hasListenedToWS]);

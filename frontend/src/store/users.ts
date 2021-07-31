@@ -6,16 +6,18 @@ const slice = createSlice({
   initialState: [] as Entity.User[],
   reducers: {
     fetched: (users, { payload }) => {
-      // FIXME:
+      // TODO: remove try catch
       try { users.push(...payload) }
       catch { users.push(payload) }
     },
     updated: (users, { payload }) => {
       const user = users.find(u => u.id === payload.userId);
+      // TODO: fix bad naming
       Object.assign(user, payload.payload);
     },
     deleted: (users, { payload }) => {
-      users = users.filter(u => u.id !== payload.userId);
+      const index = users.findIndex(u => u.id === payload.userId);
+      users.splice(index, 1);
     },
   },
 });

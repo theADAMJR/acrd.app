@@ -87,6 +87,7 @@ declare global {
     export interface TypingStart {
       channelId: string;
     }
+    export interface UserDelete {}
     export interface UserUpdate {
       payload: Partial<Entity.User>;
     }
@@ -138,6 +139,9 @@ declare global {
     }
     export interface TypingStart {
       channelId: string;
+      userId: string;
+    }
+    export interface UserDelete {
       userId: string;
     }
     export interface UserUpdate {
