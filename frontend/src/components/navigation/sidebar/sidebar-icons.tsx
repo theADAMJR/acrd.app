@@ -35,7 +35,7 @@ const SidebarIcons: React.FunctionComponent = () => {
 
   return (
     <div className="sidebar-icons flex flex-col bg-bg-tertiary px-2">
-      {iconify(userAvatar)}
+      <Link to="/channels/@me">{iconify(userAvatar)}</Link>
       {iconify(<div className="icon-separator bg-bg-modifier-accent mb-1" />)}
       {guildIcons}
       {plusIcon}
