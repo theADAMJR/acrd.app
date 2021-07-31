@@ -57,6 +57,10 @@ declare global {
     export interface GuildDelete {
       guildId: string;
     }
+    export interface GuildUpdate {
+      guildId: string;
+      partialGuild: Partial<Entity.Guild>;
+    }
     export interface GuildMemberAdd {
       inviteCode: string;
     }
@@ -84,6 +88,9 @@ declare global {
     export interface TypingStart {
       channelId: string;
     }
+    export interface UserUpdate {
+      partialUser: Partial<Entity.User>;
+    }
   }
   
   // full data, not payload
@@ -100,6 +107,11 @@ declare global {
     }
     export interface GuildDelete {
       guildId: string;
+    }
+    export interface GuildUpdate {
+      guildId: string;
+      name?: string;
+      iconURL?: string;
     }
     export interface GuildMemberAdd {
       guildId: string;
@@ -126,6 +138,11 @@ declare global {
     export interface TypingStart {
       channelId: string;
       userId: string;
+    }
+    export interface UserUpdate {
+      userId: string;
+      username?: string;
+      avatarURL?: string;
     }
   }
 }
