@@ -1,14 +1,18 @@
 import { Router } from 'express';
 import { authenticate } from 'passport';
-import { User } from '../../data/models/user';
+import { User, UserDocument } from '../../data/models/user';
 import createError from 'http-errors';
 import jwt from 'jsonwebtoken';
 
 export const router = Router();
 
 router.post('/login', authenticate('local'), (req, res) => {    
-  const userId = (req.user as Entity.User).id;
+  const user = req.user as UserDocument;
+  const userId = user.id;
   const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY);
+
+  if (user.locked)
+    createError(401, 'This account is locked');
 
   res.json(token);
 });

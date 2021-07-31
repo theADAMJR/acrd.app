@@ -82,7 +82,17 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('READY', (args) => dispatch(auth.ready(args)));
     ws.on('USER_UPDATE', (args) => {
       // update member in guild
-      dispatch(auth.updatedUser(args));
+      const state = store.getState() as Store.AppStore;
+      const isSelfUser = args.userId === state.auth.user?.id;
+      const wasDeleted = args.payload.discriminator === 0;
+      if (isSelfUser && wasDeleted) {
+        dispatch(auth.loggedOut());
+        history.push('/');
+        return ws.disconnect();
+      } else if (isSelfUser)
+        dispatch(auth.updatedUser(args));
+      
+
       dispatch(guilds.memberUpdated(args));
       dispatch(users.updated(args));
     });

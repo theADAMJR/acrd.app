@@ -1,5 +1,5 @@
 import Particles from 'react-particles-js';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { registerUser } from '../../store/auth';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,10 +9,12 @@ import PageWrapper from './page-wrapper';
 const RegisterPage: React.FunctionComponent = () => {  
   const user = useSelector((s: Store.AppStore) => s.auth.user);
   const dispatch = useDispatch();
+  const history = useHistory();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     dispatch(registerUser(data));
+    // history.push('/channels/@me');
   }
 
   return (user)

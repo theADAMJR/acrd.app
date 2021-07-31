@@ -3,7 +3,9 @@ import { useId } from '../data-utils';
 import { generateSnowflake } from '../../utils/snowflake';
 import passportLocalMongoose from 'passport-local-mongoose';
 
-export interface UserDocument extends Entity.User, Document {}
+export interface UserDocument extends Entity.User, Document {
+  locked: boolean;
+}
 
 const UserSchema = new Schema({
   _id: { type: String, default: generateSnowflake },
@@ -11,6 +13,7 @@ const UserSchema = new Schema({
   createdAt: { type: Date, default: () => new Date() },
   discriminator: Number,
   email: String,
+  locked: Boolean,
   username: String,
   updatedAt: Date,
   guildIds: [String],

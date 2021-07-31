@@ -13,6 +13,6 @@ export default ws as WSClient;
 
 interface WSClient {
   emit: <K extends keyof ToWSAPI>(event: K, callback: (args: ToWSAPI[K]) => any) => any,
-  on: <K extends keyof FromWSAPI>(event: K | 'error', callback: (args: FromWSAPI[K]) => any) => any,
+  on: <K extends keyof FromWSAPI>(event: K | 'error' | 'disconnect', callback: (args: FromWSAPI[K]) => any) => any,
   off: (event: string, callback?: any) => any,
 }

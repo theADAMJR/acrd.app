@@ -3,7 +3,6 @@ import { Socket } from 'socket.io';
 import { WS } from '../websocket';
 import { User } from '../../data/models/user';
 import { generateInvite } from '../../utils/invite';
-import { v4 } from 'uuid';
 
 export default class implements WSEvent<'USER_DELETE'> {
   public on = 'USER_DELETE' as const;
@@ -17,12 +16,12 @@ export default class implements WSEvent<'USER_DELETE'> {
       username: `Deleted User ${generateInvite(6)}`,
     };
 
-    // make it so user cannot login
-    (user as any).setPassword(v4());
-    delete (user as any).salt;
+    user.locked = true;
     await user.updateOne(payload);
-
+  
     io.to(user.guildIds)
       .emit('USER_UPDATE', { userId, payload } as WSResponse.UserUpdate);
+
+    client.disconnect();
   }
 }
