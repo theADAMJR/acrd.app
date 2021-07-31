@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import environment from '../../../environment';
-import { openModal } from '../../../store/ui';
+import { openedModal } from '../../../store/ui';
 import GuildIcon from '../../guild/guild-icon/guild-icon';
 import CreateGuild from '../../modals/create-guild';
 import './sidebar-icons.scoped.css';
@@ -26,7 +26,7 @@ const SidebarIcons: React.FunctionComponent = () => {
       alt={user.username} />
   );
 
-  const openCreateGuild = () => dispatch(openModal({
+  const openCreateGuild = () => dispatch(openedModal({
     typeName: CreateGuild.name,
   }));
   const plusIcon = <div

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Dropdown from '../../utils/dropdown';
 
 import './sidebar-content.scoped.css';
-import { openModal } from '../../../store/ui';
+import { openedModal } from '../../../store/ui';
 import CreateInvite from '../../modals/create-invite';
 
 const SidebarContent: React.FunctionComponent = () => {  
@@ -28,7 +28,7 @@ const SidebarContent: React.FunctionComponent = () => {
     </Link>
   ));
 
-  const openCreateInvite = () => dispatch(openModal({
+  const openCreateInvite = () => dispatch(openedModal({
     typeName: CreateInvite.name,
   }));
   

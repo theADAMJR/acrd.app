@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { createGuild, joinGuild } from '../../store/guilds';
-import { closeModal } from '../../store/ui';
+import { closedModal } from '../../store/ui';
 
 const CreateGuild: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const CreateGuild: React.FunctionComponent = () => {
       className="overflow-auto absolute bg-bg-tertiary w-1/3 inset-x-1/3 inset-y-1/4 p-5 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === CreateGuild.name}
-      onRequestClose={() => dispatch(closeModal())}>
+      onRequestClose={() => dispatch(closedModal())}>
       <header className="text-center mb-5">
         <h1 className="text-3xl font-bold inline">Create Guild</h1>
         <p className="lead">

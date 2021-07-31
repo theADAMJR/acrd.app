@@ -1,17 +1,23 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from '../../store/ui';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { createInvite } from '../../store/guilds';
+import { closedModal } from '../../store/ui';
 
 const CreateInvite: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register } = useForm();
   const ui = useSelector((s: Store.AppStore) => s.ui);
-  const [inviteCode, setInviteCode] = useState();
+  const store = useStore();
 
+  const [inviteCode, setInviteCode] = useState();
   const guild = ui.activeGuild!;
-  
+
+  useEffect(() => {
+    dispatch(createInvite(guild.id));
+  }, []);
 
   const style: any = {
     overlay: {
@@ -26,7 +32,7 @@ const CreateInvite: React.FunctionComponent = () => {
       className="overflow-auto absolute bg-bg-tertiary w-1/3 inset-x-1/3 inset-y-3/4 p-5 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={ui.openModal === CreateInvite.name}
-      onRequestClose={() => dispatch(closeModal())}>
+      onRequestClose={() => dispatch(closedModal())}>
       <header className="mb-5">
         <h1 className="font-bold inline uppercase">Invite Friends to {guild.name}</h1>
       </header>

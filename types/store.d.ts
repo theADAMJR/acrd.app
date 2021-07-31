@@ -10,9 +10,9 @@ declare namespace Store {
     };
     ui: {
       openModal?: string;
-      activeGuild?: Entity.Guild;
       activeChannel?: Entity.Channel;
-      activeInvite: Entity.Invite;
+      activeGuild?: Entity.Guild;
+      activeInvite?: Entity.Invite;
     }
   }  
 }

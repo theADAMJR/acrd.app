@@ -1,5 +1,6 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
+import { focusedInvite } from './ui';
 
 const slice = createSlice({
   name: 'guilds',
@@ -58,6 +59,7 @@ export const createInvite = (guildId: string) => (dispatch) => {
     onSuccess: actions.inviteCreated.type,
     event: 'INVITE_CREATE',
     data: { guildId },
+    callback: (args) => focusedInvite(args.invite),
   }));
 }
 

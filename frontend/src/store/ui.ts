@@ -4,18 +4,21 @@ const slice = createSlice({
   name: 'ui',
   initialState: {} as Store.AppStore['ui'],
   reducers: {
+    focusedInvite: (state, { payload }) => {
+      state.activeInvite = payload;
+    },
     pageSwitched: (state, { payload }) => {
       state.activeChannel = payload.channel;
       state.activeGuild = payload.guild;
     },
-    openModal: (state, { payload }) => {      
+    openedModal: (state, { payload }) => {      
       state.openModal = payload.typeName;
     },
-    closeModal: (state) => {
+    closedModal: (state) => {
       delete state.openModal;
     },
   },
 });
 
-export const { pageSwitched, openModal, closeModal } = slice.actions;
+export const { focusedInvite, pageSwitched, openedModal, closedModal } = slice.actions;
 export default slice.reducer;
