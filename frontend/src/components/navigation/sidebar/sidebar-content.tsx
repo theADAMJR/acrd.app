@@ -16,6 +16,7 @@ const SidebarContent: React.FunctionComponent = () => {
   
   const channels = ui.activeGuild?.channels.map(c => (
     <Link
+      key={c.id}
       style={{height: '34px'}}
       to={`/channels/${ui.activeGuild!.id}/${c.id}`}
       className={`

@@ -13,7 +13,7 @@ const AppNavbar: React.FunctionComponent = () => {
       {ui.activeChannel && <FontAwesomeIcon
         icon={faHashtag}
         className="scale-150 mr-2" />}
-      <h3>{ui.activeChannel?.name}</h3>
+      <h3 className="font-bold">{ui.activeChannel?.name}</h3>
     </div>
   );
 }
