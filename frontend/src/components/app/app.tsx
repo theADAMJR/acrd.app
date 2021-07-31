@@ -12,8 +12,6 @@ import LogoutPage from '../pages/logout-page';
 import { fetchMyGuilds } from '../../store/guilds';
 import { fetchUsers } from '../../store/users';
 import PrivateRoute from '../private-route';
-import GuildSettingsPage from '../pages/guild-settings-page';
-import UserSettingsPage from '../pages/user-settings-page';
 
 export default function App() {  
   const dispatch = useDispatch();
@@ -32,8 +30,6 @@ export default function App() {
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/logout" component={LogoutPage} />
 
-          <PrivateRoute exact path="/channels/@me/settings" component={UserSettingsPage} />
-          <PrivateRoute exact path="/channels/:guildId/settings" component={GuildSettingsPage} />
           <PrivateRoute exact path="/channels/@me" component={OverviewPage} />
           <PrivateRoute exact path="/channels/:guildId/:channelId?" component={GuildPage} />
           

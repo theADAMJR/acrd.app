@@ -100,6 +100,14 @@ export const createGuild = (name: string) => (dispatch) => {
   }));
 }
 
+export const updateGuild = (guildId: string, payload: Partial<Entity.Guild>) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'GUILD_UPDATE',
+    data: { guildId, payload },
+  }));
+}
+
+
 export const createInvite = (guildId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'INVITE_CREATE',

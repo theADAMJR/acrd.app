@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { createChannel } from '../../store/guilds';
+import { updateGuild } from '../../store/guilds';
 import { closedModal } from '../../store/ui';
 
-const CreateChannel: React.FunctionComponent = () => {
+const GuildSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
+  const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild)!;
+  const openModal = useSelector((s: Store.AppStore) => s.ui.openModal)!;
   const { register, handleSubmit } = useForm();
-  const openModal = useSelector((s: Store.AppStore) => s.ui.openModal);
-  const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
 
   const style: any = {
     overlay: {
@@ -17,19 +17,19 @@ const CreateChannel: React.FunctionComponent = () => {
     },
   };
 
-  const create = (data) => dispatch(createChannel(guild!.id, data.name));
+  const update = (payload) => dispatch(updateGuild(guild.id, payload));
   
   return (
     <ReactModal
       style={style}
-      className="overflow-auto absolute bg-bg-primary w-1/4 inset-x-1/3 inset-y-1/3 rounded-lg outline-none"
+      className="overflow-auto absolute bg-bg-primary h-full w-full rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
-      isOpen={openModal === CreateChannel.name}
+      isOpen={openModal === GuildSettings.name}
       onRequestClose={() => dispatch(closedModal())}>
       <form
         style={{height: '100%'}}
         className="flex flex-col"
-        onSubmit={handleSubmit(create)}>
+        onSubmit={handleSubmit(update)}>
         <header className="text-center mb-5 p-5">
           <h1 className="text-2xl font-bold inline">Create Text Channel</h1>
         </header>
@@ -57,4 +57,4 @@ const CreateChannel: React.FunctionComponent = () => {
   );
 }
  
-export default CreateChannel;
+export default GuildSettings;
