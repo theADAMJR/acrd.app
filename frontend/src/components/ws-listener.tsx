@@ -12,6 +12,8 @@ const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    ws.on('error', (error: any) => alert(error?.message));
+
     // listen to passive events (not received by api middleware)
     ws.on('GUILD_MEMBER_ADD', (args) => dispatch(guilds.memberAdded(args)));
     ws.on('GUILD_MEMBER_REMOVE', (args) => dispatch(guilds.memberRemoved(args)));

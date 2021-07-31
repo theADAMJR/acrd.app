@@ -10,11 +10,12 @@ const CreateInvite: React.FunctionComponent = () => {
   const { register, setValue } = useForm();
   const { activeGuild, activeInvite, openModal } = useSelector((s: Store.AppStore) => s.ui);
 
+  setValue('inviteCode', activeInvite?.id);
+
   useEffect(() => {
     if (!openModal) return;
 
     dispatch(createInvite(activeGuild!.id));
-    setValue('inviteCode', activeInvite?.id);
   }, [openModal === CreateInvite.name && !activeInvite]);
 
   const style: any = {
@@ -54,8 +55,9 @@ const CreateInvite: React.FunctionComponent = () => {
           <input
             id="inviteCode"
             type="text"
+            autoFocus
             {...register('inviteCode')}
-            className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+            className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none focus:ring focus:border-blue-300" />
         </div>
       </div>
     </ReactModal>
