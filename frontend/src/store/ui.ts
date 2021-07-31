@@ -4,6 +4,7 @@ const slice = createSlice({
   name: 'ui',
   initialState: {} as Store.AppStore['ui'],
   reducers: {
+    // only 1 invite is created -> to save data, and stop spam
     focusedInvite: (state, { payload }) => {
       state.activeInvite = payload;
     },

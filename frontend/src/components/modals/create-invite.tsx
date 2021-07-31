@@ -15,7 +15,7 @@ const CreateInvite: React.FunctionComponent = () => {
 
     dispatch(createInvite(activeGuild!.id));
     setValue('inviteCode', activeInvite?.id);
-  }, [openModal === CreateInvite.name]);
+  }, [openModal === CreateInvite.name && !activeInvite]);
 
   const style: any = {
     overlay: {
@@ -25,11 +25,15 @@ const CreateInvite: React.FunctionComponent = () => {
   };
 
   if (!activeInvite) return null;
+
+  const copyCode = async () => {
+    window.navigator.clipboard.writeText(activeInvite.id);
+  }
   
   return (
     <ReactModal
       style={style}
-      className="overflow-auto absolute bg-bg-tertiary w-1/3 inset-x-1/3 inset-y-1/4 p-5 rounded-lg outline-none"
+      className="overflow-auto absolute bg-bg-tertiary w-1/3 inset-x-1/3 inset-y-1/3 p-5 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === CreateInvite.name}
       onRequestClose={() => dispatch(closedModal())}>
@@ -37,21 +41,23 @@ const CreateInvite: React.FunctionComponent = () => {
         <h1 className="font-bold inline uppercase">Invite Friends to {activeGuild?.name}</h1>
       </header>
 
-      <h4 className="text-xs uppercase font-bold muted">Or Send A Server Invite To A Friend</h4>
+      <h4 className="text-xs uppercase font-bold muted mb-3">Or Send A Server Invite To A Friend</h4>
 
-      <form>
+      <div>
         <label
           htmlFor="inviteCode"
           className="uppercase">Invite Code</label>
         <div className="relative">
-          <button className="background bg-primary heading px-3 h-8 rounded-sm top-1 right-1 absolute">Copy</button>
+          <button
+            onClick={copyCode}
+            className="background bg-primary heading px-3 h-8 rounded-sm top-1 right-1 absolute">Copy</button>
           <input
             id="inviteCode"
             type="text"
             {...register('inviteCode')}
             className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
         </div>
-      </form>
+      </div>
     </ReactModal>
   );
 }
