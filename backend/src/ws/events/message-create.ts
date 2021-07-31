@@ -9,7 +9,8 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
   public async invoke({ io, sessions }: WS, client: Socket, params: WSPayload.MessageCreate) {
     // >v6 -> ensure author has access to channel
     const message = await Message.create({
-      ...params,
+      content: params.content,
+      channelId: params.channelId,
       authorId: sessions.get(client.id) as string,
     });
 

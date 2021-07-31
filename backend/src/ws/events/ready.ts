@@ -20,9 +20,7 @@ export default class Ready implements WSEvent<'READY'> {
     ws.sessions.set(client.id, user.id);
 
     const guilds = await Guild.find({ _id: user.guildIds });
-    const channelIds = guilds
-      .flatMap(g => g.channels
-        .map(c => c.id)); 
+    const channelIds = guilds.flatMap(g => g.channels) as any; 
 
     await client.join(user.guildIds);
     await client.join(channelIds);

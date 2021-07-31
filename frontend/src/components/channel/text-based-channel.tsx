@@ -11,8 +11,8 @@ const TextBasedChannel: React.FunctionComponent = () => {
   const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel)!;  
   const messages = useSelector(getChannelMessages(channel.id));
   const welcome = (
-    <div className="m-4 pb-4">
-      <span className="rounded-full heading bg-bg-secondary-alt">
+    <div className="m-4 pb-4 border-bottom">
+      <span className="rounded-full heading">
         <FontAwesomeIcon icon={faHashtag} size="3x" />
       </span>
       <h1 className="text-3xl font-bold my-2">Welcome to #{channel.name}!</h1>

@@ -27,8 +27,8 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
 
   const leftSide = () => {
     const time = message.createdAt
-      .toLocaleTimeString()
-      .slice(0, 5);
+      // .toLocaleTimeString()
+      // .slice(0, 5);
 
     return (isExtra())
       ? <span className="timestamp text-xs">{time}</span>

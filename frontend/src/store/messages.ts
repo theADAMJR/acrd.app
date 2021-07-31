@@ -9,7 +9,7 @@ const slice = createSlice({
   initialState: [] as Entity.Message[],
   reducers: {
     created: (messages, { payload }) => {
-      messages.push(payload);
+      messages.push(payload.message);
     },
     deleted: (messages, { payload }) => {
       messages = messages.filter(m => m.id !== payload.id);
@@ -44,10 +44,10 @@ export const fetchAllMessages = (channelId: string) => (dispatch, getState) => {
 }
 
 export const createMessage = (channelId: string, data: Partial<Entity.Message>) => (dispatch) => {
-  dispatch(api.restCallBegan({
+  dispatch(api.wsCallBegan({
     onSuccess: actions.created.type,
-    method: 'post',
-    data,
+    event: 'MESSAGE_CREATE',
+    data: { ...data, channelId },
   }));
 }
 
