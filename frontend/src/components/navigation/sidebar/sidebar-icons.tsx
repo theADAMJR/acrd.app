@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import environment from '../../../environment';
 import { openedModal } from '../../../store/ui';
-import GuildIcon from '../../guild/guild-icon/guild-icon';
 import CreateGuild from '../../modals/create-guild';
+import SidebarIcon from './sidebar-icon';
+
 import './sidebar-icons.scoped.css';
  
 const SidebarIcons: React.FunctionComponent = () => {
@@ -11,20 +11,14 @@ const SidebarIcons: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppStore) => s.auth.user)!;
   const guilds = useSelector((s: Store.AppStore) => s.entities.guilds)!;
 
-  const iconify = (content: JSX.Element) => 
-    <div className="guild-icon flex justify-center mb-1">{content}</div>;
-
   const guildIcons = guilds.map(g => (
     <Link key={g.id} to={`/channels/${g.id}`}>
-      <GuildIcon guild={g} />
+      <SidebarIcon
+        guildId={g.id}
+        imageURL={g.iconURL}
+        name={g.name} />
     </Link>
   ));
-  const userAvatar = iconify(
-    <img
-      className="cursor-pointer h-12 w-12 rounded-full"
-      src={`${environment.rootAPIURL}${user.avatarURL}`}
-      alt={user.username} />
-  );
 
   const openCreateGuild = () => dispatch(openedModal({
     typeName: CreateGuild.name,
@@ -35,8 +29,14 @@ const SidebarIcons: React.FunctionComponent = () => {
 
   return (
     <div className="sidebar-icons flex flex-col bg-bg-tertiary px-2">
-      <Link to="/channels/@me">{iconify(userAvatar)}</Link>
-      {iconify(<div className="icon-separator bg-bg-modifier-accent mb-1" />)}
+      <Link to="/channels/@me">
+        <SidebarIcon
+          imageURL={user.avatarURL}
+          name={user.username} />
+        </Link>
+      <div className="guild-icon flex justify-center mb-1">
+        <div className="icon-separator bg-bg-modifier-accent mb-1" />
+      </div>
       {guildIcons}
       {plusIcon}
       <CreateGuild />
