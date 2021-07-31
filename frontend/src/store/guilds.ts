@@ -121,6 +121,11 @@ export const getGuild = (id: string) =>
   state => state.entities.guilds,
   guilds => guilds.find(g => g.id === id),
 );
+export const getGuildByChannelId = (channelId: string) =>
+  createSelector<Store.AppStore, Entity.Guild[], Entity.Guild | undefined>(
+  state => state.entities.guilds,
+  guilds => guilds.find(g => g.channels.some(c => c.id === channelId)),
+);
 export const getChannel = (guildId: string, channelId: string) =>
   createSelector<Store.AppStore, Entity.Guild[], Entity.Channel | undefined>(
   state => state.entities.guilds,

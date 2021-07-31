@@ -21,6 +21,7 @@ declare namespace Store {
       activeChannel?: Entity.Channel;
       activeGuild?: Entity.Guild;
       activeInvite?: Entity.Invite;
+      editingMessageId?: string;
     };
   }  
 }

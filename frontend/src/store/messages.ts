@@ -17,8 +17,8 @@ const slice = createSlice({
       messages.push(...payload);
     },
     updated: (messages, { payload }) => {
-      const message = messages.find(m => m.id === payload.id);
-      Object.assign(message, payload);
+      const message = messages.find(m => m.id === payload.messageId);
+      Object.assign(message, payload.payload);
     },
   },
 });
@@ -41,30 +41,26 @@ export const fetchMessages = (channelId: string) => (dispatch, getState) => {
   }));
 }
 
-export const createMessage = (channelId: string, data: Partial<Entity.Message>) => (dispatch) => {
+export const createMessage = (channelId: string, payload: Partial<Entity.Message>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'MESSAGE_CREATE',
-    data: { ...data, channelId },
+    data: { ...payload, channelId },
   }));
 }
 
-// export const updateMessage = (id: string, content: Partial<Entity.Message>) => (dispatch) => {
-//   // uses ws
-//   dispatch(api.callBegan({
-//     onSuccess: actions.updated.type,
-//     method: 'patch',
-//     url: `/channels/${id}`,
-//   }));
-// }
+export const updateMessage = (id: string, payload: Partial<Entity.Message>) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'MESSAGE_UPDATE',
+    data: { payload, messageId: id },
+  }));
+}
 
-// export const deleteMessage = (id: string) => (dispatch) => {
-//   // uses ws
-//   dispatch(api.callBegan({
-//     onSuccess: actions.deleted.type,
-//     method: 'delete',
-//     url: `/channels/${id}`,
-//   }));
-// }
+export const deleteMessage = (id: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'MESSAGE_DELETE',
+    data: { messageId: id },
+  }));
+}
 
 export const actions = slice.actions;
 export default slice.reducer;

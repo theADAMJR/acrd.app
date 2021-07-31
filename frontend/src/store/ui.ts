@@ -4,6 +4,12 @@ const slice = createSlice({
   name: 'ui',
   initialState: {} as Store.AppStore['ui'],
   reducers: {
+    startedEditingMessage: (state, { payload }) => {
+      state.editingMessageId = payload;
+    },
+    stoppedEditingMessage: (state) => {
+      delete state.editingMessageId;
+    },
     // only 1 invite is created -> to save data, and stop spam
     focusedInvite: (state, { payload }) => {
       state.activeInvite = payload;
@@ -22,5 +28,5 @@ const slice = createSlice({
   },
 });
 
-export const { focusedInvite, pageSwitched, openedModal, closedModal } = slice.actions;
+export const { startedEditingMessage, stoppedEditingMessage, focusedInvite, pageSwitched, openedModal, closedModal } = slice.actions;
 export default slice.reducer;
