@@ -21,9 +21,6 @@ const slice = createSlice({
       const guild = guilds.find(i => i.id === payload.guildId)!;
       guild.members = guild.members.filter(m => m.id !== payload.userId);
     },
-    leftGuild: (guilds, { payload }) => {
-      guilds = guilds.filter(g => g.id !== payload.guildId);
-    },
     fetched: (guilds, { payload }) => {
       guilds.push(...(payload ?? []));
     },
@@ -32,7 +29,7 @@ const slice = createSlice({
       Object.assign(guild, payload);
     },
     deleted: (guilds, { payload }) => {
-      guilds = guilds.filter(u => u.id !== payload.id);
+      guilds = guilds.filter(u => u.id !== payload.guildId);
     },
   },
 });
@@ -62,7 +59,6 @@ export const leaveGuild = (guildId: string) => (dispatch, getState) => {
   const user = getState().auth.user;
 
   dispatch(api.wsCallBegan({
-    onSuccess: actions.leftGuild.type,
     event: 'GUILD_MEMBER_REMOVE',
     data: { guildId, userId: user.id },
   }));
@@ -78,7 +74,6 @@ export const leaveGuild = (guildId: string) => (dispatch, getState) => {
 
 export const createGuild = (name: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
-    onSuccess: actions.created.type,
     event: 'GUILD_CREATE',
     data: { name },
   }));
@@ -86,10 +81,8 @@ export const createGuild = (name: string) => (dispatch) => {
 
 export const createInvite = (guildId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
-    onSuccess: actions.inviteCreated.type,
     event: 'INVITE_CREATE',
     data: { guildId },
-    callback: (args) => dispatch(focusedInvite(args.invite)),
   }));
 }
 

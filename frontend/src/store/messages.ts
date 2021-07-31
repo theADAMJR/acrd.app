@@ -43,7 +43,6 @@ export const fetchMessages = (channelId: string) => (dispatch, getState) => {
 
 export const createMessage = (channelId: string, data: Partial<Entity.Message>) => (dispatch) => {
   dispatch(api.wsCallBegan({
-    onSuccess: actions.created.type,
     event: 'MESSAGE_CREATE',
     data: { ...data, channelId },
   }));

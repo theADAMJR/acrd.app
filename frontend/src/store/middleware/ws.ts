@@ -5,9 +5,7 @@ export default store => next => async action => {
   if (action.type !== actions.wsCallBegan.type)
     return next(action);
   
-  const { data, event, onStart, onSuccess, callback } = action.payload;
-  if (onStart)
-    store.dispatch({ type: onStart });
+  const { data, event } = action.payload;
 
   next(action);
 
@@ -17,11 +15,8 @@ export default store => next => async action => {
   };
 
   const wrapperCallback = (payload) => {
-    unsub();
-
-    onSuccess && store.dispatch({ type: onSuccess, payload });
     store.dispatch(actions.wsCallSucceded(payload));
-    callback && callback(payload);
+    unsub();
   };
   const errorCallback = (payload) => {
     unsub();
