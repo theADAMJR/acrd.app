@@ -9,8 +9,10 @@ const AppNavbar: React.FunctionComponent = () => {
   const ui = useSelector((s: Store.AppStore) => s.ui);
 
   return (
-    <div className="app-navbar">
-      {ui.activeChannel && <FontAwesomeIcon icon={faHashtag} />}
+    <div className="app-navbar flex items-center px-5">
+      {ui.activeChannel && <FontAwesomeIcon
+        icon={faHashtag}
+        className="scale-150 mr-2" />}
       <h3>{ui.activeChannel?.name}</h3>
     </div>
   );

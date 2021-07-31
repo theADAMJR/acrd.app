@@ -10,7 +10,7 @@ const Navbar: React.FunctionComponent = () => {
       <a className="logo">
         <span className="font-bold text-white">DCLONE</span>
         <span className="text-gray-600 mx-1">|</span>
-        <span className="text-muted font-light">ESSENTIAL</span>
+        <span className="muted font-light">ESSENTIAL</span>
       </a>
       <div>
         <Link
