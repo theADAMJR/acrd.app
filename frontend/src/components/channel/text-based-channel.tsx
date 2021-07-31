@@ -29,7 +29,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   
   return (
     <div className="text-based-channel flex flex-col flex-grow">
-      <div className="messages overflow-auto mb-5 mr-1">
+      <div className="messages overflow-auto mb-5 mr-1 mt-1">
         {welcome}
         {messages.map(m => <Message key={m.id} message={m} />)}
       </div>
