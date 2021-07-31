@@ -4,7 +4,7 @@ import { actions as guilds } from '../store/guilds';
 import { actions as messages } from '../store/messages';
 import { actions as channels } from '../store/channels';
 import { actions as auth } from '../store/auth';
-import { closedModal, focusedInvite } from '../store/ui';
+import ui, { closedModal, focusedInvite } from '../store/ui';
 import { useEffect } from 'react';
 import { actions as meta } from '../store/meta';
 import { actions as users } from '../store/users';
@@ -14,7 +14,11 @@ import { useHistory } from 'react-router-dom';
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
   const hasListenedToWS = useSelector((s: Store.AppStore) => s.meta.hasListenedToWS);
+  const activeChannel = useSelector((s: Store.AppStore) => s.ui.activeChannel);
+  const activeGuild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
+  const user = useSelector((s: Store.AppStore) => s.auth.user);
 
   useEffect(() => {
     if (hasListenedToWS) return;
@@ -22,8 +26,19 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('error', (error: any) => alert(error?.message));
 
     // add channel to guilds.channels
-    ws.on('CHANNEL_CREATE', (args) => dispatch(guilds.channelCreated(args)));
-    ws.on('CHANNEL_DELETE', (args) => dispatch(guilds.channelDeleted(args)));
+    ws.on('CHANNEL_CREATE', (args) => {
+      // if we made it, we want to navigate there\
+    if (args.creatorId === user!.id)
+      dispatch(closedModal());
+    });
+    ws.on('CHANNEL_DELETE', (args) => {
+      // if in channel, go away from it
+      const inChannel = args.channelId === activeChannel?.id;
+      if (inChannel && activeGuild)
+        history.push(`/channels/${activeGuild.id}`);
+
+      dispatch(guilds.channelDeleted(args));
+    });
     // listen to passive events (not received by api middleware)
     ws.on('GUILD_MEMBER_ADD', (args) => {
       dispatch(guilds.memberAdded(args));

@@ -99,6 +99,7 @@ declare global {
   export namespace WSResponse {
     export interface ChannelCreate {
       channel: Entity.Channel;
+      creatorId: string;
     }
     export interface ChannelDelete {
       channelId: string;

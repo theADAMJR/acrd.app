@@ -32,6 +32,6 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
       client.join(channel.id);
 
     io.to(guild.id)
-      .emit('CHANNEL_CREATE', { channel } as WSResponse.ChannelCreate);
+      .emit('CHANNEL_CREATE', { channel, creatorId: userId } as WSResponse.ChannelCreate);
   }
 }
