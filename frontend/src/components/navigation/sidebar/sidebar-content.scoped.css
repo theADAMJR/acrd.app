@@ -16,7 +16,8 @@
   box-shadow: var(--elevation);
 }
 
-.dropdown a:hover {
+.dropdown a:hover,
+.dropdown a:hover * {
   background-color: var(--primary);
   color: var(--heading);
 }

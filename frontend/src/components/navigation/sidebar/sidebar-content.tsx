@@ -5,10 +5,10 @@ import SidebarFooter from './sidebar-footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Dropdown from '../../utils/dropdown';
-
-import './sidebar-content.scoped.css';
 import { openedModal } from '../../../store/ui';
 import CreateInvite from '../../modals/create-invite';
+
+import './sidebar-content.scoped.css';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
@@ -39,9 +39,9 @@ const SidebarContent: React.FunctionComponent = () => {
       <div className="sidebar-header pl-2.5 pr-4">
         {ui.activeGuild && (
           <Dropdown title={ui.activeGuild.name}>
-            <a className="rounded-sm secondary flex items-center justify-between p-2 h-8 text-sm"
+            <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm"
               onClick={openCreateInvite}>
-              <span>Invite people</span>
+              <span className="primary">Invite people</span>
               <FontAwesomeIcon
                 className="float-right"
                 icon={faUserPlus} />
