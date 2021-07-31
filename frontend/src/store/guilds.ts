@@ -68,7 +68,14 @@ export const getGuild = (id: string) =>
   createSelector<Store.AppStore, Entity.Guild[], Entity.Guild | undefined>(
   state => state.entities.guilds,
   guilds => guilds.find(g => g.id === id),
-)
+);
+export const getChannel = (guildId: string, channelId: string) =>
+  createSelector<Store.AppStore, Entity.Guild[], Entity.Channel | undefined>(
+  state => state.entities.guilds,
+  guilds => guilds
+    .find(g => g.id === guildId)?.channels
+    .find(c => c.id === channelId),
+);
 
 export const getAbbr = (name: string) => name
   .split(' ')
