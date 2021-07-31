@@ -49,6 +49,7 @@ declare global {
       guildId: string;
     }
     export interface ChannelDelete {
+      guildId: string;
       channelId: string;
     }
     export interface GuildCreate {

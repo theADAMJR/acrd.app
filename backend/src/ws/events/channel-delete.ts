@@ -4,24 +4,21 @@ import { WS } from '../websocket';
 import { Channel } from '../../data/models/channel';
 import { Guild } from '../../data/models/guild';
 
-export default class implements WSEvent<'CHANNEL_CREATE'> {
-  public on = 'CHANNEL_CREATE' as const;
+export default class implements WSEvent<'CHANNEL_DELETE'> {
+  public on = 'CHANNEL_DELETE' as const;
 
-  public async invoke({ io, sessions }: WS, client: Socket, params: WSPayload.ChannelCreate) {
+  public async invoke({ io, sessions }: WS, client: Socket, { channelId, guildId }: WSPayload.ChannelDelete) {
     const userId = sessions.get(client.id);
-    const guild = await Guild.findById(params.guildId);
+    const guild = await Guild.findById(guildId);
     if (!guild)
       throw new TypeError('Guild not found');
 
     if (guild.ownerId !== userId)
       throw new TypeError('Only the guild owner can do this');
 
-    const channel = await Channel.create({
-      guildId: params.guildId,
-      name: params.name,
-    });
+    await Channel.deleteOne({ _id: channelId });
 
     io.to(guild.id)
-      .emit('CHANNEL_CREATE', { channel } as WSResponse.ChannelCreate);
+      .emit('CHANNEL_DELETE', { channelId } as WSResponse.ChannelDelete);
   }
 }
