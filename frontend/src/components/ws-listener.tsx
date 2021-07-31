@@ -29,7 +29,7 @@ const WSListener: React.FunctionComponent = () => {
     });
     ws.on('GUILD_CREATE', (args) => {
       dispatch(guilds.created(args));
-      closedModal();
+      dispatch(closedModal());
       history.push(`/channels/${args.guild.id}`);
     });
     // ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated (args)));
