@@ -51,8 +51,10 @@ export class WS {
             await event.invoke.bind(event)(this, client, data);
           } catch (error) {
             console.log(error);
-            
-            client.emit('error', { on: event.on, error });
+            client.emit('error', {
+              on: event.on,
+              message: error.message,
+            });
           }
         });
     });

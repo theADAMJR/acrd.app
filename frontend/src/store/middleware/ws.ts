@@ -23,7 +23,7 @@ export default store => next => async action => {
     store.dispatch(actions.wsCallSucceded(payload));
     callback && callback(payload);
   };
-  const errorCallback = payload => {
+  const errorCallback = (payload) => {
     unsub();
     store.dispatch(actions.wsCallFailed(payload));
   }

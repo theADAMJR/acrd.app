@@ -22,6 +22,6 @@ export default class implements WSEvent<'INVITE_CREATE'> {
     });
     
     io.to(guildId)
-      client.emit('INVITE_CREATE', { invite } as WSResponse.InviteCreate);
+      .emit('INVITE_CREATE', { invite } as WSResponse.InviteCreate);
   }
 }

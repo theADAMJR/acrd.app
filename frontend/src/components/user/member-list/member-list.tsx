@@ -11,11 +11,14 @@ export interface MemberListProps {
 const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListProps) => {
   const { activeGuild } = useStore().getState().ui;
   
-  const members = props.users.map(u => <Username
-    key={u.id}
-    user={u}
-    guild={activeGuild} />
-  );
+  const members = props.users.map(u => (
+    <div className="mb-1">
+      <Username
+      key={u.id}
+      user={u}
+      guild={activeGuild} />
+    </div>
+  ));
 
   return (
     <div className="member-list bg-bg-secondary">

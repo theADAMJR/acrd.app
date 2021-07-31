@@ -1,4 +1,5 @@
 import { Socket } from 'socket.io';
+import { Guild } from '../../data/models/guild';
 import { Invite } from '../../data/models/invite';
 import { User } from '../../data/models/user';
 import { WS } from '../websocket';
@@ -27,8 +28,16 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     await user.save();
 
     // add use to invites
-    invite.uses++;
+    invite.uses = invite.uses++ || 0;
     await invite.save();
+
+    // actually add guild member
+    const guild = await Guild.findById(guildId);
+    if (!guild)
+      throw new TypeError('Guild not found');
+
+    guild.members.push(user);
+    await guild.save();
     
     io.to(invite.guildId)
       .emit('GUILD_MEMBER_ADD', { guildId, member: user } as WSResponse.GuildMemberAdd);
