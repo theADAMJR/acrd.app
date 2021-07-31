@@ -7,14 +7,27 @@ export interface GuildIconProps {
 
 const GuildIcon: React.FunctionComponent<GuildIconProps> = ({ guild }) => {  
   const activeGuild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
-  const active = activeGuild?.id === guild.id && 'active';
+  const isActive = activeGuild?.id === guild.id;
   
   const abbr = getAbbr(guild.name);
   const icon = (guild.iconURL)
     ? <img className="h-12 w-12" src={guild.iconURL} alt={guild.name} />
-    : <span className="heading bg-bg-primary rounded-full h-12 w-12 flex items-center justify-center">{abbr}</span>;
+    : <span className="heading h-12 w-12 flex items-center justify-center">{abbr}</span>;
+  
+  const activeClasses = (isActive)
+    ? 'rounded-xl bg-primary'
+    : 'rounded-full bg-bg-primary';
 
-  return <div className={`cursor-pointer guild-icon flex justify-center mb-2 ${active}`}>{icon}</div>;
+  const selectedIndicator = <div
+    style={{height: '40px', width: '8px'}}
+    className="rounded bg-white absolute -left-1 my-2" />
+    
+  return (
+    <>
+      {selectedIndicator}
+      <div className={`cursor-pointer guild-icon flex justify-center mb-2 ${activeClasses}`}>{icon}</div>
+    </>
+  );
 }
  
 export default GuildIcon;
