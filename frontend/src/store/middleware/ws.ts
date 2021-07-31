@@ -10,13 +10,13 @@ export default store => next => async action => {
   next(action);
 
   const unsub = () => {
-    ws.off(event);
-    ws.off('error');
+    ws.off(event, wrapperCallback);
+    ws.off('error', errorCallback);
   };
 
   const wrapperCallback = (payload) => {
-    store.dispatch(actions.wsCallSucceded(payload));
     unsub();
+    store.dispatch(actions.wsCallSucceded(payload));
   };
   const errorCallback = (payload) => {
     unsub();
