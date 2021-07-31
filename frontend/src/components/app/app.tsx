@@ -11,9 +11,11 @@ import { useEffect } from 'react';
 import LogoutPage from '../pages/logout-page';
 import { fetchMyGuilds } from '../../store/guilds';
 import { fetchUsers } from '../../store/users';
+import LoadingPage from '../pages/loading-page';
 
 export default function App() {
   const user = useSelector((s: Store.AppStore) => s.auth.user);
+  const attemptedLogin = useSelector((s: Store.AppStore) => s.auth.attemptedLogin);
   
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,6 +23,24 @@ export default function App() {
     dispatch(fetchMyGuilds());
     dispatch(fetchUsers());
   }, []);
+
+  const privateRoutes = () => {
+    if (attemptedLogin && !user)
+      return <Redirect to="/login" />;
+    else if (!user)
+      return <LoadingPage />;
+    
+    return (
+      <Router>
+        <Switch>
+          {/* <Route exact path="/channels/@me/settings" component={UserSettingsPage} />
+          <Route exact path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}
+          <Route exact path="/channels/@me" component={OverviewPage} />
+          <Route exact path="/channels/:guildId/:channelId?" component={GuildPage} />
+        </Switch>
+      </Router>
+    );
+  }
   
   return (
     <Router>
@@ -31,16 +51,7 @@ export default function App() {
         <Route exact path="/logout" component={LogoutPage} />
 
         {/* FIXME: blocks 404 page */}
-        {(user)
-          ? <Router>
-              <Switch>
-                {/* <Route exact path="/channels/@me/settings" component={UserSettingsPage} />
-                <Route exact path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}
-                <Route exact path="/channels/@me" component={OverviewPage} />
-                <Route exact path="/channels/:guildId/:channelId?" component={GuildPage} />
-              </Switch>
-            </Router>
-          : <Redirect to="/login" />}
+        {privateRoutes()}
         
         <Route path="*">
           <h1>404</h1>

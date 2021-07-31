@@ -3,13 +3,16 @@ import { actions as api } from './api';
 
 const slice = createSlice({
   name: 'auth',
-  initialState: {} as Store.AppStore['auth'],
+  initialState: {
+    attemptedLogin: false,
+  } as Store.AppStore['auth'],
   reducers: {
     ready: (auth, { payload }) => {
       auth.user = payload.user;
     },
     loggedIn: (auth, { payload }) => {
       localStorage.setItem('token', payload);
+      auth.attemptedLogin = true;
     },
     loggedOut: (auth) => {
       localStorage.removeItem('token');

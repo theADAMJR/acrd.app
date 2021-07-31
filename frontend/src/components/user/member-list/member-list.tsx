@@ -12,11 +12,8 @@ const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListP
   const { activeGuild } = useStore().getState().ui;
   
   const members = props.users.map(u => (
-    <div className="mb-1">
-      <Username
-      key={u.id}
-      user={u}
-      guild={activeGuild} />
+    <div key={u.id} className="mb-2">
+      <Username user={u} guild={activeGuild} />
     </div>
   ));
 

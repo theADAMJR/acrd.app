@@ -2,6 +2,7 @@ declare namespace Store {
   export interface AppStore {
     auth: {
       user?: Entity.User;
+      attemptedLogin: boolean;
     };
     entities: {
       guilds: Entity.Guild[];
