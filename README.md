@@ -2,6 +2,27 @@
 
 **This repo consists of 3 projects.**
 
+## Branches
+
+`v1` - Version number
+`ap` - Alpha prototype
+`bp` - Beta prototype
+`p` - Final prototype
+
+### DClone Essential
+
+> v1 - v6
+
+- The core features of Discord.
+
+### DClone Full
+
+> v6 - v12
+
+- In development.
+
+---
+
 ## API
 
 - The backend of the website.
