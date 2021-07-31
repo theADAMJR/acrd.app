@@ -15,7 +15,7 @@ const CreateInvite: React.FunctionComponent = () => {
 
     dispatch(createInvite(activeGuild!.id));
     setValue('inviteCode', activeInvite?.id);
-  }, []);
+  }, [openModal === CreateInvite.name]);
 
   const style: any = {
     overlay: {

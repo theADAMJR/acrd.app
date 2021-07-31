@@ -11,7 +11,8 @@ export default class implements WSEvent<'INVITE_CREATE'> {
     const userId = sessions.get(client.id);
     
     const guild = await Guild.findById(guildId);
-    const inGuild = guild?.members.some(m => m.id === userId);
+    const memberIds = guild?.members as any as string[] | undefined;
+    const inGuild = memberIds?.some(id => id === userId);    
     if (!inGuild)
       throw new TypeError('Member not in guild');
 
@@ -21,6 +22,6 @@ export default class implements WSEvent<'INVITE_CREATE'> {
     });
     
     io.to(guildId)
-      .emit('INIVTE_CREATE', { invite } as WSResponse.InviteCreate);
+      client.emit('INVITE_CREATE', { invite } as WSResponse.InviteCreate);
   }
 }
