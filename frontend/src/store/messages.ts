@@ -1,6 +1,7 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 
+// TODO: these reducers could benefit from types
 const slice = createSlice({
   name: 'messages',
   // overoptimization -> filtering thru thousands of messages, worst case scenario, is not going to impact performance much
@@ -11,7 +12,8 @@ const slice = createSlice({
       messages.push(payload.message);
     },
     deleted: (messages, { payload }) => {
-      messages = messages.filter(m => m.id !== payload.id);
+      const index = messages.findIndex(m => m.id === payload.messageId);
+      messages.splice(index, 1);
     },
     fetched: (messages, { payload }) => {
       messages.push(...payload);
