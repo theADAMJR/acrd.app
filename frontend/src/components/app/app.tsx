@@ -32,7 +32,6 @@ export default function App() {
       return <LoadingPage />;
     
     return (<>
-      <WSListener />
       <Router>
         <Switch>
           {/* <Route exact path="/channels/@me/settings" component={UserSettingsPage} />
@@ -45,20 +44,23 @@ export default function App() {
   }
   
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/logout" component={LogoutPage} />
+    <>
+      <WSListener />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/logout" component={LogoutPage} />
 
-        {/* FIXME: blocks 404 page */}
-        {privateRoutes()}
-        
-        <Route path="*">
-          <h1>404</h1>
-        </Route>
-      </Switch>
-    </Router>
+          {/* FIXME: blocks 404 page */}
+          {privateRoutes()}
+          
+          <Route path="*">
+            <h1>404</h1>
+          </Route>
+        </Switch>
+      </Router>
+    </>
   );
 }

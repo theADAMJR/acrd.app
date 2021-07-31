@@ -16,8 +16,8 @@ const SidebarIcons: React.FunctionComponent = () => {
   const guilds = useSelector((s: Store.AppStore) => s.entities.guilds)!;
 
   const guildIcons = guilds.map(g => (
-    <ContextMenuTrigger id={g.id}>
-      <Link key={g.id} to={`/channels/${g.id}`}>
+    <ContextMenuTrigger key={g.id} id={g.id}>
+      <Link to={`/channels/${g.id}`}>
         <SidebarIcon
           guildId={g.id}
           imageURL={g.iconURL}
@@ -53,6 +53,7 @@ const SidebarIcons: React.FunctionComponent = () => {
 
       {guilds.map(g => (
         <ContextMenu
+          key={g.id}
           id={g.id}
           style={{width: '188px'}}
           className="bg-bg-tertiary p-2 rounded shadow">
