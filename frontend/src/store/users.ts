@@ -11,11 +11,11 @@ const slice = createSlice({
       catch { users.push(payload) }
     },
     updated: (users, { payload }) => {
-      const user = users.find(u => u.id === payload.id);
-      Object.assign(user, payload);
+      const user = users.find(u => u.id === payload.userId);
+      Object.assign(user, payload.payload);
     },
     deleted: (users, { payload }) => {
-      users = users.filter(u => u.id !== payload.id);
+      users = users.filter(u => u.id !== payload.userId);
     },
   },
 });

@@ -7,15 +7,14 @@ declare global {
     'GUILD_DELETE': WSPayload.GuildDelete;
     'GUILD_MEMBER_ADD': WSPayload.GuildMemberAdd;
     'GUILD_MEMBER_REMOVE': WSPayload.GuildMemberRemove;
-    // 'GUILD_MEMBER_UPDATE': Params.GuildMemberUpdate; // >v6
-    // 'GUILD_UPDATE': Params.GuildUpdate;
+    'GUILD_UPDATE': WSPayload.GuildUpdate;
     'INVITE_CREATE': WSPayload.InviteCreate;
     'MESSAGE_CREATE': WSPayload.MessageCreate;
     'MESSAGE_DELETE': WSPayload.MessageDelete;
     'MESSAGE_UPDATE': WSPayload.MessageUpdate;
     'READY': WSPayload.Ready;
     'TYPING_START': WSPayload.TypingStart;
-    // 'USER_UPDATE': Params.UserUpdate;
+    'USER_UPDATE': WSPayload.UserUpdate;
   }
 
   export interface OnWSAPI {
@@ -30,15 +29,14 @@ declare global {
     'GUILD_DELETE': WSResponse.GuildDelete;
     'GUILD_MEMBER_ADD': WSResponse.GuildMemberAdd;
     'GUILD_MEMBER_REMOVE': WSResponse.GuildMemberRemove;
-    // 'GUILD_MEMBER_UPDATE': Args.GuildMemberUpdate; // >v6
-    // 'GUILD_UPDATE': Args.GuildUpdate;
+    'GUILD_UPDATE': WSResponse.GuildUpdate;
     'INVITE_CREATE': WSResponse.InviteCreate;
     'MESSAGE_CREATE': WSResponse.MessageCreate;
     'MESSAGE_DELETE': WSResponse.MessageDelete;
     'MESSAGE_UPDATE': WSResponse.MessageUpdate;
     'READY': WSResponse.Ready;
     'TYPING_START': WSResponse.TypingStart;
-    // 'USER_UPDATE': Args.UserUpdate;
+    'USER_UPDATE': WSResponse.UserUpdate;
   }
 
   // payload to server

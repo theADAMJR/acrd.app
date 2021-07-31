@@ -24,14 +24,12 @@ const GuildSettings: React.FunctionComponent = () => {
       isOpen={openModal === GuildSettings.name}
       onRequestClose={() => dispatch(closedModal())}>
       <div className="grid grid-cols-12 h-full">
-        <div className="col-span-3 bg-bg-secondary">
-          Sidebar
-        </div>
+        <div className="col-span-3 bg-bg-secondary"></div>
+
         <div className="col-span-8 h-full">
           <form
             style={{height: '100%', padding: '60px 40px 80px'}}
-            className="flex flex-col"
-            onSubmit={handleSubmit(update)}>
+            className="flex flex-col">
             <header>
               <h1 className="text-xl font-bold inline">Server Overview</h1>
             </header>
@@ -44,7 +42,7 @@ const GuildSettings: React.FunctionComponent = () => {
                 <input
                   id="name"
                   type="text"
-                  {...register('name')}
+                  {...register('name', { value: guild.name })}
                   className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
               </div>
 
@@ -55,7 +53,7 @@ const GuildSettings: React.FunctionComponent = () => {
                 <input
                   id="iconURL"
                   type="text"
-                  {...register('iconURL')}
+                  {...register('iconURL', { value: guild.iconURL })}
                   className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
               </div>
             </div>
@@ -70,7 +68,7 @@ const GuildSettings: React.FunctionComponent = () => {
                 className="background bg-danger heading rounded-md m-4">Delete</button>
 
               <button
-                onClick={update}
+                onClick={handleSubmit(update)}
                 type="button"
                 style={{height: '38px', padding: '2px 16px'}}
                 className="background bg-success heading rounded-md m-4">Save</button>

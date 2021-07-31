@@ -74,7 +74,7 @@ const WSListener: React.FunctionComponent = () => {
       if (guildIsActive)
         dispatch(closedModal());
     });
-    // ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated (args)));
+    ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated(args)));
     ws.on('TYPING_START', (args) => dispatch(channels.userTyped(args)));
     ws.on('GUILD_DELETE', (args) => dispatch(guilds.deleted(args)));
     ws.on('MESSAGE_CREATE', (args) => dispatch(messages.created(args)));
