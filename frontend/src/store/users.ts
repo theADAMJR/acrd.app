@@ -34,7 +34,7 @@ export const fetchUsers = () => (dispatch) => {
   }));
 }
 
-export const updateSelf = (payload: Partal<Entity.User>) => (dispatch) => {
+export const updateSelf = (payload: Partial<Entity.User>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'USER_UPDATE',
     data: { payload },

@@ -1,9 +1,8 @@
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateGuild } from '../../store/guilds';
 import { closedModal } from '../../store/ui';
-import { deleteSelf } from '../../store/users';
+import { deleteSelf, updateSelf } from '../../store/users';
 import Category from '../category/category';
 
 const UserSettings: React.FunctionComponent = () => {
@@ -12,7 +11,7 @@ const UserSettings: React.FunctionComponent = () => {
   const openModal = useSelector((s: Store.AppStore) => s.ui.openModal)!;
   const { register, handleSubmit } = useForm();
 
-  const update = (payload) => dispatch(updateGuild(user.id, payload));
+  const update = (payload) => dispatch(updateSelf(payload));
   const del = () => {
     const confirmation = window.confirm('Are you sure you want to delete your user?');
     confirmation && dispatch(deleteSelf());
@@ -32,14 +31,14 @@ const UserSettings: React.FunctionComponent = () => {
             style={{height: '100%', padding: '60px 40px 80px'}}
             className="flex flex-col">
             <header>
-              <h1 className="text-xl font-bold inline">Server Overview</h1>
+              <h1 className="text-xl font-bold inline">My Account</h1>
             </header>
           
             <div className="flex-grow">
               <div className="pt-5">
                 <label
                   htmlFor="username"
-                  className="uppercase">Server Name</label>
+                  className="uppercase">Username</label>
                 <input
                   id="username"
                   type="text"
@@ -49,12 +48,12 @@ const UserSettings: React.FunctionComponent = () => {
 
               <div className="pt-5">
                 <label
-                  htmlFor="iconURL"
-                  className="uppercase">Icon URL</label>
+                  htmlFor="avatarURL"
+                  className="uppercase">Avatar URL</label>
                 <input
-                  id="iconURL"
+                  id="avatarURL"
                   type="text"
-                  {...register('iconURL', { value: user.avatarURL })}
+                  {...register('avatarURL', { value: user.avatarURL })}
                   className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
               </div>
             </div>
