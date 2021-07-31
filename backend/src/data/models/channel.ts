@@ -6,7 +6,7 @@ export interface ChannelDocument extends Entity.Channel, Document {}
 
 export const Channel = model<ChannelDocument>('channel', new Schema({
   _id: { type: String, default: generateSnowflake },
-  createdAt: { type: String, default: () => new Date() },
+  createdAt: { type: Date, default: () => new Date() },
   channelId: String,
   guildId: String,
   name: String,

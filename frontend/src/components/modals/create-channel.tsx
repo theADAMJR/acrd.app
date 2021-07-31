@@ -22,28 +22,34 @@ const CreateChannel: React.FunctionComponent = () => {
   return (
     <ReactModal
       style={style}
-      className="overflow-auto absolute bg-bg-tertiary w-1/3 inset-x-1/3 inset-y-1/4 p-5 rounded-lg outline-none"
+      className="flex flex-col overflow-auto absolute bg-bg-primary w-1/4 inset-x-1/3 inset-y-1/3 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === CreateChannel.name}
       onRequestClose={() => dispatch(closedModal())}>
-      <header className="text-center mb-5">
-        <h1 className="text-3xl font-bold inline">Create Text Channel</h1>
+      <header className="text-center mb-5 p-5">
+        <h1 className="text-2xl font-bold inline">Create Text Channel</h1>
       </header>
 
-      <h3 className="uppercase font-bold">Channel Name</h3>
-
-      <form onSubmit={handleSubmit(submitCreate)}>
+      <form
+        className="flex-grow p-5"
+        onSubmit={handleSubmit(submitCreate)}>
         <label
           htmlFor="name"
-          className="uppercase">Name</label>
+          className="uppercase">Channel Name</label>
         <input
           id="name"
           type="text"
           {...register('name')}
           className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-
-        <button className="background bg-primary heading w-full h-11 rounded-md mt-8">Create</button>
       </form>
+
+      <footer
+        style={{height: '70px'}}
+        className="bg-bg-secondary flex-end">
+        <button
+          style={{height: '38px', padding: '2px 16px'}}
+          className="float-right background bg-primary heading rounded-md m-4">Create</button>
+      </footer>
     </ReactModal>
   );
 }

@@ -9,6 +9,7 @@ import { openedModal } from '../../../store/ui';
 import CreateInvite from '../../modals/create-invite';
 
 import './sidebar-content.scoped.css';
+import CreateChannel from '../../modals/create-channel';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ const SidebarContent: React.FunctionComponent = () => {
     </Link>
   ));
 
+  const openCreateChannel = () => dispatch(openedModal({
+    typeName: CreateChannel.name,
+  }));
   const openCreateInvite = () => dispatch(openedModal({
     typeName: CreateInvite.name,
   }));
@@ -39,7 +43,7 @@ const SidebarContent: React.FunctionComponent = () => {
       <div className="sidebar-header pl-2.5 pr-4">
         {ui.activeGuild && (
           <Dropdown title={ui.activeGuild.name}>
-            <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm"
+            <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm mb-1"
               onClick={openCreateInvite}>
               <span className="primary">Invite people</span>
               <FontAwesomeIcon
@@ -47,8 +51,8 @@ const SidebarContent: React.FunctionComponent = () => {
                 icon={faUserPlus} />
             </a>
 
-            <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm"
-              onClick={openCreateInvite}>
+            <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm mb-1"
+              onClick={openCreateChannel}>
               <span className="font">Create channel</span>
               <FontAwesomeIcon
                 className="float-right w-1"
@@ -57,8 +61,7 @@ const SidebarContent: React.FunctionComponent = () => {
 
             <Link
               to={`/channels/${ui.activeGuild.id}/settings`}
-              className="rounded-sm flex items-center justify-between p-2 h-8 text-sm"
-              onClick={openCreateInvite}>
+              className="rounded-sm flex items-center justify-between p-2 h-8 text-sm">
               <span className="font">Server settings</span>
               <FontAwesomeIcon
                 className="float-right w-1"

@@ -35,7 +35,7 @@ const CreateInvite: React.FunctionComponent = () => {
   return (
     <ReactModal
       style={style}
-      className="overflow-auto absolute bg-bg-tertiary w-1/3 inset-x-1/3 inset-y-1/3 p-5 rounded-lg outline-none"
+      className="overflow-auto absolute bg-bg-primary w-1/3 inset-x-1/3 inset-y-1/3 p-5 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === CreateInvite.name}
       onRequestClose={() => dispatch(closedModal())}>

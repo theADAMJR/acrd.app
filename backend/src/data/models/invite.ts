@@ -5,9 +5,9 @@ import { useId } from '../data-utils';
 export interface InviteDocument extends Entity.Invite, Document {}
 
 export const Invite = model<InviteDocument>('invite', new Schema({
-  _id: { type: String, default: () => new Date() },
+  _id: { type: String, generateInvite },
   creatorId: String,
-  createdAt: { type: Date, default: new Date() },
+  createdAt: { type: Date, default: () => new Date() },
   guildId: String,
   options: Object,
   uses: Number,
