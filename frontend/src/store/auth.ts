@@ -10,6 +10,9 @@ const slice = createSlice({
     ready: (auth, { payload }) => {
       auth.user = payload.user;
     },
+    updatedUser: (auth, { payload }) => {
+      Object.assign(auth.user, payload.payload);
+    },
     loggedIn: (auth, { payload }) => {
       localStorage.setItem('token', payload);
       auth.attemptedLogin = true;

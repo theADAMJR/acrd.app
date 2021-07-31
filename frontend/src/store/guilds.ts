@@ -29,6 +29,11 @@ const slice = createSlice({
       const guild = guilds.find(i => i.id === payload.guildId)!;
       guild.members = guild.members.filter(m => m.id !== payload.userId);
     },
+    memberUpdated: (guilds, { payload }) => {
+      const members = guilds.flatMap(g => g.members);
+      const member = members.find(m => m.id === payload.userId);
+      Object.assign(member, payload.payload);
+    },
     fetched: (guilds, { payload }) => {
       guilds.push(...(payload ?? []));
     },

@@ -141,9 +141,6 @@ declare global {
       channelId: string;
       userId: string;
     }
-    export interface UserDelete {
-      userId: string;
-    }
     export interface UserUpdate {
       payload: Partial<Entity.User>;
       userId: string;

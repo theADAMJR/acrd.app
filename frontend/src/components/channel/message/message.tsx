@@ -50,7 +50,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     const days = moment(new Date()).diff(createdAt, 'day');
     const day = { [1]: 'Yesterday', [0]: 'Today', [-1]: 'Tomorrow' }[days];
     const format = (day)
-      ? `[${day}] [at] HH:MM`
+      ? `[${day}] [at] HH:mm`
       : 'DD/MM/YYYY';
 
     const timestamp = moment(createdAt).format(format);
@@ -74,7 +74,9 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         {!isEditing && <MessageToolbar message={message} />}
         {!isEditing && <div className="normal">{message.content}</div>}
         {isEditing && (<>
-          <MessageBox content={message.content} editingMessageId={message.id} />
+          <MessageBox
+            content={message.content}
+            editingMessageId={message.id} />
           <span className="py-2">escape to cancel. enter to save</span>
         </>)}
       </div>
