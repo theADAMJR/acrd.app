@@ -30,7 +30,10 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const fetchMyGuilds = () => (dispatch) => {
+export const fetchMyGuilds = () => (dispatch, getState: () => Store.AppStore) => {
+  const guilds = getState().entities.guilds;
+  if (guilds.length) return;
+  
   dispatch(api.restCallBegan({
     onSuccess: actions.fetched.type,
     headers: { 'Authorization': localStorage.getItem('token') },
