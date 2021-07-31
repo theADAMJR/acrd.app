@@ -34,20 +34,15 @@ export const fetchUsers = () => (dispatch) => {
   }));
 }
 
-export const updateSelf = (id: string) => (dispatch) => {
-  dispatch(api.restCallBegan({
-    onSuccess: actions.updated.type,
-    method: 'patch',
-    url: `/users/${id}`,
+export const updateSelf = (payload: Partal<Entity.User>) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'USER_UPDATE',
+    data: { payload },
   }));
 }
 
-export const deleteSelf = (id: string) => (dispatch) => {
-  dispatch(api.restCallBegan({
-    onSuccess: actions.deleted.type,
-    method: 'delete',
-    url: `/users/${id}`,
-  }));
+export const deleteSelf = () => (dispatch) => {
+  dispatch(api.wsCallBegan({ event: 'USER_DELETE' }));
 }
 
 export const getUser = (id: string) =>
