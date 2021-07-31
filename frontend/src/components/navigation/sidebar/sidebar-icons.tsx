@@ -4,11 +4,11 @@ import { openedModal } from '../../../store/ui';
 import CreateGuild from '../../modals/create-guild';
 import SidebarIcon from './sidebar-icon';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
+import { leaveGuild } from '../../../store/guilds';
 
 import './sidebar-icons.scoped.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDoorClosed, faDoorOpen, faWindowClose } from '@fortawesome/free-solid-svg-icons';
-import { leaveGuild } from '../../../store/guilds';
  
 const SidebarIcons: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -59,7 +59,6 @@ const SidebarIcons: React.FunctionComponent = () => {
           className="bg-bg-tertiary p-2 rounded shadow">
           <MenuItem
             className="danger cursor-pointer"
-            data={{foo: 'bar'}}
             onClick={() => dispatch(leaveGuild(g.id))}>
             <FontAwesomeIcon className="float-right" icon={faDoorOpen} />
             <span>Leave Server</span>

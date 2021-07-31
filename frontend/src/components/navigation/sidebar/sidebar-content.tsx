@@ -7,27 +7,42 @@ import { Link } from 'react-router-dom';
 import Dropdown from '../../utils/dropdown';
 import { openedModal } from '../../../store/ui';
 import CreateInvite from '../../modals/create-invite';
+import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 
 import './sidebar-content.scoped.css';
 import CreateChannel from '../../modals/create-channel';
+import { deleteChannel } from '../../../store/guilds';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
   const ui = useSelector((s: Store.AppStore) => s.ui);
   
   const channels = ui.activeGuild?.channels.map(c => (
-    <Link
-      key={c.id}
-      style={{height: '34px'}}
-      to={`/channels/${ui.activeGuild!.id}/${c.id}`}
-      className={`
-        cursor-pointer flex items-center rounded p-2 pl-3
-        ${c.id === ui.activeChannel?.id && 'active'}`}>
-      <FontAwesomeIcon
-        className="float-left mr-2 scale-150 muted fill-current"
-        icon={faHashtag} />
-      <span>{c.name}</span>
-    </Link>
+    <ContextMenuTrigger key={c.id} id={c.id}>
+      <Link
+        style={{height: '34px'}}
+        to={`/channels/${ui.activeGuild!.id}/${c.id}`}
+        className={`
+          cursor-pointer flex items-center rounded p-2 pl-3
+          ${c.id === ui.activeChannel?.id && 'active'}`}>
+        <FontAwesomeIcon
+          className="float-left mr-2 scale-150 muted fill-current"
+          icon={faHashtag} />
+        <span>{c.name}</span>
+      </Link>
+
+      <ContextMenu
+          key={c.id}
+          id={c.id}
+          style={{width: '188px'}}
+          className="bg-bg-tertiary p-2 rounded shadow">
+          <MenuItem
+            className="danger cursor-pointer"
+            onClick={() => dispatch(deleteChannel(c.guildId!, c.id))}>
+            <span>Delete channel</span>
+          </MenuItem>
+        </ContextMenu>
+    </ContextMenuTrigger>
   ));
 
   const openCreateChannel = () => dispatch(openedModal({

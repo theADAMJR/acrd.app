@@ -19,6 +19,6 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
     await Channel.deleteOne({ _id: channelId });
 
     io.to(guild.id)
-      .emit('CHANNEL_DELETE', { channelId } as WSResponse.ChannelDelete);
+      .emit('CHANNEL_DELETE', { channelId, guildId } as WSResponse.ChannelDelete);
   }
 }

@@ -103,6 +103,7 @@ declare global {
     }
     export interface ChannelDelete {
       channelId: string;
+      guildId: string;
     }
     export interface GuildCreate {
       guild: Entity.Guild;
