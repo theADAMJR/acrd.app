@@ -32,16 +32,14 @@ export default function App() {
 
         {/* FIXME: blocks 404 page */}
         {(user)
-          ? <div className="app">
-              <Router>
-                <Switch>
-                  {/* <Route exact path="/channels/@me/settings" component={UserSettingsPage} />
-                  <Route exact path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}
-                  <Route exact path="/channels/@me" component={OverviewPage} />
-                  <Route exact path="/channels/:guildId/:channelId?" component={GuildPage} />
-                </Switch>
-              </Router>
-            </div>
+          ? <Router>
+              <Switch>
+                {/* <Route exact path="/channels/@me/settings" component={UserSettingsPage} />
+                <Route exact path="/channels/:guildId/settings" component={GuildSettingsPage} /> */}
+                <Route exact path="/channels/@me" component={OverviewPage} />
+                <Route exact path="/channels/:guildId/:channelId?" component={GuildPage} />
+              </Switch>
+            </Router>
           : <Redirect to="/login" />}
         
         <Route path="*">

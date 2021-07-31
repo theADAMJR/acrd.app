@@ -11,9 +11,9 @@ const CreateInvite: React.FunctionComponent = () => {
   const { activeGuild, activeInvite, openModal } = useSelector((s: Store.AppStore) => s.ui);
 
   useEffect(() => {
-    if (!activeGuild) return;
+    if (openModal !== CreateInvite.name) return;
 
-    dispatch(createInvite(activeGuild.id));
+    dispatch(createInvite(activeGuild!.id));
     setValue('inviteCode', activeInvite?.id);
   }, []);
 
