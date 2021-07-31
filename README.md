@@ -28,12 +28,9 @@
 - The backend of the website.
 - Includes the WebSocket and REST API.
 
-## Utils
+## Types
 
-- API and Website are both dependent on utils.
-- Used for shared files in both websites (i.e. types, utils).
-- Reduce need for syncing files between projects.
-- Reduces code duplication
+- Ambient types for both project intellisense.
 
 ## Website
 
