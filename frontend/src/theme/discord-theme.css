@@ -23,6 +23,8 @@
 
   --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05),
     0 2px 0 rgba(4, 4, 5, 0.05);
+
+  --font-primary: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 h1,
@@ -31,7 +33,7 @@ h3,
 h4,
 h5 {
   color: var(--heading);
-  font-family: Whitney, Helvetica, sans-serif;
+  font-family: var(--font-primary);
 }
 
 body {

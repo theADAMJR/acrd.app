@@ -8,7 +8,7 @@ export const Message = model<MessageDocument>('message', new Schema({
   _id: { type: String, default: generateSnowflake },
   authorId: String,
   content: String,
-  createdAt: { type: String, default: new Date() },
+  createdAt: { type: String, default: () => new Date() },
   channelId: String,
   updatedAt: Date,
 }, { toJSON: { getters: true } }).method('toClient', useId));

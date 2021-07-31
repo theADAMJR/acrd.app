@@ -43,12 +43,18 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   const messageHeader = () => {
     if (isExtra()) return;
 
-    return (
-      <>
-        <span className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
-        <span className="text-xs">{createdAt.toDateString()}</span>
-      </>
-    );
+    const days = moment(new Date()).diff(createdAt, 'day');
+    const day = { [1]: 'Yesterday', [0]: 'Today', [-1]: 'Tomorrow' }[days];
+    const format = (day)
+      ? `[${day}] [at] hh:mm`
+      : 'DD/MM/YYYY';
+
+    const timestamp = moment(createdAt).format(format);
+
+    return (<>
+      <span className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
+      <span className="text-xs">{timestamp}</span>
+    </>);
   }
 
   const messageClass = `message flex ${!isExtra() && 'mt-4'}`;
