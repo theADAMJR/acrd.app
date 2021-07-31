@@ -11,6 +11,9 @@ export default class implements WSEvent<'INVITE_CREATE'> {
     const userId = sessions.get(client.id);
     
     const guild = await Guild.findById(guildId);
+    if (!guild)
+      throw new TypeError('Guild not found');
+
     const memberIds = guild?.members as any as string[] | undefined;
     const inGuild = memberIds?.some(id => id === userId);    
     if (!inGuild)
