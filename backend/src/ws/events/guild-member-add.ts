@@ -16,10 +16,15 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     
     const userId = sessions.get(client.id);
     const guildId = invite.guildId;
-
+    
     // user cannot be undefined if authenticated, and validated to exist in ready
-    const user = await User.findById(userId);
-    user!.guilds.push(guildId);
+    const user = (await User.findById(userId))!;
+    // prevent user from joining own guild
+    if (user.guildIds.includes(guildId))
+      throw new TypeError('You are already in this guild');
+
+    user.guildIds.push(guildId);
+    await user.save();
 
     // add use to invites
     invite.uses++;

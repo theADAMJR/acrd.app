@@ -19,7 +19,7 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     
     // remove guildId from user.guilds
     const user = await User.findById(userId);
-    user!.guilds = user!.guilds.filter(id => id !== guildId);
+    user!.guildIds = user!.guildIds.filter(id => id !== guildId);
     await user!.save();    
     
     // if self user left, emit GUILD_DELETE
