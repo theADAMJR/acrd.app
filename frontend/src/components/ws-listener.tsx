@@ -7,6 +7,7 @@ import { actions as auth } from '../store/auth';
 import { closedModal, focusedInvite } from '../store/ui';
 import { useEffect } from 'react';
 import { actions as meta } from '../store/meta';
+import { actions as users } from '../store/users';
 import { useHistory } from 'react-router-dom';
 
 // should this go in guilds reducer file?
@@ -21,7 +22,11 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('error', (error: any) => alert(error?.message));
 
     // listen to passive events (not received by api middleware)
-    ws.on('GUILD_MEMBER_ADD', (args) => dispatch(guilds.memberAdded(args)));
+    ws.on('GUILD_MEMBER_ADD', (args) => {
+      dispatch(guilds.memberAdded(args));
+      dispatch(users.fetched(args.member));
+    });
+    // user may be in mutual guilds, and therefore not removed from global user cache
     ws.on('GUILD_MEMBER_REMOVE', (args) => dispatch(guilds.memberRemoved(args)));
     ws.on('INVITE_CREATE', (args) => {
       dispatch(guilds.inviteCreated(args));
@@ -29,6 +34,7 @@ const WSListener: React.FunctionComponent = () => {
     });
     ws.on('GUILD_CREATE', (args) => {
       dispatch(guilds.created(args));
+      dispatch(users.fetched(args.guild.members));
       dispatch(closedModal());
       history.push(`/channels/${args.guild.id}`);
     });

@@ -6,7 +6,9 @@ const slice = createSlice({
   initialState: [] as Entity.User[],
   reducers: {
     fetched: (users, { payload }) => {
-      users.push(...payload);
+      // FIXME:
+      try { users.push(...payload) }
+      catch { users.push(payload) }
     },
     updated: (users, { payload }) => {
       const user = users.find(u => u.id === payload.id);
@@ -18,7 +20,7 @@ const slice = createSlice({
   },
 });
 
-const actions = slice.actions;
+export const actions = slice.actions;
 export default slice.reducer;
 
 // >v6: replace with REST when adding dms
