@@ -25,7 +25,7 @@ const slice = createSlice({
       guilds.push(...(payload ?? []));
     },
     updated: (guilds, { payload }) => {
-      const guild = guilds.find(i => i.id === payload.id);
+      const guild = guilds.find(i => i.id === payload.guildId);
       Object.assign(guild, payload);
     },
     deleted: (guilds, { payload }) => {
@@ -71,6 +71,13 @@ export const leaveGuild = (guildId: string) => (dispatch, getState) => {
 //     data: { guildId, userId },
 //   }));
 // }
+
+export const createChannel = (guildId: string, name: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'CHANNEL_CREATE',
+    data: { guildId, name },
+  }));
+}
 
 export const createGuild = (name: string) => (dispatch) => {
   dispatch(api.wsCallBegan({

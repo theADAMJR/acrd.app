@@ -21,6 +21,9 @@ const WSListener: React.FunctionComponent = () => {
 
     ws.on('error', (error: any) => alert(error?.message));
 
+    // add channel to guilds.channels
+    ws.on('CHANNEL_CREATE', (args) => dispatch(guilds.updated(args)));
+    ws.on('CHANNEL_DELETE', (args) => dispatch(guilds.updated(args)));
     // listen to passive events (not received by api middleware)
     ws.on('GUILD_MEMBER_ADD', (args) => {
       dispatch(guilds.memberAdded(args));

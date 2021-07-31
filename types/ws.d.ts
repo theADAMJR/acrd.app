@@ -1,6 +1,8 @@
 // TODO: declare own module
 declare global {
   export interface ToWSAPI {
+    'CHANNEL_CREATE': WSPayload.ChannelCreate;
+    'CHANNEL_DELETE': WSPayload.ChannelDelete;
     'GUILD_CREATE': WSPayload.GuildCreate;
     'GUILD_DELETE': WSPayload.GuildDelete;
     'GUILD_MEMBER_ADD': WSPayload.GuildMemberAdd;
@@ -22,6 +24,8 @@ declare global {
   }
 
   export interface FromWSAPI {
+    'CHANNEL_CREATE': WSResponse.ChannelCreate;
+    'CHANNEL_DELETE': WSResponse.ChannelDelete;
     'GUILD_CREATE': WSResponse.GuildCreate;
     'GUILD_DELETE': WSResponse.GuildDelete;
     'GUILD_MEMBER_ADD': WSResponse.GuildMemberAdd;
@@ -40,6 +44,13 @@ declare global {
   // payload to server
   // - only needed properties
   export namespace WSPayload {
+    export interface ChannelCreate {
+      name: string;
+      guildId: string;
+    }
+    export interface ChannelDelete {
+      channelId: string;
+    }
     export interface GuildCreate {
       name: string;
     }
@@ -78,6 +89,12 @@ declare global {
   // full data, not payload
   // - data that will be likely stored and used by redux on client side
   export namespace WSResponse {
+    export interface ChannelCreate {
+      channel: Entity.Channel;
+    }
+    export interface ChannelDelete {
+      channelId: string;
+    }
     export interface GuildCreate {
       guild: Entity.Guild;
     }

@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
+// TODO: add types
 export const actions = {
   restCallBegan: createAction('api/restCallBegan') as any,
   restCallSucceded: createAction('api/restCallSucceeded') as any,

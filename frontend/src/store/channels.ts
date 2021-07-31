@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { actions as api } from './api';
 
 const slice = createSlice({
   name: 'channels',

@@ -21,3 +21,6 @@
   background-color: var(--primary);
   color: var(--heading);
 }
+.dropdown a:nth-child(1):hover * {
+  color: var(--heading);
+}

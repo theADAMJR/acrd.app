@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import { faHashtag, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faHashtag, faPlusCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -43,9 +43,27 @@ const SidebarContent: React.FunctionComponent = () => {
               onClick={openCreateInvite}>
               <span className="primary">Invite people</span>
               <FontAwesomeIcon
-                className="float-right"
+                className="float-right w-1"
                 icon={faUserPlus} />
             </a>
+
+            <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm"
+              onClick={openCreateInvite}>
+              <span className="font">Create channel</span>
+              <FontAwesomeIcon
+                className="float-right w-1"
+                icon={faPlusCircle} />
+            </a>
+
+            <Link
+              to={`/channels/${ui.activeGuild.id}/settings`}
+              className="rounded-sm flex items-center justify-between p-2 h-8 text-sm"
+              onClick={openCreateInvite}>
+              <span className="font">Server settings</span>
+              <FontAwesomeIcon
+                className="float-right w-1"
+                icon={faCog} />
+            </Link>
           </Dropdown>
         )}
       </div>
@@ -55,6 +73,7 @@ const SidebarContent: React.FunctionComponent = () => {
       </div>
       <SidebarFooter />
       <CreateInvite />
+      <CreateChannel />
     </div>
   );
 }
