@@ -17,7 +17,7 @@ const GuildSettings: React.FunctionComponent = () => {
     confirmation && dispatch(deleteGuild(guild.id));
   }
   
-  return (
+  return (guild) ? (
     <ReactModal
       className="overflow-auto absolute bg-bg-primary h-full w-full outline-none"
       appElement={document.querySelector('#root')!}
@@ -77,7 +77,7 @@ const GuildSettings: React.FunctionComponent = () => {
         </div>
       </div>
     </ReactModal>
-  );
+  ) : null;
 }
  
 export default GuildSettings;
