@@ -10,7 +10,7 @@ import { actions as meta } from '../store/meta';
 import { actions as users } from '../store/users';
 import { useHistory } from 'react-router-dom';
 
-// should this go in guilds reducer file?
+// FIXME: this file is messy
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -79,21 +79,28 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('MESSAGE_CREATE', (args) => dispatch(messages.created(args)));
     ws.on('MESSAGE_DELETE', (args) => dispatch(messages.deleted(args)));
     ws.on('MESSAGE_UPDATE', (args) => dispatch(messages.updated(args)));
-    ws.on('READY', (args) => dispatch(auth.ready(args)));
+    ws.on('READY', (args) => {
+      dispatch(auth.ready(args));
+      dispatch(users.fetched(args.user));
+    });
     ws.on('USER_UPDATE', (args) => {
       // update member in guild
       const state = store.getState() as Store.AppStore;
-      const isSelfUser = args.userId === state.auth.user?.id;
+      const user = state.auth.user!;
       const wasDeleted = args.payload.discriminator === 0;
-      if (isSelfUser && wasDeleted) {
+      const isSelf = args.userId === user.id;
+      
+      if (isSelf && wasDeleted) {
         dispatch(auth.loggedOut());
         history.push('/');
         return ws.disconnect();
-      } else if (isSelfUser)
+      } else if (isSelf)
         dispatch(auth.updatedUser(args));
       
+      // make sure user in guilds
+      if (user.guildIds.length)
+        dispatch(guilds.memberUpdated(args));
 
-      dispatch(guilds.memberUpdated(args));
       dispatch(users.updated(args));
     });
 

@@ -61,12 +61,16 @@ export default (app: Express) => {
 
   app.use(`${prefix}/auth`, authRoutes);
 
+  app.all(`${prefix}/*`, (req, res) => res.status(404).json({ message: 'Not Found' }));
+  app.use((err, req, res, next) => res.status(400).json(err));
+
   // no prefix -> does not change with api versions
   // not part of api, but cdn
   const assetPath = path.resolve(`${__dirname}/../../assets`);
   app.use(`/assets`, express.static(assetPath));
   app.use(`/assets/*`, (req, res) => res.sendFile(`${assetPath}/avatars/unknown.png`));
 
-  app.all('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
-  app.use((err, req, res, next) => res.status(400).json(err));
+  const buildPath = path.resolve(`${__dirname}/../../../frontend/build`);
+  app.use(express.static(buildPath));
+  app.all('*', (req, res) => res.sendFile(`${buildPath}/index.html`));
 }
