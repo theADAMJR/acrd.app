@@ -15,10 +15,14 @@ import PrivateRoute from '../private-route';
 
 export default function App() {  
   const dispatch = useDispatch();
+  const user = useSelector((s: Store.AppStore) => s.auth?.user);
+
   useEffect(() => {
     dispatch(ready());
-    dispatch(fetchMyGuilds());
-    dispatch(fetchUsers());
+    if (user) {
+      dispatch(fetchMyGuilds());
+      dispatch(fetchUsers());
+    }
   }, []);
   
   return (

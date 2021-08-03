@@ -1,52 +1,29 @@
-> Welcome to the main README.
+# DClone Essential - Discord clone with the essential features.
 
-**This repo consists of 3 projects.**
+> Built with React TS, Redux, and Node.js.
 
-## Branches
+<a href="https://ibb.co/tqdybrW"><img src="https://i.ibb.co/T4CzH3F/image.png" alt="image" border="0"></a>
 
-- `ap` - Alpha prototype
-- `bp` - Beta prototype
-- `p` - Final prototype
-- `v1` - Version number
+## Features
 
-### DClone Essential
+- **Server Channels**
+  - Create channels
+  - Delete channels
+- **Message Management**
+  - Server owners can delete any message
+  - Message author can delete and edit their own messages
+- **Member Management**
+  - Kick members as the server owner
+  - Easily leave the server by right clicking the server
+  - Join servers with an invite code
+- **Server Management**
+  - Create servers as you would in Discord
+  - Edit server name, and icon URL in the server settings
+  - Delete your server in the server settings
+- **User Management**
+  - Manage your account by clicking the settings icon
+  - Change your username, and avatar
+  - Delete your user and prevent it from being used to login
+- **and more** (of course)
 
-> v1 - v6
-
-- The core features of Discord.
-
-### DClone Full
-
-> v6 - v12
-
-- In development.
-
----
-
-## API
-
-- The backend of the website.
-- Includes the WebSocket and REST API.
-
-## Types
-
-- Ambient types for both project intellisense.
-
-## Website
-
-- The UI.
-- Cool but useless without the API running in the background.
-
----
-
-# Setup
-
-`api/.env`
-
-```
-API_PORT=3000
-API_PREFIX="/api/v1"
-JWT_SECRET_KEY="something secret"
-MONGO_URI="mongodb://localhost/dclone-essential"
-WEBSITE_PORT=4200
-```
+> This is only the essential version and just works. The full version is planned to be much more exciting...
