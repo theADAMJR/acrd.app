@@ -1,14 +1,12 @@
 import axios from 'axios';
-import { actions } from '../api';
+import { actions, APIPayload } from '../api';
 import env from '../../environment';
 
 export default store => next => async action => {
   if (action.type !== actions.restCallBegan.type)
     return next(action);
   
-  const { url, method, data, onStart, onSuccess, callback, headers } = action.payload;
-  if (onStart)
-    store.dispatch({ type: onStart });
+  const { url, method, data, onSuccess, headers, callback } = action.payload as APIPayload;
 
   next(action);
 
@@ -23,9 +21,10 @@ export default store => next => async action => {
 
     store.dispatch(actions.restCallSucceded(payload));
     if (onSuccess)
-      store.dispatch({ type: onSuccess, payload });
+      for (const type of onSuccess)
+        store.dispatch({ type, payload });
 
-    callback && callback(payload);
+    callback && callback();
   } catch (error) {
     store.dispatch(actions.restCallFailed(error));
   }

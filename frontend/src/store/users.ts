@@ -28,7 +28,7 @@ export default slice.reducer;
 // >v6: replace with REST when adding dms
 export const fetchUsers = () => (dispatch) => {
   dispatch(api.restCallBegan({
-    onSuccess: actions.fetched.type,
+    onSuccess: [actions.fetched.type],
     headers: { 'Authorization': localStorage.getItem('token') },
     url: '/users',
   }));

@@ -56,7 +56,7 @@ export const fetchMyGuilds = () => (dispatch, getState: () => Store.AppStore) =>
   if (guilds.length) return;
   
   dispatch(api.restCallBegan({
-    onSuccess: actions.fetched.type,
+    onSuccess: [actions.fetched.type],
     headers: { 'Authorization': localStorage.getItem('token') },
     url: '/guilds',
   }));
@@ -126,15 +126,6 @@ export const createInvite = (guildId: string) => (dispatch) => {
     data: { guildId },
   }));
 }
-
-// v4
-// export const deleteSelf = (id: string) => (dispatch) => {
-//   dispatch(api.callBegan({
-//     onSuccess: actions.deleted.type,
-//     method: 'delete',
-//     url: `/guilds/${id}`,
-//   }));
-// }
 
 export const getGuild = (id: string) =>
   createSelector<Store.AppStore, Entity.Guild[], Entity.Guild | undefined>(

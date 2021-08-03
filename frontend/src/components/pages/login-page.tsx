@@ -1,21 +1,18 @@
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector, useStore } from 'react-redux';
-import { loginUser } from '../../store/auth';
-import WSListener from '../ws-listener';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser, ready } from '../../store/auth';
 import PageWrapper from './page-wrapper';
 
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  const history = useHistory();
   const user = useSelector((s: Store.AppStore) => s.auth.user);
   
   const onSubmit = (data) => {
-    dispatch(loginUser(data));
-    // history.push('/channels/@me');
-  }
+    dispatch(loginUser(data, () => dispatch(ready())));
+  };
 
   return (user)
     ? <Redirect to="/channels/@me" />

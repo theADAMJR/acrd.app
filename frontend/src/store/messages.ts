@@ -38,7 +38,7 @@ export const fetchMessages = (channelId: string) => (dispatch, getState) => {
   if (isCached) return;
   
   dispatch(api.restCallBegan({
-    onSuccess: actions.fetched.type,
+    onSuccess: [actions.fetched.type],
     url: `/channels/${channelId}/messages`,
   }));
 }

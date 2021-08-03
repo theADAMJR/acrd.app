@@ -36,21 +36,23 @@ export const ready = () => (dispatch, getState) => {
   }));
 }
 
-export const loginUser = (credentials: Auth.Credentials) => (dispatch) => {
+export const loginUser = (credentials: Auth.Credentials, callback?: () => any) => (dispatch) => {
   dispatch(api.restCallBegan({
-    onSuccess: actions.loggedIn.type,
+    onSuccess: [actions.loggedIn.type, actions.ready.type],
     method: 'post',
     data: credentials,
     url: `/auth/login`,
+    callback,
   }));
 }
 
-export const registerUser = (credentials: Auth.Credentials) => (dispatch) => {
+export const registerUser = (credentials: Auth.Credentials, callback?: () => any) => (dispatch) => {
   dispatch(api.restCallBegan({
-    onSuccess: actions.loggedIn.type,
+    onSuccess: [actions.loggedIn.type],
     method: 'post',
     data: credentials,
     url: `/auth/register`,
+    callback,
   }));
 }
 
