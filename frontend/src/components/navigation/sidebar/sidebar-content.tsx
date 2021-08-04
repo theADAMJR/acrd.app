@@ -46,15 +46,9 @@ const SidebarContent: React.FunctionComponent = () => {
   ));
 
   // TODO: remove typeName
-  const openCreateChannel = () => dispatch(openedModal({
-    typeName: CreateChannel.name,
-  }));
-  const openCreateInvite = () => dispatch(openedModal({
-    typeName: CreateInvite.name,
-  }));
-  const openGuildSettings = () => dispatch(openedModal({
-    typeName: GuildSettings.name,
-  }));
+  const openCreateChannel = () => dispatch(openedModal(CreateChannel.name));
+  const openCreateInvite = () => dispatch(openedModal(CreateInvite.name));
+  const openGuildSettings = () => dispatch(openedModal(GuildSettings.name));
   
   // guild sidebar content
   return (

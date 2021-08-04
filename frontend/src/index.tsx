@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app/app';
+import App from './components/app';
 import reportWebVitals from './reportWebVitals';
 import { config } from 'dotenv';
 import { Provider } from 'react-redux';
@@ -16,7 +16,7 @@ config({ path: '../env' });
 ReactDOM.render(
   <Provider store={configureStore()}>
     <React.StrictMode>
-    <App />
+      <App />
     </React.StrictMode>
   </Provider>,
   document.getElementById('root')

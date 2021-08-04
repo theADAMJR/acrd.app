@@ -26,16 +26,10 @@ const SidebarIcons: React.FunctionComponent = () => {
     </ContextMenuTrigger>
   ));
 
-  const openCreateGuild = () => dispatch(openedModal({
-    typeName: CreateGuild.name,
-  }));
+  const openCreateGuild = () => dispatch(openedModal(CreateGuild.name));
   const plusIcon = <div
     onClick={openCreateGuild}
     className="cursor-pointer flex items-center justify-center rounded-full h-12 w-12 bg-bg-primary success text-4xl font-light pb-1">+</div>;
-
-    function handleClick(e, data) {
-      console.log(data.foo);
-    }
   
   return (
     <div className="sidebar-icons flex flex-col bg-bg-tertiary px-2">

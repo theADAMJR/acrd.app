@@ -5,12 +5,11 @@ import { Redirect, useParams } from 'react-router-dom';
 import { pageSwitched } from '../../store/ui';
 import TextBasedChannel from '../channel/text-based-channel';
 import MemberList from '../user/member-list/member-list';
-import './guild-page.scoped.css';
 import { getChannel, getGuild } from '../../store/guilds';
 import { useEffect } from 'react';
 import PageWrapper from './page-wrapper';
 
-const GuildPage: React.FunctionComponent = (props: any) => {  
+const GuildPage: React.FunctionComponent = () => {  
   const params: any = useParams();
   const dispatch = useDispatch();
   
@@ -26,7 +25,7 @@ const GuildPage: React.FunctionComponent = (props: any) => {
   if (!guild)
     return <Redirect to="/channels/@me" />
 
-  if (guild.channels.length && !ui.activeChannel) {
+  if (guild.channels.length && !params.channelId) {
     const systemChannel = guild.channels[0];
     return <Redirect to={`/channels/${guild.id}/${systemChannel.id}`} />
   }
@@ -34,11 +33,10 @@ const GuildPage: React.FunctionComponent = (props: any) => {
   return (
     <PageWrapper>
       <Sidebar />
-      <div className="content bg-bg-primary">
+      <div className="bg-bg-primary">
         <AppNavbar />
-        <div className="guild">
+        <div style={{height: 'calc(100vh - 48px)'}} className="flex">
           {ui.activeChannel && <TextBasedChannel />}
-          {!ui.activeChannel && 'TODO: no channel'}
           <MemberList users={guild.members} />
         </div>
       </div>

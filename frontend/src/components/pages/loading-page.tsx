@@ -1,4 +1,3 @@
-import WSListener from '../ws-listener';
 import PageWrapper from './page-wrapper';
 
 const LoadingPage: React.FunctionComponent = () => {
