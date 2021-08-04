@@ -32,9 +32,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   }
 
   const leftSide = () => {
-    const time = createdAt
-      .toLocaleTimeString()
-      .slice(0, 5);
+    const time = moment(createdAt).format('HH:mm');
 
     return (isExtra())
       ? <span className="timestamp text-xs">{time}</span>
@@ -48,7 +46,12 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     if (isExtra()) return;
 
     const days = moment(new Date()).diff(createdAt, 'day');
-    const day = { [1]: 'Yesterday', [0]: 'Today', [-1]: 'Tomorrow' }[days];
+    const day = {
+      [1]: 'Yesterday',
+      [0]: 'Today',
+      [-1]: 'Tomorrow',
+     }[days];
+
     const format = (day)
       ? `[${day}] [at] HH:mm`
       : 'DD/MM/YYYY';
@@ -62,23 +65,26 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   }
 
   const isEditing = editingMessageId === message.id;
+  const MessageContent = () => (isEditing)
+    ? <>
+      <MessageBox
+        content={message.content}
+        editingMessageId={message.id} />
+      <span className="py-2">escape to cancel. enter to save</span>
+    </>
+    : <>
+      <MessageToolbar message={message} />
+      <div className="normal">{message.content}</div>
+    </>;
 
-  const messageClass = `message flex ${!isExtra() && 'mt-4'}`;
+const messageClass = `message flex ${!isExtra() && 'mt-4'}`;
+
   return (
     <div className={messageClass}>
       <div className="left-side pl-5">{leftSide()}</div>
       <div className="message-content flex-grow">
         {messageHeader()}
-
-        {/* TODO: fix bad code */}
-        {!isEditing && <MessageToolbar message={message} />}
-        {!isEditing && <div className="normal">{message.content}</div>}
-        {isEditing && (<>
-          <MessageBox
-            content={message.content}
-            editingMessageId={message.id} />
-          <span className="py-2">escape to cancel. enter to save</span>
-        </>)}
+        <MessageContent />
       </div>
       <div className="right-side" />
     </div>
