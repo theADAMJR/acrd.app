@@ -15,7 +15,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
 
   useEffect(() => {    
     dispatch(fetchMessages(channel.id));
-  }, []);
+  }, [channel.id]);
 
   const welcome = (
     <div className="m-4 pb-6 border-bottom">
