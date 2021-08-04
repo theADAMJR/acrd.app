@@ -9,20 +9,12 @@ const CreateGuild: React.FunctionComponent = () => {
   const { register, handleSubmit } = useForm();
   const openModal = useSelector((s: Store.AppStore) => s.ui.openModal);
 
-  const style: any = {
-    overlay: {
-      position: 'fixed',
-      backgroundColor: 'rgba(0, 0, 0, 0.75)'
-    },
-  };
-
   const submitCreate = (data) => dispatch(createGuild(data.name));
   const submitJoin = (data) => dispatch(joinGuild(data.inviteCode));
   
   return (
     <ReactModal
-      style={style}
-      className="overflow-auto absolute bg-bg-primary w-1/3 inset-x-1/3 inset-y-1/4 p-5 rounded-lg outline-none"
+      className="overflow-auto fixed bg-bg-primary w-1/3 inset-x-1/3 inset-y-1/4 p-5 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === CreateGuild.name}
       onRequestClose={() => dispatch(closedModal())}>

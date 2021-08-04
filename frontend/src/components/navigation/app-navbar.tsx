@@ -1,18 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-
-import './app-navbar.scoped.css';
  
 const AppNavbar: React.FunctionComponent = () => {
-  const ui = useSelector((s: Store.AppStore) => s.ui);
+  const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel);
 
   return (
-    <div className="app-navbar flex items-center px-5">
-      {ui.activeChannel && <FontAwesomeIcon
+    <div className="shadow-elevation flex items-center h-12 px-5">
+      {channel && <FontAwesomeIcon
         icon={faHashtag}
         className="scale-150 mr-2" />}
-      <h3 className="font-bold">{ui.activeChannel?.name}</h3>
+      <h3 className="font-bold ml-1">{channel?.name}</h3>
     </div>
   );
 }

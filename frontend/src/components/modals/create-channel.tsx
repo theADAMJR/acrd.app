@@ -10,25 +10,16 @@ const CreateChannel: React.FunctionComponent = () => {
   const openModal = useSelector((s: Store.AppStore) => s.ui.openModal);
   const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
 
-  const style: any = {
-    overlay: {
-      position: 'fixed',
-      backgroundColor: 'rgba(0, 0, 0, 0.75)'
-    },
-  };
-
   const create = (data) => dispatch(createChannel(guild!.id, data.name));
   
   return (
     <ReactModal
-      style={style}
-      className="overflow-auto absolute bg-bg-primary w-1/4 inset-x-1/3 inset-y-1/3 rounded-lg outline-none"
+      className="bg-bg-primary overflow-auto fixed w-1/4 inset-x-1/3 inset-y-1/3 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === CreateChannel.name}
       onRequestClose={() => dispatch(closedModal())}>
       <form
-        style={{height: '100%'}}
-        className="flex flex-col"
+        className="flex flex-col h-full"
         onSubmit={handleSubmit(create)}>
         <header className="text-center mb-5 p-5">
           <h1 className="text-2xl font-bold inline">Create Text Channel</h1>

@@ -21,9 +21,10 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     handleEscape(event);
     
     if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); }
+    const emptyMessage = content.replaceAll('\n', '');
     if (event.key !== 'Enter'
       || event.shiftKey
-      || !content.replaceAll('\n', '')) return;
+      || !emptyMessage) return;
     
     (props.editingMessageId)
       ? dispatch(updateMessage(props.editingMessageId, { content }))

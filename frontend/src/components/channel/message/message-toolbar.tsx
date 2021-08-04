@@ -9,7 +9,7 @@ export interface MessageToolbarProps {
   message: Entity.Message;
 }
  
-const MessageToolbar: React.SFC<MessageToolbarProps> = ({ message }) => {
+const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message }) => {
   const dispatch = useDispatch();
   const selfUser = useSelector((s: Store.AppStore) => s.auth.user)!;
   const guild = useSelector(getGuildByChannelId(message.channelId));
@@ -25,7 +25,7 @@ const MessageToolbar: React.SFC<MessageToolbarProps> = ({ message }) => {
         icon={faPencilAlt} />}
       {canManage && <FontAwesomeIcon
         onClick={() => dispatch(deleteMessage(message.id))}
-        style={{color: 'var(--danger)'}}
+        className="danger"
         icon={faTimes} />}
     </div>
   );

@@ -11,8 +11,8 @@ const GuildSettings: React.FunctionComponent = () => {
   const openModal = useSelector((s: Store.AppStore) => s.ui.openModal)!;
   const { register, handleSubmit } = useForm();
 
-  const update = (payload) => dispatch(updateGuild(guild.id, payload));
-  const del = () => {
+  const onUpdate = (payload) => dispatch(updateGuild(guild.id, payload));
+  const onDelete = () => {
     const confirmation = window.confirm('Are you sure you want to delete this server?');
     confirmation && dispatch(deleteGuild(guild.id));
   }
@@ -24,7 +24,9 @@ const GuildSettings: React.FunctionComponent = () => {
       isOpen={openModal === GuildSettings.name}
       onRequestClose={() => dispatch(closedModal())}>
       <div className="grid grid-cols-12 h-full">
-        <div className="col-span-3 bg-bg-secondary"></div>
+        <div className="col-span-3 bg-bg-secondary">
+          {/* TODO: add overview tab here */}
+        </div>
 
         <div className="col-span-8 h-full">
           <form
@@ -62,13 +64,13 @@ const GuildSettings: React.FunctionComponent = () => {
 
             <div>
               <button
-                onClick={del}
+                onClick={onDelete}
                 type="button"
                 style={{height: '38px', padding: '2px 16px'}}
                 className="background bg-danger heading rounded-md m-4">Delete</button>
 
               <button
-                onClick={handleSubmit(update)}
+                onClick={handleSubmit(onUpdate)}
                 type="button"
                 style={{height: '38px', padding: '2px 16px'}}
                 className="background bg-success heading rounded-md m-4">Save</button>

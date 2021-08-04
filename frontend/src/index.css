@@ -36,3 +36,8 @@ body {
   text-rendering: optimizeLegibility;
   overflow-y: hidden;
 }
+
+/* overrides */
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}

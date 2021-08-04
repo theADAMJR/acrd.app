@@ -13,31 +13,20 @@ const CreateInvite: React.FunctionComponent = () => {
   setValue('inviteCode', activeInvite?.id);
 
   const isOpen = openModal === CreateInvite.name;
+
   useEffect(() => {
     if (!isOpen) return;
 
     dispatch(createInvite(activeGuild!.id));
-  }, [isOpen && !activeInvite]);
+  });
 
-  const style: any = {
-    overlay: {
-      position: 'fixed',
-      backgroundColor: 'rgba(0, 0, 0, 0.75)'
-    },
-  };
-
-  if (!activeInvite) return null;
-
-  const copyCode = async () => {
-    window.navigator.clipboard.writeText(activeInvite.id);
-  }
+  const copyCode = () => window.navigator.clipboard.writeText(activeInvite!.id);
   
-  return (
+  return (activeInvite) ? (
     <ReactModal
-      style={style}
       className="overflow-auto absolute bg-bg-primary w-1/3 inset-x-1/3 inset-y-1/3 p-5 rounded-lg outline-none"
       appElement={document.querySelector('#root')!}
-      isOpen={openModal === CreateInvite.name}
+      isOpen={isOpen}
       onRequestClose={() => dispatch(closedModal())}>
       <header className="mb-3">
         <h1 className="font-bold inline uppercase">Invite Friends to {activeGuild?.name}</h1>
@@ -62,7 +51,7 @@ const CreateInvite: React.FunctionComponent = () => {
         </div>
       </div>
     </ReactModal>
-  );
+  ) : null;
 }
  
 export default CreateInvite;

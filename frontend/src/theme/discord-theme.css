@@ -112,3 +112,6 @@ a.active {
 .bg-bg-floating {
   background-color: var(--bg-floating);
 }
+.shadow-elevation {
+  box-shadow: var(--elevation);
+}
