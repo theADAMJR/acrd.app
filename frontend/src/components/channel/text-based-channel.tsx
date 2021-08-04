@@ -15,7 +15,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
 
   useEffect(() => {    
     dispatch(fetchMessages(channel.id));
-  }, [channel.id]);
+  }, [messages.length]); // only fetches channel messages when not cached
 
   const welcome = (
     <div className="m-4 pb-6 border-bottom">
