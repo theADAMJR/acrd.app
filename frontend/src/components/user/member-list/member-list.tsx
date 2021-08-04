@@ -21,9 +21,9 @@ const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListP
         <Username user={u} guild={guild} />
       </div>
 
+      {/* TODO: move to context menus */}
       <ContextMenu
         id={u.id}
-        style={{width: '188px'}}
         className="bg-bg-tertiary p-2 rounded shadow">
         {canManage && u.id !== selfUser.id && <MenuItem
           className="danger cursor-pointer"
@@ -35,9 +35,7 @@ const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListP
   ));
 
   return (
-    <div
-      style={{ width: '240px' }}
-      className="member-list bg-bg-secondary">
+    <div className="w-60 bg-bg-secondary">
       <Category title="Members" count={props.users.length} />
       <div className="mt-2 ml-2">{members}</div>
     </div>

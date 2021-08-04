@@ -11,9 +11,9 @@ const GuildDropdown: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
 
-  const openCreateChannel = () => dispatch(openedModal(CreateChannel.name));
-  const openCreateInvite = () => dispatch(openedModal(CreateInvite.name));
-  const openGuildSettings = () => dispatch(openedModal(GuildSettings.name));
+  const openCreateChannel = () => dispatch(openedModal(CreateChannel));
+  const openCreateInvite = () => dispatch(openedModal(CreateInvite));
+  const openGuildSettings = () => dispatch(openedModal(GuildSettings));
 
   return (guild) ? (
     <Dropdown title={guild.name}>

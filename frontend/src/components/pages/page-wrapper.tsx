@@ -1,4 +1,6 @@
+import ContextMenus from '../context-menus';
 import CreateChannel from '../modals/create-channel';
+import CreateGuild from '../modals/create-guild';
 import CreateInvite from '../modals/create-invite';
 import GuildSettings from '../modals/guild-settings';
 import UserSettings from '../modals/user-settings';
@@ -14,10 +16,12 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
     <div {...props}>
       {props.children}
       <WSListener />
-      <CreateInvite />
       <CreateChannel />
+      <CreateGuild />
+      <CreateInvite />
       <GuildSettings />
       <UserSettings />
+      <ContextMenus />
     </div>
   );
 }

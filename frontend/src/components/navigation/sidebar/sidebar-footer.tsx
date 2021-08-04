@@ -13,7 +13,7 @@ const SidebarFooter: React.FunctionComponent = () => {
     <div className="relative flex items-center bg-bg-secondary-alt h-14">
       <Username user={user} />
       <FontAwesomeIcon
-        onClick={() => dispatch(openedModal(UserSettings.name))}
+        onClick={() => dispatch(openedModal(UserSettings))}
         className="float-right cursor-pointer absolute right-4"
         icon={faCog} />
     </div>

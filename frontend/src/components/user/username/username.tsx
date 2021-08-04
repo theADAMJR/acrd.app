@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './username.scoped.css';
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
 import environment from '../../../environment';
+
+import './username.scoped.css';
 
 export interface UsernameProps {
   user: Entity.User;
