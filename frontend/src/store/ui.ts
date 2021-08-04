@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
+import React from 'react';
 
 const slice = createSlice({
   name: 'ui',
@@ -24,8 +25,20 @@ const slice = createSlice({
     closedModal: (state) => {
       delete state.openModal;
     },
+    toggleDropdown: (state, { payload }) => {      
+      state.openDropdown = payload?.name;
+    },
   },
 });
 
-export const { startedEditingMessage, stoppedEditingMessage, focusedInvite, pageSwitched, openedModal, closedModal } = slice.actions;
+export const { toggleDropdown, startedEditingMessage, stoppedEditingMessage, focusedInvite, pageSwitched, openedModal, closedModal } = slice.actions;
 export default slice.reducer;
+
+export const dropdownIsOpen = (type: React.FunctionComponent) => createSelector<Store.AppStore, string | undefined, boolean>(
+  state => state.ui.openDropdown,
+  name => name === type.name,
+);
+export const modalIsOpen = (type: React.FunctionComponent) => createSelector<Store.AppStore, string | undefined, boolean>(
+  state => state.ui.openModal,
+  name => name === type.name,
+);

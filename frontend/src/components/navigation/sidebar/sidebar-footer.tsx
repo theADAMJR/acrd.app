@@ -1,4 +1,4 @@
-import Username from '../../user/username/username';
+import Username from '../../user/username';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';

@@ -16,7 +16,7 @@ const GuildDropdown: React.FunctionComponent = () => {
   const openGuildSettings = () => dispatch(openedModal(GuildSettings));
 
   return (guild) ? (
-    <Dropdown title={guild.name}>
+    <Dropdown title={guild.name} type={GuildDropdown}>
       <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm mb-1"
         onClick={openCreateInvite}>
         <span className="primary">Invite people</span>

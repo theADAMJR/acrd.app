@@ -17,6 +17,7 @@ declare namespace Store {
       hasListenedToWS: boolean;
     };
     ui: {
+      openDropdown?: string;
       openModal?: string;
       activeChannel?: Entity.Channel;
       activeGuild?: Entity.Guild;
