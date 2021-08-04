@@ -7,7 +7,7 @@ import Category from '../category/category';
 
 const UserSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const user = useSelector((s: Store.AppStore) => s.auth.user)!;
+  const user = useSelector((s: Store.AppStore) => s.auth.user);
   const openModal = useSelector((s: Store.AppStore) => s.ui.openModal)!;
   const { register, handleSubmit } = useForm();
 
@@ -17,7 +17,7 @@ const UserSettings: React.FunctionComponent = () => {
     confirmation && dispatch(deleteSelf());
   }
   
-  return (
+  return (user) ? (
     <ReactModal
       className="overflow-auto absolute bg-bg-primary h-full w-full outline-none"
       appElement={document.querySelector('#root')!}
@@ -77,7 +77,7 @@ const UserSettings: React.FunctionComponent = () => {
         </div>
       </div>
     </ReactModal>
-  );
+  ) : null;
 }
  
 export default UserSettings;
