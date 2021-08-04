@@ -10,12 +10,11 @@ import { useEffect } from 'react';
 import PageWrapper from './page-wrapper';
 
 const GuildPage: React.FunctionComponent = () => {  
-  const params: any = useParams();
+  const { channelId, guildId }: any = useParams();
   const dispatch = useDispatch();
-  
   const ui = useSelector((s: Store.AppStore) => s.ui);
-  const guild = useSelector(getGuild(params.guildId));
-  const channel = useSelector(getChannel(params.guildId, params.channelId));
+  const guild = useSelector(getGuild(guildId));
+  const channel = useSelector(getChannel(guildId, channelId));
 
   useEffect(() => {
     dispatch(pageSwitched({ channel, guild }));
@@ -23,7 +22,7 @@ const GuildPage: React.FunctionComponent = () => {
 
   if (!guild)
     return <Redirect to="/channels/@me" />;
-  else if (guild.channels.length && !params.channelId) {
+  else if (guild.channels.length && !channelId) {
     const systemChannel = guild.channels[0];
     return <Redirect to={`/channels/${guild.id}/${systemChannel.id}`} />;
   }
