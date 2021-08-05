@@ -9,7 +9,7 @@ export interface DropdownProps {
 
 const Dropdown: React.FunctionComponent<DropdownProps> = (props) => {
   const dropdown = useSelector((s: Store.AppStore) => s.ui.openDropdown);
-  
+
   return (
     <div className="w-full pt-3">
       <div className="flex justify-between items-center">

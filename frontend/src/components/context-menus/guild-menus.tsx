@@ -2,9 +2,9 @@ import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
-import { leaveGuild } from '../store/guilds';
+import { leaveGuild } from '../../store/guilds';
 
-const ContextMenus: React.FunctionComponent = () => {
+const GuildContextMenus: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const guilds = useSelector((s: Store.AppStore) => s.entities.guilds);
 
@@ -25,4 +25,4 @@ const ContextMenus: React.FunctionComponent = () => {
   </>;
 }
  
-export default ContextMenus;
+export default GuildContextMenus;

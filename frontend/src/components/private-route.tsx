@@ -7,9 +7,9 @@ import { fetchUsers } from '../store/users';
 import LoadingPage from './pages/loading-page';
 
 const PrivateRoute: React.FunctionComponent<RouteProps> = (props) => {
-  const user = useSelector((s: Store.AppStore) => s.auth.user);
-  const attemptedLogin = useSelector((s: Store.AppStore) => s.auth.attemptedLogin);
   const dispatch = useDispatch();
+  const user = useSelector((s: Store.AppStore) => s.auth.user);
+  const attemptedLogin = useSelector((s: Store.AppStore) => s.auth.attemptedLogin);  
 
   useEffect(() => {
     dispatch(ready());
