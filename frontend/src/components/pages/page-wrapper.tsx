@@ -1,5 +1,3 @@
-import GuildContextMenus from '../context-menus/guild-menus';
-import ContextMenus from '../context-menus/guild-menus';
 import CreateChannel from '../modals/create-channel';
 import CreateGuild from '../modals/create-guild';
 import CreateInvite from '../modals/create-invite';
@@ -22,8 +20,6 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
       <CreateInvite />
       <GuildSettings />
       <UserSettings />
-
-      <GuildContextMenus />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { openedModal } from '../../../store/ui';
 import CreateGuild from '../../modals/create-guild';
 import SidebarIcon from './sidebar-icon';
 import { ContextMenuTrigger } from 'react-contextmenu';
+import GuildMenu from '../../ctx-menus/guild-menu';
  
 const SidebarIcons: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ const SidebarIcons: React.FunctionComponent = () => {
           imageURL={g.iconURL}
           name={g.name} />
       </Link>
+
+      <GuildMenu guild={g} />
     </ContextMenuTrigger>
   ));
 

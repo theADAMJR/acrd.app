@@ -9,6 +9,7 @@ import { toggleDropdown } from '../../../store/ui';
 import GuildDropdown from '../../dropdowns/guild-dropdown';
 
 import './sidebar-content.scoped.css';
+import ChannelMenu from '../../ctx-menus/channel-menu';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
@@ -26,17 +27,7 @@ const SidebarContent: React.FunctionComponent = () => {
           icon={faHashtag} />
         <span>{c.name}</span>
       </Link>
-
-      {/* TODO: move to context menu */}
-      <ContextMenu
-        id={c.id}
-        className="bg-bg-tertiary rounded shadow w-48 p-2">
-        <MenuItem
-          className="danger cursor-pointer"
-          onClick={() => dispatch(deleteChannel(c.guildId!, c.id))}>
-          <span>Delete channel</span>
-        </MenuItem>
-      </ContextMenu>
+      <ChannelMenu channel={c} />
     </ContextMenuTrigger>
   ));
 
