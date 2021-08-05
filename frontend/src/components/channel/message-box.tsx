@@ -28,25 +28,16 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
       ? dispatch(updateMessage(props.editingMessageId, { content }))
       : dispatch(createMessage(channelId, { content }));
     setContent('');
-    scrollToBottom();
     dispatch(stoppedEditingMessage());
-  }
-
-  // TODO: move to text-based-channel
-  const scrollToBottom = () => {
-    const element = document.querySelector('.messages')!;
-    element.scrollTop = element.scrollHeight;
   }
 
   const handleEscape = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key !== 'Escape') return;
     
-    (props.editingMessageId)
-      ? dispatch(stoppedEditingMessage())
-      : scrollToBottom();
+    if (props.editingMessageId)
+      dispatch(stoppedEditingMessage());
   }
   
-  // TODO: expand vertically
   return (
     <div className={`relative flex-shrink-0 block ${!props.editingMessageId && 'px-4'}`}>
       <TextareaAutosize
@@ -58,8 +49,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         autoFocus />
       {(props.editingMessageId)
         ? <span className="text-xs py-2">escape to cancel • enter to save</span>
-        : <div className="w-full h-6" />
-      }
+        : <div className="w-full h-6" />}
     </div>
   );
 }

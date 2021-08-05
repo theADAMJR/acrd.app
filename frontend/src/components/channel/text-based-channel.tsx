@@ -13,6 +13,11 @@ const TextBasedChannel: React.FunctionComponent = () => {
   useEffect(() => {    
     dispatch(fetchMessages(channel.id));
   }, [messages.length]); // only fetches channel messages when not cached
+
+  useEffect(() => {
+    const element = document.querySelector('.messages')!;
+    element.scrollTop = element.scrollHeight;
+  }, [messages.length]);
   
   return (
     <div className="text-based-channel flex flex-col flex-grow">
