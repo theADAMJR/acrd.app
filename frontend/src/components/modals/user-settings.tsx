@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { closedModal } from '../../store/ui';
 import { deleteSelf, updateSelf } from '../../store/users';
-import Category from '../category/category';
+import Category from '../category';
 
 const UserSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();

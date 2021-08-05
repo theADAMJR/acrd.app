@@ -4,6 +4,9 @@ declare namespace Store {
       user?: Entity.User;
       attemptedLogin: boolean;
     };
+    config: {
+      memberListToggled: boolean;
+    };
     entities: {
       channels: {
         typing: { userId: string, channelId: string }[];

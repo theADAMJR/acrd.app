@@ -1,4 +1,4 @@
-import Category from '../../category/category';
+import Category from '../../category';
 import Username from '../username';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
