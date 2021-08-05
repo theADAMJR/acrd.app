@@ -67,15 +67,14 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   const isEditing = editingMessageId === message.id;
   const MessageContent = () => (isEditing)
     ? <>
-      <MessageBox
-        content={message.content}
-        editingMessageId={message.id} />
-      <span className="py-2">escape to cancel. enter to save</span>
-    </>
+        <MessageBox
+          content={message.content}
+          editingMessageId={message.id} />
+      </>
     : <>
-      <MessageToolbar message={message} />
-      <div className="normal">{message.content}</div>
-    </>;
+        <MessageToolbar message={message} />
+        <div className="normal">{message.content}</div>
+      </>;
 
 const messageClass = `message flex ${!isExtra() && 'mt-4'}`;
 

@@ -50,15 +50,18 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   
   // TODO: expand vertically
   return (
-    <div className={`message-box block ${!props.editingMessageId && 'p-4'}`}>
+    <div className={`flex-shrink-0 block ${!props.editingMessageId && 'px-4 h-16'}`}>
       <TextareaAutosize
         onChange={e => setContent(e.target.value)}
         maxRows={1}
         onKeyDown={onKeyDown}
         value={content}
-        className="normal appearance-none rounded-lg w-full py-3 px-4 leading-tight focus:outline-none"
+        className="resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full h-7 py-3 px-4 "
         autoFocus />
-      <div className="message-box-footer" />
+      {(props.editingMessageId)
+        ? <span className="text-xs py-2">escape to cancel • enter to save</span>
+        : <div className="w-full h-6" />
+      }
     </div>
   );
 }

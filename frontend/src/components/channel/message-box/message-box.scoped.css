@@ -1,13 +1,3 @@
-.message-box {
-  height: 68px;
-  flex-shrink: 0;
-}
-
 .message-box textarea {
-  height: 44px;
   max-height: 50vh;
-}
-.message-box-footer {
-  height: 24px;
-  width: 100%;
 }
