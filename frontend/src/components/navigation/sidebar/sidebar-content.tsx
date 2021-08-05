@@ -3,13 +3,12 @@ import { faHashtag } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
-import { deleteChannel } from '../../../store/guilds';
+import { ContextMenuTrigger } from 'react-contextmenu';
 import { toggleDropdown } from '../../../store/ui';
 import GuildDropdown from '../../dropdowns/guild-dropdown';
+import ChannelMenu from '../../ctx-menus/channel-menu';
 
 import './sidebar-content.scoped.css';
-import ChannelMenu from '../../ctx-menus/channel-menu';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();

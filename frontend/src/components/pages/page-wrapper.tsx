@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleDropdown } from '../../store/ui';
 import CreateChannel from '../modals/create-channel';
 import CreateGuild from '../modals/create-guild';
 import CreateInvite from '../modals/create-invite';
@@ -11,8 +13,13 @@ export type PageWrapperProps = React.DetailedHTMLProps<
 >;
 
 const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
+  const dispatch = useDispatch();
+  const dropdown = useSelector((s: Store.AppStore) => s.ui.openDropdown);
+  
   return (
-    <div {...props}>
+    <div
+      onClick={() => dropdown && dispatch(toggleDropdown({}))}
+      {...props}>
       {props.children}
       <WSListener />
       <CreateChannel />
