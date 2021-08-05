@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
-import { createMessage, updateMessage } from '../../../store/messages';
-import { stoppedEditingMessage } from '../../../store/ui';
-
-import './message-box.scoped.css';
+import { createMessage, updateMessage } from '../../store/messages';
+import { stoppedEditingMessage } from '../../store/ui';
 
 export interface MessageBoxProps {
   content?: string;
@@ -50,13 +48,13 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   
   // TODO: expand vertically
   return (
-    <div className={`flex-shrink-0 block ${!props.editingMessageId && 'px-4 h-16'}`}>
+    <div className={`relative flex-shrink-0 block ${!props.editingMessageId && 'px-4'}`}>
       <TextareaAutosize
         onChange={e => setContent(e.target.value)}
-        maxRows={1}
         onKeyDown={onKeyDown}
         value={content}
-        className="resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full h-7 py-3 px-4 "
+        rows={1}
+        className="resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4"
         autoFocus />
       {(props.editingMessageId)
         ? <span className="text-xs py-2">escape to cancel • enter to save</span>

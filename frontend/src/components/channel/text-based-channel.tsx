@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMessages, getChannelMessages } from '../../store/messages';
 import Message from './message/message';
-import MessageBox from './message-box/message-box';
+import MessageBox from './message-box';
 import { useEffect } from 'react';
 import TextChannelHeader from './text-channel-header';
  

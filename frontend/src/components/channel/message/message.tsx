@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
 import { getUser } from '../../../store/users';
 import environment from '../../../environment';
-import MessageBox from '../message-box/message-box';
+import MessageBox from '../message-box';
 import MessageToolbar from './message-toolbar';
 
 import './message.scoped.css';
