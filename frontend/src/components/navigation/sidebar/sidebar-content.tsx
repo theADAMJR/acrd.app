@@ -1,19 +1,14 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faHashtag, faPlusCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHashtag } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Dropdown from '../../utils/dropdown';
-import { openedModal } from '../../../store/ui';
-import CreateInvite from '../../modals/create-invite';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+import { deleteChannel } from '../../../store/guilds';
+import { toggleDropdown } from '../../../store/ui';
+import GuildDropdown from '../../dropdowns/guild-dropdown';
 
 import './sidebar-content.scoped.css';
-import CreateChannel from '../../modals/create-channel';
-import { deleteChannel } from '../../../store/guilds';
-import GuildSettings from '../../modals/guild-settings';
-import UserSettings from '../../modals/user-settings';
-import GuildDropdown from '../../dropdowns/guild-dropdown';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
@@ -22,10 +17,9 @@ const SidebarContent: React.FunctionComponent = () => {
   const channels = ui.activeGuild?.channels.map(c => (
     <ContextMenuTrigger key={c.id} id={c.id}>
       <Link
-        style={{height: '34px'}}
         to={`/channels/${ui.activeGuild!.id}/${c.id}`}
         className={`
-          cursor-pointer flex items-center rounded p-2 pl-3
+          cursor-pointer flex items-center rounded h-8 p-2 pl-3
           ${c.id === ui.activeChannel?.id && 'active'}`}>
         <FontAwesomeIcon
           className="float-left mr-2 scale-150 muted fill-current"
@@ -33,10 +27,10 @@ const SidebarContent: React.FunctionComponent = () => {
         <span>{c.name}</span>
       </Link>
 
+      {/* TODO: move to context menu */}
       <ContextMenu
         id={c.id}
-        style={{width: '188px'}}
-        className="bg-bg-tertiary p-2 rounded shadow">
+        className="bg-bg-tertiary rounded shadow w-48 p-2">
         <MenuItem
           className="danger cursor-pointer"
           onClick={() => dispatch(deleteChannel(c.guildId!, c.id))}>
@@ -46,10 +40,11 @@ const SidebarContent: React.FunctionComponent = () => {
     </ContextMenuTrigger>
   ));
 
-
   return (
-    <div className="flex flex-col sidebar-content bg-bg-secondary">
-      <div className="sidebar-header pl-2.5 pr-4">
+    <div className="flex flex-col bg-bg-secondary w-60">
+      <div
+        className="items-center shadow-elevation cursor-pointer h-12 pl-2.5 pr-4"
+        onClick={() => dispatch(toggleDropdown(GuildDropdown))}>
         <GuildDropdown />
       </div>
       <div className="sidebar-details flex-grow px-2">

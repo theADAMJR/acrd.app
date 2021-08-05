@@ -1,21 +1,3 @@
-.sidebar-content {
-  width: 240px;
-}
-
-.sidebar-content h1 {
-  font-size: 15px;
-}
-
-.sidebar-header {
-  flex-direction: column;
-  justify-content: center;
-  height: 48px;
-  cursor: pointer;
-  display: flex;
-
-  box-shadow: var(--elevation);
-}
-
 .dropdown a:hover,
 .dropdown a:hover * {
   background-color: var(--primary);
