@@ -4,7 +4,7 @@ import Sidebar from '../navigation/sidebar/sidebar';
 import { Redirect, useParams } from 'react-router-dom';
 import { pageSwitched } from '../../store/ui';
 import TextBasedChannel from '../channel/text-based-channel';
-import MemberList from '../user/member-list/member-list';
+import MemberList from '../user/member-list';
 import { getChannel, getGuild } from '../../store/guilds';
 import { useEffect } from 'react';
 import PageWrapper from './page-wrapper';

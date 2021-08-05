@@ -22,7 +22,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
       </div>
       <div className="tag leading-4">
         <h4 className="font-bold text-sm">
-          <span className={guild && 'font-light secondary text-base ml-1'}>{user.username}</span>
+          <span className={guild && 'font-light secondary text-base'}>{user.username}</span>
           <span className="text-yellow-400 ml-1">
             {userOwnsGuild && <FontAwesomeIcon icon={faCrown} />}
           </span>
