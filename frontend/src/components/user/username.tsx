@@ -14,7 +14,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
     .padStart(4, '0');
 
   return (
-    <div className="username flex px-2">
+    <div className="flex items-center px-2">
       <div className="avatar mr-2">
         <img
           className="rounded-full w-8 h-8"
@@ -22,12 +22,12 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
       </div>
       <div className="tag leading-4">
         <h4 className="font-bold text-sm">
-          <span>{user.username}</span>
+          <span className={guild && 'font-light secondary text-base ml-1'}>{user.username}</span>
           <span className="text-yellow-400 ml-1">
             {userOwnsGuild && <FontAwesomeIcon icon={faCrown} />}
           </span>
         </h4>
-        <div className="discriminator text-xs">#{discrim}</div>
+        {!guild && <div className="discriminator text-xs">#{discrim}</div>}
       </div>
     </div>
   );

@@ -9,11 +9,17 @@ export default class implements WSEvent<'USER_UPDATE'> {
   public async invoke({ io, sessions }: WS, client: Socket, { payload }: WSPayload.UserUpdate) {
     const userId = sessions.get(client.id);
     const user = (await User.findById(userId))!;
-    const partialUser = {
+
+    // validate username is available
+    const discriminator = await User.countDocuments({ username: payload.username });
+    if (discriminator >= 9999)
+      throw new TypeError('Username is not available');
+
+    await user.updateOne({
       avatarURL: payload.avatarURL,
+      discriminator, 
       username: payload.username,
-    };
-    await user.updateOne(partialUser);
+    });
 
     io.to(user.guildIds)
       .emit('USER_UPDATE', { userId, payload } as WSResponse.UserUpdate);
