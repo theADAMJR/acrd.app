@@ -40,7 +40,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   }
   
   return (
-    <div className={`${!props.editingMessageId && 'px-4'}`}>
+    <div className={`${props.editingMessageId ? 'mt-2' : 'px-4'}`}>
       <TextareaAutosize
         onChange={e => setContent(e.target.value)}
         onKeyDown={onKeyDown}

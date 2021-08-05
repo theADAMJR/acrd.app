@@ -17,3 +17,10 @@
 .message:hover {
   background-color: rgba(0, 0, 0, 0.075);
 }
+
+.toolbar {
+  opacity: 0;
+}
+.message:hover .toolbar {
+  opacity: 1;
+}

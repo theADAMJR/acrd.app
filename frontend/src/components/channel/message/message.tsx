@@ -65,23 +65,24 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   }
 
   const isEditing = editingMessageId === message.id;
+
   const MessageContent = () => (isEditing)
-    ? <>
-        <MessageBox
-          content={message.content}
-          editingMessageId={message.id} />
-      </>
-    : <>
-        <MessageToolbar message={message} />
+    ? <MessageBox
+        content={message.content}
+        editingMessageId={message.id} />
+    : <div className="relative">
         <div className="normal">{message.content}</div>
-      </>;
+      </div>;
 
   const messageClass = `message flex ${!isExtra() && 'mt-4'}`;
 
   return (
     <div className={messageClass}>
       <div className="left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
-      <div className="message-content flex-grow">
+      <div className="relative message-content flex-grow">
+        <div className="absolute toolbar right-0 -mt-3 z-10">
+          <MessageToolbar message={message} />
+        </div>
         {messageHeader()}
         <MessageContent />
       </div>
