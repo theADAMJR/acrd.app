@@ -115,3 +115,6 @@ a.active {
 .shadow-elevation {
   box-shadow: var(--elevation);
 }
+.font-primary {
+  font-family: var(--font-primary);
+}

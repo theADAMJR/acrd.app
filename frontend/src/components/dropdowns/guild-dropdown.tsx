@@ -12,7 +12,7 @@ const GuildDropdown: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
   const dropdown = useSelector((s: Store.AppStore) => s.ui.openDropdown);
 
-  return (guild && dropdown === GuildDropdown.name) ? (
+  return (guild) ? (
     <Dropdown
       title={guild.name}
       type={GuildDropdown}>

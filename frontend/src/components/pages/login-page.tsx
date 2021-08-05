@@ -19,8 +19,8 @@ const LoginPage: React.FunctionComponent = () => {
     : (
     <PageWrapper>
       <div
-        style={{position: 'absolute', left: '35%'}}
-        className="flex items-center justify-center h-screen">
+        style={{ left: '35%'}}
+        className="flex items-center absolute justify-center h-screen">
         <form
           style={{width: '478px', height: '408px'}}
           className="rounded-md shadow bg-bg-primary p-8"

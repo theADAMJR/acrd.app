@@ -16,9 +16,12 @@ const Dropdown: React.FunctionComponent<DropdownProps> = (props) => {
         <h1 className="flex-grow font-bold pl-2">{props.title}</h1>
         <FontAwesomeIcon icon={faChevronDown} />
       </div>
-      <div className="absolute hidden bg-bg-floating rounded w-56 p-2">
-        {(dropdown === props.type.name) && props.children}
-      </div>
+      {
+        (dropdown === props.type.name) && 
+        <div className="absolute bg-bg-floating rounded w-56 p-2">
+          {props.children}
+        </div>
+      }
     </div>
   );
 }
