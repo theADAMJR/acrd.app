@@ -6,7 +6,7 @@
 
 - `ap` - Alpha prototype
 - `bp` - Beta prototype
-- `p` - Final prototype
+- `v1p` - Final prototype
 - `v1` - Version number
 
 ### DClone Essential

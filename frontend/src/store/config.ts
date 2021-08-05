@@ -26,11 +26,3 @@ export const toggleMemberList = () => (dispatch, getState) => {
   dispatch(actions.toggleMemberList());
   set('memberListToggled', !config.memberListToggled);
 }
-
-export const setDefaults = () => (dispatch, getState) => {
-  const config = getState().config;
-
-  dispatch(actions.toggleMemberList());
-  for (const key in config)
-    localStorage.removeItem(key);
-}
