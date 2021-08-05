@@ -80,12 +80,12 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
 
   return (
     <div className={messageClass}>
-      <div className="left-side text-xs pl-5 pt-1">{leftSide()}</div>
+      <div className="left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
       <div className="message-content flex-grow">
         {messageHeader()}
         <MessageContent />
       </div>
-      <div className="right-side" />
+      <div className="right-side w-12" />
     </div>
   );
 }
