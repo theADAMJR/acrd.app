@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -18,7 +18,9 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     handleEscape(event);
     
-    if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); }
+    if (event.key === 'Enter' && !event.shiftKey)
+      event.preventDefault();
+
     const emptyMessage = content.replaceAll('\n', '');
     if (event.key !== 'Enter'
       || event.shiftKey
@@ -33,13 +35,12 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
 
   const handleEscape = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key !== 'Escape') return;
-    
     if (props.editingMessageId)
       dispatch(stoppedEditingMessage());
   }
   
   return (
-    <div className={`relative flex-shrink-0 block ${!props.editingMessageId && 'px-4'}`}>
+    <div className={`${!props.editingMessageId && 'px-4'}`}>
       <TextareaAutosize
         onChange={e => setContent(e.target.value)}
         onKeyDown={onKeyDown}

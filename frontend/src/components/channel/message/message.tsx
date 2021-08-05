@@ -76,11 +76,11 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         <div className="normal">{message.content}</div>
       </>;
 
-const messageClass = `message flex ${!isExtra() && 'mt-4'}`;
+  const messageClass = `message flex ${!isExtra() && 'mt-4'}`;
 
   return (
     <div className={messageClass}>
-      <div className="left-side pl-5">{leftSide()}</div>
+      <div className="left-side text-xs pl-5 pt-1">{leftSide()}</div>
       <div className="message-content flex-grow">
         {messageHeader()}
         <MessageContent />
