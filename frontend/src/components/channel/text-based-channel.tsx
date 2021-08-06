@@ -4,6 +4,7 @@ import Message from './message/message';
 import MessageBox from './message-box';
 import { useEffect } from 'react';
 import TextChannelHeader from './text-channel-header';
+import { useState } from 'react';
  
 const TextBasedChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();

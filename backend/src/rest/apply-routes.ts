@@ -5,6 +5,7 @@ import { Message } from '../data/models/message';
 import { router as authRoutes } from './routes/auth-routes';
 import path from 'path';
 import { loggedIn, updateUser } from './middleware';
+import { User } from '../data/models/user';
 
 export default (app: Express) => {
   const prefix = process.env.API_PREFIX;
@@ -50,12 +51,16 @@ export default (app: Express) => {
       .find({ _id: user.guildIds })
       .populate({ path: 'members' });
 
-    const members = guilds.flatMap(g => g.members);
+    const members = guilds
+      .flatMap(g => g.members)
+      .map((u: any) => {
+        u.email = undefined;
+        u.locked = undefined;        
+        return u;
+      });
     
     res.json([
-      ...new Set([
-        ...members,
-      ].filter(u => u.id))
+      ...new Set(members.filter(u => u.id))
     ]);
   });
 
