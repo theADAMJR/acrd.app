@@ -28,7 +28,7 @@ export const actions = slice.actions;
 export default slice.reducer;
 
 export const ready = () => (dispatch, getState) => {
-  if (getState().user || !localStorage.getItem('token')) return;
+  if (getState().auth.user || !localStorage.getItem('token')) return;
 
   dispatch(api.wsCallBegan({
     event: 'READY',
