@@ -3,17 +3,19 @@ import { UseFormRegister, FieldValues } from 'react-hook-form';
 import './input.scoped.css';
 
 export interface InputProps {
-  label?: string;
-  type?: string;
   name: string;
   register: UseFormRegister<FieldValues>;
   options?: any;
   autoFocus?: boolean;
+  label?: string;
+  type?: string;
+  className?: string;
 }
  
-const Input: React.SFC<InputProps> = ({ label, name, register, options, type, autoFocus }) => {
+const Input: React.FunctionComponent<InputProps> = (props) => {
+  const { label, name, register, options, type, autoFocus, className } = props;
   return (
-    <>
+    <div className={className}>
       {label &&
         <label
           htmlFor={name}
@@ -22,10 +24,10 @@ const Input: React.SFC<InputProps> = ({ label, name, register, options, type, au
         id={name}
         type={type ?? 'text'}
         required
-        autoFocus
+        autoFocus={autoFocus}
         {...register(name, { required: true, ...options })}
         className="block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2" />
-    </>
+    </div>
   );
 }
  

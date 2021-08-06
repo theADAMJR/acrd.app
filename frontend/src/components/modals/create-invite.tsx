@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { createInvite } from '../../store/guilds';
 import Input from '../utils/input';
+import NormalButton from '../utils/normal-button';
 import Modal from './modal';
 
 const CreateInvite: React.FunctionComponent = () => {
@@ -29,17 +30,15 @@ const CreateInvite: React.FunctionComponent = () => {
 
       <h4 className="text-xs uppercase font-bold muted mb-3">Or Send A Server Invite To A Friend</h4>
 
-      <div>
-        <div className="relative">
-          <button
-            onClick={copyCode}
-            className="background bg-primary heading px-3 h-8 rounded-sm top-9 right-1 absolute">Copy</button>
-          <Input
-            label="Invite Code"
-            name="inviteCode"
-            register={register}
-            autoFocus />
-        </div>
+      <div className="relative">
+        <NormalButton
+          onClick={copyCode}
+          className="absolute -right-4 top-4">Copy</NormalButton>
+        <Input
+          label="Invite Code"
+          name="inviteCode"
+          register={register}
+          autoFocus />
       </div>
     </Modal>
   ) : null;

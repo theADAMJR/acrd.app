@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteGuild, updateGuild } from '../../store/guilds';
 import Category from '../utils/category';
 import Input from '../utils/input';
+import NormalButton from '../utils/normal-button';
 import Modal from './modal';
 
 const GuildSettings: React.FunctionComponent = () => {
@@ -31,39 +32,31 @@ const GuildSettings: React.FunctionComponent = () => {
               <h1 className="text-xl font-bold inline">Server Overview</h1>
             </header>
           
-            <div className="flex-grow">
-              <div className="pt-5">
-                <Input
-                  label="Name"
-                  name="name"
-                  register={register}
-                  options={{ value: guild.name }} />
-              </div>
-
-              <div className="pt-5">
-                <Input
-                  label="Icon URL"
-                  name="iconURL"
-                  register={register}
-                  options={{ value: guild.iconURL }} />
-              </div>
-            </div>
+            <section className="flex-grow">
+              <Input
+                label="Name"
+                name="name"
+                register={register}
+                options={{ value: guild.name }}
+                className="pt-5" />
+              <Input
+                label="Icon URL"
+                name="iconURL"
+                register={register}
+                options={{ value: guild.iconURL }}
+                className="pt-5" />
+            </section>
 
             <Category title="Advanced Settings" />
 
-            <div>
-              <button
+            <section>
+              <NormalButton
                 onClick={onDelete}
-                type="button"
-                style={{height: '38px', padding: '2px 16px'}}
-                className="background bg-danger heading rounded-md m-4">Delete</button>
-
-              <button
+                className="bg-danger">Delete</NormalButton>
+              <NormalButton
                 onClick={handleSubmit(onUpdate)}
-                type="button"
-                style={{height: '38px', padding: '2px 16px'}}
-                className="background bg-success heading rounded-md m-4">Save</button>
-            </div>
+                className="bg-success m-4">Save</NormalButton>
+            </section>
           </form>
         </div>
       </div>
