@@ -12,9 +12,9 @@ const UserSchema = new Schema({
   avatarURL: { type: String, default: `/assets/avatars/avatar_grey.png` },
   createdAt: { type: Date, default: () => new Date() },
   discriminator: Number,
-  email: String,
+  email: { type: String, required: true },
   locked: Boolean,
-  username: String,
+  username: { type: String, required: true },
   updatedAt: Date,
   guildIds: [String],
 }, { toJSON: { getters: true } })
