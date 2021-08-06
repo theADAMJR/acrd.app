@@ -1,14 +1,12 @@
 import { useForm } from 'react-hook-form';
-import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { closedModal } from '../../store/ui';
 import { deleteSelf, updateSelf } from '../../store/users';
 import Category from '../utils/category';
+import Modal from './modal';
 
 const UserSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((s: Store.AppStore) => s.auth.user);
-  const openModal = useSelector((s: Store.AppStore) => s.ui.openModal)!;
   const { register, handleSubmit } = useForm();
 
   const update = (payload) => dispatch(updateSelf(payload));
@@ -18,11 +16,7 @@ const UserSettings: React.FunctionComponent = () => {
   }
   
   return (user) ? (
-    <ReactModal
-      className="overflow-auto absolute bg-bg-primary outline-none"
-      appElement={document.querySelector('#root')!}
-      isOpen={openModal === UserSettings.name}
-      onRequestClose={() => dispatch(closedModal())}>
+    <Modal type={UserSettings} size="full">
       <div className="grid grid-cols-12 h-full">
         <div className="col-span-3 bg-bg-secondary"></div>
 
@@ -87,7 +81,7 @@ const UserSettings: React.FunctionComponent = () => {
           </form>
         </div>
       </div>
-    </ReactModal>
+    </Modal>
   ) : null;
 }
  

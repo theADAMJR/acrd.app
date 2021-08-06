@@ -1,14 +1,11 @@
 import { useForm } from 'react-hook-form';
-import ReactModal from 'react-modal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createGuild, joinGuild } from '../../store/guilds';
-import { closedModal } from '../../store/ui';
 import Modal from './modal';
 
 const CreateGuild: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  const openModal = useSelector((s: Store.AppStore) => s.ui.openModal);
 
   const submitCreate = (data) => dispatch(createGuild(data.name));
   const submitJoin = (data) => dispatch(joinGuild(data.inviteCode));

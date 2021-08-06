@@ -1,4 +1,3 @@
-import { InsHTMLAttributes } from 'react';
 import ReactModal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux';
 import { closedModal } from '../../store/ui';

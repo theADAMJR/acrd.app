@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { createInvite } from '../../store/guilds';
-import { closedModal } from '../../store/ui';
+import Modal from './modal';
 
 const CreateInvite: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -12,9 +11,8 @@ const CreateInvite: React.FunctionComponent = () => {
 
   setValue('inviteCode', activeInvite?.id);
 
-  const isOpen = openModal === CreateInvite.name;
-
   useEffect(() => {
+    const isOpen = openModal === CreateInvite.name;
     if (!isOpen) return;
 
     dispatch(createInvite(activeGuild!.id));
@@ -23,11 +21,7 @@ const CreateInvite: React.FunctionComponent = () => {
   const copyCode = () => window.navigator.clipboard.writeText(activeInvite!.id);
   
   return (activeInvite) ? (
-    <ReactModal
-      className="overflow-auto absolute bg-bg-primary w-1/3 inset-x-1/3 inset-y-1/3 p-5 rounded-lg outline-none"
-      appElement={document.querySelector('#root')!}
-      isOpen={isOpen}
-      onRequestClose={() => dispatch(closedModal())}>
+    <Modal type={CreateInvite}>
       <header className="mb-3">
         <h1 className="font-bold inline uppercase">Invite Friends to {activeGuild?.name}</h1>
       </header>
@@ -50,7 +44,7 @@ const CreateInvite: React.FunctionComponent = () => {
             className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none focus:ring focus:border-blue-300" />
         </div>
       </div>
-    </ReactModal>
+    </Modal>
   ) : null;
 }
  
