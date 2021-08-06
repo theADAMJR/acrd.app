@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleMemberList } from '../../store/config';
  
 const AppNavbar: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
   const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel);
   const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
-  const dispatch = useDispatch();
+  const memberListToggled = useSelector((s: Store.AppStore) => s.config.memberListToggled);
 
   return (
     <div className="shadow-elevation flex items-center h-12 px-5">
@@ -18,7 +19,7 @@ const AppNavbar: React.FunctionComponent = () => {
         <FontAwesomeIcon
           onClick={() => dispatch(toggleMemberList())}
           icon={faUserFriends}
-          className="cursor-pointer" />)}
+          className={`cursor-pointer ${memberListToggled ? 'heading' : 'muted'}`} />)}
     </div>
   );
 }
