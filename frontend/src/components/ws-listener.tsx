@@ -21,7 +21,9 @@ const WSListener: React.FunctionComponent = () => {
   useEffect(() => {
     if (hasListenedToWS) return;
 
-    ws.on('error', (error: any) => alert(error?.message));
+    ws.on('error', (error: any) => {
+      alert(error?.message);
+    });
 
     // add channel to guilds.channels
     ws.on('CHANNEL_CREATE', (args) => {      

@@ -25,15 +25,19 @@ router.post('/register', async (req, res) => {
   if (usernameCount >= maxDiscriminator)
     createError('Username is unavailable');
 
-  const user = await (User as any).register({
-    username,
-    email: req.body.email,
-    discriminator: usernameCount + 1,
-  }, req.body.password);
+  try {
+    const user = await (User as any).register({
+      username,
+      email: req.body.email,
+      discriminator: usernameCount + 1,
+    }, req.body.password);
 
-  const token = jwt.sign(
-    { userId: user.id },
-    process.env.JWT_SECRET_KEY,
-  );
-  res.json(token);
+    const token = jwt.sign(
+      { userId: user.id },
+      process.env.JWT_SECRET_KEY,
+    );
+    res.json(token);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
