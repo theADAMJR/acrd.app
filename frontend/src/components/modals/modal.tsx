@@ -11,6 +11,7 @@ export interface ModalProps {
 const sizeClass = {
   'sm': 'w-1/4 inset-x-1/3 inset-y-1/3',
   'md': 'w-1/3 inset-x-1/3 inset-y-1/4',
+  'lg': 'w-1/3 inset-x-1/3 top-1/4',
   'full': 'h-full w-full',
 };
  

@@ -22,7 +22,7 @@ const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListP
   ));
 
   return (isActive) ? (
-    <div className="w-60 bg-bg-secondary">
+    <div className="w-80 bg-bg-secondary">
       <Category title="Members" count={props.users.length} />
       <div className="mt-2 ml-2">{members}</div>
     </div>

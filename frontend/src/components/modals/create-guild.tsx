@@ -15,7 +15,7 @@ const CreateGuild: React.FunctionComponent = () => {
     <Modal
       className="p-5"
       type={CreateGuild}
-      size="md">
+      size="lg">
       <header className="text-center mb-5">
         <h1 className="text-3xl font-bold inline">Create Guild</h1>
         <p className="lead">
