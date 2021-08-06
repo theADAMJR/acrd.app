@@ -6,24 +6,24 @@ import jwt from 'jsonwebtoken';
 
 export const router = Router();
 
-router.post('/login', authenticate('local'), (req, res) => {    
+router.post('/login', authenticate('local'), (req, res, next) => {    
   const user = req.user as UserDocument;
   const userId = user.id;
   const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY);
 
-  if (user.locked)
-    createError(401, 'This account is locked');
+  // if (user.locked)
+    next(createError(401, 'This account is locked'));
 
   res.json(token);
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res, next) => {
   const username = req.body.username;
   const usernameCount = await User.countDocuments({ username });
 
   const maxDiscriminator = 9999;
   if (usernameCount >= maxDiscriminator)
-    createError('Username is unavailable');
+    next(createError('Username is unavailable'));
 
   try {
     const user = await (User as any).register({

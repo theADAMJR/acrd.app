@@ -65,9 +65,11 @@ export default (app: Express) => {
   });
 
   app.use(`${prefix}/auth`, authRoutes);
-  app.all(`${prefix}/*`, (req, res) => res.status(404).json({ message: 'Not Found' }));
+  app.all(`${prefix}/*`, (req, res) => res
+    .status(404)
+    .json({ message: 'Not Found' }));
 
-  app.use((err, req, res, next) => res.status(400).json(err));
+  app.use((err, req, res, next) => res.json(err));
 
   // no prefix -> does not change with api versions
   // not part of api, but cdn

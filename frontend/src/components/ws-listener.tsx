@@ -22,7 +22,7 @@ const WSListener: React.FunctionComponent = () => {
     if (hasListenedToWS) return;
 
     ws.on('error', (error: any) => {
-      alert(error?.message);
+      alert(error.data?.message);
     });
 
     // add channel to guilds.channels

@@ -58,7 +58,7 @@ const UserSettings: React.FunctionComponent = () => {
 
             <div>
               <NormalButton
-                onClick={onDelete}
+                onClick={handleSubmit(onDelete)}
                 className="bg-danger">Delete</NormalButton>
               <NormalButton
                 onClick={handleSubmit(onUpdate)}

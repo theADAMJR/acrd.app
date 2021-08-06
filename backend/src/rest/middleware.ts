@@ -9,7 +9,7 @@ export const loggedIn = (req, res, next) => {
   ) as Auth.Payload;  
   
   if (!payload.userId)
-    createError(401, 'Unauthorized');
+    throw next(createError(401, 'Unauthorized'));
 
   res.locals.userId = payload.userId;
   
@@ -19,7 +19,7 @@ export const loggedIn = (req, res, next) => {
 export const updateUser = async (req, res, next) => {
   const user = res.locals.user = await User.findById(res.locals.userId);
   if (!user)
-    createError(404, 'Unauthorized');
+    throw next(createError(404, 'Unauthorized'));
 
   return next();
 };
