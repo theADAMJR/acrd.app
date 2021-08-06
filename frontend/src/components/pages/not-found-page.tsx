@@ -1,11 +1,18 @@
+import Particles from 'react-particles-js';
 import { Link } from 'react-router-dom';
+import CircleButton from '../utils/buttons/circle-button';
 
 const NotFoundPage: React.FunctionComponent = () => {
   return (
-    <header className="items-center text-center">
-      <h1 className="text-4xl">Not Found</h1>
-      <button><Link to="/">Return Home</Link></button>
-    </header>
+    <div className="relative w-screen h-screen">
+      <header className="absolute text-center bottom-1/2 right-1/2">
+        <h1 className="text-4xl pb-3">Not Found</h1>
+        <CircleButton>
+          <Link to="/">Return Home</Link>
+        </CircleButton>
+      </header>
+      <Particles width="100%" height="100%" />
+    </div>
   );
 }
  
