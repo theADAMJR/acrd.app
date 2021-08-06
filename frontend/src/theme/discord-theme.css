@@ -49,6 +49,9 @@ textarea {
 a[href] {
   color: var(--link);
 }
+a > button {
+  color: inherit;
+}
 a.active {
   background-color: var(--bg-modifier-selected);
   color: var(--heading);
