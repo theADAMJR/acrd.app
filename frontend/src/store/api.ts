@@ -1,20 +1,23 @@
-import { ActionCreatorWithPayload, createAction } from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 
-// TODO: add types
 export const actions = {
-  restCallBegan: createAction<APIPayload>('api/restCallBegan'),
-  restCallSucceded: createAction('api/restCallSucceeded') as any,
-  restCallFailed: createAction('api/restCallFailed') as any,
-  wsCallBegan: createAction('api/wsCallBegan') as any,
-  wsCallSucceded: createAction('api/wsCallSucceeded') as any,
-  wsCallFailed: createAction('api/wsCallFailed') as any,
+  restCallBegan: createAction<APIArgs>('api/restCallBegan'),
+  restCallSucceded: createAction<{}>('api/restCallSucceeded'),
+  restCallFailed: createAction<{}>('api/restCallFailed'),
+  wsCallBegan: createAction<WSArgs>('api/wsCallBegan'),
+  wsCallSucceded: createAction<{}>('api/wsCallSucceeded'),
+  wsCallFailed: createAction<{}>('api/wsCallFailed'),
 };
 
-export interface APIPayload {
+export interface APIArgs {
   data?: object;
   headers?: object;
   method?: 'get' | 'post' | 'put' | 'patch' | 'delete';
   onSuccess: string[];
   url: string;
   callback?: (payload: any) => any;
+}
+export interface WSArgs {
+  data?: object;
+  event: keyof ToWSAPI;
 }

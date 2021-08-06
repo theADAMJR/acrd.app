@@ -14,6 +14,7 @@ declare global {
     'MESSAGE_UPDATE': WSPayload.MessageUpdate;
     'READY': WSPayload.Ready;
     'TYPING_START': WSPayload.TypingStart;
+    'USER_DELETE': WSPayload.UserDelete;
     'USER_UPDATE': WSPayload.UserUpdate;
   }
 
