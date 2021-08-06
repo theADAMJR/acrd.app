@@ -46,7 +46,7 @@ textarea {
   background-color: var(--bg-textarea);
 }
 
-a {
+a[href] {
   color: var(--link);
 }
 a.active {

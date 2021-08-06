@@ -6,6 +6,8 @@ import { loginUser } from '../../store/auth';
 import PageWrapper from './page-wrapper';
 import Input from '../utils/input';
 
+import './login-page.scoped.css';
+
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
@@ -19,9 +21,8 @@ const LoginPage: React.FunctionComponent = () => {
     ? <Redirect to="/channels/@me" />
     : (
     <PageWrapper>
-      <div className="flex items-center justify-center absolute right-40 h-screen">
+      <div className="flex items-center absolute justify-center h-screen">
         <form
-          style={{width: '478px', height: '408px'}}
           className="rounded-md shadow bg-bg-primary p-8"
           onSubmit={handleSubmit(onSubmit)}>
           <h1 className="text-3xl font-bold">Welcome back!</h1>
