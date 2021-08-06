@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import CircleButton from '../utils/buttons/circle-button';
  
 const Navbar: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppStore) => s.auth.user);
@@ -12,10 +13,8 @@ const Navbar: React.FunctionComponent = () => {
         <span className="muted font-light">ESSENTIAL</span>
       </a>
       <div>
-        <Link
-          to={user ? '/channels/@me' : '/login'}
-          className="rounded-full ring ring-gray-400 px-4 py-1">
-          {user ? 'App' : 'Login'}
+        <Link to={user ? '/channels/@me' : '/login'}>
+          <CircleButton>{user ? 'App' : 'Login'}</CircleButton>
         </Link>
       </div>
     </nav>

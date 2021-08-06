@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { createInvite } from '../../store/guilds';
 import Input from '../utils/input';
-import NormalButton from '../utils/normal-button';
+import NormalButton from '../utils/buttons/normal-button';
 import Modal from './modal';
 
 const CreateInvite: React.FunctionComponent = () => {

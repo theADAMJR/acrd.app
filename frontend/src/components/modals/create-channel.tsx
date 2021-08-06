@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { createChannel } from '../../store/guilds';
-import NormalButton from '../utils/normal-button';
+import NormalButton from '../utils/buttons/normal-button';
 import Input from '../utils/input';
 import Modal from './modal';
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteGuild, updateGuild } from '../../store/guilds';
 import Category from '../utils/category';
 import Input from '../utils/input';
-import NormalButton from '../utils/normal-button';
+import NormalButton from '../utils/buttons/normal-button';
 import Modal from './modal';
 
 const GuildSettings: React.FunctionComponent = () => {
