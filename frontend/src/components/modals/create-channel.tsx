@@ -3,14 +3,19 @@ import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { createChannel } from '../../store/guilds';
 import { closedModal } from '../../store/ui';
+import NormalButton from '../buttons/normal-button';
+import Input from '../forms/input';
 
 const CreateChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const openModal = useSelector((s: Store.AppStore) => s.ui.openModal);
   const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
 
-  const create = (data) => dispatch(createChannel(guild!.id, data.name));
+  const create = (data) => {
+    dispatch(createChannel(guild!.id, data.name));
+    setValue('name', '');
+  };
   
   return (
     <ReactModal
@@ -26,22 +31,14 @@ const CreateChannel: React.FunctionComponent = () => {
         </header>
       
         <div className="flex-grow p-5">
-          <label
-            htmlFor="name"
-            className="uppercase">Channel Name</label>
-          <input
-            id="name"
-            type="text"
-            {...register('name')}
-            className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+          <Input
+            label="Channel Name"
+            name="name"
+            register={register} />
         </div>
 
-        <footer
-          style={{height: '70px'}}
-          className="bg-bg-secondary">
-          <button
-            style={{height: '38px', padding: '2px 16px'}}
-            className="float-right background bg-primary heading rounded-md m-4">Create</button>
+        <footer className="bg-bg-secondary">
+          <NormalButton className="float-right">Create</NormalButton>
         </footer>
       </form>
     </ReactModal>
