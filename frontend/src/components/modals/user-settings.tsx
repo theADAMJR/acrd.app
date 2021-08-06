@@ -19,7 +19,7 @@ const UserSettings: React.FunctionComponent = () => {
   
   return (user) ? (
     <ReactModal
-      className="overflow-auto absolute bg-bg-primary h-full w-full outline-none"
+      className="overflow-auto absolute bg-bg-primary outline-none"
       appElement={document.querySelector('#root')!}
       isOpen={openModal === UserSettings.name}
       onRequestClose={() => dispatch(closedModal())}>

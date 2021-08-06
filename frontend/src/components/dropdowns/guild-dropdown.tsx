@@ -10,7 +10,6 @@ import Dropdown from '../utils/dropdown';
 const GuildDropdown: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
-  const dropdown = useSelector((s: Store.AppStore) => s.ui.openDropdown);
 
   return (guild) ? (
     <Dropdown

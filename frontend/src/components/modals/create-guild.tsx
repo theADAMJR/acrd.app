@@ -3,6 +3,7 @@ import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { createGuild, joinGuild } from '../../store/guilds';
 import { closedModal } from '../../store/ui';
+import Modal from './modal';
 
 const CreateGuild: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -13,11 +14,10 @@ const CreateGuild: React.FunctionComponent = () => {
   const submitJoin = (data) => dispatch(joinGuild(data.inviteCode));
   
   return (
-    <ReactModal
-      className="overflow-auto fixed bg-bg-primary w-1/3 inset-x-1/3 inset-y-1/4 p-5 rounded-lg outline-none"
-      appElement={document.querySelector('#root')!}
-      isOpen={openModal === CreateGuild.name}
-      onRequestClose={() => dispatch(closedModal())}>
+    <Modal
+      className="p-5"
+      type={CreateGuild}
+      size="md">
       <header className="text-center mb-5">
         <h1 className="text-3xl font-bold inline">Create Guild</h1>
         <p className="lead">
@@ -54,7 +54,7 @@ const CreateGuild: React.FunctionComponent = () => {
 
         <button className="background bg-primary heading w-full h-11 rounded-md mt-8">Create</button>
       </form>
-    </ReactModal>
+    </Modal>
   );
 }
  
