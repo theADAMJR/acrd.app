@@ -29,6 +29,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     (props.editingMessageId)
       ? dispatch(updateMessage(props.editingMessageId, { content }))
       : dispatch(createMessage(channelId, { content }));
+      
     setContent('');
     dispatch(stoppedEditingMessage());
   }

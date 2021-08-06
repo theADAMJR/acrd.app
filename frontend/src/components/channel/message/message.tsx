@@ -71,7 +71,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         content={message.content}
         editingMessageId={message.id} />
     : <div className="relative">
-        <div className="normal">{message.content}</div>
+        <div className="normal whitespace-pre-wrap">{message.content}</div>
       </div>;
 
   const messageClass = `message flex ${!isExtra() && 'mt-4'}`;
