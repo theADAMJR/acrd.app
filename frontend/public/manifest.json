@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "DClone Essential",
+  "name": "Discord clone with the essential features.",
   "icons": [
     {
       "src": "favicon.ico",

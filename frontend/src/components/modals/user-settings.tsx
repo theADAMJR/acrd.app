@@ -48,6 +48,17 @@ const UserSettings: React.FunctionComponent = () => {
 
               <div className="pt-5">
                 <label
+                  htmlFor="email"
+                  className="uppercase">Email</label>
+                <input
+                  id="email"
+                  type="text"
+                  {...register('email', { value: user.email })}
+                  className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+              </div>
+
+              <div className="pt-5">
+                <label
                   htmlFor="avatarURL"
                   className="uppercase">Avatar URL</label>
                 <input

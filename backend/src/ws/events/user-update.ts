@@ -17,7 +17,8 @@ export default class implements WSEvent<'USER_UPDATE'> {
 
     await user.updateOne({
       avatarURL: payload.avatarURL,
-      discriminator, 
+      discriminator: discriminator + 1, 
+      email: payload.email, 
       username: payload.username,
     });
 
