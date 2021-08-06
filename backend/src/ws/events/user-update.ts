@@ -15,14 +15,15 @@ export default class implements WSEvent<'USER_UPDATE'> {
     if (discriminator >= 9999)
       throw new TypeError('Username is not available');
 
-    await user.updateOne({
+    const updated = {
       avatarURL: payload.avatarURL,
       discriminator: discriminator + 1, 
       email: payload.email, 
       username: payload.username,
-    });
+    };
+    await user.updateOne(updated, { runValidators: true });
 
     io.to(user.guildIds)
-      .emit('USER_UPDATE', { userId, payload } as WSResponse.UserUpdate);
+      .emit('USER_UPDATE', { userId, payload: updated } as WSResponse.UserUpdate);
   }
 }
