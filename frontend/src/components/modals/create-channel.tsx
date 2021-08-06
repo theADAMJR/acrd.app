@@ -5,11 +5,11 @@ import { createChannel } from '../../store/guilds';
 import { closedModal } from '../../store/ui';
 import NormalButton from '../buttons/normal-button';
 import Input from '../forms/input';
+import Modal from './modal';
 
 const CreateChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue } = useForm();
-  const openModal = useSelector((s: Store.AppStore) => s.ui.openModal);
   const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
 
   const create = (data) => {
@@ -18,11 +18,7 @@ const CreateChannel: React.FunctionComponent = () => {
   };
   
   return (
-    <ReactModal
-      className="bg-bg-primary overflow-auto fixed w-1/4 inset-x-1/3 inset-y-1/3 rounded-lg outline-none"
-      appElement={document.querySelector('#root')!}
-      isOpen={openModal === CreateChannel.name}
-      onRequestClose={() => dispatch(closedModal())}>
+    <Modal type={CreateChannel}>
       <form
         className="flex flex-col h-full"
         onSubmit={handleSubmit(create)}>
@@ -41,7 +37,7 @@ const CreateChannel: React.FunctionComponent = () => {
           <NormalButton className="float-right">Create</NormalButton>
         </footer>
       </form>
-    </ReactModal>
+    </Modal>
   );
 }
  
