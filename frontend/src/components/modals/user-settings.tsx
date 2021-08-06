@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteSelf, updateSelf } from '../../store/users';
 import Category from '../utils/category';
+import Input from '../utils/input';
 import Modal from './modal';
 
 const UserSettings: React.FunctionComponent = () => {
@@ -30,14 +31,11 @@ const UserSettings: React.FunctionComponent = () => {
           
             <div className="flex-grow">
               <div className="pt-5">
-                <label
-                  htmlFor="username"
-                  className="uppercase">Username</label>
-                <input
-                  id="username"
-                  type="text"
-                  {...register('username', { value: user.username })}
-                  className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+                <Input
+                  label="Username"
+                  name="username"
+                  register={register}
+                  options={{ value: user.username }} />
               </div>
 
               <div className="pt-5">

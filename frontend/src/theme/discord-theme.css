@@ -7,6 +7,7 @@
   --font: #99aab5;
   --normal: #dcddde;
   --muted: #72767d;
+  --link: hsl(197, calc(var(--saturation-factor, 1) * 100%), 47.8%);
 
   --saturation-factor: 1;
   --success: hsl(139, calc(var(--saturation-factor, 1) * 47.3%), 43.9%);
@@ -45,6 +46,9 @@ textarea {
   background-color: var(--bg-textarea);
 }
 
+a {
+  color: var(--link);
+}
 a.active {
   background-color: var(--bg-modifier-selected);
   color: var(--heading);

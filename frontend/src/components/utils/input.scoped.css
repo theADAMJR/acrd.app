@@ -1,0 +1,10 @@
+input {
+  border: 1px solid var(--bg-secondary);
+  caret-color: var(--heading);
+}
+input:hover {
+  border: 1px solid var(--bg-tertiary);
+}
+input:focus {
+  border: 1px solid var(--link);
+}
