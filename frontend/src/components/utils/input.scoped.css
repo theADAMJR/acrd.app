@@ -1,5 +1,5 @@
 input {
-  border: 1px solid var(--bg-secondary);
+  border: 1px solid var(--bg-secondary-alt);
   caret-color: var(--heading);
 }
 input:hover {

@@ -8,9 +8,10 @@ export interface InputProps {
   name: string;
   register: UseFormRegister<FieldValues>;
   options?: any;
+  autoFocus?: boolean;
 }
  
-const Input: React.SFC<InputProps> = ({ label, name, register, options, type }) => {
+const Input: React.SFC<InputProps> = ({ label, name, register, options, type, autoFocus }) => {
   return (
     <>
       {label &&
@@ -20,7 +21,8 @@ const Input: React.SFC<InputProps> = ({ label, name, register, options, type }) 
       <input
         id={name}
         type={type ?? 'text'}
-        required 
+        required
+        autoFocus
         {...register(name, { required: true, ...options })}
         className="block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2" />
     </>

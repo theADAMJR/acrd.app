@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { createGuild, joinGuild } from '../../store/guilds';
+import Input from '../utils/input';
 import Modal from './modal';
 
 const CreateGuild: React.FunctionComponent = () => {
@@ -24,15 +25,10 @@ const CreateGuild: React.FunctionComponent = () => {
       </header>
 
       <form onSubmit={handleSubmit(submitJoin)}>
-        <label
-          htmlFor="inviteCode"
-          className="uppercase">Invite Code</label>
-        <input
-          id="inviteCode"
-          type="text"
-          {...register('inviteCode')}
-          className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-
+        <Input
+          label="Invite Code"
+          name="inviteCode"
+          register={register} />
         <button className="background bg-primary heading w-full h-11 rounded-md mt-8">Join</button>
       </form>
 
@@ -40,15 +36,10 @@ const CreateGuild: React.FunctionComponent = () => {
       <h3 className="uppercase font-bold">Make Your Own</h3>
 
       <form onSubmit={handleSubmit(submitCreate)}>
-        <label
-          htmlFor="name"
-          className="uppercase">Name</label>
-        <input
-          id="name"
-          type="text"
-          {...register('name')}
-          className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-
+        <Input
+          label="Server Name"
+          name="name"
+          register={register} />
         <button className="background bg-primary heading w-full h-11 rounded-md mt-8">Create</button>
       </form>
     </Modal>

@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteGuild, updateGuild } from '../../store/guilds';
 import Category from '../utils/category';
+import Input from '../utils/input';
 import Modal from './modal';
 
 const GuildSettings: React.FunctionComponent = () => {
@@ -24,33 +25,27 @@ const GuildSettings: React.FunctionComponent = () => {
 
         <div className="col-span-8 h-full">
           <form
-            style={{height: '100%', padding: '60px 40px 80px'}}
-            className="flex flex-col">
+            style={{padding: '60px 40px 80px'}}
+            className="h-full flex flex-col">
             <header>
               <h1 className="text-xl font-bold inline">Server Overview</h1>
             </header>
           
             <div className="flex-grow">
               <div className="pt-5">
-                <label
-                  htmlFor="name"
-                  className="uppercase">Server Name</label>
-                <input
-                  id="name"
-                  type="text"
-                  {...register('name', { value: guild.name })}
-                  className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+                <Input
+                  label="Name"
+                  name="name"
+                  register={register}
+                  options={{ value: guild.name }} />
               </div>
 
               <div className="pt-5">
-                <label
-                  htmlFor="iconURL"
-                  className="uppercase">Icon URL</label>
-                <input
-                  id="iconURL"
-                  type="text"
-                  {...register('iconURL', { value: guild.iconURL })}
-                  className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
+                <Input
+                  label="Icon URL"
+                  name="iconURL"
+                  register={register}
+                  options={{ value: guild.iconURL }} />
               </div>
             </div>
 

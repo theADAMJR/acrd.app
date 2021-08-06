@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { createInvite } from '../../store/guilds';
+import Input from '../utils/input';
 import Modal from './modal';
 
 const CreateInvite: React.FunctionComponent = () => {
@@ -16,12 +17,12 @@ const CreateInvite: React.FunctionComponent = () => {
     if (!isOpen) return;
 
     dispatch(createInvite(activeGuild!.id));
-  });
+  }, [isOpen]);
 
   const copyCode = () => window.navigator.clipboard.writeText(activeInvite!.id);
   
   return (activeInvite) ? (
-    <Modal type={CreateInvite}>
+    <Modal type={CreateInvite} className="p-5">
       <header className="mb-3">
         <h1 className="font-bold inline uppercase">Invite Friends to {activeGuild?.name}</h1>
       </header>
@@ -29,19 +30,15 @@ const CreateInvite: React.FunctionComponent = () => {
       <h4 className="text-xs uppercase font-bold muted mb-3">Or Send A Server Invite To A Friend</h4>
 
       <div>
-        <label
-          htmlFor="inviteCode"
-          className="uppercase">Invite Code</label>
         <div className="relative">
           <button
             onClick={copyCode}
-            className="background bg-primary heading px-3 h-8 rounded-sm top-1 right-1 absolute">Copy</button>
-          <input
-            id="inviteCode"
-            type="text"
-            autoFocus
-            {...register('inviteCode')}
-            className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none focus:ring focus:border-blue-300" />
+            className="background bg-primary heading px-3 h-8 rounded-sm top-9 right-1 absolute">Copy</button>
+          <Input
+            label="Invite Code"
+            name="inviteCode"
+            register={register}
+            autoFocus />
         </div>
       </div>
     </Modal>
