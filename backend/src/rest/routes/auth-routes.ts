@@ -11,7 +11,7 @@ router.post('/login', authenticate('local'), (req, res, next) => {
   const userId = user.id;
   const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY);
 
-  // if (user.locked)
+  if (user.locked)
     next(createError(401, 'This account is locked'));
 
   res.json(token);
