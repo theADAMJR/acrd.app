@@ -19,9 +19,7 @@ const LoginPage: React.FunctionComponent = () => {
     ? <Redirect to="/channels/@me" />
     : (
     <PageWrapper>
-      <div
-        style={{ left: '35%'}}
-        className="flex items-center absolute justify-center h-screen">
+      <div className="flex items-center justify-center absolute right-40 h-screen">
         <form
           style={{width: '478px', height: '408px'}}
           className="rounded-md shadow bg-bg-primary p-8"

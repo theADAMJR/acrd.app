@@ -25,9 +25,7 @@ const GuildSettings: React.FunctionComponent = () => {
         </div>
 
         <div className="col-span-8 h-full">
-          <form
-            style={{padding: '60px 40px 80px'}}
-            className="h-full flex flex-col">
+          <form className="flex flex-col pt-14 pr-10 pl-20 h-full mt-1">
             <header>
               <h1 className="text-xl font-bold inline">Server Overview</h1>
             </header>

@@ -17,9 +17,7 @@ const RegisterPage: React.FunctionComponent = () => {
     ? <Redirect to="/channels/@me" />
     : (
       <PageWrapper>
-        <div
-          style={{left: '35%'}}
-          className="absolute flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center absolute right-40 h-screen">
           <form
             style={{ width: '480px' }}
             className="rounded-md shadow bg-bg-primary p-8"

@@ -32,7 +32,9 @@ const GuildPage: React.FunctionComponent = () => {
       <Sidebar />
       <div className="bg-bg-primary">
         <AppNavbar />
-        <div style={{height: 'calc(100vh - 48px)'}} className="flex">
+        <div
+          style={{ height: 'calc(100vh - 48px)' }}
+          className="flex">
           {ui.activeChannel && <TextBasedChannel />}
           {<MemberList users={guild.members} />}
         </div>
