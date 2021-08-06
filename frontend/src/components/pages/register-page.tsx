@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { registerUser } from '../../store/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import PageWrapper from './page-wrapper';
+import Input from '../utils/input';
 
 const RegisterPage: React.FunctionComponent = () => {  
   const user = useSelector((s: Store.AppStore) => s.auth.user);
@@ -17,40 +18,30 @@ const RegisterPage: React.FunctionComponent = () => {
     : (
       <PageWrapper>
         <div
-          style={{position: 'absolute', left: '35%'}}
-          className="flex items-center justify-center h-screen">
+          style={{left: '35%'}}
+          className="absolute flex items-center justify-center h-screen">
           <form
             style={{ width: '480px' }}
             className="rounded-md shadow bg-bg-primary p-8"
             onSubmit={handleSubmit(onSubmit)}>
             <h1 className="text-2xl font-bold mb-8 text-center">Create an account</h1>
 
-            <div className="form-group mt-3">
-              <label htmlFor="email" className="uppercase">Email</label>
-              <input
-                id="email"
-                type="text"
-                {...register('email')}
-                className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-            </div>
-
-            <div className="form-group mt-3">
-              <label htmlFor="username" className="uppercase">Username</label>
-              <input
-                id="username"
-                type="text"
-                {...register('username')}
-                className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-            </div>
-
-            <div className="form-group mt-3">
-              <label htmlFor="password" className="uppercase">Password</label>
-              <input
-                id="password"
-                type="password"
-                {...register('password')}
-                className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-            </div>
+            <Input
+              label="Email"
+              name="email"
+              register={register}
+              className="mt-3" />
+            <Input
+              label="Username"
+              name="username"
+              register={register}
+              className="mt-3" />
+            <Input
+              label="Password"
+              name="password"
+              type="password"
+              register={register}
+              className="mt-3" />
 
             <button className="background bg-primary heading w-full h-11 rounded-md mt-8">Register</button>
             <p className="mt-2"><Link to="/login">Already have an account?</Link></p>

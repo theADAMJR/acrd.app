@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../store/auth';
 import PageWrapper from './page-wrapper';
+import Input from '../utils/input';
 
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -28,24 +29,17 @@ const LoginPage: React.FunctionComponent = () => {
           <h1 className="text-3xl font-bold">Welcome back!</h1>
           <p className="lead">We're so excited to see you again!</p>
 
-          <div className="form-group mt-3">
-            <label htmlFor="email" className="uppercase">Email</label>
-            {/* TODO: make inputs own components */}
-            <input
-              id="email"
-              type="text"
-              {...register('email')}
-              className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-          </div>
-
-          <div className="form-group mt-3">
-            <label htmlFor="password" className="uppercase">Password</label>
-            <input
-              id="password"
-              type="password"
-              {...register('password')}
-              className="block w-full h-10 p-2 bg-bg-secondary rounded focus:outline-none" />
-          </div>
+          <Input
+            label="Email"
+            name="email"
+            register={register}
+            className="mt-3" />
+          <Input
+            label="Password"
+            name="password"
+            type="password"
+            register={register}
+            className="mt-3" />
 
           <button className="background bg-primary heading w-full h-11 rounded-md mt-8">Login</button>
           <p className="mt-2">Need an account? <Link to="/register">Register</Link></p>
