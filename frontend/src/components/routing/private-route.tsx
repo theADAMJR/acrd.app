@@ -6,6 +6,7 @@ import { fetchMyGuilds } from '../../store/guilds';
 import { fetchUsers } from '../../store/users';
 import LoadingPage from '../pages/loading-page';
 
+// this route ensures that the user is logged in, else redirects them 
 const PrivateRoute: React.FunctionComponent<RouteProps> = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((s: Store.AppStore) => s.auth.user);

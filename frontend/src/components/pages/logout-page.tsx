@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { logout } from '../../store/auth';
+import { logoutUser } from '../../store/auth';
 
 const LogoutPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  dispatch(logout());
+  dispatch(logoutUser());
   
   return <Redirect to="/" push />;
 }

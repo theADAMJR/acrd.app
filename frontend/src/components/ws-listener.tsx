@@ -3,7 +3,7 @@ import ws from '../store/services/ws';
 import { actions as guilds } from '../store/guilds';
 import { actions as messages } from '../store/messages';
 import { actions as channels } from '../store/channels';
-import { actions as auth } from '../store/auth';
+import { actions as auth, logoutUser } from '../store/auth';
 import { closedModal, focusedInvite } from '../store/ui';
 import { useEffect } from 'react';
 import { actions as meta } from '../store/meta';
@@ -91,7 +91,7 @@ const WSListener: React.FunctionComponent = () => {
       const isSelf = args.userId === user.id;
       
       if (isSelf && wasDeleted) {
-        dispatch(auth.loggedOut());
+        dispatch(logoutUser());
         history.push('/');
         return ws.disconnect();
       } else if (isSelf)

@@ -14,6 +14,7 @@ export type PageWrapperProps = React.DetailedHTMLProps<
   HTMLDivElement
 >;
 
+// all separate pages should be wrapped by this
 const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
   const dispatch = useDispatch();
   const dropdown = useSelector((s: Store.AppStore) => s.ui.openDropdown);

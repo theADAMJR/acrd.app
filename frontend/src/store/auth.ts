@@ -13,12 +13,11 @@ const slice = createSlice({
     updatedUser: (auth, { payload }) => {
       Object.assign(auth.user, payload.payload);
     },
-    loggedIn: (auth, { payload }) => {
-      localStorage.setItem('token', payload);
+    // remove side effects
+    loggedIn: (auth) => {
       auth.attemptedLogin = true;
     },
     loggedOut: (auth) => {
-      localStorage.removeItem('token');
       delete auth.user;
     },
   },
@@ -36,24 +35,34 @@ export const ready = () => (dispatch, getState) => {
   }));
 }
 
-export const loginUser = (credentials: Auth.Credentials, callback?: () => any) => (dispatch) => {
+// handle side effects here
+export const loginUser = (credentials: Auth.Credentials) => (dispatch) => {
   dispatch(api.restCallBegan({
-    onSuccess: [actions.loggedIn.type, actions.ready.type],
+    onSuccess: [actions.loggedIn.type],
     method: 'post',
     data: credentials,
     url: `/auth/login`,
-    callback,
+    callback: (payload) => {
+      localStorage.setItem('token', payload);
+      dispatch(ready());
+    },
   }));
 }
 
-export const registerUser = (credentials: Auth.Credentials, callback?: () => any) => (dispatch) => {
+export const logoutUser = () => (dispatch) => {
+  dispatch(actions.loggedOut());
+  localStorage.removeItem('token');
+}
+
+export const registerUser = (credentials: Auth.Credentials) => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [actions.loggedIn.type],
     method: 'post',
     data: credentials,
     url: `/auth/register`,
-    callback,
+    callback: (payload) => {
+      localStorage.setItem('token', payload);
+      dispatch(ready());
+    },
   }));
 }
-
-export const logout = actions.loggedOut;

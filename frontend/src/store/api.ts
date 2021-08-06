@@ -16,5 +16,5 @@ export interface APIPayload {
   method?: 'get' | 'post' | 'put' | 'patch' | 'delete';
   onSuccess: string[];
   url: string;
-  callback?: () => any;
+  callback?: (payload: any) => any;
 }

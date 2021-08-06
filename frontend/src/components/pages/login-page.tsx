@@ -2,7 +2,7 @@ import { Link, Redirect } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, ready } from '../../store/auth';
+import { loginUser } from '../../store/auth';
 import PageWrapper from './page-wrapper';
 
 const LoginPage: React.FunctionComponent = () => {
@@ -11,7 +11,7 @@ const LoginPage: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppStore) => s.auth.user);
   
   const onSubmit = (data) => {
-    dispatch(loginUser(data, () => dispatch(ready())));
+    dispatch(loginUser(data));
   };
 
   return (user)
