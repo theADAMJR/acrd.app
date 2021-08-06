@@ -5,7 +5,7 @@ import LoginPage from './pages/login-page';
 import RegisterPage from './pages/register-page';
 import OverviewPage from './pages/overview-page';
 import LogoutPage from './pages/logout-page';
-import PrivateRoute from './private-route';
+import PrivateRoute from './routing/private-route';
 import NotFoundPage from './pages/not-found-page';
 
 export default function App() {

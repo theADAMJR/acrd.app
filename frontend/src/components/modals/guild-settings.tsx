@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteGuild, updateGuild } from '../../store/guilds';
 import { closedModal } from '../../store/ui';
-import Category from '../category';
+import Category from '../utils/category';
 
 const GuildSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
