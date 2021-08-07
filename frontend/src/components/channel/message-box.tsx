@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { createMessage, updateMessage } from '../../store/messages';
@@ -14,6 +14,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const dispatch = useDispatch();
   const { channelId }: any = useParams();
   const [content, setContent] = useState(props.content ?? '');
+  const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel)!;
   
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     handleEscape(event);
@@ -47,6 +48,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         onKeyDown={onKeyDown}
         value={content}
         rows={1}
+        placeholder={!props.editingMessageId ? `Message #${channel.name}` : ''}
         className="resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4"
         autoFocus />
       {(props.editingMessageId)

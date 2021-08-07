@@ -5,6 +5,7 @@ import Category from '../utils/category';
 import Input from '../utils/input';
 import NormalButton from '../utils/buttons/normal-button';
 import Modal from './modal';
+import { Link } from 'react-router-dom';
 
 const GuildSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -20,8 +21,10 @@ const GuildSettings: React.FunctionComponent = () => {
   return (guild) ? (
     <Modal type={GuildSettings} size="full">
       <div className="grid grid-cols-12 h-full">
-        <div className="col-span-3 bg-bg-secondary">
-          {/* TODO: add overview tab here */}
+        <div className="col-span-4 bg-bg-secondary">
+          <nav className="py-2 float-right">
+            <Link to="#">Overview</Link>
+          </nav>
         </div>
 
         <div className="col-span-8 h-full">

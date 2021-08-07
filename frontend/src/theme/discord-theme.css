@@ -28,6 +28,10 @@
   --font-primary: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+* {
+  font-family: var(--font-primary);
+}
+
 h1,
 h2,
 h3,

@@ -9,9 +9,9 @@ export interface ModalProps {
 }
 
 const sizeClass = {
-  'sm': 'w-1/4 inset-x-1/3 inset-y-1/3',
-  'md': 'w-1/3 inset-x-1/3 inset-y-1/4',
-  'lg': 'w-1/3 inset-x-1/3 top-1/4',
+  'sm': 'rounded-lg w-1/4 inset-x-1/3 inset-y-1/3',
+  'md': 'rounded-lg w-1/3 inset-x-1/3 inset-y-1/4',
+  'lg': 'rounded-lg w-1/3 inset-x-1/3 top-1/4',
   'full': 'h-full w-full',
 };
  
@@ -21,7 +21,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, type, size, chi
 
   return (
     <ReactModal
-      className={`bg-bg-primary overflow-auto fixed rounded-lg outline-none ${className} ${sizeClass[size ?? 'sm']}`}
+      className={`bg-bg-primary overflow-auto fixed outline-none ${className} ${sizeClass[size ?? 'sm']}`}
       appElement={document.querySelector('#root')!}
       isOpen={openModal === type.name}
       onRequestClose={() => dispatch(closedModal())}>{children}</ReactModal>

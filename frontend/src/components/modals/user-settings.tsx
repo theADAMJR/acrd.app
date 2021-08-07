@@ -20,7 +20,7 @@ const UserSettings: React.FunctionComponent = () => {
   return (user) ? (
     <Modal type={UserSettings} size="full">
       <div className="grid grid-cols-12 h-full">
-        <div className="col-span-3 bg-bg-secondary"></div>
+        <div className="col-span-4 bg-bg-secondary"></div>
 
         <div className="col-span-8 h-full">
           <form className="flex flex-col pt-14 pr-10 pl-20 h-full mt-1">
