@@ -30,7 +30,7 @@ const GuildSettings: React.FunctionComponent = () => {
               <h1 className="text-xl font-bold inline">Server Overview</h1>
             </header>
           
-            <section className="flex-grow">
+            <section>
               <Input
                 label="Name"
                 name="name"
@@ -45,7 +45,9 @@ const GuildSettings: React.FunctionComponent = () => {
                 className="pt-5" />
             </section>
 
-            <Category title="Advanced Settings" />
+            <Category
+              className="py-2 mt-5"
+              title="Advanced Settings" />
 
             <section>
               <NormalButton
@@ -53,7 +55,7 @@ const GuildSettings: React.FunctionComponent = () => {
                 className="bg-danger">Delete</NormalButton>
               <NormalButton
                 onClick={handleSubmit(onUpdate)}
-                className="bg-success m-4">Save</NormalButton>
+                className="bg-success ml-4">Save</NormalButton>
             </section>
           </form>
         </div>

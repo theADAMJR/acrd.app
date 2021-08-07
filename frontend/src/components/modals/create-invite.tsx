@@ -33,7 +33,7 @@ const CreateInvite: React.FunctionComponent = () => {
       <div className="relative">
         <NormalButton
           onClick={copyCode}
-          className="absolute -right-4 top-4">Copy</NormalButton>
+          className="absolute -right-3 top-5 m-4">Copy</NormalButton>
         <Input
           label="Invite Code"
           name="inviteCode"

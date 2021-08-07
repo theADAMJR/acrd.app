@@ -19,6 +19,8 @@ export default class implements WSEvent<'USER_DELETE'> {
     user.locked = true;
     await user.updateOne(payload);
   
+    client.emit('USER_DELETE');
+
     io.to(user.guildIds)
       .emit('USER_UPDATE', { userId, payload } as WSResponse.UserUpdate);
 

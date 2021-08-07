@@ -7,9 +7,9 @@ const NotFoundPage: React.FunctionComponent = () => {
     <div className="relative w-screen h-screen">
       <header className="absolute text-center bottom-1/2 right-1/2">
         <h1 className="text-4xl pb-3">Not Found</h1>
-        <CircleButton>
-          <Link to="/">Return Home</Link>
-        </CircleButton>
+        <Link to="/">
+          <CircleButton>Return Home</CircleButton>
+        </Link>
       </header>
       <Particles width="100%" height="100%" />
     </div>

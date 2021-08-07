@@ -28,7 +28,7 @@ const UserSettings: React.FunctionComponent = () => {
               <h1 className="text-xl font-bold inline">My Account</h1>
             </header>
           
-            <div className="flex-grow">
+            <section>
               <div className="pt-5">
                 <Input
                   label="Username"
@@ -52,18 +52,20 @@ const UserSettings: React.FunctionComponent = () => {
                   register={register}
                   options={{ value: user.avatarURL }} />
               </div>
-            </div>
+            </section>
 
-            <Category title="Advanced Settings" />
+            <Category
+              className="py-2 mt-5"
+              title="Advanced Settings" />
 
-            <div>
+            <section>
               <NormalButton
                 onClick={handleSubmit(onDelete)}
                 className="bg-danger">Delete</NormalButton>
               <NormalButton
                 onClick={handleSubmit(onUpdate)}
-                className="bg-success">Save</NormalButton>
-            </div>
+                className="bg-success m-4">Save</NormalButton>
+            </section>
           </form>
         </div>
       </div>

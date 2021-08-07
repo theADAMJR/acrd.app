@@ -16,6 +16,8 @@ const GuildPage: React.FunctionComponent = () => {
   const guild = useSelector(getGuild(guildId));
   const channel = useSelector(getChannel(guildId, channelId));
 
+  document.title = channel?.name ?? guild?.name ?? 'DClone';
+
   useEffect(() => {
     dispatch(pageSwitched({ channel, guild }));
   }, [guild, channel]);
@@ -30,15 +32,17 @@ const GuildPage: React.FunctionComponent = () => {
   return (ui.activeGuild) ? (
     <PageWrapper>
       <Sidebar />
-      <div className="bg-bg-primary">
-        <AppNavbar />
-        <div
-          style={{ height: 'calc(100vh - 48px)' }}
-          className="flex">
-          {ui.activeChannel && <TextBasedChannel />}
-          {<MemberList users={guild.members} />}
-        </div>
-      </div>
+      {(channel)
+        ? <div className="bg-bg-primary">
+            <AppNavbar />
+            <div
+              style={{ height: 'calc(100vh - 48px)' }}
+              className="flex">
+              <TextBasedChannel />
+              <MemberList users={guild.members} />
+            </div>
+          </div>
+        : <div className="bg-bg-tertiary" />}
     </PageWrapper>
   ) : null;
 }

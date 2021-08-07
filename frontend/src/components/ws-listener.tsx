@@ -15,13 +15,15 @@ const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const store = useStore();
-
   const hasListenedToWS = useSelector((s: Store.AppStore) => s.meta.hasListenedToWS);
+
+  const getState = () => store.getState() as Store.AppStore;
 
   useEffect(() => {
     if (hasListenedToWS) return;
 
     ws.on('error', (error: any) => {
+      // TODO: snackbar error message
       alert(error.data?.message);
     });
 
@@ -29,26 +31,24 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('CHANNEL_CREATE', (args) => {      
       // if we created it, we want to navigate there
       // we'd expect the user to exist, as they should be logged in to receive ws events
-      const state = store.getState() as Store.AppStore;      
-      const weCreated = args.creatorId === state.auth.user!.id;
-      const guild = state.ui.activeGuild;
+      const { auth, ui } = getState();      
+      const selfCreated = args.creatorId === auth.user!.id;
       
       // we cannot go to the channel if not in store 
       dispatch(guilds.channelCreated(args));
 
-      if (weCreated && guild) {
+      if (selfCreated && ui.activeGuild) {
         dispatch(closedModal());
-        history.push(`/channels/${guild.id}/${args.channel.id}`);
+        history.push(`/channels/${ui.activeGuild.id}/${args.channel.id}`);
       }
     });
     ws.on('CHANNEL_DELETE', (args) => {
       // if in channel, go away from it
-      const state = store.getState() as Store.AppStore;
-      const inChannel = args.channelId === state.ui.activeChannel?.id;
-      const guild = state.ui.activeGuild;
+      const { ui } = getState();
+      const inChannel = args.channelId === ui.activeChannel?.id;
 
-      if (inChannel && guild)
-        history.push(`/channels/${guild.id}`);
+      if (inChannel && ui.activeGuild)
+        history.push(`/channels/${ui.activeGuild.id}`);
 
       dispatch(guilds.channelDeleted(args));
     });
@@ -70,8 +70,8 @@ const WSListener: React.FunctionComponent = () => {
       history.push(`/channels/${args.guild.id}`);
     });
     ws.on('GUILD_DELETE', (args) => {
-      const state = store.getState() as Store.AppStore;
-      const guildIsActive = args.guildId === state.ui.activeGuild?.id;
+      const { ui } = getState();
+      const guildIsActive = args.guildId === ui.activeGuild?.id;
       if (guildIsActive)
         dispatch(closedModal());
     });
@@ -85,24 +85,22 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(auth.ready(args));
       dispatch(users.fetched(args.user));
     });
+    ws.on('USER_DELETE', () => {
+      dispatch(logoutUser());
+      history.push('/');
+      ws.disconnect();
+    });
     ws.on('USER_UPDATE', (args) => {
       // update member in guild
-      const state = store.getState() as Store.AppStore;
+      const state = getState();
       const user = state.auth.user!;
-      const wasDeleted = args.payload.discriminator === 0;
       const isSelf = args.userId === user.id;
-      
-      if (isSelf && wasDeleted) {
-        dispatch(logoutUser());
-        history.push('/');
-        return ws.disconnect();
-      } else if (isSelf)
-        dispatch(auth.updatedUser(args));
-      
+
       // make sure user in guilds
+      if (isSelf)
+        dispatch(auth.updatedUser(args));
       if (user.guildIds.length)
         dispatch(guilds.memberUpdated(args));
-
       dispatch(users.updated(args));
     });
 

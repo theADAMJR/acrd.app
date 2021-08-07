@@ -5,7 +5,9 @@ import PageWrapper from './page-wrapper';
 
 import './home-page.scoped.css';
 
-const HomePage: React.FunctionComponent = () => {  
+const HomePage: React.FunctionComponent = () => {
+  document.title = 'DClone | Discord clone with the essential features';
+
   return (
     <PageWrapper className="bg-bg-tertiary h-full">
       <Navbar />

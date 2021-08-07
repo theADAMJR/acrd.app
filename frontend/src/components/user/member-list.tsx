@@ -22,8 +22,11 @@ const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListP
   ));
 
   return (isActive) ? (
-    <div className="w-80 bg-bg-secondary">
-      <Category title="Members" count={props.users.length} />
+    <div className="bg-bg-secondary w-64">
+      <Category
+        className="pt-6 pr-2 pl-4 h-10"
+        title="Members"
+        count={props.users.length} />
       <div className="mt-2 ml-2">{members}</div>
     </div>
   ) : null;

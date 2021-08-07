@@ -37,6 +37,7 @@ declare global {
     'MESSAGE_UPDATE': WSResponse.MessageUpdate;
     'READY': WSResponse.Ready;
     'TYPING_START': WSResponse.TypingStart;
+    'USER_DELETE': WSResponse.UserDelete;
     'USER_UPDATE': WSResponse.UserUpdate;
   }
 
