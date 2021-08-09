@@ -8,6 +8,7 @@ import Modal from './modal';
 const CreateGuild: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
+  const { register: register2, handleSubmit: handleSubmit2 } = useForm();
 
   const submitCreate = (data) => dispatch(createGuild(data.name));
   const submitJoin = (data) => dispatch(joinGuild(data.inviteCode));
@@ -35,11 +36,11 @@ const CreateGuild: React.FunctionComponent = () => {
 
       <h3 className="uppercase font-bold mt-10">Make Your Own</h3>
 
-      <form onSubmit={handleSubmit(submitCreate)}>
+      <form onSubmit={handleSubmit2(submitCreate)}>
         <Input
           label="Server Name"
           name="name"
-          register={register} />
+          register={register2} />
         <NormalButton className="w-full h-11 mt-8">Create</NormalButton>
       </form>
     </Modal>

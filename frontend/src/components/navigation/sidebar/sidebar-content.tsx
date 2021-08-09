@@ -12,20 +12,19 @@ import './sidebar-content.scoped.css';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
-  const ui = useSelector((s: Store.AppStore) => s.ui);
+  const { activeGuild, activeChannel } = useSelector((s: Store.AppStore) => s.ui);
   
-  const isActive = (c) => c.id === ui.activeChannel?.id;
-  const channels = ui.activeGuild?.channels.map(c => (
+  const channels = activeGuild?.channels.map(c => (
     <ContextMenuTrigger key={c.id} id={c.id}>
       <Link
-        to={`/channels/${ui.activeGuild!.id}/${c.id}`}
+        to={`/channels/${activeGuild!.id}/${c.id}`}
         className={`
           cursor-pointer flex items-center rounded h-8 p-2 pl-3
-          ${isActive(c) && 'active'}`}>
+          ${c.id === activeChannel?.id && 'active'}`}>
         <FontAwesomeIcon
           className="float-left mr-2 scale-150 muted fill-current"
           icon={faHashtag} />
-        <span className={`${!isActive(c) && 'font'}`}>{c.name}</span>
+        <span>{c.name}</span>
       </Link>
       <ChannelMenu channel={c} />
     </ContextMenuTrigger>
