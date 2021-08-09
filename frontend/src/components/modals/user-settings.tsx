@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { deleteSelf, updateSelf } from '../../store/users';
 import NormalButton from '../utils/buttons/normal-button';
 import Category from '../utils/category';
@@ -18,12 +19,23 @@ const UserSettings: React.FunctionComponent = () => {
   }
   
   return (user) ? (
-    <Modal type={UserSettings} size="full">
+    <Modal
+      type={UserSettings}
+      size="full">
       <div className="grid grid-cols-12 h-full">
-        <div className="col-span-4 bg-bg-secondary"></div>
+        <div className="col-span-4 bg-bg-secondary">
+          <nav className="float-right flex-grow py-14 w-48 my-1 mr-4">
+            <Category
+              className="normal px-2.5 pb-1.5"
+              title="User Settings" />
+            <Link
+              to="#"
+              className="active flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Overview</Link>
+          </nav>          
+        </div>
 
         <div className="col-span-8 h-full">
-          <form className="flex flex-col pt-14 pr-10 pl-20 h-full mt-1">
+          <form className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
             <header>
               <h1 className="text-xl font-bold inline">My Account</h1>
             </header>

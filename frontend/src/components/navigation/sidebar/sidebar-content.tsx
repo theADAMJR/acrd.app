@@ -8,8 +8,6 @@ import { toggleDropdown } from '../../../store/ui';
 import GuildDropdown from '../../dropdowns/guild-dropdown';
 import ChannelMenu from '../../ctx-menus/channel-menu';
 
-import './sidebar-content.scoped.css';
-
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
   const { activeGuild, activeChannel } = useSelector((s: Store.AppStore) => s.ui);

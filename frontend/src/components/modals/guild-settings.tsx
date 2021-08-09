@@ -22,13 +22,18 @@ const GuildSettings: React.FunctionComponent = () => {
     <Modal type={GuildSettings} size="full">
       <div className="grid grid-cols-12 h-full">
         <div className="col-span-4 bg-bg-secondary">
-          <nav className="py-2 float-right">
-            <Link to="#">Overview</Link>
+          <nav className="float-right flex-grow py-14 w-48 my-1 mr-4">
+            <Category
+              className="muted px-2.5 pb-1.5"
+              title={guild.name} />
+            <Link
+              to="#"
+              className="active flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Overview</Link>
           </nav>
         </div>
 
         <div className="col-span-8 h-full">
-          <form className="flex flex-col pt-14 pr-10 pl-20 h-full mt-1">
+          <form className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
             <header>
               <h1 className="text-xl font-bold inline">Server Overview</h1>
             </header>

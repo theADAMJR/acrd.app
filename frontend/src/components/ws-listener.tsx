@@ -23,8 +23,7 @@ const WSListener: React.FunctionComponent = () => {
     if (hasListenedToWS) return;
 
     ws.on('error', (error: any) => {
-      // TODO: snackbar error message
-      alert(error.data?.message);
+      alert(error.data?.message ?? error.message);
     });
 
     // add channel to guilds.channels
