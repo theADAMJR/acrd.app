@@ -38,7 +38,7 @@ const GuildPage: React.FunctionComponent = () => {
             <div
               style={{ height: 'calc(100vh - 48px)' }}
               className="flex">
-              <TextBasedChannel />
+              {ui.activeChannel && <TextBasedChannel />}
               <MemberList users={guild.members} />
             </div>
           </div>

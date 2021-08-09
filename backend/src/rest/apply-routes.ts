@@ -5,14 +5,17 @@ import { Message } from '../data/models/message';
 import { router as authRoutes } from './routes/auth-routes';
 import path from 'path';
 import { loggedIn, updateUser } from './middleware';
-import { User } from '../data/models/user';
+import createError from 'http-errors';
 
 export default (app: Express) => {
   const prefix = process.env.API_PREFIX;
 
-  app.get(`${prefix}/channels/:channelId/messages`, async (req, res) => {
-    // v6: has access to the channel
-    
+  app.get(`${prefix}/channels/:channelId/messages`, async (req, res, next) => {
+    // v6: validate has access to the channel
+    const userInGuild = await Guild.findOne({ channels: req.params.channelId as any });
+    if (!userInGuild)
+      return next(createError(401, 'Insufficient access'));
+
     const messages = await Message.find({ channelId: req.params.channelId });
     res.json(messages);
   });
@@ -44,7 +47,6 @@ export default (app: Express) => {
   });
   
   // v7: guild members
-  // v6: validate has access to users
   app.get(`${prefix}/users`, loggedIn, updateUser, async (req, res) => {
     const user: Entity.User = res.locals.user;
     const guilds = await Guild

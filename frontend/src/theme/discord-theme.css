@@ -50,11 +50,8 @@ textarea {
   background-color: var(--bg-textarea);
 }
 
-a[href] {
+a[href]:not(a > *:last-child) {
   color: var(--link);
-}
-a > button {
-  color: inherit;
 }
 a.active {
   background-color: var(--bg-modifier-selected);
