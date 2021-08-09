@@ -11,7 +11,7 @@ export default (app: Express) => {
   const prefix = process.env.API_PREFIX;
 
   app.get(`${prefix}/channels/:channelId/messages`, async (req, res, next) => {
-    // v6: validate has access to the channel
+    // validate has access to the channel
     const userInGuild = await Guild.findOne({ channels: req.params.channelId as any });
     if (!userInGuild)
       return next(createError(401, 'Insufficient access'));

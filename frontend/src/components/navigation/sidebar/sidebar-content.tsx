@@ -14,17 +14,18 @@ const SidebarContent: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const ui = useSelector((s: Store.AppStore) => s.ui);
   
+  const isActive = (c) => c.id === ui.activeChannel?.id;
   const channels = ui.activeGuild?.channels.map(c => (
     <ContextMenuTrigger key={c.id} id={c.id}>
       <Link
         to={`/channels/${ui.activeGuild!.id}/${c.id}`}
         className={`
           cursor-pointer flex items-center rounded h-8 p-2 pl-3
-          ${c.id === ui.activeChannel?.id && 'active'}`}>
+          ${isActive(c) && 'active'}`}>
         <FontAwesomeIcon
           className="float-left mr-2 scale-150 muted fill-current"
           icon={faHashtag} />
-        <span>{c.name}</span>
+        <span className={`${!isActive(c) && 'font'}`}>{c.name}</span>
       </Link>
       <ChannelMenu channel={c} />
     </ContextMenuTrigger>
@@ -37,9 +38,7 @@ const SidebarContent: React.FunctionComponent = () => {
         onClick={() => dispatch(toggleDropdown(GuildDropdown))}>
         <GuildDropdown />
       </div>
-      <nav className="sidebar-details flex-grow px-2 pt-4">
-        {channels}
-      </nav>
+      <nav className="flex-grow px-2 pt-4">{channels}</nav>
       <SidebarFooter />
     </div>
   );

@@ -50,10 +50,10 @@ textarea {
   background-color: var(--bg-textarea);
 }
 
-a[href]:not(a > *:last-child) {
+:not(nav a)a[href] {
   color: var(--link);
 }
-a.active {
+nav a.active {
   background-color: var(--bg-modifier-selected);
   color: var(--heading);
 }
