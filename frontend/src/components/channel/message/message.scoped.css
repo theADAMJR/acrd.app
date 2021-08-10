@@ -1,26 +1,12 @@
-.message .left-side img {
-  width: 40px;
-  height: 40px;
-}
-
-.message .message-content {
-  padding: 0 8px;
-}
-
-.message:hover .timestamp {
-  opacity: 1;
-}
-.message .timestamp {
-  opacity: 0;
-}
-
 .message:hover {
   background-color: rgba(0, 0, 0, 0.075);
 }
 
-.toolbar {
-  opacity: 0;
-}
+.message:hover .timestamp,
 .message:hover .toolbar {
   opacity: 1;
+}
+.timestamp,
+.toolbar {
+  opacity: 0;
 }
