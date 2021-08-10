@@ -6,10 +6,10 @@ import PageWrapper from './page-wrapper';
 import './home-page.scoped.css';
 
 const HomePage: React.FunctionComponent = () => {
-  document.title = 'DClone | Discord clone with the essential features';
-
   return (
-    <PageWrapper className="bg-bg-tertiary h-full">
+    <PageWrapper
+      className="bg-bg-tertiary h-full"
+      pageTitle="DClone | Discord Clone With the Essentials">
       <Navbar />
       <section className="text-center my-4">
         <h1>It's time to ditch Skype and TeamSpeak.</h1>

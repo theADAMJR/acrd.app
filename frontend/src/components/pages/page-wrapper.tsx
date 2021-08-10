@@ -21,6 +21,7 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
   
   useEffect(() => {
     dispatch(ready());
+    document.title = props.pageTitle ?? 'DClone';
   }, []);
   
   return (

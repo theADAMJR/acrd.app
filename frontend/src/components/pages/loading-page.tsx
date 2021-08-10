@@ -9,7 +9,9 @@ const LoadingPage: React.FunctionComponent = () => {
   const randomIndex = Math.floor(Math.random() * tips.length);
 
   return (
-    <PageWrapper className="flex items-center justify-center h-screen">
+    <PageWrapper
+      pageTitle="Loading..."
+      className="flex items-center justify-center h-screen">
       <div className="text-center">
         <h1 className="text-3xl">Loading...</h1>
         <p className="lead block">{tips[randomIndex]}</p>

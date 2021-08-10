@@ -51,7 +51,7 @@ textarea {
   background-color: var(--bg-textarea);
 }
 
-:not(nav a)a[href] {
+:not(nav a)[href] {
   color: var(--link);
 }
 nav a {
