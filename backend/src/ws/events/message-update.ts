@@ -25,6 +25,7 @@ export default class MessageDelete implements WSEvent<'MESSAGE_UPDATE'> {
     
     payload = {
       content: payload.content,
+      updatedAt: new Date(),
     };
     await message.updateOne(payload);
 

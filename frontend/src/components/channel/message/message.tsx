@@ -13,7 +13,7 @@ export interface MessageProps {
 }
 
 const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProps) => {
-  const author = useSelector(getUser(message.authorId)) as Entity.User;
+  const author = useSelector(getUser(message.authorId))!;
   const messages = useSelector(getChannelMessages(message.channelId));
   const editingMessageId = useSelector((s: Store.AppStore) => s.ui.editingMessageId);
 
@@ -71,7 +71,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         content={message.content}
         editingMessageId={message.id} />
     : <div className="relative">
-        <div className="normal whitespace-pre-wrap">{message.content}</div>
+        <div className="normal whitespace-pre-wrap">{message.content}{message.updatedAt && <span>(edited)</span>}</div>
       </div>;
 
   const messageClass = `message flex ${!isExtra() && 'mt-4'}`;

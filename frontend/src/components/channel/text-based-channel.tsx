@@ -12,16 +12,17 @@ const TextBasedChannel: React.FunctionComponent = () => {
 
   useEffect(() => {
     dispatch(fetchMessages(channel.id));
-  }, [messages.length]); // only fetches channel messages when not cached
 
-  useEffect(() => {
     const element = document.querySelector('#messages')!;
     element.scrollTop = element.scrollHeight;
-  }, [messages.length]);
+  }, [messages.length]); // only fetches channel messages when not cached
+
   
   return (
     <div className="h-full flex flex-col flex-grow">
-      <div id="messages" className="overflow-auto mb-5 mr-1 mt-1 flex-grow">
+      <div
+        id="messages"
+        className="overflow-auto mb-5 mr-1 mt-1 flex-grow">
         <TextChannelHeader />
         {messages.map(m => <Message key={m.id} message={m} />)}
       </div>

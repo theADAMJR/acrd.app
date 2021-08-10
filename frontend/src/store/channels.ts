@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { actions as api } from './api';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
   name: 'channels',
@@ -23,3 +22,8 @@ const slice = createSlice({
 
 export const actions = slice.actions;
 export default slice.reducer;
+
+export const getTypersInChannel = (channelId: string) => createSelector<any, any, any>(
+  state => state.entities.channels.typing,
+  typing => typing.filter(t => t.channelId === channelId),
+) as (channelId: string) => Store.AppStore['entities']['channels']['typing'];

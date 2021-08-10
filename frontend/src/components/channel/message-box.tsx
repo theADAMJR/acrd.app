@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
+import { getTypersInChannel } from '../../store/channels';
 import { createMessage, updateMessage } from '../../store/messages';
 import { stoppedEditingMessage } from '../../store/ui';
+import users, { getUser } from '../../store/users';
 
 export interface MessageBoxProps {
   content?: string;
@@ -11,10 +12,11 @@ export interface MessageBoxProps {
 }
  
 const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
+  const store = useStore();
   const dispatch = useDispatch();
-  const { channelId }: any = useParams();
   const [content, setContent] = useState(props.content ?? '');
   const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel)!;
+  const typing = useSelector(getTypersInChannel(channel.id));
   
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     handleEscape(event);
@@ -29,7 +31,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     
     (props.editingMessageId)
       ? dispatch(updateMessage(props.editingMessageId, { content }))
-      : dispatch(createMessage(channelId, { content }));
+      : dispatch(createMessage(channel.id, { content }));
       
     setContent('');
     dispatch(stoppedEditingMessage());
@@ -40,6 +42,8 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     if (props.editingMessageId)
       dispatch(stoppedEditingMessage());
   }
+
+  const user = (userId: string) => getUser(userId)(store.getState());
   
   return (
     <div className={`${props.editingMessageId ? 'mt-2' : 'px-4'}`}>
@@ -51,9 +55,11 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         placeholder={!props.editingMessageId ? `Message #${channel.name}` : ''}
         className="resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4"
         autoFocus />
+      {/* TODO: refactor */}
       {(props.editingMessageId)
         ? <span className="text-xs py-2">escape to cancel • enter to save</span>
         : <div className="w-full h-6" />}
+      {typing.map(t => <span className="text-xs py-2">{user(t.userId)!.username} is typing</span>)}
     </div>
   );
 }
