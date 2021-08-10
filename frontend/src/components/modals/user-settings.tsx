@@ -31,6 +31,12 @@ const UserSettings: React.FunctionComponent = () => {
             <Link
               to="#"
               className="active flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Overview</Link>
+              
+            <div className="rounded-sm bg-bg-modifier-accent h-px w-full my-2 mx-2.5 " />
+
+            <Link
+              to="/logout"
+              className="danger flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Logout</Link>
           </nav>          
         </div>
 
