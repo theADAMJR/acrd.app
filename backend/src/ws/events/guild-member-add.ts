@@ -10,7 +10,7 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
 
   // >v6: make sure user not banned
   // >v6: validate invite options
-  public async invoke({ io, sessions }: WS, client: Socket, { inviteCode }: WSPayload.GuildMemberAdd) {
+  public async invoke({ io, sessions }: WS, client: Socket, { inviteCode }: API.WSPayload.GuildMemberAdd) {
     const invite = await Invite.findById(inviteCode);
     if (!invite)
       throw new TypeError('Invite not found');
@@ -40,7 +40,7 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     await guild.save();
 
     io.to(invite.guildId)
-      .emit('GUILD_MEMBER_ADD', { guildId, member: user } as WSResponse.GuildMemberAdd);
+      .emit('GUILD_MEMBER_ADD', { guildId, member: user } as API.WSResponse.GuildMemberAdd);
 
     await guild
       .populate({ path: 'channels' })
@@ -54,6 +54,6 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     for (const channel of guild.channels)
       await client.join(channel.id);
 
-    client.emit('GUILD_CREATE', { guild } as WSResponse.GuildCreate);    
+    client.emit('GUILD_CREATE', { guild } as API.WSResponse.GuildCreate);    
   }
 }

@@ -7,7 +7,7 @@ const TextChannelHeader: React.FunctionComponent = () => {
   
   return (
     <div className="m-4 pb-6 border-bottom">
-      <span className="rounded-full heading">
+      <span className="rounded-full">
         <FontAwesomeIcon
           className="muted"
           icon={faHashtag}

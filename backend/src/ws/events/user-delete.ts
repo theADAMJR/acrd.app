@@ -22,7 +22,7 @@ export default class implements WSEvent<'USER_DELETE'> {
     client.emit('USER_DELETE');
 
     io.to(user.guildIds)
-      .emit('USER_UPDATE', { userId, payload } as WSResponse.UserUpdate);
+      .emit('USER_UPDATE', { userId, payload } as API.WSResponse.UserUpdate);
 
     client.disconnect();
   }

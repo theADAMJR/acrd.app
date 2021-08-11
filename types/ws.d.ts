@@ -1,5 +1,4 @@
-// TODO: declare own module
-declare global {
+declare namespace API {
   export interface ToWSAPI {
     'CHANNEL_CREATE': WSPayload.ChannelCreate;
     'CHANNEL_DELETE': WSPayload.ChannelDelete;

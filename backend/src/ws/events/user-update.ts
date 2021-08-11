@@ -6,7 +6,7 @@ import { User } from '../../data/models/user';
 export default class implements WSEvent<'USER_UPDATE'> {
   public on = 'USER_UPDATE' as const;
 
-  public async invoke({ io, sessions }: WS, client: Socket, { payload }: WSPayload.UserUpdate) {
+  public async invoke({ io, sessions }: WS, client: Socket, { payload }: API.WSPayload.UserUpdate) {
     const userId = sessions.get(client.id);
     const user = (await User.findById(userId))!;
 
@@ -25,6 +25,6 @@ export default class implements WSEvent<'USER_UPDATE'> {
 
     // discrim is also updated so we want to return it to client
     io.to(user.guildIds)
-      .emit('USER_UPDATE', { userId, payload: updated } as WSResponse.UserUpdate);
+      .emit('USER_UPDATE', { userId, payload: updated } as API.WSResponse.UserUpdate);
   }
 }

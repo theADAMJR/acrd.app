@@ -6,7 +6,7 @@ import { WSEvent } from './ws-event';
 export default class implements WSEvent<'MESSAGE_CREATE'> {
   public on = 'MESSAGE_CREATE' as const;
 
-  public async invoke({ io, sessions }: WS, client: Socket, params: WSPayload.MessageCreate) {
+  public async invoke({ io, sessions }: WS, client: Socket, params: API.WSPayload.MessageCreate) {
     // >v6 -> ensure author has access to channel    
     const message = await Message.create({
       content: params.content,
@@ -15,6 +15,6 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
     });
 
     io.to(params.channelId)
-      .emit('MESSAGE_CREATE', { message } as WSResponse.MessageCreate);
+      .emit('MESSAGE_CREATE', { message } as API.WSResponse.MessageCreate);
   }
 }

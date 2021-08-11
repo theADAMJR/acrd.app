@@ -25,6 +25,6 @@ export default class Ready implements WSEvent<'READY'> {
     await client.join(user.guildIds);
     await client.join(channelIds);
     
-    client.emit('READY', { user } as WSResponse.Ready); 
+    client.emit('READY', { user } as API.WSResponse.Ready); 
   }
 }

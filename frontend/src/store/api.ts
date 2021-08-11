@@ -19,5 +19,5 @@ export interface APIArgs {
 }
 export interface WSArgs {
   data?: object;
-  event: keyof ToWSAPI;
+  event: keyof API.ToWSAPI;
 }

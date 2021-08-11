@@ -7,7 +7,7 @@ import { WSEvent } from './ws-event';
 export default class implements WSEvent<'INVITE_CREATE'> {
   public on = 'INVITE_CREATE' as const;
 
-  public async invoke({ io, sessions }: WS, client: Socket, { guildId }: WSPayload.InviteCreate) {
+  public async invoke({ io, sessions }: WS, client: Socket, { guildId }: API.WSPayload.InviteCreate) {
     const userId = sessions.get(client.id);
     
     const guild = await Guild.findById(guildId);
@@ -25,6 +25,6 @@ export default class implements WSEvent<'INVITE_CREATE'> {
     });
     
     io.to(guildId)
-      .emit('INVITE_CREATE', { invite } as WSResponse.InviteCreate);
+      .emit('INVITE_CREATE', { invite } as API.WSResponse.InviteCreate);
   }
 }

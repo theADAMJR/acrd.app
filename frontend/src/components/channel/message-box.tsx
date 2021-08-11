@@ -44,6 +44,9 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   }
 
   const user = (userId: string) => getUser(userId)(store.getState());
+
+  const typingUsers = () => typing.map(t =>
+    <span className="text-xs py-2">{user(t.userId)!.username} is typing</span>);
   
   return (
     <div className={`${props.editingMessageId ? 'mt-2' : 'px-4'}`}>
@@ -55,11 +58,9 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         placeholder={!props.editingMessageId ? `Message #${channel.name}` : ''}
         className="resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4"
         autoFocus />
-      {/* TODO: refactor */}
       {(props.editingMessageId)
         ? <span className="text-xs py-2">escape to cancel • enter to save</span>
-        : <div className="w-full h-6" />}
-      {typing.map(t => <span className="text-xs py-2">{user(t.userId)!.username} is typing</span>)}
+        : <div className="w-full h-6">{typingUsers}</div>}
     </div>
   );
 }

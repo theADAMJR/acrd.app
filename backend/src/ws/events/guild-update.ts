@@ -6,7 +6,7 @@ import { Guild } from '../../data/models/guild';
 export default class implements WSEvent<'GUILD_UPDATE'> {
   public on = 'GUILD_UPDATE' as const;
 
-  public async invoke({ io, sessions }: WS, client: Socket, { guildId, payload }: WSPayload.GuildUpdate) {
+  public async invoke({ io, sessions }: WS, client: Socket, { guildId, payload }: API.WSPayload.GuildUpdate) {
     const userId = sessions.get(client.id);
     const guild = await Guild.findById(guildId);
     if (!guild)
@@ -22,6 +22,6 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
     await guild.updateOne(partialGuild);
 
     io.to(guild.id)
-      .emit('GUILD_UPDATE', { guildId, payload } as WSResponse.GuildUpdate);
+      .emit('GUILD_UPDATE', { guildId, payload } as API.WSResponse.GuildUpdate);
   }
 }

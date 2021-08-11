@@ -7,7 +7,7 @@ import { Guild } from '../../data/models/guild';
 export default class MessageDelete implements WSEvent<'MESSAGE_UPDATE'> {
   public on = 'MESSAGE_UPDATE' as const;
 
-  public async invoke({ io, sessions }: WS, client: Socket, { messageId, payload }: WSPayload.MessageUpdate) {
+  public async invoke({ io, sessions }: WS, client: Socket, { messageId, payload }: API.WSPayload.MessageUpdate) {
     const userId = sessions.get(client.id);
     const message = await Message.findById(messageId);
     if (!message)
@@ -30,6 +30,6 @@ export default class MessageDelete implements WSEvent<'MESSAGE_UPDATE'> {
     await message.updateOne(payload);
 
     io.to(message.channelId)
-      .emit('MESSAGE_UPDATE', { payload, messageId } as WSResponse.MessageUpdate);
+      .emit('MESSAGE_UPDATE', { payload, messageId } as API.WSResponse.MessageUpdate);
   }
 }

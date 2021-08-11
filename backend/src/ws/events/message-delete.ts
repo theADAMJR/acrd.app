@@ -7,7 +7,7 @@ import { Guild } from '../../data/models/guild';
 export default class MessageDelete implements WSEvent<'MESSAGE_DELETE'> {
   public on = 'MESSAGE_DELETE' as const;
 
-  public async invoke({ io, sessions }: WS, client: Socket, params: WSPayload.MessageDelete) {
+  public async invoke({ io, sessions }: WS, client: Socket, params: API.WSPayload.MessageDelete) {
     const message = await Message.findById(params.messageId);
     if (!message)
       throw new TypeError('Message not found');
@@ -26,6 +26,6 @@ export default class MessageDelete implements WSEvent<'MESSAGE_DELETE'> {
     await message.deleteOne();
 
     io.to(message.channelId)
-      .emit('MESSAGE_DELETE', params as WSResponse.MessageDelete);
+      .emit('MESSAGE_DELETE', params as API.WSResponse.MessageDelete);
   }
 }

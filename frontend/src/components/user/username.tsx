@@ -17,7 +17,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
     <div className="flex items-center px-2">
       <div className="avatar mr-2">
         <img
-          className="rounded-full w-8 h-8"
+          className="select-none rounded-full w-8 h-8"
           src={`${environment.rootAPIURL}${user.avatarURL}`} />
       </div>
       <div className="tag leading-4">

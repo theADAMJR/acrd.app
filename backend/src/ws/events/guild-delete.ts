@@ -8,7 +8,7 @@ import { User } from '../../data/models/user';
 export default class implements WSEvent<'GUILD_DELETE'> {
   public on = 'GUILD_DELETE' as const;
 
-  public async invoke({ sessions }: WS, client: Socket, { guildId }: WSPayload.GuildDelete) {
+  public async invoke({ sessions }: WS, client: Socket, { guildId }: API.WSPayload.GuildDelete) {
     const userId = sessions.get(client.id);
     const guild = await Guild.findById(guildId);
     if (!guild)
@@ -19,6 +19,6 @@ export default class implements WSEvent<'GUILD_DELETE'> {
 
     await guild.deleteOne();
 
-    client.emit('GUILD_DELETE', { guildId } as WSResponse.GuildDelete);
+    client.emit('GUILD_DELETE', { guildId } as API.WSResponse.GuildDelete);
   }
 }

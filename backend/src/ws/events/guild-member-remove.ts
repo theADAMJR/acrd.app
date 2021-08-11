@@ -8,7 +8,7 @@ import { WSEvent } from './ws-event';
 export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
   public on = 'GUILD_MEMBER_REMOVE' as const;
 
-  public async invoke({ io, sessions }: WS, client: Socket, { guildId, userId }: WSPayload.GuildMemberRemove) {
+  public async invoke({ io, sessions }: WS, client: Socket, { guildId, userId }: API.WSPayload.GuildMemberRemove) {
     // validate user is not owner
     const guild = await Guild.findById(guildId);
     if (!guild)
@@ -34,9 +34,9 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     // if self user left, emit GUILD_DELETE
     if (selfUserId === userId)
       io.to(guildId)
-        .emit('GUILD_DELETE', { guildId } as WSResponse.GuildDelete);
+        .emit('GUILD_DELETE', { guildId } as API.WSResponse.GuildDelete);
     
     io.to(guildId)
-      .emit('GUILD_MEMBER_REMOVE', { guildId, userId } as WSResponse.GuildMemberRemove);
+      .emit('GUILD_MEMBER_REMOVE', { guildId, userId } as API.WSResponse.GuildMemberRemove);
   }
 }

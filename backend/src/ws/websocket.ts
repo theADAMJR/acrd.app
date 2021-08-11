@@ -7,7 +7,7 @@ import fs from 'fs';
 import SessionManager from './session-manager';
 
 export class WS {
-  public events = new Map<keyof ToWSAPI, WSEvent<keyof FromWSAPI>>();
+  public events = new Map<keyof API.ToWSAPI, WSEvent<keyof API.FromWSAPI>>();
   public readonly io = new Server();
   public readonly sessions = new SessionManager();
 

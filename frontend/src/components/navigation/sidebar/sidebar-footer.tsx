@@ -10,7 +10,7 @@ const SidebarFooter: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppStore) => s.auth.user)!;
   
   return (
-    <div className="relative flex items-center bg-bg-secondary-alt h-14">
+    <div className="select-all relative flex items-center bg-bg-secondary-alt py-2">
       <Username user={user} />
       <FontAwesomeIcon
         onClick={() => dispatch(openedModal(UserSettings))}

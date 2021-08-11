@@ -24,7 +24,7 @@ const SidebarIcon: React.FunctionComponent<SidebarIconProps> = ({ guildId, image
         className="h-12 w-12"
         src={imageURL}
         alt={name} />
-    : <span className="heading h-12 w-12 flex items-center justify-center">{getAbbr(name)}</span>;
+    : <span className="select-none heading h-12 w-12 flex items-center justify-center">{getAbbr(name)}</span>;
   
   const isActive = activeGuild?.id === guildId
     || location.pathname.startsWith('/channels/@me') && !guildId;
@@ -34,8 +34,8 @@ const SidebarIcon: React.FunctionComponent<SidebarIconProps> = ({ guildId, image
     : 'rounded-full bg-bg-primary';
     
   return (
-    <div className={`wrapper ${isActive && 'active'}`}>
-      <div className="selected h-0 w-0 rounded bg-white absolute -left-1" />
+    <div className={`${isActive && 'active'}`}>
+      <div className="selected rounded bg-white absolute -left-1 h-2 w-0" />
       <div className={`cursor-pointer guild-icon flex justify-center mb-2 ${activeClasses}`}>
         <Icon />
       </div>

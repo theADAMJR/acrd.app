@@ -7,7 +7,7 @@ import { Guild } from '../../data/models/guild';
 export default class implements WSEvent<'CHANNEL_CREATE'> {
   public on = 'CHANNEL_CREATE' as const;
 
-  public async invoke({ io, sessions }: WS, client: Socket, params: WSPayload.ChannelCreate) {
+  public async invoke({ io, sessions }: WS, client: Socket, params: API.WSPayload.ChannelCreate) {
     const userId = sessions.get(client.id);
     const guild = await Guild.findById(params.guildId);
     if (!guild)
@@ -32,6 +32,6 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
       client.join(channel.id);
 
     io.to(guild.id)
-      .emit('CHANNEL_CREATE', { channel, creatorId: userId } as WSResponse.ChannelCreate);
+      .emit('CHANNEL_CREATE', { channel, creatorId: userId } as API.WSResponse.ChannelCreate);
   }
 }

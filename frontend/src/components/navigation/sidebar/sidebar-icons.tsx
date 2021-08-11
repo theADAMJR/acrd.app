@@ -24,9 +24,11 @@ const SidebarIcons: React.FunctionComponent = () => {
     </ContextMenuTrigger>
   ));
 
-  const PlusIcon = () => <div
-    onClick={() => dispatch(openedModal(CreateGuild))}
-    className="cursor-pointer flex items-center justify-center rounded-full h-12 w-12 bg-bg-primary success text-4xl font-light pb-1">+</div>;
+  const PlusIcon = () => (
+    <div
+      onClick={() => dispatch(openedModal(CreateGuild))}
+      className="success text-3xl"><SidebarIcon name="+" /></div>
+  );
   
   return (
     <div className="h-screen float-left p-3 flex flex-col bg-bg-tertiary">

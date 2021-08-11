@@ -8,7 +8,7 @@ import { User } from '../../data/models/user';
 export default class implements WSEvent<'GUILD_CREATE'> {
   public on = 'GUILD_CREATE' as const;
 
-  public async invoke({ sessions }: WS, client: Socket, params: WSPayload.GuildCreate) {
+  public async invoke({ sessions }: WS, client: Socket, params: API.WSPayload.GuildCreate) {
     const ownerId = sessions.get(client.id);
     const guild = new Guild({ name: params.name, ownerId });
 
@@ -32,6 +32,6 @@ export default class implements WSEvent<'GUILD_CREATE'> {
     for (const channel of guild.channels)
       await client.join(channel.id);
 
-    client.emit('GUILD_CREATE', { guild } as WSResponse.GuildCreate);
+    client.emit('GUILD_CREATE', { guild } as API.WSResponse.GuildCreate);
   }
 }
