@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { generateInvite } from '../../utils/invite';
+import generateInvite from '../../utils/generate-invite';
 import { useId } from '../data-utils';
 
 export interface InviteDocument extends Entity.Invite, Document {}
