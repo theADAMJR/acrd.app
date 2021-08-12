@@ -85,9 +85,9 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(users.fetched(args.user));
     });
     ws.on('USER_DELETE', () => {
-      dispatch(logoutUser());
-      history.push('/');
       ws.disconnect();
+      history.push('/');
+      dispatch(logoutUser());
     });
     ws.on('USER_UPDATE', (args) => {
       // update member in guild
