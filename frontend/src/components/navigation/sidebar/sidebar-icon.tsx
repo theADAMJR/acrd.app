@@ -27,7 +27,7 @@ const SidebarIcon: React.FunctionComponent<SidebarIconProps> = ({ guildId, image
     : <span className="select-none heading h-12 w-12 flex items-center justify-center">{getAbbr(name)}</span>;
   
   const isActive = activeGuild?.id === guildId
-    || location.pathname.startsWith('/channels/@me') && !guildId;
+    || imageURL && !guildId && location.pathname.startsWith('/channels/@me');
 
   const activeClasses = (isActive)
     ? 'rounded-xl bg-primary'

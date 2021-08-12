@@ -27,5 +27,5 @@ declare namespace Store {
       activeInvite?: Entity.Invite;
       editingMessageId?: string;
     };
-  }  
+  }
 }

@@ -1,7 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 
-// TODO: these reducers could benefit from types
 const slice = createSlice({
   name: 'messages',
   // overoptimization -> filtering thru thousands of messages, worst case scenario, is not going to impact performance much

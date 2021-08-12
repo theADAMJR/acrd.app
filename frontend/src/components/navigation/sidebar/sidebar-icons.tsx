@@ -37,7 +37,7 @@ const SidebarIcons: React.FunctionComponent = () => {
           imageURL={user.avatarURL}
           name={user.username} />
       </Link>
-      <div className="guild-icon flex justify-center mb-1">
+      <div className="flex justify-center mb-1">
         <div className="h-0.5 w-8 rounded-sm bg-bg-modifier-accent mb-1" />
       </div>
       {guildIcons}
