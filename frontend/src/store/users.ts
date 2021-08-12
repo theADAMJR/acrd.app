@@ -3,21 +3,25 @@ import { actions as api } from './api';
 
 const slice = createSlice({
   name: 'users',
-  initialState: [] as Entity.User[],
+  initialState: {
+    fetched: false,
+    list: [] as Entity.User[],
+  },
   reducers: {
     fetched: (users, { payload }) => {
-      // TODO: remove try catch
-      try { users.push(...payload) }
-      catch { users.push(payload) }
+      try { users.list.push(...payload) } // called when self user fetched (READY)
+      catch { // called when all users fetched (GET users)
+        users.list.push(payload);
+        users.fetched = true;
+      }
     },
     updated: (users, { payload }) => {
-      const user = users.find(u => u.id === payload.userId);
-      // TODO: fix bad naming
+      const user = users.list.find(u => u.id === payload.userId);
       Object.assign(user, payload.payload);
     },
     deleted: (users, { payload }) => {
-      const index = users.findIndex(u => u.id === payload.userId);
-      users.splice(index, 1);
+      const index = users.list.findIndex(u => u.id === payload.userId);
+      users.list.splice(index, 1);
     },
   },
 });
@@ -47,6 +51,6 @@ export const deleteSelf = () => (dispatch) => {
 
 export const getUser = (id: string) =>
   createSelector<Store.AppStore, Entity.User[], Entity.User | undefined>(
-  state => state.entities.users,
+  state => state.entities.users.list,
   users => users.find(u => u.id === id),
 );

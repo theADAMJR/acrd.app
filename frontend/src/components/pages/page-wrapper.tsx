@@ -20,7 +20,6 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
   const dropdown = useSelector((s: Store.AppStore) => s.ui.openDropdown);
   
   useEffect(() => {
-    dispatch(ready());
     document.title = props.pageTitle ?? 'DClone';
   }, []);
   

@@ -1,6 +1,19 @@
+import { useEffect } from 'react';
 import PageWrapper from './page-wrapper';
+import { ready } from '../../store/auth';
+import { useDispatch } from 'react-redux';
+import { fetchMyGuilds } from '../../store/guilds';
+import { fetchUsers } from '../../store/users';
 
 const LoadingPage: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(ready());
+    dispatch(fetchMyGuilds());
+    dispatch(fetchUsers());
+  }, []);
+
   const tips = [
     'This app took 2 weeks longer than expected to make.',
     'Stealing Discord since 1966.',

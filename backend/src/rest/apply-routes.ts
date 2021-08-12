@@ -20,7 +20,6 @@ export default (app: Express) => {
     res.json(messages);
   });
   
-
   /* user.guilds:
   + can be populated easily to get user guilds
   - extra baggage

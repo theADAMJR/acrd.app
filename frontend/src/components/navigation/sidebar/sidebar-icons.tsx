@@ -9,7 +9,7 @@ import GuildMenu from '../../ctx-menus/guild-menu';
 const SidebarIcons: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((s: Store.AppStore) => s.auth.user)!;
-  const guilds = useSelector((s: Store.AppStore) => s.entities.guilds)!;
+  const { list: guilds } = useSelector((s: Store.AppStore) => s.entities.guilds)!;
 
   const guildIcons = guilds.map(g => (
     <ContextMenuTrigger key={g.id} id={g.id}>

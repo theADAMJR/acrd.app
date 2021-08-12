@@ -11,9 +11,15 @@ declare namespace Store {
       channels: {
         typing: { userId: string, channelId: string }[];
       };
-      guilds: Entity.Guild[];
+      guilds: {
+        fetched: boolean;
+        list: Entity.Guild[];
+      }
       messages: Entity.Message[];
-      users: Entity.User[];
+      users: {
+        fetched: boolean;
+        list: Entity.User[];
+      }
     };
     // metadata about store
     meta: {
