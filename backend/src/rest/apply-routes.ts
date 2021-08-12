@@ -56,7 +56,8 @@ export default (app: Express) => {
       .flatMap(g => g.members)
       .map((u: any) => {
         u.email = undefined;
-        u.locked = undefined;        
+        u.locked = undefined;
+        u.guildIds = undefined;        
         return u;
       });
     

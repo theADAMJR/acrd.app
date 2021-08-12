@@ -24,7 +24,6 @@ export default class implements WSEvent<'USER_UPDATE'> {
     await user.updateOne(updated, { runValidators: true });
 
     // discrim is also updated so we want to return it to client
-    io.to(user.guildIds)
-      .emit('USER_UPDATE', { userId, payload: updated } as API.WSResponse.UserUpdate);
+    client.emit('USER_UPDATE', { userId, payload: updated } as API.WSResponse.UserUpdate);
   }
 }

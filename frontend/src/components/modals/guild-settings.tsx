@@ -59,6 +59,7 @@ const GuildSettings: React.FunctionComponent = () => {
 
             <section>
               <NormalButton
+                type="button"
                 onClick={onDelete}
                 className="bg-danger">Delete</NormalButton>
               <NormalButton

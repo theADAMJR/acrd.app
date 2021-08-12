@@ -90,16 +90,7 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(logoutUser());
     });
     ws.on('USER_UPDATE', (args) => {
-      // update member in guild
-      const state = getState();
-      const user = state.auth.user!;
-      const isSelf = args.userId === user.id;
-
-      // make sure user in guilds
-      if (isSelf)
-        dispatch(auth.updatedUser(args));
-      if (user.guildIds.length)
-        dispatch(guilds.memberUpdated(args));
+      dispatch(auth.updatedUser(args));
       dispatch(users.updated(args));
     });
 

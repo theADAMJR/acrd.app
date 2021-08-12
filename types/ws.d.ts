@@ -144,7 +144,6 @@ declare namespace API {
     }
     export interface UserUpdate {
       payload: Partial<Entity.User>;
-      userId: string;
     }
   }
 }

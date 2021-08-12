@@ -3,7 +3,6 @@ import { Socket } from 'socket.io';
 import { WS } from '../websocket';
 import { Guild } from '../../data/models/guild';
 import { User } from '../../data/models/user';
-import SessionManager from '../session-manager';
 
 export default class implements WSEvent<'GUILD_DELETE'> {
   public on = 'GUILD_DELETE' as const;
@@ -20,24 +19,26 @@ export default class implements WSEvent<'GUILD_DELETE'> {
     await guild.deleteOne();
     await this.updateMembers(ws, guild);
 
-    client.emit('GUILD_DELETE', { guildId } as API.WSResponse.GuildDelete);
+    ws.io
+      .to(guild.id)
+      .emit('GUILD_DELETE', { guildId } as API.WSResponse.GuildDelete);
   }
 
   private async updateMembers({ sessions, io }: WS, guild: Entity.Guild) {
-    // is it better to iterate User.findOne, or just use User.find once?
-    const users = await User.find({ guildIds: guild.id });
+    const clientIds = io.sockets.adapter.rooms.get(guild.id)!;
     
     // tell connected guild members that they're no longer in that guild
-    const clientIds = io.sockets.adapter.rooms.get(guild.id)!;
     for (const clientId of clientIds) {
       const client = io.sockets.sockets.get(clientId)!;
-      const { guildIds } = users.find(u => u.id === sessions.get(clientId))!;
-
+      const userId = sessions.get(clientId);
+      const { guildIds } = (await User.findById(userId))!;
+      
       const index = guildIds.indexOf(guild.id);
       guildIds.splice(index, 1);
+      await User.updateOne({ _id: userId }, { guildIds });
       
-      client.emit('USER_UPDATE', { payload: { guildIds } } as API.WSResponse.UserUpdate);
-      client.leave(guild.id);    
+      client.emit('USER_UPDATE', { payload: { guildIds }, userId } as API.WSResponse.UserUpdate);      
+      client.leave(guild.id);
     }
   }
 }
