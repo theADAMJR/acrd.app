@@ -37,8 +37,7 @@ export default class implements WSEvent<'GUILD_DELETE'> {
       guildIds.splice(index, 1);
       await User.updateOne({ _id: userId }, { guildIds });
       
-      client.emit('USER_UPDATE', { payload: { guildIds }, userId } as API.WSResponse.UserUpdate);      
-      client.leave(guild.id);
+      client.emit('USER_UPDATE', { payload: { guildIds }, userId } as API.WSResponse.UserUpdate);
     }
   }
 }

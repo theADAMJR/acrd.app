@@ -71,8 +71,11 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('GUILD_DELETE', (args) => {
       const { ui } = getState();
       const guildIsActive = args.guildId === ui.activeGuild?.id;
-      if (guildIsActive)
+      if (guildIsActive) {
         dispatch(closedModal());
+        history.push('/channels/@me');
+      }
+      guilds.deleted(args);
     });
     ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated(args)));
     ws.on('TYPING_START', (args) => dispatch(channels.userTyped(args)));
