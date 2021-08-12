@@ -2,7 +2,6 @@ import { WSEvent } from './ws-event';
 import { Socket } from 'socket.io';
 import { WS } from '../websocket';
 import { Guild } from '../../data/models/guild';
-import { Channel } from '../../data/models/channel';
 import { User } from '../../data/models/user';
 
 export default class implements WSEvent<'GUILD_DELETE'> {
@@ -18,6 +17,12 @@ export default class implements WSEvent<'GUILD_DELETE'> {
       throw new TypeError('Only the guild owner can do this');
 
     await guild.deleteOne();
+
+    // remove guild id from all member.guildIds
+    await User.updateOne(
+      { guildIds: guildId },
+      { $pull: { guildIds: guildId } },
+    );
 
     client.emit('GUILD_DELETE', { guildId } as API.WSResponse.GuildDelete);
   }
