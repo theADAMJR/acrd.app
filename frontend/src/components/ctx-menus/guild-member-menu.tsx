@@ -12,7 +12,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ guild,
   const selfUser = useSelector((s: Store.AppStore) => s.auth.user)!;  
 
   const canManage = selfUser.id === guild.ownerId;
-  const isSelf = user.id !== selfUser.id;
+  const isSelf = user.id === selfUser.id;
 
   return (
     <ContextMenu
