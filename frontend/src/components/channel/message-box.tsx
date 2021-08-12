@@ -4,7 +4,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { getTypersInChannel } from '../../store/channels';
 import { createMessage, updateMessage } from '../../store/messages';
 import { stoppedEditingMessage } from '../../store/ui';
-import users, { getUser } from '../../store/users';
+import { getUser } from '../../store/users';
 
 export interface MessageBoxProps {
   content?: string;

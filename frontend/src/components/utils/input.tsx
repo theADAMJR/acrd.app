@@ -25,7 +25,7 @@ const Input: React.FunctionComponent<InputProps> = (props) => {
         type={type ?? 'text'}
         required
         autoFocus={autoFocus}
-        {...register(name, { required: true, ...options })}
+        {...register(name, { ...options })}
         className="block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2" />
     </div>
   );
