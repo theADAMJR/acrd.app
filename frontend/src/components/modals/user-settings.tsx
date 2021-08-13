@@ -46,7 +46,7 @@ const UserSettings: React.FunctionComponent = () => {
               <h1 className="text-xl font-bold inline">My Account</h1>
             </header>
           
-            <section>
+            <section className="w-1/3">
               <div className="pt-5">
                 <Input
                   label="Username"

@@ -38,7 +38,7 @@ const GuildSettings: React.FunctionComponent = () => {
               <h1 className="text-xl font-bold inline">Server Overview</h1>
             </header>
           
-            <section>
+            <section className="w-1/3">
               <Input
                 label="Name"
                 name="name"
