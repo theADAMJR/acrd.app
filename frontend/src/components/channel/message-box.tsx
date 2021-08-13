@@ -53,8 +53,8 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     if (!typers.length) return;
 
     return (typers.length > maxTypers)
-      ? 'Many users are typing'
-      : `${typingUsers} is typing`
+      ? 'Many users are typing...'
+      : `${typingUsers} is typing...`
   }
 
   
