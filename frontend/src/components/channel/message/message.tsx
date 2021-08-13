@@ -74,7 +74,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
 
   return (
     <div className={messageClass}>
-      <div className="left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
+      <div className="flex-shrink-0 left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
       <div className="relative flex-grow px-2">
         <div className="absolute toolbar right-0 -mt-3 z-10">
           <MessageToolbar message={message} />

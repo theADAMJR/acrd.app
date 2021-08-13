@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
-import { getTypersInChannel } from '../../store/channels';
+import { getTypersInChannel, startTyping } from '../../store/channels';
 import { createMessage, updateMessage } from '../../store/messages';
 import { stoppedEditingMessage } from '../../store/ui';
 import { getUser } from '../../store/users';
@@ -20,6 +20,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     handleEscape(event);
+    dispatch(startTyping(channel.id));
     
     if (event.key === 'Enter' && !event.shiftKey)
       event.preventDefault();

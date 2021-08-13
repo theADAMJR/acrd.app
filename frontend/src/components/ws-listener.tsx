@@ -10,7 +10,6 @@ import { actions as meta } from '../store/meta';
 import { actions as users } from '../store/users';
 import { useHistory } from 'react-router-dom';
 
-// FIXME: this file is messy
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -78,7 +77,14 @@ const WSListener: React.FunctionComponent = () => {
       guilds.deleted(args);
     });
     ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated(args)));
-    ws.on('TYPING_START', (args) => dispatch(channels.userTyped(args)));
+    ws.on('TYPING_START', (args) => {
+      dispatch(channels.userTyped(args));
+
+      const timeoutMs = 5000;
+      setTimeout(() => {
+        dispatch(channels.userStoppedTyping(args));
+      }, timeoutMs);
+    });
     ws.on('GUILD_DELETE', (args) => dispatch(guilds.deleted(args)));
     ws.on('MESSAGE_CREATE', (args) => dispatch(messages.created(args)));
     ws.on('MESSAGE_DELETE', (args) => dispatch(messages.deleted(args)));
