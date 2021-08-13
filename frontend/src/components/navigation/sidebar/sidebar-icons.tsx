@@ -15,7 +15,7 @@ const SidebarIcons: React.FunctionComponent = () => {
     <ContextMenuTrigger key={g.id} id={g.id}>
       <Link to={`/channels/${g.id}`}>
         <SidebarIcon
-          guildId={g.id}
+          to={`/channels/${g.id}`}
           imageURL={g.iconURL}
           name={g.name} />
       </Link>
@@ -27,13 +27,18 @@ const SidebarIcons: React.FunctionComponent = () => {
   const PlusIcon = () => (
     <div
       onClick={() => dispatch(openedModal(CreateGuild))}
-      className="success text-3xl"><SidebarIcon name="+" /></div>
+      className="success text-3xl">
+      <SidebarIcon
+        name="+"
+        classes="success" />
+    </div>
   );
   
   return (
     <div className="h-screen float-left p-3 flex flex-col bg-bg-tertiary">
       <Link to="/channels/@me">
         <SidebarIcon
+          to="/channels/@me"
           imageURL={user.avatarURL}
           name={user.username} />
       </Link>

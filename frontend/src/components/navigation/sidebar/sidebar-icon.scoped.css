@@ -1,3 +1,7 @@
+img {
+  border-radius: inherit;
+}
+
 .selected {
   transition: width 0.3s ease;
 }
@@ -6,7 +10,7 @@
   height: 40px;
   margin-top: 4px;
 }
-.wrapper:hover .selected {
+.wrapper:not(.active):hover .selected {
   display: block;
   height: 20px;
   margin-top: 14px;
