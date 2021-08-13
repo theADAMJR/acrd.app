@@ -47,11 +47,10 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const user = (userId: string) => getUser(userId)(store.getState());
 
   const typingMessage = () => {
+    if (!typers.length) return;
+  
     const maxTypers = 3;
     const typingUsers = typers.map(t => user(t.userId)!.username).join(', ');
-
-    if (!typers.length) return;
-
     return (typers.length > maxTypers)
       ? 'Many users are typing...'
       : `${typingUsers} is typing...`
@@ -70,7 +69,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         autoFocus />
       {(props.editingMessageId)
         ? <span className="text-xs py-2">escape to cancel • enter to save</span>
-        : <div className="w-full h-6">{typingMessage()}</div>}
+        : <div className="text-sm w-full h-6">{typingMessage()}</div>}
     </div>
   );
 }
