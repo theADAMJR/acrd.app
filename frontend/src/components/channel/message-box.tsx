@@ -16,7 +16,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState(props.content ?? '');
   const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel)!;
-  const typing = useSelector(getTypersInChannel(channel.id));
+  const typers = useSelector(getTypersInChannel(channel.id));
   
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     handleEscape(event);
@@ -46,8 +46,17 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
 
   const user = (userId: string) => getUser(userId)(store.getState());
 
-  const typingUsers = () => typing.map(t =>
-    <span className="text-xs py-2">{user(t.userId)!.username} is typing</span>);
+  const typingMessage = () => {
+    const maxTypers = 3;
+    const typingUsers = typers.map(t => user(t.userId)!.username).join(', ');
+
+    if (!typers.length) return;
+
+    return (typers.length > maxTypers)
+      ? 'Many users are typing'
+      : `${typingUsers} is typing`
+  }
+
   
   return (
     <div className={`${props.editingMessageId ? 'mt-2' : 'px-4'}`}>
@@ -61,7 +70,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         autoFocus />
       {(props.editingMessageId)
         ? <span className="text-xs py-2">escape to cancel • enter to save</span>
-        : <div className="w-full h-6">{typingUsers}</div>}
+        : <div className="w-full h-6">{typingMessage()}</div>}
     </div>
   );
 }

@@ -35,8 +35,8 @@ export const getTypersInChannel = (channelId: string) => createSelector<any, any
 let lastTypedAt: Date;
 
 export const startTyping = (channelId: string) => (dispatch, getState) => {
-  const minsAgo = moment(lastTypedAt).diff(new Date(), 'minutes');
-  if (lastTypedAt && minsAgo < 5) return;
+  const secsAgo = moment(lastTypedAt).diff(new Date(), 'seconds');
+  if (lastTypedAt && secsAgo < 5) return;
 
   lastTypedAt = new Date();
 
