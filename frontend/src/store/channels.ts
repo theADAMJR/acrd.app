@@ -1,4 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+import moment from 'moment';
 import { actions as api } from './api';
 
 const slice = createSlice({
@@ -31,11 +32,13 @@ export const getTypersInChannel = (channelId: string) => createSelector<any, any
   typing => typing.filter(t => t.channelId === channelId),
 ) as (channelId: string) => Store.AppStore['entities']['channels']['typing'];
 
+let lastTypedAt: Date;
+
 export const startTyping = (channelId: string) => (dispatch, getState) => {
-  const typing = getState().entities.channels.typing;
-  const userId = getState().auth.user.id;
-  const alreadyTyping = getIndex(typing, userId, channelId) >= 0;
-  if (alreadyTyping) return;
+  const minsAgo = moment(lastTypedAt).diff(new Date(), 'minutes');
+  if (lastTypedAt && minsAgo < 5) return;
+
+  lastTypedAt = new Date();
 
   dispatch(api.wsCallBegan({
     event: 'TYPING_START',
