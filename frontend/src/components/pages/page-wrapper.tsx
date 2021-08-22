@@ -11,8 +11,7 @@ import WSListener from '../ws-listener';
 
 export type PageWrapperProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
+  HTMLDivElement> & { pageTitle?: string; };
 
 // all separate pages should be wrapped by this
 const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {

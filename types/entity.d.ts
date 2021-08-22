@@ -49,5 +49,6 @@ declare namespace Entity {
     id: string;
     username: string;
     guildIds: string[];
+    status: string;
   }
 }

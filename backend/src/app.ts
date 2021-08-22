@@ -1,12 +1,23 @@
+import './data/types/env';
 import { config } from 'dotenv';
-config({ path: '.env' });
+config();
 
 import { connect } from 'mongoose';
-import { Deps } from './utils/deps';
-import { WS } from './ws/websocket';
+import { API } from './api/server';
+import { SystemBot } from './system/bot';
+import Deps from './utils/deps';
+import Log from './utils/log';
 
-connect(process.env.MONGO_URI,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => console.log(`Connected to MongoDB`));
+connect(process.env.MONGO_URI, { 
+  useUnifiedTopology: true, 
+  useNewUrlParser: true, 
+  useFindAndModify: false,
+  useCreateIndex: true,
+  serverSelectionTimeoutMS: 0,
+}, (error) => (error)
+    ? Log.error(error.message, 'db')
+    : Log.info('Connected to database.')
+);
 
-Deps.add<WS>(WS, new WS());
+Deps.get<SystemBot>(SystemBot).init();
+Deps.get<API>(API);

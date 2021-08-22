@@ -1,0 +1,12 @@
+{
+  "mochaExplorer.files": "test/unit/*.tests.ts",
+  "mochaExplorer.require": "ts-node/register",
+  "mochaExplorer.logpanel": true,
+  "editor.tabSize": 2,
+  "debug.javascript.warnOnLongPrediction": false,
+  "cSpell.words": [
+    "cooldown",
+    "metascraper"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

@@ -1,54 +1,19 @@
-### There are 2 main components in this API.
+# Accord - API
+Tested code that brings Accord to life.
 
-REST refers to the REST API (uses HTTP).
-WS refers to the WebSocket API (uses WS).
+![Lines of Code](https://img.shields.io/tokei/lines/github/d-clone/API?color=46828d&style=for-the-badge)
 
-### Dependency Injection
+> © All rights reserved. This repo is not (yet) open source, and is awaiting completion.
 
-Due to the nature of the DI used in this project, dependencies cannot be circular:
-
-> rest/server.ts
-
-```ts
-import { WS } from '...';
-...
-Deps.get<WS>(WS);
+## `.env`
+```.env
+API_URL="http://localhost:3000/api"
+EMAIL_ADDRESS="example@gmail.com"
+EMAIL_PASSWORD="google_account_password"
+MONGO_URI="mongodb://localhost/accord"
+PORT=3000
+ROOT_ENDPOINT="http://localhost:3000"
+WEBSITE_URL="http://localhost:4200"
 ```
 
-> ws/websocket.ts
-
-```ts
-import { REST } from '...';
-...
-Deps.get<REST>(REST);
-```
-
-`Deps.add` -> create dep with custom object.
-`Deps.get` -> get dep, or create with no args constructor.
-
----
-
-# WS
-
-SNAKE_CASE is used as lowercase to avoid possible conflict with socket.io event names.
-
-## Events
-
-| NAME           | DESCRIPTION                        |
-| :------------- | :--------------------------------- |
-| READY          | When a user connects with browser. |
-| MESSAGE_CREATE | When user sends message.           |
-| MESSAGE_DELETE | When user deletes message.         |
-
----
-
-## PORTS
-
-`3000` -> REST API and WS
-`4200` -> React website
-
----
-
-## Different Folders, One Big Repo
-
--> Branch versions will be used (e.g. v1,v2,...,v12)
+> For help on setting up gmail mailing, go here - https://nodemailer.com/usage/using-gmail.

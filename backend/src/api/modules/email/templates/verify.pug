@@ -1,0 +1,23 @@
+head
+  include ./includes.pug
+
+  style
+    include email.css
+body(style='background-color: #2E303E')
+  - const url = `${process.env.WEBSITE_URL}/login?code=${code}`;
+  header
+    h1 Hello #{user.username}!
+    p.lead Thank you for choosing accord.app.
+
+  section.body
+    div
+      span.summary A verification code has been requested to login to your account.
+
+    h2 Here it is... #[code.cool #{code}]
+
+    p This code expires in #{expiresIn / 60 / 1000} minutes. 
+    p You can use it to login with 2FA. #[br] Or #[a(href=url) click here] to login automatically.
+
+  footer
+    hr
+    span accord.app

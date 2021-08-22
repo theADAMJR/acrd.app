@@ -1,0 +1,101 @@
+body {
+  color: #CACBCD;
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  padding-top: 25px;
+  font-size: 16px;
+}
+header, section.body, footer {
+  margin: 25px;
+}
+
+p, span {
+  color: #CACBCD;
+}
+
+h1 {
+  padding-top: 20px;
+  font-size: 48px;
+}
+h1 + p.lead {
+  margin-top: 0;
+}
+h1, h2, h3, h4, h5 {
+  color: white;
+  letter-spacing: -.025em;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+h2.action {
+  font-size: 24px;
+}
+
+.text-secondary {
+  color: #FAB795;
+}
+.text-tertiary {
+  color: #B877DB;
+}
+
+strong.logo {
+  color: #B877DB
+}
+
+p.lead {
+  color: #09F7A0;
+}
+
+pre {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+pre code {
+  font-size: 32px;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: #B877DB;
+  cursor: pointer;
+}
+button {
+  font-size: 24px;
+  padding: 7.5px;
+  border-radius: 10px;
+  color: white !important;
+  border: none;
+}
+
+.summary {
+  color: #25B2BC;
+  font-size: larger;
+  
+  padding: 15px;
+  border: 1px solid cyan;
+  border-radius: 5px;
+  background-color: #232530;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+.cool {
+  color: #576067;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  opacity: 0;
+}
+
+.trivia {
+  margin-top: 25px;
+}
+
+footer {
+  padding-bottom: 25px;
+}

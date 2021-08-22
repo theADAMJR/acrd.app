@@ -1,0 +1,24 @@
+head
+  include ./includes.pug
+
+  style
+    include email.css
+body(style='background-color: #2E303E')
+  header
+    h1 #{greetings[i]}, #{user.username}!
+    p.lead Thank you for choosing accord.app.
+
+  - var link = process.env.WEBSITE_URL + '/login?code=' + code;
+  section.body
+    div
+      span.summary A request was sent to verify this email.
+
+    h2 #[a(href=link) Complete Verification]
+
+    p This request expires in #{expiresIn / 60 / 60 / 1000} hours. 
+    p Full Link - #[a(href=link) #{link}].
+    p If this was not you, please contact support.
+
+  footer
+    hr
+    span accord.app

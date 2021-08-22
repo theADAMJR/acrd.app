@@ -1,17 +1,63 @@
-import { model, Schema } from 'mongoose';
-import { generateSnowflake } from '../../utils/snowflake';
-import { useId } from '../data-utils';
+import { Document, model, Schema } from 'mongoose';
+import { createdAtToDate, getNameAcronym, useId, validators } from '../../utils/utils';
+import { generateSnowflake } from '../snowflake-entity';
+import { Lean, patterns } from '../types/entity-types';
 
-export interface GuildDocument extends Entity.Guild, Document {}
+export interface GuildDocument extends Document, Lean.Guild {
+  id: string;
+  createdAt: never;
+}
 
 export const Guild = model<GuildDocument>('guild', new Schema({
-  _id: { type: String, default: generateSnowflake },
-  channels: { type: [String], ref: 'channel' },
-  createdAt: { type: Date, default: () => new Date() },
+  _id: {
+    type: String,
+    default: generateSnowflake,
+  },
+  name: {
+    type: String,
+    required: [true, 'Name is required'],
+    maxlength: [32, 'Name is too long'],
+  },
+  createdAt: {
+    type: Date,
+    get: createdAtToDate,
+  },
+  nameAcronym: {
+    type: String,
+    get: function(this: GuildDocument) {      
+      return getNameAcronym(this.name);
+    }
+  },
   iconURL: String,
-  members: { type: [String], ref: 'user' },
-  invites: { type: [String], ref: 'invite' },
-  // roles: { type: [String], ref: 'role' },
-  name: String,
-  ownerId: String,
-}, { toJSON: { getters: true } }).method('toClient', useId));
+  ownerId: {
+    type: String,
+    required: true,
+    validate: [patterns.snowflake, 'Invalid Snowflake ID'],
+  },
+  channels: {
+    type: [{
+      type: String,
+      ref: 'channel',
+    }],
+    validate: {
+      validator: validators.maxLength(250),
+      message: 'Channel limit reached',
+    },
+  },
+  members: [{
+    type: String,
+    ref: 'guildMember',
+  }],
+  roles: {
+    type: [{
+      type: String,
+      ref: 'role',
+    }],
+    validate: {
+      validator: validators.minLength(1),
+      message: 'Guild must have at least one role',
+    },
+  },
+}, {
+  toJSON: { getters: true }
+}).method('toClient', useId));
