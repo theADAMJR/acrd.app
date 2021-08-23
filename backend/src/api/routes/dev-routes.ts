@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Application } from '../../data/models/application';
-import { generateInviteCode } from '../../data/models/invite';
+import { generateInvite } from '../../data/models/invite';
 import Users from '../../data/users';
 import Deps from '../../utils/deps';
 import { fullyUpdateUser, validateUser } from '../modules/middleware';
@@ -43,7 +43,7 @@ router.get('/apps/new', async (req, res) => {
   const app = new Application({ owner: user.id as any });
   app.user = (await users.create({
     username: app.name,
-    password: generateInviteCode(),
+    password: generateInvite(),
   }, true)).id as any;
   app.token = users.createToken(user.id, false);
   await app.save();

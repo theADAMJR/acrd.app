@@ -1,5 +1,5 @@
 declare namespace WS {
-  export interface ToWS {
+  export interface To {
     /** Add a friend, by username, by sending an outgoing request or accepting an incoming request. */
     'ADD_FRIEND': WS.Params.AddFriend;
     /** Create a channel in a guild. */
@@ -47,63 +47,63 @@ declare namespace WS {
     'USER_UPDATE': WS.Params.UserUpdate;
   }
 
-  export interface OnWS {
+  export interface On {
     /** Manually disconnect from the websocket; logout. */
     'disconnect': any;
   }
   
   /** WS Args are what is received from the websocket. */
-  export interface FromWS {
+  export interface From {
     /** Called after you sent an outgoing friend request, or of an incoming friend request. */
-    'ADD_FRIEND': (args: WS.Args.AddFriend) => any;
+    'ADD_FRIEND': WS.Args.AddFriend;
     /** Called when a guild channel is created. */
-    'CHANNEL_CREATE': (args: WS.Args.ChannelCreate) => any;
+    'CHANNEL_CREATE': WS.Args.ChannelCreate;
     /** Callled when a guild channel is deleted. */
-    'CHANNEL_DELETE': (args: WS.Args.ChannelDelete) => any;
-    /** Called when a guild is deleted. */
-    'GUILD_DELETE': (args: WS.Args.GuildDelete) => any;
+    'CHANNEL_DELETE': WS.Args.ChannelDelete;
+    /** Called when a guild is deleted, or the client leaves a guild. */
+    'GUILD_DELETE': WS.Args.GuildDelete;
     /** Called when the client joins a guild. */
-    'GUILD_CREATE': (args: WS.Args.GuildCreate) => any;
-    /** Called when the client leaves a guild. */
-    'GUILD_DELETE': (args: WS.Args.GuildDelete) => any;
-    /** Called when someone joins a guild by an invite, or a bot is added. */
-    'GUILD_MEMBER_ADD': (args: WS.Args.GuildMemberAdd) => any;
+    'GUILD_CREATE': WS.Args.GuildCreate;
+    /** Called when someone joins a guild by an invite, a bot is added, or the client joins guild. */
+    'GUILD_MEMBER_ADD': WS.Args.GuildMemberAdd;
     /** Called when a guild member is removed, or leaves the guild. */
-    'GUILD_MEMBER_REMOVE': (args: WS.Args.GuildMemberRemove) => any;
+    'GUILD_MEMBER_REMOVE': WS.Args.GuildMemberRemove;
     /** Called when member roles are updated, or other properties. */
-    'GUILD_MEMBER_UPDATE': (args: WS.Args.GuildMemberUpdate) => any;
+    'GUILD_MEMBER_UPDATE': WS.Args.GuildMemberUpdate;
     /** Called when a guild role is created. */
-    'GUILD_ROLE_CREATE': (args: WS.Args.GuildRoleCreate) => any;
+    'GUILD_ROLE_CREATE': WS.Args.GuildRoleCreate;
     /** Called when a guild role is deleted. */
-    'GUILD_ROLE_DELETE': (args: WS.Args.GuildRoleDelete) => any;
+    'GUILD_ROLE_DELETE': WS.Args.GuildRoleDelete;
     /** Called when properties on a guild role are updated. */
-    'GUILD_ROLE_UPDATE': (args: WS.Args.GuildRoleUpdate) => any;
+    'GUILD_ROLE_UPDATE': WS.Args.GuildRoleUpdate;
     /** Called when guild settings are updated. */
-    'GUILD_UPDATE': (args: WS.Args.GuildUpdate) => any;
+    'GUILD_UPDATE': WS.Args.GuildUpdate;
     /** Called when a guild invite is created. */
-    'INVITE_CREATE': (args: WS.Args.InviteCreate) => any;
+    'INVITE_CREATE': WS.Args.InviteCreate;
     /** Called when an existing guild invite is deleted. */
-    'INVITE_DELETE': (args: WS.Args.InviteDelete) => any;
+    'INVITE_DELETE': WS.Args.InviteDelete;
     /** Called when a message is created in a text-based channel. */
-    'MESSAGE_CREATE': (args: WS.Args.MessageCreate) => any;
+    'MESSAGE_CREATE': WS.Args.MessageCreate;
     /** Called when a message is deleted in a text-based channel. */
-    'MESSAGE_DELETE': (args: WS.Args.MessageDelete) => any;
+    'MESSAGE_DELETE': WS.Args.MessageDelete;
     /** Called when an existing message is updated in a text-based channel. */
-    'MESSAGE_UPDATE': (args: WS.Args.MessageUpdate) => any;
+    'MESSAGE_UPDATE': WS.Args.MessageUpdate;
     /** Called when a message is sent in a channel you are not ignoring. */
-    'PING': (args: WS.Args.Ping) => any;
+    'PING': WS.Args.Ping;
     /** Called when a user goes online or offline. */
-    'PRESENCE_UPDATE': (args: WS.Args.PresenceUpdate) => any;
+    'PRESENCE_UPDATE': WS.Args.PresenceUpdate;
     /** Called when the websocket accepts that you are ready. */
-    'READY': (args: WS.Args.Ready) => any;
+    'READY': WS.Args.Ready;
     /** Called when you are removed as a friend, or you remove a friend request, or an existing friend. */
-    'REMOVE_FRIEND': (args: WS.Args.RemoveFriend) => any;
+    'REMOVE_FRIEND': WS.Args.RemoveFriend;
     /** Called when someone is typing in a text-based channel. */
-    'TYPING_START': (args: WS.Args.TypingStart) => any;
+    'TYPING_START': WS.Args.TypingStart;
+    /** Called the client user is deleted. */
+    'USER_DELETE': {};
     /** Called the client user settings are updated. */
-    'USER_UPDATE': (args: WS.Args.UserUpdate) => any;
+    'USER_UPDATE': WS.Args.UserUpdate;
     /** Called when a websocket message is sent. */
-    'error': (message: string) => any;
+    'error': object;
   }
   
   export namespace Params {
@@ -209,6 +209,8 @@ declare namespace WS {
       guildId: string;
       /** The full object fo the channel that was created. */
       channel: Entity.Channel;
+      /** ID of the user that created the channel. */
+      creatorId: string;
     }
     export interface ChannelDelete {
       /** ID of guild that channel is in. */

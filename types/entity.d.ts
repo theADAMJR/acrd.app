@@ -70,6 +70,7 @@ declare namespace Entity {
     badges: UserTypes.Badge[];
     bot: boolean;
     createdAt: Date;
+    discriminator: number;
     friendIds: string[];
     friendRequestIds: string[];
     guilds: string[] | Entity.Guild[];

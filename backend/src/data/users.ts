@@ -131,6 +131,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
         _id: generateSnowflake(),
         avatarURL: `${process.env.API_URL ?? 'http://localhost:3000'}/avatars/bot.png`,
         friendRequestIds: [],
+        discriminator: 1,
         badges: [],
         bot: true,
         status: 'ONLINE',
@@ -157,11 +158,17 @@ export default class Users extends DBWrapper<string, UserDocument> {
     return key?._id;
   }
 
-  public create({ email, username, password }: Auth.Credentials, bot = false): Promise<UserDocument> {
+  public async create({ email, username, password }: Auth.Credentials, bot = false): Promise<UserDocument> {
+    const count = await User.countDocuments({ username });
+    const discriminator = count + 1;
+    if (discriminator > 9999)
+      throw new TypeError('Too many users have this username');
+    
     const randomAvatar = this.getRandomAvatar();
     return (User as any).register({
       _id: generateSnowflake(),
       username,
+      discriminator,
       avatarURL: `${process.env.API_URL ?? 'http://localhost:3000'}/avatars/${randomAvatar}`,
       badges: [],
       bot,

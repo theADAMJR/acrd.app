@@ -10,7 +10,7 @@ import { SessionManager } from './modules/session-manager';
 import { API } from '../../types/ws';
 
 export class WebSocket {
-  public events = new Map<keyof WS.ToWS, WSEvent<keyof WS.ToWS>>();
+  public events = new Map<keyof WS.To, WSEvent<keyof WS.To>>();
   public io: SocketServer;
   public sessions = new SessionManager();  
 
@@ -66,7 +66,7 @@ export class WebSocket {
 
   public to(...rooms: string[]) {
     return this.io.to(rooms) as  {
-      emit: <K extends keyof WS.FromWSAPI>(name: K, args: WS.FromWSAPI[K]) => any,
+      emit: <K extends keyof WS.FromAPI>(name: K, args: WS.FromAPI[K]) => any,
     };
   }
 }

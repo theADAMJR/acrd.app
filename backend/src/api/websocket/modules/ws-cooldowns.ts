@@ -6,7 +6,7 @@ export class WSCooldowns {
   public readonly active = new Map<string, EventLog[]>();
 
   // TODO: handle(userId, eventName, guildId)
-  public handle(userId: string, eventName: keyof WS.ToWS) {
+  public handle(userId: string, eventName: keyof WS.To) {
     this.prune(userId);
     this.add(userId, eventName);
 
@@ -23,7 +23,7 @@ export class WSCooldowns {
         .get(clientId) as EventLog[];
   }
 
-  private add(clientId: string, eventName: keyof WS.ToWS) {
+  private add(clientId: string, eventName: keyof WS.To) {
     this
       .get(clientId)
       .push({ eventName, timestamp: new Date().getTime() });
@@ -42,6 +42,6 @@ export class WSCooldowns {
 }
 
 interface EventLog {
-  eventName: keyof WS.ToWS;
+  eventName: keyof WS.To;
   timestamp: number;
 }

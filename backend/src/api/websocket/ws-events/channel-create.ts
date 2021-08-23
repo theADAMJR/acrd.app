@@ -2,10 +2,11 @@ import { Socket } from 'socket.io';
 import { Channel } from '../../../data/models/channel';
 import { Guild } from '../../../data/models/guild';
 import { generateSnowflake } from '../../../data/snowflake-entity';
+import { PermissionTypes } from '../../../types/permission-types';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, } from './ws-event';
+import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'CHANNEL_CREATE'> {
   on = 'CHANNEL_CREATE' as const;
@@ -36,6 +37,10 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
 
     ws.io
       .to(guildId)
-      .emit('CHANNEL_CREATE', { channel, guildId } as WS.Args.ChannelCreate);
+      .emit('CHANNEL_CREATE', {
+        channel,
+        creatorId: ws.sessions.get(client.id),
+        guildId,
+      } as WS.Args.ChannelCreate);
   }
 }

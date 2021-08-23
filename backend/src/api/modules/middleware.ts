@@ -3,7 +3,6 @@ import { Guild, GuildDocument } from '../../data/models/guild';
 import Roles from '../../data/roles';
 import Users from '../../data/users';
 import Deps from '../../utils/deps';
-import { User } from '../../data/models/user';
 import { APIError } from './api-error';
 import { NextFunction, Request, Response } from 'express';
 

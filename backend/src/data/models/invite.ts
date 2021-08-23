@@ -8,7 +8,7 @@ export interface InviteDocument extends Document, Entity.Invite {
   createdAt: never;
 }
 
-export function generateInviteCode(codeLength = 7) {
+export function generateInvite(codeLength = 7) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
   
@@ -21,7 +21,7 @@ export function generateInviteCode(codeLength = 7) {
 export const Invite = model<InviteDocument>('invite', new Schema({
   _id: {
     type: String,
-    default: generateInviteCode,
+    default: generateInvite,
   },
   createdAt: {
     type: Date,

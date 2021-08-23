@@ -1,4 +1,4 @@
-import { generateInviteCode } from '../../../data/models/invite';
+import { generateInvite } from '../../../data/models/invite';
 
 export class Verification {
   private codes = new Map<string, VerifyCode>();
@@ -12,7 +12,7 @@ export class Verification {
     
     this.codes.delete(email);
 
-    const value = generateInviteCode(options.codeLength);
+    const value = generateInvite(options.codeLength);
     this.codes.set(email, { type, value });
 
     setTimeout(() => this.codes.delete(email), options.expiresIn);

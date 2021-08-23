@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
+import { WS } from '../types/ws';
 
 export const actions = {
   restCallBegan: createAction<APIArgs>('api/restCallBegan'),
@@ -19,5 +20,5 @@ export interface APIArgs {
 }
 export interface WSArgs {
   data?: object;
-  event: keyof WS.ToWS;
+  event: keyof WS.From;
 }

@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 
-type OnWS = WS.ToWS | WS.OnWS;
+type OnWS = WS.To | WS.OnWS;
 
 export interface WSEvent<K extends keyof OnWS> {
   on: K;

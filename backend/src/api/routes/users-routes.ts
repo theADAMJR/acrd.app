@@ -5,7 +5,7 @@ import Deps from '../../utils/deps';
 import { fullyUpdateUser, updateUser, validateUser } from '../modules/middleware';
 import Channels from '../../data/channels';
 import { SystemBot } from '../../system/bot';
-import { generateInviteCode } from '../../data/models/invite';
+import { generateInvite } from '../../data/models/invite';
 
 export const router = Router();
 
@@ -19,7 +19,7 @@ router.get('/', updateUser, validateUser, async (req, res) => {
 
 router.delete('/:id', updateUser, validateUser, async (req, res) => {
   const user = res.locals.user;
-  user.username = `deleted-user-${generateInviteCode(6)}`;
+  user.username = `deleted-user-${generateInvite(6)}`;
   user.discriminator = 0;
   delete user.salt;
   delete user.hash;

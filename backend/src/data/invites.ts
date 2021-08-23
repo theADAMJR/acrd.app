@@ -1,7 +1,7 @@
 import { APIError } from '../api/modules/api-error';
 import DBWrapper from './db-wrapper';
 import { Guild } from './models/guild';
-import { generateInviteCode, Invite, InviteDocument } from './models/invite';
+import { generateInvite, Invite, InviteDocument } from './models/invite';
 
 export default class Invites extends DBWrapper<string, InviteDocument> {
   public async get(code: string | undefined): Promise<InviteDocument> {
@@ -13,7 +13,7 @@ export default class Invites extends DBWrapper<string, InviteDocument> {
 
   public async create({ guildId, options }: WS.Params.InviteCreate, userId: string) {
     const invite = await Invite.create({
-      _id: generateInviteCode(),
+      _id: generateInvite(),
       guildId,
       inviterId: userId,
       options,
