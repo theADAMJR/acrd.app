@@ -5,7 +5,7 @@ const slice = createSlice({
   name: 'auth',
   initialState: {
     attemptedLogin: false,
-  } as Store.AppStore['auth'],
+  } as Store.AppState['auth'],
   reducers: {
     ready: (auth, { payload }) => {
       auth.user = payload.user;

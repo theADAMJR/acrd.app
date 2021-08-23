@@ -1,11 +1,9 @@
 import { Socket } from 'socket.io';
-import Channels from '../../../data/channels';
-import { Channel } from '../../../data/models/channel';
 import { UserDocument } from '../../../data/models/user';
 import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args } from './ws-event';
+import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'disconnect'> {
   on = 'disconnect' as const;
@@ -38,6 +36,6 @@ export default class implements WSEvent<'disconnect'> {
       .emit('PRESENCE_UPDATE', {
         userId: user.id,
         status: user.status
-    } as Args.PresenceUpdate); 
+    } as WS.Args.PresenceUpdate); 
   }
 }

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 
 const TextChannelHeader: React.FunctionComponent = () => {
-  const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel)!;
+  const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   
   return (
     <div className="m-4 pb-6 border-bottom">

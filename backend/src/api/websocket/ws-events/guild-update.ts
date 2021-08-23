@@ -5,7 +5,7 @@ import { Guild } from '../../../data/models/guild';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params } from './ws-event';
+import { WSEvent, } from './ws-event';
 import Guilds from '../../../data/guilds';
 
 export default class implements WSEvent<'GUILD_UPDATE'> {
@@ -16,7 +16,7 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
     private guilds = Deps.get<Guilds>(Guilds),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { guildId, partialGuild }: Params.GuildUpdate) { 
+  public async invoke(ws: WebSocket, client: Socket, { guildId, partialGuild }: WS.Params.GuildUpdate) { 
     await this.guard.validateCan(client, guildId, PermissionTypes.General.MANAGE_GUILD);
 
     this.guard.validateKeys('guild', partialGuild);
@@ -33,7 +33,7 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
 
     ws.io
       .to(guildId)
-      .emit('GUILD_UPDATE', { guildId, partialGuild } as Args.GuildUpdate);
+      .emit('GUILD_UPDATE', { guildId, partialGuild } as WS.Args.GuildUpdate);
   }
 
   private validateChannels(guild: Entity.Guild, partialGuild: PartialEntity.Guild) {

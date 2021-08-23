@@ -6,7 +6,6 @@ import Pings from '../../data/pings';
 import Deps from '../../utils/deps';
 import { updateUser, validateUser } from '../modules/middleware';
 import { WebSocket } from '../websocket/websocket';
-import { Args } from '../websocket/ws-events/ws-event';
 
 export const router = Router();
 
@@ -52,7 +51,7 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
       .to(user.id)
       .emit('USER_UPDATE', {
         partialUser: { lastReadMessages: user.lastReadMessages },
-      } as Args.UserUpdate);
+      } as WS.Args.UserUpdate);
   }
   
   res.json(slicedMsgs);

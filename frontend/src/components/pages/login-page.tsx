@@ -11,7 +11,7 @@ import './login-page.scoped.css';
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  const user = useSelector((s: Store.AppStore) => s.auth.user);
+  const user = useSelector((s: Store.AppState) => s.auth.user);
   
   const onSubmit = (data) => {
     dispatch(loginUser(data));

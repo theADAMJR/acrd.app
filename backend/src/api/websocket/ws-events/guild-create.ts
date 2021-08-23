@@ -16,7 +16,7 @@ export default class implements WSEvent<'GUILD_CREATE'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { partialGuild }: Params.GuildCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { partialGuild }: WS.Params.GuildCreate) {
     const userId = ws.sessions.userId(client);
     
     const user = await this.users.getSelf(userId, true);
@@ -26,6 +26,6 @@ export default class implements WSEvent<'GUILD_CREATE'> {
 
     ws.io
       .to(userId)
-      .emit('GUILD_JOIN', { guild });
+      .emit('GUILD_CREATE', { guild });
   }
 }

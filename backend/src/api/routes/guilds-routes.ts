@@ -4,9 +4,8 @@ import { updateGuild, fullyUpdateUser, validateHasPermission, validateUser } fro
 import Users from '../../data/users';
 import Guilds from '../../data/guilds';
 import { WebSocket } from '../websocket/websocket';
-import { Args } from '../websocket/ws-events/ws-event';
-import { PermissionTypes } from '../../types/entity-types';
 import GuildMembers from '../../data/guild-members';
+import { PermissionTypes } from '../../types/permission-types';
 
 export const router = Router();
 
@@ -30,10 +29,10 @@ router.get('/:id/authorize/:botId',
 
   ws.io
     .to(guild.id)
-    .emit('GUILD_MEMBER_ADD', { guildId: guild.id, member } as Args.GuildMemberAdd);
+    .emit('GUILD_MEMBER_ADD', { guildId: guild.id, member } as WS.Args.GuildMemberAdd);
   ws.io
     .to(bot.id)
-    .emit('GUILD_JOIN', { guild } as Args.GuildJoin);
+    .emit('GUILD_JOIN', { guild } as WS.Args.GuildJoin);
 
   res.json({ message: 'Success' });
 });

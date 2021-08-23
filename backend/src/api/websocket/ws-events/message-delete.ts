@@ -2,11 +2,11 @@ import { Socket } from 'socket.io';
 import Channels from '../../../data/channels';
 import Messages from '../../../data/messages';
 import { Message } from '../../../data/models/message';
-import { PermissionTypes } from '../../../types/entity-types';
+import { PermissionTypes } from '../../../types/permission-types';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, Params, Args } from './ws-event';
+import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'MESSAGE_DELETE'> {
   on = 'MESSAGE_DELETE' as const;
@@ -17,7 +17,7 @@ export default class implements WSEvent<'MESSAGE_DELETE'> {
     private messages = Deps.get<Messages>(Messages),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { messageId }: Params.MessageDelete) {
+  public async invoke(ws: WebSocket, client: Socket, { messageId }: WS.Params.MessageDelete) {
     const message = await this.messages.get(messageId);
     const channel = await this.channels.get(message.channelId);
 
@@ -41,6 +41,6 @@ export default class implements WSEvent<'MESSAGE_DELETE'> {
       .emit('MESSAGE_DELETE', {
         channelId: message.channelId,
         messageId: messageId,
-      } as Args.MessageDelete);
+      } as WS.Args.MessageDelete);
   }
 }

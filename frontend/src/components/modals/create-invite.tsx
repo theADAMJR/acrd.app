@@ -9,7 +9,7 @@ import Modal from './modal';
 const CreateInvite: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register, setValue } = useForm();
-  const { activeGuild, activeInvite, openModal } = useSelector((s: Store.AppStore) => s.ui);
+  const { activeGuild, activeInvite, openModal } = useSelector((s: Store.AppState) => s.ui);
 
   setValue('inviteCode', activeInvite?.id);
 

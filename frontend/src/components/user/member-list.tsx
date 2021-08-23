@@ -9,8 +9,8 @@ export interface MemberListProps {
 }
 
 const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListProps) => {
-  const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild)!;
-  const isActive = useSelector((s: Store.AppStore) => s.config.memberListToggled);
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
+  const isActive = useSelector((s: Store.AppState) => s.config.memberListToggled);
 
   const members = props.users.map(u => (
     <ContextMenuTrigger id={u.id} key={u.id}>

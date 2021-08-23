@@ -11,7 +11,7 @@ export interface MessageToolbarProps {
  
 const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message }) => {
   const dispatch = useDispatch();
-  const selfUser = useSelector((s: Store.AppStore) => s.auth.user)!;
+  const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
   const guild = useSelector(getGuildByChannelId(message.channelId));
 
   const isAuthor = message.authorId === selfUser.id;

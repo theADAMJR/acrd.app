@@ -8,6 +8,7 @@ import Users from '../../data/users';
 import Guilds from '../../data/guilds';
 import GuildMembers from '../../data/guild-members';
 import { Prohibited } from '../../types/prohibited';
+import { PermissionTypes } from '../../types/permission-types';
 
 export class WSGuard {
   constructor(

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import CircleButton from '../utils/buttons/circle-button';
  
 const Navbar: React.FunctionComponent = () => {
-  const user = useSelector((s: Store.AppStore) => s.auth.user);
+  const user = useSelector((s: Store.AppState) => s.auth.user);
   
   return (
     <nav className="flex items-center justify-between h-15 p-4 px-8">

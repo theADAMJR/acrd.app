@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import { Message } from '../../../data/models/message';
 import { generateSnowflake } from '../../../data/snowflake-entity';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params } from './ws-event';
+import { WSEvent, } from './ws-event';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import Messages from '../../../data/messages';
@@ -21,7 +21,7 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { channelId, partialMessage }: Params.MessageCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { channelId, partialMessage }: WS.Params.MessageCreate) {
     await this.guard.canAccessChannel(client, channelId, true);
       
     const authorId = ws.sessions.userId(client);
@@ -44,6 +44,6 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
 
     ws.io
       .to(channelId)
-      .emit('MESSAGE_CREATE', { message } as Args.MessageCreate);
+      .emit('MESSAGE_CREATE', { message } as WS.Args.MessageCreate);
   }
 }

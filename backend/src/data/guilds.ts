@@ -24,6 +24,7 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
         ?.populate('members')
         .populate('roles')
         .populate('channels')
+        .populate('invites')
         .exec()
       : await Guild.findById(id);
     if (!guild)
@@ -49,6 +50,7 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
       roles: [ everyoneRole ],
       nameAcronym: getNameAcronym(name),
       members: [],
+      invites: [],
       channels: [
         await this.channels.createText(guildId),
         await this.channels.createVoice(guildId),

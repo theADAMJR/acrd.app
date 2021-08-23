@@ -1,16 +1,16 @@
 import { Server } from 'http';
 import { Server as SocketServer } from 'socket.io';
 import Log from '../../utils/log';
-import { WSEvent, WSEventParams } from './ws-events/ws-event';
+import { WSEvent } from './ws-events/ws-event';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
 import { WSCooldowns } from './modules/ws-cooldowns';
 import Deps from '../../utils/deps';
 import { SessionManager } from './modules/session-manager';
-import { WSEventAsyncArgs } from '../../data/types/ws-types';
+import { API } from '../../types/ws';
 
 export class WebSocket {
-  public events = new Map<keyof WSEventParams, WSEvent<keyof WSEventParams>>();
+  public events = new Map<keyof WS.ToWS, WSEvent<keyof WS.ToWS>>();
   public io: SocketServer;
   public sessions = new SessionManager();  
 
@@ -51,7 +51,7 @@ export class WebSocket {
           try {
             await event.invoke.bind(event)(this, client, data);
           } catch (error) {
-            client.send(`Server error on executing: ${event.on}\n${error.message}`);
+            client.emit('error', error);
           } finally {
             try {
               const userId = this.sessions.userId(client);
@@ -66,7 +66,7 @@ export class WebSocket {
 
   public to(...rooms: string[]) {
     return this.io.to(rooms) as  {
-      emit: <K extends keyof WSEventAsyncArgs>(name: K, args: WSEventAsyncArgs[K]) => any,
+      emit: <K extends keyof WS.FromWSAPI>(name: K, args: WS.FromWSAPI[K]) => any,
     };
   }
 }

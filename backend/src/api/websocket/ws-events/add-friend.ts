@@ -5,7 +5,7 @@ import { SelfUserDocument, User, UserDocument } from '../../../data/models/user'
 import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params } from './ws-event';
+import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'ADD_FRIEND'> {
   on = 'ADD_FRIEND' as const;
@@ -15,7 +15,7 @@ export default class implements WSEvent<'ADD_FRIEND'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { username }: Params.AddFriend) {
+  public async invoke(ws: WebSocket, client: Socket, { username }: WS.Params.AddFriend) {
     const senderId = ws.sessions.userId(client);
     let sender = await this.users.getSelf(senderId);
     let friend = await this.users.getByUsername(username);
@@ -42,10 +42,10 @@ export default class implements WSEvent<'ADD_FRIEND'> {
       .emit('ADD_FRIEND', {
         sender: this.users.secure(sender),
         friend: this.users.secure(friend),
-      } as Args.AddFriend);
+      } as WS.Args.AddFriend);
   }
 
-  private async handle(sender: SelfUserDocument, friend: SelfUserDocument): Promise<Args.AddFriend> {
+  private async handle(sender: SelfUserDocument, friend: SelfUserDocument): Promise<WS.Args.AddFriend> {
     if (sender.id === friend.id)
       throw new TypeError('You cannot add yourself as a friend');
       

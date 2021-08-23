@@ -84,7 +84,11 @@ export const User = model<UserDocument>('user', new Schema({
   },
   ignored: {
     type: Object,
-    default: new UserTypes.Ignored(),
+    default: {
+      channelIds: [],
+      guildIds: [],
+      userIds: [],
+    },
     validate: {
       validator: function (this: UserDocument, val) {
         return !val || !val.userIds?.includes(this.id);

@@ -10,7 +10,7 @@ import auth from './auth';
 import config from './config';
 import ui from './ui';
 
-export default () => configureStore<Store.AppStore>({
+export default () => configureStore<Store.AppState>({
   middleware: [
     ...getDefaultMiddleware({ serializableCheck: false }),
     ws,

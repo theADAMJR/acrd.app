@@ -1,5 +1,3 @@
-import { WSEventParams } from '../ws-events/ws-event';
-
 // if bot user -> users should not be too fast
 // for guild events:
 // -> separate cooldowns for each guild / room ID
@@ -8,7 +6,7 @@ export class WSCooldowns {
   public readonly active = new Map<string, EventLog[]>();
 
   // TODO: handle(userId, eventName, guildId)
-  public handle(userId: string, eventName: keyof WSEventParams) {
+  public handle(userId: string, eventName: keyof WS.ToWS) {
     this.prune(userId);
     this.add(userId, eventName);
 
@@ -25,7 +23,7 @@ export class WSCooldowns {
         .get(clientId) as EventLog[];
   }
 
-  private add(clientId: string, eventName: keyof WSEventParams) {
+  private add(clientId: string, eventName: keyof WS.ToWS) {
     this
       .get(clientId)
       .push({ eventName, timestamp: new Date().getTime() });
@@ -44,6 +42,6 @@ export class WSCooldowns {
 }
 
 interface EventLog {
-  eventName: keyof WSEventParams;
+  eventName: keyof WS.ToWS;
   timestamp: number;
 }

@@ -1,3 +1,4 @@
+import { PermissionTypes } from '../types/permission-types';
 import DBWrapper from './db-wrapper';
 
 import { hasPermission, Role, RoleDocument } from './models/role';

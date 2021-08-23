@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const GuildSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild)!;
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const { register, handleSubmit } = useForm();
 
   const onUpdate = (payload) => dispatch(updateGuild(guild.id, payload));

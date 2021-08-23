@@ -1,10 +1,9 @@
 import { Socket } from 'socket.io';
-import { SelfUserDocument, UserDocument } from '../../../data/models/user';
-import { Params } from '../../../data/types/ws-types';
+import { SelfUserDocument } from '../../../data/models/user';
 import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args } from './ws-event';
+import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'REMOVE_FRIEND'> {
   on = 'REMOVE_FRIEND' as const;
@@ -13,7 +12,7 @@ export default class implements WSEvent<'REMOVE_FRIEND'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { friendId }: Params.RemoveFriend) {
+  public async invoke(ws: WebSocket, client: Socket, { friendId }: WS.Params.RemoveFriend) {
     const senderId = ws.sessions.userId(client);
     let sender = await this.users.getSelf(senderId);
     let friend = await this.users.getSelf(friendId);
@@ -26,10 +25,10 @@ export default class implements WSEvent<'REMOVE_FRIEND'> {
       .emit('REMOVE_FRIEND', {
         sender: this.users.secure(sender),
         friend: this.users.secure(friend),
-      } as Args.RemoveFriend);
+      } as WS.Args.RemoveFriend);
   }
 
-  private async handle(sender: SelfUserDocument, friend: SelfUserDocument): Promise<Args.RemoveFriend> {
+  private async handle(sender: SelfUserDocument, friend: SelfUserDocument): Promise<WS.Args.RemoveFriend> {
     if (sender.id === friend.id)
       throw new TypeError('You cannot remove yourself as a friend');
     

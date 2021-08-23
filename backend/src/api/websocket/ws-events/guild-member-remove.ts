@@ -3,11 +3,11 @@ import Guilds from '../../../data/guilds';
 import { GuildDocument } from '../../../data/models/guild';
 import { GuildMember } from '../../../data/models/guild-member';
 import { User } from '../../../data/models/user';
-import { PermissionTypes } from '../../../types/entity-types';
+import { PermissionTypes } from '../../../types/permission-types';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params } from './ws-event';
+import { WSEvent, } from './ws-event';
 
 export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
   on = 'GUILD_MEMBER_REMOVE' as const;
@@ -17,7 +17,7 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { guildId, memberId }: Params.GuildMemberRemove) {
+  public async invoke(ws: WebSocket, client: Socket, { guildId, memberId }: WS.Params.GuildMemberRemove) {
     const guild = await this.guilds.get(guildId, true);
     const member = guild.members.find(m => m.id === memberId);    
     if (!member)
@@ -41,11 +41,11 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
 
     ws.io
       .to(member.userId)
-      .emit('GUILD_LEAVE', { guildId } as Args.GuildLeave);
+      .emit('GUILD_LEAVE', { guildId } as WS.Args.GuildLeave);
 
     ws.io
       .to(guildId)
-      .emit('GUILD_MEMBER_REMOVE', { guildId, memberId: member.id } as Args.GuildMemberRemove);
+      .emit('GUILD_MEMBER_REMOVE', { guildId, memberId: member.id } as WS.Args.GuildMemberRemove);
   }
 
   private async leaveGuildRooms(client: Socket, guild: GuildDocument) {

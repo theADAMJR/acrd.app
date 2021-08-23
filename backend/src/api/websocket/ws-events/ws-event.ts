@@ -1,12 +1,11 @@
 import { Socket } from 'socket.io';
-import { WSEventParams } from '../../../data/types/ws-types';
 import { WebSocket } from '../websocket';
 
-export interface WSEvent<K extends keyof WSEventParams> {
+type OnWS = WS.ToWS | WS.OnWS;
+
+export interface WSEvent<K extends keyof OnWS> {
   on: K;
   cooldown?: number;
 
-  invoke: (ws: WebSocket, client: Socket, params: WSEventParams[K]) => Promise<any>;
+  invoke: (ws: WebSocket, client: Socket, params: OnWS[K]) => Promise<any>;
 }
-
-export { Args, Params, WSEventParams } from '../../../data/types/ws-types';

@@ -1,12 +1,11 @@
 import { Socket } from 'socket.io';
-import { PermissionTypes } from '../../../types/entity-types';
 import { Channel } from '../../../data/models/channel';
 import { Guild } from '../../../data/models/guild';
 import { generateSnowflake } from '../../../data/snowflake-entity';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params, WSEventParams } from './ws-event';
+import { WSEvent, } from './ws-event';
 
 export default class implements WSEvent<'CHANNEL_CREATE'> {
   on = 'CHANNEL_CREATE' as const;
@@ -15,7 +14,7 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
     private guard = Deps.get<WSGuard>(WSGuard)
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { partialChannel, guildId }: Params.ChannelCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { partialChannel, guildId }: WS.Params.ChannelCreate) {
     await this.guard.validateCan(client, guildId, PermissionTypes.General.MANAGE_CHANNELS);
     
     const channel = await Channel.create({
@@ -37,6 +36,6 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
 
     ws.io
       .to(guildId)
-      .emit('CHANNEL_CREATE', { channel, guildId } as Args.ChannelCreate);
+      .emit('CHANNEL_CREATE', { channel, guildId } as WS.Args.ChannelCreate);
   }
 }

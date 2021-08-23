@@ -7,7 +7,7 @@ import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
 import { WSRooms } from '../modules/ws-rooms';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params } from './ws-event';
+import { WSEvent, } from './ws-event';
 
 export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
   on = 'GUILD_MEMBER_ADD' as const;
@@ -20,7 +20,7 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { inviteCode }: Params.GuildMemberAdd) {
+  public async invoke(ws: WebSocket, client: Socket, { inviteCode }: WS.Params.GuildMemberAdd) {
     const invite = await this.invites.get(inviteCode);
     const guild = await this.guilds.get(invite.guildId);
     const userId = ws.sessions.userId(client);
@@ -39,11 +39,11 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     
     ws.io
       .to(guild.id)
-      .emit('GUILD_MEMBER_ADD', { guildId: guild.id, member } as Args.GuildMemberAdd);
+      .emit('GUILD_MEMBER_ADD', { guildId: guild.id, member } as WS.Args.GuildMemberAdd);
 
     ws.io
       .to(user.id)
-      .emit('GUILD_JOIN', { guild } as Args.GuildJoin);
+      .emit('GUILD_JOIN', { guild } as WS.Args.GuildJoin);
   }
 
   private async handleInvite(invite: InviteDocument) {

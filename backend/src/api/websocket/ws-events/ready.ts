@@ -5,7 +5,7 @@ import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WSRooms } from '../modules/ws-rooms';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params } from './ws-event';
+import { WSEvent, } from './ws-event';
  
 export default class implements WSEvent<'READY'> {
   public on = 'READY' as const;
@@ -17,7 +17,7 @@ export default class implements WSEvent<'READY'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { key }: Params.Ready) {   
+  public async invoke(ws: WebSocket, client: Socket, { key }: WS.Params.Ready) {   
     const { id: userId } = await this.guard.decodeKey(key);
     if (!userId)
       throw new TypeError('Invalid User ID');
@@ -37,10 +37,10 @@ export default class implements WSEvent<'READY'> {
       .emit('PRESENCE_UPDATE', {
         userId,
         status: user.status
-      } as Args.PresenceUpdate);
+      } as WS.Args.PresenceUpdate);
 
     ws.io
       .to(client.id)
-      .emit('READY', { user } as Args.Ready);
+      .emit('READY', { user } as WS.Args.Ready);
   }
 }

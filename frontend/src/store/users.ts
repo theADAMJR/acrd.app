@@ -50,7 +50,7 @@ export const deleteSelf = () => (dispatch) => {
 }
 
 export const getUser = (id: string) =>
-  createSelector<Store.AppStore, Entity.User[], Entity.User | undefined>(
+  createSelector<Store.AppState, Entity.User[], Entity.User | undefined>(
   state => state.entities.users.list,
   users => users.find(u => u.id === id),
 );

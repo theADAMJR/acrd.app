@@ -3,7 +3,6 @@ import { Channel, ChannelDocument, DMChannelDocument, TextChannelDocument, Voice
 import { SelfUserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
 
-
 export default class Channels extends DBWrapper<string, ChannelDocument> {
   public async get(id: string | undefined) {
     const channel = await Channel.findById(id);

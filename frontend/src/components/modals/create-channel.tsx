@@ -8,7 +8,7 @@ import Modal from './modal';
 const CreateChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, setValue } = useForm();
-  const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild);
 
   const create = (data) => {
     dispatch(createChannel(guild!.id, data.name));

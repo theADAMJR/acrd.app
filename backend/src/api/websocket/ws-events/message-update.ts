@@ -1,9 +1,9 @@
 import { Socket } from 'socket.io';
 import { MessageDocument } from '../../../data/models/message';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params, WSEventParams } from './ws-event';
+import { WSEvent, } from './ws-event';
 import got from 'got';
-import { MessageTypes } from '../../../types/entity-types';
+import { MessageTypes } from '../../../types/permission-types';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import Messages from '../../../data/messages';
@@ -23,7 +23,7 @@ export default class implements WSEvent<'MESSAGE_UPDATE'> {
     private messages = Deps.get<Messages>(Messages),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { messageId, partialMessage, withEmbed }: Params.MessageUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { messageId, partialMessage, withEmbed }: WS.Params.MessageUpdate) {
     let message = await this.messages.get(messageId);
     this.guard.validateIsUser(client, message.authorId);
     this.guard.validateKeys('message', partialMessage);

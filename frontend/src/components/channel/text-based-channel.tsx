@@ -7,7 +7,7 @@ import TextChannelHeader from './text-channel-header';
  
 const TextBasedChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel)!;
+  const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const messages = useSelector(getChannelMessages(channel.id));
 
   useEffect(() => {

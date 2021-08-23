@@ -9,7 +9,7 @@ import Modal from './modal';
 
 const UserSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const user = useSelector((s: Store.AppStore) => s.auth.user);
+  const user = useSelector((s: Store.AppState) => s.auth.user);
   const { register, handleSubmit } = useForm();
 
   const onUpdate = (payload) => dispatch(updateSelf(payload));

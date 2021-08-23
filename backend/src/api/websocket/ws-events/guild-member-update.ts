@@ -9,7 +9,7 @@ import Deps from '../../../utils/deps';
 import { array } from '../../../utils/utils';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params } from './ws-event';
+import { WSEvent, } from './ws-event';
 
 export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
   on = 'GUILD_MEMBER_UPDATE' as const;
@@ -21,7 +21,7 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
     private roles = Deps.get<Roles>(Roles),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { memberId, partialMember }: Params.GuildMemberUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { memberId, partialMember }: WS.Params.GuildMemberUpdate) {
     const member = await this.guildMembers.get(memberId);
 
     const selfUserId = ws.sessions.userId(client);
@@ -51,6 +51,6 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
         guildId: member.guildId,
         memberId,
         partialMember,
-      } as Args.GuildMemberUpdate);
+      } as WS.Args.GuildMemberUpdate);
   }
 }

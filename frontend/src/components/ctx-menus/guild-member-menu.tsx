@@ -9,7 +9,7 @@ export interface GuildMemberMenuProps {
 
 const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ guild, user }) => {
   const dispatch = useDispatch();
-  const selfUser = useSelector((s: Store.AppStore) => s.auth.user)!;  
+  const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;  
 
   const canManage = selfUser.id === guild.ownerId;
   const isSelf = user.id === selfUser.id;

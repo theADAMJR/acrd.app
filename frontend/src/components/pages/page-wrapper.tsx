@@ -16,7 +16,7 @@ export type PageWrapperProps = React.DetailedHTMLProps<
 // all separate pages should be wrapped by this
 const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
   const dispatch = useDispatch();
-  const dropdown = useSelector((s: Store.AppStore) => s.ui.openDropdown);
+  const dropdown = useSelector((s: Store.AppState) => s.ui.openDropdown);
   
   useEffect(() => {
     document.title = props.pageTitle ?? 'Accord';

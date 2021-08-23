@@ -45,6 +45,10 @@ export const Guild = model<GuildDocument>('guild', new Schema({
       message: 'Channel limit reached',
     },
   },
+  invites: [{
+    type: String,
+    ref: 'invite',
+  }],
   members: [{
     type: String,
     ref: 'guildMember',

@@ -15,7 +15,7 @@ export interface MessageProps {
 const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProps) => {
   const author = useSelector(getUser(message.authorId))!;
   const messages = useSelector(getChannelMessages(message.channelId));
-  const editingMessageId = useSelector((s: Store.AppStore) => s.ui.editingMessageId);
+  const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
 
   const createdAt = new Date(message.createdAt);
 

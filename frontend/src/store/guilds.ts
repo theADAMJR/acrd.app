@@ -1,5 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { WS } from '../types/ws';
 import { actions as api } from './api';
+import { getUser } from './users';
 
 const slice = createSlice({
   name: 'guilds',
@@ -8,41 +10,41 @@ const slice = createSlice({
     list: [] as Entity.Guild[],
   },
   reducers: {
-    created: (guilds, { payload }) => {
+    created: (guilds, { payload }: Store.Action<WS.Args.GuildCreate>) => {
       guilds.list.push(payload.guild);
     },
-    channelCreated: (guilds, { payload }) => {
+    channelCreated: (guilds, { payload }: Store.Action<WS.Args.ChannelCreate>) => {
       const guild = guilds.list.find(g => g.id === payload.channel.guildId);
       guild!.channels.push(payload.channel);
     },
-    channelDeleted: (guilds, { payload }) => {
+    channelDeleted: (guilds, { payload }: Store.Action<WS.Args.ChannelDelete>) => {
       const guild = guilds.list.find(g => g.id === payload.guildId);
       guild!.channels = guild!.channels.filter(c => c.id !== payload.channelId);
     },
-    inviteCreated: (guilds, { payload }) => {
+    inviteCreated: (guilds, { payload }: Store.Action<WS.Args.InviteCreate>) => {
       const guild = guilds.list.find(g => g.id === payload.invite.guildId);
       guild!.invites.push(payload.invite);
     },
-    memberAdded: (guilds, { payload }) => {
+    memberAdded: (guilds, { payload }: Store.Action<WS.Args.GuildMemberAdd>) => {
       const guild = guilds.list.find(i => i.id === payload.guildId);
       guild!.members.push(payload.member);
     },
-    memberRemoved: (guilds, { payload }) => {
+    memberRemoved: (guilds, { payload }: Store.Action<WS.Args.GuildMemberRemove>) => {
       const guild = guilds.list.find(i => i.id === payload.guildId)!;
-      guild.members = guild.members.filter(m => m.id !== payload.userId);
+      guild.members = guild.members.filter(m => m.id !== payload.memberId);
     },
-    memberUpdated: (guilds, { payload }) => {
+    memberUpdated: (guilds, { payload }: Store.Action<WS.Args.GuildMemberUpdate>) => {
       const members = guilds.list.flatMap(g => g.members);
-      const member = members.find(m => m.id === payload.userId);
-      Object.assign(member, payload.payload);
+      const member = members.find(m => m.id === payload.memberId);
+      Object.assign(member, payload.partialMember);
     },
-    fetched: (guilds, { payload }) => {
+    fetched: (guilds, { payload }: Store.Action<Entity.Guild[]>) => {
       guilds.list.push(...(payload ?? []));
       guilds.fetched = true;
     },
-    updated: (guilds, { payload }) => {
+    updated: (guilds, { payload }: Store.Action<WS.Args.GuildUpdate>) => {
       const guild = guilds.list.find(i => i.id === payload.guildId);
-      Object.assign(guild, payload.payload);
+      Object.assign(guild, payload.partialGuild);
     },
     deleted: (guilds, { payload }) => {
       const index = guilds.list.findIndex(u => u.id === payload.guildId);
@@ -54,7 +56,7 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const fetchMyGuilds = () => (dispatch, getState: () => Store.AppStore) => {
+export const fetchMyGuilds = () => (dispatch, getState: () => Store.AppState) => {
   const guilds = getState().entities.guilds;
   if (guilds.list.length) return;
   
@@ -131,17 +133,17 @@ export const createInvite = (guildId: string) => (dispatch) => {
 }
 
 export const getGuild = (id: string) =>
-  createSelector<Store.AppStore, Entity.Guild[], Entity.Guild | undefined>(
+  createSelector<Store.AppState, Entity.Guild[], Entity.Guild | undefined>(
   state => state.entities.guilds.list,
   guilds => guilds.find(g => g.id === id),
 );
 export const getGuildByChannelId = (channelId: string) =>
-  createSelector<Store.AppStore, Entity.Guild[], Entity.Guild | undefined>(
+  createSelector<Store.AppState, Entity.Guild[], Entity.Guild | undefined>(
   state => state.entities.guilds.list,
   guilds => guilds.find(g => g.channels.some(c => c.id === channelId)),
 );
 export const getChannel = (guildId: string, channelId: string) =>
-  createSelector<Store.AppStore, Entity.Guild[], Entity.Channel | undefined>(
+  createSelector<Store.AppState, Entity.Guild[], Entity.Channel | undefined>(
   state => state.entities.guilds.list,
   guilds => guilds
     .find(g => g.id === guildId)?.channels

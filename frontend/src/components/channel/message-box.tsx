@@ -15,7 +15,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const store = useStore();
   const dispatch = useDispatch();
   const [content, setContent] = useState(props.content ?? '');
-  const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel)!;
+  const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const typers = useSelector(getTypersInChannel(channel.id));
   
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {

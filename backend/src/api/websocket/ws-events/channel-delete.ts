@@ -1,10 +1,10 @@
 import { Socket } from 'socket.io';
-import { PermissionTypes } from '../../../types/entity-types';
+import { PermissionTypes } from '../../../types/permission-types';
 import { TextChannelDocument } from '../../../data/models/channel';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params } from './ws-event';
+import { WSEvent, } from './ws-event';
 import Channels from '../../../data/channels';
 
 export default class implements WSEvent<'CHANNEL_DELETE'> {
@@ -15,7 +15,7 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { channelId }: Params.ChannelDelete) {
+  public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelDelete) {
     const channel = await this.channels.get(channelId) as TextChannelDocument;
     await this.guard.validateCan(client, channel.guildId, PermissionTypes.General.MANAGE_CHANNELS);
     
@@ -27,6 +27,6 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
       .emit('CHANNEL_DELETE', {
         channelId: channel.id,
         guildId: channel.guildId,
-      } as Args.ChannelDelete);
+      } as WS.Args.ChannelDelete);
   }
 }

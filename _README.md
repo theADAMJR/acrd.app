@@ -26,7 +26,7 @@
 ## API
 
 - The backend of the website.
-- Includes the WebSocket and REST API.
+- Includes the WebSocket and REST WS.
 
 ## Types
 

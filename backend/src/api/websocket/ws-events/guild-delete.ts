@@ -9,7 +9,7 @@ import { User } from '../../../data/models/user';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, Params, Args } from './ws-event';
+import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'GUILD_DELETE'> {
   on = 'GUILD_DELETE' as const;
@@ -18,7 +18,7 @@ export default class implements WSEvent<'GUILD_DELETE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { guildId }: Params.GuildDelete) {
+  public async invoke(ws: WebSocket, client: Socket, { guildId }: WS.Params.GuildDelete) {
     await this.guard.validateIsOwner(client, guildId);
 
     await User.updateMany(
@@ -37,6 +37,6 @@ export default class implements WSEvent<'GUILD_DELETE'> {
 
     ws.io
       .to(guildId)
-      .emit('GUILD_DELETE', { guildId } as Args.GuildDelete);
+      .emit('GUILD_DELETE', { guildId } as WS.Args.GuildDelete);
   }
 }

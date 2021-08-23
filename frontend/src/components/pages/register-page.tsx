@@ -9,7 +9,7 @@ import Input from '../utils/input';
 import './register-page.scoped.css';
 
 const RegisterPage: React.FunctionComponent = () => {  
-  const user = useSelector((s: Store.AppStore) => s.auth.user);
+  const user = useSelector((s: Store.AppState) => s.auth.user);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
 

@@ -1,7 +1,7 @@
 declare namespace Store {
-  export interface AppStore {
+  export interface AppState {
     auth: {
-      user?: Entity.User;
+      user?: UserTypes.Self;
       attemptedLogin: boolean;
     };
     config: {
@@ -29,5 +29,10 @@ declare namespace Store {
       activeInvite?: Entity.Invite;
       editingMessageId?: string;
     };
+  }
+
+  export interface Action<P extends WS.Params> {
+    type: string;
+    payload: P;
   }
 }

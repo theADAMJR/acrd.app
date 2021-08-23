@@ -6,12 +6,12 @@ const slice = createSlice({
   name: 'channels',
   initialState: {
     typing: [] as any,
-  } as Store.AppStore['entities']['channels'],
+  } as Store.AppState['entities']['channels'],
   reducers: {
-    userTyped: ({ typing }, { payload }) => {      
+    userTyped: ({ typing }, { payload }: Store.Action<{ channelId: string, userId: string }>) => {      
       typing.push(payload);
     },
-    userStoppedTyping: ({ typing }, { payload }) => {
+    userStoppedTyping: ({ typing }, { payload }: Store.Action<{ channelId: string, userId: string }>) => {
       const index = getIndex(typing, payload.userId, payload.channelId);
       typing.splice(index, 1);
     },
@@ -30,7 +30,7 @@ export default slice.reducer;
 export const getTypersInChannel = (channelId: string) => createSelector<any, any, any>(
   state => state.entities.channels.typing,
   typing => typing.filter(t => t.channelId === channelId),
-) as (channelId: string) => Store.AppStore['entities']['channels']['typing'];
+) as (channelId: string) => Store.AppState['entities']['channels']['typing'];
 
 let lastTypedAt: Date;
 

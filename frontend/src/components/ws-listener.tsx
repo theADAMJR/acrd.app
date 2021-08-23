@@ -16,7 +16,7 @@ const WSListener: React.FunctionComponent = () => {
   const store = useStore();
   const [hasListened, setHasListened] = useState(false);
 
-  const getState = () => store.getState() as Store.AppStore;
+  const getState = () => store.getState() as Store.AppState;
 
   useEffect(() => {
     if (hasListened) return;

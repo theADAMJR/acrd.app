@@ -5,9 +5,9 @@ import { toggleMemberList } from '../../store/config';
  
 const AppNavbar: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const channel = useSelector((s: Store.AppStore) => s.ui.activeChannel);
-  const guild = useSelector((s: Store.AppStore) => s.ui.activeGuild);
-  const memberListToggled = useSelector((s: Store.AppStore) => s.config.memberListToggled);
+  const channel = useSelector((s: Store.AppState) => s.ui.activeChannel);
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild);
+  const memberListToggled = useSelector((s: Store.AppState) => s.config.memberListToggled);
 
   return (
     <div className="shadow-elevation flex items-center h-12 px-5">

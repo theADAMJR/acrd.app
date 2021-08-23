@@ -3,7 +3,7 @@ import React from 'react';
 
 const slice = createSlice({
   name: 'ui',
-  initialState: {} as Store.AppStore['ui'],
+  initialState: {} as Store.AppState['ui'],
   reducers: {
     startedEditingMessage: (state, { payload }) => {
       state.editingMessageId = payload;
@@ -34,11 +34,11 @@ const slice = createSlice({
 export const { toggleDropdown, startedEditingMessage, stoppedEditingMessage, focusedInvite, pageSwitched, openedModal, closedModal } = slice.actions;
 export default slice.reducer;
 
-export const dropdownIsOpen = (type: React.FunctionComponent) => createSelector<Store.AppStore, string | undefined, boolean>(
+export const dropdownIsOpen = (type: React.FunctionComponent) => createSelector<Store.AppState, string | undefined, boolean>(
   state => state.ui.openDropdown,
   name => name === type.name,
 );
-export const modalIsOpen = (type: React.FunctionComponent) => createSelector<Store.AppStore, string | undefined, boolean>(
+export const modalIsOpen = (type: React.FunctionComponent) => createSelector<Store.AppState, string | undefined, boolean>(
   state => state.ui.openModal,
   name => name === type.name,
 );

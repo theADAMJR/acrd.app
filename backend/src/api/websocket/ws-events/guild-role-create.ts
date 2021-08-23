@@ -1,12 +1,12 @@
 import { Socket } from 'socket.io';
-import { PermissionTypes } from '../../../types/entity-types';
+import { PermissionTypes } from '../../../types/permission-types';
 import { Guild } from '../../../data/models/guild';
 import { Role } from '../../../data/models/role';
 import { generateSnowflake } from '../../../data/snowflake-entity';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, Args, Params } from './ws-event';
+import { WSEvent, } from './ws-event';
 import Roles from '../../../data/roles';
 
 export default class implements WSEvent<'GUILD_ROLE_CREATE'> {
@@ -17,7 +17,7 @@ export default class implements WSEvent<'GUILD_ROLE_CREATE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { guildId, partialRole }: Params.GuildRoleCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { guildId, partialRole }: WS.Params.GuildRoleCreate) {
     await this.guard.validateCan(client, guildId, PermissionTypes.General.MANAGE_ROLES);
     
     const role = await this.roles.create(guildId, partialRole);
@@ -29,6 +29,6 @@ export default class implements WSEvent<'GUILD_ROLE_CREATE'> {
 
     ws.io
       .to(guildId)
-      .emit('GUILD_ROLE_CREATE', { guildId, role } as Args.GuildRoleCreate);
+      .emit('GUILD_ROLE_CREATE', { guildId, role } as WS.Args.GuildRoleCreate);
   }
 }

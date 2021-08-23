@@ -7,7 +7,7 @@ import UserSettings from '../../modals/user-settings';
  
 const SidebarFooter: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const user = useSelector((s: Store.AppStore) => s.auth.user)!;
+  const user = useSelector((s: Store.AppState) => s.auth.user)!;
   
   return (
     <div className="select-all relative flex items-center bg-bg-secondary-alt py-2">

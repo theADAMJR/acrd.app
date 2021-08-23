@@ -10,7 +10,7 @@ import ChannelMenu from '../../ctx-menus/channel-menu';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
-  const { activeGuild, activeChannel } = useSelector((s: Store.AppStore) => s.ui);
+  const { activeGuild, activeChannel } = useSelector((s: Store.AppState) => s.ui);
   
   const channels = activeGuild?.channels.map(c => (
     <ContextMenuTrigger key={c.id} id={c.id}>

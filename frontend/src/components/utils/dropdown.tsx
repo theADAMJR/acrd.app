@@ -8,7 +8,7 @@ export interface DropdownProps {
 }
 
 const Dropdown: React.FunctionComponent<DropdownProps> = (props) => {
-  const dropdown = useSelector((s: Store.AppStore) => s.ui.openDropdown);
+  const dropdown = useSelector((s: Store.AppState) => s.ui.openDropdown);
 
   return (
     <div className="w-full pt-3">

@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const get = (key: keyof Store.AppStore['config']) =>
+const get = (key: keyof Store.AppState['config']) =>
   JSON.parse(localStorage.getItem(`config.${key as string}`) as any);
-const set = (key: keyof Store.AppStore['config'], value: any) =>
+const set = (key: keyof Store.AppState['config'], value: any) =>
   JSON.parse(localStorage.setItem(`config.${key as string}`, value) as any);
 
 const slice = createSlice({
   name: 'config',
   initialState: {
     memberListToggled: get('memberListToggled') ?? true,
-  } as Store.AppStore['config'],
+  } as Store.AppState['config'],
   reducers: {
     toggleMemberList: (config) => {
       const value = !config.memberListToggled;

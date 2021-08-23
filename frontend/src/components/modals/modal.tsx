@@ -17,7 +17,7 @@ const sizeClass = {
  
 const Modal: React.FunctionComponent<ModalProps> = ({ className, type, size, children }) => {
   const dispatch = useDispatch();
-  const openModal = useSelector((s: Store.AppStore) => s.ui.openModal);
+  const openModal = useSelector((s: Store.AppState) => s.ui.openModal);
 
   return (
     <ReactModal
