@@ -180,7 +180,7 @@ declare namespace WS {
       partialMessage: PartialEntity.Message;
     }
     export interface Ready {
-      key: string;
+      token: string;
     }
     export interface RemoveFriend {
       friendId: string;

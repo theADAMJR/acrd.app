@@ -25,13 +25,8 @@ router.post('/login', passport.authenticate('local', { failWithError: true }),
   if (!user)
     throw new APIError(400, 'Invalid credentials');  
 
-  if (user.verified) {
-    await sendEmail.verifyCode(user as any);
-    return res.status(200).json({ verify: true });
-  } else if (req.body.email) 
-    throw new APIError(400, 'Email is unverified');
-
-  return res.status(200).json(users.createToken(user.id));
+  await sendEmail.verifyCode(user as any);
+  res.status(200).json(users.createToken(user.id));
 });
 
 router.post('/register', async (req, res) => {

@@ -51,7 +51,7 @@ export class WebSocket {
           try {
             await event.invoke.bind(event)(this, client, data);
           } catch (error) {
-            client.emit('error', error);
+            client.emit('error', { message: error.message });
           } finally {
             try {
               const userId = this.sessions.userId(client);

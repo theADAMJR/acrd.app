@@ -1,6 +1,7 @@
 import { Socket } from 'socket.io';
 import { User } from '../../../data/models/user';
 import Users from '../../../data/users';
+import { WS } from '../../../types/ws';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WSRooms } from '../modules/ws-rooms';
@@ -17,8 +18,8 @@ export default class implements WSEvent<'READY'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { key }: WS.Params.Ready) {   
-    const { id: userId } = await this.guard.decodeKey(key);
+  public async invoke(ws: WebSocket, client: Socket, { token }: WS.Params.Ready) {   
+    const { id: userId } = await this.guard.decodeKey(token);
     if (!userId)
       throw new TypeError('Invalid User ID');
  

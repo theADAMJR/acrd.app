@@ -3,7 +3,7 @@ import 'express-async-errors';
 
 import bodyParser from 'body-parser';
 import Log from '../utils/log';
-import LocalStrategy from 'passport-local';
+import { Strategy as LocalStrategy } from 'passport-local';
 import passport from 'passport';
 import { router as apiRoutes } from './routes/api-routes';
 import { router as authRoutes } from './routes/auth-routes';
@@ -32,13 +32,16 @@ export class API {
   }
 
   private setupMiddleware() {
-    passport.use(new LocalStrategy.Strategy((User as any).authenticate()));
+    passport.use(new LocalStrategy(
+      { usernameField: 'email' },
+      (User as any).authenticate(),
+    ));
     passport.serializeUser((User as any).serializeUser());
     passport.deserializeUser((User as any).deserializeUser());
 
+    this.app.use(cors());
     this.app.use(bodyParser.json());
     this.app.use(passport.initialize());
-    this.app.use(cors());
     this.app.use(rateLimiter);
   }
 

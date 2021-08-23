@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { WS } from '../types/ws';
 import { actions as api } from './api';
 
 const slice = createSlice({
@@ -7,11 +8,11 @@ const slice = createSlice({
     attemptedLogin: false,
   } as Store.AppState['auth'],
   reducers: {
-    ready: (auth, { payload }) => {
+    ready: (auth, { payload }: Store.Action<WS.Args.Ready>) => {
       auth.user = payload.user;
     },
-    updatedUser: (auth, { payload }) => {
-      Object.assign(auth.user, payload.payload);
+    updatedUser: (auth, { payload }: Store.Action<WS.Args.UserUpdate>) => {
+      Object.assign(auth.user, payload.partialUser);
     },
     // remove side effects
     loggedIn: (auth) => {
