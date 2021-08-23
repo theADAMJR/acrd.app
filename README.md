@@ -1,4 +1,4 @@
-# Accord Essential - Discord clone with the essential features.
+# Accord - Discord clone with the essential features.
 
 > Built with React TS, Redux, and Node.js.
 
