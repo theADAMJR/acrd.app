@@ -9,13 +9,13 @@
 - `v1p` - Final prototype
 - `v1` - Version number
 
-### DClone Essential
+### Accord Essential
 
 > v1 - v6
 
 - The core features of Discord.
 
-### DClone Full
+### Accord Full
 
 > v6 - v12
 
@@ -47,6 +47,6 @@
 API_PORT=3000
 API_PREFIX="/api/v1"
 JWT_SECRET_KEY="something secret"
-MONGO_URI="mongodb://localhost/dclone-essential"
+MONGO_URI="mongodb://localhost/Accord-essential"
 WEBSITE_PORT=4200
 ```

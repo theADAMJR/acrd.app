@@ -15,8 +15,9 @@ const LoadingPage: React.FunctionComponent = () => {
   }, []);
 
   const tips = [
-    'This app took 2 weeks longer than expected to make.',
     'Stealing Discord since 1966.',
+    'Streaming once every 2 years.',
+    'Started in 2020.',
     'Disclaimer: Not actually a Discord clone.',
   ];
   const randomIndex = Math.floor(Math.random() * tips.length);

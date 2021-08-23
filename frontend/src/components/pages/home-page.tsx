@@ -9,7 +9,7 @@ const HomePage: React.FunctionComponent = () => {
   return (
     <PageWrapper
       className="bg-bg-tertiary h-full"
-      pageTitle="DClone | Discord Clone With the Essentials">
+      pageTitle="Accord | Discord Clone With the Essentials">
       <Navbar />
       <section className="text-center my-4">
         <h1>It's time to ditch Skype and TeamSpeak.</h1>
@@ -25,7 +25,7 @@ const HomePage: React.FunctionComponent = () => {
         </button>
         <button className="shadow-md bg-green text-dark ml-10">
           <Link to="/channels/@me">
-            <button className="background bg-success heading rounded W-56 h-11 px-6 mt-8">Open DClone in Your Browser</button>
+            <button className="background bg-success heading rounded W-56 h-11 px-6 mt-8">Open Accord in Your Browser</button>
           </Link>
         </button>
       </section>

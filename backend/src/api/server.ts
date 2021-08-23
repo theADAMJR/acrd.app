@@ -27,7 +27,7 @@ export class API {
     this.setupMiddleware();
     this.setupRoutes();
     this.setupErrorHandling();
-    this.serveWebsite();
+    // this.serveWebsite();
     this.listen();
   }
 

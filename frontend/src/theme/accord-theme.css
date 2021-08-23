@@ -1,0 +1,138 @@
+:root {
+  --primary: #e95678;
+  --secondary: #fab795;
+  --tertiary: #b877db;
+
+  --heading: #25b2bc;
+  --font: #fdf0ed;
+  --muted: #6c757d;
+
+  --success: #09f7a0;
+  --danger: #f43e5c;
+
+  --normal: #dcddde;
+  --link: hsl(197, calc(var(--saturation-factor, 1) * 100%), 47.8%);
+  --channel: #8e9297;
+
+  --saturation-factor: 1;
+
+  --bg-primary: #2e303e;
+  --bg-secondary: #232530;
+  --bg-tertiary: #1c1e26;
+  --bg-secondary-alt: #292b2f;
+  --bg-textarea: #40444b;
+  --bg-modifier-accent: hsla(0, 0%, 100%, 0.06);
+  --bg-modifier-selected: rgba(79, 84, 92, 0.32);
+  --bg-floating: #18191c;
+
+  --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05),
+    0 2px 0 rgba(4, 4, 5, 0.05);
+
+  --font-primary: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --warning: #f77d26;
+  --light: #fdf0ed;
+  --dark: #16161c;
+}
+
+* {
+  font-family: var(--font-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--heading);
+  font-family: var(--font-primary);
+}
+
+body {
+  color: var(--font);
+  background-color: var(--bg-tertiary);
+}
+
+textarea {
+  background-color: var(--bg-textarea);
+}
+
+:not(nav a)[href] {
+  color: var(--link);
+}
+nav a {
+  color: var(--channel);
+}
+nav a.active {
+  background-color: var(--bg-modifier-selected);
+  color: var(--heading);
+}
+
+/* Util */
+.success {
+  color: var(--success);
+}
+.normal {
+  color: var(--normal);
+}
+.muted {
+  color: var(--muted);
+}
+.danger {
+  color: var(--danger);
+}
+.heading {
+  color: var(--heading);
+}
+.primary {
+  color: var(--primary);
+}
+.secondary {
+  color: var(--secondary);
+}
+.tertiary {
+  color: var(--tertiary);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-secondary {
+  background-color: var(--secondary);
+}
+.bg-tertiary {
+  background-color: var(--tertiary);
+}
+.bg-danger {
+  background-color: var(--danger);
+}
+.bg-success {
+  background-color: var(--success);
+}
+.bg-bg-primary {
+  background-color: var(--bg-primary);
+}
+.bg-bg-secondary {
+  background-color: var(--bg-secondary);
+}
+.bg-bg-secondary-alt {
+  background-color: var(--bg-secondary-alt);
+}
+.bg-bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+/* \/ should be replaced with tag name selector */
+.bg-bg-modifier-accent {
+  background-color: var(--bg-modifier-accent);
+  color: var(--heading);
+}
+.bg-bg-floating {
+  background-color: var(--bg-floating);
+}
+.shadow-elevation {
+  box-shadow: var(--elevation);
+}
+.font-primary {
+  font-family: var(--font-primary);
+}

@@ -1,3 +1,3 @@
 # Credits
 
-## DClone Icon - @nwlandas
+## Accord Icon - @nwlandas

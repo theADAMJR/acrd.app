@@ -1,4 +1,4 @@
-DClone Basic: Chat app like DChat, built with React, with more UI.
+Accord Basic: Chat app like DChat, built with React, with more UI.
 -> No limit on time, it starts with a YouTube series.
 -> Needs to be progressive and feel good, not 3 hours and it'll work.
 

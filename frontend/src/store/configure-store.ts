@@ -21,7 +21,6 @@ export default () => configureStore<Store.AppStore>({
     auth,
     config,
     entities: combineReducers({ channels, guilds, messages, users }),
-    meta,
     ui,
   }),
 });

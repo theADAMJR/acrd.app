@@ -7,9 +7,6 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configure-store';
 
 import './index.css';
-import './theme/discord-theme.css';
-import 'tailwindcss/dist/tailwind.min.css';
-import '@fortawesome/fontawesome-svg-core/styles.css';
 
 config({ path: '../env' });
 

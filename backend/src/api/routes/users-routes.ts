@@ -52,10 +52,6 @@ router.get('/check-email', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const userCount = await User.countDocuments();
-  if (userCount >= 75)
-    throw new TypeError('Max alpha tester limit reached');
-
   const user = await users.create(req.body.username, req.body.password); 
   const dm = await channels.createDM(bot.self.id, user.id);
   await bot.message(dm,

@@ -20,7 +20,7 @@ const LoginPage: React.FunctionComponent = () => {
   return (user)
     ? <Redirect to="/channels/@me" />
     : (
-    <PageWrapper pageTitle="DClone | Login">
+    <PageWrapper pageTitle="Accord | Login">
       <div className="flex items-center absolute justify-center h-screen">
         <form
           className="rounded-md shadow bg-bg-primary p-8"
