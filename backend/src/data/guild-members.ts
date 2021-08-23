@@ -4,7 +4,6 @@ import { GuildMember, GuildMemberDocument } from './models/guild-member';
 import { Role } from './models/role';
 import { UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
-import { Lean } from '../types/entity-types';
 
 export default class GuildMembers extends DBWrapper<string, GuildMemberDocument> {
   public async get(id: string | undefined) {

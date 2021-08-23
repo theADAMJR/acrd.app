@@ -1,6 +1,6 @@
 declare namespace Auth {
   export interface Credentials {
-    email: string;
+    email?: string;
     password: string;
     username: string;
   }

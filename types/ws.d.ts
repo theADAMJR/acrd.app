@@ -160,7 +160,7 @@ export namespace Params {
   }
   export interface ChannelCreate {
     guildId: string;
-    partialChannel: Partial.Channel;
+    partialChannel: PartialEntity.Channel;
   }
   export interface ChannelDelete {
     /** ID of the channel to delete. */
@@ -168,7 +168,7 @@ export namespace Params {
   }
   export interface GuildCreate {
     /** Properties with the guild. */
-    partialGuild: Partial.Guild;
+    partialGuild: PartialEntity.Guild;
   }
   export interface GuildDelete {
     guildId: string;
@@ -185,11 +185,11 @@ export namespace Params {
   export interface GuildMemberUpdate {
     /** ID of the member, not the same as a user ID. */
     memberId: string;
-    partialMember: Partial.GuildMember;
+    partialMember: PartialEntity.GuildMember;
   }
   export interface GuildRoleCreate {
     guildId: string;
-    partialRole: Partial.Role;
+    partialRole: PartialEntity.Role;
   }
   export interface GuildRoleDelete {
     roleId: string;
@@ -198,11 +198,11 @@ export namespace Params {
   export interface GuildRoleUpdate {
     roleId: string;
     guildId: string;
-    partialRole: Partial.Role;
+    partialRole: PartialEntity.Role;
   }
   export interface GuildUpdate {
     guildId: string;
-    partialGuild: Partial.Guild;
+    partialGuild: PartialEntity.Guild;
   }
   export interface InviteCreate {
     guildId: string;
@@ -213,18 +213,18 @@ export namespace Params {
   }
   export interface MessageCreate {
     channelId: string;
-    partialMessage: Partial.Message;
+    partialMessage: PartialEntity.Message;
   }
   export interface MessageDelete {
     messageId: string;
   }
   export interface MessageUpdate {
     messageId: string;
-    partialMessage: Partial.Message;
+    partialMessage: PartialEntity.Message;
     withEmbed: boolean;
   }
   export interface MessageCreate {
-    partialMessage: Partial.Message;
+    partialMessage: PartialEntity.Message;
   }
   export interface Ready {
     key: string;
@@ -236,7 +236,7 @@ export namespace Params {
     channelId: string;
   }
   export interface UserUpdate {
-    partialUser: Partial.User;
+    partialUser: PartialEntity.User;
     key: string;
   }
 }
@@ -292,7 +292,7 @@ export namespace Args {
     /** ID of the guild. */
     guildId: string;
     /** Properties of updated guild member. */
-    partialMember: Partial.GuildMember;
+    partialMember: PartialEntity.GuildMember;
     /** ID of the guild member. Not the same as a user ID. */
     memberId: string;
   }
@@ -312,7 +312,7 @@ export namespace Args {
     /** Guild ID associated with role. */
     guildId: string;
     /** Properties to update the role. */
-    partialRole: Partial.Role;
+    partialRole: PartialEntity.Role;
     /** The ID of the role that was updated. */
     roleId: string;
   }
@@ -320,7 +320,7 @@ export namespace Args {
     /** ID of the guild. */
     guildId: string;
     /** Properties to update a guild. */
-    partialGuild: Partial.Guild;
+    partialGuild: PartialEntity.Guild;
   }
   export interface InviteCreate {
     /** ID of the guild. */
@@ -370,7 +370,7 @@ export namespace Args {
   }
   /** PRIVATE - contains private data */
   export interface UserUpdate {
-    partialUser: Partial.User;
+    partialUser: PartialEntity.User;
   }
 }
 
@@ -378,7 +378,7 @@ export namespace Args {
  * Some properties (e.g. id) cannot be updated.
  * 
  * **Tip**: Only provide what properties are being updated. */
-export namespace Partial {
+export namespace PartialEntity {
   export type Application = Partial<Entity.App>;
   export type Channel = Partial<Entity.Channel>;
   export type Guild = Partial<Entity.Guild>;
@@ -386,51 +386,4 @@ export namespace Partial {
   export type Message = Partial<Entity.Message>;
   export type Role = Partial<Entity.Role>;
   export type User = Partial<UserTypes.Self>;
-}
-
-/** Keys of objects that cannot be updated. */
-export namespace Prohibited {
-  export const general: any = ['id', 'createdAt'];
-
-  export const app: (keyof Entity.App)[] = [
-    ...general,
-    'owner',
-    'user',
-  ];
-  export const channel: (keyof Entity.Channel)[] = [
-    ...general,
-    'guildId',
-    'lastMessageId',
-    'memberIds',
-    'type',
-  ];
-  export const guild: (keyof Entity.Guild)[] = [
-    ...general,
-    'members',
-    'nameAcronym',
-  ];
-  export const guildMember: (keyof Entity.GuildMember)[] = [
-    ...general,
-    'guildId',
-    'userId',
-  ];
-  export const message: (keyof Entity.Message)[] = [
-    ...general,
-    'authorId',
-    'channelId',
-    'updatedAt',
-  ];
-  export const role: (keyof Entity.Role)[] = [
-    ...general,
-    'guildId',
-  ];
-  export const user: (keyof UserTypes.Self)[] = [
-    ...general,
-    'badges',
-    'bot',
-    'email',
-    'friendIds',
-    'friendRequestIds',
-    'verified',
-  ];
 }

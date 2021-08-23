@@ -1,6 +1,5 @@
 import DBWrapper from './db-wrapper';
-import { Lean, PermissionTypes } from '../types/entity-types';
-import { Partial } from './types/ws-types';
+
 import { hasPermission, Role, RoleDocument } from './models/role';
 import { generateSnowflake } from './snowflake-entity';
 
@@ -31,7 +30,7 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     return hasPermission(totalPerms, permNumber as any);
   }
 
-  public create(guildId: string, options?: Partial.Role) {
+  public create(guildId: string, options?: PartialEntity.Role) {
     return Role.create({
       _id: generateSnowflake(),
       guildId,

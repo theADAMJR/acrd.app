@@ -1,4 +1,3 @@
-import { WSEventArgs, WSEventAsyncArgs, WSEventParams } from '../data/types/ws-types';
 import io from 'socket.io-client';
 
 export class WSService {

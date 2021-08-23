@@ -1,11 +1,9 @@
-import { Channel } from '../data/models/channel';
 import { UserDocument } from '../data/models/user';
-import { generateSnowflake } from '../data/snowflake-entity';
 import Log from '../utils/log';
 import Deps from '../utils/deps';
 import Users from '../data/users';
 import { WSService } from './ws-service';
-import { Lean } from '../types/entity-types';
+
 import Channels from '../data/channels';
 
 export class SystemBot {

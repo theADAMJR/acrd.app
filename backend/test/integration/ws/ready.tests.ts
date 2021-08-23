@@ -1,5 +1,4 @@
 import Deps from '../../../src/utils/deps';
-import { API } from '../../../src/api/server';
 import Ready from '../../../src/api/websocket/ws-events/ready';
 import Disconnect from '../../../src/api/websocket/ws-events/disconnect';
 import { User, UserDocument } from '../../../src/data/models/user';

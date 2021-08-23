@@ -6,8 +6,6 @@ import { GuildDocument } from '../../../src/data/models/guild';
 import { expect } from 'chai';
 import { GuildMember, GuildMemberDocument } from '../../../src/data/models/guild-member';
 import { Role, RoleDocument } from '../../../src/data/models/role';
-import { PermissionTypes } from '../../../src/data/types/entity-types';
-import { Partial } from '../../../src/data/types/ws-types';
 
 describe('guild-member-update', () => {
   const client = io(`http://localhost:${process.env.PORT}`) as any;
@@ -95,7 +93,7 @@ describe('guild-member-update', () => {
     return Mock.giveRolePerms(role, PermissionTypes.General.MANAGE_ROLES);
   }
 
-  function guildMemberUpdate(partial?: Partial.GuildMember) {
+  function guildMemberUpdate(partial?: PartialEntity.GuildMember) {
     return event.invoke(ws, client, {
       memberId: member.id,
       partialMember: {

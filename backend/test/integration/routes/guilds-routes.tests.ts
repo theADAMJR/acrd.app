@@ -8,7 +8,6 @@ import { expect } from 'chai';
 import { InviteDocument } from '../../../src/data/models/invite';
 import { GuildDocument } from '../../../src/data/models/guild';
 import { Role } from '../../../src/data/models/role';
-import { Lean, PermissionTypes } from '../../../src/data/types/entity-types';
 
 describe('guilds-routes', () => {
   const endpoint = `/api/v1/guilds`;

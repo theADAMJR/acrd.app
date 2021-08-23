@@ -5,7 +5,6 @@ import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
 import { expect } from 'chai';
 import { Role, RoleDocument } from '../../../src/data/models/role';
-import { PermissionTypes } from '../../../src/data/types/entity-types';
 
 describe('invite-create', () => {
   const client = io(`http://localhost:${process.env.PORT}`) as any;

@@ -46,7 +46,7 @@ describe('message-update', () => {
     await expect(messageUpdate({ id: '123' })).to.be.rejectedWith('Contains readonly values');
   });
 
-  function messageUpdate(options?: Partial.Message) {
+  function messageUpdate(options?: PartialEntity.Message) {
     return event.invoke(ws, client, {
       messageId: message.id,
       partialMessage: {

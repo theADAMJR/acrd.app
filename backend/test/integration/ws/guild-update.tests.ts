@@ -5,10 +5,8 @@ import { Guild, GuildDocument } from '../../../src/data/models/guild';
 import { UserDocument } from '../../../src/data/models/user';
 import { Mock } from '../../mock/mock';
 import { expect } from 'chai';
-import { PermissionTypes } from '../../../src/data/types/entity-types';
 import { GuildMemberDocument } from '../../../src/data/models/guild-member';
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
-import { Partial } from '../../../src/data/types/ws-types';
 
 describe('guild-update', () => {
   const client = io(`http://localhost:${process.env.PORT}`) as any;
@@ -112,7 +110,7 @@ describe('guild-update', () => {
     await expect(guildUpdate({ channels: channelIds as any })).to.be.rejectedWith('Cannot add or remove channels this way');
   });
 
-  function guildUpdate(partialGuild: Partial.Guild) {
+  function guildUpdate(partialGuild: PartialEntity.Guild) {
     return event.invoke(ws, client, {
       guildId: guild.id,
       partialGuild,

@@ -1,7 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
+import patterns from '../../types/patterns';
 import {  createdAtToDate, useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
-import { Lean, patterns, PermissionTypes } from '../../types/entity-types';
 
 export function hasPermission(current: number, required: number) {  
   return Boolean(current & required)

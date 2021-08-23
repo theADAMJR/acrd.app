@@ -1,7 +1,8 @@
 import { Document, model, Schema } from 'mongoose';
 import { generateSnowflake } from '../snowflake-entity';
-import { Lean, patterns } from '../../types/entity-types';
+
 import { createdAtToDate, generateUsername, useId } from '../../utils/utils';
+import patterns from '../../types/patterns';
 
 export interface ApplicationDocument extends Document, Entity.App {
   _id: string | never;

@@ -2,7 +2,7 @@ import { Channel } from '../../../src/data/models/channel';
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from 'sazerac';
 import { longArray, longString, mongooseError } from '../../test-utils';
-import { Lean } from '../../../src/data/types/entity-types';
+
 
 test(createChannel, () => {
   given().expect(true);

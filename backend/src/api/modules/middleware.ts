@@ -1,4 +1,3 @@
-import { PermissionTypes } from '../../types/entity-types';
 import Guilds from '../../data/guilds';
 import { Guild, GuildDocument } from '../../data/models/guild';
 import Roles from '../../data/roles';

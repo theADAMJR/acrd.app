@@ -1,7 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
-import { createdAtToDate, useId, validators } from '../../utils/utils';
+import { createdAtToDate, useId } from '../../utils/utils';
+import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
-import { ChannelTypes } from '../../types/entity-types';
 
 export interface DMChannelDocument extends Document, ChannelTypes.DM {
   _id: string | never;

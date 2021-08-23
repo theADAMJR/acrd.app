@@ -41,7 +41,10 @@ router.get('/apps/new', async (req, res) => {
     return res.status(400).json({ message: 'Too many apps' });  
 
   const app = new Application({ owner: user.id as any });
-  app.user = (await users.create(app.name, generateInviteCode(), true)).id as any;
+  app.user = (await users.create({
+    username: app.name,
+    password: generateInviteCode(),
+  }, true)).id as any;
   app.token = users.createToken(user.id, false);
   await app.save();
 

@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
 import { Channel, ChannelDocument } from '../../../src/data/models/channel';
-import { SelfUserDocument, User, UserDocument } from '../../../src/data/models/user';
+import { SelfUserDocument, User } from '../../../src/data/models/user';
 
 describe('message-create', () => {
   const client = io(`http://localhost:${process.env.PORT}`) as any;

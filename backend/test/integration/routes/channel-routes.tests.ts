@@ -5,12 +5,7 @@ import request from 'supertest';
 import Users from '../../../src/data/users';
 import { UserDocument } from '../../../src/data/models/user';
 import { expect } from 'chai';
-import { InviteDocument } from '../../../src/data/models/invite';
 import { GuildDocument } from '../../../src/data/models/guild';
-import { assert } from 'console';
-import { Channel } from '../../../src/data/models/channel';
-import { generateSnowflake } from '../../../src/data/snowflake-entity';
-import { Lean } from '../../../src/data/types/entity-types';
 
 describe('channel-routes', () => {
   const endpoint = `/api/v1/channels`;

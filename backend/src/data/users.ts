@@ -4,7 +4,7 @@ import { SelfUserDocument, User, UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
 import { readdirSync } from 'fs';
 import { resolve } from 'path';
-import { Lean, UserTypes } from '../types/entity-types';
+
 import { Guild } from './models/guild';
 import { APIError } from '../api/modules/api-error';
 import Deps from '../utils/deps';

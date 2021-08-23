@@ -4,7 +4,6 @@ import Guilds from '../../../data/guilds';
 import { GuildMember } from '../../../data/models/guild-member';
 import { Role } from '../../../data/models/role';
 import Roles from '../../../data/roles';
-import { Lean, PermissionTypes } from '../../../types/entity-types';
 import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
 import { array } from '../../../utils/utils';

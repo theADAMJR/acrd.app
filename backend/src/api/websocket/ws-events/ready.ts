@@ -1,6 +1,5 @@
 import { Socket } from 'socket.io';
 import { User } from '../../../data/models/user';
-import { Lean, UserTypes } from '../../../types/entity-types';
 import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';

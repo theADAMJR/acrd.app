@@ -1,7 +1,8 @@
 import { Document, model, Schema } from 'mongoose';
-import { useId, validators } from '../../utils/utils';
+import patterns from '../../types/patterns';
+import { useId } from '../../utils/utils';
+import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
-import { Lean, patterns } from '../../types/entity-types';
 
 export interface GuildMemberDocument extends Document, Entity.GuildMember {
   _id: string | never;

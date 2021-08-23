@@ -5,7 +5,6 @@ import { User, UserDocument } from '../../../src/data/models/user';
 import { Mock } from '../../mock/mock';
 import { expect } from 'chai';
 import { GuildMemberDocument } from '../../../src/data/models/guild-member';
-import { Lean } from '../../../src/data/types/entity-types';
 
 describe('guild-create', () => {
   const client = io(`http://localhost:${process.env.PORT}`) as any;

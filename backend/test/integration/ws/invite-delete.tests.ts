@@ -5,7 +5,6 @@ import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
 import { Invite, InviteDocument } from '../../../src/data/models/invite';
 import { expect } from 'chai';
-import { PermissionTypes } from '../../../src/data/types/entity-types';
 import { RoleDocument } from '../../../src/data/models/role';
 
 describe('invite-delete', () => {

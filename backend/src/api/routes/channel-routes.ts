@@ -3,7 +3,6 @@ import Channels from '../../data/channels';
 import Messages from '../../data/messages';
 import { SelfUserDocument } from '../../data/models/user';
 import Pings from '../../data/pings';
-import { Lean } from '../../types/entity-types';
 import Deps from '../../utils/deps';
 import { updateUser, validateUser } from '../modules/middleware';
 import { WebSocket } from '../websocket/websocket';

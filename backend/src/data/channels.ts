@@ -2,7 +2,7 @@ import DBWrapper from './db-wrapper';
 import { Channel, ChannelDocument, DMChannelDocument, TextChannelDocument, VoiceChannelDocument } from './models/channel';
 import { SelfUserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
-import { Lean } from '../types/entity-types';
+
 
 export default class Channels extends DBWrapper<string, ChannelDocument> {
   public async get(id: string | undefined) {

@@ -2,7 +2,7 @@ import GuildMemberRemove from '../../../src/api/websocket/ws-events/guild-member
 import { WebSocket } from '../../../src/api/websocket/websocket';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
-import { Guild, GuildDocument } from '../../../src/data/models/guild';
+import { GuildDocument } from '../../../src/data/models/guild';
 import { expect } from 'chai';
 import { GuildMemberDocument } from '../../../src/data/models/guild-member';
 import { User, UserDocument } from '../../../src/data/models/user';

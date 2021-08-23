@@ -4,7 +4,6 @@ import { API } from '../../../src/api/server';
 import request from 'supertest';
 import Users from '../../../src/data/users';
 import { UserDocument } from '../../../src/data/models/user';
-import { expect } from 'chai';
 import { InviteDocument } from '../../../src/data/models/invite';
 import { GuildDocument } from '../../../src/data/models/guild';
 

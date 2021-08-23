@@ -1,5 +1,5 @@
 import { SelfUserDocument } from './models/user';
-import { Lean, UserTypes } from '../types/entity-types';
+
 
 export default class Pings {
   public markAsRead(user: SelfUserDocument, message: Entity.Message) {

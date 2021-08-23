@@ -1,10 +1,9 @@
 import got from 'got/dist/source';
+import { PartialEntity } from '../types/ws';
 import DBWrapper from './db-wrapper';
 import { Channel } from './models/channel';
 import { Message, MessageDocument } from './models/message';
 import { generateSnowflake } from './snowflake-entity';
-import { MessageTypes } from '../types/entity-types';
-import { Partial } from './types/ws-types';
 
 const metascraper = require('metascraper')([
   require('metascraper-description')(),
@@ -21,7 +20,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
     return message;
   }
 
-  public async create(authorId: string, channelId: string, partialMessage: Partial.Message) {
+  public async create(authorId: string, channelId: string, partialMessage: PartialEntity.Message) {
     return await Message.create({
       _id: generateSnowflake(),
       authorId,
@@ -31,7 +30,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
     });
   }
 
-  public async getEmbed(message: Partial.Message): Promise<MessageTypes.Embed | undefined> {
+  public async getEmbed(message: PartialEntity.Message): Promise<MessageTypes.Embed | undefined> {
     try {
       const targetURL = /([https://].*)/.exec(message.content as string)?.[0];  
       if (!targetURL) return;

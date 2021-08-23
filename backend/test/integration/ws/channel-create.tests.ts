@@ -4,7 +4,6 @@ import ChannelCreate from '../../../src/api/websocket/ws-events/channel-create';
 import { Mock } from '../../mock/mock';
 import { expect, spy } from 'chai';
 import { Guild, GuildDocument } from '../../../src/data/models/guild';
-import { Lean, PermissionTypes } from '../../../src/data/types/entity-types';
 import { RoleDocument } from '../../../src/data/models/role';
 
 describe('channel-create', () => {

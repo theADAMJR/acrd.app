@@ -1,16 +1,13 @@
 import { Guild } from '../../data/models/guild';
-import { GuildMember } from '../../data/models/guild-member';
-import jwt from 'jsonwebtoken';
 import Deps from '../../utils/deps';
 import { WebSocket } from '../websocket/websocket';
 import { Socket } from 'socket.io';
 import Channels from '../../data/channels';
 import Roles from '../../data/roles';
-import { Lean, PermissionTypes } from '../../types/entity-types';
 import Users from '../../data/users';
 import Guilds from '../../data/guilds';
 import GuildMembers from '../../data/guild-members';
-import { Prohibited } from '../../data/types/ws-types';
+import { Prohibited } from '../../types/prohibited';
 
 export class WSGuard {
   constructor(
