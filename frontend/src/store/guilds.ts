@@ -62,7 +62,7 @@ export const fetchMyGuilds = () => (dispatch, getState: () => Store.AppState) =>
   
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
-    headers: { 'Authorization': localStorage.getItem('token') },
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     url: '/guilds',
   }));
 }

@@ -33,7 +33,7 @@ export default slice.reducer;
 export const fetchUsers = () => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
-    headers: { 'Authorization': localStorage.getItem('token') },
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     url: '/users',
   }));
 }

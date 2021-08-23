@@ -2,7 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import guilds from './guilds';
 import messages from './messages';
-import api from './middleware/api';
+import api from './middleware/rest';
 import ws from './middleware/ws';
 import users from './users';
 import channels from './channels';
