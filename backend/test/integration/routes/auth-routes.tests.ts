@@ -5,7 +5,7 @@ import Deps from '../../../src/utils/deps';
 import { API } from '../../../src/api/server';
 import request from 'supertest';
 import Users from '../../../src/data/users';
-import { UserDocument, User, SelfUserDocument } from '../../../src/data/models/user';
+import { User, SelfUserDocument } from '../../../src/data/models/user';
 import { generateUsername } from '../../../src/utils/utils';
 import { generateInviteCode } from '../../../src/data/models/invite';
 import { Email } from '../../../src/api/modules/email/email';
@@ -27,10 +27,15 @@ describe.skip('auth-routes', () => {
     users = Deps.get<Users>(Users);
 
     credentials = {
+      email: 'testing123@example.com',
       username: generateUsername(),
       password: 'Testing@123',
     };
-    user = await users.create(credentials.username, credentials.password) as any;
+    user = await users.create({
+      email: credentials.email,
+      password: credentials.password,
+      username: credentials.username,
+    }) as any;
     credentials.email = user.email; 
 
     authorization = `Bearer ${users.createToken(user.id)}`;

@@ -46,7 +46,7 @@ describe('guilds-routes', () => {
       .set('Authorization', authorization)
       .expect(200)
       .expect(res => {
-        const firstGuild: Lean.Guild = res.body[0];
+        const firstGuild: Entity.Guild = res.body[0];
         expect(typeof firstGuild.roles[0]).to.equal('object');
         expect(typeof firstGuild.members[0]).to.equal('object');
         expect(typeof firstGuild.channels[0]).to.equal('object');

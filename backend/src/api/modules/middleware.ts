@@ -1,4 +1,4 @@
-import { PermissionTypes } from '../../data/types/entity-types';
+import { PermissionTypes } from '../../types/entity-types';
 import Guilds from '../../data/guilds';
 import { Guild, GuildDocument } from '../../data/models/guild';
 import Roles from '../../data/roles';
@@ -31,14 +31,6 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
   } finally {
     return next();
   }
-}
-
-export async function updateUsername(req: Request, res: Response, next: NextFunction) {
-  if (!req.body.username) {
-    const user = await User.findOne({ email: req.body.email });
-    req.body.username = user?.username;    
-  }  
-  return next();
 }
 
 export function validateUser(req: Request, res: Response, next: NextFunction) {  

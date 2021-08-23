@@ -1,5 +1,5 @@
 import DBWrapper from './db-wrapper';
-import { Lean, PermissionTypes } from './types/entity-types';
+import { Lean, PermissionTypes } from '../types/entity-types';
 import { Partial } from './types/ws-types';
 import { hasPermission, Role, RoleDocument } from './models/role';
 import { generateSnowflake } from './snowflake-entity';
@@ -12,15 +12,15 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     return role;
   }
 
-  public async isHigher(guild: Lean.Guild, selfMember: Lean.GuildMember, roleIds: string[]) {
-    const highestRole: Lean.Role = guild.roles[guild.roles.length - 1];
+  public async isHigher(guild: Entity.Guild, selfMember: Entity.GuildMember, roleIds: string[]) {
+    const highestRole: Entity.Role = guild.roles[guild.roles.length - 1];
 
     return selfMember.userId === guild?.ownerId
       || (selfMember.roleIds.includes(highestRole?.id)
       && !roleIds.includes(highestRole.id));
   }
 
-  public async hasPermission(guild: Lean.Guild, member: Lean.GuildMember, permission: PermissionTypes.PermissionString) {
+  public async hasPermission(guild: Entity.Guild, member: Entity.GuildMember, permission: PermissionTypes.PermissionString) {
     const totalPerms = guild.roles
       .filter(r => member.roleIds.includes(r.id))
       .reduce((acc, value) => value.permissions | acc, 0);    

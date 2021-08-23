@@ -3,7 +3,7 @@ import { MessageDocument } from '../../../data/models/message';
 import { WebSocket } from '../websocket';
 import { WSEvent, Args, Params, WSEventParams } from './ws-event';
 import got from 'got';
-import { MessageTypes } from '../../../data/types/entity-types';
+import { MessageTypes } from '../../../types/entity-types';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import Messages from '../../../data/messages';

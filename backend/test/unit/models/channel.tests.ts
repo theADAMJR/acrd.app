@@ -30,7 +30,7 @@ test(createChannel, () => {
   given({ lastMessageId: '123' }).expect('Invalid Snowflake ID');
 });
 
-function createChannel(channel: Partial<Lean.Channel>) {
+function createChannel(channel: Partial<Entity.Channel>) {
   const error = new Channel({
     _id: generateSnowflake(),
     name: `mock-channel`,

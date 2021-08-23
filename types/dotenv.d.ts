@@ -1,11 +1,13 @@
 declare global {
   namespace NodeJS {
     export interface ProcessEnv {
-      API_PORT: string;
-      API_PREFIX: string;
-      JWT_SECRET_KEY: string;
+      API_URL: string;
+      EMAIL_ADDRESS: string;
+      EMAIL_PASSWORD: string;
       MONGO_URI: string;
-      WEBSITE_PORT: string;
+      PORT: string;
+      ROOT_ENDPOINT: string;
+      WEBSITE_URL: string;
     }
   }
 }

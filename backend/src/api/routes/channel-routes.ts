@@ -3,7 +3,7 @@ import Channels from '../../data/channels';
 import Messages from '../../data/messages';
 import { SelfUserDocument } from '../../data/models/user';
 import Pings from '../../data/pings';
-import { Lean } from '../../data/types/entity-types';
+import { Lean } from '../../types/entity-types';
 import Deps from '../../utils/deps';
 import { updateUser, validateUser } from '../modules/middleware';
 import { WebSocket } from '../websocket/websocket';
@@ -17,7 +17,7 @@ const pings = Deps.get<Pings>(Pings);
 const ws = Deps.get<WebSocket>(WebSocket);
 
 router.get('/', updateUser, validateUser, async (req, res) => {
-  const dms: Lean.Channel[] = await channels.getDMChannels(res.locals.user.id);
+  const dms: Entity.Channel[] = await channels.getDMChannels(res.locals.user.id);
   const guildsChannels = await channels.getGuildsChannels(res.locals.user);
   const all = dms.concat(guildsChannels);
 

@@ -5,7 +5,7 @@
   "main": "src/app.ts",
   "scripts": {
     "start": "ts-node src/app.ts",
-    "dev": "ts-node-dev src/app.ts",
+    "dev": "ts-node-dev --transpile-only src/app.ts",
     "test": "ts-mocha test/test.ts"
   },
   "keywords": [],
@@ -55,8 +55,9 @@
     "@types/express": "^4.17.11",
     "@types/express-rate-limit": "^5.1.1",
     "@types/faker": "^5.1.6",
+    "@types/jest": "^27.0.1",
     "@types/jsonwebtoken": "^8.5.0",
-    "@types/mocha": "^8.2.0",
+    "@types/mocha": "^8.2.3",
     "@types/mongoose": "^5.7.36",
     "@types/node": "^14.11.2",
     "@types/node-fetch": "^2.5.7",

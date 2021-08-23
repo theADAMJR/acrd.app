@@ -1,8 +1,8 @@
 import { Document, model, Schema } from 'mongoose';
 import { useId } from '../../utils/utils';
-import { Lean, InviteTypes, patterns } from '../types/entity-types';
+import { Lean, InviteTypes, patterns } from '../../types/entity-types';
 
-export interface InviteDocument extends Document, Lean.Invite {
+export interface InviteDocument extends Document, Entity.Invite {
   _id: string | never;
   id: string;
   createdAt: never;

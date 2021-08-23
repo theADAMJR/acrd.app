@@ -1,11 +1,12 @@
 import { Document, model, Schema } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
-import { createdAtToDate, useId, validators } from '../../utils/utils';
-import { Lean, patterns, UserTypes } from '../types/entity-types';
+import { createdAtToDate, useId } from '../../utils/utils';
 import uniqueValidator from 'mongoose-unique-validator';
 import { generateSnowflake } from '../snowflake-entity';
+import validators from '../../utils/validators';
+import patterns from '../../types/patterns';
 
-export interface UserDocument extends Document, Lean.User {
+export interface UserDocument extends Document, Entity.User {
   _id: string | never;
   id: string;
   createdAt: never;
@@ -37,13 +38,22 @@ export const User = model<UserDocument>('user', new Schema({
     type: Date,
     get: createdAtToDate,
   },
+  discriminator: {
+    type: Number,
+    required: [true, 'Disciminator is required'],
+    unique: [true, 'Discriminator must be unique'],
+    validate: [
+      { validator: validators.min(0), msg: 'Discriminator too low' },
+      { validator: validators.max(9999), msg: 'Discriminator too high' },
+    ],
+  },
   email: {
     type: String,
     unique: [true, 'Email is already in use'],
     uniqueCaseInsensitive: true,
     validate: {
       validator: (val: string) => !val || patterns.email.test(val),
-      message: 'Invalid email address'
+      message: 'Invalid email address',
     },
   },
   friendIds: {
@@ -117,4 +127,5 @@ export const User = model<UserDocument>('user', new Schema({
 }, { toJSON: { getters: true } })
 .plugin(passportLocalMongoose)
 .plugin(uniqueValidator)
+.plugin(passportLocalMongoose, { usernameField: 'email' })
 .method('toClient', useId));

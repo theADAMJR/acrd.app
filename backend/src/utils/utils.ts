@@ -1,7 +1,6 @@
 import { hacker } from 'faker';
 import { Document } from 'mongoose';
 import { snowflakeToDate } from '../data/snowflake-entity';
-import { patterns } from '../data/types/entity-types';
 
 export function getNameAcronym(name: string) {  
   return name
@@ -10,12 +9,6 @@ export function getNameAcronym(name: string) {
     .map(str => str[0])
     .join('');
 }
-
-export const validators = {
-  minLength: (min: number) => (val: string | any[]) => val.length >= min,
-  maxLength: (max: number) => (val: string | any[]) => val.length <= max,
-  optionalSnowflake: (val: string) => !val || patterns.snowflake.test(val),
-};
 
 export function createdAtToDate(this: Document) {  
   return snowflakeToDate(this.id);

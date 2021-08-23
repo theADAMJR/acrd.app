@@ -6,7 +6,7 @@ import { WebSocket } from '../websocket/websocket';
 import { Socket } from 'socket.io';
 import Channels from '../../data/channels';
 import Roles from '../../data/roles';
-import { Lean, PermissionTypes } from '../../data/types/entity-types';
+import { Lean, PermissionTypes } from '../../types/entity-types';
 import Users from '../../data/users';
 import Guilds from '../../data/guilds';
 import GuildMembers from '../../data/guild-members';
@@ -44,7 +44,7 @@ export class WSGuard {
     const channel = await this.channels.get(channelId);
     await this.canAccess(channel, client, withUse);
   }
-  private async canAccess(channel: Lean.Channel, client: Socket, withUse = false) {
+  private async canAccess(channel: Entity.Channel, client: Socket, withUse = false) {
     const userId = this.userId(client);
     if (channel.type === 'TEXT') {
       const perms = (!withUse)

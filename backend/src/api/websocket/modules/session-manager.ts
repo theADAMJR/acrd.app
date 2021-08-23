@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { patterns } from '../../../data/types/entity-types';
+import { patterns } from '../../../types/entity-types';
 
 export class SessionManager extends Map<string, string> {
   public get(key: string): string  {

@@ -21,7 +21,7 @@ import rateLimiter from './modules/rate-limiter';
 
 export class API {
   public app = express();
-  private prefix = `/api/v1`;
+  private prefix = `/api/v2`;
 
   constructor(private ws = Deps.get<WebSocket>(WebSocket)) {
     this.setupMiddleware();
@@ -44,8 +44,9 @@ export class API {
 
   private setupRoutes() {
     this.app.use(`${this.prefix}`, express.static(resolve('./assets')));
-    this.app.use(`${this.prefix}`, apiRoutes, authRoutes);
+    this.app.use(`${this.prefix}`, apiRoutes);
     
+    this.app.use(`${this.prefix}/auth`, authRoutes);
     this.app.use(`${this.prefix}/invites`, invitesRoutes);
     // this.app.use(`${this.prefix}/devs`, devRoutes);
     this.app.use(`${this.prefix}/channels`, channelsRoutes);

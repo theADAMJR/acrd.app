@@ -6,20 +6,20 @@ import { actions as channels } from '../store/channels';
 import { actions as auth, logoutUser } from '../store/auth';
 import { closedModal, focusedInvite } from '../store/ui';
 import { useEffect } from 'react';
-import { actions as meta } from '../store/meta';
 import { actions as users } from '../store/users';
 import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const store = useStore();
-  const hasListenedToWS = useSelector((s: Store.AppStore) => s.meta.hasListenedToWS);
+  const [hasListened, setHasListened] = useState(false);
 
   const getState = () => store.getState() as Store.AppStore;
 
   useEffect(() => {
-    if (hasListenedToWS) return;
+    if (hasListened) return;
 
     ws.on('error', (error: any) => {
       alert(error.data?.message ?? error.message);
@@ -103,8 +103,8 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(users.updated(args));
     });
 
-    dispatch(meta.listenedToWS());
-  }, [hasListenedToWS]);
+    setHasListened(true);
+  }, [hasListened]);
   
   return null;
 }

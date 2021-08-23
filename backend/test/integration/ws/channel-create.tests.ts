@@ -50,7 +50,7 @@ describe('channel-create', () => {
     expect(join).to.be.called();
   });
 
-  async function createChannel(partialChannel?: Partial<Lean.Channel>) {
+  async function createChannel(partialChannel?: Partial<Entity.Channel>) {
     return event.invoke(ws, client, {
       guildId: guild.id,
       partialChannel: partialChannel ?? {

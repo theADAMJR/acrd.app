@@ -2,7 +2,6 @@ import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from 'sazerac';
 import { longArray, mongooseError } from '../../test-utils';
 import { User } from '../../../src/data/models/user';
-import { UserTypes } from '../../../src/data/types/entity-types';
 import { Mock } from '../../mock/mock';
 import { expect } from 'chai';
 
@@ -10,6 +9,10 @@ test(createUser, () => {
   given().expect(true);
   given({ avatarURL: '' }).expect('Avatar URL is required');
   given({ avatarURL: 'a' }).expect(true);
+  given({ discriminator: -1 }).expect('Discriminator too low');
+  given({ discriminator: 0 }).expect(true);
+  given({ discriminator: 9999 }).expect(true);
+  given({ discriminator: 10_000 }).expect('Discriminator too high');
   given({ friendIds: longArray(101) }).expect('Clout limit reached');
   given({ friendIds: [] }).expect(true);
   given({ friendRequestIds: longArray(101) }).expect('Max friend requests reached');
@@ -44,17 +47,6 @@ test(createUser, () => {
     user2.email = 'adam@d-cl.one';
 
     await expect(user2.validate()).to.be.rejectedWith('expected `email` to be unique');
-  });
-
-  it('username is taken, rejected', async () => {
-    const user = await Mock.self();
-    user.username = 'Adam';
-    await user.save();
-
-    const user2 = await Mock.user();
-    user2.username = 'adam';
-
-    await expect(user2.validate()).to.be.rejectedWith('expected `username` to be unique');
   });
 
   after(() => Mock.cleanDB());

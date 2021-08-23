@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { PermissionTypes } from '../../../data/types/entity-types';
+import { PermissionTypes } from '../../../types/entity-types';
 import { TextChannelDocument } from '../../../data/models/channel';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';

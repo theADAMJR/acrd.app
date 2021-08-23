@@ -3,7 +3,7 @@ import Guilds from '../../../data/guilds';
 import { GuildDocument } from '../../../data/models/guild';
 import { GuildMember } from '../../../data/models/guild-member';
 import { User } from '../../../data/models/user';
-import { PermissionTypes } from '../../../data/types/entity-types';
+import { PermissionTypes } from '../../../types/entity-types';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';

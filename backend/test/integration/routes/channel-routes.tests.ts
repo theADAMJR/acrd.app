@@ -19,7 +19,7 @@ describe('channel-routes', () => {
   let authorization: string;
   let users: Users;
   let user: UserDocument;
-  let channel: Lean.Channel;
+  let channel: Entity.Channel;
   let guild: GuildDocument;
 
   beforeEach(async () => {

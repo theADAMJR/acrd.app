@@ -1,28 +1,27 @@
 import { Router } from 'express';
-import { SelfUserDocument, User } from '../../data/models/user';
+import { User } from '../../data/models/user';
 import passport from 'passport';
 import Deps from '../../utils/deps';
 import Users from '../../data/users';
 import { Verification } from '../modules/email/verification';
-import { fullyUpdateUser, updateUsername, validateUser } from '../modules/middleware';
 import { EmailFunctions } from '../modules/email/email-functions';
 import { APIError } from '../modules/api-error';
-import { generateInviteCode } from '../../data/models/invite';
 import { WebSocket } from '../websocket/websocket';
-import { Args } from '../websocket/ws-events/ws-event';
+import Channels from '../../data/channels';
+import { SystemBot } from '../../system/bot';
 
 export const router = Router();
 
+const bot = Deps.get<SystemBot>(SystemBot);
+const channels = Deps.get<Channels>(Channels);
 const sendEmail = Deps.get<EmailFunctions>(EmailFunctions);
 const users = Deps.get<Users>(Users);
 const verification = Deps.get<Verification>(Verification);
 const ws = Deps.get<WebSocket>(WebSocket);
 
-router.post('/login',
-  updateUsername,
-  passport.authenticate('local', { failWithError: true }),
+router.post('/login', passport.authenticate('local', { failWithError: true }),
   async (req, res) => {
-  const user = await users.getByUsername(req.body.username);
+  const user = await users.getByEmail(req.body.email);
   if (!user)
     throw new APIError(400, 'Invalid credentials');  
 
@@ -33,6 +32,21 @@ router.post('/login',
     throw new APIError(400, 'Email is unverified');
 
   return res.status(200).json(users.createToken(user.id));
+});
+
+router.post('/register', async (req, res) => {
+  const user = await users.create({
+    email: req.body.email,
+    password: req.body.password,
+    username: req.body.username,
+  }); 
+  const dm = await channels.createDM(bot.self.id, user.id);
+  await bot.message(dm,
+    'Hello there new user :smile:!\n' +
+    '**Alpha Testing Info** - https://docs.accord.app/legal/alpha'
+  );
+  
+  res.status(201).json(users.createToken(user.id));
 });
 
 router.get('/verify-code', async (req, res) => {

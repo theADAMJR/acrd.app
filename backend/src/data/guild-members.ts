@@ -4,7 +4,7 @@ import { GuildMember, GuildMemberDocument } from './models/guild-member';
 import { Role } from './models/role';
 import { UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
-import { Lean } from './types/entity-types';
+import { Lean } from '../types/entity-types';
 
 export default class GuildMembers extends DBWrapper<string, GuildMemberDocument> {
   public async get(id: string | undefined) {
@@ -21,7 +21,7 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
     return member;
   }
 
-  public async create(guild: GuildDocument, user: UserDocument, ...roles: Lean.Role[]) {    
+  public async create(guild: GuildDocument, user: UserDocument, ...roles: Entity.Role[]) {    
     const member = await GuildMember.create({
       _id: generateSnowflake(),
       guildId: guild.id,

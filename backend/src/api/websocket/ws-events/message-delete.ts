@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import Channels from '../../../data/channels';
 import Messages from '../../../data/messages';
 import { Message } from '../../../data/models/message';
-import { PermissionTypes } from '../../../data/types/entity-types';
+import { PermissionTypes } from '../../../types/entity-types';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';

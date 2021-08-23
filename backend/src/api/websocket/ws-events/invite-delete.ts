@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import Invites from '../../../data/invites';
 import { Guild } from '../../../data/models/guild';
-import { PermissionTypes } from '../../../data/types/entity-types';
+import { PermissionTypes } from '../../../types/entity-types';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';

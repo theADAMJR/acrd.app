@@ -5,7 +5,7 @@ import Users from '../../data/users';
 import Guilds from '../../data/guilds';
 import { WebSocket } from '../websocket/websocket';
 import { Args } from '../websocket/ws-events/ws-event';
-import { PermissionTypes } from '../../data/types/entity-types';
+import { PermissionTypes } from '../../types/entity-types';
 import GuildMembers from '../../data/guild-members';
 
 export const router = Router();

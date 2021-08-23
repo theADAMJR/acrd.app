@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { PermissionTypes } from '../../../data/types/entity-types';
+import { PermissionTypes } from '../../../types/entity-types';
 import { Channel } from '../../../data/models/channel';
 import { Guild } from '../../../data/models/guild';
 import { generateSnowflake } from '../../../data/snowflake-entity';

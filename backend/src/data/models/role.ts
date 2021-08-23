@@ -1,7 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 import {  createdAtToDate, useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
-import { Lean, patterns, PermissionTypes } from '../types/entity-types';
+import { Lean, patterns, PermissionTypes } from '../../types/entity-types';
 
 export function hasPermission(current: number, required: number) {  
   return Boolean(current & required)
@@ -10,7 +10,7 @@ export function hasPermission(current: number, required: number) {
 
 const everyoneColor = '#ffffff';
 
-export interface RoleDocument extends Document, Lean.Role {
+export interface RoleDocument extends Document, Entity.Role {
   _id: string | never;
   id: string;
   createdAt: never;

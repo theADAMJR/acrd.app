@@ -1,9 +1,9 @@
 import { Document, model, Schema } from 'mongoose';
 import { useId, validators } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
-import { Lean, patterns } from '../types/entity-types';
+import { Lean, patterns } from '../../types/entity-types';
 
-export interface GuildMemberDocument extends Document, Lean.GuildMember {
+export interface GuildMemberDocument extends Document, Entity.GuildMember {
   _id: string | never;
   id: string;
   createdAt: never;

@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { Lean, PermissionTypes } from '../../../data/types/entity-types';
+import { Lean, PermissionTypes } from '../../../types/entity-types';
 import { Partial } from '../../../data/types/ws-types';
 import { Guild } from '../../../data/models/guild';
 import Deps from '../../../utils/deps';
@@ -36,13 +36,13 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
       .emit('GUILD_UPDATE', { guildId, partialGuild } as Args.GuildUpdate);
   }
 
-  private validateChannels(guild: Lean.Guild, partialGuild: Partial.Guild) {
+  private validateChannels(guild: Entity.Guild, partialGuild: Partial.Guild) {
     if (!partialGuild.channels) return;
     if (guild.channels.length !== partialGuild.channels.length)
       throw new TypeError('Cannot add or remove channels this way');
   }
 
-  private validateRoles(guild: Lean.Guild, partialGuild: Partial.Guild) {
+  private validateRoles(guild: Entity.Guild, partialGuild: Partial.Guild) {
     if (!partialGuild.roles) return;
     if (guild.roles.length !== partialGuild.roles.length)
       throw new TypeError('Cannot add or remove roles this way');

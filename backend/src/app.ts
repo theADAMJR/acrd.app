@@ -1,4 +1,3 @@
-import './data/types/env';
 import { config } from 'dotenv';
 config();
 

@@ -4,7 +4,7 @@ import { SelfUserDocument, User, UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
 import { readdirSync } from 'fs';
 import { resolve } from 'path';
-import { Lean, UserTypes } from './types/entity-types';
+import { Lean, UserTypes } from '../types/entity-types';
 import { Guild } from './models/guild';
 import { APIError } from '../api/modules/api-error';
 import Deps from '../utils/deps';
@@ -42,13 +42,13 @@ export default class Users extends DBWrapper<string, UserDocument> {
   public async getSelf(id: string | undefined, populateGuilds = true): Promise<SelfUserDocument> {
     const user = await this.get(id) as SelfUserDocument;
     if (populateGuilds)
-      user.guilds = (await this.populateGuilds(user)).guilds as Lean.Guild[];
+      user.guilds = (await this.populateGuilds(user)).guilds as Entity.Guild[];
 
     return user;
   }
 
   private async populateGuilds(user: UserDocument) {
-    const guilds: Lean.Guild[] = [];
+    const guilds: Entity.Guild[] = [];
     for (const id of user.guilds) {
       const isDuplicate = guilds.some(g => g.id === id);
       if (isDuplicate) continue;
@@ -157,7 +157,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
     return key?._id;
   }
 
-  public create(username: string, password: string, bot = false): Promise<UserDocument> {
+  public create({ email, username, password }: Auth.Credentials, bot = false): Promise<UserDocument> {
     const randomAvatar = this.getRandomAvatar();
     return (User as any).register({
       _id: generateSnowflake(),
@@ -165,7 +165,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
       avatarURL: `${process.env.API_URL ?? 'http://localhost:3000'}/avatars/${randomAvatar}`,
       badges: [],
       bot,
-      email: `${generateSnowflake()}@avoid-mongodb-error.com`, // FIXME
+      email,
       friends: [],
       status: 'ONLINE',
     }, password);

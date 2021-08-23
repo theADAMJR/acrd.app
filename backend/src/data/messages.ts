@@ -3,7 +3,7 @@ import DBWrapper from './db-wrapper';
 import { Channel } from './models/channel';
 import { Message, MessageDocument } from './models/message';
 import { generateSnowflake } from './snowflake-entity';
-import { MessageTypes } from './types/entity-types';
+import { MessageTypes } from '../types/entity-types';
 import { Partial } from './types/ws-types';
 
 const metascraper = require('metascraper')([

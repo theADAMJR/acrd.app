@@ -34,7 +34,7 @@ describe('guild-create', () => {
     expect(user.guilds.length).to.be.greaterThan(oldCount);
   });
 
-  function guildCreate(partialGuild?: Partial<Lean.Guild>) {
+  function guildCreate(partialGuild?: Partial<Entity.Guild>) {
     return event.invoke(ws, client, {
       partialGuild: {
         name: 'Mock Guild',

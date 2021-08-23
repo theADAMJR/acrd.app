@@ -4,7 +4,7 @@ import Guilds from '../../../data/guilds';
 import { GuildMember } from '../../../data/models/guild-member';
 import { Role } from '../../../data/models/role';
 import Roles from '../../../data/roles';
-import { Lean, PermissionTypes } from '../../../data/types/entity-types';
+import { Lean, PermissionTypes } from '../../../types/entity-types';
 import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
 import { array } from '../../../utils/utils';
@@ -38,7 +38,7 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
     if (!isSelf && !selfIsHigher)
       throw new TypeError('Member has higher roles'); 
     
-    const everyoneRole = guild.roles.find(r => r.name === '@everyone') as Lean.Role;
+    const everyoneRole = guild.roles.find(r => r.name === '@everyone') as Entity.Role;
     await member.updateOne({
         ...partialMember,
         roleIds: [everyoneRole.id].concat(partialMember.roleIds ?? []),

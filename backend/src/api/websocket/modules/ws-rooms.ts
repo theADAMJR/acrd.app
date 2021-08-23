@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
 import { SelfUserDocument } from '../../../data/models/user';
-import { Lean } from '../../../data/types/entity-types';
+import { Lean } from '../../../types/entity-types';
 import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
@@ -39,7 +39,7 @@ export class WSRooms {
     await client.join(channelIds);        
   }
 
-  private async getChannelIds(client: Socket, guilds: Lean.Guild[]) {
+  private async getChannelIds(client: Socket, guilds: Entity.Guild[]) {
     const ids: string[] = [];
     const channelIds = guilds
       .flatMap(g => g.channels.map(c => c.id));    

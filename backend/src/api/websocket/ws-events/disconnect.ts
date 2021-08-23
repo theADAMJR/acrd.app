@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import Channels from '../../../data/channels';
 import { Channel } from '../../../data/models/channel';
 import { UserDocument } from '../../../data/models/user';
-import { Lean } from '../../../data/types/entity-types';
+import { Lean } from '../../../types/entity-types';
 import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
 import { WebSocket } from '../websocket';
