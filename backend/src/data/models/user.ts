@@ -111,6 +111,7 @@ export const User = model<UserDocument>('user', new Schema({
     type: Object,
     default: {}
   },
+  locked: Boolean,
   status: {
     type: String,
     required: [true, 'Status is required'],
@@ -128,7 +129,7 @@ export const User = model<UserDocument>('user', new Schema({
   },
   verified: Boolean,
 }, { toJSON: { getters: true } })
-.plugin(passportLocalMongoose)
-.plugin(uniqueValidator)
-.plugin(passportLocalMongoose, { usernameField: 'email' })
-.method('toClient', useId));
+  .plugin(passportLocalMongoose)
+  .plugin(uniqueValidator)
+  .plugin(passportLocalMongoose, { usernameField: 'email' })
+  .method('toClient', useId));

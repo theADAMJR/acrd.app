@@ -1,5 +1,5 @@
 export const headers = () => ({
-  'Authorization': `Bearer ${token}`,
+  'Authorization': `Bearer ${token()}`,
 });
 
-export const token = localStorage.getItem('token');
+export const token = () => localStorage.getItem('token');

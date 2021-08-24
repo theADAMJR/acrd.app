@@ -40,12 +40,15 @@ export const fetchUsers = () => (dispatch) => {
 export const updateSelf = (payload: Partial<Entity.User>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'USER_UPDATE',
-    data: { ...payload, token } as WS.Params.UserUpdate,
+    data: { ...payload, token: token() } as WS.Params.UserUpdate,
   }));
 }
 
 export const deleteSelf = () => (dispatch) => {
-  dispatch(api.wsCallBegan({ event: 'USER_DELETE' }));
+  dispatch(api.wsCallBegan({
+    data: { token: token() },
+    event: 'USER_DELETE',
+  }));
 }
 
 export const getUser = (id: string) =>

@@ -21,26 +21,28 @@ const ws = Deps.get<WebSocket>(WebSocket);
 
 router.post('/login', passport.authenticate('local', { failWithError: true }),
   async (req, res) => {
-  const user = await users.getByEmail(req.body.email);
-  if (!user)
-    throw new APIError(400, 'Invalid credentials');  
+    const user = await users.getByEmail(req.body.email);
+    if (!user)
+      throw new APIError(400, 'Invalid credentials');
+    else if (user.locked)
+      throw new TypeError('This account is locked');
 
-  await sendEmail.verifyCode(user as any);
-  res.status(200).json(users.createToken(user.id));
-});
+    await sendEmail.verifyCode(user as any);
+    res.status(200).json(users.createToken(user.id));
+  });
 
 router.post('/register', async (req, res) => {
   const user = await users.create({
     email: req.body.email,
     password: req.body.password,
     username: req.body.username,
-  }); 
+  });
   const dm = await channels.createDM(bot.self.id, user.id);
   await bot.message(dm,
     'Hello there new user :smile:!\n' +
     '**Alpha Testing Info** - https://docs.accord.app/legal/alpha'
   );
-  
+
   res.status(201).json(users.createToken(user.id));
 });
 
@@ -51,10 +53,10 @@ router.get('/verify-code', async (req, res) => {
     throw new APIError(400, 'Invalid code');
 
   verification.delete(email);
-  
+
   const code = verification.get(req.query.code as string);
   if (code?.type === 'FORGOT_PASSWORD') {
-    await user.setPassword(req.body.newPassword);  
+    await user.setPassword(req.body.newPassword);
     await user.save();
   }
   res.status(200).json(users.createToken(user.id));
@@ -64,7 +66,7 @@ router.get('/send-verify-email', async (req, res) => {
   const email = req.query.email?.toString();
   if (!email)
     throw new APIError(400, 'Email not provided');
-  
+
   if (req.query.type === 'FORGOT_PASSWORD') {
     const user = await users.getByEmail(email);
     await sendEmail.forgotPassword(email, user);
@@ -89,7 +91,7 @@ router.get('/send-verify-email', async (req, res) => {
 });
 
 router.get('/verify-email', async (req, res) => {
-  const email = verification.getEmailFromCode(req.query.code as string);  
+  const email = verification.getEmailFromCode(req.query.code as string);
   if (!email)
     throw new APIError(400, 'Invalid code');
 
@@ -102,15 +104,15 @@ router.get('/verify-email', async (req, res) => {
   res.redirect(`${process.env.WEBSITE_URL}/channels/@me?success=Successfully verified your email.`);
 });
 
-router.post('/change-password', async (req, res) => { 
+router.post('/change-password', async (req, res) => {
   const user = await User.findOne({
     email: req.body.email,
     verified: true,
   }) as any;
   if (!user)
     throw new APIError(400, 'User Not Found');
-    
-  await user.changePassword(req.body.oldPassword, req.body.newPassword);  
+
+  await user.changePassword(req.body.oldPassword, req.body.newPassword);
   await user.save();
 
   return res.status(200).json(

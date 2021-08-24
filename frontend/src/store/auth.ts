@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
+import { token } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'auth',
@@ -14,7 +15,6 @@ const slice = createSlice({
     updatedUser: (auth, { payload }: Store.Action<WS.Args.UserUpdate>) => {
       Object.assign(auth.user, payload.partialUser);
     },
-    // remove side effects
     loggedIn: (auth) => {
       auth.attemptedLogin = true;
     },
@@ -28,12 +28,11 @@ export const actions = slice.actions;
 export default slice.reducer;
 
 export const ready = () => (dispatch, getState) => {
-  const token = localStorage.getItem('token');
-  if (getState().auth.user || !token) return;
+  if (getState().auth.user || !token()) return;
 
   dispatch(api.wsCallBegan({
     event: 'READY',
-    data: { token },
+    data: { token: token() },
   }));
 }
 

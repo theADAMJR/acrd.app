@@ -34,7 +34,7 @@ test(createUser, () => {
   given({ _id: '123', ignored: { userIds: ['123'] } }).expect('Cannot block self');
   given({ username: '' }).expect('Username is required');
   given({ username: 'ADAMJR' }).expect(true);
-  given({ username: 'ADAM JR' }).expect('Invalid username');
+  given({ username: 'ADAM JR' }).expect(true);
   given({ username: 'a' }).expect('Invalid username');
   given({ username: 'ADAM-JR' }).expect(true);
 

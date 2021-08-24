@@ -15,9 +15,9 @@ const UserSettings: React.FunctionComponent = () => {
   const onUpdate = (payload) => dispatch(updateSelf(payload));
   const onDelete = () => {
     const confirmation = window.confirm('Are you sure you want to delete your user?');
-    confirmation && dispatch(deleteSelf());
+    if (confirmation) dispatch(deleteSelf());
   }
-  
+
   return (user) ? (
     <Modal
       type={UserSettings}
@@ -31,13 +31,13 @@ const UserSettings: React.FunctionComponent = () => {
             <Link
               to="#"
               className="active flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Overview</Link>
-              
+
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
 
             <Link
               to="/logout"
               className="danger flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Logout</Link>
-          </nav>          
+          </nav>
         </div>
 
         <div className="col-span-8 h-full">
@@ -45,7 +45,7 @@ const UserSettings: React.FunctionComponent = () => {
             <header>
               <h1 className="text-xl font-bold inline">My Account</h1>
             </header>
-          
+
             <section className="w-1/3">
               <div className="pt-5">
                 <Input
@@ -90,5 +90,5 @@ const UserSettings: React.FunctionComponent = () => {
     </Modal>
   ) : null;
 }
- 
+
 export default UserSettings;

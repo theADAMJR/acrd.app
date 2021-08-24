@@ -36,7 +36,7 @@ declare namespace Entity {
     guildId: string;
     roleIds: string[];
     userId: string;
-  }  
+  }
   export interface Invite {
     id: string;
     createdAt: Date;
@@ -44,7 +44,7 @@ declare namespace Entity {
     inviterId: string;
     guildId: string;
     uses: number;
-  }  
+  }
   export interface Message {
     id: string;
     authorId: string;
@@ -76,7 +76,7 @@ declare namespace Entity {
     guilds: string[] | Entity.Guild[];
     status: UserTypes.StatusType;
     username: string;
-  } 
+  }
 }
 
 declare namespace ChannelTypes {
@@ -141,6 +141,7 @@ declare namespace UserTypes {
     lastReadMessages: {
       [k: string]: string
     };
+    locked: boolean;
     ignored: {
       channelIds: string[];
       guildIds: string[];
