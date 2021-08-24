@@ -1,4 +1,4 @@
-# Accord - Discord clone with the essential features.
+# Accord - Like Discord but cooler.
 
 > Built with React TS, Redux, and Node.js.
 

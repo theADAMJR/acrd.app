@@ -59,10 +59,10 @@ export default slice.reducer;
 export const fetchMyGuilds = () => (dispatch, getState: () => Store.AppState) => {
   const guilds = getState().entities.guilds;
   if (guilds.list.length) return;
-  
+
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
-    headers,
+    headers: headers(),
     url: '/guilds',
   }));
 }
@@ -134,21 +134,21 @@ export const createInvite = (guildId: string) => (dispatch) => {
 
 export const getGuild = (id: string) =>
   createSelector<Store.AppState, Entity.Guild[], Entity.Guild | undefined>(
-  state => state.entities.guilds.list,
-  guilds => guilds.find(g => g.id === id),
-);
+    state => state.entities.guilds.list,
+    guilds => guilds.find(g => g.id === id),
+  );
 export const getGuildByChannelId = (channelId: string) =>
   createSelector<Store.AppState, Entity.Guild[], Entity.Guild | undefined>(
-  state => state.entities.guilds.list,
-  guilds => guilds.find(g => g.channels.some(c => c.id === channelId)),
-);
+    state => state.entities.guilds.list,
+    guilds => guilds.find(g => g.channels.some(c => c.id === channelId)),
+  );
 export const getChannel = (guildId: string, channelId: string) =>
   createSelector<Store.AppState, Entity.Guild[], Entity.Channel | undefined>(
-  state => state.entities.guilds.list,
-  guilds => guilds
-    .find(g => g.id === guildId)?.channels
-    .find(c => c.id === channelId),
-);
+    state => state.entities.guilds.list,
+    guilds => guilds
+      .find(g => g.id === guildId)?.channels
+      .find(c => c.id === channelId),
+  );
 
 export const getAbbr = (name: string) => name
   .split(' ')

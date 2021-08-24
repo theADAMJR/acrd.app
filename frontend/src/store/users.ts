@@ -32,7 +32,7 @@ export default slice.reducer;
 export const fetchUsers = () => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
-    headers,
+    headers: headers(),
     url: '/users',
   }));
 }
@@ -50,6 +50,6 @@ export const deleteSelf = () => (dispatch) => {
 
 export const getUser = (id: string) =>
   createSelector<Store.AppState, Entity.User[], Entity.User | undefined>(
-  state => state.entities.users.list,
-  users => users.find(u => u.id === id),
-);
+    state => state.entities.users.list,
+    users => users.find(u => u.id === id),
+  );

@@ -7,8 +7,9 @@ import PageWrapper from './page-wrapper';
 import Input from '../utils/input';
 
 import './register-page.scoped.css';
+import NormalButton from '../utils/buttons/normal-button';
 
-const RegisterPage: React.FunctionComponent = () => {  
+const RegisterPage: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.auth.user);
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
@@ -41,7 +42,7 @@ const RegisterPage: React.FunctionComponent = () => {
               register={register}
               className="mt-3" />
 
-            <button className="background bg-primary heading w-full h-11 rounded-md mt-8">Register</button>
+            <NormalButton className="w-full h-11 rounded-md mt-8">Register</NormalButton>
             <p className="mt-2">
               <Link to="/login">Already have an account?</Link>
             </p>
@@ -49,7 +50,7 @@ const RegisterPage: React.FunctionComponent = () => {
         </div>
         <Particles width="100%" height="100%" />
       </PageWrapper>
-  );
+    );
 }
- 
+
 export default RegisterPage;

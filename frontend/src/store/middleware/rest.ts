@@ -5,7 +5,7 @@ import env from '../../environment';
 export default store => next => async action => {
   if (action.type !== actions.restCallBegan.type)
     return next(action);
-  
+
   const { url, method, data, onSuccess, headers, callback } = action.payload as APIArgs;
 
   next(action);

@@ -28,19 +28,19 @@ const slice = createSlice({
 
 export const getChannelMessages = (channelId: string) =>
   createSelector<Store.AppState, Entity.Message[], Entity.Message[]>(
-  state => state.entities.messages,
-  messages => messages.filter(m => m.channelId === channelId),
-);
+    state => state.entities.messages,
+    messages => messages.filter(m => m.channelId === channelId),
+  );
 
 // v6: add lazy message loading
 export const fetchMessages = (channelId: string) => (dispatch, getState) => {
   const isCached = getState().entities.messages.some(c => c.channelId === channelId);
   if (isCached) return;
-  
+
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
     url: `/channels/${channelId}/messages?back=100`,
-    headers,
+    headers: headers(),
   }));
 }
 
