@@ -38,8 +38,6 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
 
     await GuildMember.deleteOne({ guildId, userId });
 
-    await this.leaveGuildRooms(client, guild);
-
     ws.io
       .to(guildId)
       .emit('GUILD_MEMBER_REMOVE', { guildId, userId } as WS.Args.GuildMemberRemove);
@@ -47,6 +45,10 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     ws.io
       .to(user.id)
       .emit('GUILD_DELETE', { guildId } as WS.Args.GuildDelete);
+
+    const userClient = ws.io.sockets.sockets.get(userId);
+    if (userClient)
+      await this.leaveGuildRooms(userClient, guild);
   }
 
   private async leaveGuildRooms(client: Socket, guild: GuildDocument) {
