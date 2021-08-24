@@ -3,6 +3,7 @@ import Channels from '../../data/channels';
 import Messages from '../../data/messages';
 import { SelfUserDocument } from '../../data/models/user';
 import Pings from '../../data/pings';
+import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
 import { updateUser, validateUser } from '../modules/middleware';
 import { WebSocket } from '../websocket/websocket';
@@ -36,12 +37,7 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
   
   const slicedMsgs = channelMsgs
     .slice(back)
-    .map(m => {
-      const isIgnored = user.ignored.userIds.includes(m.authorId);
-      if (isIgnored)
-        m.content = 'This user is blocked, and this message content has been hidden.';
-      return m;
-    });  
+    .filter(m => !user.ignored.userIds.includes(m.authorId));
 
   const index = slicedMsgs.length - 1;
   const lastMessage = slicedMsgs[index];
