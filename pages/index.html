@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accord v2 | In Development</title>
+
+  <style>
+    .card {
+      font-family: 'Arial Black', sans-serif;
+      text-align: center;
+      color: white !important;
+    }
+
+    .hero {
+      width: 100%;
+      min-height: 750px;
+      background-image: url('http://zackcerny.com/images/hero-image-top.png');
+      background-size: cover;
+      background-position: center center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .heroClouds {
+      width: 2500px;
+      height: 750px;
+      background-image: url('https://i.imgur.com/hAaTm7J.jpg');
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: -1;
+      -webkit-animation: clouds 70s infinite linear;
+    }
+
+    @keyframes clouds {
+      from {
+        background-position: 0 0;
+      }
+
+      to {
+        background-position: -1024px 0;
+      }
+    }
+
+    @-webkit-keyframes clouds {
+      from {
+        background-position: 0 0;
+      }
+
+      to {
+        background-position: -1024px 0;
+      }
+    }
+
+    @-moz-keyframes clouds {
+      from {
+        background-position: 0 0;
+      }
+
+      to {
+        background-position: -1024px 0;
+      }
+    }
+
+    @property --rotate {
+      syntax: "<angle>";
+      initial-value: 132deg;
+      inherits: false;
+    }
+
+    :root {
+      --card-height: 60vh;
+      --card-width: calc(var(--card-height) / 1.5);
+    }
+
+
+    body {
+      min-height: 100vh;
+      background: #212534;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: cursive;
+    }
+
+
+    .card {
+      background: #191c29;
+      width: var(--card-width);
+      height: var(--card-height);
+      padding: 3px;
+      position: relative;
+      border-radius: 6px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      display: flex;
+      font-size: 1.5em;
+      color: rgb(88 199 250 / 0%);
+      cursor: pointer;
+    }
+
+
+    .card::before {
+      content: "";
+      width: 104%;
+      height: 102%;
+      border-radius: 8px;
+      background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+      position: absolute;
+      z-index: -1;
+      top: -1%;
+      left: -2%;
+      animation: spin 2.5s linear infinite;
+    }
+
+    .card::after {
+      position: absolute;
+      content: "";
+      top: calc(var(--card-height) / 6);
+      left: 0;
+      right: 0;
+      z-index: -1;
+      height: 100%;
+      width: 100%;
+      margin: 0 auto;
+      transform: scale(0.8);
+      filter: blur(calc(var(--card-height) / 6));
+      background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+      transition: opacity .5s;
+      animation: spin 2.5s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        --rotate: 0deg;
+      }
+
+      100% {
+        --rotate: 360deg;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero"></div>
+  <div class="heroClouds"></div>
+  <div class="card">
+    New accord.app UI is now in development.
+  </div>
+</body>
+
+</html>
