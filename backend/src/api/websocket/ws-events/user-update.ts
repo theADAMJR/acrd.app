@@ -14,13 +14,11 @@ export default class implements WSEvent<'USER_UPDATE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { token, partialUser }: WS.Params.UserUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { token, username, avatarURL }: WS.Params.UserUpdate) {
     const { id: userId } = await this.guard.decodeKey(token);
-    
     const user = await this.users.get(userId);
-    if (partialUser.guilds?.length !== user.guilds.length)
-      throw new TypeError('You add or remove user guilds this way');
 
+    const partialUser = { avatarURL, username };
     this.guard.validateKeys('user', partialUser);
 
     await user.updateOne(
@@ -28,6 +26,6 @@ export default class implements WSEvent<'USER_UPDATE'> {
       { runValidators: true, context: 'query' },
     );
 
-    client.emit('USER_UPDATE', { partialUser } as WS.Args.UserUpdate);
+    client.emit('USER_UPDATE', { userId, partialUser } as WS.Args.UserUpdate);
   }
 }

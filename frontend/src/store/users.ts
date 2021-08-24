@@ -1,6 +1,7 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { WS } from '../types/ws';
 import { actions as api } from './api';
-import { headers } from './utils/rest-headers';
+import { token, headers } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'users',
@@ -9,18 +10,15 @@ const slice = createSlice({
     list: [] as Entity.User[],
   },
   reducers: {
-    fetched: (users, { payload }) => {
-      try { users.list.push(...payload) } // called when self user fetched (READY)
-      catch { // called when all users fetched (GET users)
-        users.list.push(payload);
-        users.fetched = true;
-      }
+    fetched: (users, { payload }: Store.Action<Entity.User[]>) => {
+      users.list.push(...payload);
+      users.fetched = true;
     },
-    updated: (users, { payload }) => {
+    updated: (users, { payload }: Store.Action<WS.Args.UserUpdate>) => {
       const user = users.list.find(u => u.id === payload.userId);
-      Object.assign(user, payload.payload);
+      Object.assign(user, payload.partialUser);
     },
-    deleted: (users, { payload }) => {
+    deleted: (users, { payload }: Store.Action<WS.Args.UserDelete>) => {
       const index = users.list.findIndex(u => u.id === payload.userId);
       users.list.splice(index, 1);
     },
@@ -42,7 +40,7 @@ export const fetchUsers = () => (dispatch) => {
 export const updateSelf = (payload: Partial<Entity.User>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'USER_UPDATE',
-    data: { payload },
+    data: { ...payload, token } as WS.Params.UserUpdate,
   }));
 }
 

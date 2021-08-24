@@ -43,7 +43,9 @@ declare namespace WS {
     'REMOVE_FRIEND': WS.Params.RemoveFriend;
     /** Indicate that you are typing in a text-based channel. */
     'TYPING_START': WS.Params.TypingStart;
-    /** Update user settings. */
+    /** Delete a user with a given token. */
+    'USER_DELETE': WS.Params.UserDelete;
+    /** Update a user with a given token. */
     'USER_UPDATE': WS.Params.UserUpdate;
   }
 
@@ -186,6 +188,9 @@ declare namespace WS {
     export interface TypingStart {
       channelId: string;
     }
+    export interface UserDelete {
+      token: string;
+    }
     export interface UserUpdate {
       avatarURL?: string;
       username?: string;
@@ -322,8 +327,12 @@ declare namespace WS {
       channelId: string;
       userId: string;
     }
+    export interface UserDelete {
+      userId: string;
+    }
     /** PRIVATE - contains private data */
     export interface UserUpdate {
+      userId: string;
       partialUser: PartialEntity.User;
     }
   }

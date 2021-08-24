@@ -46,7 +46,7 @@ export class API {
   }
 
   private setupRoutes() {
-    this.app.use(`${this.prefix}`, express.static(resolve('./assets')));
+    this.app.use(`/assets`, express.static(resolve('./assets')));
     this.app.use(`${this.prefix}`, apiRoutes);
     
     this.app.use(`${this.prefix}/auth`, authRoutes);

@@ -6,7 +6,7 @@ import { actions as channels } from '../store/channels';
 import { actions as auth, logoutUser } from '../store/auth';
 import { closedModal, focusedInvite } from '../store/ui';
 import { useEffect } from 'react';
-import { actions as users } from '../store/users';
+import { actions as users, getUser } from '../store/users';
 import { useHistory } from 'react-router-dom';
 import { actions as meta } from '../store/meta';
 
@@ -56,7 +56,8 @@ const WSListener: React.FunctionComponent = () => {
     // listen to passive events (not received by api middleware)
     ws.on('GUILD_MEMBER_ADD', (args) => {
       dispatch(guilds.memberAdded(args));
-      dispatch(users.fetched(args.member));
+      const memberUser = getUser(args.member.userId)(store.getState())!;
+      dispatch(users.fetched([memberUser]));
     });
     // user may be in mutual guilds, and therefore not removed from global user cache
     ws.on('GUILD_MEMBER_REMOVE', (args) => dispatch(guilds.memberRemoved(args)));
@@ -66,7 +67,9 @@ const WSListener: React.FunctionComponent = () => {
     });
     ws.on('GUILD_CREATE', (args) => {
       dispatch(guilds.created(args));
-      dispatch(users.fetched(args.guild.members));
+      const memberUsers = args.guild.members
+        .map(m => getUser(m.userId)(store.getState())!);
+      dispatch(users.fetched(memberUsers));
       dispatch(closedModal());
       history.push(`/channels/${args.guild.id}`);
     });
@@ -94,7 +97,7 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('MESSAGE_UPDATE', (args) => dispatch(messages.updated(args)));
     ws.on('READY', (args) => {
       dispatch(auth.ready(args));
-      dispatch(users.fetched(args.user));
+      dispatch(users.fetched([args.user]));
     });
     ws.on('USER_DELETE', () => {
       ws.disconnect();

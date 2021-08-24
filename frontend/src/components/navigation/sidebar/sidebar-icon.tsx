@@ -15,7 +15,7 @@ const SidebarIcon: React.FunctionComponent<SidebarIconProps> = (props) => {
   let { to, imageURL, name, classes = 'heading' } = props;
   const location = useLocation();
   if (imageURL)
-    imageURL = `${environment.rootAPIURL}${imageURL}`;
+    imageURL = `${environment.cdnURL}${imageURL}`;
   
   const Icon = () => (imageURL)
     ? <img
