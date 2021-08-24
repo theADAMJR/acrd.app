@@ -8,25 +8,28 @@ import { closedModal, focusedInvite } from '../store/ui';
 import { useEffect } from 'react';
 import { actions as users } from '../store/users';
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { actions as meta } from '../store/meta';
 
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const store = useStore();
-  const [hasListened, setHasListened] = useState(false);
+  const hasListened = useSelector((s: Store.AppState) => s.meta.hasListenedToWS);
 
   const getState = () => store.getState() as Store.AppState;
 
   useEffect(() => {
-    if (hasListened) return;
+    if (hasListened) return;    
 
     ws.on('error', (error: any) => {
       alert(error.data?.message ?? error.message);
     });
 
     // add channel to guilds.channels
-    ws.on('CHANNEL_CREATE', (args) => {      
+    ws.on('CHANNEL_CREATE', (args) => {   
+        console.log(args);
+        
+      
       // if we created it, we want to navigate there
       // we'd expect the user to exist, as they should be logged in to receive ws events
       const { auth, ui } = getState();      
@@ -103,7 +106,7 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(users.updated(args));
     });
 
-    setHasListened(true);
+    dispatch(meta.listenedToWS());
   }, [hasListened]);
   
   return null;

@@ -21,6 +21,9 @@ declare namespace Store {
         list: Entity.User[];
       }
     };
+    meta: {
+      hasListenedToWS: boolean;
+    };
     ui: {
       openDropdown?: string;
       openModal?: string;

@@ -9,6 +9,7 @@ import channels from './channels';
 import auth from './auth';
 import config from './config';
 import ui from './ui';
+import meta from './meta';
 
 export default () => configureStore<Store.AppState>({
   middleware: [
@@ -20,6 +21,7 @@ export default () => configureStore<Store.AppState>({
     auth,
     config,
     entities: combineReducers({ channels, guilds, messages, users }),
+    meta,
     ui,
   }),
 });
