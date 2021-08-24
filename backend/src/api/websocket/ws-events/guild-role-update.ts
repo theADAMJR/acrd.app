@@ -5,6 +5,7 @@ import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
+import { WS } from '../../../types/ws';
 
 export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
   on = 'GUILD_ROLE_UPDATE' as const;

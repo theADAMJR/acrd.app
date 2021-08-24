@@ -1,4 +1,5 @@
-import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { createSlice, createSelector, Action } from '@reduxjs/toolkit';
+import { WS } from '../types/ws';
 import { actions as api } from './api';
 import { headers } from './utils/rest-headers';
 
@@ -8,19 +9,19 @@ const slice = createSlice({
   // -> that's why we use an array
   initialState: [] as Entity.Message[],
   reducers: {
-    created: (messages, { payload }) => {
+    created: (messages, { payload }: Store.Action<WS.Args.MessageCreate>) => {
       messages.push(payload.message);
     },
-    deleted: (messages, { payload }) => {
+    deleted: (messages, { payload }: Store.Action<WS.Args.MessageDelete>) => {
       const index = messages.findIndex(m => m.id === payload.messageId);
       messages.splice(index, 1);
     },
-    fetched: (messages, { payload }) => {
+    fetched: (messages, { payload }: Store.Action<Entity.Message[]>) => {
       messages.push(...payload);
     },
-    updated: (messages, { payload }) => {
-      const message = messages.find(m => m.id === payload.messageId);
-      Object.assign(message, payload.payload);
+    updated: (messages, { payload }: Store.Action<WS.Args.MessageUpdate>) => {
+      const message = messages.find(m => m.id === payload.message.id);
+      Object.assign(message, payload.message);
     },
   },
 });
@@ -53,7 +54,7 @@ export const createMessage = (channelId: string, payload: Partial<Entity.Message
 export const updateMessage = (id: string, payload: Partial<Entity.Message>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'MESSAGE_UPDATE',
-    data: { payload, messageId: id },
+    data: { messageId: id, ...payload },
   }));
 }
 

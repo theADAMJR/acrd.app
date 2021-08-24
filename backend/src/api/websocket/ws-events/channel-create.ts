@@ -32,7 +32,12 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
       { runValidators: true },
     );
 
-    await client.join(channel.id);
+    // add guild members to channel
+    const clientIds = ws.io.sockets.adapter.rooms.get(guildId)!;
+    for (const id of clientIds)
+      await ws.io.sockets.sockets
+        .get(id)
+        ?.join(channel.id);
 
     ws.io
       .to(guildId)

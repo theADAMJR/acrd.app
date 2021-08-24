@@ -24,15 +24,14 @@ export default class implements WSEvent<'MESSAGE_UPDATE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { messageId, content, withEmbed }: WS.Params.MessageUpdate) {
-    let message = await this.messages.get(messageId);
+    const message = await this.messages.get(messageId);
     this.guard.validateIsUser(client, message.authorId);
     this.guard.validateKeys('message', { content });
     
-    message = await message.updateOne({
-      content,
-      embed: (withEmbed) ? await this.getEmbed(message) : undefined,
-      updatedAt: new Date()
-    }, { runValidators: true });
+    if (content) message.content = content;
+    message.embed = (withEmbed) ? await this.getEmbed(message) : undefined;
+    message.updatedAt = new Date();
+    await message.save();
 
     ws.to(message.channelId)
       .emit('MESSAGE_UPDATE', { message });

@@ -28,9 +28,6 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
     const authorId = ws.sessions.userId(client);
     const message = await this.messages.create(authorId, channelId, { content });
 
-    if (!client.rooms.has(channelId))
-      await client.join(channelId); 
-
     await Channel.updateOne(
       { _id: channelId },
       { lastMessageId: message.id }
