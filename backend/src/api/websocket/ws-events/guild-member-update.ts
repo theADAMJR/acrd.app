@@ -1,12 +1,10 @@
 import { Socket } from 'socket.io';
 import GuildMembers from '../../../data/guild-members';
 import Guilds from '../../../data/guilds';
-import { GuildMember } from '../../../data/models/guild-member';
-import { Role } from '../../../data/models/role';
 import Roles from '../../../data/roles';
-import Users from '../../../data/users';
+import { PermissionTypes } from '../../../types/permission-types';
+import { WS } from '../../../types/ws';
 import Deps from '../../../utils/deps';
-import { array } from '../../../utils/utils';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';

@@ -1,7 +1,6 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
-import { getUser } from './users';
 import { headers } from './utils/rest-headers';
 
 const slice = createSlice({
@@ -31,12 +30,12 @@ const slice = createSlice({
       guild!.members.push(payload.member);
     },
     memberRemoved: (guilds, { payload }: Store.Action<WS.Args.GuildMemberRemove>) => {
-      const guild = guilds.list.find(i => i.id === payload.guildId)!;
-      guild.members = guild.members.filter(m => m.id !== payload.memberId);
+      const guild = guilds.list.find(g => g.id === payload.guildId)!;
+      guild.members = guild.members.filter(m => m.userId !== payload.userId);
     },
     memberUpdated: (guilds, { payload }: Store.Action<WS.Args.GuildMemberUpdate>) => {
       const members = guilds.list.flatMap(g => g.members);
-      const member = members.find(m => m.id === payload.memberId);
+      const member = members.find(m => m.userId === payload.userId);
       Object.assign(member, payload.partialMember);
     },
     fetched: (guilds, { payload }: Store.Action<Entity.Guild[]>) => {
@@ -44,7 +43,7 @@ const slice = createSlice({
       guilds.fetched = true;
     },
     updated: (guilds, { payload }: Store.Action<WS.Args.GuildUpdate>) => {
-      const guild = guilds.list.find(i => i.id === payload.guildId);
+      const guild = guilds.list.find(g => g.id === payload.guildId);
       Object.assign(guild, payload.partialGuild);
     },
     deleted: (guilds, { payload }) => {

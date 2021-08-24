@@ -4,6 +4,7 @@ import { GuildDocument } from '../../../data/models/guild';
 import { GuildMember } from '../../../data/models/guild-member';
 import { User } from '../../../data/models/user';
 import { PermissionTypes } from '../../../types/permission-types';
+import { WS } from '../../../types/ws';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
@@ -17,9 +18,9 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { guildId, memberId }: WS.Params.GuildMemberRemove) {
+  public async invoke(ws: WebSocket, client: Socket, { guildId, userId }: WS.Params.GuildMemberRemove) {
     const guild = await this.guilds.get(guildId, true);
-    const member = guild.members.find(m => m.id === memberId);    
+    const member = guild.members.find(m => m.userId === userId);    
     if (!member)
       throw new TypeError('Member does not exist');
 
@@ -35,17 +36,17 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     user.guilds.splice(index, 1);
     await user.save();
 
-    await GuildMember.deleteOne({ _id: memberId });
+    await GuildMember.deleteOne({ guildId, userId });
 
     await this.leaveGuildRooms(client, guild);
 
     ws.io
-      .to(member.userId)
-      .emit('GUILD_LEAVE', { guildId } as WS.Args.GuildLeave);
+      .to(guildId)
+      .emit('GUILD_MEMBER_REMOVE', { guildId, userId } as WS.Args.GuildMemberRemove);
 
     ws.io
-      .to(guildId)
-      .emit('GUILD_MEMBER_REMOVE', { guildId, memberId: member.id } as WS.Args.GuildMemberRemove);
+      .to(user.id)
+      .emit('GUILD_DELETE', { guildId } as WS.Args.GuildDelete);
   }
 
   private async leaveGuildRooms(client: Socket, guild: GuildDocument) {

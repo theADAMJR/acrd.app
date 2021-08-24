@@ -134,12 +134,13 @@ declare namespace WS {
     export interface GuildMemberRemove {
       /** ID of the guild. */
       guildId: string;
-      /** ID of the member, not the same as a user ID. */
-      memberId: string;
+      /** ID of the user to kick. */
+      userId: string;
     }
     export interface GuildMemberUpdate {
       /** ID of the member, not the same as a user ID. */
       memberId: string;
+      
     }
     export interface GuildRoleCreate {
       guildId: string;
@@ -245,7 +246,7 @@ declare namespace WS {
       /** ID of the guild. */
       guildId: string;
       /** ID of member that was removed. */
-      memberId: string;
+      userId: string;
     }
     export interface GuildMemberUpdate {
       /** ID of the guild. */
@@ -253,7 +254,7 @@ declare namespace WS {
       /** Properties of updated guild member. */
       partialMember: PartialEntity.GuildMember;
       /** ID of the guild member. Not the same as a user ID. */
-      memberId: string;
+      userId: string;
     }
     export interface GuildRoleCreate {
       /** ID of the guild. */
