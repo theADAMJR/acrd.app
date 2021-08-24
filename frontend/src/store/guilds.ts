@@ -27,7 +27,7 @@ const slice = createSlice({
       guild!.invites.push(payload.invite);
     },
     memberAdded: (guilds, { payload }: Store.Action<WS.Args.GuildMemberAdd>) => {
-      const guild = guilds.list.find(i => i.id === payload.guildId);
+      const guild = guilds.list.find(g => g.id === payload.guildId);
       guild!.members.push(payload.member);
     },
     memberRemoved: (guilds, { payload }: Store.Action<WS.Args.GuildMemberRemove>) => {

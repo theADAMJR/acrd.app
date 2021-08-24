@@ -4,6 +4,7 @@ import Guilds from '../../../data/guilds';
 import Invites from '../../../data/invites';
 import { InviteDocument } from '../../../data/models/invite';
 import Users from '../../../data/users';
+import { WS } from '../../../types/ws';
 import Deps from '../../../utils/deps';
 import { WSRooms } from '../modules/ws-rooms';
 import { WebSocket } from '../websocket';
@@ -36,14 +37,12 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     await this.handleInvite(invite);
     const member = await this.members.create(guild, user);
     await this.rooms.joinGuildRooms(user, client);
+
+    client.emit('GUILD_CREATE', { guild } as WS.Args.GuildCreate);
     
     ws.io
       .to(guild.id)
       .emit('GUILD_MEMBER_ADD', { guildId: guild.id, member } as WS.Args.GuildMemberAdd);
-
-    ws.io
-      .to(user.id)
-      .emit('GUILD_JOIN', { guild } as WS.Args.GuildJoin);
   }
 
   private async handleInvite(invite: InviteDocument) {
