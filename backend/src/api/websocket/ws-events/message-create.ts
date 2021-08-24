@@ -11,6 +11,7 @@ import Channels from '../../../data/channels';
 import Users from '../../../data/users';
 import { Channel } from '../../../data/models/channel';
 import { User } from '../../../data/models/user';
+import { WS } from '../../../types/ws';
 
 export default class implements WSEvent<'MESSAGE_CREATE'> {
   on = 'MESSAGE_CREATE' as const;
@@ -21,11 +22,11 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { channelId, partialMessage }: WS.Params.MessageCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { channelId, content }: WS.Params.MessageCreate) {
     await this.guard.canAccessChannel(client, channelId, true);
       
     const authorId = ws.sessions.userId(client);
-    const message = await this.messages.create(authorId, channelId, partialMessage);
+    const message = await this.messages.create(authorId, channelId, { content });
 
     if (!client.rooms.has(channelId))
       await client.join(channelId); 

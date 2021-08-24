@@ -5,6 +5,7 @@ import Users from '../../data/users';
 import Deps from '../../utils/deps';
 import { APIError } from './api-error';
 import { NextFunction, Request, Response } from 'express';
+import { PermissionTypes } from '../../types/permission-types';
 
 const guilds = Deps.get<Guilds>(Guilds);
 const roles = Deps.get<Roles>(Roles);
@@ -12,8 +13,8 @@ const users = Deps.get<Users>(Users);
 
 export async function fullyUpdateUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const key = req.get('Authorization') as string;    
-    const id = users.idFromAuth(key);    
+    const token = req.get('Authorization') as string;    
+    const id = users.idFromAuth(token);    
 
     res.locals.user = await users.getSelf(id);
   } finally {
@@ -22,8 +23,8 @@ export async function fullyUpdateUser(req: Request, res: Response, next: NextFun
 }
 export async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const key = req.get('Authorization') as string;    
-    const id = users.idFromAuth(key);    
+    const token = req.get('Authorization') as string;    
+    const id = users.idFromAuth(token);    
 
     res.locals.user = await users.getSelf(id, false);
   } finally {

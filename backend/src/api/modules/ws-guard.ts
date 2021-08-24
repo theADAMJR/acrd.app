@@ -77,8 +77,8 @@ export class WSGuard {
       throw new TypeError(`Missing Permissions - ${PermissionTypes.All[permission]}`);
   }
 
-  public async decodeKey(key: string) {
-    const id = this.users.verifyToken(key);      
+  public async decodeKey(token: string) {
+    const id = this.users.verifyToken(token);      
     return { id };
   }
 

@@ -20,19 +20,22 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
     return message;
   }
 
-  public async create(authorId: string, channelId: string, partialMessage: PartialEntity.Message) {
+  public async create(authorId: string, channelId: string, { content }: PartialEntity.Message) {
+    if (!content)
+      throw new TypeError('Content must be provided');
+    
     return await Message.create({
       _id: generateSnowflake(),
       authorId,
       channelId,
-      content: partialMessage.content as string,
-      embed: await this.getEmbed(partialMessage),
+      content,
+      embed: await this.getEmbed(content),
     });
   }
 
-  public async getEmbed(message: PartialEntity.Message): Promise<MessageTypes.Embed | undefined> {
+  public async getEmbed(content: string): Promise<MessageTypes.Embed | undefined> {
     try {
-      const targetURL = /([https://].*)/.exec(message.content as string)?.[0];  
+      const targetURL = /([https://].*)/.exec(content as string)?.[0];  
       if (!targetURL) return;
   
       const { body: html, url } = await got(targetURL);

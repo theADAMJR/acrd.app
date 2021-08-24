@@ -120,8 +120,8 @@ declare namespace WS {
       channelId: string;
     }
     export interface GuildCreate {
-      /** Properties with the guild. */
-      partialGuild: PartialEntity.Guild;
+      /** Name of the guild. */
+      name: string;
     }
     export interface GuildDelete {
       guildId: string;
@@ -166,7 +166,7 @@ declare namespace WS {
     }
     export interface MessageCreate {
       channelId: string;
-      partialMessage: PartialEntity.Message;
+      content: string;
     }
     export interface MessageDelete {
       messageId: string;
@@ -190,7 +190,7 @@ declare namespace WS {
     }
     export interface UserUpdate {
       partialUser: PartialEntity.User;
-      key: string;
+      token: string;
     }
   }
   

@@ -1,11 +1,11 @@
 import { Socket } from 'socket.io';
 import Guilds from '../../../data/guilds';
-import { User } from '../../../data/models/user';
 import Users from '../../../data/users';
+import { WS } from '../../../types/ws';
 import Deps from '../../../utils/deps';
 import { WSRooms } from '../modules/ws-rooms';
 import { WebSocket } from '../websocket';
-import { WSEvent, Params } from './ws-event';
+import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'GUILD_CREATE'> {
   on = 'GUILD_CREATE' as const;
@@ -16,11 +16,11 @@ export default class implements WSEvent<'GUILD_CREATE'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { partialGuild }: WS.Params.GuildCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { name }: WS.Params.GuildCreate) {
     const userId = ws.sessions.userId(client);
     
     const user = await this.users.getSelf(userId, true);
-    const guild = await this.guilds.create(partialGuild.name as any, user);
+    const guild = await this.guilds.create(name as any, user);
 
     await this.rooms.joinGuildRooms(user, client);
 

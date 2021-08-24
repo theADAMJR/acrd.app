@@ -15,7 +15,7 @@ describe('ready', () => {
   
   let event: Ready;
   let users: Users;
-  let key: string;
+  let token: string;
   let user: UserDocument;
   let guild: GuildDocument;
   let ws: WebSocket;
@@ -24,7 +24,7 @@ describe('ready', () => {
     ({ event, user, ws, guild } = await Mock.defaultSetup(client, Ready));
 
     users = new Users();
-    key = users.createToken(user.id);
+    token = users.createToken(user.id);
   });
 
   afterEach(async () => await Mock.afterEach(ws));
@@ -105,7 +105,7 @@ describe('ready', () => {
   });
 
   function ready() {
-    return event.invoke(ws, client, { key });
+    return event.invoke(ws, client, { token });
   }
   function disconnect() {
     return new Disconnect().invoke(ws, client);
@@ -118,6 +118,6 @@ describe('ready', () => {
   }
   async function makeOwner() {
     ws.sessions.set(client.id, guild.ownerId);
-    key = users.createToken(user.id);
+    token = users.createToken(user.id);
   }
 });

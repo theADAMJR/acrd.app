@@ -1,5 +1,6 @@
 import { Socket } from 'socket.io';
 import Users from '../../../data/users';
+import { WS } from '../../../types/ws';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
@@ -13,8 +14,8 @@ export default class implements WSEvent<'USER_UPDATE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { key, partialUser }: WS.Params.UserUpdate) {
-    const { id: userId } = await this.guard.decodeKey(key);
+  public async invoke(ws: WebSocket, client: Socket, { token, partialUser }: WS.Params.UserUpdate) {
+    const { id: userId } = await this.guard.decodeKey(token);
     
     const user = await this.users.get(userId);
     if (partialUser.guilds?.length !== user.guilds.length)

@@ -129,7 +129,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
     return this.systemUser = await User.findOne({ username })
       ?? await User.create({
         _id: generateSnowflake(),
-        avatarURL: `${process.env.API_URL ?? 'http://localhost:3000'}/avatars/bot.png`,
+        avatarURL: `/avatars/bot.png`,
         friendRequestIds: [],
         discriminator: 1,
         badges: [],
@@ -154,8 +154,8 @@ export default class Users extends DBWrapper<string, UserDocument> {
     return this.verifyToken(token);
   }
   public verifyToken(token: string | undefined): string {
-    const key = jwt.verify(token as string, 'secret') as UserToken;   
-    return key?._id;
+    const decoded = jwt.verify(token as string, 'secret') as UserToken;   
+    return decoded?._id;
   }
 
   public async create({ email, username, password }: Auth.Credentials, bot = false): Promise<UserDocument> {

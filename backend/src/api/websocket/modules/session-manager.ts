@@ -1,9 +1,9 @@
 import { Socket } from 'socket.io';
-import { patterns } from '../../../types/permission-types';
+import patterns from '../../../types/patterns';
 
 export class SessionManager extends Map<string, string> {
-  public get(key: string): string  {
-    const userId = super.get(key);    
+  public get(token: string): string  {
+    const userId = super.get(token);    
     if (!userId)
       throw new TypeError('User Not Logged In');
 

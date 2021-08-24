@@ -24,8 +24,8 @@ export class SystemBot {
   }
 
   private async readyUp() {
-    const key = this.users.createToken(this.self?.id);
-    const { user } = await this.ws.emitAsync('READY', { key });
+    const token = this.users.createToken(this.self?.id);
+    const { user } = await this.ws.emitAsync('READY', { token });
     this._self = user as any;
 
     Log.info('Initialized bot', 'bot');

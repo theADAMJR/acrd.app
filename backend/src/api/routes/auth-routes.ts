@@ -71,8 +71,8 @@ router.get('/send-verify-email', async (req, res) => {
 
     return res.status(200).json({ verify: true });
   }
-  const key = req.get('Authorization');
-  const user = await users.getSelf(users.idFromAuth(key), false);
+  const token = req.get('Authorization');
+  const user = await users.getSelf(users.idFromAuth(token), false);
 
   await sendEmail.verifyEmail(email, user);
 
