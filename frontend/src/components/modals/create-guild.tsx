@@ -12,7 +12,7 @@ const CreateGuild: React.FunctionComponent = () => {
 
   const submitCreate = (data) => dispatch(createGuild(data.name));
   const submitJoin = (data) => dispatch(joinGuild(data.inviteCode));
-  
+
   return (
     <Modal
       className="p-5"
@@ -22,16 +22,18 @@ const CreateGuild: React.FunctionComponent = () => {
         <h1 className="text-3xl font-bold inline">Create Guild</h1>
         <p className="lead">
           Hang out with your friends. <br />
-          Create your own, or join one.
+          Create an epic guild, or join with friends.
         </p>
       </header>
+
+      <h3 className="uppercase font-bold mt-10">Join One</h3>
 
       <form onSubmit={handleSubmit(submitJoin)}>
         <Input
           label="Invite Code"
           name="inviteCode"
           register={register} />
-        <NormalButton className="w-full h-11 mt-8">Join</NormalButton>
+        <NormalButton className="bg-tertiary w-full h-11 mt-8">Join</NormalButton>
       </form>
 
       <h3 className="uppercase font-bold mt-10">Make Your Own</h3>
@@ -46,5 +48,5 @@ const CreateGuild: React.FunctionComponent = () => {
     </Modal>
   );
 }
- 
+
 export default CreateGuild;
