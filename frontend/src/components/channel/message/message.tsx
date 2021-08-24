@@ -13,7 +13,12 @@ export interface MessageProps {
 }
 
 const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProps) => {
-  const author = useSelector(getUser(message.authorId))!;
+  const author = useSelector(getUser(message.authorId))
+    ?? {
+      discriminator: 0,
+      username: 'Unknown',
+      avatarURL: '/avatars/unknown.png',
+    } as Entity.User;
   const messages = useSelector(getChannelMessages(message.channelId));
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
 
@@ -31,16 +36,14 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         && prev.authorId === message.authorId;
   }
 
-  const leftSide = () => {
-    return (isExtra())
-      ? <span className="timestamp text-xs">
-          {moment(createdAt).format('HH:mm')}
-        </span>
-      : <img
-          className="rounded-full cursor-pointer w-10 h-10"
-          src={`${environment.cdnURL}${author.avatarURL}`}
-          alt={author.username} />;
-  }
+  const leftSide = () => (isExtra())
+    ? <span className="timestamp text-xs">
+        {moment(createdAt).format('HH:mm')}
+      </span>
+    : <img
+        className="rounded-full cursor-pointer w-10 h-10"
+        src={`${environment.cdnURL}${author.avatarURL}`}
+        alt={author.username} />;
   
   const MessageHeader = () => {
     if (isExtra()) return null;
