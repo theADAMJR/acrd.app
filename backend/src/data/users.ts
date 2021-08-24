@@ -169,7 +169,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
       _id: generateSnowflake(),
       username,
       discriminator,
-      avatarURL: `${process.env.API_URL ?? 'http://localhost:3000'}/avatars/${randomAvatar}`,
+      avatarURL: `/avatars/${randomAvatar}`,
       badges: [],
       bot,
       email,

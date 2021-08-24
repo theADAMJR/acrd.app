@@ -41,7 +41,6 @@ export const User = model<UserDocument>('user', new Schema({
   discriminator: {
     type: Number,
     required: [true, 'Disciminator is required'],
-    unique: [true, 'Discriminator must be unique'],
     validate: [
       { validator: validators.min(0), msg: 'Discriminator too low' },
       { validator: validators.max(9999), msg: 'Discriminator too high' },
