@@ -19,14 +19,18 @@ const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message 
   
   return (
     <div className="float-right shadow bg-bg-secondary px-2 rounded cursor-pointer">
-      {isAuthor && <FontAwesomeIcon
-        onClick={() => dispatch(startedEditingMessage(message.id))}
-        className="mr-2"
-        icon={faPencilAlt} />}
-      {canManage && <FontAwesomeIcon
+      {isAuthor && <div className="inline">
+        <FontAwesomeIcon
+          onClick={() => dispatch(startedEditingMessage(message.id))}
+          className="mr-2"
+          icon={faPencilAlt} />
+        </div>}
+      {canManage && <div className="inline">
+        <FontAwesomeIcon
         onClick={() => dispatch(deleteMessage(message.id))}
         className="danger"
-        icon={faTimes} />}
+        icon={faTimes} />
+      </div>}
     </div>
   );
 }

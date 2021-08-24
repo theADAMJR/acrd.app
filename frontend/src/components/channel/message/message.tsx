@@ -38,7 +38,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         </span>
       : <img
           className="rounded-full cursor-pointer w-10 h-10"
-          src={`${environment.rootAPIURL}${author.avatarURL}`}
+          src={`${environment.cdnURL}${author.avatarURL}`}
           alt={author.username} />;
   }
   
