@@ -28,11 +28,12 @@ export const actions = slice.actions;
 export default slice.reducer;
 
 export const ready = () => (dispatch, getState) => {
-  if (getState().auth.user || !localStorage.getItem('token')) return;
+  const token = localStorage.getItem('token');
+  if (getState().auth.user || !token) return;
 
   dispatch(api.wsCallBegan({
     event: 'READY',
-    data: { token: localStorage.getItem('token') },
+    data: { token },
   }));
 }
 

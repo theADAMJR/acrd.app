@@ -2,6 +2,7 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
 import { getUser } from './users';
+import { headers } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'guilds',
@@ -62,7 +63,7 @@ export const fetchMyGuilds = () => (dispatch, getState: () => Store.AppState) =>
   
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
-    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    headers,
     url: '/guilds',
   }));
 }

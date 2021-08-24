@@ -1,5 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api } from './api';
+import { headers } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'messages',
@@ -39,6 +40,7 @@ export const fetchMessages = (channelId: string) => (dispatch, getState) => {
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
     url: `/channels/${channelId}/messages`,
+    headers,
   }));
 }
 

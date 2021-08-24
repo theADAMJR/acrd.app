@@ -1,5 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api } from './api';
+import { headers } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'users',
@@ -33,7 +34,7 @@ export default slice.reducer;
 export const fetchUsers = () => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
-    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+    headers,
     url: '/users',
   }));
 }
