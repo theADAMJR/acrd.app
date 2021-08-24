@@ -120,7 +120,6 @@ export const User = model<UserDocument>('user', new Schema({
   username: {
     type: String,
     required: [true, 'Username is required'],
-    unique: [true, 'Username is taken'],
     uniqueCaseInsensitive: true,
     validate: {
       validator: patterns.username,

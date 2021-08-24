@@ -2,25 +2,19 @@ import DBWrapper from './db-wrapper';
 import jwt from 'jsonwebtoken';
 import { SelfUserDocument, User, UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
-import { readdirSync } from 'fs';
-import { resolve } from 'path';
 
 import { Guild } from './models/guild';
 import { APIError } from '../api/modules/api-error';
 import Deps from '../utils/deps';
 import Guilds from './guilds';
 import { Channel } from './models/channel';
+import Channels from './channels';
 
 export default class Users extends DBWrapper<string, UserDocument> {
-  private avatarNames: string[] = [];
-  private systemUser: UserDocument;
-
-  constructor(private guilds = Deps.get<Guilds>(Guilds)) {
-    super();
-
-    this.avatarNames = readdirSync(resolve('assets/avatars'))
-      .filter(n => n.startsWith('avatar'));
-  }
+  constructor(
+    private channels = Deps.get<Channels>(Channels),
+    private guilds = Deps.get<Guilds>(Guilds),
+  ) { super(); }
 
   public async get(id: string | undefined): Promise<UserDocument> {
     const user = await User.findById(id);
@@ -54,9 +48,9 @@ export default class Users extends DBWrapper<string, UserDocument> {
       if (isDuplicate) continue;
 
       try {
-        const guild = await this.guilds.get(id as string, true); 
+        const guild = await this.guilds.get(id as string, true);
         guilds.push(new Guild(guild).toJSON());
-      } catch {}
+      } catch { }
     }
     user.guilds = guilds as any;
     return user;
@@ -89,7 +83,6 @@ export default class Users extends DBWrapper<string, UserDocument> {
 
     return Array.from(new Set([
       user.id,
-      this.systemUser?.id,
       ...dmUserIds,
       ...user.friendRequestIds,
       ...user.friendIds,
@@ -111,7 +104,6 @@ export default class Users extends DBWrapper<string, UserDocument> {
 
     return Array.from(new Set([
       user.id,
-      this.systemUser?.id,
       ...dmUserIds,
       ...guildUserIds,
       ...incomingUserIds,
@@ -122,23 +114,6 @@ export default class Users extends DBWrapper<string, UserDocument> {
 
   public async getDMChannels(userId: string) {
     return await Channel.find({ memberIds: userId });
-  }
-
-  public async updateSystemUser() {
-    const username = '2PG';
-    return this.systemUser = await User.findOne({ username })
-      ?? await User.create({
-        _id: generateSnowflake(),
-        avatarURL: `/avatars/bot.png`,
-        friendRequestIds: [],
-        discriminator: 1,
-        badges: [],
-        bot: true,
-        status: 'ONLINE',
-        username,
-        friendIds: [],
-        guilds: [],
-      });
   }
 
   public createToken(userId: string, expire = true) {
@@ -154,7 +129,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
     return this.verifyToken(token);
   }
   public verifyToken(token: string | undefined): string {
-    const decoded = jwt.verify(token as string, 'secret') as UserToken;   
+    const decoded = jwt.verify(token as string, 'secret') as UserToken;
     return decoded?._id;
   }
 
@@ -163,24 +138,18 @@ export default class Users extends DBWrapper<string, UserDocument> {
     const discriminator = count + 1;
     if (discriminator > 9999)
       throw new TypeError('Too many users have this username');
-    
-    const randomAvatar = this.getRandomAvatar();
+
     return (User as any).register({
       _id: generateSnowflake(),
       username,
       discriminator,
-      avatarURL: `/avatars/${randomAvatar}`,
+      avatarURL: `/avatars/avatar_grey.png`,
       badges: [],
       bot,
       email,
       friends: [],
       status: 'ONLINE',
     }, password);
-  }
-
-  private getRandomAvatar() {
-    const randomIndex = Math.floor(Math.random() * this.avatarNames.length);
-    return this.avatarNames[randomIndex];
   }
 }
 

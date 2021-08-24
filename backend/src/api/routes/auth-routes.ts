@@ -8,11 +8,9 @@ import { EmailFunctions } from '../modules/email/email-functions';
 import { APIError } from '../modules/api-error';
 import { WebSocket } from '../websocket/websocket';
 import Channels from '../../data/channels';
-import { SystemBot } from '../../system/bot';
 
 export const router = Router();
 
-const bot = Deps.get<SystemBot>(SystemBot);
 const channels = Deps.get<Channels>(Channels);
 const sendEmail = Deps.get<EmailFunctions>(EmailFunctions);
 const users = Deps.get<Users>(Users);
@@ -37,11 +35,6 @@ router.post('/register', async (req, res) => {
     password: req.body.password,
     username: req.body.username,
   });
-  const dm = await channels.createDM(bot.self.id, user.id);
-  await bot.message(dm,
-    'Hello there new user :smile:!\n' +
-    '**Alpha Testing Info** - https://docs.accord.app/legal/alpha'
-  );
 
   res.status(201).json(users.createToken(user.id));
 });
