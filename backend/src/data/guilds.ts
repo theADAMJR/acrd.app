@@ -53,7 +53,6 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
       invites: [],
       channels: [
         await this.channels.createText(guildId),
-        await this.channels.createVoice(guildId),
       ],
     });
     await this.members.create(guild, owner, everyoneRole);

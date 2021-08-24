@@ -113,7 +113,7 @@ declare namespace WS {
     }
     export interface ChannelCreate {
       guildId: string;
-      partialChannel: PartialEntity.Channel;
+      name: string;
     }
     export interface ChannelDelete {
       /** ID of the channel to delete. */
@@ -138,11 +138,9 @@ declare namespace WS {
     export interface GuildMemberUpdate {
       /** ID of the member, not the same as a user ID. */
       memberId: string;
-      partialMember: PartialEntity.GuildMember;
     }
     export interface GuildRoleCreate {
       guildId: string;
-      partialRole: PartialEntity.Role;
     }
     export interface GuildRoleDelete {
       roleId: string;
@@ -151,11 +149,11 @@ declare namespace WS {
     export interface GuildRoleUpdate {
       roleId: string;
       guildId: string;
-      partialRole: PartialEntity.Role;
     }
     export interface GuildUpdate {
       guildId: string;
-      partialGuild: PartialEntity.Guild;
+      name: string;
+      iconURL: string;
     }
     export interface InviteCreate {
       guildId: string;
@@ -173,11 +171,11 @@ declare namespace WS {
     }
     export interface MessageUpdate {
       messageId: string;
-      partialMessage: PartialEntity.Message;
+      content?: string;
       withEmbed: boolean;
     }
     export interface MessageCreate {
-      partialMessage: PartialEntity.Message;
+      content: string;
     }
     export interface Ready {
       token: string;
@@ -189,7 +187,8 @@ declare namespace WS {
       channelId: string;
     }
     export interface UserUpdate {
-      partialUser: PartialEntity.User;
+      avatarURL?: string;
+      username?: string;
       token: string;
     }
   }

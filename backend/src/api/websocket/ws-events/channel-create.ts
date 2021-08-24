@@ -3,6 +3,7 @@ import { Channel } from '../../../data/models/channel';
 import { Guild } from '../../../data/models/guild';
 import { generateSnowflake } from '../../../data/snowflake-entity';
 import { PermissionTypes } from '../../../types/permission-types';
+import { WS } from '../../../types/ws';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
@@ -15,16 +16,14 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
     private guard = Deps.get<WSGuard>(WSGuard)
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { partialChannel, guildId }: WS.Params.ChannelCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { name, guildId }: WS.Params.ChannelCreate) {
     await this.guard.validateCan(client, guildId, PermissionTypes.General.MANAGE_CHANNELS);
     
     const channel = await Channel.create({
       _id: generateSnowflake(),
-      name: partialChannel.name,
-      summary: partialChannel.summary,
+      name,
       guildId,
-      type: partialChannel.type as any,
-      memberIds: []
+      type: 'TEXT',
     });
 
     await Guild.updateOne(

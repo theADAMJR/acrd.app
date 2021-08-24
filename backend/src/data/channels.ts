@@ -55,13 +55,6 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
   public async createText(guildId: string) {
     return this.create({ guildId }) as Promise<TextChannelDocument>;
   }
-  public createVoice(guildId: string) {
-    return this.create({
-      name: 'Talk',
-      guildId,
-      type: 'VOICE',
-    }) as Promise<VoiceChannelDocument>;
-  }
 
   public async getSystem(guildId: string) {
     return await Channel.findOne({ guildId, type: 'TEXT' });
