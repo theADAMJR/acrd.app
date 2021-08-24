@@ -4,7 +4,6 @@ import Users from '../../data/users';
 import Deps from '../../utils/deps';
 import { fullyUpdateUser, updateUser, validateUser } from '../modules/middleware';
 import Channels from '../../data/channels';
-import { SystemBot } from '../../system/bot';
 import { generateInvite } from '../../data/models/invite';
 
 export const router = Router();
@@ -13,8 +12,8 @@ const channels = Deps.get<Channels>(Channels);
 const users = Deps.get<Users>(Users);
 
 router.get('/', updateUser, validateUser, async (req, res) => {
-  const knownUsers = await users.getKnown(res.locals.user.id);  
-  res.json(knownUsers);  
+  const knownUsers = await users.getKnown(res.locals.user.id);
+  res.json(knownUsers);
 });
 
 router.delete('/:id', updateUser, validateUser, async (req, res) => {
@@ -54,11 +53,6 @@ router.get('/check-email', async (req, res) => {
 router.get('/dm-channels', fullyUpdateUser, async (req, res) => {
   const dmChannels = await channels.getDMChannels(res.locals.user.id);
   res.json(dmChannels);
-});
-
-router.get('/bots', async (req, res) => {
-  const bots = await User.find({ bot: true });
-  res.json(bots); 
 });
 
 router.get('/:id', async (req, res) => {

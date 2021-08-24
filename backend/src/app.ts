@@ -3,20 +3,18 @@ config();
 
 import { connect } from 'mongoose';
 import { API } from './api/server';
-import { SystemBot } from './system/bot';
 import Deps from './utils/deps';
 import Log from './utils/log';
 
-connect(process.env.MONGO_URI, { 
-  useUnifiedTopology: true, 
-  useNewUrlParser: true, 
+connect(process.env.MONGO_URI, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
   serverSelectionTimeoutMS: 0,
 }, (error) => (error)
-    ? Log.error(error.message, 'db')
-    : Log.info('Connected to database.')
+  ? Log.error(error.message, 'db')
+  : Log.info('Connected to database.')
 );
 
-Deps.get<SystemBot>(SystemBot).init();
 Deps.get<API>(API);
