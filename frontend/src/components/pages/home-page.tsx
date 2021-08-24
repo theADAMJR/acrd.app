@@ -2,14 +2,25 @@ import Particles from 'react-particles-js';
 import { Link } from 'react-router-dom';
 import Navbar from '../navigation/navbar';
 import PageWrapper from './page-wrapper';
+import NormalButton from '../utils/buttons/normal-button';
+import Chat from '../../assets/home/chat.svg';
+import Devices from '../../assets/home/devices.svg';
+import Friends from '../../assets/home/friends.svg';
+import Secure from '../../assets/home/secure.svg';
 
 import './home-page.scoped.css';
-import NormalButton from '../utils/buttons/normal-button';
 
 const HomePage: React.FunctionComponent = () => {
+  const ImageCard = (props: { title: string, src: any }) => (
+    <div>
+      <h3 className="text-center text-1xl font-black font mb-4">{props.title}</h3>
+      <img className="w-44 inline" src={props.src} alt="Chat" />
+    </div>
+  );
+
   return (
     <PageWrapper
-      className="bg-bg-tertiary h-full"
+      className="bg-bg-tertiary h-full relative"
       pageTitle="Accord | Discord Clone With the Essentials">
       <Navbar />
       <section className="text-center my-4">
@@ -30,9 +41,15 @@ const HomePage: React.FunctionComponent = () => {
           </Link>
         </button>
       </section>
-      <Particles width="100%" height="100%" />
 
+      <section className="absolute top-50 w-1/2 inset-x-1/4 flex justify-between">
+        <ImageCard src={Chat} title="Chat w/ Friends" />
+        <ImageCard src={Devices} title="On Mobile or Desktop" />
+        <ImageCard src={Friends} title="Join Guilds" />
+        <ImageCard src={Secure} title="Super Secure" />
+      </section>
 
+      <Particles className="w-screen h-screen absolute top-0" />
     </PageWrapper>
   );
 }
