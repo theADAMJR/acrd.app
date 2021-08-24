@@ -18,6 +18,15 @@ const HomePage: React.FunctionComponent = () => {
     </div>
   );
 
+  let keys: string[] = [];
+  document.addEventListener('keyup', (e) => {
+    keys.push(e.key);
+    if (!keys.join('').endsWith('testing123')) return;
+
+    document.querySelector('h1')!.textContent = 'Easteregg++';
+    document.querySelector('.lead')!.textContent = 'Are you happy now?';
+  });
+
   return (
     <PageWrapper
       className="bg-bg-tertiary h-full relative"
