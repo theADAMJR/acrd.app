@@ -18,9 +18,9 @@
 
   --bg-primary: #2e303e;
   --bg-secondary: #232530;
+  --bg-secondary-alt: #212225;
   --bg-tertiary: #1c1e26;
-  --bg-secondary-alt: #292b2f;
-  --bg-textarea: #40444b;
+  --bg-textarea: #232530;
   --bg-modifier-accent: hsla(0, 0%, 100%, 0.06);
   --bg-modifier-selected: rgba(79, 84, 92, 0.32);
   --bg-floating: #18191c;

@@ -42,8 +42,8 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
           alt={author.username} />;
   }
   
-  const messageHeader = () => {
-    if (isExtra()) return;
+  const MessageHeader = () => {
+    if (isExtra()) return null;
 
     const days = moment(new Date()).diff(createdAt, 'day');
     const day = {
@@ -70,16 +70,14 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
           <span className="select-none muted edited text-xs ml-1">(edited)</span>}</div>
       </div>;
 
-  const messageClass = `message flex ${!isExtra() && 'mt-4'}`;
-
   return (
-    <div className={messageClass}>
+    <div className={`message flex ${!isExtra() && 'mt-4'}`}>
       <div className="flex-shrink-0 left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
       <div className="relative flex-grow px-2">
         <div className="absolute toolbar right-0 -mt-3 z-10">
           <MessageToolbar message={message} />
         </div>
-        {messageHeader()}
+        <MessageHeader />
         <MessageContent />
       </div>
       <div className="right-side w-12" />

@@ -1,12 +1,11 @@
 import { Socket } from 'socket.io';
-
-import { Partial } from '../../../data/types/ws-types';
-import { Guild } from '../../../data/models/guild';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import Guilds from '../../../data/guilds';
+import { PermissionTypes } from '../../../types/permission-types';
+import { PartialEntity, WS } from '../../../types/ws';
 
 export default class implements WSEvent<'GUILD_UPDATE'> {
   on = 'GUILD_UPDATE' as const;
@@ -16,20 +15,20 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
     private guilds = Deps.get<Guilds>(Guilds),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { guildId, partialGuild }: WS.Params.GuildUpdate) { 
+  public async invoke(ws: WebSocket, client: Socket, { guildId, name, iconURL }: WS.Params.GuildUpdate) { 
     await this.guard.validateCan(client, guildId, PermissionTypes.General.MANAGE_GUILD);
 
+    const partialGuild = { name, iconURL };
     this.guard.validateKeys('guild', partialGuild);
 
     const guild = await this.guilds.get(guildId);
     this.validateChannels(guild, partialGuild);
     this.validateRoles(guild, partialGuild);
 
-    await Guild.updateOne(
-      { _id: guildId },
-      partialGuild as any,
-      { runValidators: true },
-    );
+    if (iconURL) guild.iconURL = iconURL;
+    if (name) guild.name = name;
+
+    await guild.save();
 
     ws.io
       .to(guildId)

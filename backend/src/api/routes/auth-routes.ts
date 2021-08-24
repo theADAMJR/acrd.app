@@ -80,7 +80,10 @@ router.get('/send-verify-email', async (req, res) => {
   await user.save();
 
   ws.to(user.id)
-    .emit('USER_UPDATE', { partialUser: { email: user.email } });
+    .emit('USER_UPDATE', {
+      userId: user.id,
+      partialUser: { email: user.email },
+    });
 
   return res.status(200).json({ verify: true });
 });

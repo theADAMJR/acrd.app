@@ -33,13 +33,12 @@ export const getChannelMessages = (channelId: string) =>
 
 // v6: add lazy message loading
 export const fetchMessages = (channelId: string) => (dispatch, getState) => {
-  const isCached = getState().entities.messages
-    .some(c => c.channelId === channelId);
+  const isCached = getState().entities.messages.some(c => c.channelId === channelId);
   if (isCached) return;
   
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
-    url: `/channels/${channelId}/messages`,
+    url: `/channels/${channelId}/messages?back=100`,
     headers,
   }));
 }

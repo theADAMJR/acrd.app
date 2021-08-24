@@ -4,6 +4,7 @@ import Message from './message/message';
 import MessageBox from './message-box';
 import { useEffect } from 'react';
 import TextChannelHeader from './text-channel-header';
+import SkeletonMessage from '../skeleton/skeleton-message';
  
 const TextBasedChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
     element.scrollTop = element.scrollHeight;
   }, [messages.length]); // only fetches channel messages when not cached
 
+  const loaded = channel.lastMessageId === messages[messages.length]?.id;
   
   return (
     <div className="h-full flex flex-col flex-grow">
@@ -24,6 +26,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
         id="messages"
         className="overflow-auto mb-5 mr-1 mt-1 flex-grow">
         <TextChannelHeader />
+        {!loaded && new Array(10).fill(<SkeletonMessage />)}
         {messages.map(m => <Message key={m.id} message={m} />)}
       </div>
       <MessageBox />

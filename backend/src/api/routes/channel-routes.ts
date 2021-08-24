@@ -32,8 +32,7 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
     .getDMChannelMessages(channelId, res.locals.user.id));  
 
   const batchSize = 25;
-  const back = Math.max(channelMsgs.length - parseInt(req.query.back as string)
-    || batchSize, 0);
+  const back = Math.max(channelMsgs.length - +(req.query.back || batchSize), 0);
   
   const slicedMsgs = channelMsgs
     .slice(back)
@@ -46,7 +45,10 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
     ws.io
       .to(user.id)
       .emit('USER_UPDATE', {
-        partialUser: { lastReadMessages: user.lastReadMessages },
+        userId: user.id,
+        partialUser: {
+          lastReadMessages: user.lastReadMessages
+        },
       } as WS.Args.UserUpdate);
   }
   

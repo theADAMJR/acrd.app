@@ -38,7 +38,6 @@ export namespace Prohibited {
     ...general,
     'badges',
     'bot',
-    'email',
     'friendIds',
     'friendRequestIds',
     'verified',

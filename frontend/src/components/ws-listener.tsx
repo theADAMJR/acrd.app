@@ -26,10 +26,7 @@ const WSListener: React.FunctionComponent = () => {
     });
 
     // add channel to guilds.channels
-    ws.on('CHANNEL_CREATE', (args) => {   
-        console.log(args);
-        
-      
+    ws.on('CHANNEL_CREATE', (args) => {
       // if we created it, we want to navigate there
       // we'd expect the user to exist, as they should be logged in to receive ws events
       const { auth, ui } = getState();      
