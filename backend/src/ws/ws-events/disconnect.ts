@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { UserDocument } from '../../data/models/user';
+import { SelfUserDocument, UserDocument } from '../../data/models/user';
 import Users from '../../data/users';
 import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
@@ -15,7 +15,7 @@ export default class implements WSEvent<'disconnect'> {
 
   public async invoke(ws: WebSocket, client: Socket) {   
     const userId = ws.sessions.get(client.id);
-    const user = await this.users.get(userId);
+    const user = await this.users.getSelf(userId);
     
     ws.sessions.delete(client.id);
     await this.setOfflineStatus(ws, client, user);
@@ -23,17 +23,15 @@ export default class implements WSEvent<'disconnect'> {
     client.rooms.clear();
   }
 
-  public async setOfflineStatus(ws: WebSocket, client: Socket, user: UserDocument) {
+  public async setOfflineStatus(ws: WebSocket, client: Socket, user: SelfUserDocument) {
     const userConnected = ws.connectedUserIds.includes(user.id);    
     if (userConnected) return;
 
     user.status = 'OFFLINE';
     await user.save();
 
-    const guildIds = user.guilds.map(g => g.id);
-
     ws.io
-      .to(guildIds)
+      .to(user.guildIds)
       .emit('PRESENCE_UPDATE', {
         userId: user.id,
         status: user.status
