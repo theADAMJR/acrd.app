@@ -13,12 +13,14 @@ import { actions as guilds } from '../store/guilds';
 import { actions as messages } from '../store/messages';
 import { actions as channels } from '../store/channels';
 import { actions as auth, logoutUser } from '../store/auth';
+import { useSnackbar } from 'notistack';
 
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const store = useStore();
   const hasListened = useSelector((s: Store.AppState) => s.meta.hasListenedToWS);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const state = () => store.getState() as Store.AppState;
 
@@ -26,7 +28,14 @@ const WSListener: React.FunctionComponent = () => {
     if (hasListened) return;    
 
     ws.on('error', (error: any) => {
-      alert(error.data?.message ?? error.message);
+      enqueueSnackbar(`${error.data?.message ?? error.message}.`, {
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        variant: 'error',
+      });
+      // alert();
     });
 
     // add channel to guilds.channels

@@ -5,17 +5,20 @@ import reportWebVitals from './reportWebVitals';
 import { config } from 'dotenv';
 import { Provider } from 'react-redux';
 import configureStore from './store/configure-store';
+import { SnackbarProvider } from 'notistack';
 
 import './index.css';
 
 config({ path: '../env' });
 
 ReactDOM.render(
-  <Provider store={configureStore()}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>,
+  <SnackbarProvider>
+    <Provider store={configureStore()}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
+  </SnackbarProvider>,
   document.getElementById('root')
 );
 

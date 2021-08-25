@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ready } from '../../store/auth';
 import { toggleDropdown } from '../../store/ui';
 import CreateChannel from '../modals/create-channel';
 import CreateGuild from '../modals/create-guild';
