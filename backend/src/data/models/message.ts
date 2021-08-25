@@ -33,6 +33,11 @@ export const Message = model<MessageDocument>('message', new Schema({
     type: Date,
     get: createdAtToDate,
   },
-  embed: Object, // TODO: make, and unit test embed schema
+  embed: new Schema<MessageTypes.Embed>({
+    description: String,
+    image: String,
+    title: String,
+    url: String,
+  }),
   updatedAt: Date,
 }, { toJSON: { getters: true } }).method('toClient', useId));
