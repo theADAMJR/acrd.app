@@ -29,9 +29,7 @@ export const GuildMember = model<GuildMemberDocument>('guildMember', new Schema(
     type: [String],
     default: [],
     required: [true, 'Role IDs is required'],
-    validate: [validators.minLength(1),
-      message: 'At least 1 role is required',
-    }
+    validate: [validators.minLength(1), 'At least 1 role is required'],
   },
 }, { toJSON: { getters: true } })
 .method('toClient', useId));

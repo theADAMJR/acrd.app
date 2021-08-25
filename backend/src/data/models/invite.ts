@@ -1,21 +1,12 @@
 import { Document, model, Schema } from 'mongoose';
 import patterns from '../../types/patterns';
 import { useId } from '../../utils/utils';
+import generateInvite from '../utils/generate-invite';
 
 export interface InviteDocument extends Document, Entity.Invite {
   _id: string | never;
   id: string;
   createdAt: never;
-}
-
-export function generateInvite(codeLength = 7) {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  
-  let result = '';
-  for (let i = 0; i < codeLength; i++)
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  return result;
 }
 
 export const Invite = model<InviteDocument>('invite', new Schema({

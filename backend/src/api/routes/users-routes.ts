@@ -4,7 +4,7 @@ import Users from '../../data/users';
 import Deps from '../../utils/deps';
 import { fullyUpdateUser, updateUser, validateUser } from '../modules/middleware';
 import Channels from '../../data/channels';
-import { generateInvite } from '../../data/models/invite';
+import generateInvite from '../../data/utils/generate-invite';
 
 export const router = Router();
 

@@ -30,6 +30,7 @@ declare namespace Entity {
     createdAt: Date;
     guildId: string;
     userId: string;
+    roleIds: string[];
   }
   export interface Invite {
     id: string;

@@ -1,7 +1,9 @@
 import { APIError } from '../api/modules/api-error';
+import { WS } from '../types/ws';
 import DBWrapper from './db-wrapper';
 import { Guild } from './models/guild';
-import { generateInvite, Invite, InviteDocument } from './models/invite';
+import { Invite, InviteDocument } from './models/invite';
+import generateInvite from './utils/generate-invite';
 
 export default class Invites extends DBWrapper<string, InviteDocument> {
   public async get(code: string | undefined): Promise<InviteDocument> {
