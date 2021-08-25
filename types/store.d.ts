@@ -31,13 +31,13 @@ declare namespace Store {
       }
       // sequential - loaded when needed
       invites: {
-        fetched: Set<string>;
+        fetched: string[];
         list: Entity.Invite[];
       };
       // sequential - loaded when needed
       messages: {
         /** Set of channel Ids that messages have been initially fetched in. */
-        fetched: Set<string>;
+        fetched: string[];
         list: Entity.Message[];
       }
     };

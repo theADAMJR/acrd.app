@@ -5,14 +5,14 @@ import { actions as api } from './api';
 const slice = createSlice({
   name: 'invites',
   initialState: {
-    fetched: new Set<string>(),
+    fetched: {},
     list: [] as Entity.Invite[],
   } as Store.AppState['entities']['invites'],
   reducers: {
     fetched: ({ list, fetched }, { payload }: Store.Action<Entity.Invite[]>) => {
       const guildId = payload[0].guildId;
       list.push(...payload);
-      fetched.add(guildId);
+      fetched.push(guildId);
     },
     created: ({ list }, { payload }: Store.Action<WS.Args.InviteCreate>) => {
       list.push(payload.invite);

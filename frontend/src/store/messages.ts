@@ -6,13 +6,13 @@ import { headers } from './utils/rest-headers';
 const slice = createSlice({
   name: 'messages',
   initialState: {
-    fetched: new Set<string>(),
+    fetched: {},
     list: [] as Entity.Message[],
   } as Store.AppState['entities']['messages'],
   reducers: {
     fetched: ({ list, fetched }, { payload }: Store.Action<Entity.Message[]>) => {
       list.push(...payload);
-      fetched.add(payload[0].channelId);
+      fetched[payload[0].channelId] = 'testing';
     },
     created: ({ list }, { payload }: Store.Action<WS.Args.MessageCreate>) => {
       list.push(payload.message);
