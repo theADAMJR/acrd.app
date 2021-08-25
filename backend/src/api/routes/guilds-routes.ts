@@ -38,6 +38,34 @@ router.get('/:id/authorize/:botId',
     res.json({ message: 'Success' });
   });
 
+router.get('/:id/channels',
+  fullyUpdateUser, validateUser, updateGuild,
+  validateHasPermission(PermissionTypes.General.VIEW_CHANNELS),
+  async (req, res) => {
+    const channels = await guilds.getChannels(req.params.id);
+    res.json(channels);
+});
+
+router.get('/:id/members', fullyUpdateUser, validateUser, updateGuild,
+  async (req, res) => {
+    const members = await guilds.getMembers(req.params.id);
+    res.json(members);
+});
+
+router.get('/:id/roles', fullyUpdateUser, validateUser, updateGuild,
+  async (req, res) => {
+    const roles = await guilds.getRoles(req.params.id);
+    res.json(roles);
+});
+
+router.get('/:id/invites',
+  fullyUpdateUser, validateUser, updateGuild,
+  validateHasPermission(PermissionTypes.General.MANAGE_GUILD),
+  async (req, res) => {
+    const invites = await guilds.getInvites(req.params.id);
+    res.json(invites);
+});
+
 router.get('/:id/invites',
   fullyUpdateUser, validateUser, updateGuild,
   validateHasPermission(PermissionTypes.General.MANAGE_GUILD),
