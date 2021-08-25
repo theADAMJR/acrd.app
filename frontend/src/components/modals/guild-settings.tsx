@@ -45,6 +45,7 @@ const GuildSettings: React.FunctionComponent = () => {
             <NormalButton
               className="bg-success text-black ml-2"
               onClick={(e) => {
+                closeSnackbar('saveChanges');
                 handleSubmit(onUpdate)(e);
                 setSaveChangesOpen(false);
               }}>Save</NormalButton>
