@@ -21,7 +21,6 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     } as Entity.User;
   const messages = useSelector(getChannelMessages(message.channelId));
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
-
   const createdAt = new Date(message.createdAt);
 
   const isExtra = () => {

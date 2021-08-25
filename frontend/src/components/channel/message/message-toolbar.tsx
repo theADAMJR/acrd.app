@@ -1,7 +1,6 @@
 import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGuildByChannelId } from '../../../store/guilds';
 import { deleteMessage } from '../../../store/messages';
 import { startedEditingMessage } from '../../../store/ui';
 
@@ -12,7 +11,7 @@ export interface MessageToolbarProps {
 const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message }) => {
   const dispatch = useDispatch();
   const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
-  const guild = useSelector(getGuildByChannelId(message.channelId));
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild);
 
   const isAuthor = message.authorId === selfUser.id;
   const canManage = guild?.ownerId === selfUser.id || isAuthor;
