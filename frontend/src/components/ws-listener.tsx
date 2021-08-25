@@ -44,6 +44,9 @@ const WSListener: React.FunctionComponent = () => {
         history.push(`/channels/${ui.activeGuild.id}/${args.channel.id}`);
       }
     });
+    ws.on('PRESENCE_UPDATE', ({ userId, status }) => {
+      dispatch(users.updated({ userId, partialUser: { status } }));
+    });
     ws.on('CHANNEL_DELETE', (args) => {
       // if in channel, go away from it
       const { ui } = state();

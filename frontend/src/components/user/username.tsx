@@ -17,8 +17,10 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
   return (
     <div className={`flex items-center px-2 ${!isOnline && 'opacity-50'}`}>
       <div className="relative avatar mr-2">
-        <span className="absolute flex -right-0.5 -bottom-0.5 w-3">
-          <span className={`relative inline-flex rounded-full h-3 w-3 ${isOnline ? 'bg-success' : 'bg-gray-500'}`}></span>
+        <span className="rounded-full absolute flex -right-0.5 -bottom-0.5 w-3">
+          <span
+            style={{ border: '2px solid var(--bg-secondary)' }}
+            className={`relative inline-flex rounded-full px-1 h-3 w-3 ${isOnline ? 'bg-success' : 'bg-gray-500'}`}></span>
         </span>
         <img
           className="select-none rounded-full w-8 h-8"
