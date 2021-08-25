@@ -16,7 +16,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
 
     const element = document.querySelector('#messages')!;
     element.scrollTop = element.scrollHeight;
-  }, [messages.length, ]); // only fetches channel messages when not cached
+  }, [messages.length]); // only fetches channel messages when not cached
 
   const loaded = channel.lastMessageId === messages[messages.length]?.id;
   

@@ -5,6 +5,7 @@ import { generateSnowflake } from './snowflake-entity';
 
 import { APIError } from '../rest/modules/api-error';
 import { GuildMember } from './models/guild-member';
+import { Guild, GuildDocument } from './models/guild';
 
 export default class Users extends DBWrapper<string, UserDocument> {
   public async get(id: string | undefined): Promise<UserDocument> {
@@ -70,6 +71,11 @@ export default class Users extends DBWrapper<string, UserDocument> {
   public verifyToken(token: string | undefined): string {
     const decoded = jwt.verify(token as string, 'secret') as UserToken;
     return decoded?._id;
+  }
+
+  public async getUserGuilds(userId: string): Promise<GuildDocument[]> {
+    const user = await this.getSelf(userId);
+    return await Guild.find({ _id: { $in: user.guildIds } });
   }
 
   public async create({ email, username, password }: Auth.Credentials, bot = false): Promise<UserDocument> {
