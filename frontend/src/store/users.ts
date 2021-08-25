@@ -28,15 +28,6 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-// >v6: replace with REST when adding dms
-export const fetchUsers = () => (dispatch) => {
-  dispatch(api.restCallBegan({
-    onSuccess: [actions.fetched.type],
-    headers: headers(),
-    url: '/users',
-  }));
-}
-
 export const updateSelf = (payload: Partial<Entity.User>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'USER_UPDATE',

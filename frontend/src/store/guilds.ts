@@ -1,7 +1,6 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
-import { headers } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'guilds',

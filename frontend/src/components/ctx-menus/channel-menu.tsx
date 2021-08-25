@@ -1,7 +1,7 @@
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { deleteChannel } from '../../store/guilds';
+import { deleteChannel } from '../../store/channels';
 
 export interface ChannelMenusProps {
   channel: Entity.Channel;

@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { createInvite } from '../../store/guilds';
 import Input from '../utils/input';
 import NormalButton from '../utils/buttons/normal-button';
 import Modal from './modal';
+import { createInvite } from '../../store/invites';
 
 const CreateInvite: React.FunctionComponent = () => {
   const dispatch = useDispatch();

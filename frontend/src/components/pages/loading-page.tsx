@@ -2,21 +2,31 @@ import { useEffect } from 'react';
 import PageWrapper from './page-wrapper';
 import { ready } from '../../store/auth';
 import { useDispatch } from 'react-redux';
-import { fetchMyGuilds } from '../../store/guilds';
-import { fetchUsers } from '../../store/users';
 
 const LoadingPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
     dispatch(ready());
-    dispatch(fetchMyGuilds());
-    dispatch(fetchUsers());
   }, []);
 
   const tips = [
     'Stealing Discord since 1966.',
     'Streaming once every 2 years.',
+    'ADAMJR, Stop refactoring code please. okthxbye.',
+    'Sample Text.',
+    '!(\'Hello World\')',
+    'May work on a Tesla',
+    'Please subscribe.',
+    'Hi YouTube!',
+    'accord.includes(\'VOICE_CHANNEL\') === false',
+    'This message is officially dumb.',
+    'This message is funny.',
+    'Dear Bill Gates please buy my app okthxbye.',
+    'Is coding the same as programming? :thinking:',
+    'TypeError: There may be bugs.',
+    'What is a Discord? :thinking:',
+    'What\'s your Skype? Wait, actually I don\'t want your IP. Cya.',
     'Started in 2020.',
     'Disclaimer: Not actually a Discord clone.',
   ];

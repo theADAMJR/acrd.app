@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { createGuild, joinGuild } from '../../store/guilds';
+import { createGuild } from '../../store/guilds';
+import { joinGuild } from '../../store/members';
 import NormalButton from '../utils/buttons/normal-button';
 import Input from '../utils/input';
 import Modal from './modal';

@@ -1,6 +1,6 @@
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
-import { kickMember } from '../../store/guilds';
+import { kickMember } from '../../store/members';
 
 export interface GuildMemberMenuProps {
   guild: Entity.Guild;
