@@ -50,10 +50,7 @@ router.get('/apps/new', async (req, res) => {
 });
 
 router.get('/apps/:id', async (req, res) => {
-  const app = await Application
-    .findById(req.params.id)
-    .populate('user')
-    .exec();
+  const app = await Application.findById(req.params.id);
 
   return (app?.ownerId !== res.locals.user?.id)
     ? res.status(403).json({ message: 'Forbidden' })
