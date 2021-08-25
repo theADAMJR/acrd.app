@@ -24,8 +24,6 @@ export default class implements WSEvent<'GUILD_CREATE'> {
 
     await this.rooms.joinGuildRooms(user, client);
 
-    ws.io
-      .to(userId)
-      .emit('GUILD_CREATE', { guild });
+    client.emit('GUILD_CREATE', { guild });
   }
 }

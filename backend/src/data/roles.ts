@@ -1,4 +1,5 @@
 import { PermissionTypes } from '../types/permission-types';
+import { PartialEntity } from '../types/ws';
 import DBWrapper from './db-wrapper';
 
 import { hasPermission, Role, RoleDocument } from './models/role';
@@ -13,7 +14,8 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
   }
 
   public async isHigher(guild: Entity.Guild, selfMember: Entity.GuildMember, roleIds: string[]) {
-    const highestRole: Entity.Role = guild.roles[guild.roles.length - 1];
+    const guildRoles = await Role.find({ guildId: guild.id });
+    const highestRole: Entity.Role = guildRoles[guildRoles.length - 1];
 
     return selfMember.userId === guild?.ownerId
       || (selfMember.roleIds.includes(highestRole?.id)
@@ -21,7 +23,8 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
   }
 
   public async hasPermission(guild: Entity.Guild, member: Entity.GuildMember, permission: PermissionTypes.PermissionString) {
-    const totalPerms = guild.roles
+    const guildRoles = await Role.find({ guildId: guild.id });
+    const totalPerms = guildRoles
       .filter(r => member.roleIds.includes(r.id))
       .reduce((acc, value) => value.permissions | acc, 0);    
 

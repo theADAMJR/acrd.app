@@ -4,7 +4,6 @@ import { actions as guildActions } from '../guilds';
 import { actions as memberActions } from '../members';
 import { actions as roleActions } from '../roles';
 import { actions as userActions } from '../users';
-import { actions as inviteActions } from '../invites';
 import { headers } from '../utils/rest-headers';
 
 export default () => (dispatch) => {

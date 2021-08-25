@@ -2,7 +2,7 @@ import DBWrapper from './db-wrapper';
 import { GuildDocument } from './models/guild';
 import { GuildMember, GuildMemberDocument } from './models/guild-member';
 import { Role } from './models/role';
-import { UserDocument } from './models/user';
+import { SelfUserDocument, UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
 
 export default class GuildMembers extends DBWrapper<string, GuildMemberDocument> {
@@ -20,7 +20,7 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
     return member;
   }
 
-  public async create(guild: GuildDocument, user: UserDocument, ...roles: Entity.Role[]) {    
+  public async create(guild: GuildDocument, user: SelfUserDocument, ...roles: Entity.Role[]) {    
     const member = await GuildMember.create({
       _id: generateSnowflake(),
       guildId: guild.id,
@@ -29,17 +29,14 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
         ? roles.map(r => r.id) 
         : [await this.getEveryoneRoleId(guild.id) as string], 
     });    
-    await this.joinGuild(user, guild, member);
+    await this.addToUser(user, guild.id);
 
     return member;
   }
 
-  private async joinGuild(user: UserDocument, guild: GuildDocument, member: GuildMemberDocument) {
-    user.guilds.push(guild as any);
+  private async addToUser(user: SelfUserDocument, guildId: string) {
+    user.guildIds.push(guildId);
     await user.save();
-
-    guild.members.push(member as any);
-    await guild.save();
   }
 
   private async getEveryoneRoleId(guildId: string) {

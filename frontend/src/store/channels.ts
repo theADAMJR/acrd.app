@@ -11,8 +11,9 @@ const slice = createSlice({
     typing: [],
   } as Store.AppState['entities']['channels'],
   reducers: {
-    fetched: ({ list }, { payload }: Store.Action<Entity.Channel[]>) => {
-      list.push(...payload);
+    fetched: (channels, { payload }: Store.Action<Entity.Channel[]>) => {
+      channels.list.push(...payload);
+      channels.fetched = true;
     },
     created: ({ list }, { payload }: Store.Action<WS.Args.ChannelCreate>) => {
       list.push(payload.channel);

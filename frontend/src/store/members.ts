@@ -9,9 +9,9 @@ const slice = createSlice({
     list: [] as Entity.GuildMember[],
   } as Store.AppState['entities']['members'],
   reducers: {
-    fetched: ({ list, fetched }, { payload }: Store.Action<Entity.GuildMember[]>) => {
-      list.push(...payload);
-      fetched = true;
+    fetched: (members, { payload }: Store.Action<Entity.GuildMember[]>) => {
+      members.list.push(...payload);
+      members.fetched = true;
     },
     added: ({ list }, { payload }: Store.Action<WS.Args.GuildMemberAdd>) => {
       list.push(payload.member);
