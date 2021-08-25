@@ -226,6 +226,12 @@ declare namespace WS {
     export interface GuildCreate {
       /** The full object of the guild that was joined. */
       guild: Entity.Guild;
+      /** Channels associated with guild. */
+      channels: Entity.Channel[];
+      /** Roles associated with guild. */
+      roles: Entity.Role[];
+      /** Users associated with guild. */
+      users: Entity.User[];
     }
     export interface GuildDelete {
       /** ID of the guild that was left. */

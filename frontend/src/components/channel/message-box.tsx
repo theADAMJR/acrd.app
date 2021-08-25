@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
-import { getTypersInChannel, startTyping } from '../../store/channels';
 import { createMessage, updateMessage } from '../../store/messages';
+import { getTypersInChannel, startTyping } from '../../store/typing';
 import { stoppedEditingMessage } from '../../store/ui';
 import { getUser } from '../../store/users';
 

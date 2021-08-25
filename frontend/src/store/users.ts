@@ -1,26 +1,22 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
-import { token, headers } from './utils/rest-headers';
+import { token } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'users',
-  initialState: {
-    fetched: false,
-    list: [] as Entity.User[],
-  },
+  initialState: [] as Store.AppState['entities']['users'],
   reducers: {
     fetched: (users, { payload }: Store.Action<Entity.User[]>) => {
-      users.list.push(...payload);
-      users.fetched = true;
+      users = [...new Set(users.concat(payload))];
     },
     updated: (users, { payload }: Store.Action<WS.Args.UserUpdate>) => {
-      const user = users.list.find(u => u.id === payload.userId);
+      const user = users.find(u => u.id === payload.userId);
       Object.assign(user, payload.partialUser);
     },
     deleted: (users, { payload }: Store.Action<WS.Args.UserDelete>) => {
-      const index = users.list.findIndex(u => u.id === payload.userId);
-      users.list.splice(index, 1);
+      const index = users.findIndex(u => u.id === payload.userId);
+      users.splice(index, 1);
     },
   },
 });
@@ -44,6 +40,6 @@ export const deleteSelf = () => (dispatch) => {
 
 export const getUser = (id: string) =>
   createSelector<Store.AppState, Entity.User[], Entity.User | undefined>(
-    state => state.entities.users.list,
+    state => state.entities.users,
     users => users.find(u => u.id === id),
   );

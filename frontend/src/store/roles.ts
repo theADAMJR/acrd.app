@@ -2,14 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
   name: 'roles',
-  initialState: {
-    fetched: false,
-    list: [] as Entity.Role[],
-  },
+  initialState: [] as Store.AppState['entities']['roles'],
   reducers: {
     fetched: (roles, { payload }: Store.Action<Entity.Role[]>) => {
-      roles.list.push(...payload);
-      roles.fetched = true;
+      roles = [...new Set(roles.concat(payload))];
     },
   },
 });

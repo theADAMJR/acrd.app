@@ -4,25 +4,21 @@ import { actions as api } from './api';
 
 const slice = createSlice({
   name: 'guilds',
-  initialState: {
-    fetched: false,
-    list: [] as Entity.Guild[],
-  },
+  initialState: [] as Store.AppState['entities']['guilds'],
   reducers: {
     created: (guilds, { payload }: Store.Action<WS.Args.GuildCreate>) => {
-      guilds.list.push(payload.guild);
+      guilds.push(payload.guild);
     },
     fetched: (guilds, { payload }: Store.Action<Entity.Guild[]>) => {
-      guilds.list.push(...(payload ?? []));
-      guilds.fetched = true;
+      guilds = [...new Set(guilds.concat(payload))];
     },
     updated: (guilds, { payload }: Store.Action<WS.Args.GuildUpdate>) => {
-      const guild = guilds.list.find(g => g.id === payload.guildId);
+      const guild = guilds.find(g => g.id === payload.guildId);
       Object.assign(guild, payload.partialGuild);
     },
     deleted: (guilds, { payload }) => {
-      const index = guilds.list.findIndex(u => u.id === payload.guildId);
-      guilds.list.splice(index, 1);
+      const index = guilds.findIndex(u => u.id === payload.guildId);
+      guilds.splice(index, 1);
     },
   },
 });
@@ -53,13 +49,13 @@ export const deleteGuild = (guildId: string) => (dispatch) => {
 
 export const getGuild = (id: string) =>
 createSelector<Store.AppState, Entity.Guild[], Entity.Guild | undefined>(
-  state => state.entities.guilds.list,
+  state => state.entities.guilds,
   guilds => guilds.find(g => g.id === id),
 );
 
 export const getGuildChannels = (guildId: string | undefined) =>
 createSelector<Store.AppState, Entity.Channel[], Entity.Channel[]>(
-  state => state.entities.channels.list,
+  state => state.entities.channels,
   channels => channels.filter(c => c.guildId === guildId),
 );
 
@@ -71,21 +67,21 @@ createSelector<Store.AppState, Entity.Invite[], Entity.Invite[]>(
 
 export const getGuildMembers = (guildId: string | undefined) =>
 createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember[]>(
-  state => state.entities.members.list,
+  state => state.entities.members,
   members => members.filter(m => m.guildId === guildId),
 );
 
 export const getGuildRole = (guildId: string | undefined) =>
 createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
-  state => state.entities.roles.list,
+  state => state.entities.roles,
   role => role.filter(r => r.guildId === guildId),
 );
 
 export const getGuildUsers = (guildId: string | undefined) =>
 createSelector<Store.AppState, { members: Entity.GuildMember[], users: Entity.User[], }, Entity.User[]>(
   state => ({
-    members: state.entities.members.list,
-    users: state.entities.users.list,
+    members: state.entities.members,
+    users: state.entities.users,
   }),
   ({ members, users }) => members
     .filter(m => m.guildId === guildId)

@@ -4,23 +4,20 @@ import { actions as api } from './api';
 
 const slice = createSlice({
   name: 'members',
-  initialState: {
-    fetched: false,
-    list: [] as Entity.GuildMember[],
-  } as Store.AppState['entities']['members'],
+  initialState: [] as Store.AppState['entities']['members'],
   reducers: {
     fetched: (members, { payload }: Store.Action<Entity.GuildMember[]>) => {
-      members.list.push(...payload);
-      members.fetched = true;
+      members = [...new Set(members.concat(payload))];
     },
-    added: ({ list }, { payload }: Store.Action<WS.Args.GuildMemberAdd>) => {
-      list.push(payload.member);
+    added: (members, { payload }: Store.Action<WS.Args.GuildMemberAdd>) => {
+      members.push(payload.member);
     },
-    removed: ({ list }, { payload }: Store.Action<WS.Args.GuildMemberRemove>) => {
-      list = list.filter(m => m.userId !== payload.userId);
+    removed: (members, { payload }: Store.Action<WS.Args.GuildMemberRemove>) => {
+      const index = members.findIndex(m => m.userId === payload.userId);
+      members.slice(index, 1);
     },
-    updated: ({ list }, { payload }: Store.Action<WS.Args.GuildMemberUpdate>) => {
-      const member = list.find(m => m.userId === payload.userId);
+    updated: (members, { payload }: Store.Action<WS.Args.GuildMemberUpdate>) => {
+      const member = members.find(m => m.userId === payload.userId);
       Object.assign(member, payload.partialMember);
     },
   },

@@ -4,6 +4,7 @@ import { Channel } from '../../data/models/channel';
 import { Guild, GuildDocument } from '../../data/models/guild';
 import { GuildMember } from '../../data/models/guild-member';
 import { User } from '../../data/models/user';
+import Users from '../../data/users';
 import { PermissionTypes } from '../../types/permission-types';
 import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
@@ -17,6 +18,7 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
   constructor(
     private guilds = Deps.get<Guilds>(Guilds),
     private guard = Deps.get<WSGuard>(WSGuard),
+    private users = Deps.get<Users>(Users),
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { guildId, userId }: WS.Params.GuildMemberRemove) {
@@ -33,20 +35,20 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     else if (selfUserId !== member.userId)
       await this.guard.validateCan(client, guildId, PermissionTypes.General.KICK_MEMBERS);
       
-    const user = await User.findById(member.userId) as any;
-    const index = user.guilds.indexOf(guildId);
-    user.guilds.splice(index, 1);
+    const user = await this.users.getSelf(member.userId);
+    const index = user.guildIds.indexOf(guildId);
+    user.guildIds.splice(index, 1);
     await user.save();
 
     await GuildMember.deleteOne({ guildId, userId });
 
+    client.emit('GUILD_DELETE', { guildId } as WS.Args.GuildDelete);
+
+    await client.leave(guildId);
+
     ws.io
       .to(guildId)
       .emit('GUILD_MEMBER_REMOVE', { guildId, userId } as WS.Args.GuildMemberRemove);
-
-    ws.io
-      .to(user.id)
-      .emit('GUILD_DELETE', { guildId } as WS.Args.GuildDelete);
 
     const userClient = ws.io.sockets.sockets.get(userId);
     if (userClient)

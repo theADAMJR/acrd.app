@@ -11,6 +11,8 @@ import { useHistory } from 'react-router-dom';
 import { actions as meta } from '../store/meta';
 import { actions as invites } from '../store/invites';
 import { actions as members } from '../store/members';
+import { actions as roles } from '../store/roles';
+import { actions as typing } from '../store/typing';
 
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -66,8 +68,9 @@ const WSListener: React.FunctionComponent = () => {
     });
     ws.on('GUILD_CREATE', (args) => {
       dispatch(guilds.created(args));
-      const memberUsers = getGuildUsers(args.guild.id)(state());
-      dispatch(users.fetched(memberUsers));
+      dispatch(channels.fetched(args.channels));
+      dispatch(users.fetched(args.users));
+      dispatch(roles.fetched(args.roles));
       dispatch(closedModal());
       history.push(`/channels/${args.guild.id}`);
     });
@@ -82,11 +85,11 @@ const WSListener: React.FunctionComponent = () => {
     });
     ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated(args)));
     ws.on('TYPING_START', (args) => {
-      dispatch(channels.userTyped(args));
+      dispatch(typing.userTyped(args));
 
       const timeoutMs = 5000;
       setTimeout(() => {
-        dispatch(channels.userStoppedTyping(args));
+        dispatch(typing.userStoppedTyping(args));
       }, timeoutMs);
     });
     ws.on('GUILD_DELETE', (args) => dispatch(guilds.deleted(args)));

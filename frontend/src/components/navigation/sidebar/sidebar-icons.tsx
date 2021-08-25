@@ -5,12 +5,11 @@ import CreateGuild from '../../modals/create-guild';
 import SidebarIcon from './sidebar-icon';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import GuildMenu from '../../ctx-menus/guild-menu';
-import environment from '../../../environment';
  
 const SidebarIcons: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((s: Store.AppState) => s.auth.user)!;  
-  const { list: guilds } = useSelector((s: Store.AppState) => s.entities.guilds)!;
+  const guilds = useSelector((s: Store.AppState) => s.entities.guilds)!;
 
   const guildIcons = guilds.map(g => (
     <ContextMenuTrigger key={g.id} id={g.id}>

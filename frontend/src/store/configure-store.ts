@@ -13,9 +13,7 @@ import meta from './meta';
 import members from './members';
 import invites from './invites';
 import roles from './roles';
-import { enableMapSet } from 'immer';
-
-enableMapSet();
+import typing from './typing';
 
 export default () => configureStore<Store.AppState>({
   middleware: [
@@ -32,6 +30,7 @@ export default () => configureStore<Store.AppState>({
       guilds,
       members,
       messages,
+      typing,
       roles,
       users,
     }),

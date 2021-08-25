@@ -8,27 +8,12 @@ declare namespace Store {
       memberListToggled: boolean;
     };
     entities: {
-      channels: {
-        fetched: boolean;
-        typing: { userId: string, channelId: string }[];
-        list: Entity.Channel[];
-      };
-      guilds: {
-        fetched: boolean;
-        list: Entity.Guild[];
-      }
-      members: {
-        fetched: boolean;
-        list: Entity.GuildMember[];
-      };
-      roles: {
-        fetched: boolean;
-        list: Entity.Role[];
-      };
-      users: {
-        fetched: boolean;
-        list: Entity.User[];
-      }
+      typing: { userId: string, channelId: string }[];
+      channels: Entity.Channel[];
+      guilds: Entity.Guild[];
+      members: Entity.GuildMember[];
+      roles: Entity.Role[];
+      users: Entity.User[];
       // sequential - loaded when needed
       invites: {
         fetched: string[];
