@@ -27,7 +27,7 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const ready = () => (dispatch, getState) => {
+export const ready = () => (dispatch, getState: () => Store.AppState) => {
   if (getState().auth.user || !token()) return;
 
   dispatch(api.wsCallBegan({

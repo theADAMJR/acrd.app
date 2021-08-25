@@ -35,8 +35,8 @@ export const getChannelMessages = (channelId: string) =>
   );
 
 // TODO: add lazy message loading
-export const fetchMessages = (channelId: string) => (dispatch, getState) => {
-  const isCached = getState().entities.messages.some(c => c.channelId === channelId);
+export const fetchMessages = (channelId: string) => (dispatch, getState: () => Store.AppState) => {
+  const isCached = getState().entities.messages.list.some(c => c.channelId === channelId);
   if (isCached) return;
 
   dispatch(api.restCallBegan({

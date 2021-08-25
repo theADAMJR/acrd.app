@@ -21,7 +21,6 @@ declare namespace Entity {
     id: string;
     name: string;
     createdAt: Date;
-    nameAcronym: string;
     iconURL?: string;
     ownerId: string;
   }

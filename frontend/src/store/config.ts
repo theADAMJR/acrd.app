@@ -20,7 +20,7 @@ const slice = createSlice({
 const actions = slice.actions;
 export default slice.reducer;
 
-export const toggleMemberList = () => (dispatch, getState) => {
+export const toggleMemberList = () => (dispatch, getState: () => Store.AppState) => {
   const config = getState().config;
 
   dispatch(actions.toggleMemberList());

@@ -1,4 +1,3 @@
-import Particles from 'react-particles-js';
 import { Link } from 'react-router-dom';
 import Navbar from '../navigation/navbar';
 import PageWrapper from './page-wrapper';
@@ -29,10 +28,10 @@ const HomePage: React.FunctionComponent = () => {
 
   return (
     <PageWrapper
-      className="bg-bg-tertiary h-full relative"
+      className="z-10 bg-bg-tertiary h-full relative"
       pageTitle="Accord | Discord Clone With the Essentials">
       <Navbar />
-      <section className="text-center my-4">
+      <section className="z-10 text-center my-4">
         <h1>It's time to ditch Discord and Zoom.</h1>
         <div className="flex justify-center">
           <div className="lead font-light mt-2 max-w-xl">
@@ -54,11 +53,9 @@ const HomePage: React.FunctionComponent = () => {
       <section className="absolute top-50 w-1/2 inset-x-1/4 flex justify-between">
         <ImageCard src={Chat} title="Chat w/ Friends" />
         <ImageCard src={Devices} title="On Mobile or Desktop" />
-        <ImageCard src={Friends} title="Join Guilds" />
+        <ImageCard src={Friends} title="Join or Manage Guilds" />
         <ImageCard src={Secure} title="Super Secure" />
       </section>
-
-      <Particles className="w-screen h-screen absolute top-0" />
     </PageWrapper>
   );
 }

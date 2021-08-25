@@ -36,8 +36,8 @@ export const joinGuild = (inviteCode: string) => (dispatch) => {
   }));
 }
 
-export const leaveGuild = (guildId: string) => (dispatch, getState) => {
-  const user = getState().auth.user;
+export const leaveGuild = (guildId: string) => (dispatch, getState: () => Store.AppState) => {
+  const user = getState().auth.user!;
 
   dispatch(api.wsCallBegan({
     event: 'GUILD_MEMBER_REMOVE',

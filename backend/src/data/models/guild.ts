@@ -24,12 +24,6 @@ export const Guild = model<GuildDocument>('guild', new Schema({
     type: Date,
     get: createdAtToDate,
   },
-  nameAcronym: {
-    type: String,
-    get: function(this: GuildDocument) {      
-      return getNameAcronym(this.name);
-    }
-  },
   iconURL: String,
   ownerId: {
     type: String,
