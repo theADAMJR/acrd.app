@@ -11,7 +11,7 @@ export default () => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [],
     headers: headers(),
-    url: `/auth/register`,
+    url: `/users/entities`,
     callback: (data: REST.Get['/users/entities']) => {
       dispatch(channelActions.fetched(data.channels));
       dispatch(guildActions.fetched(data.guilds));
