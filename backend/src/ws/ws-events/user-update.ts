@@ -19,6 +19,8 @@ export default class implements WSEvent<'USER_UPDATE'> {
     const user = await this.users.get(userId);
 
     const partialUser = { avatarURL, username };
+    if (username)
+      partialUser['discriminator'] = await this.users.getDiscriminator(username);
     this.guard.validateKeys('user', partialUser);
 
     await user.updateOne(

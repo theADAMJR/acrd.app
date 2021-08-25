@@ -19,7 +19,7 @@ enableMapSet();
 
 export default () => configureStore<Store.AppState>({
   middleware: [
-    ...getDefaultMiddleware({ serializableCheck: false, enableMapSet: true }),
+    ...getDefaultMiddleware({ serializableCheck: false }),
     ws,
     api,
   ] as any,

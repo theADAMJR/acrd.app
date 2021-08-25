@@ -82,7 +82,7 @@ const UserSettings: React.FunctionComponent = () => {
                 className="bg-danger">Delete</NormalButton>
               <NormalButton
                 onClick={handleSubmit(onUpdate)}
-                className="bg-success m-4">Save</NormalButton>
+                className="text-black bg-success m-4">Save</NormalButton>
             </section>
           </form>
         </div>

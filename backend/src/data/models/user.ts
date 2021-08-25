@@ -52,18 +52,6 @@ export const User = model<UserDocument>('user', new Schema({
     uniqueCaseInsensitive: true,
     validate: [validators.optionalPattern('email'), 'Invalid email address'],
   },
-  friendIds: {
-    type: Array,
-    ref: 'user',
-    default: [],
-    validate: [validators.maxLength(100), 'Clout limit reached'],
-  },
-  friendRequestIds: {
-    type: Array,
-    ref: 'user',
-    default: [],
-    validate: [validators.maxLength(100), 'Max friend requests reached'],
-  },
   guildIds: {
     type: [String],
     validate: [validators.maxLength(100), 'Guild limit reached'],
@@ -107,12 +95,10 @@ export const User = model<UserDocument>('user', new Schema({
   username: {
     type: String,
     required: [true, 'Username is required'],
-    uniqueCaseInsensitive: true,
     validate: [patterns.username, `Invalid username`],
   },
   verified: Boolean,
 }, { toJSON: { getters: true } })
-  .plugin(passportLocalMongoose)
   .plugin(uniqueValidator)
   .plugin(passportLocalMongoose, { usernameField: 'email' })
   .method('toClient', useId));

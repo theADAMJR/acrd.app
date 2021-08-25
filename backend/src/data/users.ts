@@ -79,15 +79,10 @@ export default class Users extends DBWrapper<string, UserDocument> {
   }
 
   public async create({ email, username, password }: Auth.Credentials, bot = false): Promise<UserDocument> {
-    const count = await User.countDocuments({ username });
-    const discriminator = count + 1;
-    if (discriminator > 9999)
-      throw new TypeError('Too many users have this username');
-
     return (User as any).register({
       _id: generateSnowflake(),
       username,
-      discriminator,
+      discriminator: await this.getDiscriminator(username),
       avatarURL: `/avatars/avatar_grey.png`,
       badges: [],
       bot,
@@ -95,6 +90,15 @@ export default class Users extends DBWrapper<string, UserDocument> {
       friends: [],
       status: 'ONLINE',
     }, password);
+  }
+
+  public async getDiscriminator(username: string) {
+    const count = await User.countDocuments({ username });
+    const discriminator = count + 1;
+    if (discriminator > 9999)
+      throw new TypeError('Too many users have this username');
+
+    return discriminator;
   }
 }
 
