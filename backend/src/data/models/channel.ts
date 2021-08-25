@@ -3,24 +3,13 @@ import { createdAtToDate, useId } from '../../utils/utils';
 import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
 
-export interface DMChannelDocument extends Document, ChannelTypes.DM {
-  _id: string | never;
-  id: string;
-  createdAt: never;
-}
 export interface TextChannelDocument extends Document, ChannelTypes.Text {
   _id: string | never;
   id: string;
   createdAt: never;
   guildId: string;
 }
-export interface VoiceChannelDocument extends Document, ChannelTypes.Voice {
-  _id: string | never;
-  id: string;
-  createdAt: never;
-  guildId: string;
-}
-export type ChannelDocument = DMChannelDocument | TextChannelDocument | VoiceChannelDocument;
+export type ChannelDocument = TextChannelDocument;
 
 export const Channel = model<ChannelDocument>('channel', new Schema({
   _id: {
@@ -78,4 +67,5 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
     validate: [/^TEXT$|^VOICE$|^DM$/, 'Invalid type'],
   },
 }, { toJSON: { getters: true } })
-.method('toClient', useId));
+.method('toClient', useId)
+.index(['guildId']));

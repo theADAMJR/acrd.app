@@ -3,6 +3,7 @@ import Channels from '../../../data/channels';
 import Messages from '../../../data/messages';
 import { Message } from '../../../data/models/message';
 import { PermissionTypes } from '../../../types/permission-types';
+import { WS } from '../../../types/ws';
 import Deps from '../../../utils/deps';
 import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
@@ -24,8 +25,6 @@ export default class implements WSEvent<'MESSAGE_DELETE'> {
     try {
       this.guard.validateIsUser(client, message.authorId);
     } catch {
-      if (channel.type === 'DM')
-        throw new TypeError('Only message author can do this');
       await this.guard.validateCan(client, channel.guildId, PermissionTypes.Text.MANAGE_MESSAGES);
     }
     await message.deleteOne();

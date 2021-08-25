@@ -4,9 +4,11 @@ import { createdAtToDate, getNameAcronym, useId } from '../../utils/utils';
 import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
 
+// properties we don't need to define when creating a guild
 export interface GuildDocument extends Document, Entity.Guild {
   id: string;
   createdAt: never;
+  nameAcronym: never;
 }
 
 export const Guild = model<GuildDocument>('guild', new Schema({

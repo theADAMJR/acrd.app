@@ -42,6 +42,6 @@ router.get('/:id/invites',
   fullyUpdateUser, validateUser, updateGuild,
   validateHasPermission(PermissionTypes.General.MANAGE_GUILD),
   async (req, res) => {
-    const invites = await guilds.invites(req.params.id);
+    const invites = await guilds.getInvites(req.params.id);
     res.json(invites);
   });

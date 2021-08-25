@@ -4,15 +4,14 @@ declare namespace Entity {
     createdAt: Date;
     description: string;
     name: string;
-    owner: User;
-    user: User;
+    ownerId: string;
+    userId: string;
     token: string | never;
   }
   export interface Channel {
     id: string;
     createdAt: Date;
     guildId?: string;
-    memberIds?: string[];
     name?: string;
     summary?: string;
     lastMessageId?: null | string;
@@ -25,16 +24,11 @@ declare namespace Entity {
     nameAcronym: string;
     iconURL?: string;
     ownerId: string;
-    channels: Channel[];
-    invites: Invite[];
-    members: GuildMember[];
-    roles: Role[];
   }
   export interface GuildMember {
     id: string;
     createdAt: Date;
     guildId: string;
-    roleIds: string[];
     userId: string;
   }
   export interface Invite {
@@ -71,8 +65,6 @@ declare namespace Entity {
     bot: boolean;
     createdAt: Date;
     discriminator: number;
-    friendIds: string[];
-    friendRequestIds: string[];
     guilds: string[] | Entity.Guild[];
     status: UserTypes.StatusType;
     username: string;
@@ -80,22 +72,10 @@ declare namespace Entity {
 }
 
 declare namespace ChannelTypes {
-  export type Type = 'DM' | 'TEXT' | 'VOICE';
+  export type Type = 'TEXT';
 
-  export interface DM extends Entity.Channel {
-    memberIds: string[];
-    guildId: never;
-    summary: never;
-    type: 'DM';
-  }
   export interface Text extends Entity.Channel {
-    memberIds: never;
     type: 'TEXT';
-  }
-  export interface Voice extends Entity.Channel {
-    memberIds: string[];
-    summary: never;
-    type: 'VOICE';
   }
 }
 
@@ -138,7 +118,7 @@ declare namespace UserTypes {
     guilds: Entity.Guild[];
     email: string;
     verified: true;
-    lastReadMessages: {
+    lastReadMessageIds: {
       [k: string]: string
     };
     locked: boolean;

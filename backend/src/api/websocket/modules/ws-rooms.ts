@@ -1,4 +1,5 @@
 import { Socket } from 'socket.io';
+import { Channel } from '../../../data/models/channel';
 import { SelfUserDocument } from '../../../data/models/user';
 import Users from '../../../data/users';
 import Deps from '../../../utils/deps';
@@ -40,8 +41,10 @@ export class WSRooms {
 
   private async getChannelIds(client: Socket, guilds: Entity.Guild[]) {
     const ids: string[] = [];
-    const channelIds = guilds
-      .flatMap(g => g.channels.map(c => c.id));    
+    const guildIds = guilds.map(g => g.id);
+    const channelIds = (await Channel
+      .find({ guildId: { $in: guildIds } }))
+      .map(g => g.id);   
     
     for (const id of channelIds)
       try {

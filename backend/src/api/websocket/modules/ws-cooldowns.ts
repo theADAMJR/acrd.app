@@ -1,6 +1,4 @@
-// if bot user -> users should not be too fast
-// for guild events:
-// -> separate cooldowns for each guild / room ID
+import { WS } from '../../../types/ws';
 
 export class WSCooldowns {
   public readonly active = new Map<string, EventLog[]>();
