@@ -10,6 +10,9 @@ import auth from './auth';
 import config from './config';
 import ui from './ui';
 import meta from './meta';
+import members from './members';
+import invites from './invites';
+import roles from './roles';
 
 export default () => configureStore<Store.AppState>({
   middleware: [
