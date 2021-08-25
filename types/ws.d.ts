@@ -230,6 +230,8 @@ declare namespace WS {
       channels: Entity.Channel[];
       /** Roles associated with guild. */
       roles: Entity.Role[];
+      /** Guild members associated with guild. */
+      members: Entity.GuildMember[];
       /** Users associated with guild. */
       users: Entity.User[];
     }

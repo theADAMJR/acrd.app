@@ -63,11 +63,12 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
   }
 
   public async getEntities(guildId: string) {
-    const [channels, roles, users] = await Promise.all([
+    const [channels, members, roles, users] = await Promise.all([
       this.getChannels(guildId),
+      this.getMembers(guildId),
       this.getRoles(guildId),
       this.getUsers(guildId),
     ]);
-    return { channels, roles, users };
+    return { channels, members, roles, users };
   }
 }

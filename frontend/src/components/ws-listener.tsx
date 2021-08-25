@@ -1,18 +1,18 @@
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import ws from '../services/ws';
-import { actions as guilds, getGuildUsers } from '../store/guilds';
-import { actions as messages } from '../store/messages';
-import { actions as channels } from '../store/channels';
-import { actions as auth, logoutUser } from '../store/auth';
 import { closedModal, focusedInvite } from '../store/ui';
 import { useEffect } from 'react';
-import { actions as users, getUser } from '../store/users';
 import { useHistory } from 'react-router-dom';
+import { actions as users, getUser } from '../store/users';
 import { actions as meta } from '../store/meta';
 import { actions as invites } from '../store/invites';
 import { actions as members } from '../store/members';
 import { actions as roles } from '../store/roles';
 import { actions as typing } from '../store/typing';
+import { actions as guilds } from '../store/guilds';
+import { actions as messages } from '../store/messages';
+import { actions as channels } from '../store/channels';
+import { actions as auth, logoutUser } from '../store/auth';
 
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -67,8 +67,9 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(focusedInvite(args.invite));
     });
     ws.on('GUILD_CREATE', (args) => {
-      dispatch(guilds.created(args));
       dispatch(channels.fetched(args.channels));
+      dispatch(guilds.created(args));
+      dispatch(members.fetched(args.members));
       dispatch(users.fetched(args.users));
       dispatch(roles.fetched(args.roles));
       dispatch(closedModal());
