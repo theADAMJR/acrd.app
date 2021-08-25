@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
+import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { getTypersInChannel, startTyping } from '../../store/channels';
 import { createMessage, updateMessage } from '../../store/messages';
@@ -30,18 +31,23 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
       || event.shiftKey
       || !emptyMessage) return;
     
+    saveEdit();
+  }
+
+  const saveEdit = () => {
     (props.editingMessageId)
       ? dispatch(updateMessage(props.editingMessageId, { content }))
       : dispatch(createMessage(channel.id, { content }));
       
     setContent('');
-    dispatch(stoppedEditingMessage());
+    esc();
   }
+  const esc = () => dispatch(stoppedEditingMessage());
 
   const handleEscape = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key !== 'Escape') return;
     if (props.editingMessageId)
-      dispatch(stoppedEditingMessage());
+      esc();
   }
 
   const user = (userId: string) => getUser(userId)(store.getState());
@@ -68,7 +74,10 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         className="resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4"
         autoFocus />
       {(props.editingMessageId)
-        ? <span className="text-xs py-2">escape to cancel • enter to save</span>
+        ? <span className="text-xs py-2">
+            escape to <Link to="#" onClick={esc}>cancel</Link> • 
+            enter to <Link to="#" onClick={saveEdit}> save</Link>
+          </span>
         : <div className="text-sm w-full h-6">{typingMessage()}</div>}
     </div>
   );
