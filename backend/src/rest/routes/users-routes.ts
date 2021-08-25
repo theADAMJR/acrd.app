@@ -60,7 +60,6 @@ router.get('/entities', updateUser, validateUser, async (req, res) => {
     channels: await Channel.find({ guildId: { $in } }),
     guilds: await Guild.find({ _id: { $in } }),
     members: await GuildMember.find({ guildId: { $in } }),
-    invites: await Invite.find({ guildId: { $in } }),
     roles: await Role.find({ guildId: { $in } }),
     users: await User.find({ guildIds: { $in } }),
   } as REST.Get['/users/entities']);

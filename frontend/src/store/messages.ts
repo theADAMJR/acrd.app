@@ -1,26 +1,28 @@
-import { createSlice, createSelector, Action } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
 import { headers } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'messages',
-  // overoptimization -> filtering thru thousands of messages, worst case scenario, is not going to impact performance much
-  // -> that's why we use an array
-  initialState: [] as Entity.Message[],
+  initialState: {
+    fetched: new Set<string>(),
+    list: [] as Entity.Message[],
+  } as Store.AppState['entities']['messages'],
   reducers: {
-    created: (messages, { payload }: Store.Action<WS.Args.MessageCreate>) => {
-      messages.push(payload.message);
+    fetched: ({ list, fetched }, { payload }: Store.Action<Entity.Message[]>) => {
+      list.push(...payload);
+      fetched.add(payload[0].channelId);
     },
-    deleted: (messages, { payload }: Store.Action<WS.Args.MessageDelete>) => {
-      const index = messages.findIndex(m => m.id === payload.messageId);
-      messages.splice(index, 1);
+    created: ({ list }, { payload }: Store.Action<WS.Args.MessageCreate>) => {
+      list.push(payload.message);
     },
-    fetched: (messages, { payload }: Store.Action<Entity.Message[]>) => {
-      messages.push(...payload);
+    deleted: ({ list }, { payload }: Store.Action<WS.Args.MessageDelete>) => {
+      const index = list.findIndex(m => m.id === payload.messageId);
+      list.splice(index, 1);
     },
-    updated: (messages, { payload }: Store.Action<WS.Args.MessageUpdate>) => {
-      const message = messages.find(m => m.id === payload.message.id);
+    updated: ({ list }, { payload }: Store.Action<WS.Args.MessageUpdate>) => {
+      const message = list.find(m => m.id === payload.message.id);
       Object.assign(message, payload.message);
     },
   },
@@ -28,11 +30,11 @@ const slice = createSlice({
 
 export const getChannelMessages = (channelId: string) =>
   createSelector<Store.AppState, Entity.Message[], Entity.Message[]>(
-    state => state.entities.messages,
+    state => state.entities.messages.list,
     messages => messages.filter(m => m.channelId === channelId),
   );
 
-// v6: add lazy message loading
+// TODO: add lazy message loading
 export const fetchMessages = (channelId: string) => (dispatch, getState) => {
   const isCached = getState().entities.messages.some(c => c.channelId === channelId);
   if (isCached) return;

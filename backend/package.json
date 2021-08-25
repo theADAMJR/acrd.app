@@ -5,11 +5,11 @@
   "main": "src/app.ts",
   "scripts": {
     "start": "ts-node src/app.ts",
-    "dev": "ts-node-dev --transpile-only src/app.ts",
+    "dev": "ts-node-dev src/app.ts",
     "test": "ts-mocha test/test.ts"
   },
   "keywords": [],
-  "author": "youtube.com/ADAMJR",
+  "author": "ADAMJR",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
