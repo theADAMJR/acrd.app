@@ -9,16 +9,36 @@ declare namespace Store {
     };
     entities: {
       channels: {
+        fetched: boolean;
         typing: { userId: string, channelId: string }[];
+        list: Entity.Channel[];
       };
       guilds: {
         fetched: boolean;
         list: Entity.Guild[];
       }
-      messages: Entity.Message[];
+      members: {
+        fetched: boolean;
+        list: Entity.GuildMember[];
+      };
+      roles: {
+        fetched: boolean;
+        list: Entity.Role[];
+      };
       users: {
         fetched: boolean;
         list: Entity.User[];
+      }
+      // sequential - loaded when needed
+      invites: {
+        fetched: Set<string>;
+        list: Entity.Invite[];
+      };
+      // sequential - loaded when needed
+      messages: {
+        /** Set of channel Ids that messages have been initially fetched in. */
+        fetched: Set<string>;
+        list: Entity.Message[];
       }
     };
     meta: {

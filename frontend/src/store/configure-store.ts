@@ -20,7 +20,15 @@ export default () => configureStore<Store.AppState>({
   reducer: combineReducers({
     auth,
     config,
-    entities: combineReducers({ channels, guilds, messages, users }),
+    entities: combineReducers({
+      channels,
+      invites,
+      guilds,
+      members,
+      messages,
+      roles,
+      users,
+    }),
     meta,
     ui,
   }),

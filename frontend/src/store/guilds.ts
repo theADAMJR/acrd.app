@@ -13,18 +13,6 @@ const slice = createSlice({
     created: (guilds, { payload }: Store.Action<WS.Args.GuildCreate>) => {
       guilds.list.push(payload.guild);
     },
-    channelCreated: (guilds, { payload }: Store.Action<WS.Args.ChannelCreate>) => {
-      const guild = guilds.list.find(g => g.id === payload.channel.guildId);
-      guild!.channels.push(payload.channel);
-    },
-    channelDeleted: (guilds, { payload }: Store.Action<WS.Args.ChannelDelete>) => {
-      const guild = guilds.list.find(g => g.id === payload.guildId);
-      guild!.channels = guild!.channels.filter(c => c.id !== payload.channelId);
-    },
-    inviteCreated: (guilds, { payload }: Store.Action<WS.Args.InviteCreate>) => {
-      const guild = guilds.list.find(g => g.id === payload.invite.guildId);
-      guild!.invites.push(payload.invite);
-    },
     memberAdded: (guilds, { payload }: Store.Action<WS.Args.GuildMemberAdd>) => {
       const guild = guilds.list.find(g => g.id === payload.guildId);
       guild!.members.push(payload.member);
@@ -90,20 +78,6 @@ export const kickMember = (guildId: string, userId: string) => (dispatch) => {
   }));
 }
 
-export const createChannel = (guildId: string, name: string) => (dispatch) => {
-  dispatch(api.wsCallBegan({
-    event: 'CHANNEL_CREATE',
-    data: { guildId, name },
-  }));
-}
-
-export const deleteChannel = (guildId: string, channelId: string) => (dispatch) => {
-  dispatch(api.wsCallBegan({
-    event: 'CHANNEL_DELETE',
-    data: { guildId, channelId },
-  }));
-}
-
 export const createGuild = (name: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_CREATE',
@@ -125,13 +99,6 @@ export const deleteGuild = (guildId: string) => (dispatch) => {
   }));
 }
 
-export const createInvite = (guildId: string) => (dispatch) => {
-  dispatch(api.wsCallBegan({
-    event: 'INVITE_CREATE',
-    data: { guildId },
-  }));
-}
-
 export const getGuild = (id: string) =>
   createSelector<Store.AppState, Entity.Guild[], Entity.Guild | undefined>(
     state => state.entities.guilds.list,
@@ -142,16 +109,3 @@ export const getGuildByChannelId = (channelId: string) =>
     state => state.entities.guilds.list,
     guilds => guilds.find(g => g.channels.some(c => c.id === channelId)),
   );
-export const getChannel = (guildId: string, channelId: string) =>
-  createSelector<Store.AppState, Entity.Guild[], Entity.Channel | undefined>(
-    state => state.entities.guilds.list,
-    guilds => guilds
-      .find(g => g.id === guildId)?.channels
-      .find(c => c.id === channelId),
-  );
-
-export const getAbbr = (name: string) => name
-  .split(' ')
-  .map(n => n[0])
-  .join('')
-  .slice(0, 3);

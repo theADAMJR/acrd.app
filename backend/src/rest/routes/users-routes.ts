@@ -2,8 +2,13 @@ import { Router } from 'express';
 import { User } from '../../data/models/user';
 import Users from '../../data/users';
 import Deps from '../../utils/deps';
-import { fullyUpdateUser, updateUser, validateUser } from '../modules/middleware';
+import { updateUser, validateUser } from '../modules/middleware';
 import generateInvite from '../../data/utils/generate-invite';
+import { Guild } from '../../data/models/guild';
+import { Invite } from '../../data/models/invite';
+import { Role } from '../../data/models/role';
+import { GuildMember } from '../../data/models/guild-member';
+import { Channel } from '../../data/models/channel';
 
 export const router = Router();
 
@@ -35,8 +40,6 @@ router.get('/check-username', async (req, res) => {
   res.json(exists);
 });
 
-router.get('/self', fullyUpdateUser, async (req, res) => res.json(res.locals.user));
-
 router.get('/check-email', async (req, res) => {
   const email = req.query.value?.toString().toLowerCase();
   const exists = await User.exists({
@@ -46,6 +49,21 @@ router.get('/check-email', async (req, res) => {
     verified: true,
   });
   res.json(exists);
+});
+
+router.get('/self', updateUser, validateUser, async (req, res) => res.json(res.locals.user));
+
+router.get('/entities', updateUser, validateUser, async (req, res) => {
+  const $in = res.locals.user.guildIds;
+  
+  res.json({
+    channels: await Channel.find({ guildId: { $in } }),
+    guilds: await Guild.find({ _id: { $in } }),
+    members: await GuildMember.find({ guildId: { $in } }),
+    invites: await Invite.find({ guildId: { $in } }),
+    roles: await Role.find({ guildId: { $in } }),
+    users: await User.find({ guildIds: { $in } }),
+  });
 });
 
 router.get('/:id', async (req, res) => {

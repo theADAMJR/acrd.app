@@ -15,11 +15,6 @@ const messages = Deps.get<Messages>(Messages);
 const pings = Deps.get<Pings>(Pings);
 const ws = Deps.get<WebSocket>(WebSocket);
 
-router.get('/', updateUser, validateUser, async (req, res) => {
-  const guildsChannels = await channels.getGuildsChannels(res.locals.user);
-  res.json(guildsChannels);
-});
-
 router.get('/:channelId/messages', updateUser, validateUser, async (req, res) => {
   const channelId = req.params.channelId;
 

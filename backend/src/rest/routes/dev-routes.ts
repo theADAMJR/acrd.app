@@ -3,7 +3,7 @@ import { Application } from '../../data/models/application';
 import Users from '../../data/users';
 import generateInvite from '../../data/utils/generate-invite';
 import Deps from '../../utils/deps';
-import { fullyUpdateUser, validateUser } from '../modules/middleware';
+import { updateUser, validateUser } from '../modules/middleware';
 import { WSGuard } from '../../ws/modules/ws-guard';
 
 export const router = Router();
@@ -24,7 +24,7 @@ router.get('/apps', async (req, res) => {
   res.json(apps);
 });
 
-router.use(fullyUpdateUser, validateUser);
+router.use(updateUser, validateUser);
 
 router.get('/apps/user', async (req, res) => {
   const apps = await Application.find({ owner: res.locals.user });

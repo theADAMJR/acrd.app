@@ -1,13 +1,25 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
+import { WS } from '../types/ws';
 import { actions as api } from './api';
 
 const slice = createSlice({
   name: 'channels',
   initialState: {
-    typing: [] as any,
+    fetched: false,
+    list: [],
+    typing: [],
   } as Store.AppState['entities']['channels'],
   reducers: {
+    fetched: ({ list }, { payload }: Store.Action<Entity.Channel[]>) => {
+      list.push(...payload);
+    },
+    created: ({ list }, { payload }: Store.Action<WS.Args.ChannelCreate>) => {
+      list.push(payload.channel);
+    },
+    deleted: ({ list }, { payload }: Store.Action<WS.Args.ChannelDelete>) => {
+      list = list.filter(c => c.id !== payload.channelId);
+    },
     userTyped: ({ typing }, { payload }: Store.Action<{ channelId: string, userId: string }>) => {      
       typing.push(payload);
     },
@@ -45,3 +57,23 @@ export const startTyping = (channelId: string) => (dispatch, getState) => {
     data: { channelId },
   }));
 }
+
+export const createChannel = (guildId: string, name: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'CHANNEL_CREATE',
+    data: { guildId, name },
+  }));
+}
+
+export const deleteChannel = (guildId: string, channelId: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'CHANNEL_DELETE',
+    data: { guildId, channelId },
+  }));
+}
+
+export const getChannel = (id: string) =>
+  createSelector<Store.AppState, Entity.Channel[], Entity.Channel | undefined>(
+    state => state.entities.channels.list,
+    channels => channels.find(c => c.id === id),
+  );

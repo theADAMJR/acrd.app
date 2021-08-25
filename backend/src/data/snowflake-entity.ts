@@ -5,20 +5,14 @@ let lastSnowflake: string;
 const accordEpoch = 1577836800000;
 
 export function generateSnowflake() {
-  const msSince = (new Date().getTime() - accordEpoch)
+  const pad = (num: number, by: number) => num
     .toString(2)
-    .padStart(42, '0');  
-  const pid = process.pid
-    .toString(2)
-    .slice(0, 5)
-    .padStart(5, '0');
-  const wid = (cluster.worker?.id ?? 0)
-    .toString(2)
-    .slice(0, 5)
-    .padStart(5, '0');
-  const getInc = (add: number) => (inc + add)
-    .toString(2)
-    .padStart(12, '0');
+    .padStart(by, '0');
+
+  const msSince = pad(new Date().getTime() - accordEpoch, 42);
+  const pid = pad(process.pid, 5).slice(0, 5);
+  const wid = pad(cluster.worker?.id ?? 0, 5);
+  const getInc = (add: number) => pad(inc + add, 12);
   
   let snowflake = `0b${msSince}${wid}${pid}${getInc(0)}`;
   (snowflake === lastSnowflake)

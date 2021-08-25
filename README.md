@@ -1,6 +1,11 @@
 # Accord - Like Discord but cooler.
 
+Custom Frontend and Backend that is similar to Discord.
+
 > Built with React TS, Redux, and Node.js.
+
+> Want a more basic version, that's more like Discord?
+> https://github.com/codea-live/dclone
 
 <a href="https://ibb.co/tqdybrW"><img src="https://i.ibb.co/T4CzH3F/image.png" alt="image" border="0"></a>
 

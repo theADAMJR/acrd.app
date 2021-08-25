@@ -1,6 +1,5 @@
 import DBWrapper from './db-wrapper';
 import { Channel, ChannelDocument, TextChannelDocument } from './models/channel';
-import { SelfUserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
 
 export default class Channels extends DBWrapper<string, ChannelDocument> {
@@ -13,13 +12,6 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
 
   public async getText(id: string) {
     return await Channel.findById(id) as TextChannelDocument;
-  }
-
-  public async getGuildsChannels(user: SelfUserDocument): Promise<ChannelDocument[]> {
-    const guildIds = user.guilds.map(c => c.id);
-    return await Channel.find({
-      guildId: { $in: guildIds },
-    }) as ChannelDocument[];
   }
 
   public create(options?: Partial<Entity.Channel>): Promise<ChannelDocument> {
