@@ -22,8 +22,6 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
     this.guard.validateKeys('guild', partialGuild);
 
     const guild = await this.guilds.get(guildId);
-    this.validateChannels(guild, partialGuild);
-    this.validateRoles(guild, partialGuild);
 
     if (iconURL) guild.iconURL = iconURL;
     if (name) guild.name = name;
@@ -33,23 +31,5 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
     ws.io
       .to(guildId)
       .emit('GUILD_UPDATE', { guildId, partialGuild } as WS.Args.GuildUpdate);
-  }
-
-  private validateChannels(guild: Entity.Guild, partialGuild: PartialEntity.Guild) {
-    if (!partialGuild.channels) return;
-    if (guild.channels.length !== partialGuild.channels.length)
-      throw new TypeError('Cannot add or remove channels this way');
-  }
-
-  private validateRoles(guild: Entity.Guild, partialGuild: PartialEntity.Guild) {
-    if (!partialGuild.roles) return;
-    if (guild.roles.length !== partialGuild.roles.length)
-      throw new TypeError('Cannot add or remove roles this way');
-
-    const oldEveryoneRoleId = guild.roles[0].id;
-    const newEveryoneRoleId: string = partialGuild?.roles?.[0] as any;
-
-    if (oldEveryoneRoleId !== newEveryoneRoleId)
-      throw new TypeError('You cannot reorder the @everyone role');
   }
 }

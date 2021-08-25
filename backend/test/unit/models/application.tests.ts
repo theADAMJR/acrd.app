@@ -16,7 +16,7 @@ test(createApplication, () => {
   given({ owner: '' }).expect('Owner is required');
   given({ owner: '123' }).expect('Invalid Snowflake ID');
   given({ owner: generateSnowflake() }).expect(true);
-  given({ user: '' }).expect('User is required');
+  given({ user: '' }).expect('User ID is required');
   given({ user: '123' }).expect('Invalid Snowflake ID');
   given({ user: generateSnowflake() }).expect(true);
 });

@@ -25,8 +25,9 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     const invite = await this.invites.get(inviteCode);
     const guild = await this.guilds.get(invite.guildId);
     const userId = ws.sessions.userId(client);
-
-    const inGuild = guild.members.some(m => m.userId === userId);
+    
+    const members = await this.guilds.getMembers(guild.id);
+    const inGuild = members.some(m => m.userId === userId);
     if (inGuild)
       throw new TypeError('User already in guild');
     

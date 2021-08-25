@@ -50,36 +50,23 @@ export const User = model<UserDocument>('user', new Schema({
     type: String,
     unique: [true, 'Email is already in use'],
     uniqueCaseInsensitive: true,
-    validate: {
-      validator: (val: string) => !val || patterns.email.test(val),
-      message: 'Invalid email address',
-    },
+    validate: [validators.optionalPattern('email'), 'Invalid email address'],
   },
   friendIds: {
     type: Array,
     ref: 'user',
     default: [],
-    validate: {
-      validator: validators.maxLength(100),
-      message: 'Clout limit reached',
-    },
+    validate: [validators.maxLength(100), 'Clout limit reached'],
   },
   friendRequestIds: {
     type: Array,
     ref: 'user',
     default: [],
-    validate: {
-      validator: validators.maxLength(100),
-      message: 'Max friend requests reached',
-    },
+    validate: [validators.maxLength(100), 'Max friend requests reached'],
   },
-  guilds: {
-    type: Array,
-    ref: 'guild',
-    validate: {
-      validator: validators.maxLength(100),
-      message: 'Guild limit reached',
-    },
+  guildIds: {
+    type: [String],
+    validate: [validators.maxLength(100), 'Guild limit reached'],
   },
   ignored: {
     type: Object,
@@ -121,10 +108,7 @@ export const User = model<UserDocument>('user', new Schema({
     type: String,
     required: [true, 'Username is required'],
     uniqueCaseInsensitive: true,
-    validate: {
-      validator: patterns.username,
-      message: `Invalid username`,
-    },
+    validate: [patterns.username, `Invalid username`],
   },
   verified: Boolean,
 }, { toJSON: { getters: true } })

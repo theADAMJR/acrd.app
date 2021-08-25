@@ -22,40 +22,17 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
   },
   guildId: {
     type: String,
-    validate: {
-      validator: validators.optionalSnowflake,
-      message: 'Invalid Snowflake ID',
-    },
-  },
-  memberIds: {
-    type: [String],
-    default: [],
-    validate: {
-      validator: validators.maxLength(50),
-      message: 'Channel member limit reached',
-    }
+    validate: [validators.optionalSnowflake, 'Invalid Snowflake ID'],
   },
   name: {
     type: String,
     required: [true, 'Name is required'],
     maxlength: [32, 'Name too long'],
-    validate: {
-      validator: function(val: string) {
-        const type = (this as any).type;
-        const pattern = /^[A-Za-z\-\d]+$/;
-        return type === 'TEXT'
-          && pattern.test(val)
-          || type !== 'TEXT';
-      },
-      message: 'Invalid name'
-    }
+    validate: [validators.textChannelName, 'Invalid name'],
   },
   lastMessageId: {
     type: String,
-    validate: {
-      validator: validators.optionalSnowflake,
-      message: 'Invalid Snowflake ID'
-    },
+    validate: [validators.optionalSnowflake, 'Invalid Snowflake ID'],
   },
   summary: {
     type: String,

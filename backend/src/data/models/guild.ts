@@ -42,8 +42,7 @@ export const Guild = model<GuildDocument>('guild', new Schema({
       type: String,
       ref: 'channel',
     }],
-    validate: {
-      validator: validators.maxLength(250),
+    validate: [validators.maxLength(250),
       message: 'Channel limit reached',
     },
   },
@@ -60,8 +59,7 @@ export const Guild = model<GuildDocument>('guild', new Schema({
       type: String,
       ref: 'role',
     }],
-    validate: {
-      validator: validators.minLength(1),
+    validate: [validators.minLength(1),
       message: 'Guild must have at least one role',
     },
   },

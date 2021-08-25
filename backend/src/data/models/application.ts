@@ -15,10 +15,9 @@ export const Application = model<ApplicationDocument>('application', new Schema(
     type: String,
     default: generateSnowflake,
   },
-  user: {
+  userId: {
     type: String,
-    ref: 'user',
-    required: [true, 'User is required'],
+    required: [true, 'User ID is required'],
     validate: [patterns.snowflake, 'Invalid Snowflake ID'],
   },
   createdAt: {

@@ -11,12 +11,10 @@ export namespace Prohibited {
     ...general,
     'guildId',
     'lastMessageId',
-    'memberIds',
     'type',
   ];
   export const guild: (keyof Entity.Guild)[] = [
     ...general,
-    'members',
     'nameAcronym',
   ];
   export const guildMember: (keyof Entity.GuildMember)[] = [
@@ -36,10 +34,10 @@ export namespace Prohibited {
   ];
   export const user: (keyof UserTypes.Self)[] = [
     ...general,
+    'channelIds',
+    'guildIds',
     'badges',
     'bot',
-    'friendIds',
-    'friendRequestIds',
     'verified',
   ];
 }

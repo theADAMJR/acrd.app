@@ -25,8 +25,7 @@ export const Role = model<RoleDocument>('role', new Schema({
   color: {
     type: String,
     default: everyoneColor,
-    validate: {
-      validator: function(this: RoleDocument, val: string) {
+    validate: [function(this: RoleDocument, val: string) {
         return this?.name !== '@everyone'
           || val === everyoneColor
           || !val;
@@ -54,8 +53,7 @@ export const Role = model<RoleDocument>('role', new Schema({
     type: Number,
     default: PermissionTypes.defaultPermissions,
     required: [true, 'Permissions is required'],
-    validate: {
-      validator: (val: number) => Number.isInteger(val) && val >= 0,
+    validate: [(val: number) => Number.isInteger(val) && val >= 0,
       message: 'Invalid permissions integer',
     },
   }
