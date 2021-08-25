@@ -5,7 +5,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import { pageSwitched } from '../../store/ui';
 import TextBasedChannel from '../channel/text-based-channel';
 import MemberList from '../user/member-list';
-import { getGuild, getGuildChannels } from '../../store/guilds';
+import { getGuild, getGuildChannels, getGuildUsers } from '../../store/guilds';
 import { useEffect } from 'react';
 import PageWrapper from './page-wrapper';
 import { getUser } from '../../store/users';
@@ -18,7 +18,7 @@ const GuildPage: React.FunctionComponent = () => {
   const guild = useSelector(getGuild(guildId));
   const channel = useSelector(getChannel(channelId));
   const guildChannels = useSelector(getGuildChannels(guildId));
-  const store = useStore();
+  const guildUsers = useSelector(getGuildUsers(guildId));
 
   useEffect(() => {
     dispatch(pageSwitched({ channel, guild }));
@@ -29,10 +29,7 @@ const GuildPage: React.FunctionComponent = () => {
   else if (guildChannels.length && !channelId) {
     const systemChannel = guildChannels[0];
     return <Redirect to={`/channels/${guild.id}/${systemChannel.id}`} />;
-  }
-  
-  const guildUsers = guild.members
-    .map(u => getUser(u.userId)(store.getState())!);
+  }  
 
   return (ui.activeGuild) ? (
     <PageWrapper pageTitle={channel?.name ?? guild.name}>

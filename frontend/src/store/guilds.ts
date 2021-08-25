@@ -80,3 +80,15 @@ createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
   state => state.entities.roles.list,
   role => role.filter(r => r.guildId === guildId),
 );
+
+export const getGuildUsers = (guildId: string) =>
+createSelector<Store.AppState, { members: Entity.GuildMember[], users: Entity.User[], }, Entity.User[]>(
+  state => ({
+    members: state.entities.members.list,
+    users: state.entities.users.list,
+  }),
+  ({ members, users }) => members
+    .filter(m => m.guildId === guildId)
+    .map(m => users.find(u => u.id === m.userId)!
+  ),
+);
