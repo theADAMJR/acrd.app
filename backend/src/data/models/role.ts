@@ -2,6 +2,7 @@ import { Document, model, Schema } from 'mongoose';
 import patterns from '../../types/patterns';
 import { PermissionTypes } from '../../types/permission-types';
 import {  createdAtToDate, useId } from '../../utils/utils';
+import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
 
 export function hasPermission(current: number, required: number) {  
@@ -25,13 +26,10 @@ export const Role = model<RoleDocument>('role', new Schema({
   color: {
     type: String,
     default: everyoneColor,
-    validate: [function(this: RoleDocument, val: string) {
-        return this?.name !== '@everyone'
-          || val === everyoneColor
-          || !val;
-      },
-      message: 'Cannot change @everyone role color',
-    }
+    validate: [
+      validators.cannotChangeIfProp('name', '@everyone'),
+      'Cannot change @everyone role color',
+    ],
   },
   createdAt: {
     type: Date,
@@ -53,9 +51,7 @@ export const Role = model<RoleDocument>('role', new Schema({
     type: Number,
     default: PermissionTypes.defaultPermissions,
     required: [true, 'Permissions is required'],
-    validate: [(val: number) => Number.isInteger(val) && val >= 0,
-      message: 'Invalid permissions integer',
-    },
+    validate: [validators.isInteger, 'Invalid permissions integer'],
   }
 }, { toJSON: { getters: true } })
 .method('toClient', useId));
