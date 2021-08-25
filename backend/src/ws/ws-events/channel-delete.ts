@@ -17,16 +17,16 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelDelete) {
-    const channel = await this.channels.get(channelId) as TextChannelDocument;
+    const channel = await this.channels.getText(channelId);
     await this.guard.validateCan(client, channel.guildId, PermissionTypes.General.MANAGE_CHANNELS);
     
-    await client.leave(channel.id);
+    await client.leave(channelId);
     await channel.deleteOne();
 
     ws.io
       .to(channel.guildId)
       .emit('CHANNEL_DELETE', {
-        channelId: channel.id,
+        channelId,
         guildId: channel.guildId,
       } as WS.Args.ChannelDelete);
   }

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import ws from '../store/services/ws';
+import ws from '../services/ws';
 import { actions as guilds, getGuildUsers } from '../store/guilds';
 import { actions as messages } from '../store/messages';
 import { actions as channels } from '../store/channels';

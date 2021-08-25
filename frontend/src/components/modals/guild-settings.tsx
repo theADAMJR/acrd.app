@@ -64,7 +64,7 @@ const GuildSettings: React.FunctionComponent = () => {
                 className="bg-danger">Delete</NormalButton>
               <NormalButton
                 onClick={handleSubmit(onUpdate)}
-                className="bg-success ml-4">Save</NormalButton>
+                className="text-black bg-success ml-4">Save</NormalButton>
             </section>
           </form>
         </div>

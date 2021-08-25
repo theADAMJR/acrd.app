@@ -56,11 +56,11 @@ router.get('/entities', updateUser, validateUser, async (req, res) => {
   const $in = res.locals.user.guildIds;
 
   const [channels, guilds, members, roles, users] = await Promise.all([
-    await Channel.find({ guildId: { $in } }),
-    await Guild.find({ _id: { $in } }),
-    await GuildMember.find({ guildId: { $in } }),
-    await Role.find({ guildId: { $in } }),
-    await User.find({ guildIds: { $in } }),
+    Channel.find({ guildId: { $in } }),
+    Guild.find({ _id: { $in } }),
+    GuildMember.find({ guildId: { $in } }),
+    Role.find({ guildId: { $in } }),
+    User.find({ guildIds: { $in } }),
   ]);
 
   res.json({ channels, guilds, members, roles, users, } as REST.Get['/users/entities']);

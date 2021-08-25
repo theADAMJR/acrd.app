@@ -33,7 +33,8 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
       { lastMessageId: message.id }
     );
 
-    const user = await this.users.getSelf(authorId, false);
+    const user = await this.users.getSelf(authorId);
+    user.lastReadMessageIds ??= {};
     user.lastReadMessageIds[channelId] = message.id;
     await user.save();
 

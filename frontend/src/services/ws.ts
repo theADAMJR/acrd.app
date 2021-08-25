@@ -1,6 +1,6 @@
-import environment from '../../environment';
+import environment from '../environment';
 import io from 'socket.io-client';
-import { WS } from '../../types/ws';
+import { WS } from '../types/ws';
 
 const ws = (io as any).connect(environment.rootAPIURL, {
   secure: true,

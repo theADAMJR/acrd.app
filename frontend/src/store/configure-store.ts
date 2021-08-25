@@ -13,10 +13,13 @@ import meta from './meta';
 import members from './members';
 import invites from './invites';
 import roles from './roles';
+import { enableMapSet } from 'immer';
+
+enableMapSet();
 
 export default () => configureStore<Store.AppState>({
   middleware: [
-    ...getDefaultMiddleware({ serializableCheck: false }),
+    ...getDefaultMiddleware({ serializableCheck: false, enableMapSet: true }),
     ws,
     api,
   ] as any,
