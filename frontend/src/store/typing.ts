@@ -26,7 +26,7 @@ export const actions = slice.actions;
 export default slice.reducer;
 
 export const getTypersInChannel = (channelId: string) => createSelector<any, any, any>(
-  state => state.entities.channels.typing,
+  state => state.entities.typing,
   typing => typing.filter(t => t.channelId === channelId),
 ) as (channelId: string) => Store.AppState['entities']['typing'];
 

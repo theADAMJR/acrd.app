@@ -20,7 +20,6 @@ export class WSRooms {
     if (!user.guildIds.length) return;
 
     await client.join(user.guildIds);
-
     const channelIds = await this.getChannelIds(client, user.guildIds);
     await client.join(channelIds);        
   }

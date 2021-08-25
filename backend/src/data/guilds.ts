@@ -61,4 +61,13 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
     const users = await User.find({ guildIds: { $in: guildId } });
     return users.map(u => this.users.secure(u));
   }
+
+  public async getEntities(guildId: string) {
+    const [channels, roles, users] = await Promise.all([
+      this.getChannels(guildId),
+      this.getRoles(guildId),
+      this.getUsers(guildId),
+    ]);
+    return { channels, roles, users };
+  }
 }

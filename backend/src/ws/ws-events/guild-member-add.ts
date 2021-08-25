@@ -35,17 +35,13 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     if (inviteCode && user.bot)
       throw new TypeError('Bot users cannot accept invites');
 
-    await this.handleInvite(invite);
-    await this.rooms.joinGuildRooms(user, client);
-
-    const [member, channels, roles, users] = await Promise.all([
+    const [a, b, member, entities] = await Promise.all([
+      this.handleInvite(invite),
+      this.rooms.joinGuildRooms(user, client),
       this.members.create(guild, user),
-      this.guilds.getChannels(guild.id),
-      this.guilds.getRoles(guild.id),
-      this.guilds.getUsers(guild.id),
+      this.guilds.getEntities(guild.id),
     ]);
-
-    client.emit('GUILD_CREATE', { guild, channels, roles, users } as WS.Args.GuildCreate);
+    client.emit('GUILD_CREATE', { guild, ...entities, } as WS.Args.GuildCreate);
     
     ws.io
       .to(guild.id)
