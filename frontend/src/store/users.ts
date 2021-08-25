@@ -9,7 +9,8 @@ const slice = createSlice({
   initialState: [] as Store.AppState['entities']['users'],
   reducers: {
     fetched: (users, { payload }: Store.Action<Entity.User[]>) => {
-      users.push(...payload.filter(unique));
+      // FIXME: does not work with unique
+      users.push(...payload);
     },
     updated: (users, { payload }: Store.Action<WS.Args.UserUpdate>) => {
       const user = users.find(u => u.id === payload.userId);

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import ws from '../services/ws';
 import { closedModal, focusedInvite } from '../store/ui';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { actions as users, getUser } from '../store/users';
 import { actions as meta } from '../store/meta';
@@ -27,7 +27,7 @@ const WSListener: React.FunctionComponent = () => {
   useEffect(() => {
     if (hasListened) return;    
 
-    ws.on('error', (error: any) => {
+    ws.on('error', (error: any) => {      
       enqueueSnackbar(`${error.data?.message ?? error.message}.`, {
         anchorOrigin: {
           vertical: 'bottom',
@@ -36,7 +36,6 @@ const WSListener: React.FunctionComponent = () => {
         variant: 'error',
         autoHideDuration: 5000,
       });
-      // alert();
     });
 
     // add channel to guilds.channels
