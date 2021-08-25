@@ -42,6 +42,7 @@ declare namespace Store {
       }
     };
     meta: {
+      fetchedEntities: boolean;
       hasListenedToWS: boolean;
     };
     ui: {
