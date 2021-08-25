@@ -6,6 +6,7 @@ import { WSGuard } from '../../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import Channels from '../../../data/channels';
+import { WS } from '../../../types/ws';
 
 export default class implements WSEvent<'CHANNEL_DELETE'> {
   on = 'CHANNEL_DELETE' as const;

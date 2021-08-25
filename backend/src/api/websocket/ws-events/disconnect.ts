@@ -1,6 +1,7 @@
 import { Socket } from 'socket.io';
 import { UserDocument } from '../../../data/models/user';
 import Users from '../../../data/users';
+import { WS } from '../../../types/ws';
 import Deps from '../../../utils/deps';
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
@@ -32,7 +33,7 @@ export default class implements WSEvent<'disconnect'> {
     const guildIds = user.guilds.map(g => g.id);
 
     ws.io
-      .to(guildIds.concat(user.friendIds))
+      .to(guildIds)
       .emit('PRESENCE_UPDATE', {
         userId: user.id,
         status: user.status
