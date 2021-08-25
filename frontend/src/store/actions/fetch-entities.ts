@@ -18,7 +18,6 @@ export default () => (dispatch) => {
       dispatch(memberActions.fetched(data.members));
       dispatch(roleActions.fetched(data.roles));
       dispatch(userActions.fetched(data.users));
-      dispatch(inviteActions.fetched(data.invites));
     },
   }));  
 }
