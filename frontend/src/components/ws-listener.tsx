@@ -20,7 +20,7 @@ const WSListener: React.FunctionComponent = () => {
   const history = useHistory();
   const store = useStore();
   const hasListened = useSelector((s: Store.AppState) => s.meta.hasListenedToWS);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const state = () => store.getState() as Store.AppState;
 
@@ -34,6 +34,7 @@ const WSListener: React.FunctionComponent = () => {
           horizontal: 'left',
         },
         variant: 'error',
+        autoHideDuration: 5000,
       });
       // alert();
     });
