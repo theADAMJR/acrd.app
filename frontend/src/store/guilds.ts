@@ -52,7 +52,31 @@ export const deleteGuild = (guildId: string) => (dispatch) => {
 }
 
 export const getGuild = (id: string) =>
-  createSelector<Store.AppState, Entity.Guild[], Entity.Guild | undefined>(
-    state => state.entities.guilds.list,
-    guilds => guilds.find(g => g.id === id),
-  );
+createSelector<Store.AppState, Entity.Guild[], Entity.Guild | undefined>(
+  state => state.entities.guilds.list,
+  guilds => guilds.find(g => g.id === id),
+);
+
+export const getGuildChannels = (guildId: string) =>
+createSelector<Store.AppState, Entity.Channel[], Entity.Channel[]>(
+  state => state.entities.channels.list,
+  channels => channels.filter(c => c.guildId === guildId),
+);
+
+export const getGuildInvites = (guildId: string) =>
+createSelector<Store.AppState, Entity.Invite[], Entity.Invite[]>(
+  state => state.entities.invites.list,
+  invites => invites.filter(i => i.guildId === guildId),
+);
+
+export const getGuildMembers = (guildId: string) =>
+createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember[]>(
+  state => state.entities.members.list,
+  members => members.filter(m => m.guildId === guildId),
+);
+
+export const getGuildRole = (guildId: string) =>
+createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
+  state => state.entities.roles.list,
+  role => role.filter(r => r.guildId === guildId),
+);

@@ -2,12 +2,14 @@ import { useEffect } from 'react';
 import PageWrapper from './page-wrapper';
 import { ready } from '../../store/auth';
 import { useDispatch } from 'react-redux';
+import fetchEntities from '../../store/actions/fetch-entities';
 
 const LoadingPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
     dispatch(ready());
+    dispatch(fetchEntities());
   }, []);
 
   const tips = [
