@@ -21,7 +21,7 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
   useEffect(() => {
     document.title = props.pageTitle ?? 'Accord';
   }, []);
-  
+
   return (
     <div
       onClick={() => dropdown && dispatch(toggleDropdown({}))}
