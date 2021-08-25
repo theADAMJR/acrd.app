@@ -19,7 +19,8 @@ const slice = createSlice({
       list.push(payload.channel);
     },
     deleted: ({ list }, { payload }: Store.Action<WS.Args.ChannelDelete>) => {
-      list = list.filter(c => c.id !== payload.channelId);
+      const index = list.findIndex(c => c.id === payload.channelId);
+      list.splice(index, 1);
     },
     userTyped: ({ typing }, { payload }: Store.Action<{ channelId: string, userId: string }>) => {      
       typing.push(payload);

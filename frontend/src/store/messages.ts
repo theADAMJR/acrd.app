@@ -12,7 +12,8 @@ const slice = createSlice({
   reducers: {
     fetched: ({ list, fetched }, { payload }: Store.Action<Entity.Message[]>) => {
       list.push(...payload);
-      fetched[payload[0].channelId] = 'testing';
+      if (payload.length)
+        fetched[payload[0].channelId] = 'testing';
     },
     created: ({ list }, { payload }: Store.Action<WS.Args.MessageCreate>) => {
       list.push(payload.message);
