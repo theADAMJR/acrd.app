@@ -12,7 +12,7 @@ import './index.css';
 config({ path: '../env' });
 
 ReactDOM.render(
-  <SnackbarProvider>
+  <SnackbarProvider maxSnack={1}>
     <Provider store={configureStore()}>
       <React.StrictMode>
         <App />

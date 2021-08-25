@@ -6,12 +6,53 @@ import Input from '../utils/input';
 import NormalButton from '../utils/buttons/normal-button';
 import Modal from './modal';
 import { Link } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
+import { useState } from 'react';
 
 const GuildSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
+  const { closeSnackbar, enqueueSnackbar } = useSnackbar();
+  const [saveChangesOpen, setSaveChangesOpen] = useState(false);
 
+  const openSaveChanges = () => {
+    if (saveChangesOpen) return;
+
+    setSaveChangesOpen(true);
+    enqueueSnackbar('', {
+      key: 'saveChanges',
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'center',
+      },
+      persist: true,
+      // TODO: make less ugly code
+      content: (
+        <div
+          className="flex justify-between rounded bg-black p-3 px-5"
+          style={{ width: '50vw' }}>
+          <span className="flex items-center flex-grow-1">Careful — you have unsaved changes!</span>
+          <span>
+            <NormalButton
+              className="bg-transparent font"
+              onClick={() => {
+                closeSnackbar('saveChanges');
+                for (const key in guild)
+                  setValue(key, guild[key]);
+                setSaveChangesOpen(false);
+              }}>Reset</NormalButton>
+            <NormalButton
+              className="bg-success text-black ml-2"
+              onClick={(e) => {
+                handleSubmit(onUpdate)(e);
+                setSaveChangesOpen(false);
+              }}>Save</NormalButton>
+          </span>
+        </div>
+      ),
+    });
+  };
   const onUpdate = (payload) => dispatch(updateGuild(guild.id, payload));
   const onDelete = () => {
     const confirmation = window.confirm('Are you sure you want to delete this server?');
@@ -33,7 +74,9 @@ const GuildSettings: React.FunctionComponent = () => {
         </div>
 
         <div className="col-span-8 h-full">
-          <form className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
+          <form
+            onChange={openSaveChanges}
+            className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
             <header>
               <h1 className="text-xl font-bold inline">Server Overview</h1>
             </header>
@@ -62,9 +105,6 @@ const GuildSettings: React.FunctionComponent = () => {
                 type="button"
                 onClick={onDelete}
                 className="bg-danger">Delete</NormalButton>
-              <NormalButton
-                onClick={handleSubmit(onUpdate)}
-                className="text-black bg-success ml-4">Save</NormalButton>
             </section>
           </form>
         </div>
