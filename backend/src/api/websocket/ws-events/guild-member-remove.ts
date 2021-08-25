@@ -1,6 +1,7 @@
 import { Socket } from 'socket.io';
 import Guilds from '../../../data/guilds';
-import { GuildDocument } from '../../../data/models/guild';
+import { Channel } from '../../../data/models/channel';
+import { Guild, GuildDocument } from '../../../data/models/guild';
 import { GuildMember } from '../../../data/models/guild-member';
 import { User } from '../../../data/models/user';
 import { PermissionTypes } from '../../../types/permission-types';
@@ -20,6 +21,7 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
 
   public async invoke(ws: WebSocket, client: Socket, { guildId, userId }: WS.Params.GuildMemberRemove) {
     const guild = await this.guilds.get(guildId, true);
+    const members = await 
     const member = guild.members.find(m => m.userId === userId);    
     if (!member)
       throw new TypeError('Member does not exist');
@@ -53,7 +55,8 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
 
   private async leaveGuildRooms(client: Socket, guild: GuildDocument) {
     await client.leave(guild.id);
-    for (const channel of guild.channels)
+    const guildChannels = await Channel.find({ guildId: guild.id });
+    for (const channel of guildChannels)
       await client.leave(channel.id);
   }
 }
