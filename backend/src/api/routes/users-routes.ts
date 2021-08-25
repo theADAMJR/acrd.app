@@ -3,12 +3,10 @@ import { User } from '../../data/models/user';
 import Users from '../../data/users';
 import Deps from '../../utils/deps';
 import { fullyUpdateUser, updateUser, validateUser } from '../modules/middleware';
-import Channels from '../../data/channels';
 import generateInvite from '../../data/utils/generate-invite';
 
 export const router = Router();
 
-const channels = Deps.get<Channels>(Channels);
 const users = Deps.get<Users>(Users);
 
 router.get('/', updateUser, validateUser, async (req, res) => {
@@ -48,11 +46,6 @@ router.get('/check-email', async (req, res) => {
     verified: true,
   });
   res.json(exists);
-});
-
-router.get('/dm-channels', fullyUpdateUser, async (req, res) => {
-  const dmChannels = await channels.getDMChannels(res.locals.user.id);
-  res.json(dmChannels);
 });
 
 router.get('/:id', async (req, res) => {

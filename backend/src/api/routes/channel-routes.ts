@@ -16,11 +16,8 @@ const pings = Deps.get<Pings>(Pings);
 const ws = Deps.get<WebSocket>(WebSocket);
 
 router.get('/', updateUser, validateUser, async (req, res) => {
-  const dms: Entity.Channel[] = await channels.getDMChannels(res.locals.user.id);
   const guildsChannels = await channels.getGuildsChannels(res.locals.user);
-  const all = dms.concat(guildsChannels);
-
-  res.json(all);
+  res.json(guildsChannels);
 });
 
 router.get('/:channelId/messages', updateUser, validateUser, async (req, res) => {
@@ -47,7 +44,7 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
       .emit('USER_UPDATE', {
         userId: user.id,
         partialUser: {
-          lastReadMessages: user.lastReadMessages
+          lastReadMessageIds: user.lastReadMessageIds
         },
       } as WS.Args.UserUpdate);
   }

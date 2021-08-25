@@ -18,8 +18,6 @@ router.get('/apps', async (req, res) => {
   const apps = (await Application
     .find()
     .select('-token')
-    .populate('user')
-    .populate('owner')
     .exec())
     .slice(start || 0, end || 25);
 
@@ -40,11 +38,11 @@ router.get('/apps/new', async (req, res) => {
   if (count >= maxApps)
     return res.status(400).json({ message: 'Too many apps' });  
 
-  const app = new Application({ owner: user.id as any });
-  app.user = (await users.create({
+  const app = new Application({ ownerId: user.id });
+  app.userId = (await users.create({
     username: app.name,
     password: generateInvite(),
-  }, true)).id as any;
+  }, true)).id;
   app.token = users.createToken(user.id, false);
   await app.save();
 
@@ -57,14 +55,14 @@ router.get('/apps/:id', async (req, res) => {
     .populate('user')
     .exec();
 
-  return (app?.owner !== res.locals.user?.id)
+  return (app?.ownerId !== res.locals.user?.id)
     ? res.status(403).json({ message: 'Forbidden' })
     : res.json(app);
 });
 
 router.patch('/apps/:id', async (req, res) => {
   const app = await Application.findById(req.params.id);
-  if (!app || app.owner !== res.locals.user.id)
+  if (!app || app.ownerId !== res.locals.user.id)
     return res.status(403).json({ message: 'Forbidden' });
 
   guard.validateKeys('app', req.body);
@@ -74,10 +72,10 @@ router.patch('/apps/:id', async (req, res) => {
 
 router.get('/apps/:id/regen-token', async (req, res) => {
   const app = await Application.findById(req.params.id);
-  if (!app || app.owner !== res.locals.user.id)
+  if (!app || app.ownerId !== res.locals.user.id)
     return res.status(403).json({ message: 'Forbidden' });
 
-  app.token = users.createToken(app.user as any, false);
+  app.token = users.createToken(app.userId, false);
   await app.save();
 
   res.json(app.token);
