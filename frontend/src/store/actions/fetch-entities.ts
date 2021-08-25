@@ -1,4 +1,10 @@
 import { actions as api } from '../api';
+import { actions as channelActions } from '../channels';
+import { actions as guildActions } from '../guilds';
+import { actions as memberActions } from '../members';
+import { actions as roleActions } from '../roles';
+import { actions as userActions } from '../users';
+import { actions as inviteActions } from '../invites';
 import { headers } from '../utils/rest-headers';
 
 export default () => (dispatch) => {
@@ -6,8 +12,13 @@ export default () => (dispatch) => {
     onSuccess: [],
     headers: headers(),
     url: `/auth/register`,
-    callback: ({ invites }) => {
-      dispatch();
+    callback: (data: REST.Get['/users/entities']) => {
+      dispatch(channelActions.fetched(data.channels));
+      dispatch(guildActions.fetched(data.guilds));
+      dispatch(memberActions.fetched(data.members));
+      dispatch(roleActions.fetched(data.roles));
+      dispatch(userActions.fetched(data.users));
+      dispatch(inviteActions.fetched(data.invites));
     },
   }));  
 }
