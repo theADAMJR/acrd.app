@@ -7,12 +7,14 @@ import { ContextMenuTrigger } from 'react-contextmenu';
 import { toggleDropdown } from '../../../store/ui';
 import GuildDropdown from '../../dropdowns/guild-dropdown';
 import ChannelMenu from '../../ctx-menus/channel-menu';
+import { getGuildChannels } from '../../../store/guilds';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
   const { activeGuild, activeChannel } = useSelector((s: Store.AppState) => s.ui);
+  const guildChannels = useSelector(getGuildChannels(activeGuild?.id));
   
-  const channels = activeGuild?.channels.map(c => (
+  const channels = guildChannels.map(c => (
     <ContextMenuTrigger key={c.id} id={c.id}>
       <Link
         to={`/channels/${activeGuild!.id}/${c.id}`}

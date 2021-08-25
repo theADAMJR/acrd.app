@@ -57,31 +57,31 @@ createSelector<Store.AppState, Entity.Guild[], Entity.Guild | undefined>(
   guilds => guilds.find(g => g.id === id),
 );
 
-export const getGuildChannels = (guildId: string) =>
+export const getGuildChannels = (guildId: string | undefined) =>
 createSelector<Store.AppState, Entity.Channel[], Entity.Channel[]>(
   state => state.entities.channels.list,
   channels => channels.filter(c => c.guildId === guildId),
 );
 
-export const getGuildInvites = (guildId: string) =>
+export const getGuildInvites = (guildId: string | undefined) =>
 createSelector<Store.AppState, Entity.Invite[], Entity.Invite[]>(
   state => state.entities.invites.list,
   invites => invites.filter(i => i.guildId === guildId),
 );
 
-export const getGuildMembers = (guildId: string) =>
+export const getGuildMembers = (guildId: string | undefined) =>
 createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember[]>(
   state => state.entities.members.list,
   members => members.filter(m => m.guildId === guildId),
 );
 
-export const getGuildRole = (guildId: string) =>
+export const getGuildRole = (guildId: string | undefined) =>
 createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
   state => state.entities.roles.list,
   role => role.filter(r => r.guildId === guildId),
 );
 
-export const getGuildUsers = (guildId: string) =>
+export const getGuildUsers = (guildId: string | undefined) =>
 createSelector<Store.AppState, { members: Entity.GuildMember[], users: Entity.User[], }, Entity.User[]>(
   state => ({
     members: state.entities.members.list,
