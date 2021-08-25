@@ -12,10 +12,14 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
   const discrim = user.discriminator
     .toString()
     .padStart(4, '0');
+  const isOnline = user.status === 'ONLINE';
 
   return (
-    <div className="flex items-center px-2">
-      <div className="avatar mr-2">
+    <div className={`flex items-center px-2 ${!isOnline && 'opacity-50'}`}>
+      <div className="relative avatar mr-2">
+        <span className="absolute flex -right-0.5 -bottom-0.5 w-3">
+          <span className={`relative inline-flex rounded-full h-3 w-3 ${isOnline ? 'bg-success' : 'bg-gray-500'}`}></span>
+        </span>
         <img
           className="select-none rounded-full w-8 h-8"
           src={`${environment.cdnURL}${user.avatarURL}`} />

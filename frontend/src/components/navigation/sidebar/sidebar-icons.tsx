@@ -35,7 +35,7 @@ const SidebarIcons: React.FunctionComponent = () => {
   );
   
   return (
-    <div className="h-screen float-left p-3 flex flex-col bg-bg-tertiary">
+    <div className="overflow-auto min-h-screen float-left p-3 flex flex-col bg-bg-tertiary">
       <Link to="/channels/@me">
         <SidebarIcon
           to="/channels/@me"
