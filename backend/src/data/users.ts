@@ -3,19 +3,10 @@ import jwt from 'jsonwebtoken';
 import { SelfUserDocument, User, UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
 
-import { Guild } from './models/guild';
-import { APIError } from '../api/modules/api-error';
-import Deps from '../utils/deps';
-import Guilds from './guilds';
-import { Channel } from './models/channel';
-import Channels from './channels';
+import { APIError } from '../rest/modules/api-error';
+import { GuildMember } from './models/guild-member';
 
 export default class Users extends DBWrapper<string, UserDocument> {
-  constructor(
-    private channels = Deps.get<Channels>(Channels),
-    private guilds = Deps.get<Guilds>(Guilds),
-  ) { super(); }
-
   public async get(id: string | undefined): Promise<UserDocument> {
     const user = await User.findById(id);
     if (!user)
@@ -26,34 +17,18 @@ export default class Users extends DBWrapper<string, UserDocument> {
 
   // TODO: test that this is fully secure
   public secure(user: UserDocument): UserDocument {
+    delete user['channelIds'];
     delete user['email'];
-    delete user['verified'];
+    delete user['guildIds'];
+    delete user['locked'];
     delete user['ignored'];
-    delete user['lastReadMessages'];
+    delete user['lastReadMessageIds'];
+    delete user['verified'];
     return user;
   }
 
-  public async getSelf(id: string | undefined, populateGuilds = true): Promise<SelfUserDocument> {
-    const user = await this.get(id) as SelfUserDocument;
-    if (populateGuilds)
-      user.guilds = (await this.populateGuilds(user)).guilds as Entity.Guild[];
-
-    return user;
-  }
-
-  private async populateGuilds(user: UserDocument) {
-    const guilds: Entity.Guild[] = [];
-    for (const id of user.guilds) {
-      const isDuplicate = guilds.some(g => g.id === id);
-      if (isDuplicate) continue;
-
-      try {
-        const guild = await this.guilds.get(id as string, true);
-        guilds.push(new Guild(guild).toJSON());
-      } catch { }
-    }
-    user.guilds = guilds as any;
-    return user;
+  public async getSelf(id: string | undefined): Promise<SelfUserDocument> {
+    return await this.get(id) as SelfUserDocument;
   }
 
   public async getByUsername(username: string): Promise<SelfUserDocument> {
@@ -71,56 +46,20 @@ export default class Users extends DBWrapper<string, UserDocument> {
 
   public async getKnown(userId: string) {
     const user = await this.getSelf(userId);
-
-    return await User.find({
-      _id: await this.getKnownIds(user) as any,
-    }) as UserDocument[];
-  }
-
-  public async getRoomIds(user: UserTypes.Self) {
-    const dmUsers = await Channel.find({ memberIds: user.id });
-    const dmUserIds = dmUsers.flatMap(u => u.memberIds);
-
-    return Array.from(new Set([
-      user.id,
-      ...dmUserIds,
-      ...user.friendRequestIds,
-      ...user.friendIds,
-    ]));
-  }
-
+    return await User.find({ _id: { $in: await this.getKnownIds(user) } });
+  }  
   public async getKnownIds(user: UserTypes.Self) {
-    const incomingUsers = await User.find({
-      friendIds: user.id,
-      friendRequestIds: user.id,
-    });
-    const incomingUserIds = incomingUsers.map(u => u.id);
+    const members = await GuildMember.find({ guildId: { $in: user.guildIds } });
+    const memberIds = members.map(m => m.userId);
 
-    const guildUserIds = user.guilds
-      .flatMap(g => g.members.map(g => g.userId));
-
-    const dmUsers = await Channel.find({ memberIds: user.id });
-    const dmUserIds = dmUsers.flatMap(u => u.memberIds);
-
-    return Array.from(new Set([
-      user.id,
-      ...dmUserIds,
-      ...guildUserIds,
-      ...incomingUserIds,
-      ...user.friendRequestIds,
-      ...user.friendIds,
-    ]));
-  }
-
-  public async getDMChannels(userId: string) {
-    return await Channel.find({ memberIds: userId });
+    return Array.from(new Set([user.id, ...memberIds]));
   }
 
   public createToken(userId: string, expire = true) {
     return jwt.sign(
       { _id: userId },
       'secret',
-      (expire) ? { expiresIn: '7d' } : {}
+      (expire) ? { expiresIn: '7d' } : {},
     );
   }
 

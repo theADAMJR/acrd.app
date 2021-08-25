@@ -1,4 +1,4 @@
-import { APIError } from '../api/modules/api-error';
+import { APIError } from '../rest/modules/api-error';
 import { WS } from '../types/ws';
 import DBWrapper from './db-wrapper';
 import { Guild } from './models/guild';

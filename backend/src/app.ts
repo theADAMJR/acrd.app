@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 config();
 
 import { connect } from 'mongoose';
-import { API } from './api/server';
+import { API } from './rest/server';
 import Deps from './utils/deps';
 import Log from './utils/log';
 

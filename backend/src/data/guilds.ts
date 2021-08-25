@@ -7,7 +7,7 @@ import GuildMembers from './guild-members';
 import Roles from './roles';
 import { UserDocument } from './models/user';
 import { Invite } from './models/invite';
-import { APIError } from '../api/modules/api-error';
+import { APIError } from '../rest/modules/api-error';
 import { Channel } from './models/channel';
 import { Role } from './models/role';
 import { GuildMember } from './models/guild-member';

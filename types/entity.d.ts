@@ -66,7 +66,6 @@ declare namespace Entity {
     bot: boolean;
     createdAt: Date;
     discriminator: number;
-    guilds: string[] | Entity.Guild[];
     status: UserTypes.StatusType;
     username: string;
   }
@@ -116,7 +115,8 @@ declare namespace UserTypes {
   }
   export type StatusType = 'ONLINE' | 'OFFLINE';
   export interface Self extends Entity.User {
-    guilds: Entity.Guild[];
+    channelIds: string[];
+    guildIds: string[];
     email: string;
     verified: true;
     lastReadMessageIds: {
