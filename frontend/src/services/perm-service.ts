@@ -1,6 +1,7 @@
 import { getGuild, getGuildRoles } from '../store/guilds';
 import { getMember, getSelfMember } from '../store/members';
 
+// FIXME: import this namespace somehow
 export namespace PermissionTypes {
   export enum General {
     VIEW_CHANNELS = 1024,
@@ -34,7 +35,6 @@ export namespace PermissionTypes {
     ...Voice,
   }
   export type Permission = General | Text | Voice;
-
   export type PermissionString = keyof typeof All;
   
   export const defaultPermissions =
@@ -62,7 +62,7 @@ export class PermService {
     return guild.ownerId === member?.userId
       || this.hasPermission(
           this.getTotalPerms(member, guildId),
-          PermissionTypes.All[permission] as number
+          PermissionTypes.All[permission] as number,
         );
   }
   public getTotalPerms(member: Entity.GuildMember, guildId: string) {

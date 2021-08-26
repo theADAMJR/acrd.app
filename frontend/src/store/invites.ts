@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
+import { unique } from './utils/filter';
 
 const slice = createSlice({
   name: 'invites',
@@ -11,7 +12,7 @@ const slice = createSlice({
   reducers: {
     fetched: ({ list, fetched }, { payload }: Store.Action<Entity.Invite[]>) => {
       const guildId = payload[0].guildId;
-      list.push(...payload);
+      list.push(...payload.filter(unique(list)));
       fetched.push(guildId);
     },
     created: ({ list }, { payload }: Store.Action<WS.Args.InviteCreate>) => {

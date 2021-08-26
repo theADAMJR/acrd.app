@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
+import usePerms from '../../hooks/use-perms';
 import { createMessage, updateMessage } from '../../store/messages';
 import { getTypersInChannel, startTyping } from '../../store/typing';
 import { stoppedEditingMessage } from '../../store/ui';
@@ -17,7 +18,9 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState(props.content ?? '');
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const typers = useSelector(getTypersInChannel(channel.id));
+  const perms = usePerms();
   
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     handleEscape(event);
@@ -62,6 +65,11 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
       : `${typingUsers} is typing...`
   }
 
+  const canSend = perms.can('SEND_MESSAGES', guild.id);
+  const getPlaceholder = (): string | undefined => {
+    if (!canSend) return `Insufficient perms.`;
+    if (!props.editingMessageId) return `Message #${channel.name}`;
+  }
   
   return (
     <div className={`${props.editingMessageId ? 'mt-2' : 'px-4'}`}>
@@ -70,8 +78,9 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         onKeyDown={onKeyDown}
         value={content}
         rows={1}
-        placeholder={!props.editingMessageId ? `Message #${channel.name}` : ''}
+        placeholder={getPlaceholder()}
         className="resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4"
+        disabled={!canSend}
         autoFocus />
       {(props.editingMessageId)
         ? <span className="text-xs py-2">

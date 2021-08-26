@@ -80,21 +80,24 @@ const WSListener: React.FunctionComponent = () => {
     });
     ws.on('GUILD_CREATE', (args) => {
       dispatch(channels.fetched(args.channels));
-      dispatch(guilds.created(args));
       dispatch(members.fetched(args.members));
       dispatch(users.fetched(args.users));
       dispatch(roles.fetched(args.roles));
+      // /\ load all objects before for perms to not throw
+      dispatch(guilds.created(args));
       dispatch(closedModal());
       history.push(`/channels/${args.guild.id}`);
     });
     ws.on('GUILD_DELETE', (args) => {
-      const { ui } = state();
+      const { auth, ui } = state();
       const guildIsActive = args.guildId === ui.activeGuild?.id;
       if (guildIsActive) {
         dispatch(closedModal());
         history.push('/channels/@me');
       }
-      guilds.deleted(args);
+      dispatch(guilds.deleted(args));
+      // clean up mess
+      dispatch(members.removed({ guildId: args.guildId, userId: auth.user!.id }));
     });
     ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated(args)));
     ws.on('TYPING_START', (args) => {
@@ -105,7 +108,6 @@ const WSListener: React.FunctionComponent = () => {
         dispatch(typing.userStoppedTyping(args));
       }, timeoutMs);
     });
-    ws.on('GUILD_DELETE', (args) => dispatch(guilds.deleted(args)));
     ws.on('MESSAGE_CREATE', (args) => dispatch(messages.created(args)));
     ws.on('MESSAGE_DELETE', (args) => dispatch(messages.deleted(args)));
     ws.on('MESSAGE_UPDATE', (args) => dispatch(messages.updated(args)));

@@ -8,14 +8,13 @@ import { toggleDropdown } from '../../../store/ui';
 import GuildDropdown from '../../dropdowns/guild-dropdown';
 import ChannelMenu from '../../ctx-menus/channel-menu';
 import { getGuildChannels } from '../../../store/guilds';
-import { PermService } from '../../../services/perm-service';
+import usePerms from '../../../hooks/use-perms';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
   const { activeGuild, activeChannel } = useSelector((s: Store.AppState) => s.ui);
   const guildChannels = useSelector(getGuildChannels(activeGuild?.id));
-  const state = useStore().getState();
-  const perms = new PermService(state);
+  const perms = usePerms();
   
   const channels = guildChannels.map(c => (
     <ContextMenuTrigger key={c.id} id={c.id}>

@@ -1,14 +1,14 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
+import { unique } from './utils/filter';
 
 const slice = createSlice({
   name: 'members',
   initialState: [] as Store.AppState['entities']['members'],
   reducers: {
     fetched: (members, { payload }: Store.Action<Entity.GuildMember[]>) => {
-      // FIXME: unique by ID does not work 
-      members.push(...payload);
+      members.push(...payload.filter(unique(members)));
     },
     added: (members, { payload }: Store.Action<WS.Args.GuildMemberAdd>) => {
       members.push(payload.member);

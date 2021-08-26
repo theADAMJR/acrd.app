@@ -6,7 +6,7 @@ const slice = createSlice({
   initialState: [] as Store.AppState['entities']['roles'],
   reducers: {
     fetched: (roles, { payload }: Store.Action<Entity.Role[]>) => {
-      roles.push(...payload.filter(unique));
+      roles.push(...payload.filter(unique(roles)));
     },
   },
 });

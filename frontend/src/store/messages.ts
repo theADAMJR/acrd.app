@@ -1,6 +1,7 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
+import { unique } from './utils/filter';
 import { headers } from './utils/rest-headers';
 
 const slice = createSlice({
@@ -11,7 +12,7 @@ const slice = createSlice({
   } as Store.AppState['entities']['messages'],
   reducers: {
     fetched: ({ list, fetched }, { payload }: Store.Action<Entity.Message[]>) => {
-      list.push(...payload);
+      list.push(...payload.filter(unique(list)));
       if (payload.length)
         fetched[payload[0].channelId] = 'testing';
     },

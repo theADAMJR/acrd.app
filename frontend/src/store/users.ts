@@ -1,6 +1,7 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
+import { unique } from './utils/filter';
 import { token } from './utils/rest-headers';
 
 const slice = createSlice({
@@ -8,8 +9,7 @@ const slice = createSlice({
   initialState: [] as Store.AppState['entities']['users'],
   reducers: {
     fetched: (users, { payload }: Store.Action<Entity.User[]>) => {
-      // FIXME: does not work with unique
-      users.push(...payload);
+      users.push(...payload.filter(unique(users)));
     },
     updated: (users, { payload }: Store.Action<WS.Args.UserUpdate>) => {
       const user = users.find(u => u.id === payload.userId);
