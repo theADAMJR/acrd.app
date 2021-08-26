@@ -1,22 +1,26 @@
 import NormalButton from './buttons/normal-button';
 
 export interface SaveChangesProps {
-  onReset: () => any;
-  onSave: () => any;
+  id: string;
+  onReset: (e) => any;
+  onSave: (e) => any;
 }
 
 // FIXME: why does this not work with notistack?
-const SaveChanges: React.FunctionComponent<SaveChangesProps> = ({ onReset, onSave }) => {
+const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
   return (
-    <div className="rounded bg-bg-tertiary opacity-75">
-      <span>Careful — you have unsaved changes!</span>
-      <span className="float-right">
+    <div
+      id={props.id}
+      className="flex justify-between rounded  p-3 px-5 bg-black"
+      style={{ width: '50vw' }}>
+      <span className="flex items-center flex-grow-1">Careful — you have unsaved changes!</span>
+      <span>
         <NormalButton
-          className="bg-transparent text-black"
-          onClick={onReset}>Reset</NormalButton>
+          className="bg-transparent font"
+          onClick={props.onReset}>Reset</NormalButton>
         <NormalButton
           className="bg-success text-black ml-2"
-          onClick={onSave}>Save</NormalButton>
+          onClick={props.onSave}>Save</NormalButton>
       </span>
     </div>
   );

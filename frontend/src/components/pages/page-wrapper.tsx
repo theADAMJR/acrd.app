@@ -4,7 +4,7 @@ import { toggleDropdown } from '../../store/ui';
 import CreateChannel from '../modals/create-channel';
 import CreateGuild from '../modals/create-guild';
 import CreateInvite from '../modals/create-invite';
-import GuildSettings from '../modals/guild-settings';
+import GuildSettings from '../modals/guild-settings/guild-settings';
 import UserSettings from '../modals/user-settings';
 import WSListener from '../ws-listener';
 

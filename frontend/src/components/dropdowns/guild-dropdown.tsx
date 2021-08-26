@@ -5,7 +5,7 @@ import usePerms from '../../hooks/use-perms';
 import { openedModal } from '../../store/ui';
 import CreateChannel from '../modals/create-channel';
 import CreateInvite from '../modals/create-invite';
-import GuildSettings from '../modals/guild-settings';
+import GuildSettings from '../modals/guild-settings/guild-settings';
 import Dropdown from '../utils/dropdown';
 
 const GuildDropdown: React.FunctionComponent = () => {
