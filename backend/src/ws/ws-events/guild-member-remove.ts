@@ -33,7 +33,7 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
       throw new TypeError('You cannot leave a guild you own');
       
     else if (selfUserId !== member.userId)
-      await this.guard.validateCan(client, guildId, PermissionTypes.General.KICK_MEMBERS);
+      await this.guard.validateCan(client, guildId, 'KICK_MEMBERS');
       
     const user = await this.users.getSelf(member.userId);
     const index = user.guildIds.indexOf(guildId);

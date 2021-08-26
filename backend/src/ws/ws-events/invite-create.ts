@@ -16,7 +16,7 @@ export default class implements WSEvent<'INVITE_CREATE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, params: WS.Params.InviteCreate) {
-    await this.guard.validateCan(client, params.guildId, PermissionTypes.General.CREATE_INVITE);
+    await this.guard.validateCan(client, params.guildId, 'CREATE_INVITE');
 
     const invite = await this.invites.create(params, ws.sessions.userId(client));
 

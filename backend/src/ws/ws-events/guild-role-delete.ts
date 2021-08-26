@@ -15,7 +15,7 @@ export default class implements WSEvent<'GUILD_ROLE_DELETE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { roleId, guildId }: WS.Params.GuildRoleDelete) {
-    await this.guard.validateCan(client, guildId, PermissionTypes.General.MANAGE_ROLES);
+    await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
 
     await Role.deleteOne({ _id: roleId });
     await GuildMember.updateMany(

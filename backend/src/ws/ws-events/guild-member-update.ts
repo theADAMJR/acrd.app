@@ -25,7 +25,7 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
     const selfUserId = ws.sessions.userId(client);
     const selfMember = await this.guildMembers.getInGuild(member.guildId, selfUserId);
 
-    await this.guard.validateCan(client, selfMember.guildId, PermissionTypes.General.MANAGE_ROLES);
+    await this.guard.validateCan(client, selfMember.guildId, 'MANAGE_ROLES');
     this.guard.validateKeys('guildMember', partialMember);
 
     const guild = await this.guilds.get(member.guildId);

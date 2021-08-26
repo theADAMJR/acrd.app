@@ -16,7 +16,7 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { guildId, name, iconURL }: WS.Params.GuildUpdate) { 
-    await this.guard.validateCan(client, guildId, PermissionTypes.General.MANAGE_GUILD);
+    await this.guard.validateCan(client, guildId, 'MANAGE_GUILD');
 
     const partialGuild = { name, iconURL };
     this.guard.validateKeys('guild', partialGuild);

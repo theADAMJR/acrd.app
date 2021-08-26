@@ -17,7 +17,7 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { name, guildId }: WS.Params.ChannelCreate) {
-    await this.guard.validateCan(client, guildId, PermissionTypes.General.MANAGE_CHANNELS);
+    await this.guard.validateCan(client, guildId, 'MANAGE_CHANNELS');
     
     const channel = await Channel.create({
       _id: generateSnowflake(),

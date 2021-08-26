@@ -25,7 +25,7 @@ export default class implements WSEvent<'MESSAGE_DELETE'> {
     try {
       this.guard.validateIsUser(client, message.authorId);
     } catch {
-      await this.guard.validateCan(client, channel.guildId, PermissionTypes.Text.MANAGE_MESSAGES);
+      await this.guard.validateCan(client, channel.guildId, 'MANAGE_MESSAGES');
     }
     await message.deleteOne();
 
