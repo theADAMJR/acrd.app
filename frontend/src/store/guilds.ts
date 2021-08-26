@@ -1,7 +1,6 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
-import { unique } from './utils/filter';
 
 const slice = createSlice({
   name: 'guilds',
@@ -11,7 +10,7 @@ const slice = createSlice({
       guilds.push(payload.guild);
     },
     fetched: (guilds, { payload }: Store.Action<Entity.Guild[]>) => {
-      guilds.push(...payload.filter(unique));
+      guilds.push(...payload);
     },
     updated: (guilds, { payload }: Store.Action<WS.Args.GuildUpdate>) => {
       const guild = guilds.find(g => g.id === payload.guildId);

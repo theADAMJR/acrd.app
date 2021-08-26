@@ -1,7 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
-import { unique } from './utils/filter';
 import { token } from './utils/rest-headers';
 
 const slice = createSlice({

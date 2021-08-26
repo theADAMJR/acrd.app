@@ -41,7 +41,8 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
       this.members.create(guild.id, user),
       this.guilds.getEntities(guild.id),
     ]);
-    client.emit('GUILD_CREATE', { guild, ...entities, } as WS.Args.GuildCreate);
+    client.emit('GUILD_CREATE', { guild, ...entities } as WS.Args.GuildCreate);
+    await client.join(guild.id);
     
     ws.io
       .to(guild.id)
