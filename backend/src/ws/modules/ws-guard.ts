@@ -42,19 +42,17 @@ export class WSGuard {
     const channel = await this.channels.get(channelId);
     await this.canAccess(channel, client, withUse);
   }
-  private async canAccess(channel: Entity.Channel, client: Socket, withUse = false) {
+  private async canAccess(channel: Entity.Channel, client: Socket, withUse = false) {    
     if (channel.type === 'TEXT') {
       const perms = (!withUse)
         ? PermissionTypes.Text.READ_MESSAGES 
         : PermissionTypes.Text.READ_MESSAGES | PermissionTypes.Text.SEND_MESSAGES;
       await this.validateCan(client, channel.guildId, perms);
-      return;
     } else if (channel.type === 'VOICE') {
       const perms = (!withUse)
         ? PermissionTypes.Voice.CONNECT 
         : PermissionTypes.Voice.CONNECT | PermissionTypes.Voice.SPEAK;
       await this.validateCan(client, channel.guildId, perms);
-      return;
     }
   }
 
@@ -65,7 +63,7 @@ export class WSGuard {
     const guild = await this.guilds.get(guildId);
 
     const can = await this.roles.hasPermission(guild, member, permission)
-      || guild.ownerId === userId;    
+      || guild.ownerId === userId;
     this.validate(can, permission);
   }  
   private validate(can: boolean, permission: PermissionTypes.PermissionString) {

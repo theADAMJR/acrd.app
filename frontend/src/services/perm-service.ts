@@ -59,7 +59,7 @@ export class PermService {
     if (!member)
       throw new TypeError('Member not found');
 
-    return guild.ownerId === member?.userId
+    return guild.ownerId === member.userId
       || this.hasPermission(
           this.getTotalPerms(member, guildId),
           PermissionTypes.All[permission] as number,

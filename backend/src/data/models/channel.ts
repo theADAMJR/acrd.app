@@ -44,5 +44,4 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
     validate: [/^TEXT$|^VOICE$|^DM$/, 'Invalid type'],
   },
 }, { toJSON: { getters: true } })
-.method('toClient', useId)
-.index(['guildId']));
+.method('toClient', useId));

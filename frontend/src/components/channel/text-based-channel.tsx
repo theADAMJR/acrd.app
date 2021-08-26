@@ -30,7 +30,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
         id="messages"
         className="overflow-auto mb-5 mr-1 mt-1 flex-grow">
         <TextChannelHeader canRead={canRead} />
-        {!(canRead || loaded) && new Array(5).fill(<SkeletonMessage />)}
+        {!(canRead || loaded) && new Array(6).fill(<SkeletonMessage />)}
         {canRead && messages.map(m => <Message key={m.id} message={m} />)}
       </div>
       <MessageBox />

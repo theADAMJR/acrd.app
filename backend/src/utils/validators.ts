@@ -15,7 +15,7 @@ export default {
   optionalSnowflake: (val: string) => !val || patterns.snowflake.test(val),
   optionalPattern: (type: keyof typeof patterns) => (val: string) => !val || patterns[type].test(val),
   textChannelName: function(this: ChannelDocument, val: string) {
-    const pattern = /^[A-Za-z\-\d]+$/;
+    const pattern = /^[a-z\-\d]+$/;
     return this.type === 'TEXT'
       && pattern.test(val)
       || this.type !== 'TEXT';
