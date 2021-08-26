@@ -1,18 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHashtag } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { toggleDropdown } from '../../../store/ui';
 import GuildDropdown from '../../dropdowns/guild-dropdown';
 import ChannelMenu from '../../ctx-menus/channel-menu';
 import { getGuildChannels } from '../../../store/guilds';
+import { PermService } from '../../../services/perm-service';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
   const { activeGuild, activeChannel } = useSelector((s: Store.AppState) => s.ui);
   const guildChannels = useSelector(getGuildChannels(activeGuild?.id));
+  const state = useStore().getState();
+  const perms = new PermService(state);
   
   const channels = guildChannels.map(c => (
     <ContextMenuTrigger key={c.id} id={c.id}>
@@ -37,7 +40,9 @@ const SidebarContent: React.FunctionComponent = () => {
         onClick={() => dispatch(toggleDropdown(GuildDropdown))}>
         <GuildDropdown />
       </div>
-      <nav className="flex-grow px-2 pt-4">{channels}</nav>
+      <nav className="flex-grow px-2 pt-4">
+        {activeGuild && perms.can('VIEW_CHANNELS', activeGuild.id) && channels}
+      </nav>
       <SidebarFooter />
     </div>
   );
