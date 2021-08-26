@@ -1,8 +1,12 @@
-import { faHashtag } from '@fortawesome/free-solid-svg-icons';
+import { faEyeSlash, faHashtag } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 
-const TextChannelHeader: React.FunctionComponent = () => {
+export interface TextChannelHeaderProps {
+  canRead?: boolean;
+}
+ 
+const TextChannelHeader: React.FunctionComponent<TextChannelHeaderProps> = ({ canRead }) => {
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   
   return (
@@ -10,11 +14,19 @@ const TextChannelHeader: React.FunctionComponent = () => {
       <span className="rounded-full">
         <FontAwesomeIcon
           className="muted"
-          icon={faHashtag}
+          icon={canRead ? faHashtag : faEyeSlash}
           size="3x" />
       </span>
-      <h1 className="text-3xl font-bold my-2">Welcome to #{channel.name}!</h1>
-      <p className="lead">This is the start of the #{channel.name} channel.</p>
+      <h1 className="text-3xl font-bold my-2">
+        {(canRead)
+          ? `Welcome to #${channel.name}!`
+          : `Message history hidden.`
+        }</h1>
+      <p className="lead">
+        {(canRead)
+          ? `This is the start of the #${channel.name} channel.`
+          : `Insufficient permissions to view messages in this channel.`
+        }</p>
     </div>
   );
 }
