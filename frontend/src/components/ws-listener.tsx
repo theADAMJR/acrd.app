@@ -1,5 +1,5 @@
 import { useDispatch, useSelector, useStore } from 'react-redux';
-import ws from '../services/ws';
+import ws from '../services/ws-service';
 import { closedModal, focusedInvite } from '../store/ui';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';

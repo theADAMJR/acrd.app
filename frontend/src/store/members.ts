@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
 
@@ -49,3 +49,15 @@ export const kickMember = (guildId: string, userId: string) => (dispatch) => {
     data: { guildId, userId },
   }));
 }
+
+export const getMember = (guildId: string, userId: string) =>
+createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember | undefined>(
+  state => state.entities.members,
+  members => members.find(m => m.guildId === guildId && m.userId === userId),
+);
+
+export const getSelfMember = (guildId: string | undefined) =>
+createSelector<Store.AppState, { user, members }, Entity.GuildMember | undefined>(
+  state => ({ user: state.auth.user, members: state.entities.members }),
+  ({ user, members }) => members.find(m => m.guildId === guildId && m.userId === user.id),
+);

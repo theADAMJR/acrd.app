@@ -72,7 +72,7 @@ createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember[]>(
   members => members.filter(m => m.guildId === guildId),
 );
 
-export const getGuildRole = (guildId: string | undefined) =>
+export const getGuildRoles = (guildId: string | undefined) =>
 createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
   state => state.entities.roles,
   role => role.filter(r => r.guildId === guildId),
