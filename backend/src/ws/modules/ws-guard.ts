@@ -47,12 +47,11 @@ export class WSGuard {
   }
 
   public async validateCan(client: Socket, guildId: string | undefined, permission: PermissionTypes.PermissionString) {    
-    
     const userId = this.userId(client);
 
     const member = await this.guildMembers.getInGuild(guildId, userId);
     const guild = await this.guilds.get(guildId);
-
+    
     const can = await this.roles.hasPermission(guild, member, permission)
       || guild.ownerId === userId;
     

@@ -23,9 +23,6 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
   }
 
   public async hasPermission(guild: Entity.Guild, member: Entity.GuildMember, permission: PermissionTypes.PermissionString) {
-    console.log(permission);
-    
-    
     const guildRoles = await Role.find({ guildId: guild.id });
     const totalPerms = guildRoles
       .filter(r => member.roleIds.includes(r.id))

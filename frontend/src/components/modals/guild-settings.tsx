@@ -5,7 +5,7 @@ import Category from '../utils/category';
 import Input from '../utils/input';
 import NormalButton from '../utils/buttons/normal-button';
 import Modal from './modal';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
@@ -15,6 +15,7 @@ const GuildSettings: React.FunctionComponent = () => {
   const { register, handleSubmit, setValue } = useForm();
   const { closeSnackbar, enqueueSnackbar } = useSnackbar();
   const [saveChangesOpen, setSaveChangesOpen] = useState(false);
+  const [tab, setTab] = useState('overview');
 
   const openSaveChanges = () => {
     if (saveChangesOpen) return;
@@ -59,6 +60,87 @@ const GuildSettings: React.FunctionComponent = () => {
     const confirmation = window.confirm('Are you sure you want to delete this server?');
     confirmation && dispatch(deleteGuild(guild.id));
   }
+
+  const GuildSettingsOverview = () => (
+    <form
+      onChange={openSaveChanges}
+      className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
+      <header>
+        <h1 className="text-xl font-bold inline">Server Overview</h1>
+      </header>
+    
+      <section className="w-1/3">
+        <Input
+          label="Name"
+          name="name"
+          register={register}
+          options={{ value: guild.name }}
+          className="pt-5" />
+        <Input
+          label="Icon URL"
+          name="iconURL"
+          register={register}
+          options={{ value: guild.iconURL }}
+          className="pt-5" />
+      </section>
+
+      <Category
+        className="py-2 mt-5"
+        title="Advanced Settings" />
+
+      <section>
+        <NormalButton
+          type="button"
+          onClick={onDelete}
+          className="bg-danger">Delete</NormalButton>
+      </section>
+    </form>
+  );  
+
+  const GuildSettingsRoles = () => (
+    <form
+      onChange={openSaveChanges}
+      className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
+      <header>
+        <h1 className="text-xl font-bold inline">Roles</h1>
+      </header>
+    
+      <section className="w-1/3">
+        <Input
+          label="Name"
+          name="name"
+          register={register}
+          options={{ value: guild.name }}
+          className="pt-5" />
+        <Input
+          label="Icon URL"
+          name="iconURL"
+          register={register}
+          options={{ value: guild.iconURL }}
+          className="pt-5" />
+      </section>
+
+      <Category
+        className="py-2 mt-5"
+        title="Advanced Settings" />
+
+      <section>
+        <NormalButton
+          type="button"
+          onClick={onDelete}
+          className="bg-danger">Delete</NormalButton>
+      </section>
+    </form>
+  );  
+
+  const TabLink = ({ name }) => (   
+    <Link
+      to="#"
+      onClick={() => setTab(name.toLowerCase())}
+      className={`
+        flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5
+        ${tab === name.toLowerCase() && 'active'}`}>{name}</Link>
+  );
   
   return (guild) ? (
     <Modal type={GuildSettings} size="full">
@@ -68,46 +150,14 @@ const GuildSettings: React.FunctionComponent = () => {
             <Category
               className="muted px-2.5 pb-1.5"
               title={guild.name} />
-            <Link
-              to="#"
-              className="active flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Overview</Link>
+            <TabLink name="Overview" />
+            <TabLink name="Roles" />
           </nav>
         </div>
 
         <div className="col-span-8 h-full">
-          <form
-            onChange={openSaveChanges}
-            className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
-            <header>
-              <h1 className="text-xl font-bold inline">Server Overview</h1>
-            </header>
-          
-            <section className="w-1/3">
-              <Input
-                label="Name"
-                name="name"
-                register={register}
-                options={{ value: guild.name }}
-                className="pt-5" />
-              <Input
-                label="Icon URL"
-                name="iconURL"
-                register={register}
-                options={{ value: guild.iconURL }}
-                className="pt-5" />
-            </section>
-
-            <Category
-              className="py-2 mt-5"
-              title="Advanced Settings" />
-
-            <section>
-              <NormalButton
-                type="button"
-                onClick={onDelete}
-                className="bg-danger">Delete</NormalButton>
-            </section>
-          </form>
+          {tab === 'overview' && <GuildSettingsOverview />}
+          {tab === 'roles' && <GuildSettingsRoles />}
         </div>
       </div>
     </Modal>
