@@ -1,3 +1,4 @@
+import '../../src/types/entity';
 import { Channel, ChannelDocument } from '../../src/data/models/channel';
 import { Guild, GuildDocument } from '../../src/data/models/guild';
 import { GuildMember, GuildMemberDocument } from '../../src/data/models/guild-member';
@@ -25,6 +26,7 @@ export class Mock {
   private static guilds = Deps.get<Guilds>(Guilds);
   private static guildMembers = Deps.get<GuildMembers>(GuildMembers);
   private static messages = Deps.get<Messages>(Messages);
+  private static invites = Deps.get<Invites>(Invites);
   private static roles = Deps.get<Roles>(Roles);
 
   public static async defaultSetup(client: any, eventType: any = function() {}) {
@@ -38,7 +40,7 @@ export class Mock {
 
     const [user, member, role, channel] = await Promise.all([
       User.findOne({ guildIds: { $in: guild.id } }),
-      GuildMember.findOne({ _id: { $not: guild.ownerId }, guildId }),
+      GuildMember.findOne({ $not: { _id: guild.ownerId }, guildId }),
       Role.findOne({ guildId }),
       Channel.findOne({ guildId }),
     ]);
@@ -127,28 +129,17 @@ export class Mock {
   public static role(guild: GuildDocument, permissions?: number): Promise<RoleDocument> {
     return this.roles.create(guild.id, { permissions });
   }
-
-  public static async everyoneRole(guildId: string, permissions = PermissionTypes.defaultPermissions) {
-    return await Role.create({
-      _id: generateSnowflake(),
-      guildId,
-      hoisted: false,
-      mentionable: true,
-      name: '@everyone',
-      permissions,
-    });
+  public static invite(guildId: string, options?: InviteTypes.Options) {
+    return this.invites.create({ options, guildId }, generateSnowflake());
   }
 
-  public static invite(guildId: string, options?: InviteTypes.Options) {
-    return this.invites.create({
-      options,
-      guildId,
-    });
+  public static everyoneRole(guildId: string, permissions = PermissionTypes.defaultPermissions) {
+    return this.roles.create(guildId, { name: '@everyone', permissions });
   }
 
   public static async clearRolePerms(guild: Entity.Guild) {
-    await Role.updateOne(
-      { _id: guild.roles?.[0].id },
+    await Role.updateMany(
+      { guildId: guild.id },
       { permissions: 0 },
     );
   }
@@ -167,8 +158,6 @@ export class Mock {
 
   public static async givePerm(guild: GuildDocument, member: GuildMemberDocument, permissions: PermissionTypes.Permission) {
     const role = await this.role(guild, permissions);
-    
-    
     member.roleIds.push(role.id);    
     await member.save();
   }

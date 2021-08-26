@@ -1,4 +1,6 @@
 import 'mocha';
+import 'chai-as-promised';
+import '../../types';
 import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import ChannelCreate from '../../../src/ws/ws-events/channel-create';
@@ -6,6 +8,7 @@ import { Mock } from '../../mock/mock';
 import { expect, spy } from 'chai';
 import { Guild, GuildDocument } from '../../../src/data/models/guild';
 import { RoleDocument } from '../../../src/data/models/role';
+import { PermissionTypes } from '../../../src/types/permission-types';
 
 describe('channel-create', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
