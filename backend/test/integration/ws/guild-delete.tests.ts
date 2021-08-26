@@ -1,6 +1,6 @@
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
-import GuildDelete from '../../../src/api/websocket/ws-events/guild-delete';
+import GuildDelete from '../../../src/ws/ws-events/guild-delete';
 import { User, UserDocument } from '../../../src/data/models/user';
 import { Mock } from '../../mock/mock';
 import { expect } from 'chai';
@@ -11,7 +11,7 @@ import { Invite } from '../../../src/data/models/invite';
 import { Role } from '../../../src/data/models/role';
 
 describe('guild-delete', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   let ws: WebSocket;
   let event: GuildDelete;
 

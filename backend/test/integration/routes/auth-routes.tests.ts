@@ -2,13 +2,11 @@ import { Mock } from '../../mock/mock';
 import { EmailMock } from '../../mock/email-mock';
 import { assert, expect, spy } from 'chai';
 import Deps from '../../../src/utils/deps';
-import { API } from '../../../src/api/server';
 import request from 'supertest';
 import Users from '../../../src/data/users';
 import { User, SelfUserDocument } from '../../../src/data/models/user';
 import { generateUsername } from '../../../src/utils/utils';
-import { generateInviteCode } from '../../../src/data/models/invite';
-import { Email } from '../../../src/api/modules/email/email';
+import { REST } from '../../../src/rest/server';
 
 describe.skip('auth-routes', () => {
   const endpoint = `/api/v1`;
@@ -23,7 +21,7 @@ describe.skip('auth-routes', () => {
   beforeEach(async () => {    
     email = Deps.add(Email, new EmailMock());
 
-    app = Deps.get<API>(API).app;
+    app = Deps.get<REST>(REST).app;
     users = Deps.get<Users>(Users);
 
     credentials = {

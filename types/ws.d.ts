@@ -351,6 +351,7 @@ declare namespace WS {
  * Some properties (e.g. id) cannot be updated.
  * 
  * **Tip**: Only provide what properties are being updated. */
+// TODO: replace with Partial?
 export namespace PartialEntity {
   export type Application = Partial<Entity.App>;
   export type Channel = Partial<Entity.Channel>;

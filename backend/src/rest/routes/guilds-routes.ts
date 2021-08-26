@@ -27,7 +27,7 @@ router.get('/:id/authorize/:botId',
   async (req, res) => {
     const guild = res.locals.guild;
     const bot = await users.get(req.params.botId);
-    const member = await members.create(guild, bot);
+    const member = await members.create(guild.id, bot);
 
     ws.io
       .to(guild.id)

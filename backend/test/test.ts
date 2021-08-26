@@ -1,3 +1,4 @@
+import 'mocha';
 import { config } from 'dotenv';
 import { execSync } from 'child_process';
 config({ path: 'test/.env' });
@@ -26,10 +27,11 @@ use(should);
     execSync(`kill -9 $(lsof -i :${process.env.PORT} | tail -n 1 | cut -d ' ' -f5)`);
   } catch {}
 
+  // disabled due to impracticality
   // await import('./integration/routes/auth-routes.tests');
-  await import('./integration/routes/invites-routes.tests');
-  await import('./integration/routes/guilds-routes.tests');
-  await import('./integration/routes/channel-routes.tests');
+  // await import('./integration/routes/invites-routes.tests');
+  // await import('./integration/routes/guilds-routes.tests');
+  // await import('./integration/routes/channel-routes.tests');
 
   await import('./integration/ws/channel-create.tests');
   await import('./integration/ws/guild-member-add.tests');

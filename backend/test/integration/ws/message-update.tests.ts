@@ -1,5 +1,5 @@
-import MessageUpdate from '../../../src/api/websocket/ws-events/message-update';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import MessageUpdate from '../../../src/ws/ws-events/message-update';
+import { WebSocket } from '../../../src/ws/websocket';
 import Deps from '../../../src/utils/deps';
 import { expect } from 'chai';
 import io from 'socket.io-client';
@@ -12,7 +12,7 @@ import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { Partial } from '../../../src/data/types/ws-types';
 
 describe('message-update', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   
   let channel: ChannelDocument;
   let event: MessageUpdate;

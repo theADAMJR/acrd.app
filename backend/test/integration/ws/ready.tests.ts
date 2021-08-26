@@ -1,17 +1,17 @@
 import Deps from '../../../src/utils/deps';
-import Ready from '../../../src/api/websocket/ws-events/ready';
-import Disconnect from '../../../src/api/websocket/ws-events/disconnect';
+import Ready from '../../../src/ws/ws-events/ready';
+import Disconnect from '../../../src/ws/ws-events/disconnect';
 import { User, UserDocument } from '../../../src/data/models/user';
 import { expect } from 'chai';
 import Users from '../../../src/data/users';
 import { Mock } from '../../mock/mock';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import { SystemBot } from '../../../src/system/bot';
 import { GuildDocument } from '../../../src/data/models/guild';
 
 describe('ready', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   
   let event: Ready;
   let users: Users;

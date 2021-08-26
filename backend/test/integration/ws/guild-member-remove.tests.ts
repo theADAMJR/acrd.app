@@ -1,5 +1,5 @@
-import GuildMemberRemove from '../../../src/api/websocket/ws-events/guild-member-remove';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import GuildMemberRemove from '../../../src/ws/ws-events/guild-member-remove';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
@@ -8,7 +8,7 @@ import { GuildMemberDocument } from '../../../src/data/models/guild-member';
 import { User, UserDocument } from '../../../src/data/models/user';
 
 describe('guild-member-remove', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
 
   let event: GuildMemberRemove;
   let ws: WebSocket;

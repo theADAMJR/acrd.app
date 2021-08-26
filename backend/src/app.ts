@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 config();
 
 import { connect } from 'mongoose';
-import { API } from './rest/server';
+import { REST } from './rest/server';
 import Deps from './utils/deps';
 import Log from './utils/log';
 
@@ -17,4 +17,4 @@ connect(process.env.MONGO_URI, {
   : Log.info('Connected to database.')
 );
 
-Deps.get<API>(API);
+Deps.get<REST>(REST);

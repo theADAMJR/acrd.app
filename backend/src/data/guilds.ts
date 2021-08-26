@@ -40,7 +40,7 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
     });
     const everyoneRole = await this.roles.create(guild.id, { name: '@everyone' });
     await this.channels.createText(guild.id);
-    await this.members.create(guild, owner, everyoneRole);
+    await this.members.create(guild.id, owner, everyoneRole);
 
     return guild;
   }

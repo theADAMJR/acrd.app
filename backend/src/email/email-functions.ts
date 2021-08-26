@@ -1,4 +1,4 @@
-import Deps from '../../../utils/deps';
+import Deps from '../utils/deps';
 import { Email } from './email';
 import { Verification } from './verification';
 

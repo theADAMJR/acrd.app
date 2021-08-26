@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { WSCooldowns } from '../../../src/api/websocket/modules/ws-cooldowns';
+import { WSCooldowns } from '../../../src/ws/modules/ws-cooldowns';
 import { generateInviteCode } from '../../../src/data/models/invite';
 
 describe('ws-cooldowns', () => {

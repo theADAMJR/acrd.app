@@ -1,5 +1,5 @@
-import RemoveFriend from '../../../src/api/websocket/ws-events/remove-friend';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import RemoveFriend from '../../../src/ws/ws-events/remove-friend';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { expect } from 'chai';
@@ -7,7 +7,7 @@ import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { SelfUserDocument, User, UserDocument } from '../../../src/data/models/user';
 
 describe('remove-friend', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   let event: RemoveFriend;
   let ws: WebSocket;
 

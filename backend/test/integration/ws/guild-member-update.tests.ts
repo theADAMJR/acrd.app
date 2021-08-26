@@ -1,5 +1,5 @@
-import GuildMemberUpdate from '../../../src/api/websocket/ws-events/guild-member-update';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import GuildMemberUpdate from '../../../src/ws/ws-events/guild-member-update';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
@@ -8,7 +8,7 @@ import { GuildMember, GuildMemberDocument } from '../../../src/data/models/guild
 import { Role, RoleDocument } from '../../../src/data/models/role';
 
 describe('guild-member-update', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
 
   let event: GuildMemberUpdate;
   let ws: WebSocket;

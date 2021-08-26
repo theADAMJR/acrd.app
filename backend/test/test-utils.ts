@@ -8,7 +8,7 @@ export function longArray(length: number) {
 }
 export function mongooseError(error: any): string | boolean {
   if (error) {
-    const token = Object.keys(error.errors)[0];
+    const key = Object.keys(error.errors)[0];
     return error?.errors[key].message;
   }
   return true;

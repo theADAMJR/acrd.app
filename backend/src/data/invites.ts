@@ -13,18 +13,13 @@ export default class Invites extends DBWrapper<string, InviteDocument> {
     return invite;
   }
 
-  public async create({ guildId, options }: WS.Params.InviteCreate, userId: string) {
-    const invite = await Invite.create({
+  public async create({ guildId, options }: WS.Params.InviteCreate, inviterId: string) {
+    return await Invite.create({
       _id: generateInvite(),
       guildId,
-      inviterId: userId,
+      inviterId,
       options,
       uses: 0,
     });
-    await Guild.updateOne(
-      { _id: guildId },
-      { $push: { invites: invite } }
-    );
-    return invite;
   }
 }

@@ -1,13 +1,14 @@
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import 'mocha';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
-import ChannelCreate from '../../../src/api/websocket/ws-events/channel-create';
+import ChannelCreate from '../../../src/ws/ws-events/channel-create';
 import { Mock } from '../../mock/mock';
 import { expect, spy } from 'chai';
 import { Guild, GuildDocument } from '../../../src/data/models/guild';
 import { RoleDocument } from '../../../src/data/models/role';
 
 describe('channel-create', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   let ws: WebSocket;
   let event: ChannelCreate;
 

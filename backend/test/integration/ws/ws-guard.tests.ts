@@ -5,13 +5,13 @@ import { GuildDocument } from '../../../src/data/models/guild';
 import { UserDocument } from '../../../src/data/models/user';
 import { WSGuard } from '../../../src/api/modules/ws-guard';
 import { expect } from 'chai';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import { WebSocket } from '../../../src/ws/websocket';
 import { GuildMember } from '../../../src/data/models/guild-member';
 import { Role } from '../../../src/data/models/role';
 import { TextChannelDocument, VoiceChannelDocument } from '../../../src/data/models/channel';
 
 describe('ws-guard', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   
   let guard: WSGuard;
   let guild: GuildDocument;

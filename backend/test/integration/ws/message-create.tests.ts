@@ -1,5 +1,5 @@
-import MessageCreate from '../../../src/api/websocket/ws-events/message-create';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import MessageCreate from '../../../src/ws/ws-events/message-create';
+import { WebSocket } from '../../../src/ws/websocket';
 import { expect } from 'chai';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
@@ -8,7 +8,7 @@ import { Channel, ChannelDocument } from '../../../src/data/models/channel';
 import { SelfUserDocument, User } from '../../../src/data/models/user';
 
 describe('message-create', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   let event: MessageCreate;
   let ws: WebSocket;
 

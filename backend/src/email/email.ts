@@ -1,7 +1,7 @@
 import { createTransport } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
 import { pugEngine } from 'nodemailer-pug-engine';
-import Log from '../../../utils/log';
+import Log from '../utils/log';
 
 export class Email {
   private email: Mail;

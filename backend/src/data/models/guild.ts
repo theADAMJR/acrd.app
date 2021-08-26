@@ -7,7 +7,6 @@ import { generateSnowflake } from '../snowflake-entity';
 export interface GuildDocument extends Document, Entity.Guild {
   id: string;
   createdAt: never;
-  nameAcronym: never;
 }
 
 export const Guild = model<GuildDocument>('guild', new Schema({

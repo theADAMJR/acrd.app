@@ -4,37 +4,46 @@ import { GuildMember, GuildMemberDocument } from '../../src/data/models/guild-me
 import { User, SelfUserDocument, UserDocument } from '../../src/data/models/user';
 import { generateSnowflake } from '../../src/data/snowflake-entity';
 import { Role, RoleDocument } from '../../src/data/models/role';
-import { ChannelTypes, InviteTypes, Lean, PermissionTypes, UserTypes } from '../../src/data/types/entity-types';
 import { Message } from '../../src/data/models/message';
 import { Invite } from '../../src/data/models/invite';
+import Roles from '../../src/data/roles';
+import Messages from '../../src/data/messages';
+import Invites from '../../src/data/invites';
 import { Application } from '../../src/data/models/application';
-import { API } from '../../src/api/server';
-import { WebSocket } from '../../src/api/websocket/websocket';
+import { WebSocket } from '../../src/ws/websocket';
 import Deps from '../../src/utils/deps';
 import Guilds from '../../src/data/guilds';
 import GuildMembers from '../../src/data/guild-members';
 import Channels from '../../src/data/channels';
+import { PermissionTypes } from '../../src/types/permission-types';
+import { REST } from '../../src/rest/server';
+import { PartialEntity } from '../../src/types/ws';
 
-// mostly replace will data wrappers
+// TODO: mostly replace with data wrappers
 export class Mock {
   private static channels = Deps.get<Channels>(Channels);
   private static guilds = Deps.get<Guilds>(Guilds);
   private static guildMembers = Deps.get<GuildMembers>(GuildMembers);
+  private static messages = Deps.get<Messages>(Messages);
+  private static roles = Deps.get<Roles>(Roles);
 
   public static async defaultSetup(client: any, eventType: any = function() {}) {
-    Deps.get<API>(API);
+    Deps.get<REST>(REST);
 
     const event = new (eventType as any)();
     const ws = Deps.get<WebSocket>(WebSocket);
 
-    const guild = await Mock.guild();
-    const member = new GuildMember(guild.members[1]);
-    const role = new Role(guild.roles[0]);
-    const user = await User.findById(member.userId);
-    const channel = new Channel(guild.channels[0]);
+    const guild = await this.guild();
+    const guildId = guild.id;
+
+    const [user, member, role, channel] = await Promise.all([
+      User.findOne({ guildIds: { $in: guild.id } }),
+      GuildMember.findOne({ _id: { $not: guild.ownerId }, guildId }),
+      Role.findOne({ guildId }),
+      Channel.findOne({ guildId }),
+    ]);
 
     Mock.ioClient(client);
-    
     ws.sessions.set(client.id, user.id);
 
     return { event, guild, user, member, ws, role, channel };
@@ -59,25 +68,20 @@ export class Mock {
     };
   }
 
-  public static async message(author: Lean.User, channelId: string) {
-    return await Message.create({
-      _id: generateSnowflake(),
-      authorId: author.id,
-      channelId,
-      content: 'hi',
+  public static async message(author: Entity.User, channelId: string, options?: PartialEntity.Message) {
+    return await this.messages.create(author.id, channelId, {
+      content: 'testing123',
+      ...options,
     });
   }
 
   public static async guild(): Promise<GuildDocument> {
-    const owner = await Mock.user();
-    const memberUser = await Mock.user();
+    const owner = await Mock.self();
+    const memberUser = await Mock.self();
     
-    const guild = await this.guilds.create('Mock Guild', owner);
+    const guild = await this.guilds.create('Mock Guild', owner); 
+    await this.guildMembers.create(guild.id, memberUser); 
     
-    owner.guilds.push(guild.id as any);
-    await owner.save();    
-
-    await this.guildMembers.create(guild, memberUser, guild.roles[0] as any); 
     return guild;
   }
 
@@ -87,11 +91,9 @@ export class Mock {
       avatarURL: 'a',
       bot: false,
       badges: [],
-      friendIds: [],
-      friendRequestIds: [],
       email: `${generateSnowflake()}@gmail.com`,
       verified: true,
-      guilds: guildIds,
+      guildIds,
       status: 'OFFLINE',
       username: `mock-user-${generateSnowflake()}`,
     } as any);
@@ -109,41 +111,21 @@ export class Mock {
       badges: [],
       friendIds: [],
       friendRequestIds: [],
-      email: `${generateSnowflake()}@gmail.com`, // FIXME
-      guilds: guildIds,
+      email: `${generateSnowflake()}@gmail.com`,
+      guildIds,
       status: 'ONLINE',
       username: `mock-bot-${generateSnowflake()}`,
     } as any) as SelfUserDocument;    
   }
 
-  public static async guildMember(user: UserDocument, guild: GuildDocument): Promise<GuildMemberDocument> {    
-    return await this.guildMembers.create(guild, user);
+  public static guildMember(user: SelfUserDocument, guild: GuildDocument): Promise<GuildMemberDocument> {    
+    return this.guildMembers.create(guild.id, user);
   }
-
-  public static async channel(options?: Partial<Lean.Channel>): Promise<ChannelDocument> {
-    const channel = await this.channels.create(options);
-    
-    if (options?.guildId) {
-      const guild = await Guild.findById(options.guildId);
-      guild.channels.push(channel);
-      await guild.save();
-    }
-    return channel;
+  public static channel(options?: Partial<Entity.Channel>): Promise<ChannelDocument> {
+    return this.channels.create(options);
   }
-
-  public static async role(guild: GuildDocument, permissions?: number): Promise<RoleDocument> {
-    const role = await Role.create({
-      _id: generateSnowflake(),
-      guildId: guild.id,
-      hoisted: false,
-      mentionable: true,
-      name: 'Mock Role',
-      permissions: permissions ?? PermissionTypes.defaultPermissions,
-    });
-    guild.roles.push(role.id as any);
-    await guild.save();
-
-    return role;
+  public static role(guild: GuildDocument, permissions?: number): Promise<RoleDocument> {
+    return this.roles.create(guild.id, { permissions });
   }
 
   public static async everyoneRole(guildId: string, permissions = PermissionTypes.defaultPermissions) {
@@ -157,17 +139,14 @@ export class Mock {
     });
   }
 
-  public static async invite(guildId: string, options?: InviteTypes.Options) {
-    return await Invite.create({
-      _id: generateSnowflake(),
-      inviterId: generateSnowflake(),
+  public static invite(guildId: string, options?: InviteTypes.Options) {
+    return this.invites.create({
       options,
       guildId,
-      uses: 0,
     });
   }
 
-  public static async clearRolePerms(guild: Lean.Guild) {
+  public static async clearRolePerms(guild: Entity.Guild) {
     await Role.updateOne(
       { _id: guild.roles?.[0].id },
       { permissions: 0 },
@@ -179,9 +158,9 @@ export class Mock {
     await role.save();
   }
 
-  public static async giveEveryoneAdmin(guild: Lean.Guild) {
+  public static async giveEveryoneAdmin(guild: Entity.Guild) {
     await Role.updateOne(
-      { _id: guild.roles[0].id },
+      { guildId: guild.id },
       { permissions: PermissionTypes.General.ADMINISTRATOR },
     );
   }

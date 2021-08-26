@@ -19,7 +19,7 @@ import { WebSocket } from '../ws/websocket';
 import { APIError } from './modules/api-error';
 import rateLimiter from './modules/rate-limiter';
 
-export class API {
+export class REST {
   public app = express();
   private prefix = `/api/v2`;
 

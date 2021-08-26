@@ -1,5 +1,5 @@
-import MessageDelete from '../../../src/api/websocket/ws-events/message-delete';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import MessageDelete from '../../../src/ws/ws-events/message-delete';
+import { WebSocket } from '../../../src/ws/websocket';
 import { expect } from 'chai';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
@@ -10,7 +10,7 @@ import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { Channel } from '../../../src/data/models/channel';
 
 describe('message-delete', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   
   let event: MessageDelete;
   let ws: WebSocket;

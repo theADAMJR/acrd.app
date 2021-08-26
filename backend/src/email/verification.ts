@@ -1,4 +1,4 @@
-import generateInvite from '../../../data/utils/generate-invite';
+import generateInvite from '../data/utils/generate-invite';
 
 export class Verification {
   private codes = new Map<string, VerifyCode>();

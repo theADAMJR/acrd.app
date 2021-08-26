@@ -20,16 +20,14 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
     return member;
   }
 
-  public async create(guild: GuildDocument, user: SelfUserDocument, ...roles: Entity.Role[]) {    
+  public async create(guildId: string, user: SelfUserDocument, ...roleIds: string[] = []) {    
     const member = await GuildMember.create({
       _id: generateSnowflake(),
-      guildId: guild.id,
+      guildId: guildId,
       userId: user.id,
-      roleIds: (roles.length > 0)
-        ? roles.map(r => r.id) 
-        : [await this.getEveryoneRoleId(guild.id) as string], 
+      roleIds: [await this.getEveryoneRoleId(guildId)].concat(roleIds), 
     });    
-    await this.addToUser(user, guild.id);
+    await this.addToUser(user, guildId);
 
     return member;
   }
@@ -41,6 +39,6 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
 
   private async getEveryoneRoleId(guildId: string) {
     const role = await Role.findOne({ guildId, name: '@everyone' });        
-    return role?.id;
+    return role!.id;
   }
 }

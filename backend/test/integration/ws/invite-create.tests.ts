@@ -1,5 +1,5 @@
-import InviteCreate from '../../../src/api/websocket/ws-events/invite-create';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import InviteCreate from '../../../src/ws/ws-events/invite-create';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
@@ -7,7 +7,7 @@ import { expect } from 'chai';
 import { Role, RoleDocument } from '../../../src/data/models/role';
 
 describe('invite-create', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   let event: InviteCreate;
   let ws: WebSocket;
 

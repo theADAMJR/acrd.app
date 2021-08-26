@@ -1,5 +1,5 @@
-import UserUpdate from '../../../src/api/websocket/ws-events/user-update';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import UserUpdate from '../../../src/ws/ws-events/user-update';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { User, UserDocument } from '../../../src/data/models/user';
@@ -8,7 +8,7 @@ import Deps from '../../../src/utils/deps';
 import Users from '../../../src/data/users';
 
 describe('user-update', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   let event: UserUpdate;
   let ws: WebSocket;
 

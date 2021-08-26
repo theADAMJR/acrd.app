@@ -1,13 +1,13 @@
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
-import GuildCreate from '../../../src/api/websocket/ws-events/guild-create';
+import GuildCreate from '../../../src/ws/ws-events/guild-create';
 import { User, UserDocument } from '../../../src/data/models/user';
 import { Mock } from '../../mock/mock';
 import { expect } from 'chai';
 import { GuildMemberDocument } from '../../../src/data/models/guild-member';
 
 describe('guild-create', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   let ws: WebSocket;
   let event: GuildCreate;
 

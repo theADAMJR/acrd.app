@@ -1,6 +1,6 @@
-import AddFriend from '../../../src/api/websocket/ws-events/add-friend';
-import RemoveFriend from '../../../src/api/websocket/ws-events/remove-friend';
-import { WebSocket } from '../../../src/api/websocket/websocket';
+import AddFriend from '../../../src/ws/ws-events/add-friend';
+import RemoveFriend from '../../../src/ws/ws-events/remove-friend';
+import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { expect } from 'chai';
@@ -8,7 +8,7 @@ import { SelfUserDocument, User } from '../../../src/data/models/user';
 import { Channel } from '../../../src/data/models/channel';
 
 describe('add-friend', () => {
-  const client = io(`http://localhost:${process.env.PORT}`) as any;
+  const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   let event: AddFriend;
   let ws: WebSocket;
 
