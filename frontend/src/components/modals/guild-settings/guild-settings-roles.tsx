@@ -11,42 +11,32 @@ import SaveChanges from '../../utils/save-changes';
 const GuildSettingsRoles: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const dispatch = useDispatch();
-  const [saveChangesOpen, setSaveChangesOpen] = useState(false);
-  const { register, handleSubmit, setValue } = useForm();
+  const { handleSubmit, setValue } = useForm();
   const { closeSnackbar, enqueueSnackbar } = useSnackbar();
 
-  const onUpdate = (payload) => dispatch(updateGuild(guild.id, payload));
-  const openSaveChanges = () => {
-    if (saveChangesOpen) return;
-    
-    setSaveChangesOpen(true);
+  const onSave = (e) => {
+    const onUpdate = (payload) => dispatch(updateGuild(guild.id, payload));
+    closeSnackbar('saveChanges');
+    handleSubmit(onUpdate)(e);
+  };
+  const onReset = () => {
+    closeSnackbar('saveChanges');
+    for (const key in guild)
+      setValue(key, guild[key]);
+  };
+
+  const openSaveChanges = (onReset, onSave) => {
     enqueueSnackbar('', {
+      anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
+      content: SaveChanges({ id: 'saveChanges', onReset, onSave }),
       key: 'saveChanges',
-      anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'center',
-      },
       persist: true,
-      content: SaveChanges({
-        id: 'saveChanges',
-        onReset: () => {
-          closeSnackbar('saveChanges');
-          for (const key in guild)
-            setValue(key, guild[key]);
-          setSaveChangesOpen(false);
-        },
-        onSave: (e) => {
-          closeSnackbar('saveChanges');
-          handleSubmit(onUpdate)(e);
-          setSaveChangesOpen(false);
-        },
-      }),
     });
   };
 
   return (
     <form
-      onChange={openSaveChanges}
+      onChange={() => openSaveChanges(onReset, onSave)}
       className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <header>
         <h1 className="text-xl font-bold inline">Roles</h1>
