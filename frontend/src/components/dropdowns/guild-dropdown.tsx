@@ -1,6 +1,7 @@
 import { faUserPlus, faPlusCircle, faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
+import usePerms from '../../hooks/use-perms';
 import { openedModal } from '../../store/ui';
 import CreateChannel from '../modals/create-channel';
 import CreateInvite from '../modals/create-invite';
@@ -9,19 +10,22 @@ import Dropdown from '../utils/dropdown';
 
 const GuildDropdown: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild);
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
+  const perms = usePerms();
 
-  return (guild) ? (
+  return (
     <Dropdown
       title={guild.name}
       type={GuildDropdown}>
-      <a className="rounded-sm flex items-center justify-between text-sm p-2 h-8 mb-1"
-        onClick={() => dispatch(openedModal(CreateInvite))}>
-        <span className="primary">Invite people</span>
-        <FontAwesomeIcon
-          className="float-right w-1"
-          icon={faUserPlus} />
-      </a>
+      {perms.can('CREATE_INVITE', guild.id) && (
+        <a className="rounded-sm flex items-center justify-between text-sm p-2 h-8 mb-1"
+          onClick={() => dispatch(openedModal(CreateInvite))}>
+          <span className="primary">Invite people</span>
+          <FontAwesomeIcon
+            className="float-right w-1"
+            icon={faUserPlus} />
+        </a>
+      )}
 
       <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm mb-1"
         onClick={() => dispatch(openedModal(CreateChannel))}>
@@ -39,7 +43,7 @@ const GuildDropdown: React.FunctionComponent = () => {
           icon={faCog} />
       </a>
     </Dropdown>
-  ) : null;
+  );
 }
 
 export default GuildDropdown;
