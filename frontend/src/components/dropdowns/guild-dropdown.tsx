@@ -13,6 +13,8 @@ const GuildDropdown: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const perms = usePerms();
 
+  if (!guild) return null;
+
   return (
     <Dropdown
       title={guild.name}

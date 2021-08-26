@@ -1,31 +1,31 @@
+import 'mocha';
+import 'chai-as-promised';
 import Deps from '../../../src/utils/deps';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
 import { UserDocument } from '../../../src/data/models/user';
-import { WSGuard } from '../../../src/api/modules/ws-guard';
 import { expect } from 'chai';
 import { WebSocket } from '../../../src/ws/websocket';
-import { GuildMember } from '../../../src/data/models/guild-member';
-import { Role } from '../../../src/data/models/role';
-import { TextChannelDocument, VoiceChannelDocument } from '../../../src/data/models/channel';
+import { GuildMember, GuildMemberDocument } from '../../../src/data/models/guild-member';
+import { Channel, TextChannelDocument, VoiceChannelDocument } from '../../../src/data/models/channel';
+import { PermissionTypes } from '../../../src/types/permission-types';
+import { WSGuard } from '../../../src/ws/modules/ws-guard';
 
 describe('ws-guard', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   
   let guard: WSGuard;
   let guild: GuildDocument;
+  let member: GuildMemberDocument;
   let user: UserDocument;
   let ws: WebSocket;
   let textChannel: TextChannelDocument;
-  let voiceChannel: VoiceChannelDocument;
 
   beforeEach(async () => {
-    ({ ws, guild, user } = await Mock.defaultSetup(client));
+    ({ ws, guild, user, member } = await Mock.defaultSetup(client));
 
-    textChannel = guild.channels[0] as any;
-    voiceChannel = guild.channels[1] as any;
-
+    textChannel = await Channel.findOne({ guildId: guild.id, type: 'TEXT' });
     guard = Deps.get<WSGuard>(WSGuard); 
   });
 
@@ -72,8 +72,7 @@ describe('ws-guard', () => {
 
   it('can access channel without use, can only read messages, fulfilled', async () => {
     await Mock.clearRolePerms(guild);
-
-    await updateEveryoneRole(PermissionTypes.Text.READ_MESSAGES);
+    await Mock.givePerm(guild, member, PermissionTypes.Text.READ_MESSAGES);
 
     await expect(
       guard.canAccessChannel(client, textChannel.id)
@@ -82,8 +81,7 @@ describe('ws-guard', () => {
 
   it('can access channel with use, can only read messages, rejected', async () => {
     await Mock.clearRolePerms(guild);
-
-    await updateEveryoneRole(PermissionTypes.Text.READ_MESSAGES);
+    await Mock.givePerm(guild, member, PermissionTypes.Text.READ_MESSAGES);
 
     await expect(
       guard.canAccessChannel(client, textChannel.id)
@@ -92,8 +90,8 @@ describe('ws-guard', () => {
 
   it('can access channel with use, can send and read messages, rejected', async () => {
     await Mock.clearRolePerms(guild);
-
-    await updateEveryoneRole(PermissionTypes.Text.READ_MESSAGES
+    await Mock.givePerm(guild, member,
+      PermissionTypes.Text.READ_MESSAGES
       | PermissionTypes.Text.SEND_MESSAGES);
 
     await expect(
@@ -114,66 +112,6 @@ describe('ws-guard', () => {
 
     await expect(
       guard.canAccessChannel(client, textChannel.id)
-    ).to.be.fulfilled;
-  });
-
-  it('can access voice channel, no perms, rejected', async () => {
-    await Mock.clearRolePerms(guild);
-
-    await expect(
-      guard.canAccessChannel(client, voiceChannel.id)
-    ).to.be.rejectedWith('Missing Permissions');
-  });
-
-  it('can access voice channel with use, can only connect, rejected', async () => {
-    await Mock.clearRolePerms(guild);
-    await updateEveryoneRole(PermissionTypes.Voice.CONNECT);
-
-    await expect(
-      guard.canAccessChannel(client, voiceChannel.id)
-    ).to.be.fulfilled;
-  });
-
-  it('can access voice channel with use, can connect and speak, fulfilled', async () => {
-    await Mock.clearRolePerms(guild);
-
-    await updateEveryoneRole(PermissionTypes.Voice.CONNECT
-      | PermissionTypes.Voice.SPEAK);
-
-    await expect(
-      guard.canAccessChannel(client, voiceChannel.id)
-    ).to.be.fulfilled;
-  });
-
-  it('can access voice channel, default perms, fulfilled', async () => {
-    await expect(
-      guard.canAccessChannel(client, voiceChannel.id)
-    ).to.be.fulfilled;
-  });
-
-  it('can access voice channel, guild owner, fulfilled', async () => {
-    await makeGuildOwner();
-
-    await expect(
-      guard.canAccessChannel(client, voiceChannel.id)
-    ).to.be.fulfilled;
-  });
-
-  it('can access channel, dm, not a member, rejected', async () => {
-    const dm = await Mock.channel({ type: 'DM' });
-
-    await expect(
-      guard.canAccessChannel(client, dm.id)
-    ).to.be.rejectedWith('Not DM Member');
-  });
-
-  it('can access channel, dm, is member, fulfilled', async () => {
-    const dm = await Mock.channel({ type: 'DM' });
-    dm.memberIds.push(user.id);
-    await dm.updateOne(dm);
-
-    await expect(
-      guard.canAccessChannel(client, dm.id)
     ).to.be.fulfilled;
   });
 
@@ -214,14 +152,6 @@ describe('ws-guard', () => {
       guard.validateCan(client, guild.id, PermissionTypes.Text.SEND_MESSAGES)
     ).to.be.fulfilled;
   });
-
-  async function updateEveryoneRole(permissions: PermissionTypes.Permission) {
-    const role = guild.roles[0];
-    await Role.updateOne(
-      { _id: role.id },
-      { permissions },
-    );
-  }
 
   async function makeGuildOwner() {
     ws.sessions.set(client.id, guild.ownerId);

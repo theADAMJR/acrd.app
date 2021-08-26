@@ -1,6 +1,7 @@
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import usePerms from '../../hooks/use-perms';
 import { deleteChannel } from '../../store/channels';
 
 export interface ChannelMenusProps {
@@ -10,17 +11,20 @@ export interface ChannelMenusProps {
 const ChannelMenu: React.FunctionComponent<ChannelMenusProps> = ({ channel }) => {
   const dispatch = useDispatch();
   const { guildId }: any = useParams();
-  
+  const perms = usePerms();
+
   return (
     <ContextMenu
       key={channel.id}
       id={channel.id}
       className="bg-bg-tertiary rounded shadow w-48 p-2">
-      <MenuItem
-        className="danger cursor-pointer"
-        onClick={() => dispatch(deleteChannel(guildId!, channel.id))}>
-        <span>Delete channel</span>
-      </MenuItem>
+      {perms.can('MANAGE_CHANNELS', guildId) && (
+        <MenuItem
+          className="danger cursor-pointer"
+          onClick={() => dispatch(deleteChannel(guildId!, channel.id))}>
+          <span>Delete channel</span>
+        </MenuItem>
+      )}
     </ContextMenu>
   );
 }

@@ -5,7 +5,7 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import Guilds from '../../data/guilds';
 import { PermissionTypes } from '../../types/permission-types';
-import { PartialEntity, WS } from '../../types/ws';
+import { WS } from '../../types/ws';
 
 export default class implements WSEvent<'GUILD_UPDATE'> {
   on = 'GUILD_UPDATE' as const;

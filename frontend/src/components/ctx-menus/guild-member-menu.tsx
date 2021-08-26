@@ -1,5 +1,6 @@
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
+import usePerms from '../../hooks/use-perms';
 import { kickMember } from '../../store/members';
 
 export interface GuildMemberMenuProps {
@@ -9,7 +10,8 @@ export interface GuildMemberMenuProps {
 
 const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ guild, user }) => {
   const dispatch = useDispatch();
-  const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;  
+  const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
+  const perms = usePerms();
 
   const canManage = selfUser.id === guild.ownerId;
   const isSelf = user.id === selfUser.id;
@@ -18,11 +20,13 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ guild,
     <ContextMenu
       id={user.id}
       className="bg-bg-tertiary p-2 rounded shadow">
-      {canManage && !isSelf && <MenuItem
-        className="danger cursor-pointer"
-        onClick={() => dispatch(kickMember(guild.id, user.id))}>
-        <span>Kick {user.username}</span>
-      </MenuItem>}
+      {(canManage && !isSelf && perms.can('KICK_MEMBERS', guild.id)) && (
+        <MenuItem
+          className="danger cursor-pointer"
+          onClick={() => dispatch(kickMember(guild.id, user.id))}>
+          <span>Kick {user.username}</span>
+        </MenuItem>
+      )}
     </ContextMenu>
   );
 }
