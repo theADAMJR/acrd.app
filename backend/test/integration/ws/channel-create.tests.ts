@@ -53,14 +53,12 @@ describe('channel-create', () => {
     expect(join).to.be.called();
   });
 
-  async function createChannel(partialChannel?: Partial<Entity.Channel>) {
+  async function createChannel({ name, type, summary }?: Partial<Entity.Channel>) {
     return event.invoke(ws, client, {
       guildId: guild.id,
-      partialChannel: partialChannel ?? {
-        name: 'chat',
-        type: 'TEXT',
-        summary: '',
-      }
+      name,
+      type,
+      summary,
     });
   }
 
