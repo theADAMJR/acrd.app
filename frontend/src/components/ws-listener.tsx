@@ -119,6 +119,8 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(logoutUser());
     });
     ws.on('USER_UPDATE', (args) => {
+      console.log(args);
+      
       dispatch(auth.updatedUser(args));
       dispatch(users.updated(args));
     });

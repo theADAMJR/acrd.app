@@ -2,11 +2,9 @@ import DBWrapper from './db-wrapper';
 import jwt from 'jsonwebtoken';
 import { SelfUserDocument, User, UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
-
 import { APIError } from '../rest/modules/api-error';
 import { GuildMember } from './models/guild-member';
 import { Guild, GuildDocument } from './models/guild';
-import { PartialEntity } from '../types/ws';
 import { UpdateQuery } from 'mongoose';
 
 export default class Users extends DBWrapper<string, UserDocument> {

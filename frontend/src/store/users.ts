@@ -14,7 +14,7 @@ const slice = createSlice({
     },
     updated: (users, { payload }: Store.Action<WS.Args.UserUpdate>) => {
       const user = users.find(u => u.id === payload.userId);
-      Object.assign(user, payload.partialUser);
+      if (user) Object.assign(user, payload.partialUser);
     },
     deleted: (users, { payload }: Store.Action<WS.Args.UserDelete>) => {
       const index = users.findIndex(u => u.id === payload.userId);
