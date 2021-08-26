@@ -79,7 +79,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         value={content}
         rows={1}
         placeholder={getPlaceholder()}
-        className="resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4"
+        className={`resize-none normal appearance-none rounded-lg leading-tight focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4 ${!canSend && 'cursor-not-allowed'}`}
         disabled={!canSend}
         autoFocus />
       {(props.editingMessageId)
