@@ -6,6 +6,8 @@ import { generateSnowflake } from './snowflake-entity';
 import { APIError } from '../rest/modules/api-error';
 import { GuildMember } from './models/guild-member';
 import { Guild, GuildDocument } from './models/guild';
+import { PartialEntity } from '../types/ws';
+import { UpdateQuery } from 'mongoose';
 
 export default class Users extends DBWrapper<string, UserDocument> {
   public async get(id: string | undefined): Promise<UserDocument> {
@@ -54,6 +56,10 @@ export default class Users extends DBWrapper<string, UserDocument> {
     const memberIds = members.map(m => m.userId);
 
     return Array.from(new Set([user.id, ...memberIds]));
+  }
+
+  public async updateById(id: string | undefined, partial: UpdateQuery<SelfUserDocument>) {
+    await User.updateOne({ _id: id }, partial);
   }
 
   public createToken(userId: string, expire = true) {

@@ -26,10 +26,10 @@ export default class implements WSEvent<'READY'> {
     ws.sessions.set(client.id, userId);
 
     const user = await this.users.getSelf(userId);
-    await this.rooms.join(client, user);
-
     user.status = 'ONLINE';
     await user.save();
+
+    await this.rooms.join(client, user);
 
     ws.io
       .to(user.guildIds)

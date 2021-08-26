@@ -1,4 +1,5 @@
 import { Socket } from 'socket.io';
+import { User } from '../../data/models/user';
 import Users from '../../data/users';
 import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
@@ -23,10 +24,8 @@ export default class implements WSEvent<'USER_UPDATE'> {
       partialUser['discriminator'] = await this.users.getDiscriminator(username);
     this.guard.validateKeys('user', partialUser);
 
-    await user.updateOne(
-      partialUser,
-      { runValidators: true, context: 'query' },
-    );
+    Object.assign(user, partialUser);
+    await user.save();
 
     client.emit('USER_UPDATE', { userId, partialUser } as WS.Args.UserUpdate);
   }
