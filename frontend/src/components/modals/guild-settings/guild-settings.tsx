@@ -1,13 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Category from '../../utils/category';
 import Modal from '../modal';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import GuildSettingsOverview from './guild-settings-overview';
 import GuildSettingsRoles from './guild-settings-roles';
 import TabLink from '../../utils/tab-link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { actions as ui } from '../../../store/ui';
 
 const GuildSettings: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const [tab, setTab] = useState('overview');
   
@@ -30,9 +33,18 @@ const GuildSettings: React.FunctionComponent = () => {
           </nav>
         </div>
 
-        <div className="col-span-8 h-full">
+        <div className="col-span-6 h-full">
           {tab === 'overview' && <GuildSettingsOverview />}
           {tab === 'roles' && <GuildSettingsRoles />}
+        </div>
+
+        <div className="col-span-2 h-full">
+          <div
+            className="cursor-pointer border-white rounded-full p-8 w-10"
+            onClick={() => dispatch(ui.closedModal())}>
+            <FontAwesomeIcon icon={faTimes} />
+            <span className="text-center block muted">ESC</span>
+          </div>
         </div>
       </div>
     </Modal>
