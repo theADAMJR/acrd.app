@@ -1,29 +1,52 @@
+import { useSnackbar } from 'notistack';
+import { useEffect } from 'react';
+import { UseFormSetValue, FieldValues } from 'react-hook-form';
 import NormalButton from './buttons/normal-button';
 
 export interface SaveChangesProps {
-  id: string;
-  onReset: (e) => any;
   onSave: (e) => any;
+  setValue: UseFormSetValue<FieldValues>;
+  obj: object;
 }
-
-// FIXME: why does this not work with notistack?
+ 
 const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
-  return (
+  const { closeSnackbar, enqueueSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    enqueueSnackbar('', {
+      anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
+      content: SaveChanges,
+      key: 'saveChanges',
+      persist: true,
+    });
+  }, []);
+
+  const onClickSave = (e) => {
+    closeSnackbar('saveChanges');
+    props.onSave(e);
+  };
+  const onClickReset = () => {
+    closeSnackbar('saveChanges');
+    for (const key in props.obj)
+      props.setValue(key, props.obj[key]);
+  };
+  const SaveChanges = () => (
     <div
-      id={props.id}
       className="flex justify-between rounded  p-3 px-5 bg-black"
       style={{ width: '50vw' }}>
       <span className="flex items-center flex-grow-1">Careful — you have unsaved changes!</span>
       <span>
         <NormalButton
           className="bg-transparent font"
-          onClick={props.onReset}>Reset</NormalButton>
+          onClick={onClickReset}>Reset</NormalButton>
         <NormalButton
           className="bg-success text-black ml-2"
-          onClick={props.onSave}>Save</NormalButton>
+          onClick={onClickSave}>Save</NormalButton>
       </span>
     </div>
   );
+
+  return null;
 }
  
 export default SaveChanges;

@@ -1,4 +1,3 @@
-import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,28 +11,12 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const { register, handleSubmit, setValue } = useForm();
-  const { closeSnackbar, enqueueSnackbar } = useSnackbar();
+  const [saveChangesOpen, openSaveChanges] = useState(false);
 
   const onSave = (e) => {
     const onUpdate = (payload) => dispatch(updateGuild(guild.id, payload));
-    closeSnackbar('saveChanges');
     handleSubmit(onUpdate)(e);
   };
-  const onReset = () => {
-    closeSnackbar('saveChanges');
-    for (const key in guild)
-      setValue(key, guild[key]);
-  };
-
-  const openSaveChanges = (onReset, onSave) => {
-    enqueueSnackbar('', {
-      anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
-      content: SaveChanges({ id: 'saveChanges', onReset, onSave }),
-      key: 'saveChanges',
-      persist: true,
-    });
-  };
-
   const onDelete = () => {
     const confirmation = window.confirm('Are you sure you want to delete this server?');
     confirmation && dispatch(deleteGuild(guild.id));
@@ -41,7 +24,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
   
   return (
     <form
-      onChange={() => openSaveChanges(onReset, onSave)}
+      onChange={() => openSaveChanges(true)}
       className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <header>
         <h1 className="text-xl font-bold inline">Server Overview</h1>
@@ -72,6 +55,13 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
           onClick={onDelete}
           className="bg-danger">Delete</NormalButton>
       </section>
+
+      {saveChangesOpen && (
+        <SaveChanges
+          setValue={setValue}
+          onSave={onSave}
+          obj={guild} />
+      )}
     </form>    
   );
 }

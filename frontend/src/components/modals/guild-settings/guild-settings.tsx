@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { updateGuild } from '../../../store/guilds';
+import { useSelector } from 'react-redux';
 import Category from '../../utils/category';
 import Modal from '../modal';
 import { Link } from 'react-router-dom';
@@ -8,7 +7,6 @@ import GuildSettingsOverview from './guild-settings-overview';
 import GuildSettingsRoles from './guild-settings-roles';
 
 const GuildSettings: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const [tab, setTab] = useState('overview');
 
