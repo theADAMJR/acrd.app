@@ -19,8 +19,14 @@ const GuildSettings: React.FunctionComponent = () => {
             <Category
               className="muted px-2.5 pb-1.5"
               title={guild.name} />
-            <TabLink tab={tab} setTab={setTab}>Overview</TabLink>
-            <TabLink tab={tab} setTab={setTab}>Roles</TabLink>
+            <TabLink
+              tab={tab}
+              setTab={setTab}
+              id="overview">Overview</TabLink>
+            <TabLink
+              tab={tab}
+              setTab={setTab}
+              id="roles">Roles</TabLink>
           </nav>
         </div>
 

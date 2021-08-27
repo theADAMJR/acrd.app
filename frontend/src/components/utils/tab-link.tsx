@@ -4,13 +4,13 @@ import { angrySaveChanges } from '../../store/ui';
 
 export interface TabLinkProps {
   tab: string;
+  id: string;
   setTab?: React.Dispatch<React.SetStateAction<string>>;
   className?: string;
 }
  
-const TabLink: React.FunctionComponent<TabLinkProps> = ({ tab, setTab, children, className }) => {
+const TabLink: React.FunctionComponent<TabLinkProps> = ({ id, tab, setTab, className, children }) => {
   const saveChangesOpen = useSelector((s: Store.AppState) => s.ui.saveChangesOpen);
-  const name = children?.toString() ?? '';
 
   return (
     <Link
@@ -18,11 +18,11 @@ const TabLink: React.FunctionComponent<TabLinkProps> = ({ tab, setTab, children,
       onClick={() => {
         if (saveChangesOpen)
           return angrySaveChanges();
-        setTab?.(name.toLowerCase());
+        setTab?.(id);
       }}
       className={`
         flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5 ${className}
-        ${tab === name.toLowerCase() && 'active'}`}>{name}</Link>
+        ${tab === id && 'active'}`}>{children}</Link>
   );
 }
  

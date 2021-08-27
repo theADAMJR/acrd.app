@@ -36,7 +36,10 @@ const UserSettings: React.FunctionComponent = () => {
             <Category
               className="normal px-2.5 pb-1.5"
               title="User Settings" />
-            <TabLink tab={tab} setTab={setTab}>Overview</TabLink>
+            <TabLink
+              id="overview"
+              tab={tab}
+              setTab={setTab}>Overview</TabLink>
 
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
 
