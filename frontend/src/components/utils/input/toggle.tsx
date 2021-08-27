@@ -1,10 +1,14 @@
+import { UseFormRegister, FieldValues } from 'react-hook-form';
+
 import './toggle.scoped.css';
 
 export interface ToggleProps {
   checked: boolean;
+  name: string;
+  register: UseFormRegister<FieldValues>;
 }
  
-const Toggle: React.FunctionComponent<ToggleProps> = ({ checked }) => {
+const Toggle: React.FunctionComponent<ToggleProps> = ({ checked, name, register }) => {
   return (
     <div className="flex items-center justify-center w-full mb-12">
       <label htmlFor="toggleB" className="flex items-center cursor-pointer">
@@ -13,7 +17,8 @@ const Toggle: React.FunctionComponent<ToggleProps> = ({ checked }) => {
             type="checkbox"
             id="toggleB"
             className="sr-only"
-            checked={checked} />
+            checked={checked}
+            {...register(name)}/>
           <div className="block bg-gray-600 w-14 h-8 rounded-full" />
           <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition" />
         </div>

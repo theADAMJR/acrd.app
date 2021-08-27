@@ -4,7 +4,7 @@ import { deleteGuild, updateGuild } from '../../../store/guilds';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
-import Input from '../../utils/input';
+import Input from '../../utils/input/input';
 import SaveChanges from '../../utils/save-changes';
  
 const GuildSettingsOverview: React.FunctionComponent = () => {

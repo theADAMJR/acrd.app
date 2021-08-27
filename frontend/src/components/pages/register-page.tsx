@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { registerUser } from '../../store/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import PageWrapper from './page-wrapper';
-import Input from '../utils/input';
+import Input from '../utils/input/input';
 
 import './register-page.scoped.css';
 import NormalButton from '../utils/buttons/normal-button';

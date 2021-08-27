@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { createChannel } from '../../store/channels';
 import NormalButton from '../utils/buttons/normal-button';
-import Input from '../utils/input';
+import Input from '../utils/input/input';
 import Modal from './modal';
 
 const CreateChannel: React.FunctionComponent = () => {

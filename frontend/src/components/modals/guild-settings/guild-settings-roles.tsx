@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { PermissionTypes } from '../../../services/perm-service';
 import { getGuildRoles } from '../../../store/guilds';
 import { getRole } from '../../../store/roles';
-import Input from '../../utils/input';
+import Toggle from '../../utils/input/toggle';
 import TabLink from '../../utils/tab-link';
  
 const GuildSettingsRoles: React.FunctionComponent = () => {  
@@ -49,11 +49,13 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
   const RoleDetails = () => {
     const elements: JSX.Element[] = [];
 
+    const hasPermission = (perm: number) => Boolean(activeRole!.permissions & perm);
     for (const category in description) {
       elements.push(<p>{category}</p>);
       for (const permName in description[category])
         elements.push(
-          <Input
+          <Toggle
+            checked={PermissionTypes.All[permName]}
             name={permName}
             register={permsForm.register} />
         );
