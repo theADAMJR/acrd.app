@@ -1,6 +1,6 @@
 import ReactModal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux';
-import { closedModal } from '../../store/ui';
+import { actions as ui } from '../../store/ui';
 
 export interface ModalProps {
   type: React.FunctionComponent;
@@ -24,7 +24,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, type, size, chi
       className={`bg-bg-primary overflow-auto fixed outline-none ${className} ${sizeClass[size ?? 'sm']}`}
       appElement={document.querySelector('#root')!}
       isOpen={openModal === type.name}
-      onRequestClose={() => dispatch(closedModal())}>{children}</ReactModal>
+      onRequestClose={() => dispatch(ui.closedModal())}>{children}</ReactModal>
   );
 }
  

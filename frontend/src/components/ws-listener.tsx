@@ -1,10 +1,10 @@
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import ws from '../services/ws-service';
-import { closedModal, focusedInvite } from '../store/ui';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { actions as users, getUser } from '../store/users';
 import { actions as meta } from '../store/meta';
+import { actions as uiActions } from '../store/ui';
 import { actions as invites } from '../store/invites';
 import { actions as members } from '../store/members';
 import { actions as roles } from '../store/roles';
@@ -49,7 +49,7 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(channels.created(args));
 
       if (selfCreated && ui.activeGuild) {
-        dispatch(closedModal());
+        dispatch(uiActions.closedModal());
         history.push(`/channels/${ui.activeGuild.id}/${args.channel.id}`);
       }
     });
@@ -76,7 +76,7 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('GUILD_MEMBER_REMOVE', (args) => dispatch(members.removed(args)));
     ws.on('INVITE_CREATE', (args) => {
       dispatch(invites.created(args));
-      dispatch(focusedInvite(args.invite));
+      dispatch(uiActions.focusedInvite(args.invite));
     });
     ws.on('GUILD_CREATE', (args) => {
       dispatch(channels.fetched(args.channels));
@@ -85,14 +85,14 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(roles.fetched(args.roles));
       // /\ load all objects before for perms to not throw
       dispatch(guilds.created(args));
-      dispatch(closedModal());
+      dispatch(uiActions.closedModal());
       history.push(`/channels/${args.guild.id}`);
     });
     ws.on('GUILD_DELETE', (args) => {
       const { auth, ui } = state();
       const guildIsActive = args.guildId === ui.activeGuild?.id;
       if (guildIsActive) {
-        dispatch(closedModal());
+        dispatch(uiActions.closedModal());
         history.push('/channels/@me');
       }
       dispatch(guilds.deleted(args));

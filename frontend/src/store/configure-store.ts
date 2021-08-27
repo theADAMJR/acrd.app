@@ -1,4 +1,4 @@
-import { configureStore, createSlice, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import guilds from './guilds';
 import messages from './messages';

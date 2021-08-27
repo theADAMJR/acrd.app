@@ -37,6 +37,7 @@ declare namespace Store {
       activeGuild?: Entity.Guild;
       activeInvite?: Entity.Invite;
       editingMessageId?: string;
+      saveChangesOpen?: boolean;
     };
   }
 

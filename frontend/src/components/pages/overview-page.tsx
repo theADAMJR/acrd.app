@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { pageSwitched } from '../../store/ui';
+import { actions as ui } from '../../store/ui';
 import AppNavbar from '../navigation/app-navbar';
 import Sidebar from '../navigation/sidebar/sidebar';
 import PageWrapper from './page-wrapper';
@@ -9,7 +9,7 @@ const OverviewPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(pageSwitched({ channel: null, guild: null }));
+    dispatch(ui.pageSwitched({ channel: null, guild: null }));
   }, []);
 
   return (

@@ -28,10 +28,13 @@ const slice = createSlice({
     toggleDropdown: (state, { payload }) => {      
       state.openDropdown = payload?.name;
     },
+    toggleSaveChanges: (state, { payload }) => {
+      state.saveChangesOpen = payload;
+    },
   },
 });
 
-export const { toggleDropdown, startedEditingMessage, stoppedEditingMessage, focusedInvite, pageSwitched, openedModal, closedModal } = slice.actions;
+export const actions = slice.actions;
 export default slice.reducer;
 
 export const dropdownIsOpen = (type: React.FunctionComponent) => createSelector<Store.AppState, string | undefined, boolean>(

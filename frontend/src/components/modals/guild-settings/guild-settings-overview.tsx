@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteGuild, updateGuild } from '../../../store/guilds';
+import { actions as ui } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Input from '../../utils/input';
@@ -24,7 +25,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
   
   return (
     <form
-      onChange={() => openSaveChanges(true)}
+      onChange={() => dispatch(ui.toggleSaveChanges(true))}
       className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <header>
         <h1 className="text-xl font-bold inline">Server Overview</h1>
@@ -56,12 +57,10 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
           className="bg-danger">Delete</NormalButton>
       </section>
 
-      {saveChangesOpen && (
-        <SaveChanges
-          setValue={setValue}
-          onSave={onSave}
-          obj={guild} />
-      )}
+      <SaveChanges
+        setValue={setValue}
+        onSave={onSave}
+        obj={guild} />
     </form>    
   );
 }

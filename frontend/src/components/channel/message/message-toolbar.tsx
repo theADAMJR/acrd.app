@@ -2,7 +2,7 @@ import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteMessage } from '../../../store/messages';
-import { startedEditingMessage } from '../../../store/ui';
+import { actions as ui } from '../../../store/ui';
 
 export interface MessageToolbarProps {
   message: Entity.Message;
@@ -20,7 +20,7 @@ const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message 
     <div className="float-right shadow bg-bg-secondary px-2 rounded cursor-pointer">
       {isAuthor && <div className="inline">
         <FontAwesomeIcon
-          onClick={() => dispatch(startedEditingMessage(message.id))}
+          onClick={() => dispatch(ui.startedEditingMessage(message.id))}
           className="mr-2"
           icon={faPencilAlt} />
         </div>}

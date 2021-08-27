@@ -2,13 +2,12 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import AppNavbar from '../navigation/app-navbar';
 import Sidebar from '../navigation/sidebar/sidebar';
 import { Redirect, useParams } from 'react-router-dom';
-import { pageSwitched } from '../../store/ui';
+import { actions as uiActions } from '../../store/ui';
 import TextBasedChannel from '../channel/text-based-channel';
 import MemberList from '../user/member-list';
 import { getGuild, getGuildChannels, getGuildUsers } from '../../store/guilds';
 import { useEffect } from 'react';
 import PageWrapper from './page-wrapper';
-import { getUser } from '../../store/users';
 import { getChannel } from '../../store/channels';
 
 const GuildPage: React.FunctionComponent = () => {  
@@ -21,7 +20,7 @@ const GuildPage: React.FunctionComponent = () => {
   const guildUsers = useSelector(getGuildUsers(guildId));
 
   useEffect(() => {
-    dispatch(pageSwitched({ channel, guild }));
+    dispatch(uiActions.pageSwitched({ channel, guild }));
   }, [guild, channel]);
 
   if (!guild) 

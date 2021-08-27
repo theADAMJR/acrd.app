@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { openedModal } from '../../../store/ui';
+import { actions as ui } from '../../../store/ui';
 import CreateGuild from '../../modals/create-guild';
 import SidebarIcon from './sidebar-icon';
 import { ContextMenuTrigger } from 'react-contextmenu';
@@ -26,7 +26,7 @@ const SidebarIcons: React.FunctionComponent = () => {
 
   const PlusIcon = () => (
     <div
-      onClick={() => dispatch(openedModal(CreateGuild))}
+      onClick={() => dispatch(ui.openedModal(CreateGuild))}
       className="success text-3xl">
       <SidebarIcon
         name="+"

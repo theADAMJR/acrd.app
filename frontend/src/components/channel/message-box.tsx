@@ -5,7 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import usePerms from '../../hooks/use-perms';
 import { createMessage, updateMessage } from '../../store/messages';
 import { getTypersInChannel, startTyping } from '../../store/typing';
-import { stoppedEditingMessage } from '../../store/ui';
+import { actions as ui } from '../../store/ui';
 import { getUser } from '../../store/users';
 
 export interface MessageBoxProps {
@@ -45,7 +45,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     setContent('');
     esc();
   }
-  const esc = () => dispatch(stoppedEditingMessage());
+  const esc = () => dispatch(ui.stoppedEditingMessage());
 
   const handleEscape = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key !== 'Escape') return;

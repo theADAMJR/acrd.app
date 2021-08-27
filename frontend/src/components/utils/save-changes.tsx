@@ -1,6 +1,8 @@
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { UseFormSetValue, FieldValues } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions as ui }  from '../../store/ui';
 import NormalButton from './buttons/normal-button';
 
 export interface SaveChangesProps {
@@ -11,24 +13,30 @@ export interface SaveChangesProps {
  
 const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
   const { closeSnackbar, enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+  const isOpen = useSelector((s: Store.AppState) => s.ui.saveChangesOpen);
 
   useEffect(() => {
+    if (!isOpen) return;
+
     enqueueSnackbar('', {
       anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
       content: SaveChanges,
       key: 'saveChanges',
       persist: true,
     });
-  }, []);
+  }, [isOpen]);
 
   const onClickSave = (e) => {
     closeSnackbar('saveChanges');
     props.onSave(e);
+    dispatch(ui.toggleSaveChanges(false));
   };
   const onClickReset = () => {
     closeSnackbar('saveChanges');
     for (const key in props.obj)
       props.setValue(key, props.obj[key]);
+    dispatch(ui.toggleSaveChanges(false));
   };
   const SaveChanges = () => (
     <div

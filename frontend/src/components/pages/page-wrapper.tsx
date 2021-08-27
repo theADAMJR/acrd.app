@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleDropdown } from '../../store/ui';
+import { actions as ui } from '../../store/ui';
 import CreateChannel from '../modals/create-channel';
 import CreateGuild from '../modals/create-guild';
 import CreateInvite from '../modals/create-invite';
@@ -23,7 +23,7 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
 
   return (
     <div
-      onClick={() => dropdown && dispatch(toggleDropdown({}))}
+      onClick={() => dropdown && dispatch(ui.toggleDropdown({}))}
       {...props}>
       {props.children}
       <WSListener />
