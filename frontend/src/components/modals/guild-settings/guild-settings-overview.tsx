@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteGuild, updateGuild } from '../../../store/guilds';
-import { actions as ui } from '../../../store/ui';
+import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Input from '../../utils/input';
@@ -12,7 +11,6 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const { register, handleSubmit, setValue } = useForm();
-  const [saveChangesOpen, openSaveChanges] = useState(false);
 
   const onSave = (e) => {
     const onUpdate = (payload) => dispatch(updateGuild(guild.id, payload));
@@ -25,7 +23,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
   
   return (
     <form
-      onChange={() => dispatch(ui.toggleSaveChanges(true))}
+      onChange={() => dispatch(openSaveChanges)}
       className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <header>
         <h1 className="text-xl font-bold inline">Server Overview</h1>

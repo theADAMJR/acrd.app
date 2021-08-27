@@ -1,18 +1,23 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { openSaveChanges } from '../../store/ui';
 import { deleteSelf, updateSelf } from '../../store/users';
 import NormalButton from '../utils/buttons/normal-button';
 import Category from '../utils/category';
 import Input from '../utils/input';
+import SaveChanges from '../utils/save-changes';
 import Modal from './modal';
 
 const UserSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((s: Store.AppState) => s.auth.user);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
-  const onUpdate = (payload) => dispatch(updateSelf(payload));
+  const onSave = (e) => {
+    const onUpdate = (payload) => dispatch(updateSelf(payload));
+    handleSubmit(onUpdate)(e);
+  };
   const onDelete = () => {
     const confirmation = window.confirm('Are you sure you want to delete your user?');
     if (confirmation) dispatch(deleteSelf());
@@ -41,7 +46,9 @@ const UserSettings: React.FunctionComponent = () => {
         </div>
 
         <div className="col-span-8 h-full">
-          <form className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
+          <form
+            onChange={() => dispatch(openSaveChanges)}
+            className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
             <header>
               <h1 className="text-xl font-bold inline">My Account</h1>
             </header>
@@ -80,10 +87,12 @@ const UserSettings: React.FunctionComponent = () => {
               <NormalButton
                 onClick={handleSubmit(onDelete)}
                 className="bg-danger">Delete</NormalButton>
-              <NormalButton
-                onClick={handleSubmit(onUpdate)}
-                className="text-black bg-success m-4">Save</NormalButton>
             </section>
+
+            <SaveChanges
+              setValue={setValue}
+              onSave={onSave}
+              obj={user} />
           </form>
         </div>
       </div>

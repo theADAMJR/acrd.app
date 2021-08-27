@@ -45,3 +45,14 @@ export const modalIsOpen = (type: React.FunctionComponent) => createSelector<Sto
   state => state.ui.openModal,
   name => name === type.name,
 );
+
+export const openSaveChanges = (dispatch, getState: () => Store.AppState) => {
+  if (getState().ui.saveChangesOpen) return;
+  
+  dispatch(actions.toggleSaveChanges(true));
+}
+export const closeSaveChanges = (dispatch, getState: () => Store.AppState) => {
+  if (!getState().ui.saveChangesOpen) return;
+  
+  dispatch(actions.toggleSaveChanges(false));
+}
