@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -7,12 +8,14 @@ import NormalButton from '../utils/buttons/normal-button';
 import Category from '../utils/category';
 import Input from '../utils/input';
 import SaveChanges from '../utils/save-changes';
+import TabLink from '../utils/tab-link';
 import Modal from './modal';
 
 const UserSettings: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((s: Store.AppState) => s.auth.user);
   const { register, handleSubmit, setValue } = useForm();
+  const [tab, setTab] = useState('overview');
 
   const onSave = (e) => {
     const onUpdate = (payload) => dispatch(updateSelf(payload));
@@ -33,15 +36,13 @@ const UserSettings: React.FunctionComponent = () => {
             <Category
               className="normal px-2.5 pb-1.5"
               title="User Settings" />
-            <Link
-              to="#"
-              className="active flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Overview</Link>
+            <TabLink tab={tab} setTab={setTab}>Overview</TabLink>
 
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
 
             <Link
               to="/logout"
-              className="danger flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Logout</Link>
+              className=" flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5">Logout</Link>
           </nav>
         </div>
 

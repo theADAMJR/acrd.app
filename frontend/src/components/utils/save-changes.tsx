@@ -14,7 +14,7 @@ export interface SaveChangesProps {
 const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
   const { closeSnackbar, enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
-  const { isOpen } = useSelector((s: Store.AppState) => s.ui.saveChanges);
+  const isOpen = useSelector((s: Store.AppState) => s.ui.saveChangesOpen);
 
   useEffect(() => {
     if (!isOpen) return;

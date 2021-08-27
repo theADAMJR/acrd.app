@@ -3,9 +3,7 @@ import React from 'react';
 
 const slice = createSlice({
   name: 'ui',
-  initialState: {
-    saveChanges: {},
-  } as Store.AppState['ui'],
+  initialState: {} as Store.AppState['ui'],
   reducers: {
     startedEditingMessage: (state, { payload }) => {
       state.editingMessageId = payload;
@@ -31,7 +29,7 @@ const slice = createSlice({
       state.openDropdown = payload?.name;
     },
     toggleSaveChanges: (state, { payload }) => {
-      state.saveChanges.isOpen = payload;
+      state.saveChangesOpen = payload;
     },
   },
 });
@@ -49,7 +47,7 @@ export const modalIsOpen = (type: React.FunctionComponent) => createSelector<Sto
 );
 
 export const openSaveChanges = (isOpen: boolean) => (dispatch, getState: () => Store.AppState) => {
-  if (getState().ui.saveChanges.isOpen === isOpen) return;
+  if (getState().ui.saveChangesOpen === isOpen) return;
 
   dispatch(actions.toggleSaveChanges(isOpen));
 }

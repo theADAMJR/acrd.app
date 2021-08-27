@@ -5,26 +5,11 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import GuildSettingsOverview from './guild-settings-overview';
 import GuildSettingsRoles from './guild-settings-roles';
-import { angrySaveChanges } from '../../../store/ui';
+import TabLink from '../../utils/tab-link';
 
 const GuildSettings: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
-  const saveChangesOpen = useSelector((s: Store.AppState) => s.ui.saveChanges.isOpen);
   const [tab, setTab] = useState('overview');
-  const dispatch = useDispatch();
-
-  const TabLink = ({ name }) => (
-    <Link
-      to="#"
-      onClick={() => {
-        if (saveChangesOpen)
-          return angrySaveChanges();
-        setTab(name.toLowerCase());
-      }}
-      className={`
-        flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5
-        ${tab === name.toLowerCase() && 'active'}`}>{name}</Link>
-  );
   
   return (guild) ? (
     <Modal type={GuildSettings} size="full">
@@ -34,8 +19,8 @@ const GuildSettings: React.FunctionComponent = () => {
             <Category
               className="muted px-2.5 pb-1.5"
               title={guild.name} />
-            <TabLink name="Overview" />
-            <TabLink name="Roles" />
+            <TabLink tab={tab} setTab={setTab}>Overview</TabLink>
+            <TabLink tab={tab} setTab={setTab}>Roles</TabLink>
           </nav>
         </div>
 
