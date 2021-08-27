@@ -13,7 +13,7 @@ const ChannelMenu: React.FunctionComponent<ChannelMenusProps> = ({ channel }) =>
   const { guildId }: any = useParams();
   const perms = usePerms();
 
-  return (
+  return (guildId) ? (
     <ContextMenu
       key={channel.id}
       id={channel.id}
@@ -26,7 +26,7 @@ const ChannelMenu: React.FunctionComponent<ChannelMenusProps> = ({ channel }) =>
         </MenuItem>
       )}
     </ContextMenu>
-  );
+  ) : null;
 }
  
 export default ChannelMenu;
