@@ -8,12 +8,13 @@ import GuildSettingsRoles from './guild-settings-roles';
 
 const GuildSettings: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
+  const saveChangesOpen = useSelector((s: Store.AppState) => s.ui.saveChangesOpen)!;
   const [tab, setTab] = useState('overview');
 
   const TabLink = ({ name }) => (
     <Link
       to="#"
-      onClick={() => /*!saveChangesOpen &&*/ setTab(name.toLowerCase())}
+      onClick={() => !saveChangesOpen && setTab(name.toLowerCase())}
       className={`
         flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5
         ${tab === name.toLowerCase() && 'active'}`}>{name}</Link>
