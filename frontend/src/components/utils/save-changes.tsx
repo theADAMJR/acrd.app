@@ -2,7 +2,7 @@ import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { UseFormSetValue, FieldValues } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeSaveChanges } from '../../store/ui';
+import { openSaveChanges } from '../../store/ui';
 import NormalButton from './buttons/normal-button';
 
 export interface SaveChangesProps {
@@ -14,7 +14,7 @@ export interface SaveChangesProps {
 const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
   const { closeSnackbar, enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
-  const isOpen = useSelector((s: Store.AppState) => s.ui.saveChangesOpen);
+  const { isOpen } = useSelector((s: Store.AppState) => s.ui.saveChanges);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -30,17 +30,18 @@ const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
   const onClickSave = (e) => {
     closeSnackbar('saveChanges');
     props.onSave(e);
-    dispatch(closeSaveChanges);
+    dispatch(openSaveChanges(false));
   };
   const onClickReset = () => {
     closeSnackbar('saveChanges');
     for (const key in props.obj)
       props.setValue(key, props.obj[key]);
-    dispatch(closeSaveChanges);
+    dispatch(openSaveChanges(false));
   };
   const SaveChanges = () => (
     <div
-      className="flex justify-between rounded  p-3 px-5 bg-black"
+      id="saveChanges"
+      className="flex justify-between rounded bg-black p-3 px-5"
       style={{ width: '50vw' }}>
       <span className="flex items-center flex-grow-1">Careful — you have unsaved changes!</span>
       <span>

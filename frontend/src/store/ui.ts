@@ -3,7 +3,9 @@ import React from 'react';
 
 const slice = createSlice({
   name: 'ui',
-  initialState: {} as Store.AppState['ui'],
+  initialState: {
+    saveChanges: {},
+  } as Store.AppState['ui'],
   reducers: {
     startedEditingMessage: (state, { payload }) => {
       state.editingMessageId = payload;
@@ -29,7 +31,7 @@ const slice = createSlice({
       state.openDropdown = payload?.name;
     },
     toggleSaveChanges: (state, { payload }) => {
-      state.saveChangesOpen = payload;
+      state.saveChanges.isOpen = payload;
     },
   },
 });
@@ -46,13 +48,14 @@ export const modalIsOpen = (type: React.FunctionComponent) => createSelector<Sto
   name => name === type.name,
 );
 
-export const openSaveChanges = (dispatch, getState: () => Store.AppState) => {
-  if (getState().ui.saveChangesOpen) return;
-  
-  dispatch(actions.toggleSaveChanges(true));
+export const openSaveChanges = (isOpen: boolean) => (dispatch, getState: () => Store.AppState) => {
+  if (getState().ui.saveChanges.isOpen === isOpen) return;
+
+  dispatch(actions.toggleSaveChanges(isOpen));
 }
-export const closeSaveChanges = (dispatch, getState: () => Store.AppState) => {
-  if (!getState().ui.saveChangesOpen) return;
-  
-  dispatch(actions.toggleSaveChanges(false));
+export const angrySaveChanges = () => {
+  const saveChanges = document.querySelector('#saveChanges') as HTMLDivElement;
+  if (!saveChanges) return;
+
+  saveChanges.style.backgroundColor = 'var(--danger)';
 }

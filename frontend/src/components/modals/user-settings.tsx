@@ -47,7 +47,7 @@ const UserSettings: React.FunctionComponent = () => {
 
         <div className="col-span-8 h-full">
           <form
-            onChange={() => dispatch(openSaveChanges)}
+            onChange={() => dispatch(openSaveChanges(true))}
             className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
             <header>
               <h1 className="text-xl font-bold inline">My Account</h1>
