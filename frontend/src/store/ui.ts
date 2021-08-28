@@ -57,3 +57,8 @@ export const angrySaveChanges = () => {
 
   saveChanges.style.backgroundColor = 'var(--danger)';
 }
+
+export const closeModal = (dispatch) => {
+  dispatch(actions.closedModal());
+  dispatch(openSaveChanges(false));
+};

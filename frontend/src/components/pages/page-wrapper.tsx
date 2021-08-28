@@ -5,7 +5,7 @@ import CreateChannel from '../modals/create-channel';
 import CreateGuild from '../modals/create-guild';
 import CreateInvite from '../modals/create-invite';
 import GuildSettings from '../modals/guild-settings/guild-settings';
-import UserSettings from '../modals/user-settings';
+import UserSettings from '../modals/user-settings/user-settings';
 import WSListener from '../ws-listener';
 
 export type PageWrapperProps = React.DetailedHTMLProps<

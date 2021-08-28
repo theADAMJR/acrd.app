@@ -5,15 +5,12 @@ import { useState } from 'react';
 import GuildSettingsOverview from './guild-settings-overview';
 import GuildSettingsRoles from './guild-settings-roles';
 import TabLink from '../../utils/tab-link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { actions as ui } from '../../../store/ui';
+import EscButton from '../../utils/buttons/esc-button';
 
 const GuildSettings: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const [tab, setTab] = useState('overview');
-  
+
   return (guild) ? (
     <Modal type={GuildSettings} size="full">
       <div className="grid grid-cols-12 h-full">
@@ -39,12 +36,7 @@ const GuildSettings: React.FunctionComponent = () => {
         </div>
 
         <div className="col-span-2 h-full">
-          <div
-            className="cursor-pointer border-white rounded-full p-8 w-10"
-            onClick={() => dispatch(ui.closedModal())}>
-            <FontAwesomeIcon icon={faTimes} />
-            <span className="text-center block muted">ESC</span>
-          </div>
+          <EscButton />
         </div>
       </div>
     </Modal>

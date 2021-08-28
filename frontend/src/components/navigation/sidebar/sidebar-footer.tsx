@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import { actions as ui } from '../../../store/ui';
-import UserSettings from '../../modals/user-settings';
+import UserSettings from '../../modals/user-settings/user-settings';
  
 const SidebarFooter: React.FunctionComponent = () => {
   const dispatch = useDispatch();

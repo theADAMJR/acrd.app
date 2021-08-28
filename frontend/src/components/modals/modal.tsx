@@ -28,7 +28,6 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, type, size, chi
       isOpen={openModal === type.name}
       onRequestClose={() => {
         dispatch(ui.closedModal());
-        dispatch(openSaveChanges(false));
         closeSnackbar('saveChanges');
       }}>{children}</ReactModal>
   );
