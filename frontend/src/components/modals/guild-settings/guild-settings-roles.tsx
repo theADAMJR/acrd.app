@@ -9,6 +9,7 @@ import { permDescription, PermissionTypes } from '../../../services/perm-service
 import { getGuildRoles } from '../../../store/guilds';
 import { getRole } from '../../../store/roles';
 import { actions as ui, openSaveChanges } from '../../../store/ui';
+import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Input from '../../utils/input/input';
 import Toggle from '../../utils/input/toggle';
@@ -40,10 +41,6 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
         <div className="flex gap-4">
           {/* We cannot change name of @everyone */}
           <Input
-            name="permissions"
-            type="hidden"
-            register={register} />
-          <Input
             label="Name"
             name="name"
             register={register} />
@@ -60,12 +57,15 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
   }
 
   const RolePermissions: React.FunctionComponent = () => {
-    const togglePerm = (name: string, on: boolean) => {  
-      setPerms((on)
+    const fullySetPerms = (perms: number) => {
+      setPerms(perms);
+      setValue('permissions', perms);
+      dispatch(openSaveChanges(true));
+    };
+    const togglePerm = (name: string, on: boolean) =>
+      fullySetPerms((on)
         ? perms | PermissionTypes.All[name]
         : perms & ~PermissionTypes.All[name]);
-      setValue('permissions', perms);
-    }
 
     const has = (name: string) => Boolean(perms & PermissionTypes.All[name]);
 
@@ -89,13 +89,20 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
         {Object.keys(permDescription[category]).map(permName =>
           <PermToggle category={category} permName={permName} />)}
       </>)}
+      <NormalButton
+        onClick={() => fullySetPerms(0)}
+        className="bg-white text-black"
+        type="button">Clear</NormalButton>
+      <NormalButton
+        onClick={() => fullySetPerms(PermissionTypes.defaultPermissions)}
+        className="bg-secondary text-black ml-2"
+        type="button">Default</NormalButton>
     </>;
   }
 
   const onSave = (e) => {
     handleSubmit((e) => console.log(e))(e);
-  };
-  
+  };  
 
   return (
     <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
