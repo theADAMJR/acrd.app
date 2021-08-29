@@ -47,6 +47,23 @@ export namespace PermissionTypes {
     | PermissionTypes.Voice.SPEAK;
 }
 
+export const permDescription = {
+  general: {
+    'ADMINISTRATOR': `Gives all permissions. This is a dangerous permission.`,
+    'CREATE_INVITE': 'Ability to create invites for users to join this guild.',
+    'KICK_MEMBERS': 'Ability to kick members from this guild.',
+    'MANAGE_CHANNELS': 'Ability to create, edit, or delete channels.',
+    'MANAGE_GUILD': `Ability to edit general guild settings.`,
+    'MANAGE_ROLES': 'Ability to manage guild roles.',
+    'VIEW_CHANNELS': 'Ability to view channels.',
+  },
+  text: {
+    'MANAGE_MESSAGES': `Ability to manage message other member's messages.`,
+    'READ_MESSAGES': `Ability to read messages,`,
+    'SEND_MESSAGES': 'Ability to send messages in text channels.',
+  },
+};
+
 export class PermService {
   constructor(private state: Store.AppState) {}
 

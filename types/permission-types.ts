@@ -1,3 +1,5 @@
+// REMINDER: 8 is admin in Discord, but 1 in Accord 
+
 export namespace PermissionTypes {
   export enum General {
     VIEW_CHANNELS = 1024,
