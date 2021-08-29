@@ -10,6 +10,14 @@ const slice = createSlice({
     fetched: (roles, { payload }: Store.Action<Entity.Role[]>) => {
       roles.push(...payload.filter(unique(roles)));
     },
+    updated: (roles, { payload }: Store.Action<WS.Args.GuildRoleUpdate>) => {
+      const role = roles.find(r => r.id === payload.roleId);
+      if (role) Object.assign(role, payload.partialRole);
+    },
+    deleted: (roles, { payload }: Store.Action<WS.Args.GuildRoleDelete>) => {
+      const index = roles.findIndex(r => r.id === payload.roleId);
+      roles.splice(index, 1);
+    },
   },
 });
 
@@ -25,5 +33,12 @@ export const updateRole = (guildId: string, roleId: string, payload: Partial<Ent
   dispatch(api.wsCallBegan({
     event: 'GUILD_ROLE_UPDATE',
     data: { roleId, guildId, ...payload } as WS.Params.GuildRoleUpdate,
+  }));
+}
+
+export const deleteRole = (guildId: string, roleId: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'GUILD_ROLE_DELETE',
+    data: { roleId, guildId } as WS.Params.GuildRoleDelete,
   }));
 }

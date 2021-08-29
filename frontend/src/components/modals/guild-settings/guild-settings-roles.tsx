@@ -23,7 +23,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
   useEffect(() => {
     if (!activeRole) return;
 
-    for (const name of ['color', 'role', 'permissions'])
+    for (const name of ['name', 'color', 'permissions'])
       setValue(name, activeRole[name]);
     setPerms(activeRole.permissions);
   }, [activeRole]);
@@ -34,12 +34,13 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
         className="mb-10"
         onChange={() => dispatch(openSaveChanges(true))}>
         <div className="flex gap-4">
-          {/* We cannot change name of @everyone */}
           <Input
+            // disabled={activeRole!.name === '@everyone'}
             label="Name"
             name="name"
             register={register} />
           <Input
+            // disabled={activeRole!.name === '@everyone'}
             label="Color"
             name="color"
             type="color"

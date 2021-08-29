@@ -10,10 +10,11 @@ export interface InputProps {
   label?: string;
   type?: string;
   className?: string;
+  disabled?: boolean;
 }
  
 const Input: React.FunctionComponent<InputProps> = (props) => {
-  const { label, name, register, options, type, autoFocus, className } = props;
+  const { label, name, register, options, type, autoFocus, className, disabled } = props;
   return (
     <div className={className}>
       {label &&
@@ -24,6 +25,7 @@ const Input: React.FunctionComponent<InputProps> = (props) => {
         id={name}
         type={type ?? 'text'}
         autoFocus={autoFocus}
+        disabled={disabled}
         {...register(name, { ...options })}
         className="block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2" />
     </div>

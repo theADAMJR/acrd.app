@@ -1,6 +1,7 @@
 import { UseFormSetValue, FieldValues } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { permDescription, PermissionTypes } from '../../../services/perm-service';
+import { deleteRole } from '../../../store/roles';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';

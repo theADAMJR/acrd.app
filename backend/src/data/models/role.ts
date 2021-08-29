@@ -46,6 +46,10 @@ export const Role = model<RoleDocument>('role', new Schema({
     type: String,
     required: [true, 'Name is required'],
     maxlength: [32, 'Name too long'],
+    validate: [
+      validators.cannotChangeIfProp('name', '@everyone'),
+      'Cannot change @everyone role name',
+    ],
   },
   permissions: {
     type: Number,

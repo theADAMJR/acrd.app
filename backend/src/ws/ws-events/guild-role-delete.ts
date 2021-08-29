@@ -6,18 +6,23 @@ import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { GuildMember } from '../../data/models/guild-member';
+import { WS } from '../../types/ws';
+import Roles from '../../data/roles';
 
 export default class implements WSEvent<'GUILD_ROLE_DELETE'> {
   on = 'GUILD_ROLE_DELETE' as const;
 
   constructor(
-    private guard = Deps.get<WSGuard>(WSGuard)
+    private guard = Deps.get<WSGuard>(WSGuard),
+    private roles = Deps.get<Roles>(Roles),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { roleId, guildId }: WS.Params.GuildRoleDelete) {
-    await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
+  public async invoke(ws: WebSocket, client: Socket, { roleId }: WS.Params.GuildRoleDelete) {
+    const role = await this.roles.get(roleId);
+    await this.guard.validateCan(client, role.guildId, 'MANAGE_ROLES');
+    await role.deleteOne();
 
-    await Role.deleteOne({ _id: roleId });
+    const guildId = role.guildId;
     await GuildMember.updateMany(
       { guildId },
       { $pull: { roleIds: roleId } },
