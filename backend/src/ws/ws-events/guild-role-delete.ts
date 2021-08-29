@@ -21,7 +21,6 @@ export default class implements WSEvent<'GUILD_ROLE_DELETE'> {
     const role = await this.roles.get(roleId);
     await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
 
-    // if naming a role @everyone, will this make is undeletable?
     if (role.name === '@everyone')
       throw new TypeError('This role cannot be deleted');
 

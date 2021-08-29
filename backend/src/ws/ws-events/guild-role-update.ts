@@ -15,6 +15,10 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
 
   public async invoke(ws: WebSocket, client: Socket, { roleId, guildId, name, color, permissions }: WS.Params.GuildRoleUpdate) {
     await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
+
+    const everyoneRole = await Role.findOne({ guildId, name: '@everyone' });
+    if (everyoneRole!.id === roleId && name !== everyoneRole!.name)
+      throw new TypeError('You cannot change @everyone role name');
     
     const partialRole = { name, color, permissions };
     await Role.updateOne(
