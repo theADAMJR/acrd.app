@@ -10,7 +10,7 @@ export type ToggleProps = React.DetailedHTMLProps<
   id: string;
 }
  
-const Toggle: React.FunctionComponent<ToggleProps> = (props) => {
+const Toggle: React.FunctionComponent<ToggleProps> = (props) => {  
   return (
     <div className={`flex ${props.className}`}>
       <label htmlFor={props.id} className="flex items-center cursor-pointer">

@@ -1,6 +1,6 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +17,7 @@ import TabLink from '../../utils/tab-link';
  
 const GuildSettingsRoles: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
+  const [perms, setPerms] = useState(0);
   const { handleSubmit, register, setValue, getValues } = useForm();
   const { guildId }: any = useParams();
   const roles = useSelector(getGuildRoles(guildId));
@@ -28,6 +29,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
 
     for (const name of ['color', 'role', 'permissions'])
       setValue(name, activeRole[name]);
+    setPerms(activeRole.permissions);
   }, [activeRole]);
 
   const RoleDetails = () => {    
@@ -57,13 +59,15 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
     )
   }
 
-  const togglePerm = (name: string, on: boolean) =>
-    setValue('permissions', (on)
-      ? activeRole!.permissions | PermissionTypes.All[name]
-      : activeRole!.permissions & ~PermissionTypes.All[name]);
+  const RolePermissions: React.FunctionComponent = () => {
+    const togglePerm = (name: string, on: boolean) => {  
+      setPerms((on)
+        ? perms | PermissionTypes.All[name]
+        : perms & ~PermissionTypes.All[name]);
+      setValue('permissions', perms);
+    }
 
-  const RolePermissions = () => {
-    const has = (name: string) => Boolean(getValues().permissions & PermissionTypes.All[name]);
+    const has = (name: string) => Boolean(perms & PermissionTypes.All[name]);
 
     const PermToggle = ({ category, permName }) => (
       <div key={permName} className="flex items-center justify-between mb-2">
@@ -71,7 +75,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
         <Toggle
           id={permName}
           checked={has(permName)}
-          onClick={v => togglePerm(permName, !v.currentTarget.checked)}
+          onChange={() => togglePerm(permName, !has(permName))}
           className="float-right" />
       </div>
     );
@@ -80,7 +84,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
       {Object.keys(permDescription).map(category => <>
         <Category
           key={category}
-          className="muted px-2.5 pb-1.5"
+          className="muted px-2.5 pb-1.5 mt-5"
           title={category} />
         {Object.keys(permDescription[category]).map(permName =>
           <PermToggle category={category} permName={permName} />)}
@@ -108,7 +112,10 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
       </div>
 
       <SaveChanges
-        setValue={setValue}
+        setValue={(...args) => {
+          setValue(...args);
+          setPerms(activeRole!.permissions);
+        }}
         onSave={onSave}
         obj={getValues()} />  
     </div>
