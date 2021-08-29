@@ -4,8 +4,9 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getGuildRoles } from '../../../store/guilds';
-import { getRole, updateRole } from '../../../store/roles';
+import { deleteRole, getRole, updateRole } from '../../../store/roles';
 import { openSaveChanges } from '../../../store/ui';
+import NormalButton from '../../utils/buttons/normal-button';
 import Input from '../../utils/input/input';
 import SaveChanges from '../../utils/save-changes';
 import TabLink from '../../utils/tab-link';
@@ -51,6 +52,10 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
           perms={perms}
           setPerms={setPerms}
           setValue={setValue}  />
+        <NormalButton
+          onClick={() => dispatch(deleteRole(activeRole!.guildId, activeRole!.id))}
+          className="bg-danger float-right"
+          type="button">Delete</NormalButton>
       </form>
     )
   }

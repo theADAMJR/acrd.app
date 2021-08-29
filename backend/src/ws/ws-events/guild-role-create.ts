@@ -8,6 +8,7 @@ import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import Roles from '../../data/roles';
+import { WS } from '../../types/ws';
 
 export default class implements WSEvent<'GUILD_ROLE_CREATE'> {
   on = 'GUILD_ROLE_CREATE' as const;
@@ -17,10 +18,10 @@ export default class implements WSEvent<'GUILD_ROLE_CREATE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { guildId, partialRole }: WS.Params.GuildRoleCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { guildId }: WS.Params.GuildRoleCreate) {
     await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
     
-    const role = await this.roles.create(guildId, partialRole);
+    const role = await this.roles.create(guildId, { name: 'New Role' });
     await Guild.updateOne(
       { _id: guildId },
       { $push: { roles: role } },

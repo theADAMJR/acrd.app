@@ -17,12 +17,16 @@ export default class implements WSEvent<'GUILD_ROLE_DELETE'> {
     private roles = Deps.get<Roles>(Roles),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { roleId }: WS.Params.GuildRoleDelete) {
+  public async invoke(ws: WebSocket, client: Socket, { guildId, roleId }: WS.Params.GuildRoleDelete) {
     const role = await this.roles.get(roleId);
-    await this.guard.validateCan(client, role.guildId, 'MANAGE_ROLES');
+    await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
+
+    // if naming a role @everyone, will this make is undeletable?
+    if (role.name === '@everyone')
+      throw new TypeError('This role cannot be deleted');
+
     await role.deleteOne();
 
-    const guildId = role.guildId;
     await GuildMember.updateMany(
       { guildId },
       { $pull: { roleIds: roleId } },
