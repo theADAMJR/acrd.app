@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { UseFormRegister, FieldValues } from 'react-hook-form';
-
 import './toggle.scoped.css';
 
 export type ToggleProps = React.DetailedHTMLProps<
