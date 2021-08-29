@@ -26,7 +26,7 @@ const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms,
       : perms & ~PermissionTypes.All[name]);
   const has = (name: string) => Boolean(perms & PermissionTypes.All[name]);
   const PermToggle = ({ category, permName }) => (
-    <div key={permName} className="flex items-center justify-between mb-2">
+    <div className="flex items-center justify-between mb-2">
       <span>{permDescription[category][permName]}</span>
       <Toggle
         id={permName}
@@ -39,13 +39,13 @@ const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms,
   return (
     <>
       {Object.keys(permDescription).map(category => (
-        <div className="mb-2">
-        <Category
-            key={category}
-            className="muted px-2.5 pb-1.5 mt-5"
-            title={category} />
-          {Object.keys(permDescription[category]).map(permName =>
-            <PermToggle category={category} permName={permName} />)}
+        <div key={category} className="mb-2">
+          <Category className="muted px-2.5 pb-1.5 mt-5" title={category} />
+            {Object.keys(permDescription[category]).map(permName =>
+              <PermToggle
+                key={permName}
+                category={category}
+                permName={permName} />)}
         </div>
       ))}
       <NormalButton

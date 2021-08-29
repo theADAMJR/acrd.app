@@ -72,6 +72,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
         {roles.map(r => (
           <TabLink
             key={r.id}
+            style={{ color: r.color }}
             tab={activeRoleId}
             setTab={setActiveRoleId}
             id={r.id}>{r.name}</TabLink>))}

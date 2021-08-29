@@ -8,12 +8,15 @@ export interface TabLinkProps {
   setTab?: React.Dispatch<React.SetStateAction<string>>;
   className?: string;
 }
+type Props = React.HTMLAttributes<HTMLAnchorElement>;
  
-const TabLink: React.FunctionComponent<TabLinkProps> = ({ id, tab, setTab, className, children }) => {
+const TabLink: React.FunctionComponent<TabLinkProps & Props> = (props) => {
+  const { id, tab, setTab, children, className } = props;
   const saveChangesOpen = useSelector((s: Store.AppState) => s.ui.saveChangesOpen);
 
   return (
     <Link
+      {...props}
       to="#"
       onClick={() => {
         if (saveChangesOpen)
