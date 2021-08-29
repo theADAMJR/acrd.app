@@ -152,6 +152,9 @@ declare namespace WS {
     export interface GuildRoleUpdate {
       roleId: string;
       guildId: string;
+      color?: string;
+      name?: string;
+      permissions?: number;
     }
     export interface GuildUpdate {
       guildId: string;

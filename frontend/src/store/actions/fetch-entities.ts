@@ -12,7 +12,7 @@ export default () => (dispatch) => {
     onSuccess: [],
     headers: headers(),
     url: `/users/entities`,
-    callback: (data: REST.Get['/users/entities']) => {
+    callback: (data: REST.From.Get['/users/entities']) => {
       dispatch(channelActions.fetched(data.channels));
       dispatch(guildActions.fetched(data.guilds));
       dispatch(memberActions.fetched(data.members));

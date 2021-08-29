@@ -38,14 +38,16 @@ const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms,
 
   return (
     <>
-      {Object.keys(permDescription).map(category => <>
+      {Object.keys(permDescription).map(category => (
+        <div className="mb-2">
         <Category
-          key={category}
-          className="muted px-2.5 pb-1.5 mt-5"
-          title={category} />
-        {Object.keys(permDescription[category]).map(permName =>
-          <PermToggle category={category} permName={permName} />)}
-      </>)}
+            key={category}
+            className="muted px-2.5 pb-1.5 mt-5"
+            title={category} />
+          {Object.keys(permDescription[category]).map(permName =>
+            <PermToggle category={category} permName={permName} />)}
+        </div>
+      ))}
       <NormalButton
         onClick={() => fullySetPerms(0)}
         className="bg-white text-black"
@@ -54,8 +56,8 @@ const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms,
         onClick={() => fullySetPerms(PermissionTypes.defaultPermissions)}
         className="bg-secondary text-black ml-2"
         type="button">Default</NormalButton>
-    </
-  >);
+    </>
+  );
 }
  
 export default RolePermissions;

@@ -63,7 +63,7 @@ router.get('/entities', updateUser, validateUser, async (req, res) => {
     User.find({ guildIds: { $in } }),
   ]);
 
-  res.json({ channels, guilds, members, roles, users, } as REST.Get['/users/entities']);
+  res.json({ channels, guilds, members, roles, users, } as REST.To.Get['/users/entities']);
 });
 
 router.get('/:id', async (req, res) => {

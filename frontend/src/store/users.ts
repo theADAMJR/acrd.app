@@ -34,8 +34,8 @@ export const updateSelf = (payload: Partial<Entity.User>) => (dispatch) => {
 
 export const deleteSelf = () => (dispatch) => {
   dispatch(api.wsCallBegan({
-    data: { token: token() },
     event: 'USER_DELETE',
+    data: { token: token() } as WS.Params.UserDelete,
   }));
 }
 

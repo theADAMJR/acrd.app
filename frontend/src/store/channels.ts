@@ -26,14 +26,14 @@ export default slice.reducer;
 export const createChannel = (guildId: string, name: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'CHANNEL_CREATE',
-    data: { guildId, name },
+    data: { guildId, name } as WS.Params.ChannelCreate,
   }));
 }
 
 export const deleteChannel = (guildId: string, channelId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'CHANNEL_DELETE',
-    data: { guildId, channelId },
+    data: { guildId, channelId } as WS.Params.ChannelDelete,
   }));
 }
 

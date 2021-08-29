@@ -1,3 +1,4 @@
+// using explicit properties in websocket args makes this redundant?
 /** Keys of objects that cannot be updated. */
 export namespace Prohibited {
   export const general: any = ['id', 'createdAt'];

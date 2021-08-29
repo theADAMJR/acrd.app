@@ -32,16 +32,16 @@ export const ready = () => (dispatch, getState: () => Store.AppState) => {
 
   dispatch(api.wsCallBegan({
     event: 'READY',
-    data: { token: token() },
+    data: { token: token() } as WS.Params.Ready,
   }));
 }
 
 // handle side effects here
-export const loginUser = (credentials: Auth.Credentials) => (dispatch) => {
+export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [actions.loggedIn.type],
     method: 'post',
-    data: credentials,
+    data,
     url: `/auth/login`,
     callback: (payload) => {
       localStorage.setItem('token', payload);
@@ -55,11 +55,11 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('token');
 }
 
-export const registerUser = (credentials: Auth.Credentials) => (dispatch) => {
+export const registerUser = (data: REST.To.Post['/auth/register']) => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [actions.loggedIn.type],
     method: 'post',
-    data: credentials,
+    data,
     url: `/auth/register`,
     callback: (payload) => {
       localStorage.setItem('token', payload);

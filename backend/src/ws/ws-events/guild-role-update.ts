@@ -1,5 +1,4 @@
 import { Socket } from 'socket.io';
-import { PermissionTypes } from '../../types/permission-types';
 import { Role } from '../../data/models/role';
 import Deps from '../../utils/deps';
 import { WSGuard } from '../modules/ws-guard';
@@ -14,13 +13,13 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { roleId, partialRole, guildId }: WS.Params.GuildRoleUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { roleId, guildId, name, color, permissions }: WS.Params.GuildRoleUpdate) {
     await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
-    this.guard.validateKeys('role', partialRole);
-
+    
+    const partialRole = { name, color, permissions };
     await Role.updateOne(
       { _id: roleId },
-      partialRole as any, 
+      partialRole, 
       { runValidators: true },
     );
 

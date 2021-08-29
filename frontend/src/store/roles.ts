@@ -1,5 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { unique } from './utils/filter';
+import { actions as api } from './api';
+import { WS } from '../types/ws';
 
 const slice = createSlice({
   name: 'roles',
@@ -18,3 +20,10 @@ export const getRole = (id: string) => createSelector<Store.AppState, Entity.Rol
   state => state.entities.roles,
   roles => roles.find(r => r.id === id),
 );
+
+export const updateRole = (guildId: string, roleId: string, payload: Partial<Entity.Role>) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'GUILD_ROLE_UPDATE',
+    data: { roleId, guildId, ...payload } as WS.Params.GuildRoleUpdate,
+  }));
+}

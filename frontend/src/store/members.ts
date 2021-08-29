@@ -30,7 +30,7 @@ export default slice.reducer;
 export const joinGuild = (inviteCode: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_MEMBER_ADD',
-    data: { inviteCode },
+    data: { inviteCode } as WS.Params.GuildMemberAdd,
   }));
 }
 
@@ -39,14 +39,14 @@ export const leaveGuild = (guildId: string) => (dispatch, getState: () => Store.
 
   dispatch(api.wsCallBegan({
     event: 'GUILD_MEMBER_REMOVE',
-    data: { guildId, userId: user.id },
+    data: { guildId, userId: user.id } as WS.Params.GuildMemberRemove,
   }));
 }
 
 export const kickMember = (guildId: string, userId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_MEMBER_REMOVE',
-    data: { guildId, userId },
+    data: { guildId, userId } as WS.Params.GuildMemberRemove,
   }));
 }
 

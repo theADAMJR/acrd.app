@@ -30,21 +30,21 @@ export default slice.reducer;
 export const createGuild = (name: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_CREATE',
-    data: { name },
+    data: { name } as WS.Params.GuildCreate,
   }));
 }
 
 export const updateGuild = (guildId: string, payload: Partial<Entity.Guild>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_UPDATE',
-    data: { guildId, ...payload },
+    data: { guildId, ...payload } as WS.Params.GuildUpdate,
   }));
 }
 
 export const deleteGuild = (guildId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_DELETE',
-    data: { guildId },
+    data: { guildId } as WS.Params.GuildDelete,
   }));
 }
 
