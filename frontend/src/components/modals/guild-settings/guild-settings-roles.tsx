@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getGuildRoles } from '../../../store/guilds';
-import { getRole } from '../../../store/roles';
+import { getRole, updateRole } from '../../../store/roles';
 import { openSaveChanges } from '../../../store/ui';
 import Input from '../../utils/input/input';
 import SaveChanges from '../../utils/save-changes';
@@ -55,8 +55,10 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
   }
 
   const onSave = (e) => {
-    handleSubmit((e) => console.log(e))(e);
-  };  
+    const { guildId, id } = activeRole!;
+    const onUpdate = (payload) => dispatch(updateRole(guildId, id, payload));
+    handleSubmit(onUpdate)(e);
+  };
 
   return (
     <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
