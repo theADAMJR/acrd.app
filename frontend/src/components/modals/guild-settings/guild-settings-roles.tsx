@@ -69,7 +69,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
       <div key={permName} className="flex items-center justify-between mb-2">
         <span>{permDescription[category][permName]}</span>
         <Toggle
-          name={permName}
+          id={permName}
           checked={has(permName)}
           onClick={v => togglePerm(permName, !v.currentTarget.checked)}
           className="float-right" />

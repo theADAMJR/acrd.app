@@ -12,11 +12,12 @@ const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message 
   const dispatch = useDispatch();
   const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild);
+  const openModal = useSelector((s: Store.AppState) => s.ui.openModal);
 
   const isAuthor = message.authorId === selfUser.id;
   const canManage = guild?.ownerId === selfUser.id || isAuthor;
   
-  return (
+  return (!openModal) ? (
     <div className="float-right shadow bg-bg-secondary px-2 rounded cursor-pointer">
       {isAuthor && <div className="inline">
         <FontAwesomeIcon
@@ -24,14 +25,16 @@ const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message 
           className="mr-2"
           icon={faPencilAlt} />
         </div>}
-      {canManage && <div className="inline">
-        <FontAwesomeIcon
-        onClick={() => dispatch(deleteMessage(message.id))}
-        className="danger"
-        icon={faTimes} />
-      </div>}
+      {canManage && (
+        <div className="inline">
+          <FontAwesomeIcon
+          onClick={() => dispatch(deleteMessage(message.id))}
+          className="danger"
+          icon={faTimes} />
+        </div>
+      )}
     </div>
-  );
+  ) : null;
 }
  
 export default MessageToolbar;

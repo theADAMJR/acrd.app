@@ -7,17 +7,17 @@ export type ToggleProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLInputElement>,
   HTMLInputElement> & {
   checked: boolean;
-  name: string;
+  id: string;
 }
  
 const Toggle: React.FunctionComponent<ToggleProps> = (props) => {
   return (
     <div className={`flex ${props.className}`}>
-      <label htmlFor={props.name} className="flex items-center cursor-pointer">
+      <label htmlFor={props.id} className="flex items-center cursor-pointer">
         <div className="relative">
           <input
             {...props}
-            id={props.name}
+            id={props.id}
             type="checkbox"
             className="sr-only"
             checked={props.checked} />
