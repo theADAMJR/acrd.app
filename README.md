@@ -2,7 +2,7 @@
 
 Custom Frontend and Backend that is similar to Discord.
 
-> ℹ: [accord.app](https://accord.app) should be available available when more features are added.
+> ℹ: [accord.app](https://accord.app) should be available available when enough features are added. If you see this message, it's probably not.
 
 > Built with React TS, Redux, and Node.js.
 
