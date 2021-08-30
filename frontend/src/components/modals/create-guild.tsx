@@ -41,7 +41,7 @@ const CreateGuild: React.FunctionComponent = () => {
 
       <form onSubmit={handleSubmit2(submitCreate)}>
         <Input
-          label="Server Name"
+          label="Guild Name"
           name="name"
           register={register2} />
         <NormalButton className="w-full h-11 mt-8">Create</NormalButton>

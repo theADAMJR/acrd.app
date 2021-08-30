@@ -19,7 +19,7 @@ const GuildMenu: React.FunctionComponent<GuildMenuProps> = ({ guild }) => {
       <MenuItem
         className="flex items-center justify-between danger cursor-pointer"
         onClick={() => dispatch(leaveGuild(guild.id))}>
-        <span>Leave Server</span>
+        <span>Leave Guild</span>
         <FontAwesomeIcon icon={faDoorOpen} />
       </MenuItem>
     </ContextMenu>

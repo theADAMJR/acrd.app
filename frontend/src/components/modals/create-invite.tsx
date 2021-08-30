@@ -28,7 +28,7 @@ const CreateInvite: React.FunctionComponent = () => {
         <h1 className="font-bold inline uppercase">Invite Friends to {activeGuild?.name}</h1>
       </header>
 
-      <h4 className="text-xs uppercase font-bold muted mb-3">Or Send A Server Invite To A Friend</h4>
+      <h4 className="text-xs uppercase font-bold muted mb-3">Or Send A Guild Invite To A Friend</h4>
 
       <div className="relative">
         <NormalButton

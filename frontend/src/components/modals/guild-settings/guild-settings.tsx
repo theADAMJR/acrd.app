@@ -6,10 +6,12 @@ import GuildSettingsOverview from './guild-settings-overview';
 import GuildSettingsRoles from './guild-settings-roles';
 import TabLink from '../../utils/tab-link';
 import EscButton from '../../utils/buttons/esc-button';
+import usePerms from '../../../hooks/use-perms';
 
 const GuildSettings: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const [tab, setTab] = useState('overview');
+  const perms = usePerms();
 
   return (guild) ? (
     <Modal type={GuildSettings} size="full">
@@ -23,10 +25,12 @@ const GuildSettings: React.FunctionComponent = () => {
               tab={tab}
               setTab={setTab}
               id="overview">Overview</TabLink>
-            <TabLink
-              tab={tab}
-              setTab={setTab}
-              id="roles">Roles</TabLink>
+            {perms.can('MANAGE_GUILD', guild.id) && (
+              <TabLink
+                tab={tab}
+                setTab={setTab}
+                id="roles">Roles</TabLink>
+            )}
           </nav>
         </div>
 

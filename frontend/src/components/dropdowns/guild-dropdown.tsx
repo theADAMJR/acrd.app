@@ -28,22 +28,24 @@ const GuildDropdown: React.FunctionComponent = () => {
             icon={faUserPlus} />
         </a>
       )}
-
-      <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm mb-1"
-        onClick={() => dispatch(ui.openedModal(CreateChannel))}>
-        <span className="font">Create channel</span>
-        <FontAwesomeIcon
-          className="float-right w-1"
-          icon={faPlusCircle} />
-      </a>
-
-      <a onClick={() => dispatch(ui.openedModal(GuildSettings))}
-        className="rounded-sm flex items-center justify-between p-2 h-8 text-sm">
-        <span className="font">Server settings</span>
-        <FontAwesomeIcon
-          className="float-right w-1"
-          icon={faCog} />
-      </a>
+      {perms.can('MANAGE_CHANNELS', guild.id) && (
+        <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm mb-1"
+          onClick={() => dispatch(ui.openedModal(CreateChannel))}>
+          <span className="font">Create channel</span>
+          <FontAwesomeIcon
+            className="float-right w-1"
+            icon={faPlusCircle} />
+        </a>
+      )}
+      {perms.can('MANAGE_GUILD', guild.id) && (
+        <a onClick={() => dispatch(ui.openedModal(GuildSettings))}
+          className="rounded-sm flex items-center justify-between p-2 h-8 text-sm">
+          <span className="font">Guild settings</span>
+          <FontAwesomeIcon
+            className="float-right w-1"
+            icon={faCog} />
+        </a>
+      )}
     </Dropdown>
   );
 }

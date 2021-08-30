@@ -17,7 +17,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
     handleSubmit(onUpdate)(e);
   };
   const onDelete = () => {
-    const confirmation = window.confirm('Are you sure you want to delete this server?');
+    const confirmation = window.confirm('Are you sure you want to delete this guild?');
     confirmation && dispatch(deleteGuild(guild.id));
   }
   
@@ -26,7 +26,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
       onChange={() => dispatch(openSaveChanges(true))}
       className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <header>
-        <h1 className="text-xl font-bold inline">Server Overview</h1>
+        <h1 className="text-xl font-bold inline">Guild Overview</h1>
       </header>
     
       <section className="w-1/3">
