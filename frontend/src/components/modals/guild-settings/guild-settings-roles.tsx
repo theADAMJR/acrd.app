@@ -23,7 +23,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
   const activeRole = useSelector(getRole(activeRoleId));
 
   useEffect(() => {
-    if (!activeRole) return;
+    if (!activeRole) return setActiveRoleId(roles[0].id);
 
     for (const name of ['name', 'color', 'permissions'])
       setValue(name, activeRole[name]);

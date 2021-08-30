@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Category from '../../utils/category';
 import Modal from '../modal';
 import { useState } from 'react';
