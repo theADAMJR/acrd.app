@@ -1,6 +1,7 @@
 import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
+import usePerms from '../../../hooks/use-perms';
 import { deleteMessage } from '../../../store/messages';
 import { actions as ui } from '../../../store/ui';
 
@@ -11,20 +12,25 @@ export interface MessageToolbarProps {
 const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message }) => {
   const dispatch = useDispatch();
   const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
-  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild);
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const openModal = useSelector((s: Store.AppState) => s.ui.openModal);
+  const perms = usePerms();
 
   const isAuthor = message.authorId === selfUser.id;
-  const canManage = guild?.ownerId === selfUser.id || isAuthor;
+  const canManage = perms.can('MANAGE_MESSAGES', guild.id)
+    || guild?.ownerId === selfUser.id
+    || isAuthor;
   
   return (!openModal) ? (
     <div className="float-right shadow bg-bg-secondary px-2 rounded cursor-pointer">
-      {isAuthor && <div className="inline">
-        <FontAwesomeIcon
-          onClick={() => dispatch(ui.startedEditingMessage(message.id))}
-          className="mr-2"
-          icon={faPencilAlt} />
-        </div>}
+      {isAuthor && (
+        <div className="inline">
+          <FontAwesomeIcon
+            onClick={() => dispatch(ui.startedEditingMessage(message.id))}
+            className="mr-2"
+            icon={faPencilAlt} />
+        </div>
+      )}
       {canManage && (
         <div className="inline">
           <FontAwesomeIcon

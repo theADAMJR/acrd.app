@@ -12,7 +12,7 @@ import { Channel, TextChannelDocument, VoiceChannelDocument } from '../../../src
 import { PermissionTypes } from '../../../src/types/permission-types';
 import { WSGuard } from '../../../src/ws/modules/ws-guard';
 
-describe('ws-guard', () => {
+describe.only('ws-guard', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   
   let guard: WSGuard;
@@ -25,7 +25,7 @@ describe('ws-guard', () => {
   beforeEach(async () => {
     ({ ws, guild, user, member } = await Mock.defaultSetup(client));
 
-    textChannel = await Channel.findOne({ guildId: guild.id, type: 'TEXT' });
+    textChannel = await Deps.get<Channels>(Channels).getSystem(guild.id);
     guard = Deps.get<WSGuard>(WSGuard); 
   });
 

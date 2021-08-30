@@ -1,6 +1,7 @@
 import { UseFormSetValue, FieldValues } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { permDescription, PermissionTypes } from '../../../services/perm-service';
+import usePerms from '../../../hooks/use-perms';
+import { PermissionTypes } from '../../../services/perm-service';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
@@ -14,6 +15,7 @@ export interface RolePermissionsProps {
  
 const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms, setPerms, setValue }) => {
   const dispatch = useDispatch();
+  const { description } = usePerms();
   
   const fullySetPerms = (perms: number) => {
     setPerms(perms);
@@ -27,7 +29,7 @@ const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms,
   const has = (name: string) => Boolean(perms & PermissionTypes.All[name]);
   const PermToggle = ({ category, permName }) => (
     <div className="flex items-center justify-between mb-2">
-      <span>{permDescription[category][permName]}</span>
+      <span>{description[category][permName]}</span>
       <Toggle
         id={permName}
         checked={has(permName)}
@@ -38,10 +40,10 @@ const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms,
 
   return (
     <>
-      {Object.keys(permDescription).map(category => (
-        <div key={category} className="mb-2">
+      {Object.keys(description).map(category => (
+        <div key={category} className="mb-5">
           <Category className="muted px-2.5 pb-1.5 mt-5" title={category} />
-            {Object.keys(permDescription[category]).map(permName =>
+            {Object.keys(description[category]).map(permName =>
               <PermToggle
                 key={permName}
                 category={category}

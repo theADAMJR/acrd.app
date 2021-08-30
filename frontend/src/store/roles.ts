@@ -29,6 +29,13 @@ export const getRole = (id: string) => createSelector<Store.AppState, Entity.Rol
   roles => roles.find(r => r.id === id),
 );
 
+export const createRole = (guildId: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'GUILD_ROLE_CREATE',
+    data: { guildId } as WS.Params.GuildRoleCreate,
+  }));
+}
+
 export const updateRole = (guildId: string, roleId: string, payload: Partial<Entity.Role>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_ROLE_UPDATE',
