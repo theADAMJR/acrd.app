@@ -8,26 +8,30 @@ import { createRole, deleteRole, getRole, updateRole } from '../../../store/role
 import { openSaveChanges } from '../../../store/ui';
 import CircleButton from '../../utils/buttons/circle-button';
 import NormalButton from '../../utils/buttons/normal-button';
+import Category from '../../utils/category';
 import Input from '../../utils/input/input';
+import Toggle from '../../utils/input/toggle';
 import SaveChanges from '../../utils/save-changes';
 import TabLink from '../../utils/tab-link';
 import RolePermissions from './role-permissions';
  
 const GuildSettingsRoles: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
-  const [perms, setPerms] = useState(0);
   const { handleSubmit, register, setValue, getValues } = useForm();
   const { guildId }: any = useParams();
   const roles = useSelector(getGuildRoles(guildId));
   const [activeRoleId, setActiveRoleId] = useState(roles[0].id);
   const activeRole = useSelector(getRole(activeRoleId));
+  const [perms, setPerms] = useState(0);
+  const [hoisted, setHoisted] = useState(false);
 
   useEffect(() => {
     if (!activeRole) return setActiveRoleId(roles[0].id);
 
-    for (const name of ['name', 'color', 'permissions'])
+    for (const name of ['name', 'color', 'permissions', 'hoisted'])
       setValue(name, activeRole[name]);
     setPerms(activeRole.permissions);
+    setHoisted(activeRole.hoisted);
   }, [activeRole]);
 
   const RoleDetails = () => {    
@@ -45,6 +49,22 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
             name="color"
             type="color"
             register={register} />
+        </div>
+
+        <div className="mt-5">
+          <Category title="Options" className=" pb-1.5 mt-5" />
+          <span>
+            <span>Separate role on member list</span>
+            <Toggle
+              id="hoisted"
+              checked={hoisted}
+              {...register('hoisted')}
+              onChange={() => {
+                setHoisted(!hoisted);
+                setValue('hoisted', !hoisted);
+              }}
+              className="float-right" />
+          </span>
         </div>
   
         <RolePermissions
@@ -90,6 +110,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
         setValue={(...args) => {
           setValue(...args);
           setPerms(activeRole!.permissions);
+          setHoisted(activeRole!.hoisted);
         }}
         onSave={onSave}
         obj={getValues()} />  
