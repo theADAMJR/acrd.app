@@ -2,6 +2,8 @@
 
 Custom Frontend and Backend that is similar to Discord.
 
+> ℹ: [accord.app](https://accord.app) should be available available when more features are added.
+
 > Built with React TS, Redux, and Node.js.
 
 <a href="https://ibb.co/1qZjNj9"><img src="https://i.ibb.co/MVnQHQR/Screenshot-from-2021-08-30-13-40-20.png" alt="Screenshot-from-2021-08-30-13-40-20" border="0" /></a>
