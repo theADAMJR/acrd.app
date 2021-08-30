@@ -10,6 +10,9 @@ const slice = createSlice({
     fetched: (roles, { payload }: Store.Action<Entity.Role[]>) => {
       roles.push(...payload.filter(unique(roles)));
     },
+    created: (roles, { payload }: Store.Action<WS.Args.GuildRoleCreate>) => {
+      roles.push(payload.role);
+    },
     updated: (roles, { payload }: Store.Action<WS.Args.GuildRoleUpdate>) => {
       const role = roles.find(r => r.id === payload.roleId);
       if (role) Object.assign(role, payload.partialRole);

@@ -100,7 +100,8 @@ const WSListener: React.FunctionComponent = () => {
       // clean up mess
       dispatch(members.removed({ guildId: args.guildId, userId: auth.user!.id }));
     });
-    ws.on('GUILD_ROLE_UPDATE', (args) => dispatch(roles.updated(args)))
+    ws.on('GUILD_ROLE_CREATE', (args) => dispatch(roles.created(args)));
+    ws.on('GUILD_ROLE_UPDATE', (args) => dispatch(roles.updated(args)));
     ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated(args)));
     ws.on('TYPING_START', (args) => {
       dispatch(typing.userTyped(args));
