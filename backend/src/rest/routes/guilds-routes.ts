@@ -26,7 +26,7 @@ router.get('/:id/authorize/:botId',
   validateHasPermission(PermissionTypes.General.MANAGE_GUILD),
   async (req, res) => {
     const guild = res.locals.guild;
-    const bot = await users.get(req.params.botId);
+    const bot = await users.getSelf(req.params.botId);
     const member = await members.create(guild.id, bot);
 
     ws.io

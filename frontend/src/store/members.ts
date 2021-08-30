@@ -67,12 +67,3 @@ createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember[]>(
   state => state.entities.members,
   members => members.filter(m => m.roleIds.includes(roleId)),
 );
-
-export const filterMembersByStatus = (guildId: string, status: UserTypes.StatusType) => 
-createSelector<Store.AppState, any, Entity.GuildMember[]>(
-  state => ({ members: state.entities.members, users: state.entities.users }),
-  ({ members, users }) => members.filter(m => {
-    const user = users.find(u => m.userId === u.id);
-    return m.guildId === guildId && user.status === status;
-  }),
-);

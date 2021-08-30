@@ -25,7 +25,7 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
       _id: generateSnowflake(),
       guildId: guildId,
       userId: user.id,
-      roleIds: [await this.getEveryoneRoleId(guildId)].concat(roleIds), 
+      roleIds, 
     });    
     await this.addToUser(user, guildId);
 

@@ -28,7 +28,7 @@ export const Role = model<RoleDocument>('role', new Schema({
     default: everyoneColor,
     validate: [
       validators.cannotChangeIfProp('name', '@everyone'),
-      'Cannot change @everyone role color',
+      'The @everyone role color cannot be changed',
     ],
   },
   createdAt: {
@@ -47,8 +47,14 @@ export const Role = model<RoleDocument>('role', new Schema({
     required: [true, 'Name is required'],
     maxlength: [32, 'Name too long'],
     validate: [
-      validators.cannotChangeIfProp('name', '@everyone'),
-      'Cannot change @everyone role name',
+      {
+        validator: validators.cannotChangeIfProp('name', '@everyone'),
+        msg: 'The @everyone role name cannot be changed',
+      },
+      {
+        validator: validators.optionalPattern('roleName'),
+        msg: 'This name contains banned words',
+      }
     ],
   },
   position: {

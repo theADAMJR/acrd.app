@@ -32,6 +32,11 @@ export const getRole = (id: string) => createSelector<Store.AppState, Entity.Rol
   roles => roles.find(r => r.id === id),
 );
 
+export const filterHoistedRoles = (guildId: string) => createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
+  state => state.entities.roles,
+  roles => roles.filter(r => r.guildId === guildId && r.hoisted),
+);
+
 export const createRole = (guildId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_ROLE_CREATE',

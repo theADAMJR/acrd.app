@@ -12,6 +12,9 @@ test(createRole, () => {
   given({ name: '' }).expect('Name is required');
   given({ name: longString(33) }).expect('Name too long');
   given({ name: 'Mock Role' }).expect(true);
+  given({ name: '@everyone' }).expect(true);
+  given({ name: '@here' }).expect('Name not allowed');
+  given({ name: '@someone' }).expect('Name not allowed');
   given({ permissions: -1 }).expect('Invalid permissions integer');
   given({ permissions: 255 }).expect(true);
   given({ permissions: 4 }).expect(true);

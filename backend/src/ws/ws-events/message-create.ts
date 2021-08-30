@@ -23,20 +23,19 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId, content }: WS.Params.MessageCreate) {
-    await this.guard.canAccessChannel(client, channelId, true);
-      
     const authorId = ws.sessions.userId(client);
-    const message = await this.messages.create(authorId, channelId, { content });
+    
+    const [_, message, author] = await Promise.all([
+      this.guard.canAccessChannel(client, channelId, true), 
+      this.messages.create(authorId, channelId, { content }),
+      this.users.getSelf(authorId),
+    ]);
 
-    await Channel.updateOne(
-      { _id: channelId },
-      { lastMessageId: message.id }
-    );
+    author.lastReadMessageIds ??= {};
+    author.lastReadMessageIds[channelId] = message.id;
+    await author.save();
 
-    const user = await this.users.getSelf(authorId);
-    user.lastReadMessageIds ??= {};
-    user.lastReadMessageIds[channelId] = message.id;
-    await user.save();
+    await Channel.updateOne({ _id: channelId }, { lastMessageId: message.id }),
 
     ws.io
       .to(channelId)

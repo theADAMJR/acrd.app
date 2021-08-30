@@ -5,5 +5,6 @@ export default {
   snowflake: /^\d{18}$/,
   status: /^ONLINE|^BUSY$|^AFK$|^OFFLINE$/,
   textChannelName: /^[A-Za-z\-\d]{2,32}$/,
-  username: /(^(?! |^everyone$|^here$|^me$|^someone$|^discordtag$)[A-Za-z\d\-\_ ]{2,32}(?<! )$)/,
+  username: /(^(?! |^everyone$|^here$|^me$|^someone$)[A-Za-z\d\-\_ ]{2,32}(?<! )$)/,
+  roleName: /(^(?! |^everyone$|^here$|^me$|^someone$)(.*){2,32}(?<! )$)/,
 }
