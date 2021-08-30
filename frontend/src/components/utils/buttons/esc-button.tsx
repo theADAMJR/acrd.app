@@ -7,16 +7,18 @@ import { closeModal } from '../../../store/ui';
 const EscButton = () => {
   const dispatch = useDispatch();
   const { closeSnackbar } = useSnackbar();
+
+  const onClick = () => {
+    dispatch(closeModal);
+    closeSnackbar('saveChanges');
+  };
   
   return (
     <div
-      className="cursor-pointer border-white rounded-full p-8 w-10"
-      onClick={() => {
-        dispatch(closeModal);
-        closeSnackbar('saveChanges');
-      } }>
-      <FontAwesomeIcon icon={faTimes} />
-      <span className="text-center block muted">ESC</span>
+      className="rounded-full ring ring-gray-500 cursor-pointer border-white rounded-full px-2 w-16 mt-14"
+      onClick={onClick}>
+      <FontAwesomeIcon icon={faTimes} color="var(--muted)" />
+      <span className="pl-1.5 muted">ESC</span>
     </div>
   );
 }
