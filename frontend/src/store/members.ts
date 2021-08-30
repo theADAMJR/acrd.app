@@ -57,7 +57,22 @@ createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember | undefi
 );
 
 export const getSelfMember = (guildId: string | undefined) =>
-createSelector<Store.AppState, { user, members }, Entity.GuildMember | undefined>(
+createSelector<Store.AppState, any, Entity.GuildMember | undefined>(
   state => ({ user: state.auth.user, members: state.entities.members }),
   ({ user, members }) => members.find(m => m.guildId === guildId && m.userId === user.id),
+);
+
+export const filterByRole = (roleId: string) => 
+createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember[]>(
+  state => state.entities.members,
+  members => members.filter(m => m.roleIds.includes(roleId)),
+);
+
+export const filterMembersByStatus = (guildId: string, status: UserTypes.StatusType) => 
+createSelector<Store.AppState, any, Entity.GuildMember[]>(
+  state => ({ members: state.entities.members, users: state.entities.users }),
+  ({ members, users }) => members.filter(m => {
+    const user = users.find(u => m.userId === u.id);
+    return m.guildId === guildId && user.status === status;
+  }),
 );

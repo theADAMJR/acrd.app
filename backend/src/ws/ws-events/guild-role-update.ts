@@ -15,7 +15,7 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
     private roles = Deps.get<Roles>(Roles),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { roleId, guildId, name, color, permissions }: WS.Params.GuildRoleUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { roleId, guildId, name, color, permissions, hoisted }: WS.Params.GuildRoleUpdate) {
     await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');    
 
     const everyoneRole = await this.roles.getEveryone(guildId);
@@ -25,7 +25,7 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
       throw new TypeError('You cannot change @everyone role color');
     
     // TODO: implement position 
-    const partialRole = { name, color, permissions };
+    const partialRole = { name, color, permissions, hoisted };
     await this.roles.update(roleId, partialRole);
 
     ws.io

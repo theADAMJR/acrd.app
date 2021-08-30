@@ -62,9 +62,8 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
   const onSave = (e) => {
     const onUpdate = (payload) => dispatch(updateRole(guildId, activeRole!.id, payload));
     handleSubmit(onUpdate)(e);
-  };
-  
-  const byPosition = (a, b) => a.position > b.position ? 1 : -1;
+  };  
+  const byPosition = (a, b) => (a.position > b.position) ? -1 : 1;
 
   return (
     <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">

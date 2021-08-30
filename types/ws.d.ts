@@ -155,6 +155,7 @@ declare namespace WS {
       color?: string;
       name?: string;
       permissions?: number;
+      hoisted?: boolean;
     }
     export interface GuildUpdate {
       guildId: string;

@@ -44,3 +44,16 @@ export const getUser = (id: string) =>
     state => state.entities.users,
     users => users.find(u => u.id === id),
   );
+
+export const filterUsersByStatus = (guildId: string, status: UserTypes.StatusType) => 
+createSelector<Store.AppState, any, Entity.User[]>(
+  state => ({
+    members: state.entities.members,
+    users: state.entities.users,
+  }),
+  ({ members, users }) => users.filter(u => {
+    const inGuild = members.some(m => m.guildId === guildId && m.userId === u.id);
+    return inGuild && u.status === status;
+  }),
+);
+  

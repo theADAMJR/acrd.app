@@ -3,6 +3,8 @@ import Username from './username';
 import { useSelector } from 'react-redux';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import GuildMemberMenu from '../ctx-menus/guild-member-menu';
+import { getGuildRoles } from '../../store/guilds';
+import { filterUsersByStatus } from '../../store/users';
 
 export interface MemberListProps {
   users: Entity.User[];
@@ -11,8 +13,10 @@ export interface MemberListProps {
 const MemberList: React.FunctionComponent<MemberListProps> = (props: MemberListProps) => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const isActive = useSelector((s: Store.AppState) => s.config.memberListToggled);
-
-  const members = props.users.map(u => (
+  const onlineMembers = useSelector(filterUsersByStatus(guild.id, 'ONLINE'));
+  const roles = useSelector(getGuildRoles(guild.id));
+  
+  const members = onlineMembers.map(u => (
     <ContextMenuTrigger id={u.id} key={u.id}>
       <div className="mb-2">
         <Username guild={guild} user={u} />
