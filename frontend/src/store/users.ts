@@ -40,8 +40,12 @@ export const deleteSelf = () => (dispatch) => {
 }
 
 export const getUser = (id: string) =>
-  createSelector<Store.AppState, Entity.User[], Entity.User | undefined>(
+  createSelector<Store.AppState, Entity.User[], Entity.User>(
     state => state.entities.users,
-    users => users.find(u => u.id === id),
+    users => users.find(u => u.id === id) ?? {
+      discriminator: 0,
+      username: 'Unknown',
+      avatarURL: '/avatars/unknown.png',
+    } as Entity.User,
   );
   

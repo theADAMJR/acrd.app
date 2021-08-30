@@ -7,18 +7,18 @@ import MessageBox from '../message-box';
 import MessageToolbar from './message-toolbar';
 
 import './message.scoped.css';
+import { getMemberHighestRole } from '../../../store/roles';
+import { getSelfMember } from '../../../store/members';
 
 export interface MessageProps {
   message: Entity.Message;
 }
 
 const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProps) => {
-  const author = useSelector(getUser(message.authorId))
-    ?? {
-      discriminator: 0,
-      username: 'Unknown',
-      avatarURL: '/avatars/unknown.png',
-    } as Entity.User;
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
+  const member = useSelector(getSelfMember(guild.id))!;
+  const highestRole = useSelector(getMemberHighestRole(guild.id, member.userId));
+  const author = useSelector(getUser(message.authorId));
   const messages = useSelector(getChannelMessages(message.channelId));
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
   const createdAt = new Date(message.createdAt);
@@ -57,7 +57,9 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
 
     return (
       <>
-        <span className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
+        <span
+          style={{ color: highestRole.color }}
+          className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
         <span className="text-xs">{moment(createdAt).format(timestamp)}</span>
       </>
     );

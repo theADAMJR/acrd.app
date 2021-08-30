@@ -11,9 +11,6 @@ export interface UsernameProps {
  
 const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
   const highestRole = useSelector(getMemberHighestRole(guild?.id, user.id));
-  console.log(guild);
-  console.log(highestRole);
-  
 
   const userOwnsGuild = guild?.ownerId === user.id;
   const discrim = user.discriminator
