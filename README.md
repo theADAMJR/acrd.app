@@ -7,7 +7,7 @@ Custom Frontend and Backend that is similar to Discord.
 > Want a more basic version, that's more like Discord?
 > https://github.com/codea-live/dclone
 
-<a href="https://ibb.co/tqdybrW"><img src="https://i.ibb.co/T4CzH3F/image.png" alt="image" border="0"></a>
+<a href="https://ibb.co/1qZjNj9"><img src="https://i.ibb.co/MVnQHQR/Screenshot-from-2021-08-30-13-40-20.png" alt="Screenshot-from-2021-08-30-13-40-20" border="0" /></a>
 <a href="https://ibb.co/st2q2B0"><img src="https://i.ibb.co/fQ2H2ch/Screenshot-from-2021-08-30-11-55-01.png" alt="Screenshot-from-2021-08-30-11-55-01" border="0" /></a>
 
 ## Features
