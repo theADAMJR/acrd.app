@@ -67,18 +67,19 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
   return (
     <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <div className="lg:col-span-3 col-span-12">
-        {roles.reverse().map(r =>
-          <TabLink
-            key={r.id}
-            style={{ color: r.color }}
-            tab={activeRoleId}
-            setTab={setActiveRoleId}
-            id={r.id}>{r.name}</TabLink>)}
-        <CircleButton
-          onClick={() => dispatch(createRole(guildId))}
-          style={{ color: 'var(--success)' }}
-          className="ring-green-500 m-2"
-          >Create</CircleButton>
+        <nav className="pr-10">
+          {roles.reverse().map(r =>
+            <TabLink
+              key={r.id}
+              style={{ color: r.color }}
+              tab={activeRoleId}
+              setTab={setActiveRoleId}
+              id={r.id}>{r.name}</TabLink>)}
+          <CircleButton
+            onClick={() => dispatch(createRole(guildId))}
+            style={{ color: 'var(--success)' }}
+            className="ring-green-500 m-2">Create</CircleButton>
+        </nav>
       </div>
       <div className="lg:col-span-9 col-span-12">
         {activeRole && <RoleDetails />}
