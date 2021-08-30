@@ -25,6 +25,7 @@ declare namespace Entity {
     ownerId: string;
   }
   export interface GuildMember {
+    /** @deprecated Not the same as user ID. */
     id: string;
     createdAt: Date;
     guildId: string;

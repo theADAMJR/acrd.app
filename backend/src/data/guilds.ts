@@ -34,12 +34,12 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
 
   public async create(name: string, owner: SelfUserDocument): Promise<GuildDocument> {
     const guildId = generateSnowflake();
-    const everyoneRole = await this.roles.create(guildId, { name: '@everyone' });
     
     const [guild] = await Promise.all([
       Guild.create({ _id: guildId, name, ownerId: owner.id }),
+      this.roles.create(guildId, { name: '@everyone' }),
       this.channels.createText(guildId),
-      this.members.create(guildId, owner, everyoneRole.id),
+      this.members.create(guildId, owner),
     ]);
     return guild;
   }

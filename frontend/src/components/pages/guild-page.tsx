@@ -40,7 +40,7 @@ const GuildPage: React.FunctionComponent = () => {
               style={{ height: 'calc(100vh - 48px)' }}
               className="flex">
               {ui.activeChannel && <TextBasedChannel />}
-              <MemberList users={guildUsers} />
+              <MemberList />
             </div>
           </div>
         : <div className="bg-bg-tertiary" />}

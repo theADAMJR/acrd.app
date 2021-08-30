@@ -2,6 +2,7 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { unique } from './utils/filter';
 import { actions as api } from './api';
 import { WS } from '../types/ws';
+import { byMax } from './utils/reduce';
 
 const slice = createSlice({
   name: 'roles',
@@ -35,6 +36,18 @@ export const getRole = (id: string) => createSelector<Store.AppState, Entity.Rol
 export const filterHoistedRoles = (guildId: string) => createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
   state => state.entities.roles,
   roles => roles.filter(r => r.guildId === guildId && r.hoisted),
+);
+
+export const getMemberHighestRole = (guildId: string | undefined, userId: string) => createSelector<Store.AppState, any, Entity.Role>(
+  state => ({ members: state.entities.members, roles: state.entities.roles }),
+  ({ members, roles }) => {
+    const member = members.find(m => m.guildId === guildId && m.userId === userId);
+    return (member) ?
+      roles
+        .filter(r => member.roleIds.includes(r.id))
+        .reduce(byMax('position'))
+      : null;
+  },
 );
 
 export const createRole = (guildId: string) => (dispatch) => {

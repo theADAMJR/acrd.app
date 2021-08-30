@@ -20,12 +20,12 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
     return member;
   }
 
-  public async create(guildId: string, user: SelfUserDocument, ...roleIds: string[]) {    
+  public async create(guildId: string, user: SelfUserDocument) {    
     const member = await GuildMember.create({
       _id: generateSnowflake(),
       guildId: guildId,
       userId: user.id,
-      roleIds, 
+      roleIds: [await this.getEveryoneRoleId(guildId)], 
     });    
     await this.addToUser(user, guildId);
 

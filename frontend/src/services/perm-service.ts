@@ -67,6 +67,13 @@ export class PermService {
 
   constructor(private state: Store.AppState) {}
 
+  public canMember(permission: PermissionTypes.PermissionString, guild: Entity.Guild, member: Entity.GuildMember) {
+    return guild.ownerId === member.userId
+      || this.hasPermission(
+          this.getTotalPerms(member, guild.id),
+          PermissionTypes.All[permission] as number,
+        );
+  }
   public can(permission: PermissionTypes.PermissionString, guildId: string) {
     const guild = getGuild(guildId)(this.state);
     if (!guild)

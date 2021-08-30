@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
 import environment from '../../environment';
+import { getMemberHighestRole } from '../../store/roles';
+import { useSelector } from 'react-redux';
 
 export interface UsernameProps {
   user: Entity.User;
@@ -8,6 +10,11 @@ export interface UsernameProps {
 }
  
 const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
+  const highestRole = useSelector(getMemberHighestRole(guild?.id, user.id));
+  console.log(guild);
+  console.log(highestRole);
+  
+
   const userOwnsGuild = guild?.ownerId === user.id;
   const discrim = user.discriminator
     .toString()
@@ -28,7 +35,9 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
       </div>
       <div className="tag leading-4">
         <h4 className="font-bold text-sm">
-          <span className={guild && 'font-light secondary text-base'}>{user.username}</span>
+          <span
+            style={{ color: highestRole?.color ?? 'var(--secondary)' }}
+            className={guild && 'font-light text-base'}>{user.username}</span>
           <span className="text-yellow-400 ml-1">
             {userOwnsGuild && <FontAwesomeIcon icon={faCrown} />}
           </span>
