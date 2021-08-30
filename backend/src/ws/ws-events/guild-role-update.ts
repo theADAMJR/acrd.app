@@ -16,7 +16,7 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { roleId, guildId, name, color, permissions }: WS.Params.GuildRoleUpdate) {
-    await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
+    await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');    
 
     const everyoneRole = await this.roles.getEveryone(guildId);
     if (everyoneRole.id === roleId && name !== everyoneRole.name)
@@ -29,6 +29,6 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
 
     ws.io
       .to(guildId)
-      .emit('GUILD_ROLE_UPDATE', { guildId, partialRole } as WS.Args.GuildRoleUpdate);
+      .emit('GUILD_ROLE_UPDATE', { guildId, roleId, partialRole } as WS.Args.GuildRoleUpdate);
   }
 }

@@ -15,7 +15,7 @@ const slice = createSlice({
     },
     updated: (roles, { payload }: Store.Action<WS.Args.GuildRoleUpdate>) => {
       const role = roles.find(r => r.id === payload.roleId);
-      if (role) Object.assign(role, payload.partialRole);
+      Object.assign(role, payload.partialRole);
     },
     deleted: (roles, { payload }: Store.Action<WS.Args.GuildRoleDelete>) => {
       const index = roles.findIndex(r => r.id === payload.roleId);
