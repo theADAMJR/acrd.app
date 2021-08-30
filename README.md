@@ -4,9 +4,6 @@ Custom Frontend and Backend that is similar to Discord.
 
 > Built with React TS, Redux, and Node.js.
 
-> Want a more basic version, that's more like Discord?
-> https://github.com/codea-live/dclone
-
 <a href="https://ibb.co/1qZjNj9"><img src="https://i.ibb.co/MVnQHQR/Screenshot-from-2021-08-30-13-40-20.png" alt="Screenshot-from-2021-08-30-13-40-20" border="0" /></a>
 <a href="https://ibb.co/st2q2B0"><img src="https://i.ibb.co/fQ2H2ch/Screenshot-from-2021-08-30-11-55-01.png" alt="Screenshot-from-2021-08-30-11-55-01" border="0" /></a>
 <a href="https://ibb.co/SydPgTY"><img src="https://i.ibb.co/qjWd8Gq/Screenshot-from-2021-08-30-13-30-43.png" alt="Screenshot-from-2021-08-30-13-30-43" border="0" /></a>
@@ -33,4 +30,5 @@ Custom Frontend and Backend that is similar to Discord.
   - Delete your user and prevent it from being used to login
 - **and more** (of course)
 
-> This is only the essential version and just works. The full version is planned to be much more exciting...
+> Want a more basic version, that's more like Discord?
+> https://github.com/codea-live/dclone
