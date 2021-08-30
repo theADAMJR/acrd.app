@@ -22,11 +22,6 @@ export default class implements WSEvent<'GUILD_ROLE_CREATE'> {
     await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
     
     const role = await this.roles.create(guildId, { name: 'New Role' });
-    await Guild.updateOne(
-      { _id: guildId },
-      { $push: { roles: role } },
-      { runValidators: true },
-    );
 
     ws.io
       .to(guildId)

@@ -22,8 +22,10 @@ const HomePage: React.FunctionComponent = () => {
     keys.push(e.key);
     if (!keys.join('').endsWith('testing123')) return;
 
-    document.querySelector('h1')!.textContent = 'Easteregg++';
-    document.querySelector('.lead')!.textContent = 'Are you happy now?';
+    try {
+      document.querySelector('h1')!.textContent = 'Easteregg++';
+      document.querySelector('.lead')!.textContent = 'Are you happy now?';
+    } catch {}
   });
 
   return (

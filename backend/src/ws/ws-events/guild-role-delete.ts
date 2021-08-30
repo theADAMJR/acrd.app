@@ -26,6 +26,7 @@ export default class implements WSEvent<'GUILD_ROLE_DELETE'> {
 
     await role.deleteOne();
 
+    // TODO: update other role positions
     await GuildMember.updateMany(
       { guildId },
       { $pull: { roleIds: roleId } },

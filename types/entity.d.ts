@@ -57,6 +57,7 @@ declare namespace Entity {
     mentionable: boolean;
     name: string;
     permissions: number;
+    position: number;
   }
   export interface User {
     id: string;

@@ -39,7 +39,7 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     return hasPermission(totalPerms, permNumber as any);
   }
 
-  public create(guildId: string, options?: PartialEntity.Role) {
+  public async create(guildId: string, options?: PartialEntity.Role) {
     return Role.create({
       _id: generateSnowflake(),
       guildId,
@@ -47,6 +47,7 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
       hoisted: false,
       name: 'New Role',
       permissions: PermissionTypes.defaultPermissions,
+      position: await Role.countDocuments({ guildId }),
       ...options,
     });
   }

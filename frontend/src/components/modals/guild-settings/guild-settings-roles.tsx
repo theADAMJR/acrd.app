@@ -63,12 +63,14 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
     const onUpdate = (payload) => dispatch(updateRole(guildId, activeRole!.id, payload));
     handleSubmit(onUpdate)(e);
   };
+  
+  const byPosition = (a, b) => a.position > b.position ? 1 : -1;
 
   return (
     <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <div className="lg:col-span-3 col-span-12">
         <nav className="pr-10">
-          {roles.reverse().map(r =>
+          {roles.sort(byPosition).map(r =>
             <TabLink
               key={r.id}
               style={{ color: r.color }}

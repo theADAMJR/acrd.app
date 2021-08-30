@@ -51,11 +51,16 @@ export const Role = model<RoleDocument>('role', new Schema({
       'Cannot change @everyone role name',
     ],
   },
+  position: {
+    type: Number,
+    required: [true, 'Position is required'],
+    validate: [validators.min(0), 'Position must be 0 or greater'],
+  },
   permissions: {
     type: Number,
     default: PermissionTypes.defaultPermissions,
     required: [true, 'Permissions is required'],
     validate: [validators.isInteger, 'Invalid permissions integer'],
-  }
+  },
 }, { toJSON: { getters: true } })
 .method('toClient', useId));

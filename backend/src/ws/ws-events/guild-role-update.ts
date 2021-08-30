@@ -24,6 +24,7 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
     if (everyoneRole.id === roleId && color !== everyoneRole.color)
       throw new TypeError('You cannot change @everyone role color');
     
+    // TODO: implement position 
     const partialRole = { name, color, permissions };
     await this.roles.update(roleId, partialRole);
 
