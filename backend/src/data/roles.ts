@@ -1,3 +1,4 @@
+import { UpdateQuery } from 'mongoose';
 import { PermissionTypes } from '../types/permission-types';
 import { PartialEntity } from '../types/ws';
 import DBWrapper from './db-wrapper';
@@ -11,6 +12,10 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     if (!role)
       throw new TypeError('Role Not Found');
     return role;
+  }
+
+  public async getEveryone(guildId: string) {
+    return await Role.findOne({ guildId, name: '@everyone' }) as RoleDocument;
   }
 
   public async isHigher(guild: Entity.Guild, selfMember: Entity.GuildMember, roleIds: string[]) {
@@ -44,5 +49,9 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
       permissions: PermissionTypes.defaultPermissions,
       ...options,
     });
+  }
+
+  public update(id: string, options: UpdateQuery<RoleDocument>) {
+    return Role.updateOne({ _id: id }, options, { runValidators: true });
   }
 }
