@@ -2,7 +2,7 @@ import Category from '../utils/category';
 import Username from './username';
 import { useSelector } from 'react-redux';
 import { ContextMenuTrigger } from 'react-contextmenu';
-import GuildMemberMenu from '../ctx-menus/guild-member-menu';
+import GuildMemberMenu from '../ctx-menus/guild-member/guild-member-menu';
 import { getGuildMembers, getGuildUsers } from '../../store/guilds';
 import { filterHoistedRoles } from '../../store/roles';
 import usePerms from '../../hooks/use-perms';
@@ -32,7 +32,7 @@ const MemberList: React.FunctionComponent = () => {
           count={filtered.length} />
         {filtered.map(u => (
           <ContextMenuTrigger id={u.id} key={u.id}>
-            <div className="mb-2">
+            <div className="m-2">
               <Username guild={guild} user={u} />
             </div>
             <GuildMemberMenu guild={guild} user={u} />

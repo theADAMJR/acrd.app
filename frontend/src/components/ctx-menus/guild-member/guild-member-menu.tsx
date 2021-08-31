@@ -1,19 +1,22 @@
+import { useState } from 'react';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
-import usePerms from '../../hooks/use-perms';
-import { kickMember } from '../../store/members';
+import usePerms from '../../../hooks/use-perms';
+import { getMember, kickMember } from '../../../store/members';
+import RoleManager from './role-manager';
 
 export interface GuildMemberMenuProps {
-  guild: Entity.Guild;
   user: Entity.User;
 }
 
-const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ guild, user }) => {
+const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }) => {
   const dispatch = useDispatch();
-  const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
   const perms = usePerms();
+  const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
+  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
+  const member = useSelector(getMember(guild.id, user.id))!;
 
-  const isSelf = user.id === selfUser.id;
+  const isSelf = user.id === selfUser.id;  
 
   return (
     <ContextMenu
@@ -26,13 +29,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ guild,
           <span>Kick {user.username}</span>
         </MenuItem>
       )}
-      {(isSelf && perms.can('MANAGE_ROLES', guild.id)) && (
-        <MenuItem
-          className="danger cursor-pointer"
-          onClick={() => dispatch(kickMember(guild.id, user.id))}>
-          <span>Kick {user.username}</span>
-        </MenuItem>
-      )}
+      {perms.can('MANAGE_ROLES', guild.id) && <RoleManager member={member} />}
     </ContextMenu>
   );
 }

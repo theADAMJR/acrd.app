@@ -18,7 +18,7 @@ const slice = createSlice({
       members.slice(index, 1);
     },
     updated: (members, { payload }: Store.Action<WS.Args.GuildMemberUpdate>) => {
-      const member = members.find(m => m.userId === payload.userId);
+      const member = members.find(m => m.id === payload.memberId);
       Object.assign(member, payload.partialMember);
     },
   },
@@ -47,6 +47,13 @@ export const kickMember = (guildId: string, userId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_MEMBER_REMOVE',
     data: { guildId, userId } as WS.Params.GuildMemberRemove,
+  }));
+}
+
+export const updateMember = (memberId: string, options: Partial<Entity.GuildMember>) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'GUILD_MEMBER_REMOVE',
+    data: { memberId, ...options } as WS.Params.GuildMemberUpdate,
   }));
 }
 
