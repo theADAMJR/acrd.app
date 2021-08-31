@@ -18,18 +18,24 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
       width: '200px',
       backgroundColor: 'var(--bg-secondary)',
     }),
-    option: () => ({
-      color: 'black',
+    option: (styles, { data, isFocused }) => ({
+      ...styles,
+      color: data.color,
       backgroundColor: 'var(--bg-secondary)',
+      cursor: 'pointer',
     }),
-    menu: () => ({
-      color: 'red',
+    input: (styles) => ({ ...styles, color: 'var(--font)' }),
+    menu: (styles) => ({
+      ...styles,
+      backgroundColor: 'var(--bg-secondary)',
     }),
     multiValue: (styles) => ({
       ...styles,
       color: 'var(--font)',
       backgroundColor: 'var(--bg-tertiary)',
     }),
+    indicatorSeparator: () => ({ display: 'none' }),
+    indicatorsContainer: (styles) => ({ ...styles, marginBottom: '-7.5px', float: 'right' }),
     multiValueLabel: (styles, { data }) => ({
       ...styles,
       color: data.color,

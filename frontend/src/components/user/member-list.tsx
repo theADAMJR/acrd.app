@@ -35,7 +35,7 @@ const MemberList: React.FunctionComponent = () => {
             <div className="m-2">
               <Username guild={guild} user={u} />
             </div>
-            <GuildMemberMenu guild={guild} user={u} />
+            <GuildMemberMenu user={u} />
           </ContextMenuTrigger>
         ))}
       </div>
