@@ -20,6 +20,7 @@ const slice = createSlice({
     },
     loggedOut: (auth) => {
       delete auth.user;
+      auth.attemptedLogin = false;
     },
   },
 });

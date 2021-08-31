@@ -40,6 +40,11 @@ const LoginPage: React.FunctionComponent = () => {
               type="password"
               register={register}
               className="mt-3" />
+            <p className="mt-2">
+              <Link
+                to="#"
+                onClick={() => {}}>Forgot your password?</Link>
+            </p>
 
             <NormalButton className="w-full h-11 rounded-md mt-8">Login</NormalButton>
             <p className="mt-2">Need an account? <Link to="/register">Register</Link></p>
