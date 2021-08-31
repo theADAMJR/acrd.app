@@ -140,7 +140,8 @@ declare namespace WS {
     export interface GuildMemberUpdate {
       /** ID of the member, not the same as a user ID. */
       memberId: string;
-      
+      /** List of role IDs to update. */
+      roleIds?: string[];
     }
     export interface GuildRoleCreate {
       guildId: string;
@@ -261,12 +262,10 @@ declare namespace WS {
       userId: string;
     }
     export interface GuildMemberUpdate {
-      /** ID of the guild. */
-      guildId: string;
       /** Properties of updated guild member. */
       partialMember: PartialEntity.GuildMember;
       /** ID of the guild member. Not the same as a user ID. */
-      userId: string;
+      memberId: string;
     }
     export interface GuildRoleCreate {
       /** ID of the guild. */

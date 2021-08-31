@@ -15,18 +15,17 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
   constructor(
     private guard = Deps.get<WSGuard>(WSGuard),
     private guilds = Deps.get<Guilds>(Guilds),
-    private guildMembers = Deps.get<GuildMembers>(GuildMembers),
+    private members = Deps.get<GuildMembers>(GuildMembers),
     private roles = Deps.get<Roles>(Roles),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { memberId, partialMember }: WS.Params.GuildMemberUpdate) {
-    const member = await this.guildMembers.get(memberId);
+  public async invoke(ws: WebSocket, client: Socket, { memberId, roleIds }: WS.Params.GuildMemberUpdate) {
+    const member = await this.members.get(memberId);
 
     const selfUserId = ws.sessions.userId(client);
-    const selfMember = await this.guildMembers.getInGuild(member.guildId, selfUserId);
+    const selfMember = await this.members.getInGuild(member.guildId, selfUserId);
 
     await this.guard.validateCan(client, selfMember.guildId, 'MANAGE_ROLES');
-    this.guard.validateKeys('guildMember', partialMember);
 
     const guild = await this.guilds.get(member.guildId);
     const selfIsHigher = await this.roles.isHigher(guild, selfMember, member.roleIds);
@@ -35,13 +34,11 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
     if (!isSelf && !selfIsHigher)
       throw new TypeError('Member has higher roles'); 
     
-    const everyoneRole = guild.roles.find(r => r.name === '@everyone') as Entity.Role;
-    await member.updateOne({
-        ...partialMember,
-        roleIds: [everyoneRole.id].concat(partialMember.roleIds ?? []),
-      },
-      { runValidators: true },
-    );
+    const everyoneRole = await this.roles.getEveryone(guild.id);
+    const partialMember = {
+      roleIds: [everyoneRole.id].concat(roleIds ?? []),
+    };
+    await this.members.update(member.id, partialMember);
     
     ws.io
       .to(member.guildId)

@@ -13,14 +13,20 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ guild,
   const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
   const perms = usePerms();
 
-  const canManage = selfUser.id === guild.ownerId;
   const isSelf = user.id === selfUser.id;
 
   return (
     <ContextMenu
       id={user.id}
       className="bg-bg-tertiary p-2 rounded shadow">
-      {(canManage && !isSelf && perms.can('KICK_MEMBERS', guild.id)) && (
+      {(!isSelf && perms.can('KICK_MEMBERS', guild.id)) && (
+        <MenuItem
+          className="danger cursor-pointer"
+          onClick={() => dispatch(kickMember(guild.id, user.id))}>
+          <span>Kick {user.username}</span>
+        </MenuItem>
+      )}
+      {(isSelf && perms.can('MANAGE_ROLES', guild.id)) && (
         <MenuItem
           className="danger cursor-pointer"
           onClick={() => dispatch(kickMember(guild.id, user.id))}>

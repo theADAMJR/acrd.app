@@ -1,3 +1,4 @@
+import { UpdateQuery } from 'mongoose';
 import DBWrapper from './db-wrapper';
 import { GuildDocument } from './models/guild';
 import { GuildMember, GuildMemberDocument } from './models/guild-member';
@@ -40,5 +41,13 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
   private async getEveryoneRoleId(guildId: string) {
     const role = await Role.findOne({ guildId, name: '@everyone' });        
     return role!.id;
+  }
+
+  public async update(memberId: string, options: UpdateQuery<GuildMemberDocument>) {
+    return await GuildMember.updateOne(
+      { _id: memberId },
+      options,
+      { runValidators: true },
+    );
   }
 }
