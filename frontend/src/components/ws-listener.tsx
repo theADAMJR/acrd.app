@@ -54,9 +54,6 @@ const WSListener: React.FunctionComponent = () => {
         history.push(`/channels/${ui.activeGuild.id}/${args.channel.id}`);
       }
     });
-    ws.on('PRESENCE_UPDATE', ({ userId, status }) => {
-      dispatch(users.updated({ userId, partialUser: { status } }));
-    });
     ws.on('CHANNEL_DELETE', (args) => {
       // if in channel, go away from it
       const { ui } = state();
@@ -67,24 +64,11 @@ const WSListener: React.FunctionComponent = () => {
 
       dispatch(channels.deleted(args));
     });
-    // listen to passive events (not received by api middleware)
-    ws.on('GUILD_MEMBER_ADD', (args) => {
-      dispatch(members.added(args));
-      const memberUser = getUser(args.member.userId)(state())!;
-      dispatch(users.fetched([memberUser]));
-    });
-    // user may be in mutual guilds, and therefore not removed from global user cache
-    ws.on('GUILD_MEMBER_REMOVE', (args) => dispatch(members.removed(args)));
-    ws.on('INVITE_CREATE', (args) => {
-      dispatch(invites.created(args));
-      dispatch(uiActions.focusedInvite(args.invite));
-    });
     ws.on('GUILD_CREATE', (args) => {
+      dispatch(users.fetched(args.users)); // this before members
       dispatch(channels.fetched(args.channels));
       dispatch(members.fetched(args.members));
-      dispatch(users.fetched(args.users));
-      dispatch(roles.fetched(args.roles));
-      // /\ load all objects before for perms to not throw
+      dispatch(roles.fetched(args.roles)); // this after members
       dispatch(guilds.created(args));
       dispatch(uiActions.closedModal());
       history.push(`/channels/${args.guild.id}`);
@@ -97,36 +81,47 @@ const WSListener: React.FunctionComponent = () => {
         history.push('/channels/@me');
       }
       dispatch(guilds.deleted(args));
-      // clean up mess
+      // clean up leaving guild mess
       dispatch(members.removed({ guildId: args.guildId, userId: auth.user!.id }));
     });
+    // listen to passive events (not received by api middleware)
+    ws.on('GUILD_MEMBER_ADD', (args) => {
+      // we not getting other users when joining guild
+      dispatch(users.fetched([args.user]));
+      dispatch(members.added(args));      
+    });
+    ws.on('GUILD_MEMBER_UPDATE', (args) => dispatch(members.updated(args)));
+    // user may be in mutual guilds, and therefore not removed from global user cache
+    ws.on('GUILD_MEMBER_REMOVE', (args) => dispatch(members.removed(args)));
     ws.on('GUILD_ROLE_CREATE', (args) => dispatch(roles.created(args)));
     ws.on('GUILD_ROLE_DELETE', (args) => dispatch(roles.deleted(args)));
     ws.on('GUILD_ROLE_UPDATE', (args) => dispatch(roles.updated(args)));
     ws.on('GUILD_UPDATE', (args) => dispatch(guilds.updated(args)));
-    ws.on('TYPING_START', (args) => {
-      dispatch(typing.userTyped(args));
-
-      const timeoutMs = 5000;
-      setTimeout(() => {
-        dispatch(typing.userStoppedTyping(args));
-      }, timeoutMs);
+    ws.on('INVITE_CREATE', (args) => {
+      dispatch(invites.created(args));
+      dispatch(uiActions.focusedInvite(args.invite));
     });
     ws.on('MESSAGE_CREATE', (args) => dispatch(messages.created(args)));
     ws.on('MESSAGE_DELETE', (args) => dispatch(messages.deleted(args)));
     ws.on('MESSAGE_UPDATE', (args) => dispatch(messages.updated(args)));
+    ws.on('PRESENCE_UPDATE', ({ userId, status }) =>
+      dispatch(users.updated({ userId, partialUser: { status } })));
     ws.on('READY', (args) => {
       dispatch(auth.ready(args));
       dispatch(users.fetched([args.user]));
+    });
+    ws.on('TYPING_START', (args) => {
+      dispatch(typing.userTyped(args));
+
+      const timeoutMs = 5000;
+      setTimeout(() => dispatch(typing.userStoppedTyping(args)), timeoutMs);
     });
     ws.on('USER_DELETE', () => {
       ws.disconnect();
       history.push('/');
       dispatch(logoutUser());
     });
-    ws.on('USER_UPDATE', (args) => {
-      console.log(args);
-      
+    ws.on('USER_UPDATE', (args) => {      
       dispatch(auth.updatedUser(args));
       dispatch(users.updated(args));
     });

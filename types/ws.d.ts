@@ -237,6 +237,8 @@ declare namespace WS {
       guildId: string;
       /** Full object of the member that was added to the guild. */
       member: Entity.GuildMember;
+      /** Full object of the member that was added to the guild. */
+      user: Entity.User;
     }
     export interface GuildMemberRemove {
       /** ID of the guild. */

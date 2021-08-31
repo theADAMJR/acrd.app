@@ -31,22 +31,27 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     if (inGuild)
       throw new TypeError('User already in guild');
     
-    const user = await this.users.getSelf(userId);
-    if (inviteCode && user.bot)
+    const selfUser = await this.users.getSelf(userId);
+    if (inviteCode && selfUser.bot)
       throw new TypeError('Bot users cannot accept invites');
 
-    const [_, __, member, entities] = await Promise.all([
+    const [_, __, member] = await Promise.all([
       this.handleInvite(invite),
-      this.rooms.joinGuildRooms(user, client),
-      this.members.create(guild.id, user),
-      this.guilds.getEntities(guild.id),
+      this.rooms.joinGuildRooms(selfUser, client),
+      this.members.create(guild.id, selfUser),,
     ]);
+    const entities = await this.guilds.getEntities(guild.id);
     client.emit('GUILD_CREATE', { guild, ...entities } as WS.Args.GuildCreate);
-    await client.join(guild.id);
     
     ws.io
       .to(guild.id)
-      .emit('GUILD_MEMBER_ADD', { guildId: guild.id, member } as WS.Args.GuildMemberAdd);
+      .emit('GUILD_MEMBER_ADD', {
+        guildId: guild.id,
+        member,
+        user: selfUser,
+      } as WS.Args.GuildMemberAdd);
+
+    await client.join(guild.id);
   }
 
   private async handleInvite(invite: InviteDocument) {

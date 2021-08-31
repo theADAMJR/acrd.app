@@ -31,6 +31,7 @@ export default class implements WSEvent<'READY'> {
 
     await this.rooms.join(client, user);
 
+    // use user update instead?
     ws.io
       .to(user.guildIds)
       .emit('PRESENCE_UPDATE', {
