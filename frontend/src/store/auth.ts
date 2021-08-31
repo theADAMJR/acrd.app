@@ -50,19 +50,14 @@ export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
     },
   }));
 }
-export const sendEmailUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
+export const forgotPasswordEmail = (email: string) => (dispatch) => {
+  if (!email) return;
+  
   dispatch(api.restCallBegan({
-    onSuccess: [actions.loggedIn.type],
-    method: 'post',
-    data,
-    url: `/auth/login`,
-    callback: (payload) => {
-      localStorage.setItem('token', payload);
-      dispatch(ready());
-    },
+    onSuccess: [],
+    url: `/auth/email/forgot-password?email=${email}`,
   }));
 }
-
 
 export const logoutUser = () => (dispatch) => {
   dispatch(actions.loggedOut());

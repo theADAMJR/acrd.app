@@ -2,21 +2,32 @@ import { Link, Redirect } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../store/auth';
+import { loginUser, forgotPasswordEmail } from '../../store/auth';
 import PageWrapper from './page-wrapper';
 import Input from '../utils/input/input';
 
 import './login-page.scoped.css';
 import NormalButton from '../utils/buttons/normal-button';
+import { useSnackbar } from 'notistack';
 
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, getValues } = useForm();
   const user = useSelector((s: Store.AppState) => s.auth.user);
+  const { enqueueSnackbar } = useSnackbar();
 
   const onSubmit = (data) => {
     dispatch(loginUser(data));
   };
+  const resetPassword = () => {
+    dispatch(forgotPasswordEmail(getValues().email));
+
+    enqueueSnackbar('Reset password instructions sent to email.', {
+      anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+      key: 'saveChanges',
+      variant: 'info',
+    });
+  }
 
   return (user)
     ? <Redirect to="/channels/@me" />
@@ -40,11 +51,7 @@ const LoginPage: React.FunctionComponent = () => {
               type="password"
               register={register}
               className="mt-3" />
-            <p className="mt-2">
-              <Link
-                to="#"
-                onClick={() => {}}>Forgot your password?</Link>
-            </p>
+            <Link to="#" onClick={resetPassword}>Forgot your password?</Link>
 
             <NormalButton className="w-full h-11 rounded-md mt-8">Login</NormalButton>
             <p className="mt-2">Need an account? <Link to="/register">Register</Link></p>

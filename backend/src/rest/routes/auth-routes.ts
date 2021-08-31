@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { User } from '../../data/models/user';
+import { SelfUserDocument, User } from '../../data/models/user';
 import passport from 'passport';
 import Deps from '../../utils/deps';
 import Users from '../../data/users';
@@ -23,6 +23,8 @@ router.post('/login', passport.authenticate('local', { failWithError: true }),
       throw new APIError(400, 'Invalid credentials');
     else if (user.locked)
       throw new TypeError('This account is locked');
+    else if (!user.verified)
+      throw new TypeError('Please verify your email');
 
     await sendEmail.verifyCode(user as any);
     res.status(200).json(users.createToken(user.id));
@@ -33,7 +35,10 @@ router.post('/register', async (req, res) => {
     email: req.body.email,
     password: req.body.password,
     username: req.body.username,
-  });
+  }) as SelfUserDocument;
+
+  await sendEmail.verifyEmail(user.email, user);
+
   res.status(201).json(users.createToken(user.id));
 });
 
@@ -64,29 +69,6 @@ router.get('/email/forgot-password', async (req, res) => {
   return res.status(200).json({ message: 'Email sent' });
 });
 
-router.get('/email/verify-login', async (req, res) => {
-  const email = req.query.email?.toString();
-  if (!email)
-    throw new APIError(400, 'Email not provided');
-
-  const token = req.get('Authorization');
-  const userId = users.idFromAuth(token);
-  
-  const user = await users.getSelf(userId);
-  await sendEmail.verifyEmail(email, user);
-
-  user.email = email;
-  await user.save();
-
-  ws.to(user.id)
-    .emit('USER_UPDATE', {
-      userId: user.id,
-      partialUser: { email: user.email },
-    });
-
-  return res.status(200).json({ message: 'Email sent' });
-});
-
 router.get('/verify-email', async (req, res) => {
   const email = verification.getEmailFromCode(req.query.code as string);
   if (!email)
@@ -97,7 +79,6 @@ router.get('/verify-email', async (req, res) => {
     { verified: true },
     { runValidators: true, context: 'query' },
   );
-
   res.redirect(`${process.env.WEBSITE_URL}/channels/@me?success=Successfully verified your email.`);
 });
 
