@@ -18,7 +18,6 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
     return Channel.create({
       _id: generateSnowflake(),
       name: 'chat',
-      memberIds: [],
       type: 'TEXT',
       ...options as any,
     });

@@ -19,8 +19,8 @@ export default class implements WSEvent<'GUILD_CREATE'> {
   public async invoke(ws: WebSocket, client: Socket, { name }: WS.Params.GuildCreate) {
     const userId = ws.sessions.userId(client);
     
-    const user = await this.users.getSelf(userId);
-    const guild = await this.guilds.create(name, user);
+    const user = await this.users.getSelf(userId);    
+    const guild = await this.guilds.create(name, user);    
     const entities = await this.guilds.getEntities(guild.id);
 
     await this.rooms.joinGuildRooms(user, client);
