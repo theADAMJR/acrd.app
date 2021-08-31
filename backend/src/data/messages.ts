@@ -20,7 +20,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
     return message;
   }
 
-  public async create(authorId: string, channelId: string, { content }: PartialEntity.Message) {
+  public async create(authorId: string, channelId: string, { content }: Partial<Entity.Message>) {
     if (!content)
       throw new TypeError('Content must be provided');
     

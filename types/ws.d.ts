@@ -1,7 +1,5 @@
 declare namespace WS {
   export interface To {
-    /** Add a friend, by username, by sending an outgoing request or accepting an incoming request. */
-    'ADD_FRIEND': WS.Params.AddFriend;
     /** Create a channel in a guild. */
     'CHANNEL_CREATE': WS.Params.ChannelCreate;
     /** Delete a channel in a guild. */
@@ -39,8 +37,6 @@ declare namespace WS {
      * - Join user rooms.
      * - Set online status. */
     'READY': WS.Params.Ready;
-    /** Cancel a friend request, or remove an existing friend. */
-    'REMOVE_FRIEND': WS.Params.RemoveFriend;
     /** Indicate that you are typing in a text-based channel. */
     'TYPING_START': WS.Params.TypingStart;
     /** Delete a user with a given token. */
@@ -56,8 +52,6 @@ declare namespace WS {
   
   /** WS Args are what is received from the websocket. */
   export interface From {
-    /** Called after you sent an outgoing friend request, or of an incoming friend request. */
-    'ADD_FRIEND': WS.Args.AddFriend;
     /** Called when a guild channel is created. */
     'CHANNEL_CREATE': WS.Args.ChannelCreate;
     /** Callled when a guild channel is deleted. */
@@ -96,8 +90,6 @@ declare namespace WS {
     'PRESENCE_UPDATE': WS.Args.PresenceUpdate;
     /** Called when the websocket accepts that you are ready. */
     'READY': WS.Args.Ready;
-    /** Called when you are removed as a friend, or you remove a friend request, or an existing friend. */
-    'REMOVE_FRIEND': WS.Args.RemoveFriend;
     /** Called when someone is typing in a text-based channel. */
     'TYPING_START': WS.Args.TypingStart;
     /** Called the client user is deleted. */
@@ -205,15 +197,6 @@ declare namespace WS {
   }
   
   export namespace Args {
-    export interface AddFriend {
-      /** The recipient who received the friend request. */
-      friend: Entity.User;
-      /** User who sent or accepted the friend request. */
-      sender: Entity.User;
-      /** Only available if both users add each other as a friend.  */
-      dmChannel?: ChannelTypes.DM;
-    }
-    /**  */
     export interface ChannelCreate {
       /** ID of guild that channel is in. */
       guildId: string;
@@ -263,7 +246,7 @@ declare namespace WS {
     }
     export interface GuildMemberUpdate {
       /** Properties of updated guild member. */
-      partialMember: PartialEntity.GuildMember;
+      partialMember: Partial<Entity.GuildMember>;
       /** ID of the guild member. Not the same as a user ID. */
       memberId: string;
     }
@@ -283,7 +266,7 @@ declare namespace WS {
       /** Guild ID associated with role. */
       guildId: string;
       /** Properties to update the role. */
-      partialRole: PartialEntity.Role;
+      partialRole: Partial<Entity.Role>;
       /** The ID of the role that was updated. */
       roleId: string;
     }
@@ -291,7 +274,7 @@ declare namespace WS {
       /** ID of the guild. */
       guildId: string;
       /** Properties to update a guild. */
-      partialGuild: PartialEntity.Guild;
+      partialGuild: Partial<Entity.Guild>;
     }
     export interface InviteCreate {
       /** ID of the guild. */
@@ -331,10 +314,6 @@ declare namespace WS {
     export interface Ready {
       user: UserTypes.Self;
     }
-    export interface RemoveFriend {
-      friend: Entity.User;
-      sender: Entity.User;
-    }
     export interface TypingStart {
       channelId: string;
       userId: string;
@@ -345,19 +324,13 @@ declare namespace WS {
     /** PRIVATE - contains private data */
     export interface UserUpdate {
       userId: string;
-      partialUser: PartialEntity.User;
+      partialUser: Partial<UserTypes.Self>;
     }
   }
 }
 
-/** Partial classes involved in updating things.
- * Some properties (e.g. id) cannot be updated.
- * 
- * **Tip**: Only provide what properties are being updated. */
-// TODO: replace with Partial?
+/** @deprecated In process of being replaced with Partial. */
 export namespace PartialEntity {
-  export type Application = Partial<Entity.App>;
-  export type Channel = Partial<Entity.Channel>;
   export type Guild = Partial<Entity.Guild>;
   export type GuildMember = Partial<Entity.GuildMember>;
   export type Message = Partial<Entity.Message>;

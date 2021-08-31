@@ -70,7 +70,7 @@ export class Mock {
     };
   }
 
-  public static async message(author: Entity.User, channelId: string, options?: PartialEntity.Message) {
+  public static async message(author: Entity.User, channelId: string, options?: Partial<Entity.Message>) {
     return await this.messages.create(author.id, channelId, {
       content: 'testing123',
       ...options,

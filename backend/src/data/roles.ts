@@ -39,7 +39,7 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     return hasPermission(totalPerms, permNumber as any);
   }
 
-  public async create(guildId: string, options?: PartialEntity.Role) {
+  public async create(guildId: string, options?: Partial<Entity.Role>) {
     return Role.create({
       _id: generateSnowflake(),
       guildId,

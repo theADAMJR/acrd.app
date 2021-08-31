@@ -110,7 +110,7 @@ describe('guild-update', () => {
     await expect(guildUpdate({ channels: channelIds as any })).to.be.rejectedWith('Cannot add or remove channels this way');
   });
 
-  function guildUpdate(partialGuild: PartialEntity.Guild) {
+  function guildUpdate(partialGuild: Partial<Entity.Guild>) {
     return event.invoke(ws, client, {
       guildId: guild.id,
       partialGuild,

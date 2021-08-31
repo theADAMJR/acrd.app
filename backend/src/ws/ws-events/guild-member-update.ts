@@ -2,7 +2,6 @@ import { Socket } from 'socket.io';
 import GuildMembers from '../../data/guild-members';
 import Guilds from '../../data/guilds';
 import Roles from '../../data/roles';
-import { PermissionTypes } from '../../types/permission-types';
 import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
 import { WSGuard } from '../modules/ws-guard';

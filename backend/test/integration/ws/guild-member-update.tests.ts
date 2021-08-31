@@ -1,3 +1,5 @@
+import 'mocha';
+import 'chai-as-promised';
 import GuildMemberUpdate from '../../../src/ws/ws-events/guild-member-update';
 import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
@@ -6,6 +8,7 @@ import { GuildDocument } from '../../../src/data/models/guild';
 import { expect } from 'chai';
 import { GuildMember, GuildMemberDocument } from '../../../src/data/models/guild-member';
 import { Role, RoleDocument } from '../../../src/data/models/role';
+import { PermissionTypes } from '../../../src/types/permission-types';
 
 describe('guild-member-update', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
@@ -38,14 +41,14 @@ describe('guild-member-update', () => {
   });
 
   it('managed has same roles, rejected', async () => {
-    member = await Mock.guildMember(await Mock.user(), guild);
+    member = await Mock.guildMember(await Mock.self(), guild);
     await makeAllManager();
 
     await expect(guildMemberUpdate()).to.be.rejectedWith('Member has higher roles');
   });
 
   it('managed is owner, rejected', async () => {
-    member = new GuildMember(guild.members[0]);
+    member = await GuildMember.findOne({ guildId: guild.id, userId: guild.ownerId });
     await makeAllManager();
     
     await expect(guildMemberUpdate()).to.be.rejectedWith('Member has higher roles');
@@ -79,7 +82,7 @@ describe('guild-member-update', () => {
   });
 
   async function makeRoleManager() {
-    const manager = await Mock.guildMember(await Mock.user(), guild);
+    const manager = await Mock.guildMember(await Mock.self(), guild);
     await Mock.givePerm(guild, manager, PermissionTypes.General.MANAGE_ROLES);
     
     ws.sessions.set(client.id, manager.userId);
@@ -93,13 +96,10 @@ describe('guild-member-update', () => {
     return Mock.giveRolePerms(role, PermissionTypes.General.MANAGE_ROLES);
   }
 
-  function guildMemberUpdate(partial?: PartialEntity.GuildMember) {
+  function guildMemberUpdate(partial?: Partial<Entity.GuildMember>) {
     return event.invoke(ws, client, {
       memberId: member.id,
-      partialMember: {
-        ...partial,
-        roleIds: [],
-      },
+      ...partial,
     });
   }
 });
