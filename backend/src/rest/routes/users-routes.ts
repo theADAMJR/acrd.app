@@ -32,9 +32,7 @@ router.delete('/:id', updateUser, validateUser, async (req, res) => {
 router.get('/check-username', async (req, res) => {
   const username = req.query.value?.toString().toLowerCase();
   const exists = await User.exists({
-    username: {
-      $regex: new RegExp(`^${username}$`, 'i')
-    },
+    username: { $regex: new RegExp(`^${username}$`, 'i') },
   });
   res.json(exists);
 });
@@ -42,9 +40,7 @@ router.get('/check-username', async (req, res) => {
 router.get('/check-email', async (req, res) => {
   const email = req.query.value?.toString().toLowerCase();
   const exists = await User.exists({
-    email: {
-      $regex: new RegExp(`^${email}$`, 'i')
-    },
+    email: { $regex: new RegExp(`^${email}$`, 'i') },
     verified: true,
   });
   res.json(exists);
@@ -63,7 +59,7 @@ router.get('/entities', updateUser, validateUser, async (req, res) => {
     User.find({ guildIds: { $in } }),
   ]);
 
-  res.json({ channels, guilds, members, roles, users, } as REST.To.Get['/users/entities']);
+  res.json({ channels, guilds, members, roles, users, } as REST.From.Get['/users/entities']);
 });
 
 router.get('/:id', async (req, res) => {

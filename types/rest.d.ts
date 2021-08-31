@@ -23,5 +23,8 @@ declare namespace REST {
         users: Entity.User[];
       }
     }
+    export interface Post {
+      '/auth/verify': string;
+    }
   }
 }

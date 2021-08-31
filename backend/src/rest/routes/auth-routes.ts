@@ -11,7 +11,6 @@ import Channels from '../../data/channels';
 
 export const router = Router();
 
-const channels = Deps.get<Channels>(Channels);
 const sendEmail = Deps.get<EmailFunctions>(EmailFunctions);
 const users = Deps.get<Users>(Users);
 const verification = Deps.get<Verification>(Verification);
@@ -35,7 +34,6 @@ router.post('/register', async (req, res) => {
     password: req.body.password,
     username: req.body.username,
   });
-
   res.status(201).json(users.createToken(user.id));
 });
 
@@ -55,21 +53,26 @@ router.get('/verify-code', async (req, res) => {
   res.status(200).json(users.createToken(user.id));
 });
 
-router.get('/send-verify-email', async (req, res) => {
+router.get('/email/forgot-password', async (req, res) => {
   const email = req.query.email?.toString();
   if (!email)
     throw new APIError(400, 'Email not provided');
 
-  if (req.query.type === 'FORGOT_PASSWORD') {
-    const user = await users.getByEmail(email);
-    await sendEmail.forgotPassword(email, user);
+  const user = await users.getByEmail(email);
+  await sendEmail.forgotPassword(email, user);
 
-    return res.status(200).json({ verify: true });
-  }
+  return res.status(200).json({ message: 'Email sent' });
+});
+
+router.get('/email/verify-login', async (req, res) => {
+  const email = req.query.email?.toString();
+  if (!email)
+    throw new APIError(400, 'Email not provided');
+
   const token = req.get('Authorization');
   const userId = users.idFromAuth(token);
+  
   const user = await users.getSelf(userId);
-
   await sendEmail.verifyEmail(email, user);
 
   user.email = email;
@@ -81,7 +84,7 @@ router.get('/send-verify-email', async (req, res) => {
       partialUser: { email: user.email },
     });
 
-  return res.status(200).json({ verify: true });
+  return res.status(200).json({ message: 'Email sent' });
 });
 
 router.get('/verify-email', async (req, res) => {

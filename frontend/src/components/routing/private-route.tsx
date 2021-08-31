@@ -10,7 +10,7 @@ const PrivateRoute: React.FunctionComponent<RouteProps> = (props) => {
 
   if (attemptedLogin && !user)
     return <Redirect to="/login" />;
-  else if (!fetchedEntities)
+  else if (!user || !fetchedEntities)
     return <LoadingPage />;
   
   return (

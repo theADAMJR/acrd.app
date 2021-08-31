@@ -50,6 +50,19 @@ export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
     },
   }));
 }
+export const sendEmailUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
+  dispatch(api.restCallBegan({
+    onSuccess: [actions.loggedIn.type],
+    method: 'post',
+    data,
+    url: `/auth/login`,
+    callback: (payload) => {
+      localStorage.setItem('token', payload);
+      dispatch(ready());
+    },
+  }));
+}
+
 
 export const logoutUser = () => (dispatch) => {
   dispatch(actions.loggedOut());

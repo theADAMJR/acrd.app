@@ -53,7 +53,10 @@ const MemberList: React.FunctionComponent = () => {
         <UserList
           key={r.id}
           category={r.name}
-          filter={u => getRoleIds(u.id).includes(r.id) && hoisted(u)} />)}
+          filter={u =>
+            getRoleIds(u.id).includes(r.id)
+            && hoisted(u)
+            && u.status === 'ONLINE'} />)}
       <UserList
         category="Online"
         filter={u => u.status === 'ONLINE' && !hoisted(u)} />
