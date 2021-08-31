@@ -22,7 +22,7 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
       width: '200px',
       backgroundColor: 'var(--bg-secondary)',
     }),
-    option: (styles, { data, isFocused }) => ({
+    option: (styles, { data }) => ({
       ...styles,
       color: data.color,
       backgroundColor: 'var(--bg-secondary)',
@@ -48,17 +48,18 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
   };
   
   const rolesHaveChanged = JSON.stringify(roleIds) !== JSON.stringify(slicedRoleIds);
+  const roleOption = (role: Entity.Role) => ({
+    label: role.name,
+    value: role.id,
+    color: role.color,
+  });
   
   return (
     <div onClick={e => e.preventDefault()}>
       <Select
-        defaultValue={roleIds}
+        defaultValue={roleIds.map(id => roleOption(roles.find(r => r.id === id)))}
         name="colors"
-        options={roles.map(r => ({
-          label: r.name,
-          value: r.id,
-          color: r.color,
-        }))}
+        options={roles.map(roleOption)}
         onChange={options => setRoleIds(options.map(o => o.value))}
         onMenuClose={() => rolesHaveChanged && dispatch(updateMember(member.id, { roleIds }))}
         styles={colorStyles}
