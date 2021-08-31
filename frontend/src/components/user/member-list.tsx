@@ -42,18 +42,21 @@ const MemberList: React.FunctionComponent = () => {
     ) : null;
   }
 
-  const getRoleIds = (userId: string) => members
-    .find(m => m.userId === userId)!.roleIds;
+  const getRoleIds = (userId: string) => members.find(m => m.userId === userId)!.roleIds;
+  const hoisted = (user: Entity.User) => getRoleIds(user.id)
+    .some(id => hoistedRoles
+      .some(r => id === r.id));
 
   return (isActive) ? (
     <div className="bg-bg-secondary w-64">
       {hoistedRoles.map(r =>
         <UserList
+          key={r.id}
           category={r.name}
-          filter={u => getRoleIds(u.id).includes(r.id)} />)}
+          filter={u => getRoleIds(u.id).includes(r.id) && hoisted(u)} />)}
       <UserList
         category="Online"
-        filter={u => u.status === 'ONLINE'/* && getRoleIds(u.id).length === 1*/} />
+        filter={u => u.status === 'ONLINE' && !hoisted(u)} />
       <UserList
         category="Offline"
         filter={u => u.status === 'OFFLINE'} />

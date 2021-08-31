@@ -23,6 +23,8 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
       throw new TypeError('You cannot change @everyone role name');
     if (everyoneRole.id === roleId && color !== everyoneRole.color)
       throw new TypeError('You cannot change @everyone role color');
+    if (everyoneRole.id === roleId && hoisted)
+      throw new TypeError('You cannot hoist @everyone role');
     
     // TODO: implement position 
     const partialRole = { name, color, permissions, hoisted };
