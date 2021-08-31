@@ -1,7 +1,8 @@
 import Select from 'react-select';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getGuildRoles } from '../../../store/guilds';
 import { useState } from 'react';
+import { updateMember } from '../../../store/members';
 
 export interface RoleManagerProps {
   member: Entity.GuildMember;
@@ -9,9 +10,12 @@ export interface RoleManagerProps {
 
 const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
   const removeEveryone = (arr: any[]) => arr.slice(1);
+  const slicedRoleIds = removeEveryone(member.roleIds);
+
+  const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const roles = removeEveryone(useSelector(getGuildRoles(guild.id)));
-  const [roleIds, setRoleIds] = removeEveryone(useState(member.roleIds));
+  const [roleIds, setRoleIds] = useState(slicedRoleIds);
 
   const colorStyles = {
     control: () => ({
@@ -43,6 +47,8 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
     }),
   };
   
+  const rolesHaveChanged = JSON.stringify(roleIds) !== JSON.stringify(slicedRoleIds);
+  
   return (
     <div onClick={e => e.preventDefault()}>
       <Select
@@ -53,7 +59,11 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
           value: r.id,
           color: r.color,
         }))}
+        onChange={options => setRoleIds(options.map(o => o.value))}
+        onMenuClose={() => rolesHaveChanged && dispatch(updateMember(member.id, { roleIds }))}
         styles={colorStyles}
+        placeholder="Add roles..."
+        noOptionsMessage={() => 'No roles to add'}
         // onChange={e => setRoleIds(e.currentTarget.value as any)}
         // onClick={() => dispatch(updateMember(member.id, { roleIds }))}
         isMulti />

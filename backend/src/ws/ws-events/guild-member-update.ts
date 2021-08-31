@@ -19,15 +19,15 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { memberId, roleIds }: WS.Params.GuildMemberUpdate) {
-    const member = await this.members.get(memberId);
+    const managedMember = await this.members.get(memberId);
 
     const selfUserId = ws.sessions.userId(client);
-    const selfMember = await this.members.getInGuild(member.guildId, selfUserId);
+    const selfMember = await this.members.getInGuild(managedMember.guildId, selfUserId);
 
     await this.guard.validateCan(client, selfMember.guildId, 'MANAGE_ROLES');
-
-    const guild = await this.guilds.get(member.guildId);
-    const selfIsHigher = await this.roles.isHigher(guild, selfMember, member.roleIds);
+    
+    const guild = await this.guilds.get(managedMember.guildId);
+    const selfIsHigher = await this.roles.isHigher(guild, selfMember, managedMember.roleIds);
     
     const isSelf = selfMember.id === memberId;
     if (!isSelf && !selfIsHigher)
@@ -37,12 +37,12 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
     const partialMember = {
       roleIds: [everyoneRole.id].concat(roleIds ?? []),
     };
-    await this.members.update(member.id, partialMember);
+    await this.members.update(managedMember.id, partialMember);
     
     ws.io
-      .to(member.guildId)
+      .to(managedMember.guildId)
       .emit('GUILD_MEMBER_UPDATE', {
-        guildId: member.guildId,
+        guildId: managedMember.guildId,
         memberId,
         partialMember,
       } as WS.Args.GuildMemberUpdate);

@@ -52,7 +52,7 @@ export const kickMember = (guildId: string, userId: string) => (dispatch) => {
 
 export const updateMember = (memberId: string, options: Partial<Entity.GuildMember>) => (dispatch) => {
   dispatch(api.wsCallBegan({
-    event: 'GUILD_MEMBER_REMOVE',
+    event: 'GUILD_MEMBER_UPDATE',
     data: { memberId, ...options } as WS.Params.GuildMemberUpdate,
   }));
 }
