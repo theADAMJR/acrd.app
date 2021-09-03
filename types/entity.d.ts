@@ -11,7 +11,7 @@ declare namespace Entity {
   export interface Channel {
     id: string;
     createdAt: Date;
-    guildId?: string;
+    guildId: string;
     name?: string;
     summary?: string;
     lastMessageId?: null | string;

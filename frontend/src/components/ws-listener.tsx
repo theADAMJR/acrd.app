@@ -9,10 +9,11 @@ import { actions as invites } from '../store/invites';
 import { actions as members } from '../store/members';
 import { actions as roles } from '../store/roles';
 import { actions as typing } from '../store/typing';
-import { actions as guilds } from '../store/guilds';
+import { actions as guilds, getGuild } from '../store/guilds';
 import { actions as messages } from '../store/messages';
 import { actions as channels } from '../store/channels';
 import { actions as auth, logoutUser } from '../store/auth';
+import { actions as pings, addPing } from '../store/pings';
 import { useSnackbar } from 'notistack';
 
 const WSListener: React.FunctionComponent = () => {
@@ -101,7 +102,14 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(invites.created(args));
       dispatch(uiActions.focusedInvite(args.invite));
     });
-    ws.on('MESSAGE_CREATE', (args) => dispatch(messages.created(args)));
+    ws.on('MESSAGE_CREATE', (args) => {
+      dispatch(messages.created(args));
+      
+      const { channelId } = args.message;
+      const { activeChannel } = state().ui;
+      if (activeChannel && activeChannel.id !== channelId)
+        addPing(channelId);
+    });
     ws.on('MESSAGE_DELETE', (args) => dispatch(messages.deleted(args)));
     ws.on('MESSAGE_UPDATE', (args) => dispatch(messages.updated(args)));
     ws.on('PRESENCE_UPDATE', ({ userId, status }) =>

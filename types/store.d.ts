@@ -12,6 +12,7 @@ declare namespace Store {
       channels: Entity.Channel[];
       guilds: Entity.Guild[];
       members: Entity.GuildMember[];
+      pings: { [guildId: string]: string[] };
       roles: Entity.Role[];
       users: Entity.User[];
       // sequential - loaded when needed

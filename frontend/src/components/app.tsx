@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import fetchEntities from '../store/actions/fetch-entities';
 import { ready } from '../store/auth';
+import { initPings } from '../store/pings';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export default function App() {
   useEffect(() => {
     dispatch(ready());
     dispatch(fetchEntities());
+    dispatch(initPings());
   }, []);
   
   return (

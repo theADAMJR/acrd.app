@@ -14,6 +14,7 @@ import members from './members';
 import invites from './invites';
 import roles from './roles';
 import typing from './typing';
+import pings from './pings';
 
 export default () => configureStore<Store.AppState>({
   middleware: [
@@ -30,6 +31,7 @@ export default () => configureStore<Store.AppState>({
       guilds,
       members,
       messages,
+      pings,
       typing,
       roles,
       users,
