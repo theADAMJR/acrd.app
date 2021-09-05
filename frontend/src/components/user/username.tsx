@@ -24,7 +24,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user }) => {
         <span className="rounded-full absolute flex -right-0.5 -bottom-0.5">
           <span
             style={{ border: '2px solid var(--bg-secondary)' }}
-            className={`relative inline-flex rounded-full px-1 h-3.5 w-3.5 ${isOnline ? 'bg-success' : 'bg-gray-500'}`}></span>
+            className={`relative inline-flex rounded-full px-1 h-3.5 w-3.5 ${isOnline ? 'bg-success' : 'bg-gray-500'}`} />
         </span>
         <img
           className="select-none rounded-full w-8 h-8"

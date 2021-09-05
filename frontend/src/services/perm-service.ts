@@ -1,9 +1,10 @@
 import { getGuild, getGuildRoles } from '../store/guilds';
 import { getMember, getSelfMember } from '../store/members';
 
-// FIXME: import this namespace somehow
+// FIXME: import this namespace from types
 export namespace PermissionTypes {
   export enum General {
+    MANAGE_INVITES = 2048,
     VIEW_CHANNELS = 1024,
     // MANAGE_NICKNAMES = 512,
     // CHANGE_NICKNAME = 256,

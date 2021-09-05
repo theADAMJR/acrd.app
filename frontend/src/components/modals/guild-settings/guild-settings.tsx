@@ -7,11 +7,20 @@ import GuildSettingsRoles from './guild-settings-roles';
 import TabLink from '../../utils/tab-link';
 import EscButton from '../../utils/buttons/esc-button';
 import usePerms from '../../../hooks/use-perms';
+import GuildSettingsInvites from './guild-settings-invites';
+import { PermissionTypes } from '../../../services/perm-service';
 
 const GuildSettings: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const [tab, setTab] = useState('overview');
   const perms = usePerms();
+
+  type Tab = { perm: PermissionTypes.PermissionString, name: string, id: string };
+  const tabs: Tab[] = [
+    { perm: 'MANAGE_GUILD', name: 'Overview', id: 'overview' },
+    { perm: 'MANAGE_ROLES', name: 'Roles', id: 'roles' },
+    { perm: 'MANAGE_INVITES', name: 'Invites', id: 'invites' },
+  ];
 
   return (guild) ? (
     <Modal type={GuildSettings} size="full">
@@ -21,22 +30,19 @@ const GuildSettings: React.FunctionComponent = () => {
             <Category
               className="muted px-2.5 pb-1.5"
               title={guild.name} />
-            <TabLink
-              tab={tab}
-              setTab={setTab}
-              id="overview">Overview</TabLink>
-            {perms.can('MANAGE_GUILD', guild.id) && (
+            {tabs.map(t => perms.can(t.perm, guild.id) && (
               <TabLink
                 tab={tab}
                 setTab={setTab}
-                id="roles">Roles</TabLink>
-            )}
+                id={t.id}>{t.name}</TabLink>
+            ))}
           </nav>
         </div>
 
         <div className="col-span-6 h-full">
           {tab === 'overview' && <GuildSettingsOverview />}
           {tab === 'roles' && <GuildSettingsRoles />}
+          {tab === 'invites' && <GuildSettingsInvites />}
         </div>
 
         <div className="col-span-2 h-full">

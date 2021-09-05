@@ -27,6 +27,13 @@ export default slice.reducer;
 export const createInvite = (guildId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'INVITE_CREATE',
-    data: { guildId },
+    data: { guildId } as WS.Params.InviteCreate,
+  }));
+}
+
+export const deleteInvite = (inviteCode: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'INVITE_DELETE',
+    data: { inviteCode } as WS.Params.InviteDelete,
   }));
 }
