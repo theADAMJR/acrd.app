@@ -1,15 +1,23 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { PermissionTypes } from '../../../services/perm-service';
 import EscButton from '../../utils/buttons/esc-button';
 import Category from '../../utils/category';
 import TabLink from '../../utils/tab-link';
 import Modal from '../modal';
 import UserSettingsOverview from './user-settings-overview';
+import UserSettingsSecurity from './user-settings-security';
 
 const UserSettings: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.auth.user);
   const [tab, setTab] = useState('overview');
+
+  type Tab = { name: string, id: string };
+  const tabs: Tab[] = [
+    { name: 'Overview', id: 'overview' },
+    { name: 'Security', id: 'security' },
+  ];
 
   return (user) ? (
     <Modal
@@ -21,10 +29,12 @@ const UserSettings: React.FunctionComponent = () => {
             <Category
               className="normal px-2.5 pb-1.5"
               title="User Settings" />
-            <TabLink
-              id="overview"
-              tab={tab}
-              setTab={setTab}>Overview</TabLink>
+            {tabs.map(t => (
+              <TabLink
+                tab={tab}
+                setTab={setTab}
+                id={t.id}>{t.name}</TabLink>
+            ))}
 
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
 
@@ -36,6 +46,7 @@ const UserSettings: React.FunctionComponent = () => {
 
         <div className="col-span-6 h-full">
           {tab === 'overview' && <UserSettingsOverview />}
+          {tab === 'security' && <UserSettingsSecurity />}
         </div>
 
         <div className="col-span-2 h-full">
