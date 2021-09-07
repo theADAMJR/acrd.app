@@ -28,7 +28,9 @@ router.post('/login', passport.authenticate('local', { failWithError: true }),
 
     await sendEmail.verifyCode(user as any);
   
-    res.status(200).json(users.createToken(user.id));
+    res.status(200).json({
+      message: 'Check your email for a verification code',
+    });
   });
 
 router.post('/register', async (req, res) => {
@@ -59,7 +61,7 @@ router.get('/verify', async (req, res) => {
   let token: string | undefined = users.createToken(user.id);
 
   if (code.type === 'FORGOT_PASSWORD') {
-    await user.setPassword(req.body.newPassword);
+    await user.setPassword(code.value);
     await user.save();
     message = 'Password reset';
   } else if (code.type === 'VERIFY_EMAIL') {

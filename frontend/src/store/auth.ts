@@ -20,6 +20,7 @@ const slice = createSlice({
     loggedOut: (auth) => {
       delete auth.user;
       auth.attemptedLogin = false;
+      auth.shouldVerify = false;
     },
     shouldVerify: (auth) => { auth.shouldVerify = true }
   },
@@ -40,10 +41,12 @@ export const ready = () => (dispatch, getState: () => Store.AppState) => {
 // handle side effects here
 export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
   dispatch(api.restCallBegan({
-    onSuccess: [actions.loggedIn.type, actions.shouldVerify.type],
+    onSuccess: [actions.shouldVerify.type],
     method: 'post',
     data,
     url: `/auth/login`,
+    // TODO: replace with snackbar
+    callback: (payload) => alert(payload.message),
   }));
 }
 
