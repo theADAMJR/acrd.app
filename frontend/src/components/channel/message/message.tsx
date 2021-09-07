@@ -47,7 +47,14 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   const MessageHeader = () => {
     if (isExtra()) return null;
 
-    const days = moment(new Date()).diff(createdAt, 'day');
+    const today = () => {
+      const today = new Date();
+      today.setHours(0);
+      today.setMinutes(0);
+      today.setSeconds(0);
+    }
+  
+    const days = moment().diff(createdAt.setHours(0), 'days');
     const day = {
       [1]: 'Yesterday',
       [0]: 'Today',
