@@ -1,8 +1,9 @@
 declare namespace Store {
   export interface AppState {
     auth: {
-      user?: UserTypes.Self;
       attemptedLogin: boolean;
+      shouldVerify: boolean;
+      user?: UserTypes.Self;
     };
     config: {
       memberListToggled: boolean;

@@ -7,6 +7,7 @@ const slice = createSlice({
   name: 'auth',
   initialState: {
     attemptedLogin: false,
+    shouldVerify: false,
   } as Store.AppState['auth'],
   reducers: {
     ready: (auth, { payload }: Store.Action<WS.Args.Ready>) => {
@@ -15,13 +16,12 @@ const slice = createSlice({
     updatedUser: (auth, { payload }: Store.Action<WS.Args.UserUpdate>) => {
       Object.assign(auth.user, payload.partialUser);
     },
-    loggedIn: (auth) => {
-      auth.attemptedLogin = true;
-    },
+    loggedIn: (auth) => { auth.attemptedLogin = true },
     loggedOut: (auth) => {
       delete auth.user;
       auth.attemptedLogin = false;
     },
+    shouldVerify: (auth) => { auth.shouldVerify = true }
   },
 });
 
@@ -40,16 +40,13 @@ export const ready = () => (dispatch, getState: () => Store.AppState) => {
 // handle side effects here
 export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
   dispatch(api.restCallBegan({
-    onSuccess: [actions.loggedIn.type],
+    onSuccess: [actions.loggedIn.type, actions.shouldVerify.type],
     method: 'post',
     data,
     url: `/auth/login`,
-    callback: (payload) => {
-      localStorage.setItem('token', payload);
-      dispatch(ready());
-    },
   }));
 }
+
 export const forgotPasswordEmail = (email: string) => (dispatch) => {
   if (!email) return;
   
@@ -75,4 +72,19 @@ export const registerUser = (data: REST.To.Post['/auth/register']) => (dispatch)
       dispatch(ready());
     },
   }));
+}
+
+export const verifyCode = (code: string) => (dispatch) => {
+  dispatch(api.restCallBegan({
+    onSuccess: [],
+    url: `/auth/verify?code=${code}`,
+    callback: ({ message, token }: REST.From.Get['/auth/verify']) => {
+      // TODO: add REST snackbar
+      if (message) alert(message);
+      if (!token) return;
+      
+      localStorage.setItem('token', token);
+      dispatch(ready());
+    },
+  }))
 }

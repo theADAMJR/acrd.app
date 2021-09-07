@@ -1,13 +1,13 @@
 import Particles from 'react-particles-js';
 import { Link, Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { registerUser } from '../../store/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import PageWrapper from './page-wrapper';
-import Input from '../utils/input/input';
 
 import './register-page.scoped.css';
-import NormalButton from '../utils/buttons/normal-button';
+import { useSelector, useDispatch } from 'react-redux';
+import { registerUser } from '../../../store/auth';
+import NormalButton from '../../utils/buttons/normal-button';
+import PageWrapper from '../page-wrapper';
+import Input from '../../utils/input/input';
 
 const RegisterPage: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.auth.user);

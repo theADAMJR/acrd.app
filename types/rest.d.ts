@@ -22,9 +22,10 @@ declare namespace REST {
         roles: Entity.Role[];
         users: Entity.User[];
       }
-    }
-    export interface Post {
-      '/auth/verify': string;
+      '/auth/verify': {
+        token?: string;
+        message?: 'Email verified' | 'Password reset';
+      }
     }
   }
 }

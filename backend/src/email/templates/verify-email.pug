@@ -8,7 +8,7 @@ body(style='background-color: #2E303E')
     h1 #{greetings[i]}, #{user.username}!
     p.lead Thank you for choosing accord.app.
 
-  - var link = process.env.WEBSITE_URL + '/login?code=' + code;
+  - var link = process.env.WEBSITE_URL + '/verify?code=' + code;
   section.body
     div
       span.summary A request was sent to verify this email.
