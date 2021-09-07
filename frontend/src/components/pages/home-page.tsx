@@ -31,7 +31,7 @@ const HomePage: React.FunctionComponent = () => {
   return (
     <PageWrapper
       className="z-10 bg-bg-tertiary h-full relative"
-      pageTitle="Accord | Discord Clone With the Essentials">
+      pageTitle="accord.app | Like Discord but Cooler">
       <Navbar />
       <section className="z-10 text-center my-4">
         <h1>It's time to ditch Discord and Zoom.</h1>

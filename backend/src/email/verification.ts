@@ -20,8 +20,8 @@ export class Verification {
     return value;
   }
 
-  public get(code: string) {
-    return this.codes.get(code);
+  public get(email: string) {    
+    return this.codes.get(email);
   }
   public delete(email: string) {
     this.codes.delete(email);

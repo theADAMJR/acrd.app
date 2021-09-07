@@ -46,16 +46,14 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/verify', async (req, res) => {
-  const email = verification.getEmailFromCode(req.query.code as any);
-  const user = await User.findOne({ email }) as any;
+  const email = verification.getEmailFromCode(req.query.code as string);
+  const user = await User.findOne({ email }) as any;  
   if (!email || !user)
     throw new APIError(400, 'Invalid code');
 
-  verification.delete(email);
-
-  const code = verification.get(req.query.code as string);
+  const code = verification.get(email);
   if (!code)
-    throw new APIError(400, 'Code is invalid');
+    throw new APIError(400, 'Invalid code');
 
   let message: REST.From.Get['/auth/verify']['message'];
   let token: string | undefined = users.createToken(user.id);
@@ -70,6 +68,8 @@ router.get('/verify', async (req, res) => {
     message = 'Email verified';
     token = undefined;
   }
+
+  verification.delete(email);
   res.status(200).json({ message, token } as REST.From.Get['/auth/verify']);
 });
 

@@ -7,7 +7,7 @@ const NotFoundPage: React.FunctionComponent = () => {
   return (
     <PageWrapper
       className="relative w-screen h-screen"
-      pageTitle="Accord | Not Found">
+      pageTitle="accord.app | Not Found">
       <header className="absolute text-center bottom-1/2 right-1/2">
         <h1 className="text-4xl pb-3">Not Found</h1>
         <Link to="/">

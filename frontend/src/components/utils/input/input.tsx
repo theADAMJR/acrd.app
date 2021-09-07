@@ -1,3 +1,4 @@
+import React from 'react';
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 
 import './input.scoped.css';
@@ -13,7 +14,7 @@ export interface InputProps {
   disabled?: boolean;
 }
  
-const Input: React.FunctionComponent<InputProps> = (props) => {
+const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLInputElement>> = (props) => {
   const { label, name, register, options, type, autoFocus, className, disabled } = props;
   return (
     <div className={className}>

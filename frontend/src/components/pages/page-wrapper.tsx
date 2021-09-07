@@ -18,7 +18,7 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
   const dropdown = useSelector((s: Store.AppState) => s.ui.openDropdown);
   
   useEffect(() => {
-    document.title = props.pageTitle ?? 'Accord';
+    document.title = props.pageTitle ?? 'accord.app';
   }, []);
 
   return (

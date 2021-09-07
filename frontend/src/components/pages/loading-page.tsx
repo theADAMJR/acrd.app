@@ -13,8 +13,7 @@ const LoadingPage: React.FunctionComponent = () => {
   }, []);
 
   const tips = [
-    'Stealing Discord since 1966.',
-    'Streaming once every 2 years.',
+    'Did Discord steal our idea?!?!',
     'ADAMJR, Stop refactoring code please. okthxbye.',
     'Sample Text.',
     '!(\'Hello World\')',

@@ -9,6 +9,7 @@ import PageWrapper from '../page-wrapper';
 import Input from '../../utils/input/input';
 import NormalButton from '../../utils/buttons/normal-button';
 import { loginUser, forgotPasswordEmail, verifyCode } from '../../../store/auth';
+import { useState } from 'react';
 
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,7 @@ const LoginPage: React.FunctionComponent = () => {
 
   const VerifyCodeInput = () => {
     const verifyForm = useForm();
-    const code = verifyForm.getValues().code;
-    const onVerify = () => dispatch(verifyCode(code));
+    const onVerify = () => dispatch(verifyCode(verifyForm.getValues().code));
     
     return (
       <div>
@@ -55,7 +55,7 @@ const LoginPage: React.FunctionComponent = () => {
   return (user)
     ? <Redirect to="/channels/@me" />
     : (
-      <PageWrapper pageTitle="Accord | Login">
+      <PageWrapper pageTitle="accord.app | Login">
         <div className="flex items-center absolute justify-center h-screen">
           <form
             className="rounded-md shadow bg-bg-primary p-8"
