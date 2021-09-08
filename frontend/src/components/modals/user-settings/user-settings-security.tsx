@@ -1,26 +1,24 @@
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { openSaveChanges } from '../../../store/ui';
-import { updateSelf, deleteSelf } from '../../../store/users';
+import { changePassword } from '../../../store/auth';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Input from '../../utils/input/input';
-import SaveChanges from '../../utils/save-changes';
 
 const UserSettingsSecurity: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const user = useSelector((s: Store.AppState) => s.auth.user)!;
   const passwordForm = useForm();
 
   const onChangePassword = (e) => {
-    const onUpdate = (payload) => dispatch(updateSelf(payload));
+    const { oldPassword, newPassword } = passwordForm.getValues();
+    const onUpdate = () => dispatch(changePassword(oldPassword, newPassword));
     passwordForm.handleSubmit(onUpdate)(e);
   };
 
   return (
-    <form
-      onChange={() => dispatch(openSaveChanges(true))}
-      className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
+    <div className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <header>
         <h1 className="text-xl font-bold inline">Account Security</h1>
       </header>
@@ -30,10 +28,16 @@ const UserSettingsSecurity: React.FunctionComponent = () => {
         title="Change Password" />
 
       <section className="w-1/3">
+        <div className="secondary">
+          <FontAwesomeIcon icon={faInfoCircle} />
+          <span className="ml-1">Your email must be verified to be able to change the password.</span>
+        </div>
+
         <div className="pt-5">
           <Input
             label="Old Password"
             name="oldPassword"
+            type="password"
             register={passwordForm.register} />
         </div>
 
@@ -41,20 +45,17 @@ const UserSettingsSecurity: React.FunctionComponent = () => {
           <Input
             label="New Password"
             name="newPassword"
-            register={passwordForm.register}/>
+            type="password"
+            register={passwordForm.register} />
         </div>
 
+      <div className="flex justify-center w-full mt-4">
         <NormalButton
           onClick={passwordForm.handleSubmit(onChangePassword)}
           className="bg-warning">Change</NormalButton>
+        </div>
       </section>
-
-
-      <SaveChanges
-        setValue={passwordForm.setValue}
-        onSave={onChangePassword}
-        obj={user} />
-    </form>    
+    </div>    
   );
 }
  

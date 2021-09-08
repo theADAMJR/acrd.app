@@ -57,7 +57,10 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
   return (
     <div onClick={e => e.preventDefault()}>
       <Select
-        defaultValue={roleIds.map(id => roleOption(roles.find(r => r.id === id)))}
+        defaultValue={roleIds.map(id => {
+          const role = roles.find(r => r.id === id);
+          return (role) ? roleOption(role) : undefined;
+        })}
         name="colors"
         options={roles.map(roleOption)}
         onChange={options => setRoleIds(options.map(o => o.value))}

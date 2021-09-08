@@ -85,18 +85,17 @@ router.get('/email/forgot-password', async (req, res) => {
 });
 
 router.post('/change-password', async (req, res) => {
-  const user = await User.findOne({
-    email: req.body.email,
-    verified: true,
-  }) as any;
-  if (!user)
-    throw new APIError(400, 'User Not Found');
+  const { email, oldPassword, newPassword }: REST.To.Post['/auth/change-password'] = req.body;
 
-  await user.changePassword(req.body.oldPassword, req.body.newPassword);
+  const user = await User.findOne({ email, verified: true }) as any;
+  if (!user)
+  throw new APIError(400, 'User Not Found');
+  
+  await user.changePassword(oldPassword, newPassword);
   await user.save();
 
   return res.status(200).json({
     message: 'Password changed',
     token: users.createToken(user.id),
-  });
+  } as REST.From.Post['/auth/change-password']);
 });

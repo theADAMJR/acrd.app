@@ -10,6 +10,11 @@ declare namespace REST {
         username: string;
         password: string;
       }
+      '/auth/change-password': {
+        email: string;
+        oldPassword: string;
+        newPassword: string;
+      }
     }
   }
 
@@ -25,6 +30,12 @@ declare namespace REST {
       '/auth/verify': {
         token?: string;
         message?: 'Email verified' | 'Password reset';
+      }
+    }
+    export interface Post {
+      '/auth/change-password': {
+        message: string;
+        token: string;
       }
     }
   }

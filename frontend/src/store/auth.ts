@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { State } from 'react-select/src/Select';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
 import { token } from './utils/rest-headers';
@@ -88,6 +89,24 @@ export const verifyCode = (code: string) => (dispatch) => {
       
       localStorage.setItem('token', token);
       dispatch(ready());
+    },
+  }))
+}
+
+export const changePassword = (oldPassword: string, newPassword: string) => (dispatch, getState: () => Store.AppState) => {
+  const user = getState().auth.user!;
+  
+  dispatch(api.restCallBegan({
+    onSuccess: [],
+    method: 'post',
+    url: `/auth/change-password`,
+    data: { email: user.email, oldPassword, newPassword },
+    callback: ({ message, token }: REST.From.Post['/auth/change-password']) => {
+      // TODO: add REST snackbar
+      if (message) alert(message);
+      if (!token) return;
+      
+      localStorage.setItem('token', token);
     },
   }))
 }
