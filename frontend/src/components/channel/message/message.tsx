@@ -1,14 +1,15 @@
+import './message.scoped.css';
+
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
-import { getUser } from '../../../store/users';
+import users, { getUser } from '../../../store/users';
 import environment from '../../../environment';
 import MessageBox from '../message-box';
 import MessageToolbar from './message-toolbar';
-
-import './message.scoped.css';
 import { getMemberHighestRole } from '../../../store/roles';
 import { getSelfMember } from '../../../store/members';
+import { ContextMenuTrigger } from 'react-contextmenu';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -52,9 +53,10 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
       today.setHours(0);
       today.setMinutes(0);
       today.setSeconds(0);
+      return today;
     }
   
-    const days = moment().diff(createdAt.setHours(0), 'days');
+    const days = moment(today()).diff(createdAt.setHours(0), 'days');
     const day = {
       [1]: 'Yesterday',
       [0]: 'Today',
@@ -63,12 +65,14 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     const timestamp = (day) ? `[${day}] [at] HH:mm` : 'DD/MM/YYYY';
 
     return (
-      <>
-        <span
-          style={{ color: highestRole.color }}
-          className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
+      <div>
+        <ContextMenuTrigger id={author.id}>
+          <span
+            style={{ color: highestRole.color }}
+            className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
+        </ContextMenuTrigger>
         <span className="text-xs">{moment(createdAt).format(timestamp)}</span>
-      </>
+      </div>
     );
   }
 

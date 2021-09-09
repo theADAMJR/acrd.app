@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { PermissionTypes } from '../../../services/perm-service';
 import EscButton from '../../utils/buttons/esc-button';
 import Category from '../../utils/category';
 import TabLink from '../../utils/tab-link';
@@ -33,7 +32,8 @@ const UserSettings: React.FunctionComponent = () => {
               <TabLink
                 tab={tab}
                 setTab={setTab}
-                id={t.id}>{t.name}</TabLink>
+                id={t.id}
+                key={t.id}>{t.name}</TabLink>
             ))}
 
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
