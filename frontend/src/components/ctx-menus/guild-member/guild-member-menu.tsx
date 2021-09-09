@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { faBan, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { getMember, kickMember } from '../../../store/members';
+import UserMenu from '../user-menu';
 import RoleManager from './role-manager';
 
 export interface GuildMemberMenuProps {
@@ -22,6 +24,17 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
     <ContextMenu
       id={user.id}
       className="bg-bg-tertiary p-2 rounded shadow">
+      <MenuItem className="flex items-center justify-between cursor-pointer">
+        <span>View Profile</span>
+        <FontAwesomeIcon icon={faUser} />
+      </MenuItem>
+      <MenuItem className="flex items-center justify-between  cursor-pointer danger">
+        <span>Block</span>
+        <FontAwesomeIcon icon={faBan} />
+      </MenuItem>
+        
+      <hr className="my-2 border-bg-primary" />
+
       {(!isSelf && perms.can('KICK_MEMBERS', guild.id)) && (
         <MenuItem
           className="danger cursor-pointer"

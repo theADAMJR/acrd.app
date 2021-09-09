@@ -142,3 +142,32 @@ nav a.active {
 .font-primary {
   font-family: var(--font-primary);
 }
+
+/* borders */
+.border-primary {
+  border-color: var(--primary);
+}
+.border-secondary {
+  border-color: var(--secondary);
+}
+.border-tertiary {
+  border-color: var(--tertiary);
+}
+.border-danger {
+  border-color: var(--danger);
+}
+.border-success {
+  border-color: var(--success);
+}
+.border-bg-primary {
+  border-color: var(--bg-primary);
+}
+.border-bg-secondary {
+  border-color: var(--bg-secondary);
+}
+.border-bg-secondary-alt {
+  border-color: var(--bg-secondary-alt);
+}
+.border-bg-tertiary {
+  border-color: var(--bg-tertiary);
+}

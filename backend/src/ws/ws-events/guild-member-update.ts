@@ -27,10 +27,11 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
     await this.guard.validateCan(client, selfMember.guildId, 'MANAGE_ROLES');
     
     const guild = await this.guilds.get(managedMember.guildId);
-    const selfIsHigher = await this.roles.isHigher(guild, selfMember, managedMember.roleIds);
+    const selfHasHigherRoles = await this.roles.isHigher(guild, selfMember, managedMember.roleIds);
     
     const isSelf = selfMember.id === memberId;
-    if (!isSelf && !selfIsHigher)
+    const selfIsOwner = selfMember.userId === guild.ownerId;
+    if (!(isSelf && selfHasHigherRoles && selfIsOwner))
       throw new TypeError('Member has higher roles'); 
     
     const everyoneRole = await this.roles.getEveryone(guild.id);

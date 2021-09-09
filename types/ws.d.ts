@@ -241,10 +241,8 @@ declare namespace WS {
       user: Entity.User;
     }
     export interface GuildMemberRemove {
-      /** ID of the guild. */
-      guildId: string;
-      /** ID of member that was removed. */
-      userId: string;
+      /** ID of the member. */
+      memberId: string;
     }
     export interface GuildMemberUpdate {
       /** Properties of updated guild member. */

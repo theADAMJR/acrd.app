@@ -14,7 +14,7 @@ const slice = createSlice({
       members.push(payload.member);
     },
     removed: (members, { payload }: Store.Action<WS.Args.GuildMemberRemove>) => {
-      const index = members.findIndex(m => m.guildId === payload.guildId && m.userId === payload.userId);      
+      const index = members.findIndex(m => m.id === payload.memberId);      
       members.splice(index, 1);
     },
     updated: (members, { payload }: Store.Action<WS.Args.GuildMemberUpdate>) => {

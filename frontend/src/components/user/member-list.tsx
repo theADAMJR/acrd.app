@@ -6,6 +6,7 @@ import GuildMemberMenu from '../ctx-menus/guild-member/guild-member-menu';
 import { getGuildMembers, getGuildUsers } from '../../store/guilds';
 import { filterHoistedRoles } from '../../store/roles';
 import usePerms from '../../hooks/use-perms';
+import { getMember } from '../../store/members';
 
 const MemberList: React.FunctionComponent = () => {
   const perms = usePerms();
@@ -31,7 +32,9 @@ const MemberList: React.FunctionComponent = () => {
           title={category}
           count={filtered.length} />
         {filtered.map(u => (
-          <ContextMenuTrigger id={u.id} key={u.id}>
+          <ContextMenuTrigger
+            id={u.id}
+            key={u.id}>
             <div className="m-2">
               <Username guild={guild} user={u} />
             </div>

@@ -15,4 +15,10 @@ export class SessionManager extends Map<string, string> {
   public userId(client: Socket) {
     return this.get(client.id);
   }
+
+  public getClientIdFromUserId(userId: string) {
+    return Array
+      .from(this.entries())
+      .find(([key, value]) => value === userId)?.[0];
+  }
 }

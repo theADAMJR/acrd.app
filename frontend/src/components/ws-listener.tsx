@@ -6,7 +6,7 @@ import { actions as users, getUser } from '../store/users';
 import { actions as meta } from '../store/meta';
 import { actions as uiActions } from '../store/ui';
 import { actions as invites } from '../store/invites';
-import { actions as members } from '../store/members';
+import { actions as members, getSelfMember } from '../store/members';
 import { actions as roles } from '../store/roles';
 import { actions as typing } from '../store/typing';
 import { actions as guilds, getGuild } from '../store/guilds';
@@ -31,10 +31,7 @@ const WSListener: React.FunctionComponent = () => {
 
     ws.on('error', (error: any) => {      
       enqueueSnackbar(`${error.data?.message ?? error.message}.`, {
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'left',
-        },
+        anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
         variant: 'error',
         autoHideDuration: 5000,
       });
@@ -75,7 +72,7 @@ const WSListener: React.FunctionComponent = () => {
       history.push(`/channels/${args.guild.id}`);
     });
     ws.on('GUILD_DELETE', (args) => {
-      const { auth, ui } = state();
+      const { ui } = state();
       const guildIsActive = args.guildId === ui.activeGuild?.id;
       if (guildIsActive) {
         dispatch(uiActions.closedModal());
@@ -83,7 +80,8 @@ const WSListener: React.FunctionComponent = () => {
       }
       dispatch(guilds.deleted(args));
       // clean up leaving guild mess
-      dispatch(members.removed({ guildId: args.guildId, userId: auth.user!.id }));
+      const memberId = getSelfMember(args.guildId)(state())!.id;
+      dispatch(members.removed({ memberId }));
     });
     // listen to passive events (not received by api middleware)
     ws.on('GUILD_MEMBER_ADD', (args) => {
