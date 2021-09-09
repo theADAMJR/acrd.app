@@ -15,9 +15,9 @@ const CreateInvite: React.FunctionComponent = () => {
 
   const isOpen = openModal === CreateInvite.name;
   useEffect(() => {
-    if (!isOpen) return;
+    if (activeInvite || !activeGuild) return;
 
-    dispatch(createInvite(activeGuild!.id));
+    dispatch(createInvite(activeGuild.id));
   }, [isOpen]);
 
   const copyCode = () => window.navigator.clipboard.writeText(activeInvite!.id);

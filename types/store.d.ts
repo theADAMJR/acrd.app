@@ -38,6 +38,7 @@ declare namespace Store {
       activeChannel?: Entity.Channel;
       activeGuild?: Entity.Guild;
       activeInvite?: Entity.Invite;
+      activeUser?: Entity.User;
       editingMessageId?: string;
       saveChangesOpen?: boolean;
     };

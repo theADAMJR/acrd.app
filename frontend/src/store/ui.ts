@@ -15,6 +15,9 @@ const slice = createSlice({
     focusedInvite: (state, { payload }) => {
       state.activeInvite = payload;
     },
+    focusedUser: (state, { payload }) => {
+      state.activeUser = payload;
+    },
     pageSwitched: (state, { payload }) => {
       state.activeChannel = payload.channel;
       state.activeGuild = payload.guild;
