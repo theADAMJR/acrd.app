@@ -7,6 +7,13 @@ import Modal from './modal';
 const UserProfile: FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.ui.activeUser);
   const [tab, setTab] = useState('info');
+
+  const UserInfo = () => (
+    <p>info</p>
+  );
+  const UserMutualGuilds = () => (
+    <p>mutual guilds</p>
+  );
   
   return (user) ? (
     <Modal
@@ -18,7 +25,7 @@ const UserProfile: FunctionComponent = () => {
         </div>
         <hr className="border-bg-primary" />
         <NavTabs
-          className="pt-5"
+          className="p-2"
           tab={tab}
           setTab={setTab}
           tabs={[
@@ -26,9 +33,9 @@ const UserProfile: FunctionComponent = () => {
             { name: 'Mutual Guilds', id: 'mutualGuilds' },
           ]} />
       </header>
-      <main>
-        {(tab === 'info') && 'info'}
-        {(tab === 'mutualGuilds') && 'mutual guilds'}
+      <main className="p-4">
+        {(tab === 'info') && <UserInfo />}
+        {(tab === 'mutualGuilds') && <UserMutualGuilds />}
       </main>
     </Modal>
   ) : null;
