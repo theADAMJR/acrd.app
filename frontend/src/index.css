@@ -50,3 +50,7 @@ body {
 .react-contextmenu-wrapper {
   display: inline;
 }
+
+nav[role='menu'] {
+  z-index: 10;
+}

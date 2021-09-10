@@ -9,11 +9,13 @@ const UserProfile: FunctionComponent = () => {
   const [tab, setTab] = useState('info');
 
   const UserInfo = () => (
-    <p>info</p>
+    <p>Info will go here when ADAMJR adds it.</p>
   );
   const UserMutualGuilds = () => (
-    <p>mutual guilds</p>
+    <p>Mutual guilds will go here when ADAMJR adds it.</p>
   );
+
+  // guilds that self user and active user are both in
   
   return (user) ? (
     <Modal
