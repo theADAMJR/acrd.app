@@ -1,3 +1,5 @@
+import { faBug, faGavel, faSun } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FunctionComponent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Username from '../user/username';
@@ -8,9 +10,50 @@ const UserProfile: FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.ui.activeUser);
   const [tab, setTab] = useState('info');
 
+  type BadgeIcon = {
+    [k in UserTypes.Badge]: { color: string, icon: any, title: string }
+  };
+  const badgeIcons: BadgeIcon = {
+    'BUG_1': {
+      color: 'bronze',
+      icon: faBug,
+      title: 'Has destroyed a few bugs.',
+    },
+    'BUG_2': {
+      color: 'silver',
+      icon: faBug,
+      title: 'Has destroyed many bugs.',
+    },
+    'BUG_3': {
+      color: 'gold',
+      icon: faBug,
+      title: 'Are there still bugs left?'
+    },
+    'OG': {
+      color: 'orange',
+      icon: faSun,
+      title: 'Was here since the very beginning',
+    },
+    'STAFF': {
+      color: 'var(--primary)',
+      icon: faGavel,
+      title: 'Epic',
+    },
+  };
+
   const UserBadges = () => (user) ? (
     <div className="px-3 pt-2">
-      {user.badges.map(b => <span className="pr-3">{b}</span>)}
+      {user.badges.map(b => {
+        const { color, icon, title } = badgeIcons[b];
+        return (
+          <FontAwesomeIcon
+            title={title}
+            className="pr-3"
+            style={{ color }}
+            size="2x"
+            icon={icon} />
+        );
+      })}
     </div>
   ) : null;
 
