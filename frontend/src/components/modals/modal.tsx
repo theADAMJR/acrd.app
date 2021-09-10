@@ -1,7 +1,7 @@
 import { useSnackbar } from 'notistack';
 import ReactModal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux';
-import { actions as ui, openSaveChanges } from '../../store/ui';
+import { actions as ui, closeModal, openSaveChanges } from '../../store/ui';
 
 export interface ModalProps {
   type: React.FunctionComponent;
@@ -27,7 +27,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, type, size, chi
       appElement={document.querySelector('#root')!}
       isOpen={openModal === type.name}
       onRequestClose={() => {
-        dispatch(ui.closedModal());
+        dispatch(closeModal);
         closeSnackbar('saveChanges');
       }}>{children}</ReactModal>
   );

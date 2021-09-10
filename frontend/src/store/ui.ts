@@ -64,4 +64,5 @@ export const angrySaveChanges = () => {
 export const closeModal = (dispatch) => {
   dispatch(actions.closedModal());
   dispatch(openSaveChanges(false));
+  dispatch(actions.focusedUser(null));
 };
