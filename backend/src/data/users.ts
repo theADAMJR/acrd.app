@@ -17,8 +17,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
   }
 
   // TODO: test that this is fully secure
-  public secure(user: SelfUserDocument): UserDocument {
-    delete user['channelIds'];
+  public secure(user: UserDocument): UserDocument {
     delete user['email'];
     delete user['locked'];
     delete user['ignored'];

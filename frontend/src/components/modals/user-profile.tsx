@@ -8,14 +8,18 @@ const UserProfile: FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.ui.activeUser);
   const [tab, setTab] = useState('info');
 
-  const UserInfo = () => (
-    <p>Info will go here when ADAMJR adds it.</p>
-  );
+  const UserBadges = () => (user) ? (
+    <div className="px-3 pt-2">
+      {user.badges.map(b => <span className="pr-3">{b}</span>)}
+    </div>
+  ) : null;
+
+  const UserInfo = () => (<div />);
+  // guilds that self user and active user are both in
   const UserMutualGuilds = () => (
     <p>Mutual guilds will go here when ADAMJR adds it.</p>
   );
 
-  // guilds that self user and active user are both in
   
   return (user) ? (
     <Modal
@@ -23,7 +27,8 @@ const UserProfile: FunctionComponent = () => {
       size="md">
       <header className="bg-bg-tertiary">
         <div className="p-5">
-          <Username avatarSize="lg" user={user} />
+          <Username size="lg" user={user} />
+          <UserBadges />
         </div>
         <hr className="border-bg-primary" />
         <NavTabs

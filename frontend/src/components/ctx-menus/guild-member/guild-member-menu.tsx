@@ -34,6 +34,9 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
         <span>View Profile</span>
         <FontAwesomeIcon icon={faUser} />
       </MenuItem>
+      
+      <hr className="my-2 border-bg-primary" />
+
       <MenuItem className="flex items-center justify-between  cursor-pointer danger">
         <span>Block</span>
         <FontAwesomeIcon icon={faBan} />

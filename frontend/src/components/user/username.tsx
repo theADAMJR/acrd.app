@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 export interface UsernameProps {
   user: Entity.User;
   guild?: Entity.Guild;
-  avatarSize?: 'md' | 'lg';
+  size?: 'md' | 'lg';
 }
  
-const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, avatarSize = 'md' }) => {
+const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 'md' }) => {
   const highestRole = useSelector(getMemberHighestRole(guild?.id, user.id));
 
   const userOwnsGuild = guild?.ownerId === user.id;
@@ -22,7 +22,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, avatarS
   const UserPresence = () => {
     const blob = {
       color: (isOnline) ? 'bg-success' : 'bg-gray-500',
-      size: (avatarSize === 'lg') ? 'h-5 w-5' : 'h-3.5 w-3.5',
+      size: (size === 'lg') ? 'h-6 w-6' : 'h-3.5 w-3.5',
     };
 
     return (
@@ -39,13 +39,13 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, avatarS
       <div className="relative avatar mr-2">
         <UserPresence />
         <img
-          className={(avatarSize === 'md')
+          className={(size === 'md')
             ? `select-none rounded-full w-8 h-8`
-            : `select-none rounded-full w-16 h-16`}
+            : `select-none rounded-full w-20 h-20`}
           src={`${environment.cdnURL}${user.avatarURL}`} />
       </div>
       <div className="tag leading-4">
-        <h4 className="font-bold text-sm">
+        <h4 className={`font-bold ${size === 'lg' ? 'text-lg' : 'text-sm'}`}>
           <span
             style={{ color: highestRole?.color ?? 'var(--secondary)' }}
             className={guild && 'font-light text-base'}>{user.username}</span>
@@ -53,7 +53,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, avatarS
             {userOwnsGuild && <FontAwesomeIcon icon={faCrown} />}
           </span>
         </h4>
-        {!guild && <div className="discriminator text-xs">#{discrim}</div>}
+        {!guild && <div className={`discriminator ${size === 'lg' ? 'text-sm' : 'text-xs'}`}>#{discrim}</div>}
       </div>
     </div>
   );
