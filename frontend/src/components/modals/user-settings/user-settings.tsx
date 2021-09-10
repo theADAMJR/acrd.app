@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import EscButton from '../../utils/buttons/esc-button';
 import Category from '../../utils/category';
-import TabLink from '../../utils/tab-link';
+import NavTabs from '../../utils/nav-tabs';
 import Modal from '../modal';
 import UserSettingsOverview from './user-settings-overview';
 import UserSettingsSecurity from './user-settings-security';
@@ -11,12 +11,6 @@ import UserSettingsSecurity from './user-settings-security';
 const UserSettings: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.auth.user);
   const [tab, setTab] = useState('overview');
-
-  type Tab = { name: string, id: string };
-  const tabs: Tab[] = [
-    { name: 'Overview', id: 'overview' },
-    { name: 'Security', id: 'security' },
-  ];
 
   return (user) ? (
     <Modal
@@ -28,13 +22,13 @@ const UserSettings: React.FunctionComponent = () => {
             <Category
               className="normal px-2.5 pb-1.5"
               title="User Settings" />
-            {tabs.map(t => (
-              <TabLink
-                tab={tab}
-                setTab={setTab}
-                id={t.id}
-                key={t.id}>{t.name}</TabLink>
-            ))}
+            <NavTabs
+              tab={tab}
+              setTab={setTab}
+              tabs={[
+                { name: 'Overview', id: 'overview' },
+                { name: 'Security', id: 'security' },
+              ]} />
 
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
 

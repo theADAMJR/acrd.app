@@ -1,18 +1,12 @@
 import { FunctionComponent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Username from '../user/username';
-import TabLink from '../utils/tab-link';
+import NavTabs from '../utils/nav-tabs';
 import Modal from './modal';
 
 const UserProfile: FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.ui.activeUser);
-  const [tab, setTab] = useState('info');  
-
-  type Tab = { name: string, id: string };
-  const tabs: Tab[] = [
-    { name: 'Info', id: 'info' },
-    { name: 'Mutual Guilds', id: 'mutualGuilds' },
-  ];
+  const [tab, setTab] = useState('info');
   
   return (user) ? (
     <Modal
@@ -20,13 +14,13 @@ const UserProfile: FunctionComponent = () => {
       size="md">
       <header className="bg-bg-tertiary p-5">
         <Username avatarSize="lg" user={user} />
-        {tabs.map(t => (
-          <TabLink
-            tab={tab}
-            setTab={setTab}
-            id={t.id}
-            key={t.id}>{t.name}</TabLink>
-        ))}
+        <NavTabs
+          tab={tab}
+          setTab={setTab}
+          tabs={[
+            { name: 'Info', id: 'info' },
+            { name: 'Mutual Guilds', id: 'mutualGuilds' },
+          ]} />
       </header>
       <main>
         {(tab === 'info') && 'info'}
