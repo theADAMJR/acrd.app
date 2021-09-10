@@ -51,7 +51,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
 
       {(!isSelf && perms.can('KICK_MEMBERS', guild.id)) && (
         <MenuItem
-          className="danger cursor-pointer"
+          className="danger cursor-pointer mb-2"
           onClick={() => dispatch(kickMember(guild.id, user.id))}>
           <span>Kick {user.username}</span>
         </MenuItem>
