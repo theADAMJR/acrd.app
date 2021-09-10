@@ -31,6 +31,25 @@ export const updateSelf = (payload: Partial<Entity.User>) => (dispatch) => {
     data: { ...payload, token: token() } as WS.Params.UserUpdate,
   }));
 }
+  
+export const toggleBlockUser = (userId: string) => (dispatch, getState: () => Store.AppState) => {
+  console.log('hi');  
+  const user = getState().auth.user!;
+  const ignored = JSON.parse(JSON.stringify(user.ignored));
+  ignored.userIds = ignored.userIds ?? [];
+
+  if (!ignored.userIds.includes(userId))
+    ignored.userIds.push(userId);
+  else {
+    const index = ignored.userIds.indexOf(userId);
+    ignored.userIds.splice(index, 1);
+  }
+
+  dispatch(api.wsCallBegan({
+    event: 'USER_UPDATE',
+    data: { token: token(), ignored } as WS.Params.UserUpdate,
+  }));  
+}
 
 export const deleteSelf = () => (dispatch) => {
   dispatch(api.wsCallBegan({
@@ -48,4 +67,3 @@ export const getUser = (id: string) =>
       avatarURL: '/avatars/unknown.png',
     } as Entity.User,
   );
-  

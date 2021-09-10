@@ -101,6 +101,10 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(uiActions.focusedInvite(args.invite));
     });
     ws.on('MESSAGE_CREATE', (args) => {
+      const selfUser = state().auth.user!;
+      const isBlocked = selfUser.ignored.userIds.includes(args.message.authorId);
+      if (isBlocked) return;
+
       dispatch(messages.created(args));
       
       const { channelId } = args.message;

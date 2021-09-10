@@ -192,6 +192,7 @@ declare namespace WS {
     export interface UserUpdate {
       avatarURL?: string;
       username?: string;
+      ignored?: UserTypes.Self['ignored'];
       token: string;
     }
   }

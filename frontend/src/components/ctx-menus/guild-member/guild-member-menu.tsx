@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { getMember, kickMember } from '../../../store/members';
 import { actions as ui } from '../../../store/ui';
+import { toggleBlockUser } from '../../../store/users';
 import UserProfile from '../../modals/user-profile';
 import RoleManager from './role-manager';
 
@@ -20,6 +21,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
   const member = useSelector(getMember(guild.id, user.id))!;
 
   const isSelf = user.id === selfUser.id;  
+  const userIsBlocked = selfUser.ignored.userIds.includes(member.userId);
 
   return (
     <ContextMenu
@@ -38,7 +40,10 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
       <hr className="my-2 border-bg-primary" />
 
       <MenuItem className="flex items-center justify-between  cursor-pointer danger">
-        <span>Block</span>
+        <span
+          onClick={() => dispatch(toggleBlockUser(member.userId))}>
+          {userIsBlocked ? 'Unblock' : 'Block'}
+        </span>
         <FontAwesomeIcon icon={faBan} />
       </MenuItem>
         

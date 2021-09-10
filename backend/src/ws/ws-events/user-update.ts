@@ -15,14 +15,15 @@ export default class implements WSEvent<'USER_UPDATE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { token, username, avatarURL }: WS.Params.UserUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { token, username, avatarURL, ignored }: WS.Params.UserUpdate) {
     const { id: userId } = await this.guard.decodeKey(token);
     const user = await this.users.get(userId);
 
-    const partialUser = { avatarURL, username };
-    if (username)
-      partialUser['discriminator'] = await this.users.getDiscriminator(username);
-    this.guard.validateKeys('user', partialUser);
+    const partialUser = {};
+    if (avatarURL) partialUser['avatarURL'] = avatarURL;
+    if (ignored) partialUser['ignored'] = ignored;
+    if (username) partialUser['username'] = username;
+    if (username) partialUser['discriminator'] = await this.users.getDiscriminator(username);
 
     Object.assign(user, partialUser);
     await user.save();
