@@ -14,7 +14,7 @@ interface NavTabsProps {
 const NavTabs: FunctionComponent<NavTabsProps> = ({ className, tabs, setTab, tab, predicate }) => {
   return (
     <div className={className}>
-      {tabs.map(t => predicate?.(t) && (
+      {tabs.map(t => (!predicate || predicate?.(t)) && (
         <TabLink
           tab={tab}
           setTab={setTab}

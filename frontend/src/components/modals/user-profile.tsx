@@ -12,9 +12,13 @@ const UserProfile: FunctionComponent = () => {
     <Modal
       type={UserProfile}
       size="md">
-      <header className="bg-bg-tertiary p-5">
-        <Username avatarSize="lg" user={user} />
+      <header className="bg-bg-tertiary">
+        <div className="p-5">
+          <Username avatarSize="lg" user={user} />
+        </div>
+        <hr className="border-bg-primary" />
         <NavTabs
+          className="pt-5"
           tab={tab}
           setTab={setTab}
           tabs={[
