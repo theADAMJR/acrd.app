@@ -1,16 +1,19 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { toggleDeveloperMode } from '../../../store/config';
 import { openSaveChanges } from '../../../store/ui';
 import { updateSelf, deleteSelf } from '../../../store/users';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Input from '../../utils/input/input';
+import Toggle from '../../utils/input/toggle';
 import SaveChanges from '../../utils/save-changes';
 
 const UserSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((s: Store.AppState) => s.auth.user)!;
   const { register, handleSubmit, setValue } = useForm();
+  const developerMode = useSelector((s: Store.AppState) => s.config.developerMode);
 
   const onSave = (e) => {
     const onUpdate = (payload) => dispatch(updateSelf(payload));
@@ -60,6 +63,16 @@ const UserSettingsOverview: React.FunctionComponent = () => {
         title="Advanced Settings" />
 
       <section>
+        <div className="w-1/3 pb-5">
+          <label htmlFor="developerMode">Developer Mode</label>
+          <Toggle
+            onChange={(e) => e.stopPropagation()}
+            onClick={() => dispatch(toggleDeveloperMode())}
+            checked={developerMode}
+            className="float-right"
+            id="developerMode" />
+        </div>
+
         <NormalButton
           onClick={handleSubmit(onDelete)}
           className="bg-danger">Delete</NormalButton>

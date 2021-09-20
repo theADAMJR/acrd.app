@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { actions, APIArgs } from '../api';
+import { openDialog } from '../ui';
 import env from '../../environment';
 
 export default store => next => async action => {
@@ -29,5 +30,9 @@ export default store => next => async action => {
   } catch (error) {
     const response = (error as any).response;
     store.dispatch(actions.restCallFailed(response));
+    store.dispatch(openDialog({
+      content: response?.data?.message ?? 'Unknown Error',
+      variant: 'error',
+    }));
   }
 };

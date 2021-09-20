@@ -6,6 +6,7 @@ declare namespace Store {
       user?: UserTypes.Self;
     };
     config: {
+      developerMode: boolean;
       memberListToggled: boolean;
     };
     entities: {
@@ -39,8 +40,9 @@ declare namespace Store {
       activeGuild?: Entity.Guild;
       activeInvite?: Entity.Invite;
       activeUser?: Entity.User;
-      dialog?: {
-
+      openDialog?: {
+        content: string | JSX.Element;
+        variant: 'default' | 'info' | 'error' | 'success' | 'warning';
       }
       editingMessageId?: string;
       saveChangesOpen?: boolean;

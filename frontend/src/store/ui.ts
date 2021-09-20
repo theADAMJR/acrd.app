@@ -34,6 +34,12 @@ const slice = createSlice({
     toggleSaveChanges: (state, { payload }) => {
       state.saveChangesOpen = payload;
     },
+    openedDialog: (state, { payload }: Store.Action<Store.AppState['ui']['openDialog']>) => {
+      state.openDialog = payload;
+    },
+    closedDialog: (state) => {
+      delete state.openDialog;
+    },
   },
 });
 
@@ -59,6 +65,11 @@ export const angrySaveChanges = () => {
   if (!saveChanges) return;
 
   saveChanges.style.backgroundColor = 'var(--danger)';
+}
+
+export const openDialog = (dialog: Store.AppState['ui']['openDialog']) => (dispatch) => {
+  dispatch(actions.closedDialog());
+  dispatch(actions.openedDialog(dialog));
 }
 
 export const closeModal = (dispatch) => {
