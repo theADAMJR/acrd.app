@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { ContextMenuTrigger } from 'react-contextmenu';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getGuildRoles } from '../../../store/guilds';
 import { createRole, deleteRole, getRole, updateRole } from '../../../store/roles';
 import { openSaveChanges } from '../../../store/ui';
+import RoleMenu from '../../ctx-menus/role-menu';
 import CircleButton from '../../utils/buttons/circle-button';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
@@ -89,13 +91,17 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
     <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <div className="lg:col-span-3 col-span-12">
         <nav className="pr-10">
-          {roles.sort(byPosition).map(r =>
-            <TabLink
-              key={r.id}
-              style={{ color: r.color }}
-              tab={activeRoleId}
-              setTab={setActiveRoleId}
-              id={r.id}>{r.name}</TabLink>)}
+          {roles.sort(byPosition).map(r => (
+            <ContextMenuTrigger id={r.id} key={r.id}>
+              <TabLink
+                key={r.id}
+                style={{ color: r.color }}
+                tab={activeRoleId}
+                setTab={setActiveRoleId}
+              id={r.id}>{r.name}</TabLink>
+              <RoleMenu role={r} />
+            </ContextMenuTrigger>
+          ))}
           <CircleButton
             onClick={() => dispatch(createRole(guildId))}
             style={{ color: 'var(--success)' }}
