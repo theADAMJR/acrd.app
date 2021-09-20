@@ -1,4 +1,4 @@
-import { faBan, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faIdCard, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +19,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
   const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const member = useSelector(getMember(guild.id, user.id))!;
+  const developerMode = useSelector((s: Store.AppState) => s.config.developerMode);
 
   const isSelf = user.id === selfUser.id;  
   const userIsBlocked = selfUser.ignored.userIds.includes(member.userId);
@@ -57,6 +58,17 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
         </MenuItem>
       )}
       {perms.can('MANAGE_ROLES', guild.id) && <RoleManager member={member} />}
+
+      {developerMode && (
+        <>
+          <hr className="my-2 border-bg-primary py-2" />
+          <div
+            title="User ID"
+            className="flex items-center justify-between">
+            <span className="muted">{user.id}</span>
+            <FontAwesomeIcon icon={faIdCard} />
+          </div>
+        </>)}
     </ContextMenu>
   );
 }
