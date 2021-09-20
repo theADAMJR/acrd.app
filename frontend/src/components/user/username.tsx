@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
-import environment from '../../environment';
 import { getMemberHighestRole } from '../../store/roles';
 import { useSelector } from 'react-redux';
 
@@ -42,7 +41,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 
           className={(size === 'md')
             ? `select-none rounded-full w-8 h-8`
             : `select-none rounded-full w-20 h-20`}
-          src={`${environment.cdnURL}${user.avatarURL}`} />
+          src={`${process.env.REACT_APP_CDN_URL}${user.avatarURL}`} />
       </div>
       <div className="tag leading-4">
         <h4 className={`font-bold ${size === 'lg' ? 'text-lg' : 'text-sm'}`}>

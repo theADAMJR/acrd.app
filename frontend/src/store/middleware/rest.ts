@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { actions, APIArgs } from '../api';
 import { openDialog } from '../ui';
-import env from '../../environment';
 
 export default store => next => async action => {
   if (action.type !== actions.restCallBegan.type)
@@ -13,7 +12,7 @@ export default store => next => async action => {
 
   try {
     const { data: payload } = await axios.request({
-      baseURL: env.apiURL,
+      baseURL: process.env.REACT_APP_API_URL,
       data,
       method,
       url,

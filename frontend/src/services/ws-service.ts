@@ -1,8 +1,7 @@
-import environment from '../environment';
 import io from 'socket.io-client';
 import { WS } from '../types/ws';
 
-const ws = (io as any).connect(environment.rootAPIURL, {
+const ws = (io as any).connect(process.env.REACT_APP_ROOT_API_URL, {
   secure: true,
   path: `/ws`,
   transports: ['websocket', 'polling', 'flashsocket'],

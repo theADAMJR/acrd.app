@@ -4,7 +4,6 @@ import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
 import { getUser } from '../../../store/users';
-import environment from '../../../environment';
 import MessageBox from '../message-box';
 import MessageToolbar from './message-toolbar';
 import { getMemberHighestRole } from '../../../store/roles';
@@ -44,7 +43,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
       </span>
     : <img
         className="rounded-full cursor-pointer w-10 h-10"
-        src={`${environment.cdnURL}${author.avatarURL}`}
+        src={`${process.env.REACT_APP_CDN_URL}${author.avatarURL}`}
         alt={author.username} />;
   
   const MessageHeader = () => {

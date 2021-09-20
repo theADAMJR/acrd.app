@@ -57,8 +57,11 @@ export class REST {
     this.app.use(`${this.prefix}/users`, usersRoutes);
     
     // FIXME:
-    const buildPath = path.resolve(`../../../../../frontend/build`)
-    this.app.use(express.static(buildPath + '/index.html'));
+    const buildPath = path.resolve(`../frontend/build`);
+    this.app.use(express.static(buildPath));   
+    this.app.all('*', (req, res) => res
+      .status(200)
+      .sendFile(`${buildPath}/index.html`));
   } 
 
   private setupErrorHandling() {

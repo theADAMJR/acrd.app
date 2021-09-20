@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom';
-import environment from '../../../environment';
 
 import './sidebar-icon.scoped.css';
 
@@ -14,7 +13,7 @@ const SidebarIcon: React.FunctionComponent<SidebarIconProps> = (props) => {
   let { to, imageURL, name, classes = 'font' } = props;
   const location = useLocation();
   if (imageURL)
-    imageURL = `${environment.cdnURL}${imageURL}`;
+    imageURL = `${process.env.REACT_APP_CDN_URL}${imageURL}`;
 
   const getAbbr = (name: string) => name
     .split(' ')

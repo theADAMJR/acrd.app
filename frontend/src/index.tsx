@@ -2,14 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
 import reportWebVitals from './reportWebVitals';
-import { config } from 'dotenv';
 import { Provider } from 'react-redux';
 import configureStore from './store/configure-store';
 import { SnackbarProvider } from 'notistack';
 
 import './index.css';
 
-config({ path: '../env' });
+console.log(process.env.MODE);
 
 ReactDOM.render(
   <SnackbarProvider maxSnack={1}>
