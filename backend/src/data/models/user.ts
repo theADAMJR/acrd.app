@@ -58,29 +58,16 @@ export const User = model<UserDocument>('user', new Schema({
   },
   ignored: {
     type: Object,
-    default: {
-      channelIds: [],
-      guildIds: [],
-      userIds: [],
-    },
+    default: { channelIds: [], guildIds: [], userIds: [], },
     validate: {
       validator: function (this: UserDocument, val) {
         return !val || !val.userIds?.includes(this.id);
       },
       message: 'Cannot block self',
     },
-    channelIds: {
-      type: [String],
-      default: []
-    },
-    guildIds: {
-      type: [String],
-      default: []
-    },
-    userIds: {
-      type: [String],
-      default: []
-    },
+    channelIds: { type: [String], default: [] },
+    guildIds: { type: [String], default: [] },
+    userIds: { type: [String], default: [] },
   },
   lastReadMessageIds: {
     type: Object,
