@@ -21,7 +21,7 @@ const GuildDropdown: React.FunctionComponent = () => {
       type={GuildDropdown}>
       {perms.can('CREATE_INVITE', guild.id) && (
         <a className="rounded-sm flex items-center justify-between text-sm p-2 h-8 mb-1"
-          onClick={() => dispatch(ui.openedModal(CreateInvite))}>
+          onClick={() => dispatch(ui.openedModal('CreateInvite'))}>
           <span className="primary">Invite people</span>
           <FontAwesomeIcon
             className="float-right w-1"
@@ -30,7 +30,7 @@ const GuildDropdown: React.FunctionComponent = () => {
       )}
       {perms.can('MANAGE_CHANNELS', guild.id) && (
         <a className="rounded-sm flex items-center justify-between p-2 h-8 text-sm mb-1"
-          onClick={() => dispatch(ui.openedModal(CreateChannel))}>
+          onClick={() => dispatch(ui.openedModal('CreateChannel'))}>
           <span className="font">Create channel</span>
           <FontAwesomeIcon
             className="float-right w-1"
@@ -38,7 +38,7 @@ const GuildDropdown: React.FunctionComponent = () => {
         </a>
       )}
       {perms.can('MANAGE_GUILD', guild.id) && (
-        <a onClick={() => dispatch(ui.openedModal(GuildSettings))}
+        <a onClick={() => dispatch(ui.openedModal('GuildSettings'))}
           className="rounded-sm flex items-center justify-between p-2 h-8 text-sm">
           <span className="font">Guild settings</span>
           <FontAwesomeIcon

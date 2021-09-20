@@ -16,7 +16,7 @@ const CreateChannel: React.FunctionComponent = () => {
   };
   
   return (
-    <Modal type={CreateChannel}>
+    <Modal typeName={'CreateChannel'}>
       <form
         className="flex flex-col h-full"
         onSubmit={handleSubmit(create)}>

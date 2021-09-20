@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actions as ui, closeModal, openSaveChanges } from '../../store/ui';
 
 export interface ModalProps {
-  type: React.FunctionComponent;
+  typeName: string;
   size?: keyof typeof sizeClass;
   className?: string;
 }
@@ -16,7 +16,7 @@ const sizeClass = {
   'full': 'h-full w-full',
 };
  
-const Modal: React.FunctionComponent<ModalProps> = ({ className, type, size, children }) => {
+const Modal: React.FunctionComponent<ModalProps> = ({ className, typeName, size, children }) => {
   const dispatch = useDispatch();
   const openModal = useSelector((s: Store.AppState) => s.ui.openModal);
   const { closeSnackbar } = useSnackbar();
@@ -25,7 +25,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, type, size, chi
     <ReactModal
       className={`bg-bg-primary overflow-auto fixed outline-none ${className} ${sizeClass[size ?? 'sm']}`}
       appElement={document.querySelector('#root')!}
-      isOpen={openModal === type.name}
+      isOpen={openModal === typeName}
       onRequestClose={() => {
         dispatch(closeModal);
         closeSnackbar('saveChanges');

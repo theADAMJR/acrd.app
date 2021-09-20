@@ -44,8 +44,8 @@
   "scripts": {
     "start": "PORT=4200 dotenv -e src/env/.env.dev craco start",
     "start:prod": "PORT=4200 dotenv -e src/env/.env.prod craco start",
-    "build:dev": "MODE=dev react-scripts build",
-    "build:prod": "MODE=prod react-scripts build",
+    "build:dev": "dotenv -e src/env/.env.dev craco build",
+    "build:prod": "dotenv -e src/env/.env.prod craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

@@ -23,7 +23,7 @@ const slice = createSlice({
       state.activeGuild = payload.guild;
     },
     openedModal: (state, { payload }) => {      
-      state.openModal = payload.name;
+      state.openModal = payload;
     },
     closedModal: (state) => {
       delete state.openModal;

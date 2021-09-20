@@ -26,7 +26,7 @@ const SidebarIcons: React.FunctionComponent = () => {
 
   const PlusIcon = () => (
     <div
-      onClick={() => dispatch(ui.openedModal(CreateGuild))}
+      onClick={() => dispatch(ui.openedModal('CreateGuild'))}
       className="success text-3xl">
       <SidebarIcon
         name="+"

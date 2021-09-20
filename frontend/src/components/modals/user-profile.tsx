@@ -66,7 +66,7 @@ const UserProfile: FunctionComponent = () => {
   
   return (user) ? (
     <Modal
-      type={UserProfile}
+      typeName={'UserProfile'}
       size="md">
       <header className="bg-bg-tertiary">
         <div className="p-5">

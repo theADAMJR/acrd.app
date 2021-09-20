@@ -14,7 +14,7 @@ const UserSettings: React.FunctionComponent = () => {
 
   return (user) ? (
     <Modal
-      type={UserSettings}
+      typeName={'UserSettings'}
       size="full">
       <div className="grid grid-cols-12 h-full">
         <div className="col-span-4 bg-bg-secondary">

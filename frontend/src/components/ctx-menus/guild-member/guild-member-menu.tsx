@@ -32,7 +32,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
       <MenuItem
         onClick={() => {
           dispatch(ui.focusedUser(user));
-          dispatch(ui.openedModal(UserProfile));
+          dispatch(ui.openedModal('UserProfile'));
         }}
         className="flex items-center justify-between cursor-pointer">
         <span>View Profile</span>
