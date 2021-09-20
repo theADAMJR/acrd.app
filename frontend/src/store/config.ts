@@ -8,13 +8,13 @@ const set = (key: keyof Store.AppState['config'], value: any) =>
 const slice = createSlice({
   name: 'config',
   initialState: {
-    developerMode: get('developerMode') ?? false,
+    devMode: get('devMode') ?? false,
     memberListToggled: get('memberListToggled') ?? true,
   } as Store.AppState['config'],
   reducers: {
-    toggleDeveloperMode: (config) => {
-      const value = !config.developerMode;
-      config.developerMode = value;
+    toggleDevMode: (config) => {
+      const value = !config.devMode;
+      config.devMode = value;
     },
     toggleMemberList: (config) => {
       const value = !config.memberListToggled;
@@ -25,11 +25,11 @@ const slice = createSlice({
 const actions = slice.actions;
 export default slice.reducer;
 
-export const toggleDeveloperMode = () => (dispatch, getState: () => Store.AppState) => {
+export const toggleDevMode = () => (dispatch, getState: () => Store.AppState) => {
   const config = getState().config;
 
-  dispatch(actions.toggleMemberList());
-  set('developerMode', !config.developerMode);
+  dispatch(actions.toggleDevMode());
+  set('devMode', !config.devMode);
 }
 export const toggleMemberList = () => (dispatch, getState: () => Store.AppState) => {
   const config = getState().config;

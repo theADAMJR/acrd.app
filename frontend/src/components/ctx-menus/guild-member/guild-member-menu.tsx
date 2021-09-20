@@ -7,6 +7,7 @@ import { getMember, kickMember } from '../../../store/members';
 import { actions as ui } from '../../../store/ui';
 import { toggleBlockUser } from '../../../store/users';
 import UserProfile from '../../modals/user-profile';
+import DevModeMenuSection from '../dev-mode-menu-section';
 import RoleManager from './role-manager';
 
 export interface GuildMemberMenuProps {
@@ -19,7 +20,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
   const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const member = useSelector(getMember(guild.id, user.id))!;
-  const developerMode = useSelector((s: Store.AppState) => s.config.developerMode);
+  const devMode = useSelector((s: Store.AppState) => s.config.devMode);
 
   const isSelf = user.id === selfUser.id;  
   const userIsBlocked = selfUser.ignored.userIds.includes(member.userId);
@@ -59,16 +60,11 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
       )}
       {perms.can('MANAGE_ROLES', guild.id) && <RoleManager member={member} />}
 
-      {developerMode && (
-        <>
-          <hr className="my-2 border-bg-primary py-2" />
-          <div
-            title="User ID"
-            className="flex items-center justify-between">
-            <span className="muted">{user.id}</span>
-            <FontAwesomeIcon icon={faIdCard} />
-          </div>
-        </>)}
+      <div className="mb-10" />
+      {devMode && <DevModeMenuSection ids={[
+        { title: 'User ID', id: user.id },
+        { title: 'Member ID', id: member.id },
+      ]} />}
     </ContextMenu>
   );
 }

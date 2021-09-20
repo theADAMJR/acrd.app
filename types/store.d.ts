@@ -6,7 +6,7 @@ declare namespace Store {
       user?: UserTypes.Self;
     };
     config: {
-      developerMode: boolean;
+      devMode: boolean;
       memberListToggled: boolean;
     };
     entities: {

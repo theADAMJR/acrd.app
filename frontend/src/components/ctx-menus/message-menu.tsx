@@ -1,30 +1,27 @@
-import { ContextMenu, MenuItem } from 'react-contextmenu';
-import { useDispatch } from 'react-redux';
+import { ContextMenu } from 'react-contextmenu';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import usePerms from '../../hooks/use-perms';
-import { deleteChannel } from '../../store/channels';
+import DevModeMenuSection from './dev-mode-menu-section';
 
 export interface MessageMenuProps {
-  channel: Entity.Channel;
+  message: Entity.Message;
 }
  
-const MessageMenu: React.FunctionComponent<MessageMenuProps> = ({ channel }) => {
-  const dispatch = useDispatch();
+const MessageMenu: React.FunctionComponent<MessageMenuProps> = ({ message }) => {
   const { guildId }: any = useParams();
-  const perms = usePerms();
+  const devMode = useSelector((s: Store.AppState) => s.config.devMode);
 
   return (guildId) ? (
     <ContextMenu
-      key={channel.id}
-      id={channel.id}
+      key={message.id}
+      id={message.id}
       className="bg-bg-tertiary rounded shadow w-48 p-2">
-      {perms.can('MANAGE_CHANNELS', guildId) && (
-        <MenuItem
-          className="danger cursor-pointer"
-          onClick={() => dispatch(deleteChannel(guildId!, channel.id))}>
-          <span>Delete channel</span>
-        </MenuItem>
-      )}
+      <div className="overflow-hidden">
+        <span className="bg-bg-primary p-1 rounded max-w-full">{message.content}</span>
+      </div>
+      {devMode && <DevModeMenuSection ids={[
+        { title: 'Message ID', id: message.id },
+      ]} />}
     </ContextMenu>
   ) : null;
 }

@@ -10,6 +10,7 @@ import MessageToolbar from './message-toolbar';
 import { getMemberHighestRole } from '../../../store/roles';
 import { getSelfMember } from '../../../store/members';
 import { ContextMenuTrigger } from 'react-contextmenu';
+import MessageMenu from '../../ctx-menus/message-menu';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -35,8 +36,9 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     return minsSince <= minsToSeparate
         && prev.authorId === message.authorId;
   }
+  const isActuallyExtra = isExtra();
 
-  const leftSide = () => (isExtra())
+  const leftSide = () => (isActuallyExtra)
     ? <span className="timestamp text-xs">
         {moment(createdAt).format('HH:mm')}
       </span>
@@ -46,7 +48,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         alt={author.username} />;
   
   const MessageHeader = () => {
-    if (isExtra()) return null;
+    if (isActuallyExtra) return null;
 
     const today = () => {
       const today = new Date();
@@ -86,17 +88,20 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
       </div>;
 
   return (
-    <div className={`message flex ${!isExtra() && 'mt-4'}`}>
-      <div className="flex-shrink-0 left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
-      <div className="relative flex-grow px-2">
-        <div className="absolute toolbar right-0 -mt-3 z-10">
-          <MessageToolbar message={message} />
+    <ContextMenuTrigger key={message.id} id={message.id}>
+      <div className={`message flex ${!isActuallyExtra && 'mt-4'}`}>
+        <div className="flex-shrink-0 left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
+        <div className="relative flex-grow px-2">
+          <div className="absolute toolbar right-0 -mt-3 z-10">
+            <MessageToolbar message={message} />
+          </div>
+          <MessageHeader />
+          <MessageContent />
         </div>
-        <MessageHeader />
-        <MessageContent />
+        <div className="right-side w-12" />
       </div>
-      <div className="right-side w-12" />
-    </div>
+      <MessageMenu message={message} />
+    </ContextMenuTrigger>
   );
 }
 

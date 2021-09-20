@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleDeveloperMode } from '../../../store/config';
+import { toggleDevMode } from '../../../store/config';
 import { openSaveChanges } from '../../../store/ui';
 import { updateSelf, deleteSelf } from '../../../store/users';
 import NormalButton from '../../utils/buttons/normal-button';
@@ -13,7 +13,7 @@ const UserSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((s: Store.AppState) => s.auth.user)!;
   const { register, handleSubmit, setValue } = useForm();
-  const developerMode = useSelector((s: Store.AppState) => s.config.developerMode);
+  const devMode = useSelector((s: Store.AppState) => s.config.devMode);
 
   const onSave = (e) => {
     const onUpdate = (payload) => dispatch(updateSelf(payload));
@@ -64,13 +64,13 @@ const UserSettingsOverview: React.FunctionComponent = () => {
 
       <section>
         <div className="w-1/3 pb-5">
-          <label htmlFor="developerMode">Developer Mode</label>
+          <label htmlFor="devMode">Dev Mode</label>
           <Toggle
             onChange={(e) => e.stopPropagation()}
-            onClick={() => dispatch(toggleDeveloperMode())}
-            checked={developerMode}
+            onClick={() => dispatch(toggleDevMode())}
+            checked={devMode}
             className="float-right"
-            id="developerMode" />
+            id="devMode" />
         </div>
 
         <NormalButton
