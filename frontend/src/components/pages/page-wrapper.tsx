@@ -35,6 +35,7 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
       <GuildSettings />
       <UserSettings />
       <UserProfile />
+      <UIDialog />
     </div>
   );
 }

@@ -55,6 +55,8 @@ export class REST {
     this.app.use(`${this.prefix}/channels`, channelsRoutes);
     this.app.use(`${this.prefix}/guilds`, guildsRoutes);
     this.app.use(`${this.prefix}/users`, usersRoutes);
+
+    this.app.use('/', (req, res) => res.send('Almost ready...'));
   } 
 
   private setupErrorHandling() {
