@@ -82,7 +82,7 @@ export const User = model<UserDocument>('user', new Schema({
       default: []
     },
   },
-  lastReadMessages: {
+  lastReadMessageIds: {
     type: Object,
     default: {}
   },

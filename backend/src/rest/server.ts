@@ -13,7 +13,7 @@ import { router as usersRoutes } from './routes/users-routes';
 import { router as invitesRoutes } from './routes/invites-routes';
 import { User } from '../data/models/user';
 import cors from 'cors';
-import { resolve } from 'path';
+import path, { resolve } from 'path';
 import Deps from '../utils/deps';
 import { WebSocket } from '../ws/websocket';
 import { APIError } from './modules/api-error';
@@ -55,8 +55,10 @@ export class REST {
     this.app.use(`${this.prefix}/channels`, channelsRoutes);
     this.app.use(`${this.prefix}/guilds`, guildsRoutes);
     this.app.use(`${this.prefix}/users`, usersRoutes);
-
-    this.app.use('/', (req, res) => res.send('Almost ready...'));
+    
+    // FIXME:
+    const buildPath = path.resolve(`../../../../../frontend/build`)
+    this.app.use(express.static(buildPath + '/index.html'));
   } 
 
   private setupErrorHandling() {
