@@ -18,12 +18,13 @@ export default class Users extends DBWrapper<string, UserDocument> {
 
   // TODO: test that this is fully secure
   public secure(user: UserDocument): UserDocument {
-    delete user['email'];
-    delete user['locked'];
-    delete user['ignored'];
-    delete user['lastReadMessageIds'];
-    delete user['verified'];
-    return user;
+    const u = user as any;
+    u.email = undefined;
+    u.locked = undefined;
+    u.ignored = undefined;
+    u.lastReadMessageIds = undefined;
+    u.verified = undefined;
+    return u;
   }
 
   public async getSelf(id: string | undefined): Promise<SelfUserDocument> {

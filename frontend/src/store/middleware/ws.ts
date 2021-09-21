@@ -16,11 +16,17 @@ export default store => next => async action => {
 
   const wrapperCallback = (payload) => {
     unsub();
-    store.dispatch(actions.wsCallSucceded(payload));
+    store.dispatch(actions.wsCallSucceded({
+      event,
+      payload,
+    }));
   };
   const errorCallback = (payload) => {
     unsub();
-    store.dispatch(actions.wsCallFailed(payload));
+    store.dispatch(actions.wsCallFailed({
+      event,
+      payload,
+    }));
   }
 
   ws.on(event, wrapperCallback);

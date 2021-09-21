@@ -102,7 +102,7 @@ const WSListener: React.FunctionComponent = () => {
     });
     ws.on('MESSAGE_CREATE', (args) => {
       const selfUser = state().auth.user!;
-      const isBlocked = selfUser.ignored.userIds.includes(args.message.authorId);
+      const isBlocked = selfUser.ignored?.userIds.includes(args.message.authorId);
       if (isBlocked) return;
 
       dispatch(messages.created(args));

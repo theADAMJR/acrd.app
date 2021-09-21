@@ -123,7 +123,7 @@ declare namespace UserTypes {
       [k: string]: string
     };
     locked: boolean;
-    ignored: {
+    ignored?: {
       channelIds: string[];
       guildIds: string[];
       userIds: string[];

@@ -59,7 +59,7 @@ router.get('/entities', updateUser, validateUser, async (req, res) => {
     User.find({ guildIds: { $in } }),
   ]);
 
-  const secureUsers = unsecureUsers.map(u => users.secure(u));
+  const secureUsers = unsecureUsers.map((u: any) => users.secure(u));
 
   res.json({ channels, guilds, members, roles, users: secureUsers } as REST.From.Get['/users/entities']);
 });

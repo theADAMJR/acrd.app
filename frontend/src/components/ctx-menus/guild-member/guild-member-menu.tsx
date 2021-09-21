@@ -23,7 +23,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
   const devMode = useSelector((s: Store.AppState) => s.config.devMode);
 
   const isSelf = user.id === selfUser.id;  
-  const userIsBlocked = selfUser.ignored.userIds.includes(member.userId);
+  const userIsBlocked = selfUser.ignored?.userIds.includes(member.userId);
 
   return (
     <ContextMenu
@@ -39,15 +39,16 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
         <FontAwesomeIcon icon={faUser} />
       </MenuItem>
       
-      <hr className="my-2 border-bg-primary" />
-
-      <MenuItem className="flex items-center justify-between  cursor-pointer danger">
-        <span
-          onClick={() => dispatch(toggleBlockUser(member.userId))}>
-          {userIsBlocked ? 'Unblock' : 'Block'}
-        </span>
-        <FontAwesomeIcon icon={faBan} />
-      </MenuItem>
+      {user.id !== selfUser.id && (<>
+        <hr className="my-2 border-bg-primary" />
+        <MenuItem className="flex items-center justify-between  cursor-pointer danger">
+          <span
+            onClick={() => dispatch(toggleBlockUser(member.userId))}>
+            {userIsBlocked ? 'Unblock' : 'Block'}
+          </span>
+          <FontAwesomeIcon icon={faBan} />
+        </MenuItem>
+      </>)}
         
       <hr className="my-2 border-bg-primary" />
 
