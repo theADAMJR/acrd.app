@@ -28,7 +28,7 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
   
   const slicedMsgs = channelMsgs
     .slice(back)
-    .filter(m => !user.ignored.userIds.includes(m.authorId));
+    .filter(m => !user.ignored?.userIds.includes(m.authorId));
 
   const index = slicedMsgs.length - 1;
   const lastMessage = slicedMsgs[index];
