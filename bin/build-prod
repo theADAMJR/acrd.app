@@ -1,6 +1,6 @@
 #!/bin/sh
 cd frontend
-npm run build:prod
+dotenv -e src/env/.env.prod craco build
 
 cd build
 CNAME="accord.app"
