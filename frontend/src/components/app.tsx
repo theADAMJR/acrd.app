@@ -1,4 +1,4 @@
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './pages/home-page';
 import GuildPage from './pages/guild-page';
 import LoginPage from './pages/auth/login-page';
