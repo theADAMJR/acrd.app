@@ -55,8 +55,6 @@ export class REST {
     this.app.use(`${this.prefix}/channels`, channelsRoutes);
     this.app.use(`${this.prefix}/guilds`, guildsRoutes);
     this.app.use(`${this.prefix}/users`, usersRoutes);
-    
-    this.serveWebsite();
   } 
 
   private setupErrorHandling() {
@@ -75,15 +73,6 @@ export class REST {
         .status(code)
         .json({ message: error.message });
     });
-  }
-
-  private serveWebsite() {
-    const distPath = resolve('../frontend/build');
-    this.app.use(express.static(distPath));
-    this.app.get("*", (req, res) =>
-      res.sendFile(
-        path.join(__dirname, `${distPath}/index.html`)
-    ));
   }
 
   private listen() {
