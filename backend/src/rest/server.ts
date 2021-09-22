@@ -21,13 +21,12 @@ import rateLimiter from './modules/rate-limiter';
 
 export class REST {
   public app = express();
-  private prefix = `/api/v2`;
+  private prefix = `/v2`;
 
   constructor(private ws = Deps.get<WebSocket>(WebSocket)) {
     this.setupMiddleware();
     this.setupRoutes();
     this.setupErrorHandling();
-    // this.serveWebsite();
     this.listen();
   }
 
@@ -60,7 +59,7 @@ export class REST {
   private setupErrorHandling() {
     this.app.all(`${this.prefix}/*`, (req, res, next) => next(new APIError(404)));
 
-    this.app.use(`/api`, () => {
+    this.app.use(`/`, () => {
       throw new TypeError('Invalid API version number');
     });
     
