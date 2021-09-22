@@ -1,5 +1,5 @@
 #!/bin/sh
-cd frontend
+# intended to be excuted from frontend npm
 dotenv -e src/env/.env.prod craco build
 
 cd build
