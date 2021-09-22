@@ -1,0 +1,13 @@
+#!/bin/sh
+cd frontend
+npm run build:prod
+
+cd build
+CNAME="accord.app"
+echo $CNAME > CNAME
+
+git init
+git remote add origin https://github.com/accord-dot-app/accord-dot-app.github.io
+git add .
+git commit -m "Website Update"
+git push origin --force HEAD:master
