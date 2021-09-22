@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import HomePage from './pages/home-page';
 import GuildPage from './pages/guild-page';
 import LoginPage from './pages/auth/login-page';
@@ -26,16 +26,16 @@ export default function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Switch>
-        <Route exact path={`${process.env.PUBLIC_URL}/`} component={HomePage} />
-        <Route exact path={`${process.env.PUBLIC_URL}/login`} component={LoginPage} />
-        <Route exact path={`${process.env.PUBLIC_URL}/register`} component={RegisterPage} />
-        <Route exact path={`${process.env.PUBLIC_URL}/logout`} component={LogoutPage} />
-        <Route exact path={`${process.env.PUBLIC_URL}/verify`} component={VerifyPage} />
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/register" component={RegisterPage} />
+        <Route exact path="/logout" component={LogoutPage} />
+        <Route exact path="/verify" component={VerifyPage} />
 
-        <PrivateRoute exact path={`${process.env.PUBLIC_URL}/channels/@me`} component={OverviewPage} />
-        <PrivateRoute exact path={`${process.env.PUBLIC_URL}/channels/:guildId/:channelId?`} component={GuildPage} />
+        <PrivateRoute exact path="/channels/@me" component={OverviewPage} />
+        <PrivateRoute exact path="/channels/:guildId/:channelId?" component={GuildPage} />
 
-        <Route path={`${process.env.PUBLIC_URL}/*`} component={NotFoundPage} />
+        <Route path="*" component={NotFoundPage} />
       </Switch>
     </Router>
   );

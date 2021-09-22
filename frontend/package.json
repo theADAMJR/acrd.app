@@ -45,7 +45,7 @@
     "start": "PORT=4200 dotenv -e src/env/.env.dev craco start",
     "start:prod": "PORT=4200 dotenv -e src/env/.env.prod craco start",
     "build:dev": "dotenv -e src/env/.env.dev craco build",
-    "build:prod": "sh bin/build-prod",
+    "build:prod": "sh ../bin/build-prod",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
