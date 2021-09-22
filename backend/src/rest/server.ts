@@ -80,6 +80,10 @@ export class REST {
   private serveWebsite() {
     const distPath = resolve('../frontend/build');
     this.app.use(express.static(distPath));
+    this.app.get("*", (req, res) =>
+      res.sendFile(
+        path.join(__dirname, `${distPath}/index.html`)
+    ));
   }
 
   private listen() {
