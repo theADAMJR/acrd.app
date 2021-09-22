@@ -3,8 +3,10 @@
 dotenv -e src/env/.env.prod craco build
 
 cd build
+
 CNAME="accord.app"
 echo $CNAME > CNAME
+cp ../../bin/404.html .
 
 git init
 git remote add origin https://github.com/accord-dot-app/accord-dot-app.github.io
