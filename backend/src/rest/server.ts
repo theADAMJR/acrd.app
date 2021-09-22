@@ -56,12 +56,7 @@ export class REST {
     this.app.use(`${this.prefix}/guilds`, guildsRoutes);
     this.app.use(`${this.prefix}/users`, usersRoutes);
     
-    // FIXME:
-    const buildPath = path.resolve(`../frontend/build`);
-    this.app.use(express.static(buildPath));   
-    this.app.all('*', (req, res) => res
-      .status(200)
-      .sendFile(`${buildPath}/index.html`));
+    this.serveWebsite();
   } 
 
   private setupErrorHandling() {
@@ -83,7 +78,7 @@ export class REST {
   }
 
   private serveWebsite() {
-    const distPath = resolve('./dist/browser');
+    const distPath = resolve('../frontend/build');
     this.app.use(express.static(distPath));
     this.app.all('*', (req, res) => res
       .status(200)
