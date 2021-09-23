@@ -2,8 +2,8 @@ import { Socket } from 'socket.io';
 import patterns from '../../types/patterns';
 
 export class SessionManager extends Map<string, string> {
-  public get(token: string): string {
-    const userId = super.get(token);
+  public get(clientId: string): string {
+    const userId = super.get(clientId);
     if (!userId)
       throw new TypeError('User not logged in');
 

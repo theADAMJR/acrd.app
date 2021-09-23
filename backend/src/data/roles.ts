@@ -18,14 +18,14 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     return await Role.findOne({ guildId, name: '@everyone' }) as RoleDocument;
   }
 
-  public async isHigher(guild: Entity.Guild, selfMember: Entity.GuildMember, roleIds: string[]) {
+  public async isHigher(guild: Entity.Guild, selfMember: Entity.GuildMember, theirRoleIds: string[]) {
     const guildRoles = await Role.find({ guildId: guild.id });
     const max = (key: string) => (max, val) => max > val[key] ? max : val[key];
     const highestRole: Entity.Role = guildRoles.reduce(max('position'));
 
     return selfMember.userId === guild.ownerId
       || (selfMember.roleIds.includes(highestRole.id)
-          && !roleIds.includes(highestRole.id));
+          && !theirRoleIds.includes(highestRole.id));
   }
 
   public async hasPermission(guild: Entity.Guild, member: Entity.GuildMember, permission: PermissionTypes.PermissionString) {

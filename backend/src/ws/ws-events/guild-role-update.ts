@@ -1,22 +1,33 @@
 import { Socket } from 'socket.io';
-import { Role } from '../../data/models/role';
 import Deps from '../../utils/deps';
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { WS } from '../../types/ws';
 import Roles from '../../data/roles';
+import Guilds from '../../data/guilds';
+import { Guild } from '../../data/models/guild';
+import GuildMembers from '../../data/guild-members';
 
 export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
   on = 'GUILD_ROLE_UPDATE' as const;
 
   constructor(
     private guard = Deps.get<WSGuard>(WSGuard),
+    private guilds = Deps.get<Guilds>(Guilds),
+    private members = Deps.get<GuildMembers>(GuildMembers),
     private roles = Deps.get<Roles>(Roles),
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { roleId, guildId, name, color, permissions, hoisted }: WS.Params.GuildRoleUpdate) {
-    await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');    
+    await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
+    
+    const userId = ws.sessions.get(client.id);
+    const guild = await this.guilds.get(guildId);
+    const selfMember = await this.members.getInGuild(guildId, userId);
+    const isHigher = await this.roles.isHigher(guild, selfMember, [roleId]);
+    if (isHigher)
+      throw new TypeError('You cannot manage this role');
 
     const everyoneRole = await this.roles.getEveryone(guildId);
     if (everyoneRole.id === roleId && name !== everyoneRole.name)
