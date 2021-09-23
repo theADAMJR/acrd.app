@@ -23,9 +23,9 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     const max = (key: string) => (max, val) => max > val[key] ? max : val[key];
     const highestRole: Entity.Role = guildRoles.reduce(max('position'));
 
-    return selfMember.userId === guild?.ownerId
-      || (selfMember.roleIds.includes(highestRole?.id)
-      && !roleIds.includes(highestRole.id));
+    return selfMember.userId === guild.ownerId
+      || (selfMember.roleIds.includes(highestRole.id)
+          && !roleIds.includes(highestRole.id));
   }
 
   public async hasPermission(guild: Entity.Guild, member: Entity.GuildMember, permission: PermissionTypes.PermissionString) {
