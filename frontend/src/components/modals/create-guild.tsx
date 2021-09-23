@@ -44,7 +44,7 @@ const CreateGuild: React.FunctionComponent = () => {
           label="Guild Name"
           name="name"
           register={register2} />
-        <NormalButton className="w-full h-11 mt-8">Create</NormalButton>
+        <NormalButton className="bg-primary font w-full h-11 mt-8">Create</NormalButton>
       </form>
     </Modal>
   );

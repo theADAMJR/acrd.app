@@ -42,7 +42,7 @@ const RegisterPage: React.FunctionComponent = () => {
               register={register}
               className="mt-3" />
 
-            <NormalButton className="w-full h-11 rounded-md mt-8">Register</NormalButton>
+            <NormalButton className="bg-primary font w-full h-11 rounded-md mt-8">Register</NormalButton>
             <p className="mt-2">
               <Link to="/login">Already have an account?</Link>
             </p>

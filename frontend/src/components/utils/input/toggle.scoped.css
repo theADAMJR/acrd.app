@@ -1,3 +1,7 @@
+input ~ .dot {
+  transition: 0.3s ease-in-out !important;
+}
+
 input:checked ~ .dot {
   transform: translateX(100%);
   background-color: var(--success);

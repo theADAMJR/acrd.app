@@ -57,9 +57,10 @@ export class WSGuard {
     
     this.validate(can, permission);
   }  
+  // FIXME: you cannot combine string permissions with bitfields
   private validate(can: boolean, permission: PermissionTypes.PermissionString) {
     if (!can)
-      throw new TypeError(`Missing Permissions - ${PermissionTypes.All[permission]}`);
+      throw new TypeError(`Missing Permissions - ${permission}`);
   }
 
   public async decodeKey(token: string) {

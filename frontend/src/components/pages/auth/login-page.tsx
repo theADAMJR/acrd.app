@@ -78,7 +78,7 @@ const LoginPage: React.FunctionComponent = () => {
 
             {shouldVerify && <VerifyCodeInput />}
 
-            <NormalButton className="w-full h-11 rounded-md mt-8">Login</NormalButton>
+            <NormalButton className="bg-primary font w-full h-11 rounded-md mt-8">Login</NormalButton>
             <p className="mt-2">Need an account? <Link to="/register">Register</Link></p>
           </form>
         </div>
