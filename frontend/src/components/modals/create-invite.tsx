@@ -15,7 +15,7 @@ const CreateInvite: React.FunctionComponent = () => {
 
   const isOpen = openModal === CreateInvite.name;
   useEffect(() => {
-    if (activeInvite || !activeGuild) return;
+    if (activeInvite || !activeGuild || !isOpen) return;
 
     dispatch(createInvite(activeGuild.id));
   }, [isOpen]);
