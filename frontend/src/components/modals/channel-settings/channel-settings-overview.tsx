@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteGuild, updateGuild } from '../../../store/guilds';
+import { deleteChannel } from '../../../store/channels';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
@@ -9,16 +9,17 @@ import SaveChanges from '../../utils/save-changes';
  
 const ChannelSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
+  const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const { register, handleSubmit, setValue } = useForm();
 
   const onSave = (e) => {
-    const onUpdate = (payload) => dispatch(updateGuild(guild.id, payload));
+    const onUpdate = (payload) => dispatch(updateChannel(channel.id, payload));
     handleSubmit(onUpdate)(e);
   };
   const onDelete = () => {
     const confirmation = window.confirm('Are you sure you want to delete this guild?');
-    confirmation && dispatch(deleteGuild(guild.id));
+    confirmation && dispatch(deleteChannel(guild.id, channel.id));
   }
   
   return (
@@ -26,7 +27,7 @@ const ChannelSettingsOverview: React.FunctionComponent = () => {
       onChange={() => dispatch(openSaveChanges(true))}
       className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <header>
-        <h1 className="text-xl font-bold inline">Guild Overview</h1>
+        <h1 className="text-xl font-bold inline">Channel Overview</h1>
       </header>
     
       <section className="w-1/3">
@@ -34,13 +35,13 @@ const ChannelSettingsOverview: React.FunctionComponent = () => {
           label="Name"
           name="name"
           register={register}
-          options={{ value: guild.name }}
+          options={{ value: channel.name }}
           className="pt-5" />
         <Input
-          label="Icon URL"
-          name="iconURL"
+          label="Summary"
+          name="summary"
           register={register}
-          options={{ value: guild.iconURL }}
+          options={{ value: channel.summary }}
           className="pt-5" />
       </section>
 
@@ -58,7 +59,7 @@ const ChannelSettingsOverview: React.FunctionComponent = () => {
       <SaveChanges
         setValue={setValue}
         onSave={onSave}
-        obj={guild} />
+        obj={channel} />
     </form>    
   );
 }

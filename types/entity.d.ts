@@ -12,7 +12,7 @@ declare namespace Entity {
     id: string;
     createdAt: Date;
     guildId: string;
-    name?: string;
+    name: string;
     summary?: string;
     lastMessageId?: null | string;
     type: ChannelTypes.Type;

@@ -9,18 +9,19 @@ import usePerms from '../../../hooks/use-perms';
 import NavTabs from '../../utils/nav-tabs';
 
 const ChannelSettings: React.FunctionComponent = () => {
+  const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const [tab, setTab] = useState('overview');
   const perms = usePerms();
 
-  return (guild) ? (
+  return (channel) ? (
     <Modal typeName={'ChannelSettings'} size="full">
       <div className="grid grid-cols-12 h-full">
         <div className="col-span-4 bg-bg-secondary">
           <nav className="float-right flex-grow py-14 w-48 my-1 mr-4">
             <Category
               className="muted px-2.5 pb-1.5"
-              title={guild.name} />
+              title={`#${channel.name}`} />
           <NavTabs
             tabs={[
               { perm: 'MANAGE_CHANNELS', name: 'Overview', id: 'overview' },

@@ -4,6 +4,8 @@ declare namespace WS {
     'CHANNEL_CREATE': WS.Params.ChannelCreate;
     /** Delete a channel in a guild. */
     'CHANNEL_DELETE': WS.Params.ChannelDelete;
+    /** Update a channel in a guild. */
+    'CHANNEL_UPDATE': WS.Params.ChannelUpdate;
     /** Create a guild. */
     'GUILD_CREATE': WS.Params.GuildCreate;
     /** Delete a guild. */
@@ -54,8 +56,10 @@ declare namespace WS {
   export interface From {
     /** Called when a guild channel is created. */
     'CHANNEL_CREATE': WS.Args.ChannelCreate;
-    /** Callled when a guild channel is deleted. */
+    /** Called when a guild channel is deleted. */
     'CHANNEL_DELETE': WS.Args.ChannelDelete;
+    /** Called when a guild channel is updated. */
+    'CHANNEL_UPDATE': WS.Args.ChannelUpdate;
     /** Called when a guild is deleted, or the client leaves a guild. */
     'GUILD_DELETE': WS.Args.GuildDelete;
     /** Called when the client joins a guild. */
@@ -112,6 +116,12 @@ declare namespace WS {
     export interface ChannelDelete {
       /** ID of the channel to delete. */
       channelId: string;
+    }
+    export interface ChannelUpdate {
+      /** ID of the channel to update. */
+      channelId: string;
+      summary?: string;
+      name?: string;
     }
     export interface GuildCreate {
       /** Name of the guild. */
@@ -199,7 +209,7 @@ declare namespace WS {
   
   export namespace Args {
     export interface ChannelCreate {
-      /** ID of guild that channel is in. */
+      /** ID of guild that the channel is in. */
       guildId: string;
       /** The full object fo the channel that was created. */
       channel: Entity.Channel;
@@ -207,10 +217,16 @@ declare namespace WS {
       creatorId: string;
     }
     export interface ChannelDelete {
-      /** ID of guild that channel is in. */
+      /** ID of guild that the channel is in. */
       guildId: string;
       /** The ID of the channel that is deleted. */
       channelId: string;
+    }
+    export interface ChannelUpdate {
+      /** ID of the guild that the channel is in. */
+      channelId: string;
+      /** Properties to update a guild. */
+      partialChannel: Partial<Entity.Channel>;
     }
     export interface GuildCreate {
       /** The full object of the guild that was joined. */
@@ -226,10 +242,6 @@ declare namespace WS {
     }
     export interface GuildDelete {
       /** ID of the guild that was left. */
-      guildId: string;
-    }
-    export interface GuildDelete {
-      /** ID of the guild. */
       guildId: string;
     }
     /** Called when a member accepts an invite, or a bot was added to a guild. */
