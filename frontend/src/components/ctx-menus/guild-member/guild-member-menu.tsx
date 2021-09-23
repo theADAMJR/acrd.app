@@ -25,6 +25,9 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
   const isSelf = user.id === selfUser.id;  
   const userIsBlocked = selfUser.ignored?.userIds.includes(member.userId);
 
+  const canKick = perms.can('KICK_MEMBERS', guild.id);
+  const canManage = perms.can('MANAGE_ROLES', guild.id);
+
   return (
     <ContextMenu
       id={user.id}
@@ -49,17 +52,21 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
           <FontAwesomeIcon icon={faBan} />
         </MenuItem>
       </>)}
-        
-      <hr className="my-2 border-bg-primary" />
 
-      {(!isSelf && perms.can('KICK_MEMBERS', guild.id)) && (
-        <MenuItem
-          className="danger cursor-pointer mb-2"
-          onClick={() => dispatch(kickMember(guild.id, user.id))}>
-          <span>Kick {user.username}</span>
-        </MenuItem>
+      {(canKick || canManage) && (
+        <div>
+          <hr className="my-2 border-bg-primary" />
+
+          {(!isSelf && perms.can('KICK_MEMBERS', guild.id)) && (
+            <MenuItem
+              className="danger cursor-pointer mb-2"
+              onClick={() => dispatch(kickMember(guild.id, user.id))}>
+              <span>Kick {user.username}</span>
+            </MenuItem>
+          )}
+          {perms.can('MANAGE_ROLES', guild.id) && <RoleManager member={member} />}
+        </div>
       )}
-      {perms.can('MANAGE_ROLES', guild.id) && <RoleManager member={member} />}
 
       <div className="mb-10" />
       {devMode && <DevModeMenuSection ids={[
