@@ -9,6 +9,7 @@ import GuildDropdown from '../../dropdowns/guild-dropdown';
 import ChannelMenu from '../../ctx-menus/channel-menu';
 import { getGuildChannels } from '../../../store/guilds';
 import usePerms from '../../../hooks/use-perms';
+import classNames from 'classnames';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
@@ -20,9 +21,10 @@ const SidebarContent: React.FunctionComponent = () => {
     <ContextMenuTrigger key={c.id} id={c.id}>
       <Link
         to={`/channels/${activeGuild!.id}/${c.id}`}
-        className={`
-          cursor-pointer flex items-center rounded h-8 p-2 pl-3
-          ${c.id === activeChannel?.id && 'active'}`}>
+        className={classNames(
+          `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
+          { active: c.id === activeChannel?.id }
+        )}>
         <FontAwesomeIcon
           className="float-left mr-2 scale-150 muted fill-current"
           icon={faHashtag} />

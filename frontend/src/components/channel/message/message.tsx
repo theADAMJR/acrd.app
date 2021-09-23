@@ -10,6 +10,7 @@ import { getMemberHighestRole } from '../../../store/roles';
 import { getSelfMember } from '../../../store/members';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import MessageMenu from '../../ctx-menus/message-menu';
+import classNames from 'classnames';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -88,7 +89,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
 
   return (
     <ContextMenuTrigger key={message.id} id={message.id}>
-      <div className={`message flex ${!isActuallyExtra && 'mt-4'}`}>
+      <div className={classNames('message flex', { 'mt-4': isActuallyExtra })}>
         <div className="flex-shrink-0 left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
         <div className="relative flex-grow px-2">
           <div className="absolute toolbar right-0 -mt-3 z-10">

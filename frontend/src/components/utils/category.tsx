@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 export interface CategoryProps {
   title: string;
   count?: number;
@@ -6,7 +8,7 @@ export interface CategoryProps {
 
 const Category: React.FunctionComponent<CategoryProps> = ({ title, count, className }) => {
   return (
-    <h2 className={`uppercase font-bold text-xs tracking-wider ${className}`}>
+    <h2 className={classNames(`uppercase font-bold text-xs tracking-wider`, className)}>
       {title} {count !== undefined && `— ${count}`}
     </h2>
   );

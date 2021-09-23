@@ -9,6 +9,7 @@
 
   --success: #09f7a0;
   --danger: #f43e5c;
+  --warning: #f77d26;
 
   --normal: #dcddde;
   --link: hsl(197, calc(var(--saturation-factor, 1) * 100%), 47.8%);
@@ -30,7 +31,6 @@
 
   --font-primary: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-  --warning: #f77d26;
   --light: #fdf0ed;
   --dark: #16161c;
 }
@@ -108,6 +108,9 @@ nav a.active {
 }
 .bg-tertiary {
   background-color: var(--tertiary);
+}
+.bg-warning {
+  background-color: var(--warning);
 }
 .bg-danger {
   background-color: var(--danger);

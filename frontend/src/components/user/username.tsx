@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown } from '@fortawesome/free-solid-svg-icons';
 import { getMemberHighestRole } from '../../store/roles';
 import { useSelector } from 'react-redux';
+import classNames from 'classnames';
 
 export interface UsernameProps {
   user: Entity.User;
@@ -28,13 +29,22 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 
       <span className="rounded-full absolute flex -right-0.5 -bottom-0.5">
         <span
           style={{ border: '2px solid var(--bg-secondary)' }}
-          className={`relative inline-flex rounded-full px-1 ${blob.size} ${blob.color}`} />
+          className={classNames(
+            `relative inline-flex rounded-full px-1`,
+            blob.size, blob.color )} />
       </span>
     );
   }
 
+  const sizeClass = {
+    'text-lg': size === 'lg',
+    'text-sm': size !== 'lg',
+  };
+
   return (
-    <div className={`flex items-center px-2 ${!isOnline && 'opacity-50'}`}>
+    <div className={classNames(
+      `flex items-center px-2`,
+      { 'opacity-50': !isOnline })}>
       <div className="relative avatar mr-2">
         <UserPresence />
         <img
@@ -44,15 +54,15 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 
           src={`${process.env.REACT_APP_CDN_URL}${user.avatarURL}`} />
       </div>
       <div className="tag leading-4">
-        <h4 className={`font-bold ${size === 'lg' ? 'text-lg' : 'text-sm'}`}>
+        <h4 className={classNames(`font-bold`, sizeClass)}>
           <span
             style={{ color: highestRole?.color ?? 'var(--secondary)' }}
-            className={guild && 'font-light text-base'}>{user.username}</span>
+            className={classNames({ 'font-light text-base': guild })}>{user.username}</span>
           <span className="text-yellow-400 ml-1">
             {userOwnsGuild && <FontAwesomeIcon icon={faCrown} />}
           </span>
         </h4>
-        {!guild && <div className={`discriminator ${size === 'lg' ? 'text-sm' : 'text-xs'}`}>#{discrim}</div>}
+        {!guild && <div className={classNames(`discriminator`, sizeClass)}>#{discrim}</div>}
       </div>
     </div>
   );

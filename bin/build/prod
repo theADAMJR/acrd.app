@@ -6,7 +6,11 @@ cd build
 
 CNAME="accord.app"
 echo $CNAME > CNAME
-cp ../../bin/404.html .
+
+BIN_PATH="../../bin/build"
+REDIRECT_SCRIPT=$(cat $BIN_PATH/redirect-script.html)
+cp $BIN_PATH/404.html .
+sed -i '/<\/body><\/html>/ i' $REDIRECT_SCRIPT index.html
 
 git init
 git remote add origin https://github.com/accord-dot-app/accord-dot-app.github.io

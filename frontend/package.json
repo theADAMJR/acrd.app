@@ -18,6 +18,7 @@
     "@types/react-dom": "^17.0.9",
     "axios": "^0.21.1",
     "babel-plugin-react-scoped-css": "^1.1.1",
+    "classnames": "^2.3.1",
     "craco-plugin-scoped-css": "^1.1.1",
     "javascript-time-ago": "^2.3.8",
     "moment": "^2.29.1",
@@ -46,7 +47,7 @@
     "start": "PORT=4200 dotenv -e src/env/.env.dev craco start",
     "start:prod": "PORT=4200 dotenv -e src/env/.env.prod craco start",
     "build:dev": "dotenv -e src/env/.env.dev craco build",
-    "build:prod": "sh ../bin/build-prod",
+    "build:prod": "sh ../bin/build/prod",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

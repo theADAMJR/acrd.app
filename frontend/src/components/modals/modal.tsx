@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useSnackbar } from 'notistack';
 import ReactModal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,7 +24,11 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, typeName, size,
 
   return (
     <ReactModal
-      className={`bg-bg-primary overflow-auto fixed outline-none ${className} ${sizeClass[size ?? 'sm']}`}
+      className={classNames(
+        `bg-bg-primary overflow-auto fixed outline-none`,
+        className,
+        sizeClass[size ?? 'sm']
+      )}
       appElement={document.querySelector('#root')!}
       isOpen={openModal === typeName}
       onRequestClose={() => {

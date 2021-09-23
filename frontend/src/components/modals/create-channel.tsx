@@ -33,7 +33,7 @@ const CreateChannel: React.FunctionComponent = () => {
 
         <footer className="bg-bg-secondary">
           <NormalButton
-            className="float-right m-4">Create</NormalButton>
+            className="bg-primary font float-right m-4">Create</NormalButton>
         </footer>
       </form>
     </Modal>

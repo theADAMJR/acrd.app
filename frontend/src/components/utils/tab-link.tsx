@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { angrySaveChanges } from '../../store/ui';
@@ -23,9 +24,10 @@ const TabLink: React.FunctionComponent<TabLinkProps & Props> = (props) => {
           return angrySaveChanges();
         setTab?.(id);
       }}
-      className={`
-        flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5 ${className}
-        ${tab === id && 'active'}`}>{children}</Link>
+      className={classNames(
+        `flex items-center rounded py-1.5 px-2.5 h-8 mb-0.5`,
+        className,
+        { 'active': tab === id })}>{children}</Link>
   );
 }
  

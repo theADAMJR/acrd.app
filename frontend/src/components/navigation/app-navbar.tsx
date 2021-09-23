@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHashtag, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMemberList } from '../../store/config';
+import classNames from 'classnames';
  
 const AppNavbar: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,10 @@ const AppNavbar: React.FunctionComponent = () => {
         <FontAwesomeIcon
           onClick={() => dispatch(toggleMemberList())}
           icon={faUserFriends}
-          className={`cursor-pointer ${memberListToggled ? 'heading' : 'muted'}`} />)}
+          className={classNames(`cursor-pointer`, {
+            'heading': memberListToggled,
+            'muted': !memberListToggled,
+          })} />)}
     </div>
   );
 }

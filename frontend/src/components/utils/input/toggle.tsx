@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import './toggle.scoped.css';
 
 export type ToggleProps = React.DetailedHTMLProps<
@@ -9,7 +10,7 @@ export type ToggleProps = React.DetailedHTMLProps<
  
 const Toggle: React.FunctionComponent<ToggleProps> = (props) => {  
   return (
-    <div className={`flex ${props.className}`}>
+    <div className={classNames(`flex`, props.className)}>
       <label htmlFor={props.id} className="flex items-center cursor-pointer">
         <div className="relative">
           <input
