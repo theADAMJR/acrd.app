@@ -1,3 +1,5 @@
+import { faCross, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -25,6 +27,7 @@ const ChannelMenu: React.FunctionComponent<ChannelMenusProps> = ({ channel }) =>
           className="danger cursor-pointer"
           onClick={() => dispatch(deleteChannel(guildId!, channel.id))}>
           <span>Delete channel</span>
+          <FontAwesomeIcon icon={faTimes} className="float-right" />
         </MenuItem>
       )}
       {devMode && <DevModeMenuSection ids={[

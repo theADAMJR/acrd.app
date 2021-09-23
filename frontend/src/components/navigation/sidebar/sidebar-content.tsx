@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHashtag } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faHashtag } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -23,12 +23,19 @@ const SidebarContent: React.FunctionComponent = () => {
         to={`/channels/${activeGuild!.id}/${c.id}`}
         className={classNames(
           `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
-          { active: c.id === activeChannel?.id }
+          { active: c.id === activeChannel?.id },
         )}>
         <FontAwesomeIcon
           className="float-left mr-2 scale-150 muted fill-current"
           icon={faHashtag} />
-        <span>{c.name}</span>
+        <span className="flex-grow flex justify-between">
+          <span>{c.name}</span>
+          <span
+            onClick={() => dispatch(ui.openedModal('ChannelSettings'))}
+            className="cursor-pointer opacity-100">
+            <FontAwesomeIcon icon={faCog} />
+          </span>
+        </span>
       </Link>
       <ChannelMenu channel={c} />
     </ContextMenuTrigger>

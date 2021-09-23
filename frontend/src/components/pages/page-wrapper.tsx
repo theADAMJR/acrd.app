@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions as ui } from '../../store/ui';
+import ChannelSettings from '../modals/channel-settings/channel-settings';
 import CreateChannel from '../modals/create-channel';
 import CreateGuild from '../modals/create-guild';
 import CreateInvite from '../modals/create-invite';
@@ -35,6 +36,7 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
       <CreateChannel />
       <CreateGuild />
       <CreateInvite />
+      <ChannelSettings />
       <GuildSettings />
       <UserSettings />
       <UserProfile />
