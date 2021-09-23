@@ -17,6 +17,10 @@ const slice = createSlice({
       const index = channels.findIndex(c => c.id === payload.channelId);
       channels.splice(index, 1);
     },
+    updated: (channels, { payload }: Store.Action<WS.Args.ChannelUpdate>) => {
+      const index = channels.findIndex(c => c.id === payload.channelId);
+      Object.assign(channels[index], payload.partialChannel);
+    },
   },
 });
 

@@ -62,6 +62,7 @@ const WSListener: React.FunctionComponent = () => {
 
       dispatch(channels.deleted(args));
     });
+    ws.on('CHANNEL_UPDATE', (args) => dispatch(channels.updated(args)));
     ws.on('GUILD_CREATE', (args) => {
       dispatch(users.fetched(args.users)); // this before members
       dispatch(channels.fetched(args.channels));
