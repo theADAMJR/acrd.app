@@ -89,7 +89,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
 
   return (
     <ContextMenuTrigger key={message.id} id={message.id}>
-      <div className={classNames('message flex', { 'mt-4': isActuallyExtra })}>
+      <div className={classNames('message flex', { 'mt-4': !isActuallyExtra })}>
         <div className="flex-shrink-0 left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
         <div className="relative flex-grow px-2">
           <div className="absolute toolbar right-0 -mt-3 z-10">
