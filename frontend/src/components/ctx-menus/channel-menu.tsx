@@ -25,7 +25,7 @@ const ChannelMenu: React.FunctionComponent<ChannelMenusProps> = ({ channel }) =>
       {perms.can('MANAGE_CHANNELS', guildId) && (
         <MenuItem
           className="danger cursor-pointer"
-          onClick={() => dispatch(deleteChannel(guildId!, channel.id))}>
+          onClick={() => dispatch(deleteChannel(channel.id))}>
           <span>Delete channel</span>
           <FontAwesomeIcon icon={faTimes} className="float-right" />
         </MenuItem>

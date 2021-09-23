@@ -30,10 +30,17 @@ export const createChannel = (guildId: string, name: string) => (dispatch) => {
   }));
 }
 
-export const deleteChannel = (guildId: string, channelId: string) => (dispatch) => {
+export const deleteChannel = (channelId: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'CHANNEL_DELETE',
-    data: { guildId, channelId } as WS.Params.ChannelDelete,
+    data: { channelId } as WS.Params.ChannelDelete,
+  }));
+}
+
+export const updateChannel = (channelId: string, payload: Partial<Entity.Channel>) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'CHANNEL_UPDATE',
+    data: { channelId, ...payload } as WS.Params.ChannelDelete,
   }));
 }
 

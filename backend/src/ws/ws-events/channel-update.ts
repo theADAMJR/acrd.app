@@ -1,5 +1,4 @@
 import { Socket } from 'socket.io';
-import { TextChannelDocument } from '../../data/models/channel';
 import Deps from '../../utils/deps';
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';

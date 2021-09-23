@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteChannel } from '../../../store/channels';
+import { deleteChannel, updateChannel } from '../../../store/channels';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
@@ -19,7 +19,7 @@ const ChannelSettingsOverview: React.FunctionComponent = () => {
   };
   const onDelete = () => {
     const confirmation = window.confirm('Are you sure you want to delete this guild?');
-    confirmation && dispatch(deleteChannel(guild.id, channel.id));
+    confirmation && dispatch(deleteChannel(channel.id));
   }
   
   return (

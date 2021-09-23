@@ -15,7 +15,10 @@ const AppNavbar: React.FunctionComponent = () => {
       {channel && <FontAwesomeIcon
         icon={faHashtag}
         className="scale-150 mr-2" />}
-      <h3 className="flex-grow font-bold ml-1">{channel?.name}</h3>
+      <h3 className="flex-grow ml-1">
+        <span className="font-bold">{channel?.name}</span>
+        <span className="muted ml-3">{channel?.summary}</span>
+      </h3>
       {guild && (
         <FontAwesomeIcon
           onClick={() => dispatch(toggleMemberList())}
