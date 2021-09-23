@@ -31,7 +31,7 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
     
     const isSelf = selfMember.id === memberId;
     const selfIsOwner = selfMember.userId === guild.ownerId;
-    if (!(isSelf && selfHasHigherRoles && selfIsOwner))
+    if (!isSelf && !selfHasHigherRoles && !selfIsOwner)
       throw new TypeError('Member has higher roles'); 
     
     const everyoneRole = await this.roles.getEveryone(guild.id);

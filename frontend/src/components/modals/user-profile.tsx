@@ -27,7 +27,7 @@ const UserProfile: FunctionComponent = () => {
     'BUG_3': {
       color: 'gold',
       icon: faBug,
-      title: 'Are there still bugs left?'
+      title: 'Are there any bugs left?'
     },
     'OG': {
       color: 'orange',
@@ -37,7 +37,7 @@ const UserProfile: FunctionComponent = () => {
     'STAFF': {
       color: 'var(--primary)',
       icon: faGavel,
-      title: 'Epic',
+      title: 'Staff',
     },
   };
 

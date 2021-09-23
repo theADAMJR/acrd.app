@@ -20,7 +20,8 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
 
   public async isHigher(guild: Entity.Guild, selfMember: Entity.GuildMember, roleIds: string[]) {
     const guildRoles = await Role.find({ guildId: guild.id });
-    const highestRole: Entity.Role = guildRoles[guildRoles.length - 1];
+    const max = (key: string) => (max, val) => max > val[key] ? max : val[key];
+    const highestRole: Entity.Role = guildRoles.reduce(max('position'));
 
     return selfMember.userId === guild?.ownerId
       || (selfMember.roleIds.includes(highestRole?.id)
