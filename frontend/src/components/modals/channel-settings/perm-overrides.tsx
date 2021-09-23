@@ -8,25 +8,25 @@ import Category from '../../utils/category';
 import Toggle from '../../utils/input/toggle';
 
 export interface PermOverrides {
-  setValue: UseFormSetValue<FieldValues>;
-  setPerms: React.Dispatch<React.SetStateAction<number>>;
-  perms: number;
+  setOverrides: React.Dispatch<React.SetStateAction<ChannelTypes.Override[]>>;
+  overrides: ChannelTypes.Override[];
+  activeOverride: ChannelTypes.Override;
 }
  
-const PermOverrides: React.FunctionComponent<PermOverrides> = ({ perms, setPerms, setValue }) => {
+const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, overrides }) => {
   const dispatch = useDispatch();
   const { description } = usePerms();
   
-  const fullySetPerms = (perms: number) => {
-    setPerms(perms);
-    setValue('permissions', perms);
+  const fullySetOverrides = (overrides: number) => {
+    setOverrides(overrides);
     dispatch(openSaveChanges(true));
   };
-  const togglePerm = (name: string, on: boolean) =>
-    fullySetPerms((on)
-      ? perms | PermissionTypes.All[name]
-      : perms & ~PermissionTypes.All[name]);
-  const has = (name: string) => Boolean(perms & PermissionTypes.All[name]);
+  const togglePerm = (name: string, on: boolean) => {
+    fullySetOverrides((on)
+      ? overrides | PermissionTypes.All[name]
+      : overrides & ~PermissionTypes.All[name]);
+  }
+  const has = (name: string) => Boolean(overrides & PermissionTypes.All[name]);
   const PermToggle = ({ category, permName }) => (
     <div className="flex items-center justify-between mb-2">
       <span>{description[category][permName]}</span>
@@ -51,7 +51,7 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ perms, setPerms
         </div>
       ))}
       <NormalButton
-        onClick={() => fullySetPerms(0)}
+        onClick={() => fullySetOverrides(0)}
         className="bg-white text-black"
         type="button">Clear</NormalButton>
     </>

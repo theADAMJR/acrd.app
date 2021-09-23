@@ -16,7 +16,7 @@ declare namespace Entity {
     summary?: string;
     lastMessageId?: null | string;
     type: ChannelTypes.Type;
-    overrides: ChannelTypes.Override[]
+    overrides?: ChannelTypes.Override[];
   }
   export interface Guild {
     id: string;
