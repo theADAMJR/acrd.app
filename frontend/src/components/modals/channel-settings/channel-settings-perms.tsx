@@ -102,10 +102,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
               <RoleMenu role={r} />
             </ContextMenuTrigger>
           ))}
-          <CircleButton
-            onClick={() => dispatch(createRole(guildId))}
-            style={{ color: 'var(--success)' }}
-            className="ring-green-500 m-2">Create</CircleButton>
+          {/* add override to array */}
         </nav>
       </div>
       <div className="lg:col-span-9 col-span-12">

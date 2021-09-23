@@ -122,6 +122,7 @@ declare namespace WS {
       channelId: string;
       summary?: string;
       name?: string;
+      overrides?: ChannelTypes.Override[];
     }
     export interface GuildCreate {
       /** Name of the guild. */

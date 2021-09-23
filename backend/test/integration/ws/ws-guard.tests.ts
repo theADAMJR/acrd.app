@@ -8,9 +8,10 @@ import { UserDocument } from '../../../src/data/models/user';
 import { expect } from 'chai';
 import { WebSocket } from '../../../src/ws/websocket';
 import { GuildMember, GuildMemberDocument } from '../../../src/data/models/guild-member';
-import { Channel, TextChannelDocument, VoiceChannelDocument } from '../../../src/data/models/channel';
+import { Channel, TextChannelDocument } from '../../../src/data/models/channel';
 import { PermissionTypes } from '../../../src/types/permission-types';
 import { WSGuard } from '../../../src/ws/modules/ws-guard';
+import Channels from '../../../src/data/channels';
 
 describe.only('ws-guard', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;

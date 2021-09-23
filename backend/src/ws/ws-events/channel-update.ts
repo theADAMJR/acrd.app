@@ -15,11 +15,12 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
     private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { name, summary, channelId }: WS.Params.ChannelUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { name, summary, overrides, channelId }: WS.Params.ChannelUpdate) {
     const channel = await this.channels.getText(channelId);
     await this.guard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
     
     if (name) channel.name = name;
+    if (overrides) channel.overrides = overrides;
     channel.summary = summary;
     await channel.save();
 
