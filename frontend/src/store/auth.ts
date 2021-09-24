@@ -42,7 +42,7 @@ export const ready = () => (dispatch, getState: () => Store.AppState) => {
 // handle side effects here
 export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
   dispatch(api.restCallBegan({
-    onSuccess: [actions.shouldVerify.type],
+    onSuccess: [],
     method: 'post',
     data,
     url: `/auth/login`,
@@ -50,10 +50,12 @@ export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
     callback: (payload) => {
       if (payload.token) {
         localStorage.setItem('token', payload);
-        dispatch(ready());        
+        dispatch(ready());
       }
-      if (payload.message)
+      else if (payload.message) {
         alert(payload.message);
+        dispatch(actions.shouldVerify);
+      }
     }
   }));
 }
