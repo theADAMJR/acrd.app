@@ -62,7 +62,7 @@ const LoginPage: React.FunctionComponent = () => {
             onSubmit={handleSubmit(onLogin)}>
             <h1 className="text-3xl font-bold">Welcome back!</h1>
             <p className="lead">We're so excited to see you again!</p>
-            <a href="https://github.com/accord-dot-app/app/issues/15">Click here for help if your email does not work anymore.</a>
+            <a href="https://github.com/accord-dot-app/app/issues/15#issuecomment-926652008" target="_blank">Click here for help if your email does not work anymore.</a>
 
             <Input
               label="Email"

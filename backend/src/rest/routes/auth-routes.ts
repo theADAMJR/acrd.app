@@ -23,12 +23,13 @@ router.post('/login', passport.authenticate('local', { failWithError: true }),
       throw new APIError(400, 'Invalid credentials');
     else if (user.locked)
       throw new APIError(403, 'This account is locked');
-
-    await sendEmail.verifyCode(user as any);
-  
-    res.status(200).json({
-      message: 'Check your email for a verification code',
-    });
+    else if (user.verified) {
+      await sendEmail.verifyCode(user as any);
+      return res.status(200).json({
+        message: 'Check your email for a verification code',
+      });
+    }
+    res.status(201).json({ token: users.createToken(user.id) });
   });
 
 router.post('/register', async (req, res) => {

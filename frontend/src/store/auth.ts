@@ -47,7 +47,14 @@ export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
     data,
     url: `/auth/login`,
     // TODO: replace with snackbar
-    callback: (payload) => alert(payload.message),
+    callback: (payload) => {
+      if (payload.token) {
+        localStorage.setItem('token', payload);
+        dispatch(ready());        
+      }
+      if (payload.message)
+        alert(payload.message);
+    }
   }));
 }
 
