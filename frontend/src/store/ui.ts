@@ -67,8 +67,12 @@ export const angrySaveChanges = () => {
   saveChanges.style.backgroundColor = 'var(--danger)';
 }
 
-export const openDialog = (dialog: Store.AppState['ui']['openDialog']) => (dispatch) => {
-  dispatch(actions.closedDialog());
+// FIXME: crashes app
+export const openDialog = (dialog: Store.AppState['ui']['openDialog']) => (dispatch, getState: () => Store.AppState) => {
+  return;
+  
+  if (getState().ui.openDialog)
+    dispatch(actions.closedDialog());
   dispatch(actions.openedDialog(dialog));
 }
 
