@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useSnackbar } from 'notistack';
 import ReactModal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux';
-import { actions as ui, closeModal, openSaveChanges } from '../../store/ui';
+import { closeModal } from '../../store/ui';
 
 export interface ModalProps {
   typeName: string;
@@ -10,10 +10,11 @@ export interface ModalProps {
   className?: string;
 }
 
+// TODO: add mobile styling support
 const sizeClass = {
-  'sm': 'rounded-lg w-1/4 inset-x-1/3 inset-y-1/3',
-  'md': 'rounded-lg w-1/3 inset-x-1/3 inset-y-1/4',
-  'lg': 'rounded-lg w-1/3 inset-x-1/3 top-1/4',
+  'sm': 'rounded-lg 2xl:w-1/4 2xl:inset-x-1/3 2xl:inset-y-1/3   md:w-1/3 md:inset-x-1/3 md:inset-y-1/4',
+  'md': 'rounded-lg 2xl:w-1/3 2xl:inset-x-1/3 2xl:inset-y-1/4   md:w-1/4 md:inset-x-1/3 md:inset-y-1/3',
+  'lg': 'rounded-lg 2xl:w-1/3 2xl:inset-x-1/3 2xl:top-1/4       md:w-1/3 md:inset-x-1/3 md:top-20',
   'full': 'h-full w-full',
 };
  
