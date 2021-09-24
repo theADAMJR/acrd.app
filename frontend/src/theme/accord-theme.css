@@ -87,6 +87,9 @@ nav a.active {
 .danger {
   color: var(--danger);
 }
+.warning {
+  color: var(--warning);
+}
 .heading {
   color: var(--heading);
 }

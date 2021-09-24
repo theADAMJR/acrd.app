@@ -17,7 +17,7 @@ export default class implements WSEvent<'USER_DELETE'> {
 
   public async invoke(ws: WebSocket, client: Socket, { token }: WS.Params.UserDelete) {
     const { id: userId } = await this.guard.decodeKey(token);
-    const user = await this.users.get(userId);
+    const user = await this.users.getSelf(userId);
 
     const partialUser = {
       discriminator: 0,

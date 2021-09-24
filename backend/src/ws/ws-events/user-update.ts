@@ -17,7 +17,7 @@ export default class implements WSEvent<'USER_UPDATE'> {
 
   public async invoke(ws: WebSocket, client: Socket, { token, username, avatarURL, ignored }: WS.Params.UserUpdate) {
     const { id: userId } = await this.guard.decodeKey(token);
-    const user = await this.users.get(userId);
+    const user = await this.users.getSelf(userId);
 
     const partialUser = {};
     if (avatarURL) partialUser['avatarURL'] = avatarURL;

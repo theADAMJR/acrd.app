@@ -28,17 +28,13 @@ export default class Users extends DBWrapper<string, UserDocument> {
   }
 
   public async getSelf(id: string | undefined): Promise<SelfUserDocument> {
-    return await this.get(id) as SelfUserDocument;
-  }
-
-  public async getByUsername(username: string): Promise<SelfUserDocument> {
-    const user = await User.findOne({ username }) as SelfUserDocument;
+    const user = await User.findById(id);
     if (!user)
       throw new APIError(404, 'User Not Found');
-    return user;
+    return user as any as SelfUserDocument;  
   }
   public async getByEmail(email: string): Promise<SelfUserDocument> {
-    const user = await User.findOne({ email }) as SelfUserDocument;
+    const user = await User.findOne({ email }) as any as SelfUserDocument;
     if (!user)
       throw new APIError(404, 'User Not Found');
     return user;

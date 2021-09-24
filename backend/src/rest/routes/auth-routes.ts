@@ -23,8 +23,6 @@ router.post('/login', passport.authenticate('local', { failWithError: true }),
       throw new APIError(400, 'Invalid credentials');
     else if (user.locked)
       throw new APIError(403, 'This account is locked');
-    else if (!user.verified)
-      throw new APIError(403, 'Please verify your email to login');
 
     await sendEmail.verifyCode(user as any);
   
@@ -38,7 +36,7 @@ router.post('/register', async (req, res) => {
     email: req.body.email,
     password: req.body.password,
     username: req.body.username,
-  }) as SelfUserDocument;
+  }) as any as SelfUserDocument;
 
   await sendEmail.verifyEmail(user.email, user);
 

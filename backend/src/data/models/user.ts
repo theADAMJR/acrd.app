@@ -10,6 +10,8 @@ export interface UserDocument extends Document, Entity.User {
   _id: string | never;
   id: string;
   createdAt: never;
+  /** @deprecated Don't update a public user document. */
+  save: never;
 }
 export interface SelfUserDocument extends Document, UserTypes.Self {
   _id: string | never;
