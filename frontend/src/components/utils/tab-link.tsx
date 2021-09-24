@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { angrySaveChanges } from '../../store/ui';
 
 export interface TabLinkProps {
-  tab: string;
+  tab: string | undefined;
   id: string;
-  setTab?: React.Dispatch<React.SetStateAction<string>>;
+  setTab?: React.Dispatch<React.SetStateAction<string | undefined>>;
   className?: string;
 }
 type Props = React.HTMLAttributes<HTMLAnchorElement>;

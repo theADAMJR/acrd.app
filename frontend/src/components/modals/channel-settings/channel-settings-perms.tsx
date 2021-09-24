@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import { updateChannel } from '../../../store/channels';
+import { getGuildRoles } from '../../../store/guilds';
 import RoleMenu from '../../ctx-menus/role-menu';
 import NormalButton from '../../utils/buttons/normal-button';
 import SaveChanges from '../../utils/save-changes';
@@ -9,10 +11,12 @@ import TabLink from '../../utils/tab-link';
 import PermOverrides from './perm-overrides';
  
 const ChannelSettingsPerms: React.FunctionComponent = () => {  
+  const { guildId }: any = useParams();
   const dispatch = useDispatch();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const [activeRoleId, setActiveRoleId] = useState(channel.overrides?.[0].roleId);
   const [overrides, setOverrides] = useState(channel.overrides ?? []);
+  const roles = useSelector(getGuildRoles(guildId));
 
   const activeOverride = overrides.find(o => o.roleId === activeRoleId);
 

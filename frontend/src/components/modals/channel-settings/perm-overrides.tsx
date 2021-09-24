@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { UseFormSetValue, FieldValues } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
@@ -13,48 +14,75 @@ export interface PermOverrides {
   activeOverride: ChannelTypes.Override;
 }
  
-const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, overrides }) => {
+const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, overrides, activeOverride }) => {
   const dispatch = useDispatch();
   const { description } = usePerms();
+  const [allow, setAllow] = useState(activeOverride.allow);
+  const [deny, setDeny] = useState(activeOverride.deny);
   
-  const fullySetOverrides = (overrides: number) => {
+  const category = 'text';
+  
+  const togglePerm = (name: string, state: 'ALLOW' | 'INHERIT' | 'DENY') => {
+    if (state === 'INHERIT') {
+      // remove from both
+      setAllow(allow & ~PermissionTypes.All[name]);
+      setDeny(deny & ~PermissionTypes.All[name]);
+    } else if (state === 'ALLOW')
+      setAllow(allow | PermissionTypes.All[name]);
+    else setDeny(deny | PermissionTypes.All[name]);
+    updateOverrides();
+  }
+  const updateOverrides = () => {
+    const roleId = activeOverride.roleId;
+    const thisIndex = overrides.findIndex(o => o.roleId === roleId);
+    overrides[thisIndex] = { allow, deny, roleId };
+
     setOverrides(overrides);
     dispatch(openSaveChanges(true));
   };
-  const togglePerm = (name: string, on: boolean) => {
-    fullySetOverrides((on)
-      ? overrides | PermissionTypes.All[name]
-      : overrides & ~PermissionTypes.All[name]);
-  }
-  const has = (name: string) => Boolean(overrides & PermissionTypes.All[name]);
-  const PermToggle = ({ category, permName }) => (
+
+  const isAllowed = (name: string) => Boolean(allow & PermissionTypes.All[name]);
+  const isInherited = (name: string) =>
+    !Boolean(allow & PermissionTypes.All[name])
+    && !Boolean(deny & PermissionTypes.All[name]);
+
+  const PermToggle = ({ permName }) => (
     <div className="flex items-center justify-between mb-2">
       <span>{description[category][permName]}</span>
       <Toggle
         id={permName}
-        checked={has(permName)}
-        onChange={() => togglePerm(permName, !has(permName))}
-        className="float-right" />
+        checked={isAllowed(permName)}
+        onChange={({ currentTarget: toggle }) => {
+          if (toggle.indeterminate)
+            togglePerm(permName, 'INHERIT');
+          else if (toggle.checked)
+            togglePerm(permName, 'ALLOW')
+          else togglePerm(permName, 'DENY');
+        }}
+        className="float-right"
+        allowIndeterminate
+        indeterminate={isInherited(permName)} />
     </div>
   );
 
+  const clearOverrides = () => {
+    setAllow(0);
+    setDeny(0);
+    updateOverrides();
+  };
+
   return (
-    <>
-      {Object.keys(description).map(category => (
-        <div key={category} className="mb-5">
-          <Category className="muted pb-1.5 mt-5" title={category} />
-            {Object.keys(description[category]).map(permName =>
-              <PermToggle
-                key={permName}
-                category={category}
-                permName={permName} />)}
-        </div>
-      ))}
+    <div className="mb-5">
+      <Category className="muted pb-1.5 mt-5" title={category} />
+        {Object.keys(description[category]).map(permName =>
+          <PermToggle
+            key={permName}
+            permName={permName} />)}
       <NormalButton
-        onClick={() => fullySetOverrides(0)}
+        onClick={clearOverrides}
         className="bg-white text-black"
         type="button">Clear</NormalButton>
-    </>
+    </div>
   );
 }
  
