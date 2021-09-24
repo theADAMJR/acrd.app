@@ -9,13 +9,6 @@ export interface TextChannelDocument extends Document, ChannelTypes.Text {
   createdAt: never;
   guildId: string;
 }
-// FIXME:
-export interface VoiceChannelDocument extends Document, ChannelTypes.Text {
-  _id: string | never;
-  id: string;
-  createdAt: never;
-  guildId: string;
-}
 export type ChannelDocument = TextChannelDocument;
 
 export const Channel = model<ChannelDocument>('channel', new Schema({
@@ -49,6 +42,10 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
     type: String,
     required: [true, 'Type is required'],
     validate: [/^TEXT$|^VOICE$|^DM$/, 'Invalid type'],
+  },
+  override: {
+    type: [Object],
+    default: [],
   },
 }, { toJSON: { getters: true } })
 .method('toClient', useId));

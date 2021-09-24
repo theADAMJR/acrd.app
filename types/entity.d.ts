@@ -16,6 +16,7 @@ declare namespace Entity {
     summary?: string;
     lastMessageId?: null | string;
     type: ChannelTypes.Type;
+    overrides?: ChannelTypes.Override[];
   }
   export interface Guild {
     id: string;
@@ -78,6 +79,11 @@ declare namespace ChannelTypes {
 
   export interface Text extends Entity.Channel {
     type: 'TEXT';
+  }
+  export interface Override {
+    roleId: string;
+    allow: number;
+    deny: number;
   }
 }
 

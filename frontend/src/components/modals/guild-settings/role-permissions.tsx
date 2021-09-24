@@ -8,12 +8,12 @@ import Category from '../../utils/category';
 import Toggle from '../../utils/input/toggle';
 
 export interface RolePermissionsProps {
-  setValue: UseFormSetValue<FieldValues>;
+  setRoleValue: UseFormSetValue<FieldValues>;
   setPerms: React.Dispatch<React.SetStateAction<number>>;
   perms: number;
 }
  
-const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms, setPerms, setValue }) => {
+const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms, setPerms, setRoleValue: setValue }) => {
   const dispatch = useDispatch();
   const { description } = usePerms();
   

@@ -72,7 +72,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
         <RolePermissions
           perms={perms}
           setPerms={setPerms}
-          setValue={setValue}  />
+          setRoleValue={setValue}  />
         <NormalButton
           onClick={() => dispatch(deleteRole(guildId, activeRole!.id))}
           className="bg-danger float-right"
