@@ -8,8 +8,6 @@ import { SnackbarProvider } from 'notistack';
 
 import './index.css';
 
-console.log(process.env.MODE);
-
 ReactDOM.render(
   <SnackbarProvider maxSnack={1}>
     <Provider store={configureStore()}>
