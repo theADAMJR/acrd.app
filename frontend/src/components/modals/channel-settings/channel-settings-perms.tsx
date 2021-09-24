@@ -14,7 +14,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   const { guildId }: any = useParams();
   const dispatch = useDispatch();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
-  const [activeRoleId, setActiveRoleId] = useState(channel.overrides?.[0].roleId);
+  const [activeRoleId, setActiveRoleId] = useState(channel.overrides?.[0].roleId ?? '');
   const [overrides, setOverrides] = useState(channel.overrides ?? []);
   const roles = useSelector(getGuildRoles(guildId));
 

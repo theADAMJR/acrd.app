@@ -17,7 +17,7 @@ const SidebarContent: React.FunctionComponent = () => {
   const guildChannels = useSelector(getGuildChannels(activeGuild?.id));
   const perms = usePerms();
   
-  const channels = guildChannels.map(c => (
+  const channels = (activeGuild) ? guildChannels.map(c => (
     <ContextMenuTrigger key={c.id} id={c.id}>
       <Link
         to={`/channels/${activeGuild!.id}/${c.id}`}
@@ -33,13 +33,13 @@ const SidebarContent: React.FunctionComponent = () => {
           <span
             onClick={() => dispatch(ui.openedModal('ChannelSettings'))}
             className="cursor-pointer opacity-100">
-            <FontAwesomeIcon icon={faCog} />
+            {perms.can('MANAGE_CHANNELS', activeGuild.id) && <FontAwesomeIcon icon={faCog} />}
           </span>
         </span>
       </Link>
       <ChannelMenu channel={c} />
     </ContextMenuTrigger>
-  ));
+  )) : [];
 
   return (
     <div className="flex flex-col bg-bg-secondary w-60">
