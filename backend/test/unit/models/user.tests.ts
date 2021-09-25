@@ -1,6 +1,3 @@
-import 'mocha';
-import 'chai-as-promised';
-
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from 'sazerac';
 import { longArray, mongooseError } from '../../test-utils';

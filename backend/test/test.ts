@@ -16,6 +16,9 @@ use(chaiSpies);
 use(chaiThings);
 use(should);
 
+const space = (length = 54) => new Array(length).join(' ');
+console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
+
 (async() => {
   try {
     await mongoose.connect(process.env.MONGO_URI, { 
@@ -33,10 +36,6 @@ use(should);
     // remove glitched test processes
     execSync(`kill -9 $(lsof -i :${process.env.PORT} | tail -n 1 | cut -d ' ' -f5) 2>> /dev/null`);
   } catch {}
-
-  const space = (length = 54) => new Array(length).join(' ');
-
-  console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
 
   // import('./integration/routes/auth-routes.tests');
   // import('./integration/routes/invites-routes.tests');
@@ -66,10 +65,11 @@ use(should);
   import('./unit/models/invite.tests');
   import('./unit/models/message.tests');
   import('./unit/models/role.tests');
-  // import('./unit/models/user.tests');
-  // import('./unit/snowflake-entity.tests');
-  // import('./unit/ws/ws-cooldowns.tests');
+  import('./unit/models/user.tests');
+
+  import('./unit/snowflake-entity.tests');
+  import('./unit/ws/ws-cooldowns.tests');
 })();
 
-
+// needs to be here, or tests won't run
 describe('oh', () => it('frick', () => expect(true).to.be.true));
