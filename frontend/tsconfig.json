@@ -23,6 +23,7 @@
     "jsx": "react-jsx",
   },
   "include": [
-    "src"
-, "src/env/.prod.env"  ]
+    "src",
+    "src/env/.prod.env",
+  ]
 }
