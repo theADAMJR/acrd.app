@@ -14,6 +14,8 @@ export interface PermOverrides {
 }
  
 const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, overrides, activeOverride }) => {
+  return <h1>Still in development...</h1>;
+  
   const dispatch = useDispatch();
   const { description } = usePerms();
   const [allow, setAllow] = useState(activeOverride.allow);

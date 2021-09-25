@@ -55,9 +55,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   };  
 
   const colorStyles = {
-    singleValue: () => ({
-      color: 'var(--font)',
-    }),
+    singleValue: () => ({ display: 'none' }),
     control: () => ({
       width: '100%',
       backgroundColor: 'var(--bg-secondary)',
