@@ -85,22 +85,20 @@ export class Mock {
     return guild;
   }
 
-  public static async user(guildIds: string[] = []): Promise<UserDocument> {
+  public static async user(options?: Partial<UserTypes.Self>): Promise<SelfUserDocument> {
     return await User.create({
-      _id: generateSnowflake(),
       avatarURL: 'a',
       bot: false,
       email: `${generateSnowflake()}@gmail.com`,
       verified: true,
-      guildIds,
-      status: 'OFFLINE',
       username: `mock-user-${generateSnowflake()}`,
       discriminator: 1,
+      ...options,
     } as any);
   }
 
   public static async self(guildIds: string[] = []) {
-    return await this.user(guildIds) as any as SelfUserDocument;
+    return await this.user({ guildIds }) as any as SelfUserDocument;
   }
 
   public static async bot(guildIds: string[] = []): Promise<SelfUserDocument> {

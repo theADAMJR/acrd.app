@@ -26,7 +26,7 @@ describe.only('user-update', () => {
   afterEach(async () => await Mock.afterEach(ws));
   after(async () => await Mock.after(client));
 
-  it('client updates user, fulfilled', async () => {
+  it('client updates user, is fulfilled', async () => {
     await expect(updateUser()).to.be.fulfilled;
   });
 
@@ -37,10 +37,26 @@ describe.only('user-update', () => {
     expect(user.username).to.not.equal(newUser.username);
   });
 
-  it('client is impostor, rejected', async () => {
+  it('client spoofs token, is rejected', async () => {
     await regenToken('23u8123u12hg31873g183y21ufg321yt3');
 
     await expect(updateUser()).to.be.rejectedWith('User Not Found');
+  });
+
+  it('client maintains username, discriminator not updated', async () => {
+    const oldDiscrim = user.discriminator;
+    await updateUser();
+
+    user = await User.findById(user.id) as any;
+    expect(user.discriminator).to.equal(oldDiscrim);
+  });
+
+  it('client changes username, discriminator is updated', async () => {
+    await Mock.user({ username: 'testing123' });
+    await updateUser({ username: 'testing123' });
+
+    user = await User.findById(user.id) as any;
+    await expect(user.discriminator).to.equal(2);
   });
 
   async function updateUser(options?: Partial<UserTypes.Self>) {

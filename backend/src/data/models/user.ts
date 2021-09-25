@@ -80,6 +80,7 @@ export const User = model<UserDocument>('user', new Schema({
     type: String,
     required: [true, 'Status is required'],
     validate: [patterns.status, 'Invalid status'],
+    default: 'OFFLINE',
   },
   username: {
     type: String,
