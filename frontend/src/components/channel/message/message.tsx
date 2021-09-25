@@ -54,14 +54,12 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     const midnight = new Date(new Date().setHours(0, 0, 0, 0));
     const daysAgo = Math.floor(toDays(midnight) - toDays(createdAt));
     
-    const getDay = () => {
+    const getTimestamp = () => {
       const wasToday = midnight.getDate() === createdAt.getDate();
-      if (wasToday) return 'Today'
-      else if (daysAgo === 1) return 'Yesterday'
-      return 'Tomorrow';
+      if (wasToday) return '[Today at] HH:mm';
+      else if (daysAgo === 1) return '[Yesterday at] HH:mm';
+      return 'DD/MM/YYYY';
     };
-    
-    const timestamp = (daysAgo <= 1) ? `[${getDay()}] [at] HH:mm` : 'DD/MM/YYYY';
 
     return (
       <div>
@@ -70,7 +68,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
             style={{ color: highestRole.color }}
             className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
         </ContextMenuTrigger>
-        <span className="text-xs">{moment(createdAt).format(timestamp)}</span>
+        <span className="text-xs">{moment(createdAt).format(getTimestamp())}</span>
       </div>
     );
   }

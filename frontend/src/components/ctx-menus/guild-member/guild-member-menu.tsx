@@ -68,7 +68,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
         </div>
       )}
 
-      <div className="mb-10" />
+      <div className="my-2" />
       {devMode && <DevModeMenuSection ids={[
         { title: 'User ID', id: user.id },
         { title: 'Member ID', id: member.id },

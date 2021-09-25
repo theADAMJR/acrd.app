@@ -39,7 +39,7 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
       backgroundColor: 'var(--bg-tertiary)',
     }),
     indicatorSeparator: () => ({ display: 'none' }),
-    indicatorsContainer: (styles) => ({ ...styles, marginBottom: '-7.5px', float: 'right' }),
+    indicatorsContainer: (styles) => ({ ...styles, float: 'right' }),
     multiValueLabel: (styles, { data }) => ({
       ...styles,
       color: data.color,

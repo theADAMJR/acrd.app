@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { UseFormSetValue, FieldValues } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { PermissionTypes } from '../../../services/perm-service';
@@ -72,17 +71,19 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
   };
 
   return (
-    <div className="mb-5">
-      <Category className="muted pb-1.5 mt-5" title={category} />
-        {Object.keys(description[category]).map(permName =>
-          <PermToggle
-            key={permName}
-            permName={permName} />)}
+    <>
+      <div className="mb-5">
+        <Category className="muted pb-1.5 mt-5" title={category} />
+          {Object.keys(description[category]).map(permName =>
+            <PermToggle
+              key={permName}
+              permName={permName} />)}
+      </div>
       <NormalButton
         onClick={clearOverrides}
-        className="bg-white text-black"
+        className="bg-white text-black float-left"
         type="button">Clear</NormalButton>
-    </div>
+    </>
   );
 }
  

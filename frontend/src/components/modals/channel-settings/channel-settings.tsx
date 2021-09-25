@@ -35,7 +35,7 @@ const ChannelSettings: React.FunctionComponent = () => {
 
         <div className="col-span-6 h-full">
           {tab === 'overview' && <ChannelSettingsOverview />}
-          {tab === 'perms' && <div>In development...</div>}
+          {tab === 'perms' && <ChannelSettingsPerms />}
         </div>
 
         <div className="col-span-2 h-full">
