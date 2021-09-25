@@ -22,7 +22,9 @@ export default class implements WSEvent<'USER_UPDATE'> {
     if (avatarURL) partialUser['avatarURL'] = avatarURL;
     if (ignored) partialUser['ignored'] = ignored;
     if (username) partialUser['username'] = username;
-    if (username) partialUser['discriminator'] = await this.users.getDiscriminator(username);
+    const usernameChanged = username && username !== user.username;
+    if (usernameChanged)
+      partialUser['discriminator'] = await this.users.getDiscriminator(username);
 
     Object.assign(user, partialUser);
     await user.save();
