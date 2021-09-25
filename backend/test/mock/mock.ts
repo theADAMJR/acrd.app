@@ -9,7 +9,7 @@ import { Invite } from '../../src/data/models/invite';
 import Roles from '../../src/data/roles';
 import Messages from '../../src/data/messages';
 import Invites from '../../src/data/invites';
-import { Application } from '../../src/data/models/application';
+import { App } from '../../src/data/models/app';
 import { WebSocket } from '../../src/ws/websocket';
 import Deps from '../../src/utils/deps';
 import Guilds from '../../src/data/guilds';
@@ -37,8 +37,8 @@ export class Mock {
     const guildId = guild.id;
 
     const [user, member, role, channel] = await Promise.all([
-      User.findOne({ guildIds: guild.id }),
-      GuildMember.findOne({ $not: { _id: guild.ownerId }, guildId }),
+      User.findOne({ guildIds: guild.id }) as any as SelfUserDocument,
+      GuildMember.findOne({ _id: { $ne: guild.ownerId }, guildId }),
       Role.findOne({ guildId }),
       Channel.findOne({ guildId }),
     ]);
@@ -90,12 +90,12 @@ export class Mock {
       _id: generateSnowflake(),
       avatarURL: 'a',
       bot: false,
-      badges: [],
       email: `${generateSnowflake()}@gmail.com`,
       verified: true,
       guildIds,
       status: 'OFFLINE',
       username: `mock-user-${generateSnowflake()}`,
+      discriminator: 1,
     } as any);
   }
 
@@ -157,7 +157,7 @@ export class Mock {
   }
 
   public static async cleanDB() {
-    await Application.deleteMany({});
+    await App.deleteMany({});
     await Channel.deleteMany({});
     await Guild.deleteMany({});
     await GuildMember.deleteMany({});

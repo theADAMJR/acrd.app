@@ -10,7 +10,7 @@ export interface ApplicationDocument extends Document, Entity.App {
   token: string;
 }
 
-export const Application = model<ApplicationDocument>('application', new Schema({
+export const App = model<ApplicationDocument>('application', new Schema({
   _id: {
     type: String,
     default: generateSnowflake,

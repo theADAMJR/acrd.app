@@ -1,7 +1,7 @@
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from 'sazerac';
 import { longString, mongooseError } from '../../test-utils';
-import { Application } from '../../../src/data/models/app';
+import { App } from '../../../src/data/models/app';
 
 test(createApplication, () => {
   given().expect(true);
@@ -23,7 +23,7 @@ test(createApplication, () => {
 });
 
 function createApplication(message: any) {
-  const error = new Application({
+  const error = new App({
     _id: generateSnowflake(),
     userId: generateSnowflake(),
     ownerId: generateSnowflake(),

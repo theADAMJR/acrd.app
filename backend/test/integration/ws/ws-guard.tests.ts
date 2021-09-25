@@ -1,5 +1,3 @@
-import 'mocha';
-import 'chai-as-promised';
 import Deps from '../../../src/utils/deps';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
@@ -13,7 +11,7 @@ import { PermissionTypes } from '../../../src/types/permission-types';
 import { WSGuard } from '../../../src/ws/modules/ws-guard';
 import Channels from '../../../src/data/channels';
 
-describe.only('ws-guard', () => {
+describe('ws-guard', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   
   let guard: WSGuard;

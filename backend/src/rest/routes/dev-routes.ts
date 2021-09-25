@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Application } from '../../data/models/app';
+import { App } from '../../data/models/app';
 import Users from '../../data/users';
 import generateInvite from '../../data/utils/generate-invite';
 import Deps from '../../utils/deps';
@@ -15,7 +15,7 @@ router.get('/apps', async (req, res) => {
   const start = parseInt(req.query.start as string);
   const end = parseInt(req.query.end as string);
 
-  const apps = (await Application
+  const apps = (await App
     .find()
     .select('-token')
     .exec())
@@ -27,18 +27,18 @@ router.get('/apps', async (req, res) => {
 router.use(updateUser, validateUser);
 
 router.get('/apps/user', async (req, res) => {
-  const apps = await Application.find({ owner: res.locals.user });
+  const apps = await App.find({ owner: res.locals.user });
   res.json(apps);
 });
 
 router.get('/apps/new', async (req, res) => {  
   const user = res.locals.user;
-  const count = await Application.countDocuments({ owner: user });
+  const count = await App.countDocuments({ owner: user });
   const maxApps = 16;
   if (count >= maxApps)
     return res.status(400).json({ message: 'Too many apps' });  
 
-  const app = new Application({ ownerId: user.id });
+  const app = new App({ ownerId: user.id });
   app.userId = (await users.create({
     username: app.name,
     password: generateInvite(),
@@ -50,7 +50,7 @@ router.get('/apps/new', async (req, res) => {
 });
 
 router.get('/apps/:id', async (req, res) => {
-  const app = await Application.findById(req.params.id);
+  const app = await App.findById(req.params.id);
 
   return (app?.ownerId !== res.locals.user?.id)
     ? res.status(403).json({ message: 'Forbidden' })
@@ -58,7 +58,7 @@ router.get('/apps/:id', async (req, res) => {
 });
 
 router.patch('/apps/:id', async (req, res) => {
-  const app = await Application.findById(req.params.id);
+  const app = await App.findById(req.params.id);
   if (!app || app.ownerId !== res.locals.user.id)
     return res.status(403).json({ message: 'Forbidden' });
 
@@ -68,7 +68,7 @@ router.patch('/apps/:id', async (req, res) => {
 });
 
 router.get('/apps/:id/regen-token', async (req, res) => {
-  const app = await Application.findById(req.params.id);
+  const app = await App.findById(req.params.id);
   if (!app || app.ownerId !== res.locals.user.id)
     return res.status(403).json({ message: 'Forbidden' });
 
