@@ -1,3 +1,7 @@
+import 'mocha';
+import 'chai';
+import 'chai-as-promised';
+
 import UserUpdate from '../../../src/ws/ws-events/user-update';
 import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
@@ -13,7 +17,7 @@ describe('user-update', () => {
   let ws: WebSocket;
 
   let user: UserDocument;
-  let key: string;
+  let token: string;
 
   beforeEach(async () => {
     ({ event, ws, user } = await Mock.defaultSetup(client, UserUpdate));
@@ -49,34 +53,31 @@ describe('user-update', () => {
   });
 
   it('reorders guilds correctly, fulfilled', async () => {
-    const guildIds = user.guilds.map(g => g.id);
-    await expect(updateUser({ guilds: guildIds as any })).to.be.fulfilled;
+    await expect(updateUser({ guildIds: user.guildIds })).to.be.fulfilled;
   });
 
   it('reorders guilds but adds, rejected', async () => {
     const newGuild = await Mock.guild();
-    const guildIds = (user.guilds as any).concat(newGuild).map(g => g.id);
+    const guildIds = user.guildIds.concat(newGuild.id);
 
-    await expect(updateUser({ guilds: guildIds as any })).to.be('Cannot add or remove guilds this way');
+    await expect(updateUser({ guildIds })).to.be('Cannot add or remove guilds this way');
   });
 
   it('reorders guilds but removes, rejected', async () => {
-    await expect(updateUser({ guilds: [] })).to.be('Cannot add or remove guilds this way');
+    await expect(updateUser({ guildIds: [] })).to.be('Cannot add or remove guilds this way');
   });
 
   async function updateUser(options?: Partial<UserTypes.Self>) {
     return event.invoke(ws, client, {
-      key,
-      partialUser: {
-        avatarURL: 'https://example.com',
-        username: 'mock-user',
-        ...options,
-      },
+      token,
+      avatarURL: 'https://example.com',
+      username: 'mock-user',
+      ...options,
     });
   }
 
   async function regenToken(id = user.id) {
-    key = Deps
+    token = Deps
       .get<Users>(Users)
       .createToken(id, false);
   }

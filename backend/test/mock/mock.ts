@@ -18,7 +18,6 @@ import GuildMembers from '../../src/data/guild-members';
 import Channels from '../../src/data/channels';
 import { PermissionTypes } from '../../src/types/permission-types';
 import { REST } from '../../src/rest/server';
-import { PartialEntity } from '../../src/types/ws';
 
 // TODO: mostly replace with data wrappers
 export class Mock {
@@ -39,7 +38,7 @@ export class Mock {
     const guildId = guild.id;
 
     const [user, member, role, channel] = await Promise.all([
-      User.findOne({ guildIds: { $in: guild.id } }),
+      User.findOne({ guildIds: guild.id }),
       GuildMember.findOne({ $not: { _id: guild.ownerId }, guildId }),
       Role.findOne({ guildId }),
       Channel.findOne({ guildId }),
@@ -102,22 +101,18 @@ export class Mock {
   }
 
   public static async self(guildIds: string[] = []) {
-    return await this.user(guildIds) as SelfUserDocument;
+    return await this.user(guildIds) as any as SelfUserDocument;
   }
 
   public static async bot(guildIds: string[] = []): Promise<SelfUserDocument> {
     return await User.create({
-      _id: generateSnowflake(),
-      avatarURL: 'a',
       bot: true,
-      badges: [],
-      friendIds: [],
-      friendRequestIds: [],
       email: `${generateSnowflake()}@gmail.com`,
       guildIds,
       status: 'ONLINE',
+      discriminator: 1,
       username: `mock-bot-${generateSnowflake()}`,
-    } as any) as SelfUserDocument;    
+    } as any) as any as SelfUserDocument;    
   }
 
   public static guildMember(user: SelfUserDocument, guild: GuildDocument): Promise<GuildMemberDocument> {    

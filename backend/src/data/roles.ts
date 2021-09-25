@@ -1,6 +1,5 @@
 import { UpdateQuery } from 'mongoose';
 import { PermissionTypes } from '../types/permission-types';
-import { PartialEntity } from '../types/ws';
 import DBWrapper from './db-wrapper';
 
 import { hasPermission, Role, RoleDocument } from './models/role';

@@ -1,5 +1,4 @@
 import got from 'got/dist/source';
-import { PartialEntity } from '../types/ws';
 import DBWrapper from './db-wrapper';
 import { Channel } from './models/channel';
 import { Message, MessageDocument } from './models/message';

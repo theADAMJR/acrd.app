@@ -27,7 +27,6 @@ use(should);
     execSync(`kill -9 $(lsof -i :${process.env.PORT} | tail -n 1 | cut -d ' ' -f5) 2>> /dev/null`);
   } catch {}
 
-  // disabled due to impracticality
   // await import('./integration/routes/auth-routes.tests');
   // await import('./integration/routes/invites-routes.tests');
   // await import('./integration/routes/guilds-routes.tests');
