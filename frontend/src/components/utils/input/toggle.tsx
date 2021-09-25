@@ -1,6 +1,7 @@
+import './toggle.scoped.css';
+
 import classNames from 'classnames';
 import { useState } from 'react';
-import './toggle.scoped.css';
 
 export type ToggleProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLInputElement>,

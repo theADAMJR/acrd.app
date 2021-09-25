@@ -10,3 +10,7 @@ input:checked ~ .dot {
   transform: translateX(100%);
   background-color: var(--success);
 }
+input:indeterminate ~ .dot {
+  background-color: #ccc !important;
+  transform: translateX(50%) !important;
+}

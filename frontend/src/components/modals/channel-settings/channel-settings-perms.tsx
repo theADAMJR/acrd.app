@@ -127,7 +127,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
       </div>
 
       <SaveChanges
-        setValue={(obj: any) => setOverrides(obj.overrides)}
+        setValue={(obj: any) => console.log(obj)}
         onSave={onSave}
         obj={{ overrides }} />  
     </div>
