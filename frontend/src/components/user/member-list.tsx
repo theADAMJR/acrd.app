@@ -6,7 +6,6 @@ import GuildMemberMenu from '../ctx-menus/guild-member/guild-member-menu';
 import { getGuildMembers, getGuildUsers } from '../../store/guilds';
 import { filterHoistedRoles } from '../../store/roles';
 import usePerms from '../../hooks/use-perms';
-import { getMember } from '../../store/members';
 
 const MemberList: React.FunctionComponent = () => {
   const perms = usePerms();
@@ -51,7 +50,7 @@ const MemberList: React.FunctionComponent = () => {
       .some(r => id === r.id));
 
   return (isActive) ? (
-    <div className="bg-bg-secondary w-64">
+    <div className="overflow-auto bg-bg-secondary w-64">
       {hoistedRoles.map(r =>
         <UserList
           key={r.id}
