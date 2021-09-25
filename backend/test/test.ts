@@ -7,7 +7,7 @@ import { should, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import chaiSpies from 'chai-spies';
 import chaiThings from 'chai-things';
-import { connect } from 'mongoose';
+import mongoose from 'mongoose';
 
 use(chaiAsPromised);
 use(chaiSpies);
@@ -15,16 +15,16 @@ use(chaiThings);
 use(should);
 
 (async() => {
-  await connect(process.env.MONGO_URI, { 
+  await mongoose.connect(process.env.MONGO_URI, { 
     useUnifiedTopology: true, 
     useNewUrlParser: true, 
     useFindAndModify: false,
     useCreateIndex: true,
-  }, (error) => error && console.log(error));
+  });
 
   try {
     // remove glitched test processes
-    execSync(`kill -9 $(lsof -i :${process.env.PORT} | tail -n 1 | cut -d ' ' -f5)`);
+    execSync(`kill -9 $(lsof -i :${process.env.PORT} | tail -n 1 | cut -d ' ' -f5) 2>> /dev/null`);
   } catch {}
 
   // disabled due to impracticality
@@ -46,8 +46,8 @@ use(should);
   // await import('./integration/ws/message-update.tests');
   // await import('./integration/ws/message-delete.tests');
   // await import('./integration/ws/ready.tests');
-  // await import('./integration/ws/user-update.tests');
-  await import('./integration/ws/ws-guard.tests');
+  await import('./integration/ws/user-update.tests');
+  // await import('./integration/ws/ws-guard.tests');
 
   // await import('./unit/models/application.tests');
   // await import('./unit/models/channel.tests');
