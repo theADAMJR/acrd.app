@@ -49,22 +49,19 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   
   const MessageHeader = () => {
     if (isActuallyExtra) return null;
-
-    const today = () => {
-      const today = new Date();
-      today.setHours(0);
-      today.setMinutes(0);
-      today.setSeconds(0);
-      return today;
-    }
   
-    const days = moment(today()).diff(createdAt.setHours(0), 'days');
-    const day = {
-      [1]: 'Yesterday',
-      [0]: 'Today',
-      [-1]: 'Tomorrow',
-    }[days];
-    const timestamp = (day) ? `[${day}] [at] HH:mm` : 'DD/MM/YYYY';
+    const toDays = (date: Date) => date.getTime() / 1000 / 60 / 60 / 24; 
+    const midnight = new Date(new Date().setHours(0, 0, 0, 0));
+    const daysAgo = Math.floor(toDays(midnight) - toDays(createdAt));
+    
+    const getDay = () => {
+      const wasToday = midnight.getDate() === createdAt.getDate();
+      if (wasToday) return 'Today'
+      else if (daysAgo === 1) return 'Yesterday'
+      return 'Tomorrow';
+    };
+    
+    const timestamp = (daysAgo <= 1) ? `[${getDay()}] [at] HH:mm` : 'DD/MM/YYYY';
 
     return (
       <div>
