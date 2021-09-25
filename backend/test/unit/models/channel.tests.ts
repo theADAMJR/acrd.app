@@ -7,8 +7,6 @@ test(createChannel, () => {
   given().expect(true);
   given({ guildId: '123' }).expect('Invalid Snowflake ID');
   given({ guildId: generateSnowflake() }).expect(true);
-  given({ memberIds: longArray(51) }).expect('Channel member limit reached');
-  given({ memberIds: longArray(49) }).expect(true);
   given({ guildId: null }).expect(true);
   given({ guildId: '123' }).expect('Invalid Snowflake ID');
   given({ guildId: generateSnowflake() }).expect(true);

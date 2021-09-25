@@ -60,8 +60,8 @@ use(should);
   // import('./integration/ws/ws-guard.tests');
 
   import('./unit/models/app.tests');
-  // import('./unit/models/channel.tests');
-  // import('./unit/models/guild.tests');
+  import('./unit/models/channel.tests');
+  import('./unit/models/guild.tests');
   // import('./unit/models/guild-member.tests');
   // import('./unit/models/invite.tests');
   // import('./unit/models/message.tests');
