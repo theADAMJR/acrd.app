@@ -38,10 +38,9 @@ export const Application = model<ApplicationDocument>('application', new Schema(
     validate: [patterns.username, 'Name contains invalid characters'],
   },
   token: String,
-  owner: {
+  ownerId: {
     type: String,
-    ref: 'user',
-    required: [true, 'Owner is required'],
+    required: [true, 'Owner ID is required'],
     validate: [patterns.snowflake, 'Invalid Snowflake ID'],
   },
 }, { toJSON: { getters: true } }).method('toClient', useId));

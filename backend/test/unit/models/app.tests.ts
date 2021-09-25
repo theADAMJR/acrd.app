@@ -1,7 +1,7 @@
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from 'sazerac';
 import { longString, mongooseError } from '../../test-utils';
-import { Application } from '../../../src/data/models/application';
+import { Application } from '../../../src/data/models/app';
 
 test(createApplication, () => {
   given().expect(true);
@@ -11,21 +11,22 @@ test(createApplication, () => {
   given({ description: 'Very epic' }).expect(true);
   given({ name: '' }).expect('Name is required');
   given({ name: longString(33) }).expect('Name is too long');
-  given({ name: 'Epic Bot' }).expect('Name contains invalid characters');
+  given({ name: 'Epic Bot@' }).expect('Name contains invalid characters');
+  given({ name: 'Epic Bot' }).expect(true);
   given({ name: 'Epic-Bot' }).expect(true);
-  given({ owner: '' }).expect('Owner is required');
-  given({ owner: '123' }).expect('Invalid Snowflake ID');
-  given({ owner: generateSnowflake() }).expect(true);
-  given({ user: '' }).expect('User ID is required');
-  given({ user: '123' }).expect('Invalid Snowflake ID');
-  given({ user: generateSnowflake() }).expect(true);
+  given({ ownerId: '' }).expect('Owner ID is required');
+  given({ ownerId: '123' }).expect('Invalid Snowflake ID');
+  given({ ownerId: generateSnowflake() }).expect(true);
+  given({ userId: '' }).expect('User ID is required');
+  given({ userId: '123' }).expect('Invalid Snowflake ID');
+  given({ userId: generateSnowflake() }).expect(true);
 });
 
 function createApplication(message: any) {
   const error = new Application({
     _id: generateSnowflake(),
-    user: generateSnowflake(),
-    owner: generateSnowflake(),
+    userId: generateSnowflake(),
+    ownerId: generateSnowflake(),
     name: 'Epic-Bot',
     description: 'Very epic',
     ...message,

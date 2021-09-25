@@ -36,40 +36,39 @@ use(should);
 
   const space = (length = 54) => new Array(length).join(' ');
 
-  console.log(`${space(51 * 3)}INTEGRATION TESTS${space(54 * 2)}`.bgWhite.black);
+  console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
 
-  import('./integration/routes/auth-routes.tests');
-  import('./integration/routes/invites-routes.tests');
-  import('./integration/routes/guilds-routes.tests');
-  import('./integration/routes/channel-routes.tests');
+  // import('./integration/routes/auth-routes.tests');
+  // import('./integration/routes/invites-routes.tests');
+  // import('./integration/routes/guilds-routes.tests');
+  // import('./integration/routes/channel-routes.tests');
 
-  import('./integration/ws/channel-create.tests');
-  import('./integration/ws/guild-member-add.tests');
-  import('./integration/ws/guild-member-remove.tests');
-  import('./integration/ws/guild-member-update.tests');
-  import('./integration/ws/guild-create.tests');
-  import('./integration/ws/guild-delete.tests');
-  import('./integration/ws/guild-update.tests');
-  import('./integration/ws/invite-create.tests');
-  import('./integration/ws/invite-delete.tests');
-  import('./integration/ws/message-create.tests');
-  import('./integration/ws/message-update.tests');
-  import('./integration/ws/message-delete.tests');
-  import('./integration/ws/ready.tests');
-  import('./integration/ws/user-update.tests');
-  import('./integration/ws/ws-guard.tests');
+  // import('./integration/ws/channel-create.tests');
+  // import('./integration/ws/guild-member-add.tests');
+  // import('./integration/ws/guild-member-remove.tests');
+  // import('./integration/ws/guild-member-update.tests');
+  // import('./integration/ws/guild-create.tests');
+  // import('./integration/ws/guild-delete.tests');
+  // import('./integration/ws/guild-update.tests');
+  // import('./integration/ws/invite-create.tests');
+  // import('./integration/ws/invite-delete.tests');
+  // import('./integration/ws/message-create.tests');
+  // import('./integration/ws/message-update.tests');
+  // import('./integration/ws/message-delete.tests');
+  // import('./integration/ws/ready.tests');
+  // import('./integration/ws/user-update.tests');
+  // import('./integration/ws/ws-guard.tests');
 
-  console.log(`${space(52 * 3)}UNIT TESTS${space(54 * 2)}`.bgWhite.black);  
-  import('./unit/models/application.tests');
-  import('./unit/models/channel.tests');
-  import('./unit/models/guild.tests');
-  import('./unit/models/guild-member.tests');
-  import('./unit/models/invite.tests');
-  import('./unit/models/message.tests');
-  import('./unit/models/role.tests');
-  import('./unit/models/user.tests');
-  import('./unit/snowflake-entity.tests');
-  import('./unit/ws/ws-cooldowns.tests');
+  import('./unit/models/app.tests');
+  // import('./unit/models/channel.tests');
+  // import('./unit/models/guild.tests');
+  // import('./unit/models/guild-member.tests');
+  // import('./unit/models/invite.tests');
+  // import('./unit/models/message.tests');
+  // import('./unit/models/role.tests');
+  // import('./unit/models/user.tests');
+  // import('./unit/snowflake-entity.tests');
+  // import('./unit/ws/ws-cooldowns.tests');
 })();
 
 
