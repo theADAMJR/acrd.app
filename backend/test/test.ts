@@ -1,4 +1,6 @@
 import 'mocha';
+import 'colors';
+
 import { config } from 'dotenv';
 import { execSync } from 'child_process';
 config({ path: 'test/.env' });
@@ -15,17 +17,25 @@ use(chaiThings);
 use(should);
 
 (async() => {
-  await mongoose.connect(process.env.MONGO_URI, { 
-    useUnifiedTopology: true, 
-    useNewUrlParser: true, 
-    useFindAndModify: false,
-    useCreateIndex: true,
-  });
+  try {
+    await mongoose.connect(process.env.MONGO_URI, { 
+      useUnifiedTopology: true, 
+      useNewUrlParser: true, 
+      useFindAndModify: false,
+      useCreateIndex: true,
+    });
+    console.log(`Connected to ${process.env.MONGO_URI}`);    
+  } catch {
+    console.log(`Failed to connect to ${process.env.MONGO_URI}`);  
+  }
 
   try {
     // remove glitched test processes
     execSync(`kill -9 $(lsof -i :${process.env.PORT} | tail -n 1 | cut -d ' ' -f5) 2>> /dev/null`);
   } catch {}
+
+  const space = (length = 54) => new Array(length).join(' ');
+  console.log(`${space(51 * 3)}INTEGRATION TESTS${space(54 * 2)}`.bgWhite.black);
 
   // await import('./integration/routes/auth-routes.tests');
   // await import('./integration/routes/invites-routes.tests');
@@ -45,17 +55,19 @@ use(should);
   // await import('./integration/ws/message-update.tests');
   // await import('./integration/ws/message-delete.tests');
   // await import('./integration/ws/ready.tests');
-  await import('./integration/ws/user-update.tests');
+  // await import('./integration/ws/user-update.tests');
   // await import('./integration/ws/ws-guard.tests');
+  
+  console.log(`${space(52 * 3)}UNIT TESTS${space(54 * 2)}`.bgWhite.black);  
 
-  // await import('./unit/models/application.tests');
-  // await import('./unit/models/channel.tests');
-  // await import('./unit/models/guild.tests');
-  // await import('./unit/models/guild-member.tests');
-  // await import('./unit/models/invite.tests');
-  // await import('./unit/models/message.tests');
-  // await import('./unit/models/role.tests');
-  // await import('./unit/models/user.tests');
-  // await import('./unit/snowflake-entity.tests');
-  // await import('./unit/ws/ws-cooldowns.tests');
+  await import('./unit/models/application.tests');
+  await import('./unit/models/channel.tests');
+  await import('./unit/models/guild.tests');
+  await import('./unit/models/guild-member.tests');
+  await import('./unit/models/invite.tests');
+  await import('./unit/models/message.tests');
+  await import('./unit/models/role.tests');
+  await import('./unit/models/user.tests');
+  await import('./unit/snowflake-entity.tests');
+  await import('./unit/ws/ws-cooldowns.tests');
 })();

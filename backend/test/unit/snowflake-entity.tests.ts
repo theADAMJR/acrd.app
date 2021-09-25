@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { generateSnowflake, snowflakeToDate } from '../../src/data/snowflake-entity';
-import { patterns } from '../../src/data/types/entity-types';
+import patterns from '../../src/types/patterns';
 
 describe('data/snowflake-entity', () => {
   it('get snowflake, 2 ids in same ms, snowflake is different', () => {

@@ -3,7 +3,6 @@ import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from 'sazerac';
 import { longArray, longString, mongooseError } from '../../test-utils';
 
-
 test(createChannel, () => {
   given().expect(true);
   given({ guildId: '123' }).expect('Invalid Snowflake ID');

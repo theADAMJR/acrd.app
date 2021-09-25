@@ -57,15 +57,12 @@ test(createUser, () => {
 
 function createUser(user: any) {
   const error = new User({
-    _id: generateSnowflake(),
     avatarURL: 'a',
     bot: false,
-    badges: [],
-    friendIds: [],
-    friendRequestIds: [],
     guilds: [generateSnowflake()],
     status: 'ONLINE',
     username: `mock-user-${generateSnowflake()}`,
+    discriminator: 1,
     ...user,
   }).validateSync();
 

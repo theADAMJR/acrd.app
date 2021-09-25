@@ -1,5 +1,6 @@
 {
   "compileOnSave": true,
+  "ts-node": { "files": true },
   "compilerOptions": {
     "downlevelIteration": true,
     "esModuleInterop": true,

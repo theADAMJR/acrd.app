@@ -1,4 +1,3 @@
-import '../../src/types/entity';
 import { Channel, ChannelDocument } from '../../src/data/models/channel';
 import { Guild, GuildDocument } from '../../src/data/models/guild';
 import { GuildMember, GuildMemberDocument } from '../../src/data/models/guild-member';

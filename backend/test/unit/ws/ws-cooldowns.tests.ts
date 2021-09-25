@@ -1,6 +1,6 @@
 import { expect } from 'chai';
+import generateInvite from '../../../src/data/utils/generate-invite';
 import { WSCooldowns } from '../../../src/ws/modules/ws-cooldowns';
-import { generateInviteCode } from '../../../src/data/models/invite';
 
 describe('ws-cooldowns', () => {
   let clientId: string;
@@ -8,7 +8,7 @@ describe('ws-cooldowns', () => {
 
   beforeEach(() => {
     cooldowns = new WSCooldowns();
-    clientId = generateInviteCode();
+    clientId = generateInvite();
   });
 
   it('handle, adds cooldown', () => {
