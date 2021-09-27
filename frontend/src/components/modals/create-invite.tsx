@@ -13,7 +13,7 @@ const CreateInvite: React.FunctionComponent = () => {
 
   setValue('inviteCode', activeInvite?.id);
 
-  const isOpen = openModal === CreateInvite.name;
+  const isOpen = openModal === 'CreateInvite';
   useEffect(() => {
     if (activeInvite || !activeGuild || !isOpen) return;
 
