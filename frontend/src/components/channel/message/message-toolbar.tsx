@@ -17,7 +17,7 @@ const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message 
   const perms = usePerms();
 
   const isAuthor = message.authorId === selfUser.id;
-  const canManage = perms.can('MANAGE_MESSAGES', guild.id)
+  const canManage = perms.canInChannel('MANAGE_MESSAGES', guild.id, message.channelId)
     || guild?.ownerId === selfUser.id
     || isAuthor;
   

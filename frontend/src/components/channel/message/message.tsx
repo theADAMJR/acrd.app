@@ -7,7 +7,7 @@ import { getUser } from '../../../store/users';
 import MessageBox from '../message-box';
 import MessageToolbar from './message-toolbar';
 import { getMemberHighestRole } from '../../../store/roles';
-import { getSelfMember } from '../../../store/members';
+import { getMember, getSelfMember } from '../../../store/members';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import MessageMenu from '../../ctx-menus/message-menu';
 import classNames from 'classnames';
@@ -18,7 +18,7 @@ export interface MessageProps {
 
 const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProps) => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
-  const member = useSelector(getSelfMember(guild.id))!;
+  const member = useSelector(getMember(guild.id, message.authorId))!;
   const highestRole = useSelector(getMemberHighestRole(guild.id, member.userId));
   const author = useSelector(getUser(message.authorId));
   const messages = useSelector(getChannelMessages(message.channelId));

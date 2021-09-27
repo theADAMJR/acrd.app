@@ -31,7 +31,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 
           style={{ border: '2px solid var(--bg-secondary)' }}
           className={classNames(
             `relative inline-flex rounded-full px-1`,
-            blob.size, blob.color )} />
+            blob.size, blob.color)} />
       </span>
     );
   }

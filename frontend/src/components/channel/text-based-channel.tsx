@@ -22,7 +22,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   }, [messages.length]); // only fetches channel messages when not cached
 
   const loaded = channel.lastMessageId === messages[messages.length]?.id;
-  const canRead = perms.can('READ_MESSAGES', guild.id);
+  const canRead = perms.canInChannel('READ_MESSAGES', guild.id, channel.id);
 
   return (
     <div className="h-full flex flex-col flex-grow">

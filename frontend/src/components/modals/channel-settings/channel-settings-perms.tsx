@@ -17,7 +17,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
 
-  const byPosition = (a, b) => (a.position > b.position) ? -1 : 1;
+  const byPosition = (a, b) => (a.position > b.position) ? 1 : -1;
   const allRoles = useSelector(getGuildRoles(guildId)).sort(byPosition);
   const [overrides, setOverrides] = useState(channel.overrides ?? []);
   

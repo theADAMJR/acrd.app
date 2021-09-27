@@ -66,7 +66,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
       : `${typingUsers} is typing...`
   }
 
-  const canSend = perms.can('SEND_MESSAGES', guild.id);
+  const canSend = perms.canInChannel('SEND_MESSAGES', guild.id, channel.id);
   const getPlaceholder = (): string | undefined => {
     if (!canSend) return `Insufficient perms.`;
     if (!props.editingMessageId) return `Message #${channel.name}`;

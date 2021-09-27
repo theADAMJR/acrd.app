@@ -88,12 +88,22 @@ export class PermService {
     const activeOverrides = channel.overrides
       ?.filter(o => member.roleIds.includes(o.roleId)) ?? [];
 
-    const allowed = activeOverrides.reduce((prev, curr) => prev | curr.allow, 0);
-    const denied = activeOverrides.reduce((prev, curr) => prev | curr.deny, 0);  
+    // overrides - start from highest roles
+    //   reduce down deny permissions that are allowed by higher perms
+    const cumulativeAllowPerms = activeOverrides
+      .reduce((prev, curr) => prev | curr.allow, 0);
 
-    const canInheritantly = this.can(permission, guildId)
-      && !this.hasPermission(denied, PermissionTypes.Text[permission]);
-    const isAllowedByOverride = this.hasPermission(allowed, PermissionTypes.Text[permission]);
+    const byPosition = (a, b) => (a.position > b.position) ? -1 : 1;
+    const overridePerms = activeOverrides
+      .sort(byPosition)
+      .reduce((prev, curr) => prev & ~curr.deny, cumulativeAllowPerms); 
+
+    const canInheritantly = this.can(permission, guildId);
+    const isAllowedByOverride = this.hasPermission(overridePerms, PermissionTypes.Text[permission]);
+
+    console.log(overridePerms);    
+    console.log(isAllowedByOverride);
+    
     
     // allowed overrides denied
     return canInheritantly || isAllowedByOverride;
