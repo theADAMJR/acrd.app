@@ -2,15 +2,15 @@ input ~ .dot {
   transition: 0.3s ease-in-out !important;
 }
 
-input:checked ~ .dot {
+input[value='on'] ~ .dot {
   transform: translateX(100%);
   background-color: var(--success);
 }
-input:checked ~ .dot {
-  transform: translateX(100%);
-  background-color: var(--success);
+input[value='off'] ~ .dot {
+  transform: translateX(0%);
+  background-color: var(--danger);
 }
-input:indeterminate ~ .dot {
-  background-color: #ccc !important;
-  transform: translateX(50%) !important;
+input[value='indeterminate'] ~ .dot {
+  background-color: #ccc;
+  transform: translateX(50%);
 }

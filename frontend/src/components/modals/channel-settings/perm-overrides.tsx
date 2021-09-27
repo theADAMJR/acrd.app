@@ -5,7 +5,7 @@ import { PermissionTypes } from '../../../services/perm-service';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
-import Toggle from '../../utils/input/toggle';
+import ThreeToggle from '../../utils/input/three-toggle';
 
 export interface PermOverrides {
   setOverrides: React.Dispatch<React.SetStateAction<ChannelTypes.Override[]>>;
@@ -14,8 +14,6 @@ export interface PermOverrides {
 }
  
 const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, overrides, activeOverride }) => {
-  return <h1>Still in development...</h1>;
-  
   const dispatch = useDispatch();
   const { description } = usePerms();
   const [allow, setAllow] = useState(activeOverride.allow);
@@ -23,12 +21,12 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
   
   const category = 'text';
   
-  const togglePerm = (name: string, state: 'ALLOW' | 'INHERIT' | 'DENY') => {
-    if (state === 'INHERIT') {
+  const togglePerm = (name: string, state: string) => {
+    if (state === 'indeterminate') {
       // remove from both
       setAllow(allow & ~PermissionTypes.All[name]);
       setDeny(deny & ~PermissionTypes.All[name]);
-    } else if (state === 'ALLOW')
+    } else if (state === 'on')
       setAllow(allow | PermissionTypes.All[name]);
     else setDeny(deny | PermissionTypes.All[name]);
     updateOverrides();
@@ -43,28 +41,28 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
   };
 
   const isAllowed = (name: string) => Boolean(allow & PermissionTypes.All[name]);
-  const isInherited = (name: string) =>
-    !Boolean(allow & PermissionTypes.All[name])
-    && !Boolean(deny & PermissionTypes.All[name]);
+  const isDenied = (name: string) => Boolean(deny & PermissionTypes.All[name]);;
 
-  const PermToggle = ({ permName }) => (
-    <div className="flex items-center justify-between mb-2">
-      <span>{description[category][permName]}</span>
-      <Toggle
-        id={permName}
-        checked={isAllowed(permName)}
-        onChange={({ currentTarget: toggle }) => {
-          if (toggle.indeterminate)
-            togglePerm(permName, 'INHERIT');
-          else if (toggle.checked)
-            togglePerm(permName, 'ALLOW')
-          else togglePerm(permName, 'DENY');
-        }}
-        className="float-right"
-        allowIndeterminate
-        indeterminate={isInherited(permName)} />
-    </div>
-  );
+  const PermToggle = ({ permName }) => {
+    const getValue = () => {
+      if (isAllowed(permName))
+        return 'on';
+      else if (isDenied(permName))
+        return 'off';
+      return 'indeterminate';
+    };
+    
+    return (
+      <div className="flex items-center justify-between mb-2">
+        <span>{description[category][permName]}</span>
+        <ThreeToggle
+          id={permName}
+          onChange={e => togglePerm(permName, e.currentTarget.value)}
+          className="float-right"
+          value={getValue()} />
+      </div>
+    );
+  }
 
   const clearOverrides = () => {
     setAllow(0);
