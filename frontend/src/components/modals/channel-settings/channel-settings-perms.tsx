@@ -113,8 +113,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
             styles={colorStyles}
             onChange={select => {
               const roleId = select.value;
-              overrides.push({ allow: 0, deny: 0, roleId });
-              setOverrides(overrides);
+              setOverrides(overrides.concat({ allow: 0, deny: 0, roleId }));
               setActiveRoleId(roleId);
             }} 
             noOptionsMessage={() => 'All roles have been added'} />
