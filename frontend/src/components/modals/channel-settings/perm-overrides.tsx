@@ -21,14 +21,17 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
   
   const category = 'text';
   
-  const togglePerm = (name: string, state: string) => {
+  const togglePerm = (name: string, state: string) => {    
     if (state === 'indeterminate') {
-      // remove from both
       setAllow(allow & ~PermissionTypes.All[name]);
       setDeny(deny & ~PermissionTypes.All[name]);
-    } else if (state === 'on')
+    } else if (state === 'on') {
       setAllow(allow | PermissionTypes.All[name]);
-    else setDeny(deny | PermissionTypes.All[name]);
+      setDeny(deny & ~PermissionTypes.All[name]);
+    } else {
+      setAllow(allow & ~PermissionTypes.All[name]);
+      setDeny(deny | PermissionTypes.All[name]);
+    }
     updateOverrides();
   }
   const updateOverrides = () => {
@@ -45,10 +48,8 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
 
   const PermToggle = ({ permName }) => {
     const getValue = () => {
-      if (isAllowed(permName))
-        return 'on';
-      else if (isDenied(permName))
-        return 'off';
+      if (isAllowed(permName)) return 'on';
+      else if (isDenied(permName)) return 'off';
       return 'indeterminate';
     };
     
@@ -59,7 +60,7 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
           id={permName}
           onChange={e => togglePerm(permName, e.currentTarget.value)}
           className="float-right"
-          value={getValue()} />
+          initialValue={getValue()} />
       </div>
     );
   }
@@ -74,10 +75,14 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
     <>
       <div className="mb-5">
         <Category className="muted pb-1.5 mt-5" title={category} />
-          {Object.keys(description[category]).map(permName =>
-            <PermToggle
-              key={permName}
-              permName={permName} />)}
+          {Object.keys(description[category]).map(permName => (
+            <>
+              <strong className="secondary">{permName}</strong>
+              <PermToggle
+                key={permName}
+                permName={permName} />
+            </>
+          ))}
       </div>
       <NormalButton
         onClick={clearOverrides}

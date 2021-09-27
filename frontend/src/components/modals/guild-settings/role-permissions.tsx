@@ -43,11 +43,15 @@ const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms,
       {Object.keys(description).map(category => (
         <div key={category} className="mb-5">
           <Category className="muted pb-1.5 mt-5" title={category} />
-            {Object.keys(description[category]).map(permName =>
-              <PermToggle
-                key={permName}
-                category={category}
-                permName={permName} />)}
+            {Object.keys(description[category]).map(permName => (
+              <>
+                <strong className="secondary">{permName}</strong>
+                <PermToggle
+                  key={permName}
+                  category={category}
+                  permName={permName} />
+              </>
+            ))}
         </div>
       ))}
       <NormalButton

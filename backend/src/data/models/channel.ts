@@ -43,7 +43,7 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
     required: [true, 'Type is required'],
     validate: [/^TEXT$|^VOICE$|^DM$/, 'Invalid type'],
   },
-  override: {
+  overrides: {
     type: [Object],
     default: [],
   },

@@ -19,19 +19,14 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
     const channel = await this.channels.getText(channelId);
     await this.guard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
     
-    if (name) channel.name = name;
-    if (overrides) channel.overrides = overrides;
-    channel.summary = summary;
-    await channel.save();
+    const partialChannel: Partial<Entity.Channel> = {};
+    if (name) partialChannel.name = name;
+    if (overrides) partialChannel.overrides = overrides;
+    partialChannel.summary = summary;
+    await channel.updateOne(partialChannel as any, { runValidators: true });
 
     ws.io
       .to(channel.guildId)
-      .emit('CHANNEL_UPDATE', {
-        channelId: channel.id,
-        partialChannel: {
-          name: channel.name,
-          summary: channel.summary,
-        },
-      } as WS.Args.ChannelUpdate);
+      .emit('CHANNEL_UPDATE', { channelId: channel.id, partialChannel } as WS.Args.ChannelUpdate);
   }
 }

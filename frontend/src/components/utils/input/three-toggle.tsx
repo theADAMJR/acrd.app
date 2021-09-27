@@ -7,13 +7,13 @@ export type ThreeToggleProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLInputElement>,
   HTMLInputElement> & {
   id: string;
-  value: 'on' | 'off' | 'indeterminate';
+  initialValue: 'on' | 'off' | 'indeterminate';
 }
  
 const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {
   useEffect(() => {
     const checkbox = document.querySelector(`#${props.id}`)!;
-    checkbox.setAttribute('value', props.value);
+    checkbox.setAttribute('value', props.initialValue);
   }, []);
   
   return (
@@ -26,16 +26,16 @@ const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {
             {...props}
             id={props.id}
             onClick={({ currentTarget: checkbox }) => {
-              checkbox.checked = !checkbox.checked;
               if (checkbox.value === 'on')
                 checkbox.setAttribute('value', 'indeterminate');
-              else if (checkbox.value === 'indeterminate')
-                checkbox.setAttribute('value', 'off');
-              else checkbox.setAttribute('value', 'on');
+              else if (checkbox.value === 'off')
+                checkbox.setAttribute('value', 'on');
+              else checkbox.setAttribute('value', 'off');
+
+              console.log(checkbox.value);
             }}
             type="checkbox"
-            className="sr-only"
-            value={props.value} />
+            className="sr-only" />
           <div className="block bg-gray-600 w-14 h-8 rounded-full" />
           <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition" />
         </div>
