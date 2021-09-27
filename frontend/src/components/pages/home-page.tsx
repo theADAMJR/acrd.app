@@ -58,7 +58,7 @@ const HomePage: React.FunctionComponent = () => {
         <ImageCard src={Chat} title="Chat w/ Friends" />
         <ImageCard src={Devices} title="On Mobile or Desktop" />
         <ImageCard src={Friends} title="Join or Manage Guilds" />
-        <ImageCard src={Secure} title="Secure" />
+        <ImageCard src={Secure} title="Safe and Secure" />
       </section>
     </PageWrapper>
   );

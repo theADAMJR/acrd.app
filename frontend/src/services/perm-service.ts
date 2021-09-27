@@ -1,3 +1,4 @@
+import { getChannel } from '../store/channels';
 import { getGuild, getGuildRoles } from '../store/guilds';
 import { getMember, getSelfMember } from '../store/members';
 
@@ -75,6 +76,29 @@ export class PermService {
           PermissionTypes.All[permission] as number,
         );
   }
+  public canInChannel(permission: PermissionTypes.PermissionString, guildId: string, channelId: string) {
+    const channel = getChannel(channelId)(this.state);
+    if (!channel)
+      throw new TypeError('Channel not found');
+    
+    const member = getSelfMember(guildId)(this.state);
+    if (!member)
+      throw new TypeError('Member not found');
+
+    const activeOverrides = channel.overrides
+      ?.filter(o => member.roleIds.includes(o.roleId)) ?? [];
+
+    const allowed = activeOverrides.reduce((prev, curr) => prev | curr.allow, 0);
+    const denied = activeOverrides.reduce((prev, curr) => prev | curr.deny, 0);  
+
+    const canInheritantly = this.can(permission, guildId)
+      && !this.hasPermission(denied, PermissionTypes.Text[permission]);
+    const isAllowedByOverride = this.hasPermission(allowed, PermissionTypes.Text[permission]);
+    
+    // allowed overrides denied
+    return canInheritantly || isAllowedByOverride;
+  }
+
   public can(permission: PermissionTypes.PermissionString, guildId: string) {
     const guild = getGuild(guildId)(this.state);
     if (!guild)
