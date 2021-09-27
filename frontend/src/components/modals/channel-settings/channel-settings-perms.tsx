@@ -97,7 +97,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
                 style={{ color: r.color }}
                 tab={activeRoleId}
                 setTab={setActiveRoleId}
-              id={r.id}>{r.name}</TabLink>
+                id={r.id}>{r.name}</TabLink>
               <RoleMenu role={r} />
             </ContextMenuTrigger>
           ))}
@@ -124,7 +124,6 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
       </div>
 
       <SaveChanges
-        setValue={(obj: any) => console.log(obj)}
         onSave={onSave}
         obj={{ overrides }} />  
     </div>

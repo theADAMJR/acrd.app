@@ -36,10 +36,14 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
   }
   const updateOverrides = () => {
     const roleId = activeOverride.roleId;
-    const thisIndex = overrides.findIndex(o => o.roleId === roleId);
-    overrides[thisIndex] = { allow, deny, roleId };
+    const newOverrides = [...overrides];
+    const thisIndex = newOverrides.findIndex(o => o.roleId === roleId);
+    newOverrides[thisIndex] = { allow, deny, roleId };
 
-    setOverrides(overrides);
+    console.log(newOverrides);
+    
+
+    // setOverrides(newOverrides);
     dispatch(openSaveChanges(true));
   };
 
@@ -77,7 +81,9 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
         <Category className="muted pb-1.5 mt-5" title={category} />
           {Object.keys(description[category]).map(permName => (
             <>
-              <strong className="secondary">{permName}</strong>
+              <strong
+                title={PermissionTypes.All[permName]}
+                className="secondary">{permName}</strong>
               <PermToggle
                 key={permName}
                 permName={permName} />
