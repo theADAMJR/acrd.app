@@ -27,6 +27,9 @@ declare namespace REST {
         roles: Entity.Role[];
         users: Entity.User[];
       }
+      '/auth/email/verify-email': {
+        message?: 'Email sent';
+      }
       '/auth/verify': {
         token?: string;
         message?: 'Email verified' | 'Password reset';

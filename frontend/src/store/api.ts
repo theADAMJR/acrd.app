@@ -14,7 +14,7 @@ export interface APIArgs {
   data?: object;
   headers?: object;
   method?: 'get' | 'post' | 'put' | 'patch' | 'delete';
-  onSuccess: string[];
+  onSuccess?: string[];
   url: string;
   /** Callback to handle side effects. */
   callback?: (payload: any) => any;

@@ -8,19 +8,18 @@ import { useSnackbar } from 'notistack';
 import PageWrapper from '../page-wrapper';
 import Input from '../../utils/input/input';
 import NormalButton from '../../utils/buttons/normal-button';
-import { loginUser, forgotPasswordEmail, verifyCode } from '../../../store/auth';
-import { useState } from 'react';
+import { loginUser, forgotPasswordEmail, sendVerifyCode } from '../../../store/auth';
+import { actions as ui } from '../../../store/ui';
 
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, getValues } = useForm();
   const user = useSelector((s: Store.AppState) => s.auth.user);
-  const { enqueueSnackbar } = useSnackbar();
   const shouldVerify = useSelector((s: Store.AppState) => s.auth.shouldVerify);
 
   const VerifyCodeInput = () => {
     const verifyForm = useForm();
-    const onVerify = () => dispatch(verifyCode(verifyForm.getValues().code));
+    const onVerify = () => dispatch(sendVerifyCode(verifyForm.getValues().code));
     
     return (
       <div>
@@ -42,15 +41,7 @@ const LoginPage: React.FunctionComponent = () => {
   }
 
   const onLogin = (data) => dispatch(loginUser(data));
-  const resetPassword = () => {
-    dispatch(forgotPasswordEmail(getValues().email));
-
-    enqueueSnackbar('Reset password instructions sent to email.', {
-      anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-      key: 'saveChanges',
-      variant: 'info',
-    });
-  }
+  const resetPassword = () => dispatch(forgotPasswordEmail(getValues().email));
 
   return (user)
     ? <Redirect to="/channels/@me" />

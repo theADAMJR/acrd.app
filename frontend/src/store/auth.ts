@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { State } from 'react-select/src/Select';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
-import { token } from './utils/rest-headers';
+import { openDialog } from './ui';
+import { headers, token } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'auth',
@@ -64,7 +64,10 @@ export const forgotPasswordEmail = (email: string) => (dispatch) => {
   if (!email) return;
   
   dispatch(api.restCallBegan({
-    onSuccess: [],
+    callback: () => dispatch(openDialog({
+      variant: 'info',
+      content: 'Sent reset password instructions to email, if email is registered.',
+    })),
     url: `/auth/email/forgot-password?email=${email}`,
   }));
 }
@@ -87,13 +90,26 @@ export const registerUser = (data: REST.To.Post['/auth/register']) => (dispatch)
   }));
 }
 
-export const verifyCode = (code: string) => (dispatch) => {
+export const sendVerifyEmail = (code: string) => (dispatch) => {
+  dispatch(api.restCallBegan({
+    onSuccess: [],
+    url: `/auth/email/verify-email`,
+    headers,
+    callback: ({ message }: REST.From.Get['/auth/email/verify-email']) => {
+      // FIXME: creates black hole that kills React
+      // if (message)
+      //   dispatch(openDialog({ content: message, variant: 'info' }));
+    },
+  }))
+}
+export const sendVerifyCode = (code: string) => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [],
     url: `/auth/verify?code=${code}`,
     callback: ({ message, token }: REST.From.Get['/auth/verify']) => {
-      // TODO: add REST snackbar
-      if (message) alert(message);
+      // FIXME: creates black hole that kills React
+      // if (message)
+      //   dispatch(openDialog({ content: message, variant: 'info' }));
       if (!token) return;
       
       localStorage.setItem('token', token);

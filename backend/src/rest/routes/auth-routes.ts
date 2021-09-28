@@ -6,6 +6,8 @@ import Users from '../../data/users';
 import { Verification } from '../../email/verification';
 import { EmailFunctions } from '../../email/email-functions';
 import { APIError } from '../modules/api-error';
+import patterns from '../../types/patterns';
+import { updateUser, validateUser } from '../modules/middleware';
 
 export const router = Router();
 
@@ -75,15 +77,28 @@ router.get('/verify', async (req, res) => {
   res.status(200).json({ message, token } as REST.From.Get['/auth/verify']);
 });
 
+router.get('/email/verify-email', updateUser, validateUser, async (req, res) => {
+  const user = res.locals.user as SelfUserDocument;
+  await sendEmail.verifyEmail(user.email, user);
+
+  res.json({ message: 'Email sent' } as REST.From.Get['/email/verify-email']);
+});
+
 router.get('/email/forgot-password', async (req, res) => {
   const email = req.query.email?.toString();
   if (!email)
     throw new APIError(400, 'Email not provided');
 
-  const user = await users.getByEmail(email);
-  await sendEmail.forgotPassword(email, user);
+  const isValid = patterns.email.test(email);
+  if (!isValid)
+    throw new APIError(400, 'Email is not in a valid format');
 
-  return res.status(200).json({ message: 'Email sent' });
+  try {
+    const user = await users.getByEmail(email);
+    await sendEmail.forgotPassword(email, user);
+  } finally {
+    return res.status(200).json({ message: 'Email sent' });
+  }
 });
 
 router.post('/change-password', async (req, res) => {

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect, useLocation } from 'react-router';
-import { verifyCode } from '../../../store/auth';
+import { sendVerifyCode } from '../../../store/auth';
 import LoadingPage from '../loading-page';
 
 const VerifyPage: React.FunctionComponent = () => {
@@ -11,7 +11,7 @@ const VerifyPage: React.FunctionComponent = () => {
   
   useEffect(() => {
     if (code)
-      dispatch(verifyCode(code));
+      dispatch(sendVerifyCode(code));
   }, []);
 
   return (code) ? <LoadingPage /> : <Redirect to="/" />;
