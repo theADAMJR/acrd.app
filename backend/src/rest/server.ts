@@ -13,7 +13,7 @@ import { router as usersRoutes } from './routes/users-routes';
 import { router as invitesRoutes } from './routes/invites-routes';
 import { User } from '../data/models/user';
 import cors from 'cors';
-import path, { resolve } from 'path';
+import { resolve } from 'path';
 import Deps from '../utils/deps';
 import { WebSocket } from '../ws/websocket';
 import { APIError } from './modules/api-error';

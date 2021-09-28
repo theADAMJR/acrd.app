@@ -6,17 +6,20 @@ import Users from '../../data/users';
 import { Verification } from '../../email/verification';
 import { EmailFunctions } from '../../email/email-functions';
 import { APIError } from '../modules/api-error';
-import { WebSocket } from '../../ws/websocket';
-import Channels from '../../data/channels';
 
 export const router = Router();
 
 const sendEmail = Deps.get<EmailFunctions>(EmailFunctions);
 const users = Deps.get<Users>(Users);
 const verification = Deps.get<Verification>(Verification);
-const ws = Deps.get<WebSocket>(WebSocket);
 
-router.post('/login', passport.authenticate('local', { failWithError: true }),
+router.post('/login', (req, res, next) => {
+  req['flash'] = (_: string, message: string) => res.status(400).json({ message });
+  next();
+}, passport.authenticate('local', {
+  failWithError: true,
+  failureFlash: 'Invalid email or password',
+}),
   async (req, res) => {
     const user = await users.getByEmail(req.body.email);
     if (!user)
