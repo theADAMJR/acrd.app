@@ -4,17 +4,18 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { actions as users, getUser } from '../store/users';
 import { actions as meta } from '../store/meta';
-import { actions as uiActions } from '../store/ui';
+import { actions as uiActions, Dialog } from '../store/ui';
 import { actions as invites } from '../store/invites';
 import { actions as members, getSelfMember } from '../store/members';
 import { actions as roles } from '../store/roles';
 import { actions as typing } from '../store/typing';
-import { actions as guilds, getGuild } from '../store/guilds';
+import { actions as guilds } from '../store/guilds';
 import { actions as messages } from '../store/messages';
 import { actions as channels } from '../store/channels';
 import { actions as auth, logoutUser } from '../store/auth';
 import { actions as pings, addPing } from '../store/pings';
 import { useSnackbar } from 'notistack';
+import events from '../services/event-service';
 
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -29,10 +30,21 @@ const WSListener: React.FunctionComponent = () => {
   useEffect(() => {
     if (hasListened) return;    
 
-    ws.on('error', (error: any) => {      
+    const handleError = (error: any) => {
       enqueueSnackbar(`${error.data?.message ?? error.message}.`, {
         anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
         variant: 'error',
+        autoHideDuration: 5000,
+      });
+    }
+
+    ws.on('error', handleError);
+    events.on('dialog', (dialog: Dialog) => {
+      console.log(dialog);
+      
+      enqueueSnackbar(dialog.content, {
+        anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+        variant: dialog.variant,
         autoHideDuration: 5000,
       });
     });

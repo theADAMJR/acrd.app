@@ -1,4 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+import events from '../services/event-service';
 import React from 'react';
 
 const slice = createSlice({
@@ -34,12 +35,6 @@ const slice = createSlice({
     toggleSaveChanges: (state, { payload }) => {
       state.saveChangesOpen = payload;
     },
-    openedDialog: (state, { payload }: Store.Action<Store.AppState['ui']['openDialog']>) => {
-      state.openDialog = payload;
-    },
-    closedDialog: (state) => {
-      delete state.openDialog;
-    },
   },
 });
 
@@ -67,13 +62,13 @@ export const angrySaveChanges = () => {
   saveChanges.style.backgroundColor = 'var(--danger)';
 }
 
-// FIXME: crashes app
-export const openDialog = (dialog: Store.AppState['ui']['openDialog']) => (dispatch, getState: () => Store.AppState) => {
-  return;
-  
-  if (getState().ui.openDialog)
-    dispatch(actions.closedDialog());
-  dispatch(actions.openedDialog(dialog));
+export const openDialog = (dialog: Dialog) => (dispatch, getState: () => Store.AppState) => {
+  events.emit('dialog', dialog);
+}
+
+export interface Dialog {
+  content: string | JSX.Element;
+  variant: 'default' | 'info' | 'error' | 'success' | 'warning';
 }
 
 export const closeModal = (dispatch) => {

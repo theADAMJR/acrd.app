@@ -30,7 +30,7 @@ export default store => next => async action => {
     const response = (error as any).response;
     store.dispatch(actions.restCallFailed(response));
     store.dispatch(openDialog({
-      content: response?.data?.message ?? 'Unknown Error',
+      content: `${response?.data?.message ?? 'Unknown Error'}.`,
       variant: 'error',
     }));
   }

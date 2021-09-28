@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import Select from 'react-select';
 import { updateChannel } from '../../../store/channels';
 import { getGuildRoles } from '../../../store/guilds';
 import RoleMenu from '../../ctx-menus/role-menu';
@@ -11,6 +10,7 @@ import Category from '../../utils/category';
 import SaveChanges from '../../utils/save-changes';
 import TabLink from '../../utils/tab-link';
 import PermOverrides from './perm-overrides';
+import ScarceSelect from './scarce-select';
  
 const ChannelSettingsPerms: React.FunctionComponent = () => {  
   const { guildId }: any = useParams();
@@ -19,71 +19,37 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
 
   const byPosition = (a, b) => (a.position > b.position) ? 1 : -1;
   const allRoles = useSelector(getGuildRoles(guildId)).sort(byPosition);
-  const [overrides, setOverrides] = useState(channel.overrides ?? []);
+  const [activeOverride, setOverride] = useState(channel.overrides?.[0]);
   
-  const unaddedRoles = allRoles.filter(r => !overrides.some(o => o.roleId === r.id));
-  const overrideRoles = allRoles.filter(r => overrides.some(o => o.roleId === r.id));
+  const unaddedRoles = allRoles.filter(r => !channel.overrides?.some(o => o.roleId === r.id));
+  const overrideRoles = allRoles.filter(r => !channel.overrides?.some(o => o.roleId === r.id));
   const [activeRoleId, setActiveRoleId] = useState(overrideRoles[0]?.id ?? '');
-  
-  const activeOverride = overrides.find(o => o.roleId === activeRoleId);
 
   const deleteActiveOverride = () => {
-    const index = overrides?.findIndex(o => o.roleId === activeRoleId);
-    overrides.splice(index, 1);
-    setOverrides(overrides);
+    setOverride({ allow: 0, deny: 0, roleId: activeRoleId });
     setActiveRoleId('');
   }
 
   const RoleDetails = () => {    
-    return (activeOverride) ? (
+    return (
       <>
         <PermOverrides
-          overrides={overrides}
-          setOverrides={setOverrides}
+          setOverride={setOverride}
           activeOverride={activeOverride} />
         <NormalButton
           onClick={deleteActiveOverride}
           className="bg-danger float-right"
           type="button">Delete</NormalButton>
       </>
-    ) : null;
+    );
   }
 
   const onSave = (e) => {
-    const filtered = overrides.filter(o => o.allow + o.deny > 0);
-    dispatch(updateChannel(channel.id, { overrides: filtered }));
-  };  
+    const overrides = channel.overrides ?? [];
+    if (activeOverride && activeOverride.allow + activeOverride.deny > 0)
+      overrides.push(activeOverride);
 
-  const colorStyles = {
-    singleValue: () => ({ display: 'none' }),
-    control: () => ({
-      width: '100%',
-      backgroundColor: 'var(--bg-secondary)',
-      borderRadius: '5px',
-    }),
-    option: (styles, { data }) => ({
-      ...styles,
-      color: data.color,
-      backgroundColor: 'var(--bg-secondary)',
-      cursor: 'pointer',
-    }),
-    input: (styles) => ({ ...styles, color: 'var(--font)' }),
-    menu: (styles) => ({
-      ...styles,
-      backgroundColor: 'var(--bg-secondary)',
-    }),
-    multiValue: (styles) => ({
-      ...styles,
-      color: 'var(--font)',
-      backgroundColor: 'var(--bg-tertiary)',
-    }),
-    indicatorSeparator: () => ({ display: 'none' }),
-    indicatorsContainer: (styles) => ({ ...styles, float: 'right' }),
-    multiValueLabel: (styles, { data }) => ({
-      ...styles,
-      color: data.color,
-      backgroundColor: 'var(--bg-tertiary)',
-    }),
+    dispatch(updateChannel(channel.id, { overrides }));
   };
 
   return (
@@ -103,29 +69,23 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
           ))}
 
           <Category className="muted m-1 mt-3" title="Add Role" />
-          <Select
-            placeholder="Add role..."
-            options={unaddedRoles.map(r => ({
-              label: r.name,
-              value: r.id,
-              color: r.color,
-            }))}
-            styles={colorStyles}
+          <ScarceSelect
+            mapOptions={r => ({ label: r.name, value: r.id, color: r.color })}
             onChange={select => {
               const roleId = select.value;
-              setOverrides(overrides.concat({ allow: 0, deny: 0, roleId }));
+              setOverride({ allow: 0, deny: 0, roleId });
               setActiveRoleId(roleId);
-            }} 
-            noOptionsMessage={() => 'All roles have been added'} />
+            }}
+            unadded={unaddedRoles} />
         </nav>
       </div>
       <div className="lg:col-span-9 col-span-12">
-        {overrides && <RoleDetails />}
+        {activeOverride && <RoleDetails />}
       </div>
 
       <SaveChanges
         onSave={onSave}
-        obj={{ overrides }} />  
+        obj={{ overrides: activeOverride }} />  
     </div>
   );
 }

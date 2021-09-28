@@ -1,3 +1,4 @@
+import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleDevMode } from '../../../store/config';
@@ -14,6 +15,7 @@ const UserSettingsOverview: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.auth.user)!;
   const { register, handleSubmit, setValue } = useForm();
   const devMode = useSelector((s: Store.AppState) => s.config.devMode);
+  const { enqueueSnackbar } = useSnackbar();
 
   const onSave = (e) => {
     const onUpdate = (payload) => dispatch(updateSelf(payload));
@@ -47,6 +49,10 @@ const UserSettingsOverview: React.FunctionComponent = () => {
             name="email"
             register={register}
             options={{ value: user.email }} />
+          <NormalButton
+            onClick={() => enqueueSnackbar({
+              
+            })}>Verify</NormalButton>
         </div>
 
         <div className="pt-5">

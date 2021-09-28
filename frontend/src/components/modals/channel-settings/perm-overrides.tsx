@@ -8,20 +8,24 @@ import Category from '../../utils/category';
 import ThreeToggle from '../../utils/input/three-toggle';
 
 export interface PermOverrides {
-  setOverrides: React.Dispatch<React.SetStateAction<ChannelTypes.Override[]>>;
-  overrides: ChannelTypes.Override[];
-  activeOverride: ChannelTypes.Override;
+  setOverride: React.Dispatch<React.SetStateAction<ChannelTypes.Override | undefined>>;
+  activeOverride: ChannelTypes.Override | undefined;
 }
  
-const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, overrides, activeOverride }) => {
+const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, activeOverride }) => {
   const dispatch = useDispatch();
   const { description } = usePerms();
-  const [allow, setAllow] = useState(activeOverride.allow);
-  const [deny, setDeny] = useState(activeOverride.deny);
+  const [allow, setAllow] = useState(activeOverride?.allow ?? 0);
+  const [deny, setDeny] = useState(activeOverride?.deny ?? 0);
+  
+  if (!activeOverride) return null;
   
   const category = 'text';
   
   const togglePerm = (name: string, state: string) => {    
+    // FIXME: initial state twice (off), then other states
+    // console.log(state);
+    
     if (state === 'indeterminate') {
       setAllow(allow & ~PermissionTypes.All[name]);
       setDeny(deny & ~PermissionTypes.All[name]);
@@ -32,16 +36,18 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
       setAllow(allow & ~PermissionTypes.All[name]);
       setDeny(deny | PermissionTypes.All[name]);
     }
+    // console.log('allow', allow);
+    // console.log('deny', deny);
+    
     updateOverrides();
   }
   const updateOverrides = () => {
-    const roleId = activeOverride.roleId;
-    const newOverrides = [...overrides];
-    const thisIndex = newOverrides.findIndex(o => o.roleId === roleId);
-    newOverrides[thisIndex] = { allow, deny, roleId };
+    activeOverride.allow = allow;
+    activeOverride.deny = deny;
     
-    // setOverrides(newOverrides);
-    dispatch(openSaveChanges(true));
+    setOverride(activeOverride);
+    // FIXME: this is rerendering the toggles, which messes up their state
+    // dispatch(openSaveChanges(true));
   };
 
   const isAllowed = (name: string) => Boolean(allow & PermissionTypes.All[name]);

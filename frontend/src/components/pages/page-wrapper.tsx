@@ -8,7 +8,6 @@ import CreateInvite from '../modals/create-invite';
 import GuildSettings from '../modals/guild-settings/guild-settings';
 import UserProfile from '../modals/user-profile';
 import UserSettings from '../modals/user-settings/user-settings';
-import UIDialog from '../utils/ui-dialog';
 import WSListener from '../ws-listener';
 
 export type PageWrapperProps = React.DetailedHTMLProps<
@@ -31,7 +30,6 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
       {...props}>
       {props.children}
       <WSListener />
-      <UIDialog />
       {/* modals */}
       <CreateChannel />
       <CreateGuild />

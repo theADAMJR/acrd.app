@@ -1,4 +1,4 @@
-import './toggle.scoped.css';
+import './three-toggle.scoped.css';
 
 import classNames from 'classnames';
 import { useEffect } from 'react';
@@ -31,8 +31,6 @@ const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {
               else if (checkbox.value === 'off')
                 checkbox.setAttribute('value', 'on');
               else checkbox.setAttribute('value', 'off');
-
-              console.log(checkbox.value);
             }}
             type="checkbox"
             className="sr-only" />

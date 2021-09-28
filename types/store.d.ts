@@ -40,10 +40,6 @@ declare namespace Store {
       activeGuild?: Entity.Guild;
       activeInvite?: Entity.Invite;
       activeUser?: Entity.User;
-      openDialog?: {
-        content: string | JSX.Element;
-        variant: 'default' | 'info' | 'error' | 'success' | 'warning';
-      }
       editingMessageId?: string;
       saveChangesOpen?: boolean;
     };
