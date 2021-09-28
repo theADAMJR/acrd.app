@@ -39,10 +39,7 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverrides, o
     const newOverrides = [...overrides];
     const thisIndex = newOverrides.findIndex(o => o.roleId === roleId);
     newOverrides[thisIndex] = { allow, deny, roleId };
-
-    console.log(newOverrides);
     
-
     // setOverrides(newOverrides);
     dispatch(openSaveChanges(true));
   };

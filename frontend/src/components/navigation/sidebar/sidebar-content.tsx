@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faHashtag } from '@fortawesome/free-solid-svg-icons';
 import SidebarFooter from './sidebar-footer';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { actions as ui } from '../../../store/ui';
@@ -10,6 +10,8 @@ import ChannelMenu from '../../ctx-menus/channel-menu';
 import { getGuildChannels } from '../../../store/guilds';
 import usePerms from '../../../hooks/use-perms';
 import classNames from 'classnames';
+
+import './sidebar-content.scoped.css';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
@@ -28,12 +30,13 @@ const SidebarContent: React.FunctionComponent = () => {
         <FontAwesomeIcon
           className="float-left mr-2 scale-150 muted fill-current"
           icon={faHashtag} />
-        <span className="flex-grow flex justify-between">
+        <span className="tab flex-grow flex justify-between">
           <span>{c.name}</span>
           <span
             onClick={() => dispatch(ui.openedModal('ChannelSettings'))}
             className="cursor-pointer opacity-100">
-            {perms.can('MANAGE_CHANNELS', activeGuild.id) && <FontAwesomeIcon icon={faCog} />}
+            {perms.can('MANAGE_CHANNELS', activeGuild.id)
+              && <FontAwesomeIcon className="settings" icon={faCog} />}
           </span>
         </span>
       </Link>

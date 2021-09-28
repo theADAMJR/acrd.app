@@ -1,0 +1,6 @@
+.tab:hover .settings {
+  opacity: 100;
+}
+.settings {
+  opacity: 0;
+}
