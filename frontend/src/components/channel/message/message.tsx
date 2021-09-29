@@ -26,9 +26,8 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   const createdAt = new Date(message.createdAt);
 
   const format = (content: string) => content
-    .replace(/\*\*(.*)\*\*/, '<strong>$1</strong>')
-    .replace(/\*(.*)\*/, '<em>$1</em>')
-    .replace;
+    .replace(/\*\*(.*?)\*\*/gs, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*|\_(.*?)\_/gs, '<em>$1</em>')
 
   const isExtra = () => {
     const i = messages.findIndex(m => m.id === message.id);
