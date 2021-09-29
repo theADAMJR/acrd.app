@@ -12,7 +12,6 @@ import { getMember } from '../../../store/members';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import MessageMenu from '../../ctx-menus/message-menu';
 import classNames from 'classnames';
-import hljs from 'highlight.js';
 
 export interface MessageProps {
   message: Entity.Message;
