@@ -23,28 +23,16 @@ export default class implements WSEvent<'MESSAGE_UPDATE'> {
     private messages = Deps.get<Messages>(Messages),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { messageId, content, withEmbed }: WS.Params.MessageUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { messageId, content, embed }: WS.Params.MessageUpdate) {
     const message = await this.messages.get(messageId);
     this.guard.validateIsUser(client, message.authorId);
     this.guard.validateKeys('message', { content });
     
     if (content) message.content = content;
-    // TODO: replace 'withEmbed' with 'embed'
-    message.embed = (withEmbed) ? await this.getEmbed(message) : undefined;
     message.updatedAt = new Date();
     await message.save();
 
     ws.to(message.channelId)
       .emit('MESSAGE_UPDATE', { message });
-  }
-
-  public async getEmbed(message: MessageDocument): Promise<MessageTypes.Embed | undefined> {
-    try {
-      const targetURL = /([https://].*)/.exec(message.content)?.[0];  
-      if (!targetURL) return;
-  
-      const { body: html, url } = await got(targetURL);
-      return await metascraper({ html, url });
-    } catch {}
   }
 }

@@ -35,7 +35,7 @@ export const Message = model<MessageDocument>('message', new Schema({
   },
   embed: new Schema<MessageTypes.Embed>({
     description: String,
-    image: String,
+    imageURL: String,
     title: String,
     url: String,
   }),

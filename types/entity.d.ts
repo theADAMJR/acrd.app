@@ -103,7 +103,7 @@ declare namespace InviteTypes {
 declare namespace MessageTypes {
   export interface Embed {
     description: string;
-    image: string;
+    imageURL: string;
     title: string;
     url: string;
   }

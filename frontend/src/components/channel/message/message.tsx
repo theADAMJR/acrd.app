@@ -77,7 +77,8 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         className="rounded-full cursor-pointer w-10 h-10"
         src={`${process.env.REACT_APP_CDN_URL}${author.avatarURL}`}
         alt={author.username} />;
-  
+        
+  // TODO: refactor to new file
   const MessageHeader = () => {
     if (isActuallyExtra) return null;
   
@@ -103,7 +104,8 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
       </div>
     );
   }
-
+  
+  // TODO: refactor to new file
   const MessageContent = () => (editingMessageId === message.id)
     ? <MessageBox
         content={message.content}
@@ -117,6 +119,23 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         </div>
       </div>;
 
+  // TODO: refactor to new file
+  const MessageEmbed = ({ embed }) => (embed) ? (
+    <div style={{ borderLeft: '5px solid var(--muted)' }}
+      className="block float-none bg-bg-secondary">
+      <a href={embed.url} target="_blank">
+        <h2>{embed.title}</h2>
+      </a>
+      <p>{embed.description}</p>
+      <a href={embed.url} target="_blank">
+        <img
+          src={embed.imageURL}
+          alt={embed.title}
+          className="w-96" />
+      </a>
+    </div>
+  ) : null;
+
   return (
     <ContextMenuTrigger key={message.id} id={message.id}>
       <div className={classNames('message flex', { 'mt-4': !isActuallyExtra })}>
@@ -127,6 +146,12 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
           </div>
           <MessageHeader />
           <MessageContent />
+          {/* <MessageEmbed embed={{
+            title: 'Never Gonna Give You Up',
+            description: 'Never going to let you down',
+            imageURL: 'https://discord.club/img/preview.480aa21a.png',
+            url: 'https://discord.club/img/preview.480aa21a.png',
+          }} /> */}
         </div>
         <div className="right-side w-12" />
       </div>

@@ -176,6 +176,7 @@ declare namespace WS {
     export interface MessageCreate {
       channelId: string;
       content: string;
+      embed?: MessageTypes.Embed;
     }
     export interface MessageDelete {
       messageId: string;
@@ -183,7 +184,7 @@ declare namespace WS {
     export interface MessageUpdate {
       messageId: string;
       content?: string;
-      withEmbed: boolean;
+      embed?: MessageTypes.Embed;
     }
     export interface MessageCreate {
       content: string;

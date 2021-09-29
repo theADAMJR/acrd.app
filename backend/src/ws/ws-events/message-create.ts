@@ -1,16 +1,11 @@
 import { Socket } from 'socket.io';
-import { Message } from '../../data/models/message';
-import { generateSnowflake } from '../../data/snowflake-entity';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import Deps from '../../utils/deps';
 import { WSGuard } from '../modules/ws-guard';
 import Messages from '../../data/messages';
-import Pings from '../../data/pings';
-import Channels from '../../data/channels';
 import Users from '../../data/users';
 import { Channel } from '../../data/models/channel';
-import { User } from '../../data/models/user';
 import { WS } from '../../types/ws';
 
 export default class implements WSEvent<'MESSAGE_CREATE'> {
@@ -22,12 +17,12 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { channelId, content }: WS.Params.MessageCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { channelId, content, embed }: WS.Params.MessageCreate) {
     const authorId = ws.sessions.userId(client);
     
     const [_, message, author] = await Promise.all([
       this.guard.canAccessChannel(client, channelId, true), 
-      this.messages.create(authorId, channelId, { content }),
+      this.messages.create(authorId, channelId, { content, embed }),
       this.users.getSelf(authorId),
     ]);
 
