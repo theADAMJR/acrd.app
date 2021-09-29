@@ -35,9 +35,10 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   const RoleDetails = () => {    
     return (
       <>
-        <PermOverrides
+        <p>Feature in development...</p>
+        {/* <PermOverrides
           setOverride={setOverride}
-          activeOverride={activeOverride} />
+          activeOverride={activeOverride} /> */}
         <NormalButton
           onClick={deleteActiveOverride}
           className="bg-danger float-right"
@@ -74,7 +75,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
             </ContextMenuTrigger>
           ))}
 
-          <Category className="muted m-1 mt-3" title="Add Role" />
+          <Category className="m-1 mt-3" title="Add Role" />
           <ScarceSelect
             mapOptions={r => ({ label: r.name, value: r.id, color: r.color })}
             onChange={select => {

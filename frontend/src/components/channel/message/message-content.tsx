@@ -52,7 +52,8 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
         className="normal whitespace-pre-wrap">
         <div
           dangerouslySetInnerHTML={{ __html: `${format(message.content)}` }}
-          className="float-left" />
+          className="float-left overflow-auto"
+          style={{ maxWidth: '100%' }} />
         {message.updatedAt && <span className="select-none muted edited text-xs ml-1">(edited)</span>}
       </div>
     </div>;
