@@ -1,4 +1,5 @@
 import './message.scoped.css';
+import './message.global.css';
 
 import moment from 'moment';
 import { useSelector } from 'react-redux';
@@ -7,10 +8,11 @@ import { getUser } from '../../../store/users';
 import MessageBox from '../message-box';
 import MessageToolbar from './message-toolbar';
 import { getMemberHighestRole } from '../../../store/roles';
-import { getMember, getSelfMember } from '../../../store/members';
+import { getMember } from '../../../store/members';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import MessageMenu from '../../ctx-menus/message-menu';
 import classNames from 'classnames';
+import hljs from 'highlight.js';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -36,8 +38,8 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     strikethrough: /~~(.*?)~~/gs,
     codeMultiline: /```(.*?)```/gs,
     codeLine: /`(.*?)`/gs,
-    blockQuoteMultipleLine: /(.*?)`/gs,
-    blockQuoteOneLine: /`(.*?)`/gs,
+    blockQuoteMultiline: />>> (.*)/gs,
+    blockQuoteLine: /^> (.*)$/gm,
   }
 
   const format = (content: string) => content
@@ -49,8 +51,11 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     .replace(patterns.underlineBold, '<u><strong>$1</strong></u>')
     .replace(patterns.underlineBoldItalics, '<u><strong><em>$1</strong></em></u>')
     .replace(patterns.strikethrough, '<del>$1</del>')
-    .replace(patterns.codeMultiline, '<pre><code>$1</code></pre>')
-    .replace(patterns.codeLine, '<code>$1</code>')
+    // FIXME: don't add message formatting in a code block
+    .replace(patterns.codeMultiline, '<pre><code class="facade">$1</code></pre>')
+    .replace(patterns.codeLine, '<code class="facade">$1</code>')
+    .replace(patterns.blockQuoteLine,'<span class="blockquote pl-1">$1</span>')
+    .replace(patterns.blockQuoteMultiline,'<div class="blockquote pl-1">$1</div>');
 
   const isExtra = () => {
     const i = messages.findIndex(m => m.id === message.id);

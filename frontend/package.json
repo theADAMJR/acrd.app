@@ -20,6 +20,7 @@
     "babel-plugin-react-scoped-css": "^1.1.1",
     "classnames": "^2.3.1",
     "craco-plugin-scoped-css": "^1.1.1",
+    "highlight.js": "^11.2.0",
     "javascript-time-ago": "^2.3.8",
     "moment": "^2.29.1",
     "notistack": "^1.0.10",

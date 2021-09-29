@@ -1,0 +1,13 @@
+/* code element styling */
+code.facade strong,
+code.facade em,
+code.facade u,
+code.facade del {
+  font-weight: normal !important;
+  text-transform: normal !important;
+}
+
+.blockquote {
+  border-left: 5px solid var(--grey);
+  border-radius: 5px;
+}
