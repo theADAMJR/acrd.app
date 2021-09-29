@@ -6,7 +6,9 @@
   "scripts": {
     "start": "DEV=true ts-node-transpile-only src/app.ts",
     "dev": "ts-node-dev --transpile-only src/app.ts",
-    "test": "ts-mocha test/test.ts"
+    "test": "ts-mocha test/test.ts",
+    "push:stable": "git push origin HEAD:v2-stable HEAD:v2-dev",
+    "push:dev": "git push origin HEAD:v2-stable HEAD:v2-dev"
   },
   "keywords": [],
   "author": "ADAMJR",
