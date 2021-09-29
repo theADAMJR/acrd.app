@@ -58,12 +58,9 @@ const UserProfile: FunctionComponent = () => {
   ) : null;
 
   const UserInfo = () => (<div />);
-  // guilds that self user and active user are both in
-  const UserMutualGuilds = () => (
-    <p>Mutual guilds will go here when ADAMJR adds it.</p>
-  );
+  // TODO: show guilds that self user and active user are both in
+  const UserMutualGuilds = () => (<p>Feature in development.</p>);
 
-  
   return (user) ? (
     <Modal
       typeName={'UserProfile'}
@@ -75,13 +72,22 @@ const UserProfile: FunctionComponent = () => {
         </div>
         <hr className="border-bg-primary" />
         <NavTabs
-          className="p-2"
+          className="normal p-2"
           tab={tab}
           setTab={setTab}
           tabs={[
             { name: 'Info', id: 'info' },
             { name: 'Mutual Guilds', id: 'mutualGuilds' },
-          ]} />
+          ]}
+          linkStyle={{
+            color: 'var(--normal)',
+            fontWeight: 'bold',
+            padding: '0 0 30px 0',
+            margin: '5px 10px',
+            borderRadius: 0,
+            display: 'inline-block',
+          }}
+          activeLinkStyle={{ borderBottom: '3px solid var(--normal)' }} />
       </header>
       <main className="p-4">
         {(tab === 'info') && <UserInfo />}
