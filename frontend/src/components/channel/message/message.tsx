@@ -73,7 +73,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   const isActuallyExtra = isExtra();
 
   const leftSide = () => (isActuallyExtra)
-    ? <span className="timestamp text-xs">
+    ? <span className="timestamp text-xs select-none">
         {moment(createdAt).format('HH:mm')}
       </span>
     : <img
