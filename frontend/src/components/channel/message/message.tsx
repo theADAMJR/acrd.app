@@ -5,60 +5,22 @@ import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
 import { getUser } from '../../../store/users';
-import MessageBox from '../message-box';
 import MessageToolbar from './message-toolbar';
-import { getMemberHighestRole } from '../../../store/roles';
-import { getMember } from '../../../store/members';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import MessageMenu from '../../ctx-menus/message-menu';
 import classNames from 'classnames';
-import defaultPatterns from '../../../types/patterns';
 import Image from '../../utils/image';
+import MessageContent from './message-content';
+import MessageHeader from './message-header';
 
 export interface MessageProps {
   message: Entity.Message;
 }
 
 const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProps) => {
-  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
-  const member = useSelector(getMember(guild.id, message.authorId))!;
-  const highestRole = useSelector(getMemberHighestRole(guild.id, member.userId));
   const author = useSelector(getUser(message.authorId));
   const messages = useSelector(getChannelMessages(message.channelId));
-  const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
   const createdAt = new Date(message.createdAt);
-
-  const patterns = {
-    boldItalic: /\*\*\*(.*?)\*\*\*/gs,
-    bold: /\*\*(.*?)\*\*/gs,
-    italic: /\*(.*?)\*|_(.*?)_/gs,
-    underline: /__(.*?)__/gs,
-    underlineItalics: /__\*(.*?)\*__/gs,
-    underlineBold: /__\*\*(.*?)\*\*__/gs,
-    underlineBoldItalics: /__\*\*\*(.*?)\*\*\*__/gs,
-    strikethrough: /~~(.*?)~~/gs,
-    codeMultiline: /```(.*?)```/gs,
-    codeLine: /`(.*?)`/gs,
-    blockQuoteMultiline: />>> (.*)/gs,
-    blockQuoteLine: /^> (.*)$/gm,
-    url: /http:\/\/(.*)|https:\/\//gm,
-  }
-
-  const format = (content: string) => content
-    .replace(patterns.boldItalic, '<strong><em>$1</em></strong>')
-    .replace(patterns.bold, '<strong>$1</strong>')
-    .replace(patterns.italic, '<em>$1$2</em>')
-    .replace(patterns.underline, '<u>$1</u>')
-    .replace(patterns.underlineItalics, '<u><em>$1</em></u>')
-    .replace(patterns.underlineBold, '<u><strong>$1</strong></u>')
-    .replace(patterns.underlineBoldItalics, '<u><strong><em>$1</strong></em></u>')
-    .replace(patterns.strikethrough, '<del>$1</del>')
-    // FIXME: don't add message formatting in a code block
-    .replace(patterns.codeMultiline, '<pre><code class="facade">$1</code></pre>')
-    .replace(patterns.codeLine, '<code class="facade">$1</code>')
-    .replace(patterns.blockQuoteLine, '<span class="blockquote pl-1">$1</span>')
-    .replace(patterns.blockQuoteMultiline, '<div class="blockquote pl-1">$1</div>')
-    .replace(defaultPatterns.url, '<a href="$1" target="_blank">$1</div>');
 
   const isExtra = () => {
     const i = messages.findIndex(m => m.id === message.id);
@@ -82,64 +44,6 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         src={`${process.env.REACT_APP_CDN_URL}${author.avatarURL}`}
         onError={e => e.currentTarget.src = `${process.env.REACT_APP_CDN_URL}/avatars/unknown.png`}
         alt={author.username} />;
-        
-  // TODO: refactor to new file
-  const MessageHeader = () => {
-    if (isActuallyExtra) return null;
-  
-    const toDays = (date: Date) => date.getTime() / 1000 / 60 / 60 / 24; 
-    const midnight = new Date(new Date().setHours(0, 0, 0, 0));
-    const daysAgo = Math.floor(toDays(midnight) - toDays(createdAt));
-    
-    const getTimestamp = () => {
-      const wasToday = midnight.getDate() === createdAt.getDate();
-      if (wasToday) return '[Today at] HH:mm';
-      else if (daysAgo === 1) return '[Yesterday at] HH:mm';
-      return 'DD/MM/YYYY';
-    };
-
-    return (
-      <div>
-        <ContextMenuTrigger id={author.id}>
-          <span
-            style={{ color: highestRole.color }}
-            className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
-        </ContextMenuTrigger>
-        <span className="text-xs">{moment(createdAt).format(getTimestamp())}</span>
-      </div>
-    );
-  }
-  
-  // TODO: refactor to new file
-  const MessageContent = () => (editingMessageId === message.id)
-    ? <MessageBox
-        content={message.content}
-        editingMessageId={message.id} />
-    : <div className="relative">
-        <div className="normal whitespace-pre-wrap">
-          <div
-            dangerouslySetInnerHTML={{ __html: `${format(message.content)}` }}
-            className="float-left" />
-          {message.updatedAt && <span className="select-none muted edited text-xs ml-1">(edited)</span>}
-        </div>
-      </div>;
-
-  // TODO: refactor to new file
-  const MessageEmbed = ({ embed }) => (embed) ? (
-    <div style={{ borderLeft: '5px solid var(--muted)' }}
-      className="block float-none bg-bg-secondary">
-      <a href={embed.url} target="_blank">
-        <h2>{embed.title}</h2>
-      </a>
-      <p>{embed.description}</p>
-      <a href={embed.url} target="_blank">
-        <Image
-          src={embed.imageURL}
-          alt={embed.title}
-          className="w-96" />
-      </a>
-    </div>
-  ) : null;
 
   return (
     <ContextMenuTrigger key={message.id} id={message.id}>
@@ -149,8 +53,11 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
           <div className="absolute toolbar right-0 -mt-3 z-10">
             <MessageToolbar message={message} />
           </div>
-          <MessageHeader />
-          <MessageContent />
+          <MessageHeader
+            author={author}
+            message={message}
+            isExtra={isActuallyExtra} />
+          <MessageContent message={message} />
           {/* <MessageEmbed embed={{
             title: 'Never Gonna Give You Up',
             description: 'Never going to let you down',
