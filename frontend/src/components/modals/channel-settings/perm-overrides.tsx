@@ -47,7 +47,7 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, ac
     
     setOverride(activeOverride);
     // FIXME: this is rerendering the toggles, which messes up their state
-    // dispatch(openSaveChanges(true));
+    dispatch(openSaveChanges(true));
   };
 
   const isAllowed = (name: string) => Boolean(allow & PermissionTypes.All[name]);
@@ -83,14 +83,14 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, ac
       <div className="mb-5">
         <Category className="muted pb-1.5 mt-5" title={category} />
           {Object.keys(description[category]).map(permName => (
-            <>
+            <div key={permName}>
               <strong
                 title={PermissionTypes.All[permName]}
                 className="secondary">{permName}</strong>
               <PermToggle
                 key={permName}
                 permName={permName} />
-            </>
+            </div>
           ))}
       </div>
       <NormalButton

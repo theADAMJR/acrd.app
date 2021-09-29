@@ -25,6 +25,11 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
   const createdAt = new Date(message.createdAt);
 
+  const format = (content: string) => content
+    .replace(/\*\*(.*)\*\*/, '<strong>$1</strong>')
+    .replace(/\*(.*)\*/, '<em>$1</em>')
+    .replace;
+
   const isExtra = () => {
     const i = messages.findIndex(m => m.id === message.id);
     const prev = messages[i - 1];
@@ -78,8 +83,12 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         content={message.content}
         editingMessageId={message.id} />
     : <div className="relative">
-        <div className="normal whitespace-pre-wrap">{message.content}{message.updatedAt &&
-          <span className="select-none muted edited text-xs ml-1">(edited)</span>}</div>
+        <div className="normal whitespace-pre-wrap">
+          <div
+            dangerouslySetInnerHTML={{ __html: `${format(message.content)}` }}
+            className="float-left" />
+          {message.updatedAt && <span className="select-none muted edited text-xs ml-1">(edited)</span>}
+        </div>
       </div>;
 
   return (

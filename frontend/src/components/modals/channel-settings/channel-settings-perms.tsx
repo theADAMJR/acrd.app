@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { updateChannel } from '../../../store/channels';
 import { getGuildRoles } from '../../../store/guilds';
+import { openSaveChanges } from '../../../store/ui';
 import RoleMenu from '../../ctx-menus/role-menu';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
@@ -22,12 +23,13 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   const [activeOverride, setOverride] = useState(channel.overrides?.[0]);
   
   const unaddedRoles = allRoles.filter(r => !channel.overrides?.some(o => o.roleId === r.id));
-  const overrideRoles = allRoles.filter(r => !channel.overrides?.some(o => o.roleId === r.id));
+  const overrideRoles = allRoles.filter(r => channel.overrides?.some(o => o.roleId === r.id));
   const [activeRoleId, setActiveRoleId] = useState(overrideRoles[0]?.id ?? '');
 
   const deleteActiveOverride = () => {
     setOverride({ allow: 0, deny: 0, roleId: activeRoleId });
     setActiveRoleId('');
+    dispatch(openSaveChanges(true));
   }
 
   const RoleDetails = () => {    
@@ -45,12 +47,17 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   }
 
   const onSave = (e) => {
-    const overrides = channel.overrides ?? [];
+    const overrides = JSON.parse(JSON.stringify(channel.overrides)) ?? [];
     if (activeOverride && activeOverride.allow + activeOverride.deny > 0)
       overrides.push(activeOverride);
 
     dispatch(updateChannel(channel.id, { overrides }));
   };
+
+  const role = allRoles.find(r => r.id === activeRoleId);
+  const alreadyActive = channel.overrides?.some(o => o.roleId === activeRoleId);
+  if (activeOverride && role && !alreadyActive)
+    overrideRoles.push(role);
 
   return (
     <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
@@ -59,7 +66,6 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
           {overrideRoles.sort(byPosition).map(r => (
             <ContextMenuTrigger id={r.id} key={r.id}>
               <TabLink
-                key={r.id}
                 style={{ color: r.color }}
                 tab={activeRoleId}
                 setTab={setActiveRoleId}

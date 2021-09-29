@@ -29,6 +29,7 @@ export default class implements WSEvent<'MESSAGE_UPDATE'> {
     this.guard.validateKeys('message', { content });
     
     if (content) message.content = content;
+    // TODO: replace 'withEmbed' with 'embed'
     message.embed = (withEmbed) ? await this.getEmbed(message) : undefined;
     message.updatedAt = new Date();
     await message.save();

@@ -81,7 +81,7 @@ router.get('/email/verify-email', updateUser, validateUser, async (req, res) => 
   const user = res.locals.user as SelfUserDocument;
   await sendEmail.verifyEmail(user.email, user);
 
-  res.json({ message: 'Email sent' } as REST.From.Get['/email/verify-email']);
+  res.json({ message: 'Email sent' } as REST.From.Get['/auth/email/verify-email']);
 });
 
 router.get('/email/forgot-password', async (req, res) => {

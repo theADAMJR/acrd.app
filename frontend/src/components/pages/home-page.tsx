@@ -37,7 +37,7 @@ const HomePage: React.FunctionComponent = () => {
         <h1>It's time to ditch Discord and Zoom.</h1>
         <div className="flex justify-center">
           <div className="lead font-light mt-2 max-w-xl">
-            All-in-one voice and text chat for you that's free, secure, and works on both your desktop and phone. Stop paying for Discord guild boosts and hassling with Zoom. Simplify your life.
+            All-in-one guild and text chat for you that's free, secure, and works on both your desktop and phone. Stop paying for Discord guild boosts and hassling with Zoom. Simplify your life.
           </div>
         </div>
         <button className="font-primary shadow-md bg-green text-dark">
