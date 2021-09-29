@@ -3,6 +3,7 @@ import { faCrown } from '@fortawesome/free-solid-svg-icons';
 import { getMemberHighestRole } from '../../store/roles';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
+import Image from '../utils/image';
 
 export interface UsernameProps {
   user: Entity.User;
@@ -47,7 +48,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 
       { 'opacity-50': !isOnline })}>
       <div className="relative avatar mr-2">
         <UserPresence />
-        <img
+        <Image
           className={(size === 'md')
             ? `select-none rounded-full w-8 h-8`
             : `select-none rounded-full w-20 h-20`}

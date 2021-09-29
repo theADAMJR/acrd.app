@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useLocation } from 'react-router-dom';
+import Image from '../../utils/image';
 
 import './sidebar-icon.scoped.css';
 
@@ -23,7 +24,7 @@ const SidebarIcon: React.FunctionComponent<SidebarIconProps> = (props) => {
     .slice(0, 3);
 
   const Icon = () => (imageURL)
-    ? <img
+    ? <Image
         className="h-12 w-12"
         src={imageURL}
         alt={name} />

@@ -13,6 +13,7 @@ import { ContextMenuTrigger } from 'react-contextmenu';
 import MessageMenu from '../../ctx-menus/message-menu';
 import classNames from 'classnames';
 import defaultPatterns from '../../../types/patterns';
+import Image from '../../utils/image';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -76,9 +77,10 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     ? <span className="timestamp text-xs select-none">
         {moment(createdAt).format('HH:mm')}
       </span>
-    : <img
+    : <Image
         className="rounded-full cursor-pointer w-10 h-10"
         src={`${process.env.REACT_APP_CDN_URL}${author.avatarURL}`}
+        onError={e => e.currentTarget.src = `${process.env.REACT_APP_CDN_URL}/avatars/unknown.png`}
         alt={author.username} />;
         
   // TODO: refactor to new file
@@ -131,7 +133,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
       </a>
       <p>{embed.description}</p>
       <a href={embed.url} target="_blank">
-        <img
+        <Image
           src={embed.imageURL}
           alt={embed.title}
           className="w-96" />
