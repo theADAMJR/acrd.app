@@ -12,6 +12,7 @@ import { getMember } from '../../../store/members';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import MessageMenu from '../../ctx-menus/message-menu';
 import classNames from 'classnames';
+import defaultPatterns from '../../../types/patterns';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -39,6 +40,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     codeLine: /`(.*?)`/gs,
     blockQuoteMultiline: />>> (.*)/gs,
     blockQuoteLine: /^> (.*)$/gm,
+    url: /http:\/\/(.*)|https:\/\//gm,
   }
 
   const format = (content: string) => content
@@ -53,8 +55,9 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     // FIXME: don't add message formatting in a code block
     .replace(patterns.codeMultiline, '<pre><code class="facade">$1</code></pre>')
     .replace(patterns.codeLine, '<code class="facade">$1</code>')
-    .replace(patterns.blockQuoteLine,'<span class="blockquote pl-1">$1</span>')
-    .replace(patterns.blockQuoteMultiline,'<div class="blockquote pl-1">$1</div>');
+    .replace(patterns.blockQuoteLine, '<span class="blockquote pl-1">$1</span>')
+    .replace(patterns.blockQuoteMultiline, '<div class="blockquote pl-1">$1</div>')
+    .replace(defaultPatterns.url, '<a href="$1" target="_blank">$1</div>');
 
   const isExtra = () => {
     const i = messages.findIndex(m => m.id === message.id);

@@ -7,4 +7,5 @@ export default {
   textChannelName: /^[A-Za-z\-\d]{2,32}$/,
   username: /(^(?! |^everyone$|^here$|^me$|^someone$)[A-Za-z\d\-\_ ]{2,32}(?<! )$)/,
   roleName: /(^(?! |^everyone$|^here$|^me$|^someone$)(.*){2,32}(?<! )$)/,
+  url: /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gm,
 }
