@@ -47,7 +47,9 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
       content={message.content}
       editingMessageId={message.id} />
   : <div className="relative">
-      <div className="normal whitespace-pre-wrap">
+      <div
+        style={{maxWidth: '963px'}}
+        className="normal whitespace-pre-wrap">
         <div
           dangerouslySetInnerHTML={{ __html: `${format(message.content)}` }}
           className="float-left" />

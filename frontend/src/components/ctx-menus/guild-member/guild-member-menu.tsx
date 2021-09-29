@@ -7,6 +7,7 @@ import { getMember, kickMember } from '../../../store/members';
 import { actions as ui } from '../../../store/ui';
 import { toggleBlockUser } from '../../../store/users';
 import UserProfile from '../../modals/user-profile';
+import Category from '../../utils/category';
 import DevModeMenuSection from '../dev-mode-menu-section';
 import RoleManager from './role-manager';
 
@@ -56,6 +57,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
       {(canKick || canManage) && (
         <div>
           <hr className="my-2 border-bg-primary" />
+          <Category title="Manage Roles" className="pb-2" />
 
           {(!isSelf && perms.can('KICK_MEMBERS', guild.id)) && (
             <MenuItem
@@ -68,7 +70,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
         </div>
       )}
 
-      <div className="my-2" />
+      <div className="my-4" />
       {devMode && <DevModeMenuSection ids={[
         { title: 'User ID', id: user.id },
         { title: 'Member ID', id: member.id },
