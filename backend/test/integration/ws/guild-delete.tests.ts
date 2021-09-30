@@ -73,12 +73,12 @@ describe('guild-delete', () => {
     expect(guild).to.be.null;
   });
 
-  it('owner deletes guild, removed from all user.guilds', async () => {
-    const oldCount = user.guilds.length;
+  it('owner deletes guild, removed from all user guildIds', async () => {
+    const oldCount = user.guildIds.length;
     await guildDelete();
 
     user = await User.findById(user.id);    
-    expect(user.guilds.length).to.be.lessThan(oldCount);
+    expect(user.guildIds.length).to.be.lessThan(oldCount);
   });
 
   function guildDelete() {
@@ -90,7 +90,6 @@ describe('guild-delete', () => {
     user = await User.findById(guild.ownerId);
   }
   async function makeNoob() {
-    user = await User.findById(guild.members[1].userId);
     ws.sessions.set(client.id, user.id);
   }
 });

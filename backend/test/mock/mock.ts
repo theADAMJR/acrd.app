@@ -1,7 +1,7 @@
 import { Channel, ChannelDocument } from '../../src/data/models/channel';
 import { Guild, GuildDocument } from '../../src/data/models/guild';
 import { GuildMember, GuildMemberDocument } from '../../src/data/models/guild-member';
-import { User, SelfUserDocument, UserDocument } from '../../src/data/models/user';
+import { User, SelfUserDocument } from '../../src/data/models/user';
 import { generateSnowflake } from '../../src/data/snowflake-entity';
 import { Role, RoleDocument } from '../../src/data/models/role';
 import { Message } from '../../src/data/models/message';
@@ -17,15 +17,17 @@ import GuildMembers from '../../src/data/guild-members';
 import Channels from '../../src/data/channels';
 import { PermissionTypes } from '../../src/types/permission-types';
 import { REST } from '../../src/rest/server';
+import Users from '../../src/data/users';
 
-// TODO: mostly replace with data wrappers
+// TODO: eventually replace with data wrappers
 export class Mock {
-  private static channels = Deps.get<Channels>(Channels);
-  private static guilds = Deps.get<Guilds>(Guilds);
-  private static guildMembers = Deps.get<GuildMembers>(GuildMembers);
-  private static messages = Deps.get<Messages>(Messages);
-  private static invites = Deps.get<Invites>(Invites);
-  private static roles = Deps.get<Roles>(Roles);
+  public static channels = Deps.get<Channels>(Channels);
+  public static guilds = Deps.get<Guilds>(Guilds);
+  public static guildMembers = Deps.get<GuildMembers>(GuildMembers);
+  public static messages = Deps.get<Messages>(Messages);
+  public static invites = Deps.get<Invites>(Invites);
+  public static roles = Deps.get<Roles>(Roles);
+  public static users = Deps.get<Users>(Users);
 
   public static async defaultSetup(client: any, eventType: any = function() {}) {
     Deps.get<REST>(REST);
@@ -46,6 +48,11 @@ export class Mock {
     Mock.ioClient(client);
     ws.sessions.set(client.id, user.id);
 
+    // TODO:
+    //   rename 'user' -> ownerUser 
+    //   rename 'member' -> ownerMember
+    //   add 'ownerUser'
+    //   add 'ownerMember'
     return { event, guild, user, member, ws, role, channel };
   }
   public static async afterEach(ws) {
@@ -56,7 +63,7 @@ export class Mock {
     client.disconnect();
   }
 
-  // FIXME: garbage coding
+  // FIXME: less maintainable than daily YouTube uploads
   public static ioClient(client: any) {
     client.rooms = [];
     client.sockets = {
@@ -100,24 +107,15 @@ export class Mock {
       username: `mock-user-${generateSnowflake()}`,
       discriminator: 1,
       ...options,
-    } as any);
+    } as any) as any;
   }
 
   public static async self(guildIds: string[] = []) {
     return await this.user({ guildIds }) as any as SelfUserDocument;
   }
-
   public static async bot(guildIds: string[] = []): Promise<SelfUserDocument> {
-    return await User.create({
-      bot: true,
-      email: `${generateSnowflake()}@gmail.com`,
-      guildIds,
-      status: 'ONLINE',
-      discriminator: 1,
-      username: `mock-bot-${generateSnowflake()}`,
-    } as any) as any as SelfUserDocument;    
+    return await Mock.user({ bot: true, guildIds });
   }
-
   public static guildMember(user: SelfUserDocument, guild: GuildDocument): Promise<GuildMemberDocument> {    
     return this.guildMembers.create(guild.id, user);
   }
@@ -130,21 +128,15 @@ export class Mock {
   public static invite(guildId: string, options?: InviteTypes.Options) {
     return this.invites.create({ options, guildId }, generateSnowflake());
   }
-
   public static everyoneRole(guildId: string, permissions = PermissionTypes.defaultPermissions) {
     return this.roles.create(guildId, { name: '@everyone', permissions });
   }
 
   public static async clearRolePerms(guild: Entity.Guild) {
-    await Role.updateMany(
-      { guildId: guild.id },
-      { permissions: 0 },
-    );
+    await Role.updateMany({ guildId: guild.id }, { permissions: 0 });
   }
-  
   public static async giveRolePerms(role: RoleDocument, permissions: PermissionTypes.Permission) {
-    role.permissions |= permissions;
-    await role.save();
+    await role.updateOne({ permissions: role.permissions | permissions });
   }
 
   public static async giveEveryoneAdmin(guild: Entity.Guild) {

@@ -7,8 +7,8 @@ import Users from '../../../src/data/users';
 import { Mock } from '../../mock/mock';
 import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
-import { SystemBot } from '../../../src/system/bot';
 import { GuildDocument } from '../../../src/data/models/guild';
+import { Channel } from '../../../src/data/models/channel';
 
 describe('ready', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
@@ -16,7 +16,7 @@ describe('ready', () => {
   let event: Ready;
   let users: Users;
   let token: string;
-  let user: UserDocument;
+  let user: SelfUserDocument;
   let guild: GuildDocument;
   let ws: WebSocket;
 
@@ -45,25 +45,6 @@ describe('ready', () => {
     expect(rooms()).to.include(user.id);
   });
 
-  it('joins system bot room', async () => {
-    const systemBot = Deps.get<SystemBot>(SystemBot);
-    await systemBot.init();
-
-    await ready();
-    
-    expect(rooms()).to.include(systemBot.self.id);
-  });
-
-  it('joins dm channel room', async () => {
-    const dm = await Mock.channel({ type: 'DM' });
-    dm.memberIds.push(user.id);
-    await dm.update(dm);
-
-    await ready();    
-
-    expect(rooms()).to.include(dm.id);
-  });
-
   it('joins self room', async () => {
     await ready();
     expect(rooms()).to.include(user.id);
@@ -82,8 +63,11 @@ describe('ready', () => {
     await makeOwner();
     await ready();
 
-    expect(rooms()).to.contain(guild.channels[0].id);
-    expect(rooms()).to.contain(guild.channels[1].id);
+    const guildChannels = await Channel.find({ guildId: guild.id });
+    const ids = guildChannels.map(c => c.id);
+
+    expect(rooms()).to.contain(ids[0]);
+    expect(rooms()).to.contain(ids[1]);
     expect(rooms()).to.contain(newChannel.id);
   });
 

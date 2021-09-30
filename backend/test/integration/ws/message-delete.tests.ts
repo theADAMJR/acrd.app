@@ -7,7 +7,7 @@ import { GuildDocument } from '../../../src/data/models/guild';
 import { UserDocument } from '../../../src/data/models/user';
 import { Message, MessageDocument } from '../../../src/data/models/message';
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
-import { Channel } from '../../../src/data/models/channel';
+import { Channel, ChannelDocument } from '../../../src/data/models/channel';
 
 describe('message-delete', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
@@ -17,13 +17,12 @@ describe('message-delete', () => {
   let user: UserDocument;
   let guild: GuildDocument;
   let message: MessageDocument;
-  let channelId: string;
+  let channel: ChannelDocument;
 
   beforeEach(async () => {
-    ({ ws, event, user, guild } = await Mock.defaultSetup(client, MessageDelete));
+    ({ ws, event, channel, guild } = await Mock.defaultSetup(client, MessageDelete));
     
-    channelId = guild.channels[0].id;
-    message = await Mock.message(user, channelId);
+    message = await Mock.message(user, channel.id);
   });
 
   afterEach(async () => await Mock.afterEach(ws));
@@ -62,25 +61,24 @@ describe('message-delete', () => {
 
   it('message does not exist, rejected', async () => {
     await message.deleteOne();
-
     await expect(deleteMessage()).to.be.rejectedWith('Message Not Found');
   });
 
   it('message is last channel message, channel last message updated to previous', async () => {
     const previousMessage = message;
-    message = await Mock.message(user, channelId);
+    message = await Mock.message(user, channel.id);
     
     await deleteMessage();
 
-    const channel = await Channel.findById(channelId);
-    expect(channel.lastMessageId).to.equal(previousMessage.id);
+    const newChannel = await Channel.findById(channel.id);
+    expect(newChannel.lastMessageId).to.equal(previousMessage.id);
   });
 
   it('message is only channel message, channel last message updated to null', async () => {
     await deleteMessage();
 
-    const channel = await Channel.findById(channelId);
-    expect(channel.lastMessageId).to.be.null;
+    const newChannel = await Channel.findById(channel.id);
+    expect(newChannel.lastMessageId).to.be.null;
   });
 
   async function deleteMessage() {

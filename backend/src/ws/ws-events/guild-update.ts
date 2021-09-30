@@ -18,18 +18,18 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
   public async invoke(ws: WebSocket, client: Socket, { guildId, name, iconURL }: WS.Params.GuildUpdate) { 
     await this.guard.validateCan(client, guildId, 'MANAGE_GUILD');
 
-    const partialGuild = { name, iconURL };
-    this.guard.validateKeys('guild', partialGuild);
-
     const guild = await this.guilds.get(guildId);
+    const partial: Partial<Entity.Guild> = {};
+    const hasChanged = (key: string, value: any) => value && guild[key] !== value;
 
-    if (iconURL) guild.iconURL = iconURL;
-    if (name) guild.name = name;
+    if (hasChanged('iconURL', iconURL)) guild.iconURL = iconURL;
+    if (hasChanged('name', name)) guild.name = name!;
 
+    Object.assign(guild, partial);
     await guild.save();
 
     ws.io
       .to(guildId)
-      .emit('GUILD_UPDATE', { guildId, partialGuild } as WS.Args.GuildUpdate);
+      .emit('GUILD_UPDATE', { guildId, partialGuild: partial } as WS.Args.GuildUpdate);
   }
 }

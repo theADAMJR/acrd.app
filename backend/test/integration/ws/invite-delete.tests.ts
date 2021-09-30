@@ -6,6 +6,7 @@ import { GuildDocument } from '../../../src/data/models/guild';
 import { Invite, InviteDocument } from '../../../src/data/models/invite';
 import { expect } from 'chai';
 import { RoleDocument } from '../../../src/data/models/role';
+import { PermissionTypes } from '../../../src/types/permission-types';
 
 describe('invite-delete', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
@@ -38,7 +39,6 @@ describe('invite-delete', () => {
 
   it('guild member, has manage guild perms, fulfilled', async () => {
     await Mock.giveRolePerms(role, PermissionTypes.General.MANAGE_GUILD);
-
     await expect(inviteDelete()).to.be.fulfilled;
   });
 
@@ -52,7 +52,6 @@ describe('invite-delete', () => {
 
   it('invite does not exist, rejected', async () => {
     await invite.deleteOne();
-
     await expect(inviteDelete()).to.be.rejectedWith('Invite Not Found');
   });
 

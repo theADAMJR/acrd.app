@@ -1,6 +1,6 @@
 import { Document, model, Schema } from 'mongoose';
 import patterns from '../../types/patterns';
-import { createdAtToDate, getNameAcronym, useId } from '../../utils/utils';
+import { createdAtToDate, useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
 
 // properties we don't need to define when creating a guild

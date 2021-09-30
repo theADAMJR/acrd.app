@@ -4,15 +4,15 @@ import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
 import { expect } from 'chai';
-import { GuildMemberDocument } from '../../../src/data/models/guild-member';
-import { User, UserDocument } from '../../../src/data/models/user';
+import { GuildMember, GuildMemberDocument } from '../../../src/data/models/guild-member';
+import { SelfUserDocument, User } from '../../../src/data/models/user';
 
 describe('guild-member-remove', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
 
   let event: GuildMemberRemove;
   let ws: WebSocket;
-  let user: UserDocument;
+  let user: SelfUserDocument;
   let member: GuildMemberDocument;
   let guild: GuildDocument;
 
@@ -32,8 +32,7 @@ describe('guild-member-remove', () => {
   });
 
   it('cannot leave owned guild, rejected', async () => {
-    makeGuildOwner();
-
+    await makeGuildOwner();
     await expect(guildMemberRemove()).to.be.rejectedWith('You cannot leave a guild you own');
   });
 
@@ -41,34 +40,36 @@ describe('guild-member-remove', () => {
     await guildMemberRemove();
 
     user = await User.findById(user.id);
-    expect(user.guilds).to.not.include(guild.id);
+    expect(user.guildIds).to.not.include(guild.id);
   });
 
   it('kick noob member, as noob member, missing permissions', async () => {
     await makeAnotherNoob();
-
     await expect(guildMemberRemove()).to.be.rejectedWith('Missing Permissions');
   });
 
   it('kick noob member, as guild owner, removed from user guilds', async () => {
-    makeGuildOwner();
+    await makeGuildOwner();
 
-    member = guild.members[1] as GuildMemberDocument;
+    member = await GuildMember.findOne({
+      guildId: guild.id,
+      userId: { $ne: guild.ownerId },
+    });
     await guildMemberRemove();
 
     user = await User.findById(member.userId);
-    expect(user.guilds).to.not.include(guild.id);
+    expect(user.guildIds).to.not.include(guild.id);
   });
 
   function guildMemberRemove() {
-    return event.invoke(ws, client, {
-      guildId: guild.id,
-      memberId: member.id,
-    });
+    return event.invoke(ws, client, { memberId: member.id });
   }
     
-  function makeGuildOwner() {
-    member = guild.members[0] as GuildMemberDocument;
+  async function makeGuildOwner() {
+    const member = await GuildMember.findOne({
+      guildId: guild.id,
+      userId: guild.ownerId,
+    });
     ws.sessions.set(client.id, guild.ownerId);
   }
     

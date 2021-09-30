@@ -21,16 +21,14 @@ describe('ws-cooldowns', () => {
   });
 
   it('handle, exceeds max cooldowns, throws error', () => {
-    for (let i = 0; i < 60; i++)
-      handle();
-
+    for (let i = 0; i < 60; i++) handle();
     expect(handle).to.throw('You are doing too many things at once!');
   });
 
   it('handle, prunes old cooldowns', () => {
     cooldowns.active.set(clientId, [
-      { eventName: 'ADD_FRIEND', timestamp: new Date(0).getTime() },
-      { eventName: 'ADD_FRIEND', timestamp: new Date(0).getTime() },
+      { eventName: 'MESSAGE_CREATE', timestamp: new Date(0).getTime() },
+      { eventName: 'MESSAGE_CREATE', timestamp: new Date(0).getTime() },
     ]);
 
     handle();
@@ -39,6 +37,6 @@ describe('ws-cooldowns', () => {
   });
 
   function handle() {
-    return cooldowns.handle(clientId, 'ADD_FRIEND');
+    return cooldowns.handle(clientId, 'MESSAGE_CREATE');
   }
 });

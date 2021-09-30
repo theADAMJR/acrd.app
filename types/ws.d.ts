@@ -163,8 +163,8 @@ declare namespace WS {
     }
     export interface GuildUpdate {
       guildId: string;
-      name: string;
-      iconURL: string;
+      name?: string;
+      iconURL?: string;
     }
     export interface InviteCreate {
       guildId: string;

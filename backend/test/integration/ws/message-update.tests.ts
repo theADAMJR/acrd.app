@@ -1,15 +1,13 @@
 import MessageUpdate from '../../../src/ws/ws-events/message-update';
 import { WebSocket } from '../../../src/ws/websocket';
-import Deps from '../../../src/utils/deps';
 import { expect } from 'chai';
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
-import { User, UserDocument } from '../../../src/data/models/user';
+import { SelfUserDocument } from '../../../src/data/models/user';
 import { ChannelDocument } from '../../../src/data/models/channel';
 import { MessageDocument } from '../../../src/data/models/message';
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
-import { Partial } from '../../../src/data/types/ws-types';
 
 describe('message-update', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
@@ -17,7 +15,7 @@ describe('message-update', () => {
   let channel: ChannelDocument;
   let event: MessageUpdate;
   let ws: WebSocket;
-  let user: UserDocument;
+  let user: SelfUserDocument;
   let guild: GuildDocument;
   let message: MessageDocument;
 
@@ -30,30 +28,22 @@ describe('message-update', () => {
   afterEach(async () => await Mock.afterEach(ws));
   after(async () => await Mock.after(client));
 
-  it('user not author, rejected', async () => {
+  it('user not message author, rejected', async () => {
     await makeGuildOwner();
-
     await expect(messageUpdate()).to.be.rejectedWith('Unauthorized');
   });
 
   it('message does not exist, rejected', async () => {
-    message.id = generateSnowflake();
-
-    await expect(messageUpdate()).to.be.rejectedWith('Message Not Found');
-  });
-
-  it('update includes banned keys, rejected', async () => {
-    await expect(messageUpdate({ id: '123' })).to.be.rejectedWith('Contains readonly values');
+    await expect(messageUpdate({
+      messageId: generateSnowflake(),
+    })).to.be.rejectedWith('Message Not Found');
   });
 
   function messageUpdate(options?: Partial<Entity.Message>) {
     return event.invoke(ws, client, {
       messageId: message.id,
-      partialMessage: {
-        ...options,
-        content: 'test',
-      },
-      withEmbed: true
+      content: 'test',
+      ...options,
     });
   }
 

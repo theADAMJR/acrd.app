@@ -36,13 +36,11 @@ describe('message-create', () => {
   
   it('user is guild member without chat perms, rejected', async () => {
     await Mock.clearRolePerms(guild);
-
     await expect(messageCreate()).to.be.rejectedWith('Missing Permissions');
   });
   
   it('user is guild owner, fulfilled', async () => {
     ws.sessions.set(client.id, guild.ownerId);
-
     await expect(messageCreate()).to.be.fulfilled;
   });
   
@@ -53,20 +51,19 @@ describe('message-create', () => {
     expect(channel.lastMessageId).to.be.a('string');
   });
   
-  it('lastReadMessages updated in author', async () => {
+  it('lastReadMessageIds updated on author document', async () => {
     await messageCreate();
 
     channel = await Channel.findById(channel.id) as any;
     user = await User.findById(user.id) as any;
-    expect(user.lastReadMessages[channel.id]).to.equal(channel.lastMessageId);
+    expect(user.lastReadMessageIds[channel.id]).to.equal(channel.lastMessageId);
   });
 
-  function messageCreate() {
+  function messageCreate(options?: Partial<Entity.Message>) {
     return event.invoke(ws, client, {
       channelId: channel.id,
-      partialMessage: {
-        content: 'hi'
-      },
+      content: 'hi',
+      ...options,
     });
   }
 });

@@ -46,19 +46,19 @@ console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
   // TODO: import('./integration/ws/channel-delete.tests');
   // TODO: import('./integration/ws/channel-update.tests');
   import('./integration/ws/guild-member-add.tests'); //fail
-  // import('./integration/ws/guild-member-remove.tests'); //fail
-  // import('./integration/ws/guild-member-update.tests'); // fail
-  // import('./integration/ws/guild-create.tests'); // fail
-  // import('./integration/ws/guild-delete.tests'); // fail
-  // import('./integration/ws/guild-update.tests'); // fail
-  // import('./integration/ws/invite-create.tests'); //fail
-  // import('./integration/ws/invite-delete.tests'); //fail
-  // import('./integration/ws/message-create.tests'); //fail
-  // import('./integration/ws/message-update.tests'); // fail
-  // import('./integration/ws/message-delete.tests'); // fail
-  // import('./integration/ws/ready.tests');
+  import('./integration/ws/guild-member-remove.tests'); //fail
+  import('./integration/ws/guild-member-update.tests'); // fail
+  import('./integration/ws/guild-create.tests'); // fail
+  import('./integration/ws/guild-delete.tests'); // fail
+  import('./integration/ws/guild-update.tests'); // fail
+  import('./integration/ws/invite-create.tests'); //fail
+  import('./integration/ws/invite-delete.tests'); //fail
+  import('./integration/ws/message-create.tests'); //fail
+  import('./integration/ws/message-update.tests'); // fail
+  import('./integration/ws/message-delete.tests'); // fail
+  import('./integration/ws/ready.tests');
   import('./integration/ws/user-update.tests');
-  // import('./integration/ws/ws-guard.tests'); // fail
+  import('./integration/ws/ws-guard.tests'); // fail
 
   import('./unit/models/app.tests');
   import('./unit/models/channel.tests');

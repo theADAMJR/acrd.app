@@ -4,7 +4,8 @@ import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';
 import { expect } from 'chai';
-import { Role, RoleDocument } from '../../../src/data/models/role';
+import { RoleDocument } from '../../../src/data/models/role';
+import { PermissionTypes } from '../../../src/types/permission-types';
 
 describe('invite-create', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
@@ -31,10 +32,10 @@ describe('invite-create', () => {
     await expect(inviteCreate()).to.be.rejectedWith('Missing Permissions');
   });
 
-  function inviteCreate() {
+  function inviteCreate(options?: Partial<InviteTypes.Options>) {
     return event.invoke(ws, client, {
       guildId: guild.id,
-      options: {},
+      options,
     });
   }
 });

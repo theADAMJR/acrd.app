@@ -9,23 +9,19 @@ import { Invite, InviteDocument } from '../../../src/data/models/invite';
 import { expect, spy } from 'chai';
 import Guilds from '../../../src/data/guilds';
 import Users from '../../../src/data/users';
+import { GuildMember } from '../../../src/data/models/guild-member';
 
 describe('guild-member-add', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   let event: GuildMemberAdd;
-  let guilds: Guilds;
-  let users: Users;
   let ws: WebSocket;
 
-  let user: UserDocument;
+  let user: SelfUserDocument;
   let guild: GuildDocument;
   let invite: InviteDocument;
 
   beforeEach(async() => {
     ({ event, ws, user, guild } = await Mock.defaultSetup(client, GuildMemberAdd));
-
-    guilds = Deps.get<Guilds>(Guilds);
-    users = Deps.get<Users>(Users);
 
     user = await Mock.user([]);
     ws.sessions.set(client.id, user.id);
@@ -42,7 +38,6 @@ describe('guild-member-add', () => {
 
   it('user already joined, rejected', async () => {
     await guildMemberAdd();
-
     await expect(guildMemberAdd()).to.be.rejectedWith('User already in guild');
   });
 
@@ -54,18 +49,18 @@ describe('guild-member-add', () => {
   });
 
   it('valid invite and code, member added to guild', async () => {
-    const oldMemberCount = guild.members.length;
+    const oldMemberCount = await GuildMember.count({ guildId: guild.id });
     await guildMemberAdd();    
 
-    guild = await guilds.get(guild.id);    
-    expect(guild.members.length).to.be.greaterThan(oldMemberCount);
+    const newMemberCount = await GuildMember.count({ guildId: guild.id });
+    expect(newMemberCount).to.be.greaterThan(oldMemberCount);
   });
 
   it('valid invite and code, guild added to user guilds', async () => {
     await guildMemberAdd();
 
-    user = await users.get(user.id);    
-    expect(user.guilds.length).to.equal(1);
+    user = await Mock.users.get(user.id);    
+    expect(user.guildIds.length).to.equal(1);
   });
 
   it('invite has reached max uses, is deleted', async () => {
@@ -86,17 +81,7 @@ describe('guild-member-add', () => {
 
   it('invalid invite code, rejected', async () => {
     invite.id = '';
-
     await expect(guildMemberAdd()).to.be.rejectedWith('Invite Not Found');
-  });
-
-  it('valid invite and code, emits to guild room', async () => {
-    const to = spy.on(ws.io, 'to');
-
-    await guildMemberAdd();
-
-    guild = await guilds.get(guild.id);
-    expect(to).to.have.been.called.with(guild.id);
   });
 
   function guildMemberAdd() {

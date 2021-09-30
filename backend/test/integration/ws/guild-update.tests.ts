@@ -2,11 +2,12 @@ import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import GuildUpdate from '../../../src/ws/ws-events/guild-update';
 import { Guild, GuildDocument } from '../../../src/data/models/guild';
-import { UserDocument } from '../../../src/data/models/user';
+import { SelfUserDocument, UserDocument } from '../../../src/data/models/user';
 import { Mock } from '../../mock/mock';
 import { expect } from 'chai';
 import { GuildMemberDocument } from '../../../src/data/models/guild-member';
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
+import { PermissionTypes } from '../../../src/types/permission-types';
 
 describe('guild-update', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
@@ -14,11 +15,10 @@ describe('guild-update', () => {
   let event: GuildUpdate;
 
   let guild: GuildDocument;
-  let user: UserDocument;
   let member: GuildMemberDocument;
 
   beforeEach(async () => {
-    ({ ws, event, guild, member, user } = await Mock.defaultSetup(client, GuildUpdate));
+    ({ ws, event, guild, member } = await Mock.defaultSetup(client, GuildUpdate));
   });
 
   afterEach(async () => Mock.afterEach(ws));
@@ -44,76 +44,10 @@ describe('guild-update', () => {
     await expect(guildUpdate({})).to.be.fulfilled;
   });
 
-  it('name acronym updated', async () => {
-    makeOwner();
-    await guildUpdate({ name: 'K E K K' });
-
-    guild = await Guild.findById(guild.id);
-    expect(guild.nameAcronym).to.equal('KEK');
-  });
-
-  it('contains banned keys, rejected', async () => {
-    makeOwner();
-    await expect(guildUpdate({ id: '123' })).to.be.rejectedWith('Contains readonly values');
-  });
-
-  it('reordered roles correctly, fulfilled', async () => {
-    makeOwner();
-
-    const roleIds = guild.roles.map(r => r.id);
-    await expect(guildUpdate({ roles: roleIds as any })).to.be.fulfilled;
-  });
-
-  it('reordered roles, added a role, rejected', async () => {
-    makeOwner();
-    const newRole = await Mock.role(guild);
-    const roleIds = guild.roles.concat(newRole).map(r => r.id);
-
-    await expect(guildUpdate({ roles: roleIds as any })).to.be.rejectedWith('Cannot add or remove roles this way');
-  });
-
-  it('reordered roles, removed a role, rejected', async () => {
-    makeOwner();
-    await Mock.role(guild);
-    const roleIds = guild.roles.slice(0, 1);
-
-    await expect(guildUpdate({ roles: roleIds as any })).to.be.rejectedWith('Cannot add or remove roles this way');
-  });
-
-  it('reordered roles, moved everyone role, rejected', async () => {
-    makeOwner();
-    const roleIds = [generateSnowflake(), ...guild.roles];
-
-    await expect(guildUpdate({ roles: roleIds as any })).to.be.rejectedWith('Cannot reorder the @everyone role');
-  });
-
-  it('sorted channels, did not add channels, fulfilled', async () => {
-    makeOwner();
-
-    const roleIds = guild.channels.map(r => r.id);
-    await expect(guildUpdate({ channels: roleIds as any })).to.be.fulfilled;
-  });
-
-  it('sorted channels, added a channel, rejected', async () => {
-    makeOwner();
-    const channel = await Mock.channel(guild);
-    const channelIds = guild.channels.concat(channel).map(r => r.id);
-
-    await expect(guildUpdate({ channels: channelIds as any })).to.be.rejectedWith('Cannot add or remove channels this way');
-  });
-
-  it('sorted channels, removed a channel, rejected', async () => {
-    makeOwner();
-    await Mock.channel(guild);
-    const channelIds = guild.channels.slice(0, 1);
-
-    await expect(guildUpdate({ channels: channelIds as any })).to.be.rejectedWith('Cannot add or remove channels this way');
-  });
-
-  function guildUpdate(partialGuild: Partial<Entity.Guild>) {
+  function guildUpdate(partial: Partial<Entity.Guild>) {
     return event.invoke(ws, client, {
       guildId: guild.id,
-      partialGuild,
+      ...partial,
     });
   }
 

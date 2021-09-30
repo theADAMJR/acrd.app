@@ -11,11 +11,10 @@ describe('guild-create', () => {
   let ws: WebSocket;
   let event: GuildCreate;
 
-  let user: UserDocument;
-  let member: GuildMemberDocument;
+  let user: SelfUserDocument;
 
   beforeEach(async () => {
-    ({ ws, event, member, user } = await Mock.defaultSetup(client, GuildCreate));
+    ({ ws, event, user } = await Mock.defaultSetup(client, GuildCreate));
   });
 
   afterEach(async () => Mock.afterEach(ws));
@@ -26,19 +25,17 @@ describe('guild-create', () => {
   });
 
   it('user creates guild, added to user.guilds', async () => {
-    const oldCount = user.guilds.length;
+    const oldCount = user.guildIds.length;
     await guildCreate();
 
     user = await User.findById(user.id);
-    expect(user.guilds.length).to.be.greaterThan(oldCount);
+    expect(user.guildIds.length).to.be.greaterThan(oldCount);
   });
 
   function guildCreate(partialGuild?: Partial<Entity.Guild>) {
     return event.invoke(ws, client, {
-      partialGuild: {
-        name: 'Mock Guild',
-        ...partialGuild,
-      },
+      name: 'Mock Guild',
+      ...partialGuild,
     });
   }
 });
