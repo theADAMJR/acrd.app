@@ -95,9 +95,10 @@ export const sendVerifyCode = (code: string) => (dispatch) => {
     url: `/auth/verify?code=${code}`,
     callback: ({ message, token }: REST.From.Get['/auth/verify']) => {
       if (message) dispatch(openDialog({ content: message, variant: 'info' }));
-      if (token) localStorage.setItem('token', token);
-
-      dispatch(ready());
+      if (token) {
+        localStorage.setItem('token', token);
+        dispatch(ready());
+      }
     },
   }))
 }

@@ -58,22 +58,18 @@ router.get('/verify', async (req, res) => {
   if (!code)
     throw new APIError(400, 'Invalid code');
 
-  let message: REST.From.Get['/auth/verify']['message'];
-  let token: string | undefined = users.createToken(user.id);
+  verification.delete(email);
 
   if (code.type === 'FORGOT_PASSWORD') {
     await user.setPassword(code.value);
     await user.save();
-    message = 'Password reset';
+    res.json({ message: 'Password reset' });
   } else if (code.type === 'VERIFY_EMAIL') {
     user.verified = true;
     await user.save();
-    message = 'Email verified';
-    token = undefined;
-  }
-
-  verification.delete(email);
-  res.status(200).json({ message, token } as REST.From.Get['/auth/verify']);
+    res.json({ message: 'Email verified' });
+  } else if (code.type === 'LOGIN')
+    res.json({ token: users.createToken(user.id) });
 });
 
 router.get('/email/forgot-password', async (req, res) => {
