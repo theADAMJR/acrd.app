@@ -56,15 +56,21 @@ export class Mock {
     client.disconnect();
   }
 
+  // FIXME: garbage coding
   public static ioClient(client: any) {
-    client.rooms = new Map();
+    client.rooms = [];
+    client.sockets = {
+      adapter: { rooms: client.rooms },
+    };
     client.join = async (...args) => {
-      for (const arg of args)
-        client.rooms.set(arg, arg);
+      client.rooms.push(...args);
     };
     client.leave = async (...args) => {
       for (const arg of args)
         client.rooms.delete(arg);
+    };
+    client.sockets.sockets = {
+      get: () => ({ join: client.join }),
     };
   }
 

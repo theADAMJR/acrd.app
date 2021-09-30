@@ -1,6 +1,3 @@
-import 'mocha';
-import 'chai-as-promised';
-import '../../types';
 import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';
 import ChannelCreate from '../../../src/ws/ws-events/channel-create';
@@ -9,6 +6,7 @@ import { expect, spy } from 'chai';
 import { Guild, GuildDocument } from '../../../src/data/models/guild';
 import { RoleDocument } from '../../../src/data/models/role';
 import { PermissionTypes } from '../../../src/types/permission-types';
+import { Channel } from '../../../src/data/models/channel';
 
 describe('channel-create', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
@@ -32,33 +30,21 @@ describe('channel-create', () => {
     await expect(createChannel()).to.be.fulfilled;
   });
 
-  it('member successfully creates channel, new channel added', async () => {
-    const oldLength = guild.channels.length;
+  it('member successfully creates channel, new channel added to guild', async () => {
+    const oldLength = await Channel.countDocuments({ guildId: guild.id });
     
     await makeGuildOwner();
     await createChannel();
 
-    guild = await Guild.findById(guild.id);
-    expect(guild.channels.length).to.be.greaterThan(oldLength);
+    const newLength = await Channel.countDocuments({ guildId: guild.id });
+    expect(newLength).to.be.greaterThan(oldLength);
   });
 
-  it('member successfully creates channel, client joins channel room', async () => {
-    const join = spy.on(client, 'join');
-    
-    await makeGuildOwner();
-    await createChannel();
-
-    guild = await Guild.findById(guild.id);
-
-    expect(join).to.be.called();
-  });
-
-  async function createChannel({ name, type, summary }?: Partial<Entity.Channel>) {
+  async function createChannel(options?: Partial<Entity.Channel>) {
     return event.invoke(ws, client, {
       guildId: guild.id,
-      name,
-      type,
-      summary,
+      name: 'testing123',
+      ...options,
     });
   }
 
