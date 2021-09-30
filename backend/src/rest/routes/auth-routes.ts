@@ -7,7 +7,6 @@ import { Verification } from '../../email/verification';
 import { EmailFunctions } from '../../email/email-functions';
 import { APIError } from '../modules/api-error';
 import patterns from '../../types/patterns';
-import { updateUser, validateUser } from '../modules/middleware';
 
 export const router = Router();
 
@@ -75,13 +74,6 @@ router.get('/verify', async (req, res) => {
 
   verification.delete(email);
   res.status(200).json({ message, token } as REST.From.Get['/auth/verify']);
-});
-
-router.get('/email/verify-email', updateUser, validateUser, async (req, res) => {
-  const user = res.locals.user as SelfUserDocument;
-  await sendEmail.verifyEmail(user.email, user);
-
-  res.json({ message: 'Email sent' } as REST.From.Get['/auth/email/verify-email']);
 });
 
 router.get('/email/forgot-password', async (req, res) => {

@@ -1,5 +1,7 @@
 import { Socket } from 'socket.io';
 import Users from '../../data/users';
+import { EmailFunctions } from '../../email/email-functions';
+import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
@@ -11,24 +13,30 @@ export default class implements WSEvent<'USER_UPDATE'> {
   constructor(
     private users = Deps.get<Users>(Users),
     private guard = Deps.get<WSGuard>(WSGuard),
+    private sendEmail = Deps.get<EmailFunctions>(EmailFunctions),
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { token, username, avatarURL, ignored, email }: WS.Params.UserUpdate) {
     const { id: userId } = await this.guard.decodeKey(token);
     const user = await this.users.getSelf(userId);
 
-    const partialUser = {};
-    if (email) partialUser['email'] = email;
-    if (avatarURL) partialUser['avatarURL'] = avatarURL;
-    if (ignored) partialUser['ignored'] = ignored;
-    if (username) partialUser['username'] = username;
-    const usernameChanged = username && username !== user.username;
-    if (usernameChanged)
-      partialUser['discriminator'] = await this.users.getDiscriminator(username);
+    const partial: Partial<Entity.User> = {};
+    const hasChanged = (key: string, value: any) => value && user[key] !== value;
 
-    Object.assign(user, partialUser);
+    if (hasChanged('avatarURL', avatarURL)) partial['avatarURL'] = avatarURL;
+    if (hasChanged('ignored', ignored)) partial['ignored'] = ignored;
+    if (hasChanged('email', email)) {
+      partial['email'] = email;
+      await this.sendEmail.verifyEmail(email!, user);
+    }
+    if (hasChanged('username', username)) {
+      partial['username'] = username;
+      partial['discriminator'] = await this.users.getDiscriminator(username!);
+    }
+
+    Object.assign(user, partial);
     await user.save();
 
-    client.emit('USER_UPDATE', { userId, partialUser } as WS.Args.UserUpdate);
+    client.emit('USER_UPDATE', { userId, partialUser: partial } as WS.Args.UserUpdate);
   }
 }

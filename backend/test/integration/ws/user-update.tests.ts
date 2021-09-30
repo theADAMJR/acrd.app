@@ -1,5 +1,3 @@
-import 'chai-as-promised';
-
 import UserUpdate from '../../../src/ws/ws-events/user-update';
 import { WebSocket } from '../../../src/ws/websocket';
 import io from 'socket.io-client';

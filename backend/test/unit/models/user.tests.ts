@@ -13,10 +13,6 @@ test(createUser, () => {
   given({ discriminator: 0 }).expect(true);
   given({ discriminator: 9999 }).expect(true);
   given({ discriminator: 10_000 }).expect('Discriminator too high');
-  given({ friendIds: longArray(101) }).expect('Clout limit reached');
-  given({ friendIds: [] }).expect(true);
-  given({ friendRequestIds: longArray(101) }).expect('Max friend requests reached');
-  given({ friendRequestIds: [] }).expect(true);
   given({ status: '' }).expect('Status is required');
   given({ status: 'A' }).expect('Invalid status');
   given({ status: 'ONLINE' }).expect(true);

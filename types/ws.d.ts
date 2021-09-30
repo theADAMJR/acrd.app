@@ -205,6 +205,7 @@ declare namespace WS {
       avatarURL?: string;
       username?: string;
       ignored?: UserTypes.Self['ignored'];
+      email?: string;
       token: string;
     }
   }

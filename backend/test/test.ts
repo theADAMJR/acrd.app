@@ -58,17 +58,17 @@ console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
   import('./integration/ws/user-update.tests');
   // import('./integration/ws/ws-guard.tests');
 
-  // import('./unit/models/app.tests');
-  // import('./unit/models/channel.tests');
-  // import('./unit/models/guild.tests');
-  // import('./unit/models/guild-member.tests');
-  // import('./unit/models/invite.tests');
-  // import('./unit/models/message.tests');
-  // import('./unit/models/role.tests');
-  // import('./unit/models/user.tests');
+  import('./unit/models/app.tests');
+  import('./unit/models/channel.tests');
+  import('./unit/models/guild.tests');
+  import('./unit/models/guild-member.tests');
+  import('./unit/models/invite.tests');
+  import('./unit/models/message.tests');
+  import('./unit/models/role.tests');
+  import('./unit/models/user.tests');
 
-  // import('./unit/snowflake-entity.tests');
-  // import('./unit/ws/ws-cooldowns.tests');
+  import('./unit/snowflake-entity.tests');
+  import('./unit/ws/ws-cooldowns.tests');
 })();
 
 // needs to be here, or tests won't run
