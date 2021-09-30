@@ -35,10 +35,9 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   const RoleDetails = () => {    
     return (
       <>
-        <p>Feature in development...</p>
-        {/* <PermOverrides
+        <PermOverrides
           setOverride={setOverride}
-          activeOverride={activeOverride} /> */}
+          activeOverride={activeOverride} />
         <NormalButton
           onClick={deleteActiveOverride}
           className="bg-danger float-right"
