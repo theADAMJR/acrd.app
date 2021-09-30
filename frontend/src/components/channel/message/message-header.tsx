@@ -13,13 +13,13 @@ interface MessageHeaderProps {
  
 const MessageHeader: FunctionComponent<MessageHeaderProps> = ({ author, message, isExtra }) => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
-  const member = useSelector(getMember(guild.id, message.authorId))!;
-  const highestRole = useSelector(getMemberHighestRole(guild.id, member.userId));
-  const createdAt = new Date(message.createdAt);
-
-  if (isExtra) return null;
-
+  const member = useSelector(getMember(guild.id, message.authorId));
+  const highestRole = useSelector(getMemberHighestRole(guild.id, member?.userId ?? ''));
+  if (isExtra || !member) return null;  
+  
   const toDays = (date: Date) => date.getTime() / 1000 / 60 / 60 / 24; 
+
+  const createdAt = new Date(message.createdAt);
   const midnight = new Date(new Date().setHours(0, 0, 0, 0));
   const daysAgo = Math.floor(toDays(midnight) - toDays(createdAt));
   

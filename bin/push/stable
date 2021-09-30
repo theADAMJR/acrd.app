@@ -1,0 +1,2 @@
+#!/bin/sh
+git push origin HEAD:v2-stable HEAD:v2-dev
