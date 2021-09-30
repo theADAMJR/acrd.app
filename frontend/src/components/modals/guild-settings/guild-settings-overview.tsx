@@ -29,7 +29,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
         <h1 className="text-xl font-bold inline">Guild Overview</h1>
       </header>
     
-      <section className="w-1/3">
+      <section className="w-1/2">
         <Input
           label="Name"
           name="name"

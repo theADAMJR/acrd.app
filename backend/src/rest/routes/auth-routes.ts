@@ -66,7 +66,7 @@ router.get('/verify', async (req, res) => {
     await user.save();
     message = 'Password reset';
   } else if (code.type === 'VERIFY_EMAIL') {
-    user.email = email;
+    user.verified = true;
     await user.save();
     message = 'Email verified';
     token = undefined;
@@ -80,7 +80,6 @@ router.get('/email/forgot-password', async (req, res) => {
   const email = req.query.email?.toString();
   if (!email)
     throw new APIError(400, 'Email not provided');
-
   const isValid = patterns.email.test(email);
   if (!isValid)
     throw new APIError(400, 'Email is not in a valid format');
@@ -96,9 +95,11 @@ router.get('/email/forgot-password', async (req, res) => {
 router.post('/change-password', async (req, res) => {
   const { email, oldPassword, newPassword }: REST.To.Post['/auth/change-password'] = req.body;
 
-  const user = await User.findOne({ email, verified: true }) as any;
+  const user = await User.findOne({ email }) as any as SelfUserDocument;
   if (!user)
-  throw new APIError(400, 'User Not Found');
+    throw new APIError(400, 'User not found');
+  if (!user.verified)
+    throw new APIError(400, 'Please verify your account');
   
   await user.changePassword(oldPassword, newPassword);
   await user.save();

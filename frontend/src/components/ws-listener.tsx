@@ -30,24 +30,18 @@ const WSListener: React.FunctionComponent = () => {
   useEffect(() => {
     if (hasListened) return;    
 
-    const handleError = (error: any) => {
-      enqueueSnackbar(`${error.data?.message ?? error.message}.`, {
-        anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
-        variant: 'error',
-        autoHideDuration: 5000,
-      });
-    }
-
-    ws.on('error', handleError);
-    events.on('dialog', (dialog: Dialog) => {
-      console.log(dialog);
-      
-      enqueueSnackbar(dialog.content, {
+    const handleDialog = (dialog: Dialog) =>    
+      enqueueSnackbar(`${dialog.content}.`, {
         anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
         variant: dialog.variant,
         autoHideDuration: 5000,
       });
-    });
+    
+    ws.on('error', (error: any) => handleDialog({
+      variant: 'error',
+      content: error.data?.message ?? error.message,
+    }));
+    events.on('dialog', handleDialog);
 
     // add channel to guilds.channels
     ws.on('CHANNEL_CREATE', (args) => {

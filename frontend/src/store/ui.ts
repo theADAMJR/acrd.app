@@ -62,9 +62,7 @@ export const angrySaveChanges = () => {
   saveChanges.style.backgroundColor = 'var(--danger)';
 }
 
-export const openDialog = (dialog: Dialog) => (dispatch, getState: () => Store.AppState) => {
-  events.emit('dialog', dialog);
-}
+export const openDialog = (dialog: Dialog) => () => events.emit('dialog', dialog);
 
 export interface Dialog {
   content: string | JSX.Element;

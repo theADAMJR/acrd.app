@@ -52,9 +52,9 @@ export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
         localStorage.setItem('token', payload.token);
         dispatch(ready());
       }
-      else if (payload.message) {
-        alert(payload.message);
-        dispatch(actions.shouldVerify);
+      if (payload.message) {
+        dispatch(actions.shouldVerify());
+        dispatch(openDialog({ content: payload.message, variant: 'info' }))
       }
     }
   }));
@@ -66,7 +66,7 @@ export const forgotPasswordEmail = (email: string) => (dispatch) => {
   dispatch(api.restCallBegan({
     callback: () => dispatch(openDialog({
       variant: 'info',
-      content: 'Sent reset password instructions to email, if email is registered.',
+      content: 'Sent reset password instructions to email, if email is registered',
     })),
     url: `/auth/email/forgot-password?email=${email}`,
   }));
@@ -89,30 +89,14 @@ export const registerUser = (data: REST.To.Post['/auth/register']) => (dispatch)
     },
   }));
 }
-
-export const sendVerifyEmail = (code: string) => (dispatch) => {
-  dispatch(api.restCallBegan({
-    onSuccess: [],
-    url: `/auth/email/verify-email`,
-    headers,
-    callback: ({ message }: REST.From.Get['/auth/email/verify-email']) => {
-      // FIXME: creates black hole that kills React
-      // if (message)
-      //   dispatch(openDialog({ content: message, variant: 'info' }));
-    },
-  }))
-}
 export const sendVerifyCode = (code: string) => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [],
     url: `/auth/verify?code=${code}`,
     callback: ({ message, token }: REST.From.Get['/auth/verify']) => {
-      // FIXME: creates black hole that kills React
-      // if (message)
-      //   dispatch(openDialog({ content: message, variant: 'info' }));
-      if (!token) return;
-      
-      localStorage.setItem('token', token);
+      if (message) dispatch(openDialog({ content: message, variant: 'info' }));
+      if (token) localStorage.setItem('token', token);
+
       dispatch(ready());
     },
   }))
@@ -127,11 +111,8 @@ export const changePassword = (oldPassword: string, newPassword: string) => (dis
     url: `/auth/change-password`,
     data: { email: user.email, oldPassword, newPassword },
     callback: ({ message, token }: REST.From.Post['/auth/change-password']) => {
-      // TODO: add REST snackbar
-      if (message) alert(message);
-      if (!token) return;
-      
-      localStorage.setItem('token', token);
+      if (message) dispatch(openDialog({ content: message, variant: 'info' }));
+      if (token) localStorage.setItem('token', token);
     },
   }))
 }

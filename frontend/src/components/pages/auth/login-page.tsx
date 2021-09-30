@@ -4,12 +4,10 @@ import { Link, Redirect } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSnackbar } from 'notistack';
 import PageWrapper from '../page-wrapper';
 import Input from '../../utils/input/input';
 import NormalButton from '../../utils/buttons/normal-button';
 import { loginUser, forgotPasswordEmail, sendVerifyCode } from '../../../store/auth';
-import { actions as ui } from '../../../store/ui';
 
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -70,7 +68,9 @@ const LoginPage: React.FunctionComponent = () => {
 
             {shouldVerify && <VerifyCodeInput />}
 
-            <NormalButton className="bg-primary font w-full h-11 rounded-md mt-8">Login</NormalButton>
+            <NormalButton className="bg-primary font w-full h-11 rounded-md mt-8">
+              {(shouldVerify) ? 'Resend Code' : 'Login'}
+            </NormalButton>
             <p className="mt-2">Need an account? <Link to="/register">Register</Link></p>
           </form>
         </div>

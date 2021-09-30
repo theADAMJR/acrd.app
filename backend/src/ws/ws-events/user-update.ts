@@ -25,13 +25,16 @@ export default class implements WSEvent<'USER_UPDATE'> {
 
     if (hasChanged('avatarURL', avatarURL)) partial['avatarURL'] = avatarURL;
     if (hasChanged('ignored', ignored)) partial['ignored'] = ignored;
-    if (hasChanged('email', email)) {
-      partial['email'] = email;
-      await this.sendEmail.verifyEmail(email!, user);
-    }
     if (hasChanged('username', username)) {
       partial['username'] = username;
       partial['discriminator'] = await this.users.getDiscriminator(username!);
+    }
+    if (hasChanged('email', email)) {
+      partial['email'] = email;
+      user['email'] = email!;
+
+      await user.validate();
+      await this.sendEmail.verifyEmail(email!, user);
     }
 
     Object.assign(user, partial);

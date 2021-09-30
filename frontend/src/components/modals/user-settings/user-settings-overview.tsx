@@ -27,68 +27,65 @@ const UserSettingsOverview: React.FunctionComponent = () => {
   }
 
   return (
-    <form
-      onChange={() => dispatch(openSaveChanges(true))}
-      className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
-      <header>
-        <h1 className="text-xl font-bold inline">My Account</h1>
-      </header>
+    <div className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
+      <form onChange={() => dispatch(openSaveChanges(true))}>
+        <header>
+          <h1 className="text-xl font-bold inline">My Account</h1>
+        </header>
 
-      <section className="w-1/3">
-        <div className="pt-5">
-          <Input
-            label="Username"
-            name="username"
-            register={register}
-            options={{ value: user.username }} />
-        </div>
+        <section className="w-1/2">
+          <div className="pt-5">
+            <Input
+              label="Username"
+              name="username"
+              register={register}
+              options={{ value: user.username }} />
+          </div>
 
-        <div className="pt-5">
-          <Input
-            label="Email"
-            name="email"
-            register={register}
-            options={{ value: user.email }} />
-          <NormalButton
-            onClick={() => enqueueSnackbar({
-              
-            })}>Verify</NormalButton>
-        </div>
+          <div className="pt-5">
+            <Input
+              label="Email"
+              name="email"
+              register={register}
+              options={{ value: user.email }} />
+          </div>
 
-        <div className="pt-5">
-          <Input
-            label="Avatar URL"
-            name="avatarURL"
-            register={register}
-            options={{ value: user.avatarURL }} />
-        </div>
-      </section>
+          <div className="pt-5">
+            <Input
+              label="Avatar URL"
+              name="avatarURL"
+              register={register}
+              options={{ value: user.avatarURL }} />
+          </div>
+        </section>
+
+        <SaveChanges
+          setValue={setValue}
+          onSave={onSave}
+          obj={user} />
+      </form>
 
       <Category
-        className="py-2 mt-5"
-        title="Advanced Settings" />
+      className="py-2 mt-5"
+      title="Advanced Settings" />
 
       <section>
-        <div className="w-1/3 pb-5">
-          <label htmlFor="devMode">Dev Mode</label>
-          <Toggle
-            onChange={(e) => e.stopPropagation()}
-            onClick={() => dispatch(toggleDevMode())}
-            checked={devMode}
-            className="float-right"
-            id="devMode" />
-        </div>
+      <div className="w-1/2 pb-5">
+        <label htmlFor="devMode">Dev Mode</label>
+        <Toggle
+          onChange={(e) => e.stopPropagation()}
+          onClick={() => dispatch(toggleDevMode())}
+          checked={devMode}
+          className="float-right"
+          id="devMode" />
+      </div>
 
-        <NormalButton
-          onClick={handleSubmit(onDelete)}
-          className="bg-danger">Delete</NormalButton>
+      <NormalButton
+        role="button"
+        onClick={handleSubmit(onDelete)}
+        className="bg-danger">Delete</NormalButton>
       </section>
-
-      <SaveChanges
-        setValue={setValue}
-        onSave={onSave}
-        obj={user} />
-    </form>    
+    </div>
   );
 }
  
