@@ -43,10 +43,7 @@ export namespace PermissionTypes {
     PermissionTypes.General.VIEW_CHANNELS
     | PermissionTypes.General.CREATE_INVITE
     | PermissionTypes.Text.SEND_MESSAGES
-    | PermissionTypes.Text.READ_MESSAGES
-    // | PermissionTypes.Text.ADD_REACTIONS
-    // | PermissionTypes.Voice.CONNECT
-    // | PermissionTypes.Voice.SPEAK;
+    | PermissionTypes.Text.READ_MESSAGES;
 }
 
 export class PermService {
@@ -77,37 +74,26 @@ export class PermService {
         );
   }
   public canInChannel(permission: PermissionTypes.PermissionString, guildId: string, channelId: string) {
-    const channel = getChannel(channelId)(this.state);
-    if (!channel)
-      throw new TypeError('Channel not found');
-    
-    const member = getSelfMember(guildId)(this.state);
-    if (!member)
-      throw new TypeError('Member not found');
+    const channel = this.getChannel(channelId);    
+    const member = this.getSelfMember(guildId);
 
-    const activeOverrides = channel.overrides
+    const overrides = channel.overrides
       ?.filter(o => member.roleIds.includes(o.roleId)) ?? [];
 
-    const cumulativeAllowPerms = activeOverrides.reduce((prev, curr) => prev | curr.allow, 0);
-    const cumulativeDenyPerms = activeOverrides.reduce((prev, curr) => prev | curr.deny, 0);
+    const cumulativeAllowPerms = overrides.reduce((prev, curr) => prev | curr.allow, 0);
+    const cumulativeDenyPerms = overrides.reduce((prev, curr) => prev | curr.deny, 0);
 
     const permNumber = PermissionTypes.Text[permission];
     const canInheritantly = this.can(permission, guildId);
     const isAllowedByOverride = this.hasPermission(cumulativeAllowPerms, permNumber);
     const isDeniedByOverride = this.hasPermission(cumulativeDenyPerms, permNumber);
 
-    return (canInheritantly && !isDeniedByOverride)
-      || isAllowedByOverride;
+    return (canInheritantly && !isDeniedByOverride) || isAllowedByOverride;
   }
 
   public can(permission: PermissionTypes.PermissionString, guildId: string) {
-    const guild = getGuild(guildId)(this.state);
-    if (!guild)
-      throw new TypeError('Guild not found');
-    
-    const member = getSelfMember(guildId)(this.state);
-    if (!member)
-      throw new TypeError('Member not found');
+    const guild = this.getGuild(guildId);    
+    const member = this.getSelfMember(guildId);
 
     return guild.ownerId === member.userId
       || this.hasPermission(
@@ -122,7 +108,7 @@ export class PermService {
   }
   public hasPermission(totalPerms: number, permission: number) {
     return Boolean(totalPerms & permission)
-      || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR);
+        || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR);
   }
 
   public canManage(prereq: PermissionTypes.PermissionString, guildId: string, managedUserId: string) {
@@ -141,13 +127,8 @@ export class PermService {
   }
 
   public isHigher(guildId: string, roleIds: string[]) {
-    const guild = getGuild(guildId)(this.state);
-    if (!guild)
-      throw new TypeError('Guild not found');
-
-    const member = getSelfMember(guildId)(this.state);
-    if (!member)
-      throw new TypeError('Member not found');
+    const guild = this.getGuild(guildId);
+    const member = this.getSelfMember(guildId);
 
     const joinedRoles = roleIds.concat(member.roleIds);
     const roles = getGuildRoles(guildId)(this.state)
@@ -158,5 +139,24 @@ export class PermService {
     return guild.ownerId === member.userId
       || (member.roleIds.includes(highestRole.id)
       && !roleIds.includes(highestRole.id));
+  }
+
+  private getChannel(channelId: string) {
+    const channel = getChannel(channelId)(this.state);
+    if (!channel)
+      throw new TypeError('Channel not found');
+    return channel;
+  }
+  private getGuild(guildId: string) {
+    const guild = getGuild(guildId)(this.state);
+    if (!guild)
+      throw new TypeError('Guild not found');
+    return guild;
+  } 
+  private getSelfMember(guildId: string) {
+    const member = getSelfMember(guildId)(this.state);
+    if (!member)
+      throw new TypeError('Member not found');
+    return member;
   }
 }
