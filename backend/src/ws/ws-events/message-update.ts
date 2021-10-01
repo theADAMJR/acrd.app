@@ -8,13 +8,6 @@ import { WSGuard } from '../modules/ws-guard';
 import Messages from '../../data/messages';
 import { WS } from '../../types/ws';
 
-const metascraper = require('metascraper')([
-  require('metascraper-description')(),
-  require('metascraper-image')(),
-  require('metascraper-title')(),
-  require('metascraper-url')()
-]);
-
 export default class implements WSEvent<'MESSAGE_UPDATE'> {
   on = 'MESSAGE_UPDATE' as const;
 
@@ -26,7 +19,6 @@ export default class implements WSEvent<'MESSAGE_UPDATE'> {
   public async invoke(ws: WebSocket, client: Socket, { messageId, content, embed }: WS.Params.MessageUpdate) {
     const message = await this.messages.get(messageId);
     this.guard.validateIsUser(client, message.authorId);
-    this.guard.validateKeys('message', { content });
     
     if (content) message.content = content;
     message.updatedAt = new Date();

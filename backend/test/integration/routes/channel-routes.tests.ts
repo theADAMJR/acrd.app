@@ -74,4 +74,7 @@ describe('channel-routes', () => {
       .expect(200)
       .expect(res => expect(res.body[0].id).to.equal(message.id));
   });
+
+  // TODO: test that blocked author messages are not shown
+  // TODO: test has ability to read messages in channel 
 });
