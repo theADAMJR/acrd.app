@@ -30,7 +30,7 @@ export class WSRooms {
     
     for (const { id } of channels)
       try {
-        await this.guard.canAccessChannel(client, id);
+        await this.guard.validateCanInChannel(client, id, 'READ_MESSAGES');
         ids.push(id);
       } catch {}    
     return ids;

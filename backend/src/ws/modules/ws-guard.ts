@@ -7,14 +7,13 @@ import Roles from '../../data/roles';
 import Users from '../../data/users';
 import Guilds from '../../data/guilds';
 import GuildMembers from '../../data/guild-members';
-import { Prohibited } from '../../types/prohibited';
 import { PermissionTypes } from '../../types/permission-types';
 
 export class WSGuard {
   constructor(
     private channels = Deps.get<Channels>(Channels),
     private guilds = Deps.get<Guilds>(Guilds),
-    private guildMembers = Deps.get<GuildMembers>(GuildMembers),
+    private members = Deps.get<GuildMembers>(GuildMembers),
     private roles = Deps.get<Roles>(Roles),
     private users = Deps.get<Users>(Users),
     private ws = Deps.get<WebSocket>(WebSocket),
@@ -30,33 +29,50 @@ export class WSGuard {
   }
 
   public async validateIsOwner(client: Socket, guildId: string) {    
-    const isOwner = await Guild.exists({
-      _id: guildId,
-      ownerId: this.userId(client)
-    });    
+    const ownerId = this.userId(client);
+    const isOwner = await Guild.exists({ _id: guildId, ownerId });
     if (!isOwner)
       throw new TypeError('Only the guild owner can do this');
   }
 
-  public async canAccessChannel(client: Socket, channelId?: string, withUse = false) {
-    const channel = await this.channels.get(channelId);   
-    const perms = (!withUse)
-      ? PermissionTypes.Text.READ_MESSAGES 
-      : PermissionTypes.Text.READ_MESSAGES | PermissionTypes.Text.SEND_MESSAGES;
-    await this.validateCan(client, channel.guildId, perms);
+  public async validateCan(client: Socket, guildId: string, permission: PermissionTypes.PermissionString) {
+    const can = await this.can(permission, guildId, this.userId(client));
+    this.validate(can, permission);
   }
 
-  public async validateCan(client: Socket, guildId: string | undefined, permission: PermissionTypes.PermissionString) {    
-    const userId = this.userId(client);
-
-    const member = await this.guildMembers.getInGuild(guildId, userId);
-    const guild = await this.guilds.get(guildId);
-    
-    const can = await this.roles.hasPermission(guild, member, permission)
-      || guild.ownerId === userId;
-    
+  public async validateCanInChannel(client: Socket, channelId: string, permission: PermissionTypes.PermissionString) {
+    const can = await this.canInChannel(permission, channelId, this.userId(client));
     this.validate(can, permission);
-  }  
+  }
+
+  private async can(permission: PermissionTypes.PermissionString, guildId: string, userId: string) {
+    const guild = await this.guilds.get(guildId);    
+    const member = await this.members.getInGuild(guildId, userId);
+
+    return guild.ownerId === member.userId
+        || this.roles.hasPermission(guild, member, permission);
+  }
+
+  private async canInChannel(permission: PermissionTypes.PermissionString, channelId: string, userId: string) {
+    const channel = await this.channels.get(channelId);    
+    const member = await this.members.getInGuild(channel.guildId, userId);
+
+    const overrides = channel.overrides?.filter(o => member.roleIds.includes(o.roleId)) ?? [];
+    const cumulativeAllowPerms = overrides.reduce((prev, curr) => prev | curr.allow, 0);
+    const cumulativeDenyPerms = overrides.reduce((prev, curr) => prev | curr.deny, 0);
+
+    const has = (totalPerms: number, permission: number) =>
+      Boolean(totalPerms & permission)
+      || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR);
+
+    const permNumber = PermissionTypes.Text[permission];
+    const canInheritantly = await this.can(permission, channel.guildId, userId);
+    const isAllowedByOverride = has(cumulativeAllowPerms, permNumber);
+    const isDeniedByOverride = has(cumulativeDenyPerms, permNumber);
+
+    return (canInheritantly && !isDeniedByOverride) || isAllowedByOverride;
+  }
+
   // FIXME: you cannot combine string permissions with bitfields
   private validate(can: boolean, permission: PermissionTypes.PermissionString) {
     if (!can)

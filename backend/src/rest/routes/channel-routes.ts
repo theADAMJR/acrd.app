@@ -7,6 +7,7 @@ import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
 import { updateUser, validateUser } from '../modules/middleware';
 import { WebSocket } from '../../ws/websocket';
+import { WSGuard } from '../../ws/modules/ws-guard';
 
 export const router = Router();
 
@@ -14,6 +15,7 @@ const channels = Deps.get<Channels>(Channels);
 const messages = Deps.get<Messages>(Messages);
 const pings = Deps.get<Pings>(Pings);
 const ws = Deps.get<WebSocket>(WebSocket);
+const guard = Deps.get<WSGuard>(WSGuard);
 
 router.get('/:channelId/messages', updateUser, validateUser, async (req, res) => {
   const channelId = req.params.channelId;

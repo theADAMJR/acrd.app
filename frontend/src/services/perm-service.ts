@@ -68,7 +68,7 @@ export class PermService {
 
   public canMember(permission: PermissionTypes.PermissionString, guild: Entity.Guild, member: Entity.GuildMember) {
     return guild.ownerId === member.userId
-      || this.hasPermission(
+      || this.hasPerm(
           this.getTotalPerms(member, guild.id),
           PermissionTypes.All[permission] as number,
         );
@@ -85,8 +85,8 @@ export class PermService {
 
     const permNumber = PermissionTypes.Text[permission];
     const canInheritantly = this.can(permission, guildId);
-    const isAllowedByOverride = this.hasPermission(cumulativeAllowPerms, permNumber);
-    const isDeniedByOverride = this.hasPermission(cumulativeDenyPerms, permNumber);
+    const isAllowedByOverride = this.hasPerm(cumulativeAllowPerms, permNumber);
+    const isDeniedByOverride = this.hasPerm(cumulativeDenyPerms, permNumber);
 
     return (canInheritantly && !isDeniedByOverride) || isAllowedByOverride;
   }
@@ -96,17 +96,17 @@ export class PermService {
     const member = this.getSelfMember(guildId);
 
     return guild.ownerId === member.userId
-      || this.hasPermission(
+      || this.hasPerm(
           this.getTotalPerms(member, guildId),
           PermissionTypes.All[permission] as number,
         );
   }
-  public getTotalPerms(member: Entity.GuildMember, guildId: string) {
+  private getTotalPerms(member: Entity.GuildMember, guildId: string) {
     return getGuildRoles(guildId)(this.state)
       .filter(r => member?.roleIds.includes(r.id))
       .reduce((acc, value) => value.permissions | acc, 0);
   }
-  public hasPermission(totalPerms: number, permission: number) {
+  private hasPerm(totalPerms: number, permission: number) {
     return Boolean(totalPerms & permission)
         || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR);
   }
