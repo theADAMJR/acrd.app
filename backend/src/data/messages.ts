@@ -4,13 +4,6 @@ import { Channel } from './models/channel';
 import { Message, MessageDocument } from './models/message';
 import { generateSnowflake } from './snowflake-entity';
 
-const metascraper = require('metascraper')([
-  require('metascraper-description')(),
-  require('metascraper-image')(),
-  require('metascraper-title')(),
-  require('metascraper-url')()
-]);
-
 export default class Messages extends DBWrapper<string, MessageDocument> {
   public async get(id: string | undefined) {
     const message = await Message.findById(id);
@@ -28,18 +21,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
       authorId,
       channelId,
       content,
-      embed: await this.getEmbed(content),
     });
-  }
-
-  public async getEmbed(content: string): Promise<MessageTypes.Embed | undefined> {
-    try {
-      const targetURL = /([https://].*)/.exec(content as string)?.[0];  
-      if (!targetURL) return;
-  
-      const { body: html, url } = await got(targetURL);
-      return await metascraper({ html, url });
-    } catch {}
   }
 
   public async getChannelMessages(channelId: string) {
