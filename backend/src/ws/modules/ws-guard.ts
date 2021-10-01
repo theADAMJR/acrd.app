@@ -53,7 +53,7 @@ export class WSGuard {
         || this.roles.hasPermission(guild, member, permission);
   }
 
-  private async canInChannel(permission: PermissionTypes.PermissionString, channelId: string, userId: string) {
+  public async canInChannel(permission: PermissionTypes.PermissionString, channelId: string, userId: string) {
     const channel = await this.channels.get(channelId);    
     const member = await this.members.getInGuild(channel.guildId, userId);
 

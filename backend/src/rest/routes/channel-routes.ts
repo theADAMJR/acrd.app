@@ -19,8 +19,12 @@ const guard = Deps.get<WSGuard>(WSGuard);
 
 router.get('/:channelId/messages', updateUser, validateUser, async (req, res) => {
   const channelId = req.params.channelId;
-
   const user: SelfUserDocument = res.locals.user;
+
+  const canAccess = guard.canInChannel('READ_MESSAGES', channelId, user.id);
+  if (!canAccess)
+    throw new APIError(403, 'Insufficient permissions');
+
   const channelMsgs = (await messages
     .getChannelMessages(channelId) ?? await messages
     .getDMChannelMessages(channelId, res.locals.user.id));  
