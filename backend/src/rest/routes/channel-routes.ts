@@ -8,6 +8,7 @@ import Deps from '../../utils/deps';
 import { updateUser, validateUser } from '../modules/middleware';
 import { WebSocket } from '../../ws/websocket';
 import { WSGuard } from '../../ws/modules/ws-guard';
+import { APIError } from '../modules/api-error';
 
 export const router = Router();
 
