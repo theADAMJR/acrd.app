@@ -7,6 +7,8 @@ import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
 import { updateUser, validateUser } from '../modules/middleware';
 import { WebSocket } from '../../ws/websocket';
+import { WSGuard } from '../../ws/modules/ws-guard';
+import { APIError } from '../modules/api-error';
 
 export const router = Router();
 
@@ -14,11 +16,16 @@ const channels = Deps.get<Channels>(Channels);
 const messages = Deps.get<Messages>(Messages);
 const pings = Deps.get<Pings>(Pings);
 const ws = Deps.get<WebSocket>(WebSocket);
+const guard = Deps.get<WSGuard>(WSGuard);
 
 router.get('/:channelId/messages', updateUser, validateUser, async (req, res) => {
   const channelId = req.params.channelId;
-
   const user: SelfUserDocument = res.locals.user;
+
+  const canAccess = guard.canInChannel('READ_MESSAGES', channelId, user.id);
+  if (!canAccess)
+    throw new APIError(403, 'Insufficient permissions');
+
   const channelMsgs = (await messages
     .getChannelMessages(channelId) ?? await messages
     .getDMChannelMessages(channelId, res.locals.user.id));  

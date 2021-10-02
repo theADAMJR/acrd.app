@@ -11,7 +11,7 @@ import { PermissionTypes } from '../../../src/types/permission-types';
 import { WSGuard } from '../../../src/ws/modules/ws-guard';
 import Channels from '../../../src/data/channels';
 
-describe('ws-guard', () => {
+describe.only('ws-guard', () => {
   const client = (io as any)(`http://localhost:${process.env.PORT}`) as any;
   
   let guard: WSGuard;

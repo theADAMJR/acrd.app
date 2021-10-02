@@ -21,7 +21,7 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
     const authorId = ws.sessions.userId(client);
     
     const [_, message, author] = await Promise.all([
-      this.guard.canAccessChannel(client, channelId, true), 
+      this.guard.validateCanInChannel(client, channelId, 'SEND_MESSAGES'), 
       this.messages.create(authorId, channelId, { content, embed }),
       this.users.getSelf(authorId),
     ]);
