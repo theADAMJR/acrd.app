@@ -36,7 +36,6 @@ export default class implements WSEvent<'CHANNEL_LEAVE'> {
     this.voice.remove(channel.id, userId);
 
     await Promise.all([
-      client.leave(channel.id),
       this.channels.leaveVC(channel, userId),
       this.updateVoiceState(user),
     ]);
@@ -54,6 +53,9 @@ export default class implements WSEvent<'CHANNEL_LEAVE'> {
         userId: user.id,
         voice: user.voice,
       } as WS.Args.VoiceStateUpdate);
+
+    // leave after they receive event
+    await client.leave(channel.id);
   }
 
   private async updateVoiceState(user: SelfUserDocument) {
