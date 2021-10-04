@@ -71,6 +71,7 @@ declare namespace Entity {
     guildIds: string[];
     status: UserTypes.StatusType;
     username: string;
+    voice: UserTypes.VoiceState;
   }
 }
 
@@ -139,5 +140,8 @@ declare namespace UserTypes {
       guildIds: string[];
       userIds: string[];
     };
+  }
+  export interface VoiceState {
+    channelId?: string;
   }
 }

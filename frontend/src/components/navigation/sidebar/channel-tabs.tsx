@@ -5,10 +5,13 @@ import { ContextMenuTrigger } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import usePerms from '../../../hooks/use-perms';
-import { joinVoiceChannel } from '../../../store/channels';
+import { getChannel, getChannelUsers, joinVoiceChannel } from '../../../store/channels';
 import { getGuildChannels } from '../../../store/guilds';
 import { actions as ui } from '../../../store/ui';
 import ChannelMenu from '../../ctx-menus/channel-menu';
+import Username from '../../user/username';
+
+import './channel-tabs.scoped.css';
 
 const ChannelTabs: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -28,6 +31,14 @@ const ChannelTabs: React.FunctionComponent = () => {
       if (channel.type !== 'VOICE') return;
       
       dispatch(joinVoiceChannel(channel.id));
+    };
+
+    const VCMembers = () => {
+      const users = useSelector(getChannelUsers(channel.id));
+
+      if (channel.type !== 'VOICE') return null;
+
+      return <div className="p-2 pl-3">{users.map(u => <Username user={u} />)}</div>;
     };
 
     return (
@@ -54,11 +65,12 @@ const ChannelTabs: React.FunctionComponent = () => {
             </span>
           </span>
         </Link>
+        <VCMembers />
         <ChannelMenu channel={channel} />
       </ContextMenuTrigger>
     );
   }
 
-  return <>{guildChannels.map(c => <ChannelTab channel={c} />)}</>
+  return <>{guildChannels.map(c => <ChannelTab key={c.id} channel={c} />)}</>
 };
 export default ChannelTabs;

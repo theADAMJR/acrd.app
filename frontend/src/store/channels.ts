@@ -63,3 +63,12 @@ export const getChannel = (id: string) =>
     state => state.entities.channels,
     channels => channels.find(c => c.id === id),
   );
+
+export const getChannelUsers = (channelId: string) =>
+  createSelector<Store.AppState, { channels, users }, Entity.User[]>(
+    state => ({ channels: state.entities.channels, users: state.entities.users }),
+    ({ channels, users }) => {
+      const vc = channels.find(c => c.id === channelId) as ChannelTypes.Voice;
+      return vc.userIds.map(id => users.find(u => u.id === id))
+    },
+  );

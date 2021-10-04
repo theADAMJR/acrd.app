@@ -8,7 +8,7 @@ import Image from '../utils/image';
 export interface UsernameProps {
   user: Entity.User;
   guild?: Entity.Guild;
-  size?: 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
 }
  
 const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 'md' }) => {

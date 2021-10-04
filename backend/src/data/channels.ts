@@ -10,10 +10,10 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
     return channel;
   }
 
-  public async getText(id: string) {
+  public async getText(id: string | undefined) {
     return await this.get(id) as TextChannelDocument;
   }
-  public async getVoice(id: string) {
+  public async getVoice(id: string | undefined) {
     return await this.get(id) as VoiceChannelDocument;
   }
 
@@ -33,13 +33,11 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
     return this.create({ guildId, type: 'VOICE' }) as Promise<VoiceChannelDocument>;
   }
 
-  public async joinVC(channelId: string, userId: string) {
-    const channel = await this.getVoice(channelId);
+  public async joinVC(channel: VoiceChannelDocument, userId: string) {
     channel.userIds.push(userId);
     return await channel.save();
   }
-  public async leaveVC(channelId: string, userId: string) {
-    const channel = await this.getVoice(channelId);
+  public async leaveVC(channel: VoiceChannelDocument, userId: string) {
     const index = channel.userIds.indexOf(userId);
     channel.userIds.splice(index, 1);
     return await channel.save();

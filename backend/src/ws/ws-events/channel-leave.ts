@@ -7,34 +7,36 @@ import { WebSocket } from '../websocket';
 import { Socket } from 'socket.io';
 import { VoiceService } from '../../voice/voice-service';
 import Users from '../../data/users';
-import { validateUser } from '../../rest/modules/middleware';
+import { SelfUserDocument } from '../../data/models/user';
 
-export default class implements WSEvent<'CHANNEL_JOIN'> {
-  on = 'CHANNEL_JOIN' as const;
+export default class implements WSEvent<'CHANNEL_LEAVE'> {
+  on = 'CHANNEL_LEAVE' as const;
 
   constructor(
     private channels = Deps.get<Channels>(Channels),
+    private guard = Deps.get<WSGuard>(WSGuard),
     private voice = Deps.get<VoiceService>(VoiceService),
     private users = Deps.get<Users>(Users),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelJoin) {
-    const channel = await this.channels.get(channelId);
+  public async invoke(ws: WebSocket, client: Socket) {
+    const userId = ws.sessions.get(client.id);
+    const user = await this.users.getSelf(userId);
+    
+    const channel = await this.channels.getVoice(user.voice.channelId);
     if (channel.type !== 'VOICE')
-      throw new TypeError('You cannot join a non-voice channel');
+      throw new TypeError('You cannot leave a non-voice channel');
     
     // TODO: validate can join
-    const userId = ws.sessions.get(client.id);
-    // join voice server
+    await this.channels.leaveVC(channel, userId);
     const doesExist = channel.userIds.includes(userId); 
-    if (doesExist)
-      throw new TypeError('User already connected to voice');
+    if (!doesExist)
+      throw new TypeError('User not connected to voice');
 
-    this.voice.add(channelId, { stream: null, userId });
-    
-    await client.join(channelId);
-    await this.channels.joinVC(channel, userId);
-    const user = await this.updateVoiceState(userId, channelId);
+    // join voice server
+    this.voice.remove(channel.id, userId);
+    await client.leave(channel.id);
+    await this.updateVoiceState(user);
 
     ws.io
       .to(channel.guildId)
@@ -51,9 +53,8 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
       } as WS.Args.VoiceStateUpdate);
   }
 
-  private async updateVoiceState(userId: string, channelId: string) {
-    const user = await this.users.getSelf(userId);
-    user.voice = { channelId };
-    return await user.save();
+  private async updateVoiceState(user: SelfUserDocument) {
+    user.voice = { channelId: undefined };
+    await user.save();
   }
 }

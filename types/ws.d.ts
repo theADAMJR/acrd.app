@@ -104,7 +104,8 @@ declare namespace WS {
     'USER_DELETE': {};
     /** Called the client user settings are updated. */
     'USER_UPDATE': WS.Args.UserUpdate;
-    /** Called when a websocket message is sent. */
+    /** Called when a user voice state is updated in the client's voice channel. */
+    'VOICE_STATE_UPDATE': WS.Args.VoiceStateUpdate;
     'error': object;
   }
   
@@ -354,6 +355,10 @@ declare namespace WS {
     export interface UserUpdate {
       userId: string;
       partialUser: Partial<UserTypes.Self>;
+    }
+    export interface VoiceStateUpdate {
+      userId: string;
+      voice: UserTypes.VoiceState;
     }
   }
 }

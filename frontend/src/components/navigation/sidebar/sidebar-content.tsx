@@ -4,8 +4,6 @@ import { actions as ui } from '../../../store/ui';
 import GuildDropdown from '../../dropdowns/guild-dropdown';
 import ChannelTabs from './channel-tabs';
 
-import './sidebar-content.scoped.css';
-
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();
   return (

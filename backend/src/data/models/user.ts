@@ -88,6 +88,11 @@ export const User = model<UserDocument>('user', new Schema({
     validate: [patterns.username, `Invalid username`],
   },
   verified: Boolean,
+  voice: {
+    type: Object,
+    required: [true, 'Voice state is required'],
+    default: {} as UserTypes.VoiceState,
+  },
 }, { toJSON: { getters: true } })
   .plugin(uniqueValidator)
   .plugin(passportLocalMongoose, { usernameField: 'email' })

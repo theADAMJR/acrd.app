@@ -16,13 +16,13 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { name, summary, overrides, channelId }: WS.Params.ChannelUpdate) {
-    const channel = await this.channels.getText(channelId);
+    const channel = await this.channels.get(channelId);
     await this.guard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
     
     const partialChannel: Partial<Entity.Channel> = {};
     if (name) partialChannel.name = name;
     if (overrides) partialChannel.overrides = overrides;
-    partialChannel.summary = summary;
+    if (summary) partialChannel.summary = summary;
     await channel.updateOne(partialChannel as any, { runValidators: true });
 
     ws.io

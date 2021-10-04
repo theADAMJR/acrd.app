@@ -3,10 +3,6 @@ export class VoiceService {
 
   public add(channelId: string, data: VoiceData) {
     const channelConnections = this.getOrCreate(channelId);
-    const doesExist = channelConnections.some(c => c.userId === data.userId); 
-    if (doesExist)
-      throw new TypeError('User already connected to voice');
-
     channelConnections.push(data);
     this.connections.set(channelId, channelConnections);
   }
