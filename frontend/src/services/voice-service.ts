@@ -4,11 +4,16 @@ import ws from './ws-service';
   ws.on('VOICE_DATA', async ({ channelId, connections }) => {
     if (!channelId) return;
 
+    // console.timeEnd('voiceData');
+    // console.time('voiceData');    
     console.log(connections);
     
-    for (const { blob: arrayBuffer } of connections) {
+    for (const { blob: arrayBuffer, userId } of connections) {
+      document.querySelector(`#voice${userId}`)?.remove();
+
       const blob = new Blob([arrayBuffer], { 'type' : 'audio/ogg; codecs=opus' });
       const audio = document.createElement('audio');
+      audio.id = `voice${userId}`;
       audio.src = window.URL.createObjectURL(blob);
       audio.play();
     }
