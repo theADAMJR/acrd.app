@@ -228,6 +228,7 @@ declare namespace WS {
     }
     export interface VoiceData {
       channelId: string;
+      blob?: Blob;
     }
   }
   
@@ -364,6 +365,7 @@ declare namespace WS {
       partialUser: Partial<UserTypes.Self>;
     }
     export interface VoiceData {
+      channelId: string;
       connections: VoiceConnection[];
     }
     export interface VoiceStateUpdate {

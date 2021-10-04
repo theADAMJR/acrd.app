@@ -27,6 +27,16 @@ export class VoiceService {
     this.connections.set(channelId, channelConnections);
   }
 
+  public setForUser(channelId: string, data: ChannelTypes.VoiceConnection) {
+    const channelConnections = this.getOrCreate(channelId);
+    const index = channelConnections.findIndex(c => c.userId === data.userId);
+
+    channelConnections[index] = data;
+    this.connections.set(channelId, channelConnections);
+    
+    return this.getForUser(channelId, data.userId);
+  }
+
   public remove(channelId: string, userId: string) {
     const channelConnections = this.getOrCreate(channelId);
     const index = channelConnections.findIndex(c => c.userId === userId);

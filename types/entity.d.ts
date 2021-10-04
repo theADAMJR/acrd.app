@@ -92,7 +92,7 @@ declare namespace ChannelTypes {
   }
   export interface VoiceConnection {
     userId: string;
-    stream: any;
+    blob?: Blob;
   }
 }
 

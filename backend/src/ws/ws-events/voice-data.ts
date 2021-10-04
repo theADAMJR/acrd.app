@@ -12,16 +12,13 @@ export default class implements WSEvent<'VOICE_DATA'> {
     private voiceService = Deps.get<VoiceService>(VoiceService),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.VoiceData) {
+  public async invoke(ws: WebSocket, client: Socket, { channelId, blob }: WS.Params.VoiceData) {
     const userId = ws.sessions.get(client.id);
     // receive data 
-    // channel id of voice channel?
-    // -> if specified in args it can be spoofed
-    // -> if we constantly get user voice state from db that's very inefficient
     
     // send audio back to client
-    const connections = this.voiceService.getForUser(channelId, userId);
+    const connections = this.voiceService.setForUser(channelId, { blob, userId });
 
-    client.emit('VOICE_DATA', { connections } as WS.Args.VoiceData);
+    client.emit('VOICE_DATA', { channelId, connections } as WS.Args.VoiceData);
   }
 }

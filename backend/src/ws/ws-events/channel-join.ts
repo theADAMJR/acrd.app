@@ -8,6 +8,7 @@ import { VoiceService } from '../../voice/voice-service';
 import Users from '../../data/users';
 import { SelfUserDocument } from '../../data/models/user';
 import ChannelLeave from './channel-leave';
+import VoiceData from './voice-data';
 
 export default class implements WSEvent<'CHANNEL_JOIN'> {
   on = 'CHANNEL_JOIN' as const;
@@ -17,6 +18,7 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
     private voice = Deps.get<VoiceService>(VoiceService),
     private users = Deps.get<Users>(Users),
     private leaveEvent = Deps.get<ChannelLeave>(ChannelLeave),
+    private voiceDataEvent = Deps.get<VoiceData>(VoiceData),
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelJoin) {
@@ -35,7 +37,7 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
     if (doesExist)
       throw new TypeError('User already connected to voice');
 
-    this.voice.add(channelId, { stream: null, userId });
+    this.voice.add(channelId, { userId });
     
     await Promise.all([
       client.join(channelId),
@@ -56,6 +58,9 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
         userId: user.id,
         voice: user.voice,
       } as WS.Args.VoiceStateUpdate);
+
+    // send empty event to initialize cycle of sending data
+    await this.voiceDataEvent.invoke(ws, client, { channelId });
   }
 
   private async updateVoiceState(user: SelfUserDocument, channelId: string) {

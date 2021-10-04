@@ -142,17 +142,33 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(auth.updatedUser(args));
       dispatch(users.updated(args));
     });
-    ws.on('VOICE_DATA', (args) => {
-      alert(args);
+    ws.on('VOICE_DATA', async (args) => {
+      const channelId = args.channelId;
+      if (!channelId) return;
+
+      let audioChunks: Blob[] = [];
+      const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(mediaStream);
+      recorder.start();
+    
+      recorder.onstart = () => {  
+        audioChunks = [];
+      }
+      recorder.ondataavailable = (e) =>{
+        console.log('data available');
+        audioChunks.push(e.data);
+      };
+      recorder.onstop = () => {
+        const blob = new Blob(audioChunks, { 'type': 'audio/ogg; codecs=opus' });
+        ws.emit('VOICE_DATA', { channelId, blob });
+      }
+
+      setTimeout(() => recorder.stop(), 100);
     });
     ws.on('VOICE_STATE_UPDATE', (args) => {
       const data = { userId: args.userId, partialUser: { voice: args.voice } };
       dispatch(auth.updatedUser(data));
-      dispatch(users.updated(data ));
-
-      if (!args.voice.channelId) return;
-
-      ws.emit('VOICE_DATA', { channelId: args.voice.channelId })
+      dispatch(users.updated(data));
     });
 
     dispatch(meta.listenedToWS());
