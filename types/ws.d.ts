@@ -49,6 +49,8 @@ declare namespace WS {
     'USER_DELETE': WS.Params.UserDelete;
     /** Update a user with a given token. */
     'USER_UPDATE': WS.Params.UserUpdate;
+    /** Send voice data to the server. */
+    'VOICE_DATA': WS.Params.VoiceData;
   }
 
   export interface On {
@@ -104,6 +106,8 @@ declare namespace WS {
     'USER_DELETE': {};
     /** Called the client user settings are updated. */
     'USER_UPDATE': WS.Args.UserUpdate;
+    /** Receive voice data from the server. */
+    'VOICE_DATA': WS.Args.VoiceData;
     /** Called when a user voice state is updated in the client's voice channel. */
     'VOICE_STATE_UPDATE': WS.Args.VoiceStateUpdate;
     'error': object;
@@ -355,6 +359,9 @@ declare namespace WS {
     export interface UserUpdate {
       userId: string;
       partialUser: Partial<UserTypes.Self>;
+    }
+    export interface VoiceData {
+      
     }
     export interface VoiceStateUpdate {
       userId: string;
