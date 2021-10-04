@@ -16,6 +16,7 @@ import { actions as auth, logoutUser } from '../store/auth';
 import { actions as pings, addPing } from '../store/pings';
 import { useSnackbar } from 'notistack';
 import events from '../services/event-service';
+import '../services/voice-service';
 
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -141,30 +142,6 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('USER_UPDATE', (args) => {      
       dispatch(auth.updatedUser(args));
       dispatch(users.updated(args));
-    });
-
-    // TODO: send to new file
-    ws.on('VOICE_DATA', async (args) => {
-      const channelId = args.channelId;
-      if (!channelId) return;
-
-      let audioChunks: Blob[] = [];
-      const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(mediaStream);
-      const audio = document.createElement('audio');
-
-      recorder.onstart = () => audioChunks = [];
-      recorder.ondataavailable = (e) => audioChunks.push(e.data);
-      recorder.onstop = () => {
-        const blob = new Blob(audioChunks, { 'type': 'audio/ogg; codecs=opus' });
-        console.log(blob);
-        audio.src = window.URL.createObjectURL(blob);
-        audio.play();
-        ws.emit('VOICE_DATA', { channelId, blob });
-      }
-
-      recorder.start();
-      setTimeout(() => recorder.stop(), 100);
     });
     ws.on('VOICE_STATE_UPDATE', (args) => {
       const data = { userId: args.userId, partialUser: { voice: args.voice } };

@@ -14,9 +14,6 @@ export default class implements WSEvent<'VOICE_DATA'> {
 
   public async invoke(ws: WebSocket, client: Socket, { channelId, blob }: WS.Params.VoiceData) {
     const userId = ws.sessions.get(client.id);
-    // receive data 
-    
-    // send audio back to client
     const connections = this.voiceService.setForUser(channelId, { blob, userId });
 
     client.emit('VOICE_DATA', { channelId, connections } as WS.Args.VoiceData);
