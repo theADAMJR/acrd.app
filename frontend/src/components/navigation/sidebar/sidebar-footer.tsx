@@ -11,7 +11,7 @@ const SidebarFooter: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.auth.user)!;
 
   const VoiceFooter = () => {
-    const channelId = user.voice.channelId;
+    const channelId = user.voice?.channelId;
     const channel = useSelector(getChannel(channelId ?? ''));
     const guild = useSelector(getGuild(channel?.guildId ?? ''));
 

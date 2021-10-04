@@ -68,7 +68,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 
             style={{ color: highestRole?.color ?? 'var(--font)' }}
             className={classNames({ 'font-light text-base': guild })}>{user.username}</span>
           <span className="text-yellow-400 ml-1">
-            {userOwnsGuild && <FontAwesomeIcon icon={faCrown} />}
+            {(userOwnsGuild && size !== 'sm') && <FontAwesomeIcon icon={faCrown} />}
           </span>
         </h4>
         {(!guild && size !== 'sm') &&

@@ -14,7 +14,6 @@ export default class implements WSEvent<'CHANNEL_LEAVE'> {
 
   constructor(
     private channels = Deps.get<Channels>(Channels),
-    private guard = Deps.get<WSGuard>(WSGuard),
     private voice = Deps.get<VoiceService>(VoiceService),
     private users = Deps.get<Users>(Users),
   ) {}

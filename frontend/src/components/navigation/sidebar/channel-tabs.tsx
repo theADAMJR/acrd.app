@@ -5,8 +5,8 @@ import { ContextMenuTrigger } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import usePerms from '../../../hooks/use-perms';
-import { getChannel, getChannelUsers, joinVoiceChannel } from '../../../store/channels';
-import { getGuildChannels } from '../../../store/guilds';
+import { getChannelUsers, joinVoiceChannel } from '../../../store/channels';
+import { getGuild, getGuildChannels } from '../../../store/guilds';
 import { actions as ui } from '../../../store/ui';
 import ChannelMenu from '../../ctx-menus/channel-menu';
 import Username from '../../user/username';
@@ -35,11 +35,16 @@ const ChannelTabs: React.FunctionComponent = () => {
 
     const VCMembers = () => {
       const users = useSelector(getChannelUsers(channel.id));
+      const guild = useSelector(getGuild(channel.guildId));
 
       if (channel.type !== 'VOICE' || !users.length) return null;
 
       return <div className="p-2 pl-3">{users.map(u =>
-        <Username key={u.id} user={u} size="sm" />
+        <ContextMenuTrigger key={u.id} id={u.id}>
+          <div className="mb-1">
+            <Username user={u} size="sm" guild={guild} />
+          </div>
+        </ContextMenuTrigger>
       )}</div>;
     };
 
