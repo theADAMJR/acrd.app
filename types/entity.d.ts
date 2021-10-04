@@ -75,10 +75,14 @@ declare namespace Entity {
 }
 
 declare namespace ChannelTypes {
-  export type Type = 'TEXT';
+  export type Type = 'TEXT' | 'VOICE';
 
   export interface Text extends Entity.Channel {
     type: 'TEXT';
+  }
+  export interface Voice extends Entity.Channel {
+    type: 'VOICE';
+    memberIds: string[];
   }
   export interface Override {
     roleId: string;

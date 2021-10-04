@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import Select from 'react-select';
 import { createChannel } from '../../store/channels';
 import NormalButton from '../utils/buttons/normal-button';
 import Input from '../utils/input/input';
@@ -11,12 +12,14 @@ const CreateChannel: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild);
 
   const create = (data) => {
-    dispatch(createChannel(guild!.id, data.name));
+    dispatch(createChannel(guild!.id, data));
     setValue('name', '');
   };
+
+  const types: ChannelTypes.Type[] = ['TEXT', 'VOICE'];
   
   return (
-    <Modal typeName={'CreateChannel'}>
+    <Modal typeName={'CreateChannel'} size="lg">
       <form
         className="flex flex-col h-full"
         onSubmit={handleSubmit(create)}>
@@ -30,6 +33,20 @@ const CreateChannel: React.FunctionComponent = () => {
             name="name"
             register={register} />
         </div>
+      
+      <div className="flex-grow pt-0 p-5">
+        {/* TODO: clean up style code */}
+        <label
+          htmlFor="channelType"
+          className="uppercase text-xs font-semibold">Channel Type</label>
+        <select
+          id="channelType"
+          className="mt-2"
+          defaultValue={types[0]}
+          {...register('type')}>
+          {types.map(type => <option value={type}>{type}</option>)}
+        </select>
+      </div>
 
         <footer className="bg-bg-secondary">
           <NormalButton

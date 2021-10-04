@@ -2,6 +2,7 @@ import './three-toggle.scoped.css';
 
 import classNames from 'classnames';
 import { useEffect } from 'react';
+import { filterProps } from '../react/react-shush-error';
 
 export type ThreeToggleProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLInputElement>,
@@ -23,7 +24,7 @@ const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {
         className="flex items-center cursor-pointer">
         <div className="relative">
           <input
-            {...props}
+            {...filterProps(props)}
             id={props.id}
             onClick={({ currentTarget: checkbox }) => {
               if (checkbox.value === 'on')

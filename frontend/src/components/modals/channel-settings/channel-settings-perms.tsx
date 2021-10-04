@@ -20,7 +20,13 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
 
   const byPosition = (a, b) => (a.position > b.position) ? 1 : -1;
   const allRoles = useSelector(getGuildRoles(guildId)).sort(byPosition);
-  const [activeOverride, setOverride] = useState(channel.overrides?.[0]);
+
+  const defaultOverride = channel.overrides?.[0];
+  const [activeOverride, setOverride] = useState(
+    (defaultOverride)
+      ? { ...defaultOverride } as ChannelTypes.Override
+      : undefined,
+  );
   
   const unaddedRoles = allRoles.filter(r => !channel.overrides?.some(o => o.roleId === r.id));
   const overrideRoles = allRoles.filter(r => channel.overrides?.some(o => o.roleId === r.id));

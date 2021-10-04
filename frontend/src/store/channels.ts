@@ -27,10 +27,10 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const createChannel = (guildId: string, name: string) => (dispatch) => {
+export const createChannel = (guildId: string, { name, type }: WS.Params.ChannelCreate) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'CHANNEL_CREATE',
-    data: { guildId, name } as WS.Params.ChannelCreate,
+    data: { guildId, name, type } as WS.Params.ChannelCreate,
   }));
 }
 
