@@ -32,7 +32,7 @@ describe('channel-routes', () => {
   
   it('GET /, returns text and dm channels', async () => {
     await Mock.channel({
-      memberIds: [user.id, guild.ownerId],
+      userIds: [user.id, guild.ownerId],
       type: 'DM',
     });
     

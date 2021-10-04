@@ -29,7 +29,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
   }
 
   public async getDMChannelMessages(channelId: string, memberId: string) {
-    const isMember = await Channel.exists({ _id: channelId, memberIds: memberId });
+    const isMember = await Channel.exists({ _id: channelId, userIds: memberId });
     if (isMember)
       throw new TypeError('You cannot access this channel');
     return await Message.find({ channelId });

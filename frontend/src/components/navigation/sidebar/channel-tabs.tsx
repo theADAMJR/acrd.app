@@ -19,7 +19,9 @@ const ChannelTabs: React.FunctionComponent = () => {
   if (!activeGuild || !perms.can('VIEW_CHANNELS', activeGuild.id)) return null;
 
   const ChannelTab = ({ channel }: { channel: Entity.Channel }) => {
-    const link = (channel.type === 'VOICE') ? '#' : `/channels/${activeGuild!.id}/${channel.id}`;
+    const link = (channel.type === 'VOICE')
+      ? '#' :
+      `/channels/${activeGuild!.id}/${channel.id}`;
     const icon = { 'TEXT': faHashtag, 'VOICE': faVolumeUp }[channel.type];
 
     const onClick = () => {

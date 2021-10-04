@@ -46,9 +46,9 @@ export default class Users extends DBWrapper<string, UserDocument> {
   }  
   public async getKnownIds(user: UserTypes.Self) {
     const members = await GuildMember.find({ guildId: { $in: user.guildIds } });
-    const memberIds = members.map(m => m.userId);
+    const userIds = members.map(m => m.userId);
 
-    return Array.from(new Set([user.id, ...memberIds]));
+    return Array.from(new Set([user.id, ...userIds]));
   }
 
   public async updateById(id: string | undefined, partial: UpdateQuery<SelfUserDocument>) {

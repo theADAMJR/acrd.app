@@ -7,9 +7,14 @@ export interface TextChannelDocument extends Document, ChannelTypes.Text {
   _id: string | never;
   id: string;
   createdAt: never;
-  guildId: string;
 }
-export type ChannelDocument = TextChannelDocument;
+export interface VoiceChannelDocument extends Document, ChannelTypes.Voice {
+  _id: string | never;
+  id: string;
+  createdAt: never;
+  memberIds: string[];
+}
+export type ChannelDocument = TextChannelDocument | VoiceChannelDocument;
 
 export const Channel = model<ChannelDocument>('channel', new Schema({
   _id: {

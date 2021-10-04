@@ -82,7 +82,7 @@ declare namespace ChannelTypes {
   }
   export interface Voice extends Entity.Channel {
     type: 'VOICE';
-    memberIds: string[];
+    userIds: string[];
   }
   export interface Override {
     roleId: string;

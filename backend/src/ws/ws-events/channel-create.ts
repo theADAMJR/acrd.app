@@ -1,9 +1,6 @@
 import { Socket } from 'socket.io';
 import Channels from '../../data/channels';
-import { Channel } from '../../data/models/channel';
 import { Guild } from '../../data/models/guild';
-import { generateSnowflake } from '../../data/snowflake-entity';
-import { PermissionTypes } from '../../types/permission-types';
 import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
 import { WSGuard } from '../modules/ws-guard';
