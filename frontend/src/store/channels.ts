@@ -48,7 +48,11 @@ export const updateChannel = (channelId: string, payload: Partial<Entity.Channel
   }));
 }
 
-export const joinVoiceChannel = (channelId: string) => (dispatch) => {
+export const joinVoiceChannel = (channelId: string) => (dispatch, getState: () => Store.AppState) => {
+  const channel = getChannel(channelId)(getState()) as ChannelTypes.Voice;
+  const selfUser = getState().auth.user!;
+  if (channel.userIds.includes(selfUser.id)) return;
+  
   dispatch(api.wsCallBegan({
     event: 'CHANNEL_JOIN',
     data: { channelId } as WS.Params.ChannelJoin,

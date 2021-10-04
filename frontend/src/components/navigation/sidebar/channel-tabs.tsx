@@ -36,38 +36,42 @@ const ChannelTabs: React.FunctionComponent = () => {
     const VCMembers = () => {
       const users = useSelector(getChannelUsers(channel.id));
 
-      if (channel.type !== 'VOICE') return null;
+      if (channel.type !== 'VOICE' || !users.length) return null;
 
-      return <div className="p-2 pl-3">{users.map(u => <Username user={u} />)}</div>;
+      return <div className="p-2 pl-3">{users.map(u =>
+        <Username key={u.id} user={u} size="sm" />
+      )}</div>;
     };
 
     return (
-      <ContextMenuTrigger key={channel.id} id={channel.id}>
-        <Link
-          onClick={onClick}
-          to={link}
-          className={classNames(
-            `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
-            { active: channel.id === activeChannel?.id },
-          )}>
-          <FontAwesomeIcon
-            className={`float-left scale-150 muted fill-current ${
-              channel.type === 'VOICE' ? 'mr-2' : 'mr-3'
-            }`}
-            icon={icon} />
-          <span className="tab flex-grow flex justify-between">
-            <span>{channel.name}</span>
-            <span
-              onClick={() => dispatch(ui.openedModal('ChannelSettings'))}
-              className="cursor-pointer opacity-100">
-              {perms.can('MANAGE_CHANNELS', activeGuild.id)
-                && <FontAwesomeIcon className="settings" icon={faCog} />}
+      <>
+        <ContextMenuTrigger key={channel.id} id={channel.id}>
+          <Link
+            onClick={onClick}
+            to={link}
+            className={classNames(
+              `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
+              { active: channel.id === activeChannel?.id },
+            )}>
+            <FontAwesomeIcon
+              className={`float-left scale-150 muted fill-current ${
+                channel.type === 'VOICE' ? 'mr-2' : 'mr-3'
+              }`}
+              icon={icon} />
+            <span className="tab flex-grow flex justify-between">
+              <span>{channel.name}</span>
+              <span
+                onClick={() => dispatch(ui.openedModal('ChannelSettings'))}
+                className="cursor-pointer opacity-100">
+                {perms.can('MANAGE_CHANNELS', activeGuild.id)
+                  && <FontAwesomeIcon className="settings" icon={faCog} />}
+              </span>
             </span>
-          </span>
-        </Link>
+            <ChannelMenu channel={channel} />
+          </Link>
+        </ContextMenuTrigger>
         <VCMembers />
-        <ChannelMenu channel={channel} />
-      </ContextMenuTrigger>
+      </>
     );
   }
 

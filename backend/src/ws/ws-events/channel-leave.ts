@@ -28,15 +28,18 @@ export default class implements WSEvent<'CHANNEL_LEAVE'> {
       throw new TypeError('You cannot leave a non-voice channel');
     
     // TODO: validate can join
-    await this.channels.leaveVC(channel, userId);
     const doesExist = channel.userIds.includes(userId); 
     if (!doesExist)
       throw new TypeError('User not connected to voice');
 
     // join voice server
     this.voice.remove(channel.id, userId);
-    await client.leave(channel.id);
-    await this.updateVoiceState(user);
+
+    await Promise.all([
+      client.leave(channel.id),
+      this.channels.leaveVC(channel, userId),
+      this.updateVoiceState(user),
+    ]);
 
     ws.io
       .to(channel.guildId)
