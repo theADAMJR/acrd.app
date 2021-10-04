@@ -1,4 +1,4 @@
-import { faBug, faGavel, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faBug, faGavel, faSun, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FunctionComponent, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -32,12 +32,17 @@ const UserProfile: FunctionComponent = () => {
     'OG': {
       color: 'orange',
       icon: faSun,
-      title: 'Was here since the very beginning',
+      title: 'Was here since the very beginning.',
     },
     'STAFF': {
       color: 'var(--primary)',
       icon: faGavel,
-      title: 'Staff',
+      title: 'Staff.',
+    },
+    'VIEWER': {
+      color: 'var(--tertiary)',
+      icon: faVideo,
+      title: 'This user was noticed in live chat.',
     },
   };
 

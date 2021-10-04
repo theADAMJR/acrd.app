@@ -43,7 +43,7 @@ const CreateChannel: React.FunctionComponent = () => {
           className="mt-2"
           defaultValue={types[0]}
           {...register('type')}>
-          {types.map(type => <option value={type}>{type}</option>)}
+          {types.map(type => <option key={type} value={type}>{type}</option>)}
         </select>
       </div>
 

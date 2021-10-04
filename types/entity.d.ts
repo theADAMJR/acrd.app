@@ -119,6 +119,7 @@ declare namespace UserTypes {
     | 'BUG_2'
     | 'BUG_3'
     | 'OG'
+    | 'VIEWER'
     | 'STAFF';
   export interface Ignored {
     channelIds: string[];

@@ -3,7 +3,7 @@ export class VoiceService {
 
   public add(channelId: string, data: VoiceData) {
     const channelConnections = this.getOrCreate(channelId);
-    const doesExist = channelConnections.some(c => c.clientId === data.clientId); 
+    const doesExist = channelConnections.some(c => c.userId === data.userId); 
     if (doesExist)
       throw new TypeError('User already connected to voice');
 
@@ -11,9 +11,9 @@ export class VoiceService {
     this.connections.set(channelId, channelConnections);
   }
 
-  public remove(channelId: string, clientId: string) {
+  public remove(channelId: string, userId: string) {
     const channelConnections = this.getOrCreate(channelId);
-    const index = channelConnections.findIndex(c => c.clientId === clientId);
+    const index = channelConnections.findIndex(c => c.userId === userId);
 
     channelConnections.splice(index, 1);
     this.connections.set(channelId, channelConnections);
@@ -28,6 +28,6 @@ export class VoiceService {
 }
 
 export interface VoiceData {
-  clientId: string;
+  userId: string;
   stream: any;
 }

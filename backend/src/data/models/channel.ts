@@ -52,5 +52,9 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
     type: [Object],
     default: [],
   },
+  userIds: {
+    type: [String],
+    default: [],
+  },
 }, { toJSON: { getters: true } })
 .method('toClient', useId));

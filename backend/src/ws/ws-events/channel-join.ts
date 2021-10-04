@@ -13,18 +13,18 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
   constructor(
     private channels = Deps.get<Channels>(Channels),
     private guard = Deps.get<WSGuard>(WSGuard),
-    private voiceService = Deps.get<VoiceService>(VoiceService),
+    private voice = Deps.get<VoiceService>(VoiceService),
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelJoin) {
-    const userId = ws.sessions.get(channelId);
-
-    if (true)
-      throw new TypeError(`Join VC ${channelId}: Everything is working correctly;`)
-    // TODO: validate can join
+    const channel = await this.channels.get(channelId);
+    if (channel.type !== 'VOICE')
+      throw new TypeError('You cannot join a non-voice channel');
     
+    // TODO: validate can join
+    const userId = ws.sessions.get(client.id);
     await this.channels.joinVC(channelId, userId);
     // join voice server
-    // voiceService.add(channelId, {  });
+    this.voice.add(channelId, { stream: null, userId });
   }
 }
