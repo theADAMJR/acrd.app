@@ -2,9 +2,9 @@ import SidebarFooter from './sidebar-footer';
 import { useDispatch } from 'react-redux';
 import { actions as ui } from '../../../store/ui';
 import GuildDropdown from '../../dropdowns/guild-dropdown';
+import ChannelTabs from './channel-tabs';
 
 import './sidebar-content.scoped.css';
-import ChannelTabs from './channel-tabs';
 
 const SidebarContent: React.FunctionComponent = () => {  
   const dispatch = useDispatch();

@@ -5,6 +5,7 @@ import { ContextMenuTrigger } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import usePerms from '../../../hooks/use-perms';
+import { joinVoiceChannel } from '../../../store/channels';
 import { getGuildChannels } from '../../../store/guilds';
 import { actions as ui } from '../../../store/ui';
 import ChannelMenu from '../../ctx-menus/channel-menu';
@@ -21,9 +22,16 @@ const ChannelTabs: React.FunctionComponent = () => {
     const link = (channel.type === 'VOICE') ? '#' : `/channels/${activeGuild!.id}/${channel.id}`;
     const icon = { 'TEXT': faHashtag, 'VOICE': faVolumeUp }[channel.type];
 
+    const onClick = () => {
+      if (channel.type !== 'VOICE') return;
+      
+      dispatch(joinVoiceChannel(channel.id));
+    };
+
     return (
       <ContextMenuTrigger key={channel.id} id={channel.id}>
         <Link
+          onClick={onClick}
           to={link}
           className={classNames(
             `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,

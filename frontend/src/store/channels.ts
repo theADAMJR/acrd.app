@@ -48,6 +48,16 @@ export const updateChannel = (channelId: string, payload: Partial<Entity.Channel
   }));
 }
 
+export const joinVoiceChannel = (channelId: string) => (dispatch) => {
+  dispatch(api.wsCallBegan({
+    event: 'CHANNEL_JOIN',
+    data: { channelId } as WS.Params.ChannelJoin,
+  }));
+}
+export const leaveVoiceChannel = () => (dispatch) => {
+  dispatch(api.wsCallBegan({ event: 'CHANNEL_LEAVE' }));
+}
+
 export const getChannel = (id: string) =>
   createSelector<Store.AppState, Entity.Channel[], Entity.Channel | undefined>(
     state => state.entities.channels,

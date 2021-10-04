@@ -21,5 +21,5 @@ export interface APIArgs {
 }
 export interface WSArgs {
   data?: object;
-  event: keyof WS.From;
+  event: keyof WS.To;
 }

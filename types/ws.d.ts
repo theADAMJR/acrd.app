@@ -6,6 +6,10 @@ declare namespace WS {
     'CHANNEL_DELETE': WS.Params.ChannelDelete;
     /** Update a channel in a guild. */
     'CHANNEL_UPDATE': WS.Params.ChannelUpdate;
+    /** Join a voice channel and receive voice events. */
+    'CHANNEL_JOIN': WS.Params.ChannelJoin;
+    /** Leave the voice channel that the client is in. */
+    'CHANNEL_LEAVE': WS.Params.ChannelLeave;
     /** Create a guild. */
     'GUILD_CREATE': WS.Params.GuildCreate;
     /** Delete a guild. */
@@ -128,6 +132,11 @@ declare namespace WS {
       name?: string;
       overrides?: ChannelTypes.Override[];
     }
+    export interface ChannelJoin {
+      /** ID of the channel to join. */
+      channelId: string;
+    }
+    export interface ChannelLeave {}
     export interface GuildCreate {
       /** Name of the guild. */
       name: string;
