@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import Select from 'react-select';
 import { createChannel } from '../../store/channels';
 import NormalButton from '../utils/buttons/normal-button';
 import Input from '../utils/input/input';
