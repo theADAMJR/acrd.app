@@ -143,12 +143,16 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(users.updated(args));
     });
     ws.on('VOICE_DATA', (args) => {
-      // 
+      alert(args);
     });
     ws.on('VOICE_STATE_UPDATE', (args) => {
       const data = { userId: args.userId, partialUser: { voice: args.voice } };
       dispatch(auth.updatedUser(data));
       dispatch(users.updated(data ));
+
+      if (!args.voice.channelId) return;
+
+      ws.emit('VOICE_DATA', { channelId: args.voice.channelId })
     });
 
     dispatch(meta.listenedToWS());

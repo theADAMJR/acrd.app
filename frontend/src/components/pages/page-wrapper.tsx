@@ -19,12 +19,21 @@ export type PageWrapperProps = React.DetailedHTMLProps<
 const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
   const dispatch = useDispatch();
   const dropdown = useSelector((s: Store.AppState) => s.ui.openDropdown);
+  const devMode = useSelector((s: Store.AppState) => s.config.devMode);
   
   useEffect(() => {
     document.title = props.pageTitle ?? 'accord.app';
   }, []);
 
   const onClick = () => dropdown && dispatch(ui.toggleDropdown({}));
+
+  if (!devMode) {
+    console.log(`%cAttention!`, `color: red; font-size: 32px; font-weight: 900;`);
+    console.log(
+      `%cIf someone told you to paste something in this console, it's probably against the TOS and could steal your account.`,
+      `color: darkred; font-size: 16px; font-weight: 700;`
+    );
+  }
 
   return (
     <div onClick={onClick}

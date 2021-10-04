@@ -37,25 +37,26 @@ export default class implements WSEvent<'READY'> {
         });
     } catch {}
 
-    await Promise.all([
-      this.handleUser(user),
-      this.rooms.join(client, user),
-    ]);
 
-    ws.io
-      .to(user.guildIds)
-      .emit('PRESENCE_UPDATE', {
-        userId,
-        status: user.status
-      } as WS.Args.PresenceUpdate);
+    await this.handleUser(ws, user);
+    await this.rooms.join(client, user);
 
     ws.io
       .to(client.id)
       .emit('READY', { user } as WS.Args.Ready);
   }
 
-  private async handleUser(user: SelfUserDocument) {
+  private async handleUser(ws: WebSocket, user: SelfUserDocument) {
+    if (user.status === 'ONLINE') return;
+
     user.status = 'ONLINE';
-    return await user.save();
+    await user.save();
+
+    ws.io
+      .to(user.guildIds)
+      .emit('PRESENCE_UPDATE', {
+        userId: user.id,
+        status: user.status
+      } as WS.Args.PresenceUpdate);
   }
 }

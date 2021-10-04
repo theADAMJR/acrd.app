@@ -20,14 +20,13 @@ export default class implements WSEvent<'disconnect'> {
     const userId = ws.sessions.get(client.id);
     const user = await this.users.getSelf(userId);
     
+    
     try {
       await this.channelLeaveEvent.invoke(ws, client);
     } catch {}
-
-    await this.handleUser(ws, user);
     
     ws.sessions.delete(client.id);
-    client.rooms.clear();
+    await this.handleUser(ws, user);
   }
 
   public async handleUser(ws: WebSocket, user: SelfUserDocument) {

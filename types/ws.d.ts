@@ -226,6 +226,9 @@ declare namespace WS {
       email?: string;
       token: string;
     }
+    export interface VoiceData {
+      channelId: string;
+    }
   }
   
   export namespace Args {
@@ -361,7 +364,7 @@ declare namespace WS {
       partialUser: Partial<UserTypes.Self>;
     }
     export interface VoiceData {
-      
+      connections: VoiceConnection[];
     }
     export interface VoiceStateUpdate {
       userId: string;

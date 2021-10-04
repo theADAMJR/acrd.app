@@ -90,6 +90,10 @@ declare namespace ChannelTypes {
     allow: number;
     deny: number;
   }
+  export interface VoiceConnection {
+    userId: string;
+    stream: any;
+  }
 }
 
 declare namespace GeneralTypes {
