@@ -1,4 +1,5 @@
 import { Socket } from 'socket.io';
+import Channels from '../../data/channels';
 import { Channel } from '../../data/models/channel';
 import { Guild } from '../../data/models/guild';
 import { generateSnowflake } from '../../data/snowflake-entity';
@@ -13,31 +14,20 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
   on = 'CHANNEL_CREATE' as const;
 
   constructor(
-    private guard = Deps.get<WSGuard>(WSGuard)
+    private channels = Deps.get<Channels>(Channels),
+    private guard = Deps.get<WSGuard>(WSGuard),
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { name, guildId }: WS.Params.ChannelCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { name, guildId, type }: WS.Params.ChannelCreate) {
     await this.guard.validateCan(client, guildId, 'MANAGE_CHANNELS');
     
-    const channel = await Channel.create({
-      _id: generateSnowflake(),
-      name,
-      guildId,
-      type: 'TEXT',
-    });
+    const channel = await this.channels.create({ name, guildId, type });
 
     await Guild.updateOne(
       { _id: guildId },
       { $push: { channels: channel } },
       { runValidators: true },
     );
-
-    // add guild members to channel
-    const clientIds = ws.io.sockets.adapter.rooms.get(guildId);
-    for (const id of clientIds ?? [])
-      await ws.io.sockets.sockets
-        .get(id)
-        ?.join(channel.id);
 
     ws.io
       .to(guildId)

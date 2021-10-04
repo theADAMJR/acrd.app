@@ -115,7 +115,7 @@ declare namespace WS {
       /** Name of the channel to create. */
       name: string;
       /** Type of the channel to create. */
-      type: string;
+      type: ChannelTypes.Type;
     }
     export interface ChannelDelete {
       /** ID of the channel to delete. */

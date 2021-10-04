@@ -35,9 +35,10 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
   public async create(name: string, owner: SelfUserDocument): Promise<GuildDocument> {    
     const guildId = generateSnowflake();
 
-    const [_, __, guild] = await Promise.all([
+    const [_, __, ___, guild] = await Promise.all([
       this.roles.create(guildId, { name: '@everyone' }),
       this.channels.createText(guildId),
+      this.channels.createVoice(guildId),
       Guild.create({ _id: guildId, name, ownerId: owner.id }),
     ]);
     await this.members.create(guildId, owner);
@@ -58,7 +59,7 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
     return await Role.find({ guildId });
   }
   public async getUsers(guildId: string) {
-    const users = await User.find({ guildIds: { $in: guildId } });
+    const users = await User.find({ guildIds: guildId });
     return users.map(u => this.users.secure(u));
   }
 

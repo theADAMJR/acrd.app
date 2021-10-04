@@ -18,7 +18,9 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
     const channel = await this.channels.getText(channelId);
     await this.guard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
     
-    await client.leave(channelId);
+    // leave rooms
+    ws.io.sockets.in(channelId).socketsLeave(channelId);
+
     await channel.deleteOne();
 
     ws.io
