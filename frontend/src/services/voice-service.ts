@@ -1,6 +1,8 @@
 import ws from './ws-service';
 
 let timeout: NodeJS.Timeout;
+let beforeSendMs: number;
+let afterSendMs: number;
 
 // start feedback cycle w/ server and client (EMIT voice_data via client when in vc)
 // - as soon as we are in a vc, we send updates
@@ -14,13 +16,13 @@ export async function startVoiceFeedback(channelId: string) {
   const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
   const recorder = new MediaRecorder(mediaStream);
 
-  console.timeEnd('startVoiceFeedback');
-  console.time('startVoiceFeedback');
+  afterSendMs = new Date().getTime();
+  const wsPing = afterSendMs - beforeSendMs;
 
   recorder.onstart = () => audioChunks = [];
   recorder.ondataavailable = (e) => audioChunks.push(e.data);
   recorder.onstop = () => {
-    console.log('stop recording');    
+    beforeSendMs = new Date().getTime();   
     const blob = new Blob(audioChunks, { 'type': 'audio/ogg; codecs=opus' });
     ws.emit('VOICE_DATA', { channelId, blob });
   }
@@ -43,10 +45,7 @@ export const stopVoiceFeedback = () => {
 ws.on('VOICE_DATA', async ({ channelId, connections }) => {
   console.log('receive VOICE_DATA');
   
-  console.timeEnd('voiceData');
-  console.time('voiceData');    
-  console.log(connections);
-  
+  console.log(connections);  
   
   // there should be a channel id
   if (!channelId) return;
