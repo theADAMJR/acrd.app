@@ -6,7 +6,6 @@ import GuildMemberMenu from '../ctx-menus/guild-member/guild-member-menu';
 import { getGuildMembers, getGuildUsers } from '../../store/guilds';
 import { filterHoistedRoles } from '../../store/roles';
 import usePerms from '../../hooks/use-perms';
-import { useState } from 'react';
 
 const MemberList: React.FunctionComponent = () => {
   const perms = usePerms();
@@ -14,7 +13,6 @@ const MemberList: React.FunctionComponent = () => {
   const isActive = useSelector((s: Store.AppState) => s.config.memberListToggled);
   const hoistedRoles = useSelector(filterHoistedRoles(guild.id));
   const members = useSelector(getGuildMembers(guild.id));
-  const [listedUserIds, setListedUserIds] = useState([]);
 
   // get users that can view the channel
   const users = useSelector(getGuildUsers(guild.id))
@@ -50,8 +48,12 @@ const MemberList: React.FunctionComponent = () => {
   }
 
   const getRoleIds = (userId: string) => members.find(m => m.userId === userId)!.roleIds;
+  const byPositionDesc = (a, b) => (a.position < b.position) ? 1 : -1
   const hoistedRoleIds = (user: Entity.User) => getRoleIds(user.id)
-    .filter(id => hoistedRoles.find(r => id === r.id));
+    .map(id => hoistedRoles.find(r => id === r.id))
+    .filter(r => r) // role could be deleted, on member
+    .sort(byPositionDesc)
+    .map(r => r!.id);
 
   return (isActive) ? (
     <div className="overflow-auto bg-bg-secondary w-64">

@@ -145,6 +145,11 @@ export class PermService {
     return selfIsOwner || selfHasHigherRole;
   }
 
+  public getHighestRole(roles: Entity.Role[]) {
+    const max = (key: string) => (max, val) => (max[key] > val[key]) ? max : val;
+    return roles.reduce(max('position'));
+  }
+
   private getChannel(channelId: string) {
     const channel = getChannel(channelId)(this.state);
     if (!channel)
