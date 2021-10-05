@@ -23,7 +23,10 @@ const MemberList: React.FunctionComponent = () => {
    
   type UserListFilter = (s: Entity.User, i: number, a: Entity.User[]) => boolean;
   const UserList = ({ category, filter: by }: { category: string, filter: UserListFilter }) => {
-    const filtered = users.filter(by);
+    const filtered = users
+      .filter(by)
+      .sort((a, b) => a.username.localeCompare(b.username));
+
     return (filtered.length) ? (
       <div>
         <Category

@@ -29,6 +29,7 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
       color: data.color,
       backgroundColor: 'var(--bg-secondary)',
       cursor: (data.disabled) ? 'not-allowed' : 'pointer',
+      opacity: (data.disabled) ? 0.5 : 1,
     }),
     input: (styles) => ({ ...styles, color: 'var(--font)' }),
     menu: (styles) => ({
@@ -50,15 +51,12 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
   };
   
   const rolesHaveChanged = JSON.stringify(roleIds) !== JSON.stringify(slicedRoleIds);
-  const roleOption = (role: Entity.Role) => {
-    const memberIsHigher = perms.memberIsHigher(guild.id, [role.id]);
-    return {
-      label: role.name,
-      value: role.id,
-      color: (memberIsHigher) ? role.color : 'var(--muted)',
-      disabled: !memberIsHigher,
-    }
-  };
+  const roleOption = (role: Entity.Role) => ({
+    label: role.name,
+    value: role.id,
+    color: role.color,
+    disabled: !perms.memberIsHigher(guild.id, [role.id]),
+  });
   
   return (
     <div onClick={e => e.preventDefault()}>
