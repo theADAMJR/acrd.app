@@ -1,9 +1,11 @@
+import classNames from 'classnames';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import usePerms from '../../../hooks/use-perms';
 import { getGuildRoles } from '../../../store/guilds';
 import { createRole, deleteRole, getRole, updateRole } from '../../../store/roles';
 import { openSaveChanges } from '../../../store/ui';
@@ -26,6 +28,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
   const activeRole = useSelector(getRole(activeRoleId));
   const [perms, setPerms] = useState(0);
   const [hoisted, setHoisted] = useState(false);
+  const permsService = usePerms();
 
   useEffect(() => {
     if (!activeRole) return setActiveRoleId(roles[0].id);
@@ -86,6 +89,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
     handleSubmit(onUpdate)(e);
   };  
   const byPosition = (a, b) => (a.position > b.position) ? -1 : 1;
+  const selfIsHigher = (r) => permsService.memberIsHigher(guildId, [r.id]);
 
   return (
     <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
@@ -94,11 +98,14 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
           {roles.sort(byPosition).map(r => (
             <ContextMenuTrigger id={r.id} key={r.id}>
               <TabLink
+                className={classNames({
+                  'cursor-not-allowed opacity-25': !selfIsHigher(r),
+                })}
                 key={r.id}
                 style={{ color: r.color }}
                 tab={activeRoleId}
-                setTab={setActiveRoleId}
-              id={r.id}>{r.name}</TabLink>
+                setTab={(...args) => selfIsHigher(r) && setActiveRoleId(...args)}
+                id={r.id}>{r.name}</TabLink>
               <RoleMenu role={r} />
             </ContextMenuTrigger>
           ))}

@@ -1,6 +1,7 @@
 import { getChannel } from '../store/channels';
 import { getGuild, getGuildRoles } from '../store/guilds';
 import { getMember, getSelfMember } from '../store/members';
+import { getRoles } from '../store/roles';
 
 // FIXME: import this namespace from types
 export namespace PermissionTypes {
@@ -118,7 +119,7 @@ export class PermService {
 
     return this.can(prereq, guildId)
       && (this.state.auth.user!.id === userMember.userId
-      || (this.isHigher(guildId, userMember.roleIds)));
+      || (this.memberIsHigher(guildId, userMember.roleIds)));
   }
 
   public canPunish(prereq: PermissionTypes.PermissionString, guildId: string, managedUserId: string) {
@@ -127,19 +128,21 @@ export class PermService {
       && this.canManage(prereq, guildId, managedUserId);
   }
 
-  public isHigher(guildId: string, roleIds: string[]) {
+  // TODO: test
+  public memberIsHigher(guildId: string, roleIds: string[]) {
     const guild = this.getGuild(guildId);
-    const member = this.getSelfMember(guildId);
+    const member = this.getSelfMember(guildId);    
+    const myRoles = getRoles(member.roleIds)(this.state);
+    const theirRoles = getRoles(roleIds)(this.state);
 
-    const joinedRoles = roleIds.concat(member.roleIds);
-    const roles = getGuildRoles(guildId)(this.state)
-      .filter(r => joinedRoles.includes(r.id));
+    const max = (key: string) => (max, val) => (max[key] > val[key]) ? max : val;
+    const myHighestRole: Entity.Role = myRoles.reduce(max('position'));
+    const theirHighestRole: Entity.Role = theirRoles.reduce(max('position'));
 
-    const highestRole = roles[roles.length - 1];
-    
-    return guild.ownerId === member.userId
-      || (member.roleIds.includes(highestRole.id)
-      && !roleIds.includes(highestRole.id));
+    const selfIsOwner = member.userId === guild.ownerId;
+    const selfHasHigherRole = myHighestRole.position >= theirHighestRole.position;    
+
+    return selfIsOwner || selfHasHigherRole;
   }
 
   private getChannel(channelId: string) {
