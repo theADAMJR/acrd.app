@@ -7,7 +7,7 @@ import Roles from '../../data/roles';
 import Users from '../../data/users';
 import Guilds from '../../data/guilds';
 import GuildMembers from '../../data/guild-members';
-import { PermissionTypes } from '../../types/permission-types';
+import { PermissionTypes, getPermString } from '../../types/permission-types';
 
 export class WSGuard {
   constructor(
@@ -38,13 +38,13 @@ export class WSGuard {
   public async validateCan(client: Socket, guildId: string, permission: PermissionTypes.PermissionString) {
     const can = await this.can(permission, guildId, this.userId(client));
     if (!can)
-      throw new TypeError(`Missing Permissions: ${permission}`);
+      throw new TypeError(`Missing Permissions: ${getPermString(permission)}`);
   }
 
   public async validateCanInChannel(client: Socket, channelId: string, permission: PermissionTypes.PermissionString) {
     const can = await this.canInChannel(permission, channelId, this.userId(client));
     if (!can)
-      throw new TypeError(`Missing Permissions: ${permission}`);
+      throw new TypeError(`Missing Permissions: ${getPermString(permission)}`);
   }
 
   private async can(permission: PermissionTypes.PermissionString, guildId: string, userId: string) {
@@ -52,7 +52,7 @@ export class WSGuard {
     const member = await this.members.getInGuild(guildId, userId);  
 
     return (guild.ownerId === member.userId)
-        || this.roles.hasPermission(guild, member, permission);
+        || this.roles.hasPermission(guild, member, PermissionTypes.All[permission]);
   }
 
   public async canInChannel(permission: PermissionTypes.PermissionString, channelId: string, userId: string) {

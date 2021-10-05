@@ -45,3 +45,14 @@ export namespace PermissionTypes {
     // | PermissionTypes.Voice.CONNECT
     // | PermissionTypes.Voice.SPEAK;
 }
+
+export function getPermString(integer: number | string): string {
+  console.log('integer', integer);
+  
+  return (typeof integer === 'string')
+    ? Object
+      .entries(PermissionTypes.All)
+      .filter(([k, v]) => Number.isInteger(+v))
+      .find(([k, v]) => k === integer || v === integer)?.[0] ?? ''
+    : integer.toString();
+}

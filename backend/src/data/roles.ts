@@ -27,7 +27,7 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
           && !theirRoleIds.includes(highestRole.id));
   }
 
-  public async hasPermission(guild: Entity.Guild, member: Entity.GuildMember, permission: PermissionTypes.PermissionString) {
+  public async hasPermission(guild: Entity.Guild, member: Entity.GuildMember, permission: PermissionTypes.Permission) {
     const guildRoles = await Role.find({ guildId: guild.id });
     const totalPerms = guildRoles
       .filter(r => member.roleIds.includes(r.id))
@@ -36,7 +36,7 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     const permNumber = (typeof permission === 'string')
       ? PermissionTypes.All[PermissionTypes.All[permission as string]]
       : permission;    
-    return hasPermission(totalPerms, permNumber as any);
+    return hasPermission(totalPerms, +permNumber);
   }
 
   public async create(guildId: string, options?: Partial<Entity.Role>) {

@@ -60,18 +60,18 @@ describe.only('ws-guard', () => {
   it('validateCan: missing SEND_MESSAGES, rejected', async () => {
     await Mock.clearRolePerms(guild);
     await expect(
-      guard.validateCan(client, guild.id, PermissionTypes.Text.SEND_MESSAGES)
+      guard.validateCan(client, guild.id, 'SEND_MESSAGES')
     ).to.be.rejectedWith('Missing Permissions: SEND_MESSAGES');
   });
   it('validateCan: has SEND_MESSAGES, fulfilled', async () => {
     await expect(
-      guard.validateCan(client, guild.id, PermissionTypes.Text.SEND_MESSAGES)
+      guard.validateCan(client, guild.id, 'SEND_MESSAGES')
     ).to.be.fulfilled;
   });
   it('validateCan: is owner, fulfilled', async () => {
     await Mock.makeGuildOwner(ws, client, guild);
     await expect(
-      guard.validateCan(client, guild.id, PermissionTypes.Text.SEND_MESSAGES)
+      guard.validateCan(client, guild.id, 'SEND_MESSAGES')
     ).to.be.fulfilled;
   });
 
