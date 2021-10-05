@@ -38,22 +38,19 @@ export class Mock {
     const guild = await this.guild();
     const guildId = guild.id;
 
-    const [user, member, role, channel] = await Promise.all([
-      User.findOne({ guildIds: guild.id }) as any as SelfUserDocument,
+    const [ownerUser, ownerMember, noobUser, noobMember, everyoneRole, textChannel] = await Promise.all([
+      User.findOne({ guildIds: guildId }) as any as SelfUserDocument,
+      GuildMember.findOne({ _id: guild.ownerId, guildId }),
+      User.findOne({ guildIds: guildId }) as any as SelfUserDocument,
       GuildMember.findOne({ _id: { $ne: guild.ownerId }, guildId }),
       Role.findOne({ guildId }),
       Channel.findOne({ guildId }),
     ]);
 
     Mock.ioClient(client);
-    ws.sessions.set(client.id, user.id);
+    ws.sessions.set(client.id, ownerUser.id);
 
-    // TODO:
-    //   rename 'user' -> ownerUser 
-    //   rename 'member' -> ownerMember
-    //   add 'ownerUser'
-    //   add 'ownerMember'
-    return { event, guild, user, member, ws, role, channel };
+    return { event, guild, ownerUser, ownerMember, noobUser, noobMember, ws, everyoneRole, textChannel };
   }
   public static async afterEach(ws) {
     ws.sessions.clear();  
@@ -161,5 +158,10 @@ export class Mock {
     await Message.deleteMany({});
     await Role.deleteMany({});
     await User.deleteMany({});
+  }
+
+  public static async makeGuildOwner(ws: any, client: any, guild: GuildDocument) {
+    ws.sessions.set(client.id, guild.ownerId);
+    await Mock.clearRolePerms(guild);
   }
 }

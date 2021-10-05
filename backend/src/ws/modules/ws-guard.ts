@@ -37,19 +37,21 @@ export class WSGuard {
 
   public async validateCan(client: Socket, guildId: string, permission: PermissionTypes.PermissionString) {
     const can = await this.can(permission, guildId, this.userId(client));
-    this.validate(can, permission);
+    if (!can)
+      throw new TypeError(`Missing Permissions: ${permission}`);
   }
 
   public async validateCanInChannel(client: Socket, channelId: string, permission: PermissionTypes.PermissionString) {
     const can = await this.canInChannel(permission, channelId, this.userId(client));
-    this.validate(can, permission);
+    if (!can)
+      throw new TypeError(`Missing Permissions: ${permission}`);
   }
 
   private async can(permission: PermissionTypes.PermissionString, guildId: string, userId: string) {
     const guild = await this.guilds.get(guildId);    
-    const member = await this.members.getInGuild(guildId, userId);
+    const member = await this.members.getInGuild(guildId, userId);  
 
-    return guild.ownerId === member.userId
+    return (guild.ownerId === member.userId)
         || this.roles.hasPermission(guild, member, permission);
   }
 
@@ -73,14 +75,7 @@ export class WSGuard {
     return (canInheritantly && !isDeniedByOverride) || isAllowedByOverride;
   }
 
-  // FIXME: you cannot combine string permissions with bitfields
-  private validate(can: boolean, permission: PermissionTypes.PermissionString) {
-    if (!can)
-      throw new TypeError(`Missing Permissions - ${permission}`);
-  }
-
   public async decodeKey(token: string) {
-    const id = this.users.verifyToken(token);      
-    return { id };
+    return { id: this.users.verifyToken(token) };      
   }
 }

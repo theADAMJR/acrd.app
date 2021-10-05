@@ -59,6 +59,6 @@ export function validateHasPermission(permission: PermissionTypes.Permission) {
     const hasPerm = await roles.hasPermission(guild, member, permission);
     if (hasPerm || isOwner) return next();
 
-    throw new APIError(401, `Missing Permissions - ${permission}`);
+    throw new APIError(401, `Missing Permissions: ${permission}`);
   };
 }
