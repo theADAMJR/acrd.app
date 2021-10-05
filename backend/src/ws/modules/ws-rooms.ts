@@ -28,10 +28,13 @@ export class WSRooms {
     const ids: string[] = [];
     const channels = await Channel.find({ guildId: { $in: guildIds }});
     
-    for (const { id } of channels)
+    for (const channel of channels)
       try {
-        await this.guard.validateCanInChannel(client, id, 'READ_MESSAGES');
-        ids.push(id);
+        // TODO: TESTME
+        if (channel.type === 'VOICE') continue;
+        
+        await this.guard.validateCanInChannel(client, channel.id, 'READ_MESSAGES');
+        ids.push(channel.id);
       } catch {}    
     return ids;
   }

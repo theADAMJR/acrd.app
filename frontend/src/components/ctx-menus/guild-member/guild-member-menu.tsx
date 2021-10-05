@@ -30,7 +30,8 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
   const canManage = perms.can('MANAGE_ROLES', guild.id);
 
   const onKickMember = () => {
-    const isConfirmed = window.confirm(`Kick ${user.username}#${user.discriminator}`);
+    const discrim = user.discriminator.toString().padStart(4, '0');
+    const isConfirmed = window.confirm(`Kick ${user.username}#${discrim}`);
     if (isConfirmed)
       dispatch(kickMember(guild.id, user.id));
   }
