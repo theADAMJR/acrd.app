@@ -16,7 +16,7 @@ import { actions as auth, logoutUser } from '../store/auth';
 import { actions as pings, addPing } from '../store/pings';
 import { useSnackbar } from 'notistack';
 import events from '../services/event-service';
-import '../services/voice-service';
+import { startVoiceFeedback, stopVoiceFeedback } from '../services/voice-service';
 
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -143,10 +143,17 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(auth.updatedUser(args));
       dispatch(users.updated(args));
     });
-    ws.on('VOICE_STATE_UPDATE', (args) => {
-      const data = { userId: args.userId, partialUser: { voice: args.voice } };
-      dispatch(auth.updatedUser(data));
+    ws.on('VOICE_STATE_UPDATE', async ({ userId, voice }) => {
+      const data = { userId, partialUser: { voice } };
+      const selfUser = state().auth.user!;
+      if (selfUser.id === userId)
+        dispatch(auth.updatedUser(data));
       dispatch(users.updated(data));
+
+      (voice.channelId)
+        // if in channel
+        ? await startVoiceFeedback(voice.channelId)
+        : stopVoiceFeedback();
     });
 
     dispatch(meta.listenedToWS());

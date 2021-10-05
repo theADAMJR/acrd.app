@@ -8,10 +8,12 @@ export class VoiceService {
     // check if user is already connected
     const connections = this.getOrCreate(channelId);
     const isConnected = connections.some(u => u.userId === userId);
+    // FIXME:
     if (!isConnected)
       throw new TypeError('Scream!');
 
     // we don't want to give user their own audio back
+    // TODO: store and filter muted connections here?
     return connections.filter(c => c.userId !== userId);
   }
   private getOrCreate(channelId: string) {

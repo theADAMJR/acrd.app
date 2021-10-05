@@ -62,7 +62,7 @@ const LoginPage: React.FunctionComponent = () => {
               register={register}
               className="mt-3"
               defaultValue={email!}
-              onInput={({ currentTarget }) => setEmail(currentTarget.value)} />
+              onInput={(e) => setEmail(e.currentTarget.value)} />
             <Input
               label="Password"
               name="password"

@@ -58,9 +58,6 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
         userId: user.id,
         voice: user.voice,
       } as WS.Args.VoiceStateUpdate);
-
-    // send empty event to initialize cycle of sending data
-    await this.voiceDataEvent.invoke(ws, client, { channelId });
   }
 
   private async updateVoiceState(user: SelfUserDocument, channelId: string) {
