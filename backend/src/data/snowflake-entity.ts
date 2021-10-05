@@ -14,9 +14,9 @@ export function generateSnowflake() {
   const wid = pad(cluster.worker?.id ?? 0, 5);
   const getInc = (add: number) => pad(inc + add, 12);
   
-  let snowflake = `0b${msSince}${wid}${pid}${getInc(0)}`;
+  let snowflake = `0b${msSince}${wid}${pid}${getInc(inc)}`;
   (snowflake === lastSnowflake)
-    ? snowflake = `0b${msSince}${wid}${pid}${getInc(1)}`
+    ? snowflake = `0b${msSince}${wid}${pid}${getInc(++inc)}`
     : inc = 0;  
 
   lastSnowflake = snowflake;   
