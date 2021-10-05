@@ -7,12 +7,9 @@ const slice = createSlice({
     hasListenedToWS: false,
   } as Store.AppState['meta'],
   reducers: {
-    fetchedEntities: (meta) => {
-      meta.fetchedEntities = true;
-    },
-    listenedToWS: (meta) => {
-      meta.hasListenedToWS = true;
-    },
+    fetchedEntities: (meta) => { meta.fetchedEntities = true },
+    listenedToWS: (meta) => { meta.hasListenedToWS = true },
+    ping: (meta, { payload }) => { meta.ping = payload },
   }
 });
 export const actions = slice.actions;
