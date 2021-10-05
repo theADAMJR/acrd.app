@@ -8,6 +8,7 @@ import { Socket } from 'socket.io';
 import { VoiceService } from '../../voice/voice-service';
 import Users from '../../data/users';
 import { SelfUserDocument } from '../../data/models/user';
+import { ChannelDocument } from '../../data/models/channel';
 
 export default class implements WSEvent<'CHANNEL_LEAVE'> {
   on = 'CHANNEL_LEAVE' as const;
@@ -22,39 +23,39 @@ export default class implements WSEvent<'CHANNEL_LEAVE'> {
     const userId = ws.sessions.get(client.id);
     const user = await this.users.getSelf(userId);
     
-    const channel = await this.channels.getVoice(user.voice.channelId);
-    if (channel.type !== 'VOICE')
+    const oldChannel = await this.channels.getSafely(user.voice.channelId);
+    if (oldChannel)
+      await this.handleExistingVC(oldChannel, userId, ws, client);
+
+    await this.updateVoiceState(user);
+
+    client.emit('VOICE_STATE_UPDATE', {
+      userId: user.id,
+      voice: user.voice,
+    } as WS.Args.VoiceStateUpdate);
+  }
+
+  private async handleExistingVC(oldChannel: ChannelDocument, userId: string, ws: WebSocket, client) {
+    if (oldChannel.type !== 'VOICE')
       throw new TypeError('You cannot leave a non-voice channel');
-    
-    // TODO: validate can join
-    const doesExist = channel.userIds.includes(userId); 
+
+    // TODO: perms - validate can leave
+    const doesExist = oldChannel.userIds.includes(userId);
     if (!doesExist)
       throw new TypeError('User not connected to voice');
 
-    // join voice server
-    this.voice.remove(channel.id, userId);
-
-    await Promise.all([
-      this.channels.leaveVC(channel, userId),
-      this.updateVoiceState(user),
-    ]);
+    // leave voice server
+    this.voice.remove(oldChannel.id, userId);
+    await this.channels.leaveVC(oldChannel, userId);
 
     ws.io
-      .to(channel.guildId)
+      .to(oldChannel.guildId)
       .emit('CHANNEL_UPDATE', {
-        channelId: channel.id,
-        partialChannel: { userIds: channel.userIds },
+        channelId: oldChannel.id,
+        partialChannel: { userIds: oldChannel.userIds },
       } as WS.Args.ChannelUpdate);
 
-    ws.io
-      .to(channel.id)
-      .emit('VOICE_STATE_UPDATE', {
-        userId: user.id,
-        voice: user.voice,
-      } as WS.Args.VoiceStateUpdate);
-
-    // leave after they receive event
-    await client.leave(channel.id);
+    await client.leave(oldChannel.id);
   }
 
   private async updateVoiceState(user: SelfUserDocument) {

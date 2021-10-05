@@ -34,6 +34,8 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
       
     else if (selfUserId !== member.userId)
       await this.guard.validateCan(client, guildId, 'KICK_MEMBERS');
+
+    // TODO: validate user is higher before kicking them
       
     const user = await this.users.getSelf(member.userId);
     const index = user.guildIds.indexOf(guildId);

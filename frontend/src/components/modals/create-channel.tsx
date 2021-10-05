@@ -23,7 +23,7 @@ const CreateChannel: React.FunctionComponent = () => {
         className="flex flex-col h-full"
         onSubmit={handleSubmit(create)}>
         <header className="text-center mb-5 p-5">
-          <h1 className="text-2xl font-bold inline">Create Text Channel</h1>
+          <h1 className="text-2xl font-bold inline">Create Channel</h1>
         </header>
       
         <div className="flex-grow p-5">

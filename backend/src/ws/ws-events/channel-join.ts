@@ -18,7 +18,6 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
     private voice = Deps.get<VoiceService>(VoiceService),
     private users = Deps.get<Users>(Users),
     private leaveEvent = Deps.get<ChannelLeave>(ChannelLeave),
-    private voiceDataEvent = Deps.get<VoiceData>(VoiceData),
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelJoin) {
@@ -37,6 +36,7 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
     if (doesExist)
       throw new TypeError('User already connected to voice');
 
+    // TODO: perms - validate can join 
     this.voice.add(channelId, { userId });
     
     await Promise.all([

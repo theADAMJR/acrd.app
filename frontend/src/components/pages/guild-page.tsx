@@ -38,7 +38,10 @@ const GuildPage: React.FunctionComponent = () => {
             <div
               style={{ height: 'calc(100vh - 48px)' }}
               className="flex">
-              {ui.activeChannel && <TextBasedChannel />}
+              {ui.activeChannel && {
+                'TEXT': <TextBasedChannel />,
+                'VOICE': <div className="w-full p-2">Add something cool here for voice channels?</div>,
+              }[channel.type]}
               <MemberList />
             </div>
           </div>

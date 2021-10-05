@@ -56,6 +56,8 @@ const WSListener: React.FunctionComponent = () => {
 
       if (selfCreated && ui.activeGuild) {
         dispatch(uiActions.closedModal());
+        if (args.channel.type === 'VOICE') return;
+
         history.push(`/channels/${ui.activeGuild.id}/${args.channel.id}`);
       }
     });

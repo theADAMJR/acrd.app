@@ -5,6 +5,8 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import Channels from '../../data/channels';
 import { WS } from '../../types/ws';
+import ChannelLeave from './channel-leave';
+import { User } from '../../data/models/user';
 
 export default class implements WSEvent<'CHANNEL_DELETE'> {
   on = 'CHANNEL_DELETE' as const;
@@ -12,13 +14,18 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
   constructor(
     private channels = Deps.get<Channels>(Channels),
     private guard = Deps.get<WSGuard>(WSGuard),
+    private channelLeaveEvent = Deps.get<ChannelLeave>(ChannelLeave),
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelDelete) {
     const channel = await this.channels.getText(channelId);
     await this.guard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
     
-    // leave rooms
+    // clean up the message
+    await User.updateMany(
+      { voice: { channelId } },
+      { voice: {} },
+    );
     ws.io.sockets.in(channelId).socketsLeave(channelId);
 
     await channel.deleteOne();
