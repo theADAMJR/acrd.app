@@ -3,6 +3,7 @@ import { GuildDocument } from '../../../src/data/models/guild';
 import { GuildMember, GuildMemberDocument } from '../../../src/data/models/guild-member';
 import { Role, RoleDocument } from '../../../src/data/models/role';
 import Roles from '../../../src/data/roles';
+import { PermissionTypes } from '../../../src/types/permission-types';
 import { Mock } from '../../mock/mock';
 
 describe('data/roles', () => {
@@ -20,21 +21,38 @@ describe('data/roles', () => {
 
   afterEach(() => Mock.cleanDB());
   
-  it('isHigher: is noob, same level role, returns false', async () => {
-    const result = await roles.isHigher(guild, noobMember, [everyoneRole.id]);
-    expect(result).to.be.false;
+  it('memberIsHigher: is noob, same level role, returns true', async () => {
+    const result = await roles.memberIsHigher(guild, noobMember, [everyoneRole.id]);
+    expect(result).to.be.true;
   });
-  it('isHigher: is owner, not highest role, returns false', async () => {
-    await Mock.role(guild);
+  it('memberIsHigher: is owner, nothing is above them, returns true', async () => {
+    const higherRole = await Mock.role(guild.id);
     const ownerMember = await GuildMember.findOne({ guildId: guild.id, userId: guild.ownerId });
     
-    const result = await roles.isHigher(guild, ownerMember, [everyoneRole.id]);
+    const result = await roles.memberIsHigher(guild, ownerMember, [higherRole.id]);
+    expect(result).to.be.true;
+  });
+  it('memberIsHigher: is noob, not highest role, returns false', async () => {
+    const higherRole = await Mock.role(guild.id);
+    
+    const result = await roles.memberIsHigher(guild, noobMember, [higherRole.id]);
     expect(result).to.be.false;
   });
-  it('isHigher: is noob, not highest role, returns true', async () => {
-    const higherRole = await Mock.role(guild);
+  it('memberIsHigher: has manager role, is higher than admin, returns false', async () => {
+    const roleManagerRole = await Mock.role(guild.id, { position: 1 });
+    const adminRole = await Mock.role(guild.id, { position: 10 });
+    noobMember.roleIds.push(roleManagerRole.id);
+    await noobMember.save();
     
-    const result = await roles.isHigher(guild, noobMember, [higherRole.id]);
+    const result = await roles.memberIsHigher(guild, noobMember, [adminRole.id]);
+    expect(result).to.be.false;
+  });
+  it('memberIsHigher: has admin role, is highest role in guild, returns true', async () => {
+    const adminRole = await Mock.role(guild.id, { position: 10 });
+    noobMember.roleIds.push(adminRole.id);
+    await noobMember.save();
+    
+    const result = await roles.memberIsHigher(guild, noobMember, [adminRole.id]);
     expect(result).to.be.true;
   });
 });

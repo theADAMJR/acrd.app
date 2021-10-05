@@ -119,8 +119,8 @@ export class Mock {
   public static channel(options?: Partial<Entity.Channel>): Promise<ChannelDocument> {
     return this.channels.create(options);
   }
-  public static role(guild: GuildDocument, permissions?: number): Promise<RoleDocument> {
-    return this.roles.create(guild.id, { permissions });
+  public static role(guildId: string, options?: Partial<Entity.Role>): Promise<RoleDocument> {
+    return this.roles.create(guildId, options);
   }
   public static invite(guildId: string, options?: InviteTypes.Options) {
     return this.invites.create({ options, guildId }, generateSnowflake());

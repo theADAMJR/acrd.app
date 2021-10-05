@@ -24,7 +24,7 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
     const userId = ws.sessions.get(client.id);
     const guild = await this.guilds.get(guildId);
     const selfMember = await this.members.getInGuild(guildId, userId);
-    const isHigher = await this.roles.isHigher(guild, selfMember, [roleId]);
+    const isHigher = await this.roles.memberIsHigher(guild, selfMember, [roleId]);
     if (!isHigher)
       throw new TypeError('You cannot manage this role');
 
