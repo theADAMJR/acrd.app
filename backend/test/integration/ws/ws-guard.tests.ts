@@ -99,7 +99,7 @@ describe.only('ws-guard', () => {
     ).to.be.rejectedWith('Missing Permissions: SEND_MESSAGES');
   });
   it('validateCanInChannel: denied inherant perms, allowed override perms, fulfilled', async () => {
-    await Mock.clearRolePerms(guild);
+    await everyoneRole.updateOne({ permissions: 0 });
     textChannel.overrides.push({
       roleId: everyoneRole.id,
       allow: PermissionTypes.Text.SEND_MESSAGES,

@@ -84,11 +84,11 @@ export class PermService {
     const cumulativeDenyPerms = overrides.reduce((prev, curr) => prev | curr.deny, 0);
 
     const permNumber = PermissionTypes.Text[permission];
-    const canInheritantly = this.can(permission, guildId);
+    const canInherently = this.can(permission, guildId);
     const isAllowedByOverride = this.hasPerm(cumulativeAllowPerms, permNumber);
     const isDeniedByOverride = this.hasPerm(cumulativeDenyPerms, permNumber);
 
-    return (canInheritantly && !isDeniedByOverride) || isAllowedByOverride;
+    return (canInherently && !isDeniedByOverride) || isAllowedByOverride;
   }
 
   public can(permission: PermissionTypes.PermissionString, guildId: string) {

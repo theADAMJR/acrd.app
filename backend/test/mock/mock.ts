@@ -41,14 +41,14 @@ export class Mock {
     const [ownerUser, ownerMember, noobUser, noobMember, everyoneRole, textChannel] = await Promise.all([
       User.findOne({ guildIds: guildId }) as any as SelfUserDocument,
       GuildMember.findOne({ _id: guild.ownerId, guildId }),
-      User.findOne({ guildIds: guildId }) as any as SelfUserDocument,
+      User.findOne({ _id: { $ne: guild.ownerId }, guildIds: guildId }) as any as SelfUserDocument,
       GuildMember.findOne({ _id: { $ne: guild.ownerId }, guildId }),
       Role.findOne({ guildId }),
       Channel.findOne({ guildId }),
     ]);
 
     Mock.ioClient(client);
-    ws.sessions.set(client.id, ownerUser.id);
+    ws.sessions.set(client.id, noobUser.id);
 
     return { event, guild, ownerUser, ownerMember, noobUser, noobMember, ws, everyoneRole, textChannel };
   }

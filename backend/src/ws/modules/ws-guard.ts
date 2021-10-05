@@ -67,12 +67,19 @@ export class WSGuard {
       Boolean(totalPerms & permission)
       || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR);
 
-    const permNumber = PermissionTypes.Text[permission];
-    const canInheritantly = await this.can(permission, channel.guildId, userId);
-    const isAllowedByOverride = has(cumulativeAllowPerms, permNumber);
-    const isDeniedByOverride = has(cumulativeDenyPerms, permNumber);
+    const permInteger = PermissionTypes.All[permission] as any as number;
+    const canInherently = await this.can(permission, channel.guildId, userId);
+    const isAllowedByOverride = has(cumulativeAllowPerms, permInteger);
+    const isDeniedByOverride = has(cumulativeDenyPerms, permInteger);
 
-    return (canInheritantly && !isDeniedByOverride) || isAllowedByOverride;
+    console.log(permInteger); // 2048
+    console.log(canInherently); // true
+    console.log(isAllowedByOverride); // false
+    console.log(isDeniedByOverride); // false
+    console.log('can', (canInherently && !isDeniedByOverride) || isAllowedByOverride);
+    
+
+    return (canInherently && !isDeniedByOverride) || isAllowedByOverride;
   }
 
   public async decodeKey(token: string) {
