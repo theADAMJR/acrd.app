@@ -18,6 +18,8 @@ export async function startVoiceFeedback(currentChannelId: string) {
 
   if (!mediaStream && !recorder)
     await startMedia();
+  if (!recorder.onstop)
+    recorder.onstop = onStop;
   
   // we start recording as soon as join a vc
   // - 100ms later, we send it to the server
@@ -33,8 +35,10 @@ export const stopVoiceFeedback = () => {
   console.log('stopping feedback');  
 
   clearTimeout(timeout);
-  if (recorder && recorder.state === 'recording')
+  if (recorder && recorder.state === 'recording') {
+    recorder.onstop = null;
     recorder.stop();
+  }
 }
 
 ws.on('VOICE_DATA', async ({ channelId, connections }) => {
@@ -59,11 +63,14 @@ async function startMedia() {
   recorder = new MediaRecorder(mediaStream);
   recorder.onstart = () => audioChunks = [];
   recorder.ondataavailable = (e) => audioChunks.push(e.data);
-  recorder.onstop = () => {
-    console.log('stop recording');
-    
-    beforeSendMs = new Date().getTime();
-    const blob = new Blob(audioChunks, { 'type': 'audio/ogg; codecs=opus' });
-    ws.emit('VOICE_DATA', { channelId, blob });
-  };
+  recorder.onstop = onStop;
+}
+
+async function onStop() {
+  console.log('stop recording');
+  
+  beforeSendMs = new Date().getTime();
+  const blob = new Blob(audioChunks, { 'type': 'audio/ogg; codecs=opus' });
+  ws.emit('VOICE_DATA', { channelId, blob });
+  recorder.onstop = onStop;
 }
