@@ -20,9 +20,9 @@ describe('data/roles', () => {
 
   afterEach(() => Mock.cleanDB());
   
-  it('memberIsHigher: is noob, same level role, returns true', async () => {
+  it('memberIsHigher: is noob, same level role, returns false', async () => {
     const result = await roles.memberIsHigher(guild, noobMember, [everyoneRole.id]);
-    expect(result).to.be.true;
+    expect(result).to.be.false;
   });
   it('memberIsHigher: is owner, nothing is above them, returns true', async () => {
     const higherRole = await Mock.role(guild.id);
@@ -46,12 +46,12 @@ describe('data/roles', () => {
     const result = await roles.memberIsHigher(guild, noobMember, [adminRole.id]);
     expect(result).to.be.false;
   });
-  it('memberIsHigher: has admin role, is highest role in guild, returns true', async () => {
+  it('memberIsHigher: has admin role, is highest role in guild, returns false', async () => {
     const adminRole = await Mock.role(guild.id, { position: 10 });
     noobMember.roleIds.push(adminRole.id);
     await noobMember.save();
     
     const result = await roles.memberIsHigher(guild, noobMember, [adminRole.id]);
-    expect(result).to.be.true;
+    expect(result).to.be.false;
   });
 });

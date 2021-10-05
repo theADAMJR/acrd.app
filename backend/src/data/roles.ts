@@ -27,7 +27,7 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     const theirHighestRole: Entity.Role = theirRoles.reduce(max('position'));
 
     const selfIsOwner = selfMember.userId === guild.ownerId;
-    const selfHasHigherRole = myHighestRole.position >= theirHighestRole.position;    
+    const selfHasHigherRole = myHighestRole.position > theirHighestRole.position;    
 
     return selfIsOwner || selfHasHigherRole;
   }

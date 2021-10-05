@@ -140,7 +140,7 @@ export class PermService {
     const theirHighestRole: Entity.Role = theirRoles.reduce(max('position'));
 
     const selfIsOwner = member.userId === guild.ownerId;
-    const selfHasHigherRole = myHighestRole.position >= theirHighestRole.position;    
+    const selfHasHigherRole = myHighestRole.position > theirHighestRole.position;    
 
     return selfIsOwner || selfHasHigherRole;
   }
