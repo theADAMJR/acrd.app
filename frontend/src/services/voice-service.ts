@@ -31,7 +31,7 @@ export async function startVoiceFeedback(channelId: string) {
   // - gap between server and client (6ms)?
   recorder.start();
   // it's waits for a response which takes 100ms, creating a hole in audio
-  timeout = setTimeout(() => recorder.stop(), 100);
+  timeout = setTimeout(() => recorder.stop(), 300);
 }
 
 export const stopVoiceFeedback = () => {

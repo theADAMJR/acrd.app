@@ -14,7 +14,8 @@ export class VoiceService {
 
     // we don't want to give user their own audio back
     // TODO: store and filter muted connections here?
-    return connections.filter(c => c.userId !== userId);
+    // - 'isMuted' as part of ChannelTypes.VoiceConnection?
+    return connections;//.filter(c => c.userId !== userId);
   }
   private getOrCreate(channelId: string) {
     return this.connections.get(channelId)
