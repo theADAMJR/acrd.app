@@ -6,6 +6,7 @@ import GuildMemberMenu from '../ctx-menus/guild-member/guild-member-menu';
 import { getGuildMembers, getGuildUsers } from '../../store/guilds';
 import { filterHoistedRoles } from '../../store/roles';
 import usePerms from '../../hooks/use-perms';
+import { useState } from 'react';
 
 const MemberList: React.FunctionComponent = () => {
   const perms = usePerms();
@@ -13,6 +14,7 @@ const MemberList: React.FunctionComponent = () => {
   const isActive = useSelector((s: Store.AppState) => s.config.memberListToggled);
   const hoistedRoles = useSelector(filterHoistedRoles(guild.id));
   const members = useSelector(getGuildMembers(guild.id));
+  const [listedUserIds, setListedUserIds] = useState([]);
 
   // get users that can view the channel
   const users = useSelector(getGuildUsers(guild.id))
@@ -48,9 +50,8 @@ const MemberList: React.FunctionComponent = () => {
   }
 
   const getRoleIds = (userId: string) => members.find(m => m.userId === userId)!.roleIds;
-  const hoisted = (user: Entity.User) => getRoleIds(user.id)
-    .some(id => hoistedRoles
-      .some(r => id === r.id));
+  const hoistedRoleIds = (user: Entity.User) => getRoleIds(user.id)
+    .filter(id => hoistedRoles.find(r => id === r.id));
 
   return (isActive) ? (
     <div className="overflow-auto bg-bg-secondary w-64">
@@ -58,13 +59,14 @@ const MemberList: React.FunctionComponent = () => {
         <UserList
           key={r.id}
           category={r.name}
-          filter={u =>
+          filter={u => (
             getRoleIds(u.id).includes(r.id)
-            && hoisted(u)
-            && u.status === 'ONLINE'} />)}
+              && hoistedRoleIds(u)[0] === r.id
+              && u.status === 'ONLINE')} />
+      )}
       <UserList
         category="Online"
-        filter={u => u.status === 'ONLINE' && !hoisted(u)} />
+        filter={u => u.status === 'ONLINE' && !hoistedRoleIds(u).length} />
       <UserList
         category="Offline"
         filter={u => u.status === 'OFFLINE'} />
