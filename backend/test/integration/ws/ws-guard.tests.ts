@@ -17,16 +17,13 @@ describe.only('ws-guard', () => {
   
   let guard: WSGuard;
   let guild: GuildDocument;
-  let ownerMember: GuildMemberDocument;
-  let noobMember: GuildMemberDocument;
   let ownerUser: SelfUserDocument;
-  let noobUser: SelfUserDocument;
   let everyoneRole: RoleDocument;
   let ws: WebSocket;
   let textChannel: ChannelDocument;
 
   beforeEach(async () => {
-    ({ ws, guild, ownerUser, noobUser, noobMember, ownerMember, everyoneRole, textChannel } = await Mock.defaultSetup(client));
+    ({ ws, guild, ownerUser, everyoneRole, textChannel } = await Mock.defaultSetup(client));
 
     guard = Deps.get<WSGuard>(WSGuard); 
   });

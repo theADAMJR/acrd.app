@@ -58,7 +58,8 @@ console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
   // import('./integration/ws/message-delete.tests'); // fail
   // import('./integration/ws/ready.tests');
   // import('./integration/ws/user-update.tests');
-  import('./integration/ws/ws-guard.tests'); // fail
+  // import('./integration/ws/ws-guard.tests');
+  import('./integration/data/roles.tests');
 
   // import('./unit/models/app.tests');
   // import('./unit/models/channel.tests');
@@ -68,7 +69,6 @@ console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
   // import('./unit/models/message.tests');
   // import('./unit/models/role.tests');
   // import('./unit/models/user.tests');
-
   // import('./unit/snowflake-entity.tests');
   // import('./unit/ws/ws-cooldowns.tests');
 })();

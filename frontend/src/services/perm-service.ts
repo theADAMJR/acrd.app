@@ -5,17 +5,17 @@ import { getMember, getSelfMember } from '../store/members';
 // FIXME: import this namespace from types
 export namespace PermissionTypes {
   export enum General {
-    MANAGE_INVITES = 2048,
     VIEW_CHANNELS = 1024,
-    // MANAGE_NICKNAMES = 512,
-    // CHANGE_NICKNAME = 256,
+    // MANAGE_NICKNAMES = 512, // change number
+    // CHANGE_NICKNAME = 256, // change number
+    MANAGE_INVITES = 256,
     CREATE_INVITE = 128,
     KICK_MEMBERS = 64,
-    // BAN_MEMBERS = 32,
+    // BAN_MEMBERS = 32, // change number
     MANAGE_CHANNELS = 16,
     MANAGE_ROLES = 8,
     MANAGE_GUILD = 4,
-    // VIEW_AUDIT_LOG = 2,
+    // VIEW_AUDIT_LOG = 2, // change number
     ADMINISTRATOR = 1,
   }
   export enum Text {
@@ -54,8 +54,9 @@ export class PermService {
       'KICK_MEMBERS': 'Ability to kick members from this guild.',
       'MANAGE_CHANNELS': 'Ability to create, edit, or delete channels.',
       'MANAGE_GUILD': `Ability to edit general guild settings.`,
-      'MANAGE_ROLES': 'Ability to manage guild roles.',
+      'MANAGE_ROLES': 'Ability to create, update, and delete guild roles.',
       'VIEW_CHANNELS': 'Ability to view channels.',
+      'MANAGE_INVITES': 'Ability to delete invites.',
     },
     text: {
       'MANAGE_MESSAGES': `Ability to manage message other member's messages.`,

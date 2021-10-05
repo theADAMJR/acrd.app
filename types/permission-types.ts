@@ -2,17 +2,17 @@
 
 export namespace PermissionTypes {
   export enum General {
-    MANAGE_INVITES = 2048,
     VIEW_CHANNELS = 1024,
-    // MANAGE_NICKNAMES = 512,
-    // CHANGE_NICKNAME = 256,
+    // MANAGE_NICKNAMES = 512, // change number
+    // CHANGE_NICKNAME = 256, // change number
+    MANAGE_INVITES = 256,
     CREATE_INVITE = 128,
     KICK_MEMBERS = 64,
-    // BAN_MEMBERS = 32,
+    // BAN_MEMBERS = 32, // change number
     MANAGE_CHANNELS = 16,
     MANAGE_ROLES = 8,
     MANAGE_GUILD = 4,
-    // VIEW_AUDIT_LOG = 2,
+    // VIEW_AUDIT_LOG = 2, // change number
     ADMINISTRATOR = 1,
   }
   export enum Text {
@@ -23,8 +23,8 @@ export namespace PermissionTypes {
     SEND_MESSAGES = 2048,
   }
   export enum Voice {
-    // MOVE_MEMBERS = 32768 * 8,
-    // MUTE_MEMBERS = 32768 * 4,
+    MOVE_MEMBERS = 32768 * 8,
+    MUTE_MEMBERS = 32768 * 4,
     SPEAK = 32768 * 2,
     CONNECT = 32768,
   }
@@ -42,13 +42,11 @@ export namespace PermissionTypes {
     | PermissionTypes.Text.SEND_MESSAGES
     | PermissionTypes.Text.READ_MESSAGES
     // | PermissionTypes.Text.ADD_REACTIONS
-    // | PermissionTypes.Voice.CONNECT
-    // | PermissionTypes.Voice.SPEAK;
+    | PermissionTypes.Voice.CONNECT
+    | PermissionTypes.Voice.SPEAK;
 }
 
-export function getPermString(integer: number | string): string {
-  console.log('integer', integer);
-  
+export function getPermString(integer: number | string): string {  
   return (typeof integer === 'string')
     ? Object
       .entries(PermissionTypes.All)

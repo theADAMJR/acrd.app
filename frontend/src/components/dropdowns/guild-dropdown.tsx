@@ -37,7 +37,9 @@ const GuildDropdown: React.FunctionComponent = () => {
             icon={faPlusCircle} />
         </a>
       )}
-      {perms.can('MANAGE_GUILD', guild.id) && (
+      {(perms.can('MANAGE_GUILD', guild.id)
+        || perms.can('MANAGE_ROLES', guild.id)
+        || perms.can('MANAGE_INVITES', guild.id)) && (
         <a onClick={() => dispatch(ui.openedModal('GuildSettings'))}
           className="rounded-sm flex items-center justify-between p-2 h-8 text-sm">
           <span className="font">Guild settings</span>

@@ -6,7 +6,6 @@ import { WSEvent, } from './ws-event';
 import { WS } from '../../types/ws';
 import Roles from '../../data/roles';
 import Guilds from '../../data/guilds';
-import { Guild } from '../../data/models/guild';
 import GuildMembers from '../../data/guild-members';
 
 export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {

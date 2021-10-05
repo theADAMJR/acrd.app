@@ -17,17 +17,27 @@ export default class Roles extends DBWrapper<string, RoleDocument> {
     return await Role.findOne({ guildId, name: '@everyone' }) as RoleDocument;
   }
 
+  // TODO: test
   public async isHigher(guild: Entity.Guild, selfMember: Entity.GuildMember, theirRoleIds: string[]) {
-    const guildRoles = await Role.find({ guildId: guild.id });
+    const [myRoles, theirRoles] = await Promise.all([
+      Role.find({ _id: { $in: selfMember.roleIds } }),
+      Role.find({ _id: { $in: theirRoleIds } }),
+    ]);
     const max = (key: string) => (max, val) => (max > val[key]) ? max : val[key];
-    const highestRole: Entity.Role = guildRoles.reduce(max('position'));
+    const myHighestRole: Entity.Role = myRoles.reduce(max('position'));
+    const theirHighestRole: Entity.Role = theirRoles.reduce(max('position'));
 
-    return selfMember.userId === guild.ownerId
-      || (selfMember.roleIds.includes(highestRole.id)
-          && !theirRoleIds.includes(highestRole.id));
+    const selfIsOwner = selfMember.userId === guild.ownerId;
+    const selfHasHigherRole = myHighestRole.position >= theirHighestRole.position;
+    
+    console.log('isOwner', selfMember.userId);
+    console.log('isOwner', guild.ownerId);
+    console.log('selfHasHigherRole', selfHasHigherRole);
+
+    return !selfIsOwner && !selfHasHigherRole;
   }
 
-  public async hasPermission(guild: Entity.Guild, member: Entity.GuildMember, permission: PermissionTypes.Permission) {
+  public async hasPermission(guild: Entity.Guild, member: Entity.GuildMember, permission: PermissionTypes.Permission | string) {
     const guildRoles = await Role.find({ guildId: guild.id });
     const totalPerms = guildRoles
       .filter(r => member.roleIds.includes(r.id))
