@@ -3,7 +3,6 @@ import { GuildDocument } from '../../../src/data/models/guild';
 import { GuildMember, GuildMemberDocument } from '../../../src/data/models/guild-member';
 import { Role, RoleDocument } from '../../../src/data/models/role';
 import Roles from '../../../src/data/roles';
-import { PermissionTypes } from '../../../src/types/permission-types';
 import { Mock } from '../../mock/mock';
 
 describe('data/roles', () => {
