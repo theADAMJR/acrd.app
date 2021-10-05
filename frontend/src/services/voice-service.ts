@@ -3,30 +3,32 @@ import ws from './ws-service';
 let timeout: NodeJS.Timeout;
 let beforeSendMs: number;
 let afterSendMs: number;
+let mediaStream: MediaStream;
+let recorder: MediaRecorder;
+let audioChunks: Blob[] = [];
+
 
 // start feedback cycle w/ server and client (EMIT voice_data via client when in vc)
 // - as soon as we are in a vc, we send updates
 // - (Client) EMIT VOICE_DATA -> (Server) EMIT VOICE_DATA
 //                    ^______________|
 export async function startVoiceFeedback(channelId: string) {
-  console.log('start feedback');
-  
-
-  let audioChunks: Blob[] = [];
-  const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-  const recorder = new MediaRecorder(mediaStream);
-
   afterSendMs = new Date().getTime();
   const wsPing = afterSendMs - beforeSendMs;
+  console.log('start feedback', wsPing);
 
-  recorder.onstart = () => audioChunks = [];
-  recorder.ondataavailable = (e) => audioChunks.push(e.data);
-  recorder.onstop = () => {
-    beforeSendMs = new Date().getTime();   
-    const blob = new Blob(audioChunks, { 'type': 'audio/ogg; codecs=opus' });
-    ws.emit('VOICE_DATA', { channelId, blob });
+  if (!mediaStream && !recorder) {
+    mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    recorder = new MediaRecorder(mediaStream);
+    recorder.onstart = () => audioChunks = [];
+    recorder.ondataavailable = (e) => audioChunks.push(e.data);
+    recorder.onstop = () => {
+      beforeSendMs = new Date().getTime();   
+      const blob = new Blob(audioChunks, { 'type': 'audio/ogg; codecs=opus' });
+      ws.emit('VOICE_DATA', { channelId, blob });
+    }
   }
-
+  
   // we start recording as soon as join a vc
   // - 100ms later, we send it to the server
   // - server sends audio and is played on client
