@@ -42,7 +42,7 @@ const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
   const SaveChanges = () => (
     <div
       id="saveChanges"
-      className="flex justify-between rounded bg-black p-3 px-5"
+      className="opacity-95 flex justify-between rounded bg-black p-3 px-5"
       style={{ width: '50vw' }}>
       <span className="flex items-center flex-grow-1">Careful — you have unsaved changes!</span>
       <span>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getGuildRoles } from '../../../store/guilds';
 import { useState } from 'react';
 import { updateMember } from '../../../store/members';
+import usePerms from '../../../hooks/use-perms';
 
 export interface RoleManagerProps {
   member: Entity.GuildMember;
@@ -12,6 +13,7 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
   const removeEveryone = (arr: any[]) => arr.slice(1);
   const slicedRoleIds = removeEveryone(member.roleIds);
 
+  const perms = usePerms();
   const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const roles = removeEveryone(useSelector(getGuildRoles(guild.id)));
@@ -26,7 +28,7 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
       ...styles,
       color: data.color,
       backgroundColor: 'var(--bg-secondary)',
-      cursor: 'pointer',
+      cursor: (data.disabled) ? 'not-allowed' : 'pointer',
     }),
     input: (styles) => ({ ...styles, color: 'var(--font)' }),
     menu: (styles) => ({
@@ -48,11 +50,15 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
   };
   
   const rolesHaveChanged = JSON.stringify(roleIds) !== JSON.stringify(slicedRoleIds);
-  const roleOption = (role: Entity.Role) => ({
-    label: role.name,
-    value: role.id,
-    color: role.color,
-  });
+  const roleOption = (role: Entity.Role) => {
+    const memberIsHigher = perms.memberIsHigher(guild.id, [role.id]);
+    return {
+      label: role.name,
+      value: role.id,
+      color: (memberIsHigher) ? role.color : 'var(--muted)',
+      disabled: !memberIsHigher,
+    }
+  };
   
   return (
     <div onClick={e => e.preventDefault()}>
@@ -63,6 +69,7 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
         })}
         name="colors"
         options={roles.map(roleOption)}
+        isOptionDisabled={(option) => option.disabled}
         onChange={options => setRoleIds(options.map(o => o.value))}
         onMenuClose={() => rolesHaveChanged && dispatch(updateMember(member.id, { roleIds }))}
         styles={colorStyles}

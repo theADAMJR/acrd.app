@@ -47,7 +47,7 @@ export default class implements WSEvent<'READY'> {
   }
 
   private async handleUser(ws: WebSocket, user: SelfUserDocument) {
-    if (user.status === 'ONLINE') return;
+    // if (user.status === 'ONLINE') return;
 
     user.status = 'ONLINE';
     await user.save();
