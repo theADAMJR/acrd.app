@@ -22,15 +22,15 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
   public async invoke(ws: WebSocket, client: Socket, { channelId, content, embed }: WS.Params.MessageCreate) {
     const authorId = ws.sessions.userId(client);
     
-    const [_, message, author] = await Promise.all([
+    const [channel, _, message, author] = await Promise.all([
+      this.channels.get(channelId),
       this.guard.validateCanInChannel(client, channelId, 'SEND_MESSAGES'), 
       this.messages.create(authorId, channelId, { content, embed }),
       this.users.getSelf(authorId),
     ]);
 
-    // FIXME:
-    // if (channel.type === 'VOICE')
-    //   throw new TypeError('You cannot send messages in a voice channel');
+    if (channel.type === 'VOICE')
+      throw new TypeError('You cannot send messages in a voice channel');
 
     author.lastReadMessageIds ??= {};
     author.lastReadMessageIds[channelId] = message.id;
