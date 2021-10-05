@@ -34,13 +34,12 @@ const CreateChannel: React.FunctionComponent = () => {
         </div>
       
       <div className="flex-grow pt-0 p-5">
-        {/* TODO: clean up style code */}
         <label
           htmlFor="channelType"
           className="uppercase text-xs font-semibold">Channel Type</label>
         <select
           id="channelType"
-          className="mt-2"
+          className="block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2"
           defaultValue={types[0]}
           {...register('type')}>
           {types.map(type => <option key={type} value={type}>{type}</option>)}
