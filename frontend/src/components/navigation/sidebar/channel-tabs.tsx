@@ -23,8 +23,8 @@ const ChannelTabs: React.FunctionComponent = () => {
 
   const ChannelTab = ({ channel }: { channel: Entity.Channel }) => {
     const link = (channel.type === 'VOICE')
-      ? '#' :
-      `/channels/${activeGuild!.id}/${channel.id}`;
+      ? '#'
+      : `/channels/${activeGuild!.id}/${channel.id}`;
     const icon = { 'TEXT': faHashtag, 'VOICE': faVolumeUp }[channel.type];
 
     const onClick = () => {
@@ -35,14 +35,13 @@ const ChannelTabs: React.FunctionComponent = () => {
 
     const VCMembers = () => {
       const users = useSelector(getChannelUsers(channel.id));
-      const guild = useSelector(getGuild(channel.guildId));
 
       if (channel.type !== 'VOICE' || !users.length) return null;
 
       return <div className="p-2 pl-3">{users.map(u =>
         <ContextMenuTrigger key={u.id} id={u.id}>
           <div className="mb-1">
-            <Username user={u} size="sm" guild={guild} />
+            <Username user={u} size="sm" guild={activeGuild} />
           </div>
         </ContextMenuTrigger>
       )}</div>;
@@ -59,14 +58,21 @@ const ChannelTabs: React.FunctionComponent = () => {
               { active: channel.id === activeChannel?.id },
             )}>
             <FontAwesomeIcon
-              className={`float-left scale-150 muted fill-current ${
-                channel.type === 'VOICE' ? 'mr-2' : 'mr-3'
-              }`}
+              className={classNames(
+                `float-left scale-150 muted fill-current`,
+                (channel.type === 'VOICE') ? 'mr-2' : 'mr-3',
+              )}
               icon={icon} />
             <span className="tab flex-grow flex justify-between">
               <span>{channel.name}</span>
               <span
-                onClick={() => dispatch(ui.openedModal('ChannelSettings'))}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  
+                  dispatch(ui.pageSwitched({ channel, guild: activeGuild }));
+                  dispatch(ui.openedModal('ChannelSettings'));
+                }}
                 className="cursor-pointer opacity-100">
                 {perms.can('MANAGE_CHANNELS', activeGuild.id)
                   && <FontAwesomeIcon className="settings" icon={faCog} />}

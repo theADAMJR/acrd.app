@@ -23,7 +23,9 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
     if (name) partialChannel.name = name;
     if (overrides) partialChannel.overrides = overrides;
     if (summary) partialChannel.summary = summary;
-    await channel.updateOne(partialChannel as any, { runValidators: true });
+
+    Object.assign(channel, partialChannel);
+    await channel.save();
 
     ws.io
       .to(channel.guildId)
