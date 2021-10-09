@@ -49,8 +49,10 @@ const SidebarFooter: React.FunctionComponent = () => {
   return (
     <div className="bg-bg-secondary-alt">
       <VoiceFooter />
-      <div className="select-all relative flex items-center py-2">
-        <Username user={user} />
+      <div className="relative flex items-center py-2">
+        <div className="select-all">
+          <Username user={user} />
+        </div>
         <FontAwesomeIcon
           onClick={() => dispatch(ui.openedModal('UserSettings'))}
           className="float-right cursor-pointer absolute right-4"
