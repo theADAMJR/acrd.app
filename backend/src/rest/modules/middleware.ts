@@ -14,7 +14,7 @@ const users = Deps.get<Users>(Users);
 export async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
     const token = req.get('Authorization') as string;    
-    const id = users.idFromAuth(token);    
+    const id = await users.idFromToken(token);    
 
     res.locals.user = await users.getSelf(id);
   } finally {

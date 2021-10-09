@@ -50,7 +50,7 @@ export class REST {
     
     this.app.use(`${this.prefix}/auth`, authRoutes);
     this.app.use(`${this.prefix}/invites`, invitesRoutes);
-    // this.app.use(`${this.prefix}/devs`, devRoutes);
+    // this.app.use(`${this.prefix}/dev`, devRoutes);
     this.app.use(`${this.prefix}/channels`, channelsRoutes);
     this.app.use(`${this.prefix}/guilds`, guildsRoutes);
     this.app.use(`${this.prefix}/users`, usersRoutes);

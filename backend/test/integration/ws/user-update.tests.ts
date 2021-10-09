@@ -68,7 +68,7 @@ describe.only('user-update', () => {
   }
 
   async function regenToken(id = user.id) {
-    token = Deps
+    token = await Deps
       .get<Users>(Users)
       .createToken(id, false);
   }

@@ -8,6 +8,18 @@ Custom Frontend and Backend that is similar to Discord.
 <a href="https://ibb.co/st2q2B0"><img src="https://i.ibb.co/fQ2H2ch/Screenshot-from-2021-08-30-11-55-01.png" alt="Screenshot-from-2021-08-30-11-55-01" border="0" /></a>
 <a href="https://ibb.co/SydPgTY"><img src="https://i.ibb.co/qjWd8Gq/Screenshot-from-2021-08-30-13-30-43.png" alt="Screenshot-from-2021-08-30-13-30-43" border="0" /></a>
 
+---
+
+## Setup
+
+1. Clone the repo.
+2. Generate SSH keys.
+   From app folder: `mkdir -p backend/keys && ssh-keygen -t rsa -b 2048 -m PEM -f backend/keys/accord.app`
+3. Install npm packages.
+   From app folder: `cd frontend && npm i && cd ../backend && npm i`
+
+---
+
 ## Features
 
 - **Server Channels**

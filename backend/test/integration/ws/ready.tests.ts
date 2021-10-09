@@ -24,7 +24,7 @@ describe('ready', () => {
     ({ event, user, ws, guild } = await Mock.defaultSetup(client, Ready));
 
     users = new Users();
-    token = users.createToken(user.id);
+    token = await users.createToken(user.id);
   });
 
   afterEach(async () => await Mock.afterEach(ws));
@@ -102,6 +102,6 @@ describe('ready', () => {
   }
   async function makeOwner() {
     ws.sessions.set(client.id, guild.ownerId);
-    token = users.createToken(user.id);
+    token = await users.createToken(user.id);
   }
 });

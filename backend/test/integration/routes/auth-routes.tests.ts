@@ -36,7 +36,7 @@ describe.skip('auth-routes', () => {
     }) as any;
     credentials.email = user.email; 
 
-    authorization = `Bearer ${users.createToken(user.id)}`;
+    authorization = `Bearer ${await users.createToken(user.id)}`;
   });
 
   afterEach(async () => await Mock.cleanDB());

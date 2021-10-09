@@ -23,7 +23,7 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
     codeLine: /`(.*?)`/gs,
     blockQuoteMultiline: />>> (.*)/gs,
     blockQuoteLine: /^> (.*)$/gm,
-    url: /http:\/\/(.*)|https:\/\//gm,
+    url: /(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))/gm,
   }
 
   const format = (content: string) => content

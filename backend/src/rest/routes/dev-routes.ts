@@ -43,7 +43,7 @@ router.get('/apps/new', async (req, res) => {
     username: app.name,
     password: generateInvite(),
   }, true)).id;
-  app.token = users.createToken(user.id, false);
+  app.token = await users.createToken(user.id, false);
   await app.save();
 
   res.json(app);
@@ -60,9 +60,9 @@ router.get('/apps/:id', async (req, res) => {
 router.patch('/apps/:id', async (req, res) => {
   const app = await App.findById(req.params.id);
   if (!app || app.ownerId !== res.locals.user.id)
-    return res.status(403).json({ message: 'Forbidden' });
-
-  guard.validateKeys('app', req.body);
+  return res.status(403).json({ message: 'Forbidden' });
+  
+  // FIXME: don't use req.body
   await app.update(req.body, { runValidators: true });
   res.json(app);
 });
@@ -72,7 +72,8 @@ router.get('/apps/:id/regen-token', async (req, res) => {
   if (!app || app.ownerId !== res.locals.user.id)
     return res.status(403).json({ message: 'Forbidden' });
 
-  app.token = users.createToken(app.userId, false);
+  const pureAppUser = await users.getPure(app.userId);
+  app.token = await users.createToken(pureAppUser, false);
   await app.save();
 
   res.json(app.token);

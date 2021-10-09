@@ -1,11 +1,15 @@
 import DBWrapper from './db-wrapper';
 import jwt from 'jsonwebtoken';
-import { SelfUserDocument, User, UserDocument } from './models/user';
+import { PureUserDocument, SelfUserDocument, User, UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
 import { APIError } from '../rest/modules/api-error';
 import { GuildMember } from './models/guild-member';
 import { Guild, GuildDocument } from './models/guild';
-import { UpdateQuery } from 'mongoose';
+import { UpdateQuery, connection } from 'mongoose';
+import { promisify } from 'util';
+import { readFile } from 'fs';
+
+const readFileAsync = promisify(readFile);
 
 export default class Users extends DBWrapper<string, UserDocument> {
   public async get(id: string | undefined): Promise<UserDocument> {
@@ -16,7 +20,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
     return this.secure(user);
   }
 
-  // TODO: test that this is fully secure
+  // TODO: TESTME
   public secure(user: UserDocument): UserDocument {
     const u = user as any;
     u.email = undefined;
@@ -25,6 +29,13 @@ export default class Users extends DBWrapper<string, UserDocument> {
     u.lastReadMessageIds = undefined;
     u.verified = undefined;
     return u;
+  }
+  public async getPure(id: string | undefined): Promise<PureUserDocument> {
+    const users = connection.db.collection('users');
+    const user = await users.findOne({ _id: id });
+    if (!user)
+      throw new TypeError('User not found');
+    return user;
   }
 
   public async getSelf(id: string | undefined): Promise<SelfUserDocument> {
@@ -55,21 +66,24 @@ export default class Users extends DBWrapper<string, UserDocument> {
     await User.updateOne({ _id: id }, partial);
   }
 
-  public createToken(userId: string, expire = true) {
+  public async createToken(user: SelfUserDocument, expire = true) {
+    // too insecure to keep in memory
+    const key = await readFileAsync('./keys/accord.app', { encoding: 'utf-8' });
     return jwt.sign(
-      { _id: userId },
-      'secret',
-      (expire) ? { expiresIn: '7d' } : {},
+      { id: user.id },
+      key,
+      { algorithm: 'RS256', expiresIn: (expire) ? '7d' : undefined },
     );
   }
-
-  public idFromAuth(auth: string | undefined): string {
+  public async idFromToken(auth: string | undefined): Promise<string> {
     const token = auth?.slice('Bearer '.length);
-    return this.verifyToken(token);
+    return await this.verifyToken(token);
   }
-  public verifyToken(token: string | undefined): string {
-    const decoded = jwt.verify(token as string, 'secret') as UserToken;
-    return decoded?._id;
+  public async verifyToken(token: string | undefined): Promise<string> {
+    // too insecure to keep in memory
+    const key = await readFileAsync('./keys/accord.app', { encoding: 'utf-8' });  
+    const decoded = jwt.verify(token as string, key, { algorithms: ['RS256'] }) as UserToken;    
+    return decoded?.id;
   }
 
   public async getUserGuilds(userId: string): Promise<GuildDocument[]> {
@@ -101,4 +115,4 @@ export default class Users extends DBWrapper<string, UserDocument> {
   }
 }
 
-interface UserToken { _id: string };
+interface UserToken { id: string };

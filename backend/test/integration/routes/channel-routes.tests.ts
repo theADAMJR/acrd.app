@@ -25,7 +25,7 @@ describe('channel-routes', () => {
     channel = guild.channels[0];
     user = await users.get(guild.ownerId);
 
-    authorization = `Bearer ${users.createToken(user.id)}`;
+    authorization = `Bearer ${await users.createToken(user.id)}`;
   });
 
   afterEach(async () => await Mock.cleanDB());

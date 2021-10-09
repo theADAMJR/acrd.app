@@ -72,17 +72,10 @@ export class WSGuard {
     const isAllowedByOverride = has(cumulativeAllowPerms, permInteger);
     const isDeniedByOverride = has(cumulativeDenyPerms, permInteger);
 
-    console.log(permInteger); // 2048
-    console.log(canInherently); // true
-    console.log(isAllowedByOverride); // false
-    console.log(isDeniedByOverride); // false
-    console.log('can', (canInherently && !isDeniedByOverride) || isAllowedByOverride);
-    
-
     return (canInherently && !isDeniedByOverride) || isAllowedByOverride;
   }
 
   public async decodeKey(token: string) {
-    return { id: this.users.verifyToken(token) };      
+    return { id: await this.users.verifyToken(token) };      
   }
 }

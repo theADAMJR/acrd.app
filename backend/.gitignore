@@ -1,4 +1,5 @@
 .env
 
+keys/
 node_modules/
 lib/

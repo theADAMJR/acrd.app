@@ -21,6 +21,10 @@ export interface SelfUserDocument extends Document, UserTypes.Self {
   changePassword: (...args) => Promise<any>;
   register: (...args) => Promise<any>;
 }
+export interface PureUserDocument extends SelfUserDocument {
+  hash: string;
+  salt: string;
+}
 
 export const User = model<UserDocument>('user', new Schema({
   _id: {

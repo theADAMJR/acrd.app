@@ -33,7 +33,7 @@ router.post('/login', (req, res, next) => {
         message: 'Check your email for a verification code',
       });
     }
-    res.status(201).json({ token: users.createToken(user.id) });
+    res.status(201).json({ token: await users.createToken(user) });
   });
 
 router.post('/register', async (req, res) => {
@@ -45,7 +45,7 @@ router.post('/register', async (req, res) => {
 
   await sendEmail.verifyEmail(user.email, user);
 
-  res.status(201).json(users.createToken(user.id));
+  res.status(201).json(await users.createToken(user));
 });
 
 router.get('/verify', async (req, res) => {
@@ -69,7 +69,7 @@ router.get('/verify', async (req, res) => {
     await user.save();
     res.json({ message: 'Email verified' });
   } else if (code.type === 'LOGIN')
-    res.json({ token: users.createToken(user.id) });
+    res.json({ token: await users.createToken(user) });
 });
 
 router.get('/email/forgot-password', async (req, res) => {
@@ -102,6 +102,6 @@ router.post('/change-password', async (req, res) => {
 
   return res.status(200).json({
     message: 'Password changed',
-    token: users.createToken(user.id),
+    token: await users.createToken(user),
   } as REST.From.Post['/auth/change-password']);
 });
