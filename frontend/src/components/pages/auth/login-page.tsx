@@ -8,7 +8,8 @@ import PageWrapper from '../page-wrapper';
 import Input from '../../utils/input/input';
 import NormalButton from '../../utils/buttons/normal-button';
 import { loginUser, forgotPasswordEmail, sendVerifyCode } from '../../../store/auth';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import VerifyCodeInput from './verify-code-input';
 
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -17,29 +18,6 @@ const LoginPage: React.FunctionComponent = () => {
   const shouldVerify = useSelector((s: Store.AppState) => s.auth.shouldVerify);
   const query = new URLSearchParams(useLocation().search);
   const [email, setEmail] = useState(query.get('email') ?? '');
-
-  const VerifyCodeInput = () => {
-    const verifyForm = useForm();
-    const onVerify = () => dispatch(sendVerifyCode(verifyForm.getValues().code));
-    
-    return (
-      <div>
-        <hr className="border-gray-500 my-4" />
-        <div className="flex items-end">
-          <Input
-            type="text" 
-            name="code"
-            label="Verify Code"
-            className="w-full mr-2"
-            register={verifyForm.register} />
-          <NormalButton
-            type="button"
-            onClick={onVerify}
-            className="bg-success text-black h-10">Verify</NormalButton>
-        </div>
-      </div>
-    );
-  }
 
   const onLogin = (data) => dispatch(loginUser(data));
   const resetPassword = () => dispatch(forgotPasswordEmail(getValues().email));
