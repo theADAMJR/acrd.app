@@ -31,8 +31,7 @@ const LoginPage: React.FunctionComponent = () => {
             className="rounded-md shadow bg-bg-primary p-8"
             onSubmit={handleSubmit(onLogin)}>
             <h1 className="text-3xl font-bold">Welcome back!</h1>
-            {/* <p className="lead">We're so excited to see you again!</p> */}
-            <a className="text-sm" href="https://github.com/accord-dot-app/app/issues/15#issuecomment-926652008" target="_blank">Email not working? Try '(username)-(discriminator)@example.com'.</a>
+            <p className="lead">We're so excited to see you again!</p>
 
             <Input
               label="Email"

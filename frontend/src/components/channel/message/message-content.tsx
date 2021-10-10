@@ -2,6 +2,7 @@ import MessageBox from '../message-box';
 import defaultPatterns from '../../../types/patterns';
 import { FunctionComponent } from 'react';
 import { useSelector } from 'react-redux';
+import striptags from 'striptags';
 
 interface MessageContentProps {
   message: Entity.Message;
@@ -51,7 +52,7 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
         style={{maxWidth: '963px'}}
         className="normal whitespace-pre-wrap">
         <div
-          dangerouslySetInnerHTML={{ __html: `${format(message.content)}` }}
+          dangerouslySetInnerHTML={{ __html: `${format(striptags(message.content))}` }}
           className="float-left overflow-auto"
           style={{ maxWidth: '100%' }} />
         {message.updatedAt && <span className="select-none muted edited text-xs ml-1">(edited)</span>}
