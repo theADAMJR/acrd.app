@@ -1,3 +1,5 @@
+import './home-page.scoped.css';
+
 import { Link } from 'react-router-dom';
 import Navbar from '../navigation/navbar';
 import PageWrapper from './page-wrapper';
@@ -6,10 +8,19 @@ import Chat from '../../assets/home/chat.svg';
 import Devices from '../../assets/home/devices.svg';
 import Friends from '../../assets/home/friends.svg';
 import Secure from '../../assets/home/secure.svg';
-
-import './home-page.scoped.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { countUsers } from '../../store/users';
+import NumberFormat from 'react-number-format';
 
 const HomePage: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
+  const userCount = useSelector((s: Store.AppState) => s.meta.userCount);
+  
+  useEffect(() => {
+    setTimeout(() => dispatch(countUsers()), 1000);
+  }, []);
+
   const ImageCard = (props: { title: string, src: any }) => (
     <div>
       <h3 className="text-center text-1xl font-black font mb-4">{props.title}</h3>
@@ -37,7 +48,16 @@ const HomePage: React.FunctionComponent = () => {
         <h1>It's time to ditch Discord and Zoom.</h1>
         <div className="flex justify-center">
           <div className="lead font-light mt-2 max-w-xl">
-            All-in-one guild and text chat for you that's free, secure, and works on both your desktop and phone. Stop paying for Discord guild boosts and hassling with Zoom. Simplify your life.
+            All-in-one text and voice chat, just like Discord.
+            Stop paying for Discord boosts and hassling with Zoom. 
+            {userCount && (
+              <span className="pl-1">
+                Join <NumberFormat
+                value={userCount}
+                displayType={'text'}
+                thousandSeparator={true}/> Accord users that simplified their life.
+              </span>
+            )}
           </div>
         </div>
         <button className="font-primary shadow-md bg-green text-dark">

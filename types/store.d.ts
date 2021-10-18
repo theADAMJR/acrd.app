@@ -33,6 +33,7 @@ declare namespace Store {
       fetchedEntities: boolean;
       hasListenedToWS: boolean;
       ping?: number;
+      userCount?: number;
     };
     ui: {
       openDropdown?: string;

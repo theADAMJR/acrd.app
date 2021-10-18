@@ -1,6 +1,7 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
+import { actions as meta } from './meta';
 import { unique } from './utils/filter';
 import { token } from './utils/rest-headers';
 
@@ -55,6 +56,13 @@ export const deleteSelf = () => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'USER_DELETE',
     data: { token: token() } as WS.Params.UserDelete,
+  }));
+}
+
+export const countUsers = () => (dispatch) => {
+  dispatch(api.restCallBegan({
+    onSuccess: [meta.updatedUserCount.type],
+    url: '/users/count',
   }));
 }
 

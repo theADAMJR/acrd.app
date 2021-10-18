@@ -28,7 +28,7 @@ export default store => next => async action => {
     callback && callback(payload);
   } catch (error) {
     const response = (error as any).response;
-    store.dispatch(actions.restCallFailed(response));
+    store.dispatch(actions.restCallFailed({ url, response }));
     store.dispatch(openDialog({
       content: response?.data?.message ?? 'Unknown Error',
       variant: 'error',

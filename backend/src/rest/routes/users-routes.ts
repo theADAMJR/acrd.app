@@ -18,6 +18,11 @@ router.get('/', updateUser, validateUser, async (req, res) => {
   res.json(knownUsers);
 });
 
+router.get('/count', async (req, res) => {
+  const count = await User.countDocuments();
+  res.json(count);
+});
+
 router.delete('/:id', updateUser, validateUser, async (req, res) => {
   const user = res.locals.user;
   user.username = `deleted-user-${generateInvite(6)}`;
