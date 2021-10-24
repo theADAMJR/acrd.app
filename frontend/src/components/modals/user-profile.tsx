@@ -1,5 +1,6 @@
 import { faBug, faGavel, faSun, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
 import { FunctionComponent, useState } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { getGuild } from '../../store/guilds';
@@ -66,7 +67,14 @@ const UserProfile: FunctionComponent = () => {
     </div>
   ) : null;
 
-  const UserInfo = () => (<div />);
+  const UserInfo = () => (user) ? (
+    <div className="grid grid-cols-2">
+      <div className="col-span-1">
+        <strong>Created: </strong>
+        <span title={user.createdAt.toString()}>{moment(user.createdAt).format('DD/MM/YYYY')}</span>
+      </div>
+    </div>
+  ) : null;
 
   const UserMutualGuilds = () => {
     const store = useStore();
@@ -78,7 +86,7 @@ const UserProfile: FunctionComponent = () => {
       .map(id => getGuild(id)(store.getState()));
     
     return (
-      <div className="m-2">
+      <div>
         <Category
           title={`${mutualGuilds.length} Mutual Guilds`}
           className="mb-2" />
