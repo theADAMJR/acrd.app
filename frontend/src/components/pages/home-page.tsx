@@ -18,7 +18,7 @@ const HomePage: React.FunctionComponent = () => {
   const userCount = useSelector((s: Store.AppState) => s.meta.userCount);
   
   useEffect(() => {
-    setTimeout(() => dispatch(countUsers()), 1000);
+    setInterval(() => dispatch(countUsers()), 3000);
   }, []);
 
   const ImageCard = (props: { title: string, src: any }) => (
