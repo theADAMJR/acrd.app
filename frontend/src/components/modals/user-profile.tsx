@@ -1,12 +1,16 @@
 import { faBug, faGavel, faSun, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FunctionComponent, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
+import { getGuild } from '../../store/guilds';
+import SidebarIcon from '../navigation/sidebar/sidebar-icon';
 import Username from '../user/username';
+import Category from '../utils/category';
 import NavTabs from '../utils/nav-tabs';
 import Modal from './modal';
 
 const UserProfile: FunctionComponent = () => {
+  const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
   const user = useSelector((s: Store.AppState) => s.ui.activeUser);
   const [tab, setTab] = useState('info');
 
@@ -63,8 +67,32 @@ const UserProfile: FunctionComponent = () => {
   ) : null;
 
   const UserInfo = () => (<div />);
-  // TODO: show guilds that self user and active user are both in
-  const UserMutualGuilds = () => (<p>Feature in development.</p>);
+
+  const UserMutualGuilds = () => {
+    const store = useStore();
+
+    if (!user) return null;
+    
+    const mutualGuilds = selfUser.guildIds
+      .filter(id => user.guildIds.includes(id))
+      .map(id => getGuild(id)(store.getState()));
+    
+    return (
+      <div className="mx-4">
+        <Category
+          title={`${mutualGuilds.length} Mutual Guilds`}
+          className="mb-2" />
+        {mutualGuilds.map(guild => (guild)
+            ? <div className="w-12 -ml-2 float-left">
+                <SidebarIcon
+                  imageURL={guild.iconURL}
+                  name={guild.name} />
+              </div>
+            : null,
+        )}
+      </div>
+    );
+  }
 
   return (user) ? (
     <Modal
