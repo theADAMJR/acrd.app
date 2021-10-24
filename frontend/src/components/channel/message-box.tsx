@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -12,6 +12,8 @@ import { getUser } from '../../store/users';
 export interface MessageBoxProps {
   content?: string;
   editingMessageId?: string;
+  cachedContent: Util.Dictionary;
+  setCachedContent: any;
 }
  
 const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
@@ -22,6 +24,11 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const typers = useSelector(getTypersInChannel(channel.id));
   const perms = usePerms();
+
+  useEffect(() => {
+    const messageBox = document.querySelector('#messageBox') as HTMLTextAreaElement;
+    messageBox.value = props.cachedContent[channel.id] ?? '';
+  }, [channel.id]);
   
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     handleEscape(event);
@@ -36,6 +43,9 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
       || !emptyMessage) return;
     
     saveEdit();
+
+    props.cachedContent[channel.id] = content;
+    props.setCachedContent(props.cachedContent);
   }
 
   const saveEdit = () => {
@@ -63,7 +73,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     const typingUsers = typers.map(t => user(t.userId)!.username).join(', ');
     return (typers.length > maxTypers)
       ? 'Many users are typing...'
-      : `${typingUsers} is typing...`
+      : `${typingUsers} is typing...`;
   }
 
   const canSend = perms.canInChannel('SEND_MESSAGES', guild.id, channel.id);

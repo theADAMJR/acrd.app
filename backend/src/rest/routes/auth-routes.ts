@@ -15,7 +15,7 @@ const sendEmail = Deps.get<EmailFunctions>(EmailFunctions);
 const users = Deps.get<Users>(Users);
 const verification = Deps.get<Verification>(Verification);
 
-router.post('/login', extraRateLimit(30), (req, res, next) => {
+router.post('/login', extraRateLimit(25), (req, res, next) => {
   req['flash'] = (_: string, message: string) => res.status(400).json({ message });
   next();
 }, passport.authenticate('local', {
@@ -37,7 +37,7 @@ router.post('/login', extraRateLimit(30), (req, res, next) => {
     res.status(201).json({ token: await users.createToken(user) });
   });
 
-router.post('/register', extraRateLimit(3), async (req, res) => {
+router.post('/register', extraRateLimit(5), async (req, res) => {
   const user = await users.create({
     email: req.body.email,
     password: req.body.password,
@@ -49,7 +49,7 @@ router.post('/register', extraRateLimit(3), async (req, res) => {
   res.status(201).json(await users.createToken(user));
 });
 
-router.get('/verify', extraRateLimit(30), async (req, res) => {
+router.get('/verify', extraRateLimit(25), async (req, res) => {
   const email = verification.getEmailFromCode(req.query.code as string);
   const user = await User.findOne({ email }) as any;  
   if (!email || !user)
@@ -89,7 +89,7 @@ router.get('/email/forgot-password', extraRateLimit(10), async (req, res) => {
   }
 });
 
-router.post('/change-password', extraRateLimit(3), async (req, res) => {
+router.post('/change-password', extraRateLimit(5), async (req, res) => {
   const { email, oldPassword, newPassword }: REST.To.Post['/auth/change-password'] = req.body;
 
   const user = await User.findOne({ email }) as any as SelfUserDocument;
