@@ -68,7 +68,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
 
   public async createToken(user: SelfUserDocument, expire = true) {
     // too insecure to keep in memory
-    const key = await readFileAsync('./keys/accord.app', { encoding: 'utf-8' });
+    const key = await readFileAsync('./keys/jwt', { encoding: 'utf-8' });
     return jwt.sign(
       { id: user.id },
       key,
@@ -81,7 +81,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
   }
   public async verifyToken(token: string | undefined): Promise<string> {
     // too insecure to keep in memory
-    const key = await readFileAsync('./keys/accord.app', { encoding: 'utf-8' });  
+    const key = await readFileAsync('./keys/jwt', { encoding: 'utf-8' });  
     const decoded = jwt.verify(token as string, key, { algorithms: ['RS256'] }) as UserToken;    
     return decoded?.id;
   }

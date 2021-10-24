@@ -14,7 +14,12 @@ Custom Frontend and Backend that is similar to Discord.
 
 1. Clone the repo.
 2. Generate SSH keys.
-   From app folder: `mkdir -p backend/keys && ssh-keygen -t rsa -b 2048 -m PEM -f backend/keys/accord.app`
+   From app folder:
+   ```
+   mkdir -p backend/keys
+     && ssh-keygen -t rsa -b 2048 -m PEM -f backend/keys/jwt
+     && openssl rand -rand /dev/urandom 256 > backend/keys/message
+   ```
 3. Install npm packages.
    From app folder: `cd frontend && npm i && cd ../backend && npm i`
 
