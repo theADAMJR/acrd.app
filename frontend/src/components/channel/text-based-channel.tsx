@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchMessages, getChannelMessages } from '../../store/messages';
 import Message from './message/message';
 import MessageBox from './message-box';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import TextChannelHeader from './text-channel-header';
 import usePerms from '../../hooks/use-perms';
 import SkeletonMessage from '../skeleton/skeleton-message';
@@ -13,6 +13,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const messages = useSelector(getChannelMessages(channel.id));
   const perms = usePerms();
+  const [cachedContent, setCachedContent] = useState<Util.Dictionary>({});  
 
   useEffect(() => {
     dispatch(fetchMessages(channel.id));
@@ -38,7 +39,9 @@ const TextBasedChannel: React.FunctionComponent = () => {
         {!(canRead || loaded) && new Array(6).fill(0).map((_, i) => <SkeletonMessage key={i} />)}
         {canRead && messages.map(m => <Message key={m.id} message={m} />)}
       </div>
-      <MessageBox />
+      <MessageBox
+        cachedContent={cachedContent}
+        setCachedContent={setCachedContent} />
     </div>
   );
 }

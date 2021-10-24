@@ -12,8 +12,8 @@ import { getUser } from '../../store/users';
 export interface MessageBoxProps {
   content?: string;
   editingMessageId?: string;
-  cachedContent: Util.Dictionary;
-  setCachedContent: any;
+  cachedContent?: Util.Dictionary;
+  setCachedContent?: React.Dispatch<React.SetStateAction<Util.Dictionary>>;
 }
  
 const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
@@ -27,8 +27,15 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
 
   useEffect(() => {
     const messageBox = document.querySelector('#messageBox') as HTMLTextAreaElement;
-    messageBox.value = props.cachedContent[channel.id] ?? '';
+    messageBox.value = props.cachedContent?.[channel.id] ?? '';
   }, [channel.id]);
+
+  useEffect(() => {
+    if (props.cachedContent && props.setCachedContent) {
+      props.cachedContent[channel.id] = content;
+      props.setCachedContent(props.cachedContent);
+    }
+  }, [content]);
   
   const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     handleEscape(event);
@@ -43,9 +50,6 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
       || !emptyMessage) return;
     
     saveEdit();
-
-    props.cachedContent[channel.id] = content;
-    props.setCachedContent(props.cachedContent);
   }
 
   const saveEdit = () => {
