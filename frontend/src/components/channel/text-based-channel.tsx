@@ -21,6 +21,11 @@ const TextBasedChannel: React.FunctionComponent = () => {
     element.scrollTop = element.scrollHeight;
   }, [messages.length]); // only fetches channel messages when not cached
 
+  useEffect(() => {
+    const messageBox = document.querySelector('#messageBox') as HTMLTextAreaElement;
+    messageBox.focus();
+  }, [channel.id]);
+
   const loaded = channel.lastMessageId === messages[messages.length]?.id;
   const canRead = perms.canInChannel('READ_MESSAGES', guild.id, channel.id);
 
