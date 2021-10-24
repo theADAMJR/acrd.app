@@ -78,18 +78,20 @@ const UserProfile: FunctionComponent = () => {
       .map(id => getGuild(id)(store.getState()));
     
     return (
-      <div className="mx-4">
+      <div className="m-2">
         <Category
           title={`${mutualGuilds.length} Mutual Guilds`}
           className="mb-2" />
-        {mutualGuilds.map(guild => (guild)
-            ? <div className="w-12 -ml-2 float-left">
+        <div className="mx-2">
+          {mutualGuilds.map(guild => (guild)
+            ? <div className="w-12 -ml-2 float-left scale-200">
                 <SidebarIcon
                   imageURL={guild.iconURL}
                   name={guild.name} />
               </div>
             : null,
-        )}
+          )}
+        </div>
       </div>
     );
   }
