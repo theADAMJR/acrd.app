@@ -77,7 +77,7 @@ export class REST {
   private listen() {
     const port = process.env.PORT || 8080;
     const server = this.app.listen(port, async () => {
-      Log.info(`API is running on port ${port}`);
+      log.info(`API is running on port ${port}`);
       await this.ws.init(server);
     });
   }

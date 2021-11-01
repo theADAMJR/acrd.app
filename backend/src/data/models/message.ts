@@ -51,7 +51,7 @@ export const Message = model<MessageDocument>('message', new Schema({
   updatedAt: Date,
 }, { toJSON: { getters: true } })
 // TODO: refactor
-.method('toClient', function(this: MessageDocument) {
+.method('toClient', function(this: any) {
   const obj = this.toObject();
   
   this.id = this._id;

@@ -43,7 +43,7 @@ export class WebSocket {
       } catch {}
     }
 
-    Log.info(`Loaded ${this.events.size} handlers`, 'ws');
+    log.info(`Loaded ${this.events.size} handlers`, 'ws');
 
     this.io.on('connection', (client) => {
       for (const event of this.events.values())
@@ -61,7 +61,7 @@ export class WebSocket {
         });
     });
 
-    Log.info('Started WebSocket', 'ws');
+    log.info('Started WebSocket', 'ws');
   }
 
   public to(...rooms: string[]) {

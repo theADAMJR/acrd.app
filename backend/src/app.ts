@@ -4,7 +4,7 @@ config();
 import { connect } from 'mongoose';
 import { REST } from './rest/server';
 import Deps from './utils/deps';
-import Log from './utils/log';
+import './modules/logger';
 
 connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
@@ -13,8 +13,8 @@ connect(process.env.MONGO_URI, {
   useCreateIndex: true,
   serverSelectionTimeoutMS: 0,
 }, (error) => (error)
-  ? Log.error(error.message, 'db')
-  : Log.info(`Connected to database.`)
+  ? log.error(error.message, 'db')
+  : log.info(`Connected to database.`)
 );
 
 Deps.get<REST>(REST);

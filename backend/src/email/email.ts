@@ -18,8 +18,8 @@ export class Email {
     });
 
     this.email.verify((error) => (error)
-      ? Log.error(error, 'email')
-      : Log.info('Logged in to email service', 'email'));
+      ? log.error(error, 'email')
+      : log.info('Logged in to email service', 'email'));
     
     this.email.use('compile', pugEngine({
       templateDir: this.templateDir,
