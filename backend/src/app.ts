@@ -2,8 +2,7 @@ import { config } from 'dotenv';
 config();
 
 import { connect } from 'mongoose';
-import { REST } from './rest/server';
-import Deps from './utils/deps';
+import 
 import './modules/logger';
 
 connect(process.env.MONGO_URI, {
@@ -13,8 +12,6 @@ connect(process.env.MONGO_URI, {
   useCreateIndex: true,
   serverSelectionTimeoutMS: 0,
 }, (error) => (error)
-  ? log.error(error.message, 'db')
-  : log.info('Connected to database.', {uri:process.env.MONGO_URI})
-);
-
-Deps.get<REST>(REST);
+  ? log.error(error)
+  : log.info('Connected to database.', { uri: process.env.MONGO_URI })
+)
