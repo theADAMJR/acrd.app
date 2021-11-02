@@ -21,19 +21,19 @@ import Users from '../../src/data/users';
 
 // TODO: eventually replace with data wrappers
 export class Mock {
-  public static channels = Deps.get<Channels>(Channels);
-  public static guilds = Deps.get<Guilds>(Guilds);
-  public static guildMembers = Deps.get<GuildMembers>(GuildMembers);
-  public static messages = Deps.get<Messages>(Messages);
-  public static invites = Deps.get<Invites>(Invites);
-  public static roles = Deps.get<Roles>(Roles);
-  public static users = Deps.get<Users>(Users);
+  public static channels = deps.channels;
+  public static guilds = deps.guilds;
+  public static guildMembers = deps.guildMembers;
+  public static messages = deps.messages;
+  public static invites = deps.invites;
+  public static roles = deps.roles;
+  public static users = deps.users;
 
   public static async defaultSetup(client: any, eventType: any = function() {}) {
-    Deps.get<REST>(REST);
+    deps.rest;
 
     const event = new (eventType as any)();
-    const ws = Deps.get<WebSocket>(WebSocket);
+    const ws = deps.webSocket;
 
     const guild = await this.guild();
     const guildId = guild.id;

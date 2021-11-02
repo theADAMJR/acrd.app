@@ -13,8 +13,8 @@ export default class implements WSEvent<'GUILD_ROLE_DELETE'> {
   on = 'GUILD_ROLE_DELETE' as const;
 
   constructor(
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private roles = Deps.get<Roles>(Roles),
+    private guard = deps.wsCooldowns,
+    private roles = deps.roles,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { guildId, roleId }: WS.Params.GuildRoleDelete) {

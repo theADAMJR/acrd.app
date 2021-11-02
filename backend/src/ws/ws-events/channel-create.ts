@@ -11,8 +11,8 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
   on = 'CHANNEL_CREATE' as const;
 
   constructor(
-    private channels = Deps.get<Channels>(Channels),
-    private guard = Deps.get<WSGuard>(WSGuard),
+    private channels = deps.channels,
+    private guard = deps.wsCooldowns,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { name, guildId, type }: WS.Params.ChannelCreate) {

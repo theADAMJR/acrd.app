@@ -1,8 +1,8 @@
+import { connect } from 'mongoose';
 import { config } from 'dotenv';
 config();
 
-import { connect } from 'mongoose';
-import 
+import './modules/deps';
 import './modules/logger';
 
 connect(process.env.MONGO_URI, {
@@ -12,6 +12,6 @@ connect(process.env.MONGO_URI, {
   useCreateIndex: true,
   serverSelectionTimeoutMS: 0,
 }, (error) => (error)
-  ? log.error(error)
+  ? log.error(error.message, { uri: process.env.MONGO_URI })
   : log.info('Connected to database.', { uri: process.env.MONGO_URI })
 )

@@ -9,7 +9,7 @@ export default class implements WSEvent<'VOICE_DATA'> {
   on = 'VOICE_DATA' as const;
 
   constructor(
-    private voiceService = Deps.get<VoiceService>(VoiceService),
+    private voiceService = deps.voiceService,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId, blob }: WS.Params.VoiceData) {

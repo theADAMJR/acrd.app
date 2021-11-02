@@ -12,9 +12,9 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
   on = 'MESSAGE_CREATE' as const;
 
   constructor(
-    private messages = Deps.get<Messages>(Messages),
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private users = Deps.get<Users>(Users),
+    private messages = deps.messages,
+    private guard = deps.wsCooldowns,
+    private users = deps.users,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId, content, embed }: WS.Params.MessageCreate) {

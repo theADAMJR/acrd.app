@@ -6,7 +6,7 @@ import { WSGuard } from './ws-guard';
 
 export class WSRooms {
   constructor(
-    private guard = Deps.get<WSGuard>(WSGuard),
+    private guard = deps.wsCooldowns,
   ) {}
 
   public async join(client: Socket, user: SelfUserDocument) {

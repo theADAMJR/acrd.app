@@ -4,8 +4,8 @@ import { Verification } from './verification';
 
 export class EmailFunctions {
   constructor(
-    private email = Deps.get<Email>(Email),
-    private verification = Deps.get<Verification>(Verification),
+    private email = deps.email,
+    private verification = deps.verification,
   ) {}
   
   public async verifyCode(user: UserTypes.Self) {

@@ -11,10 +11,10 @@ import { Guild } from '../../data/models/guild';
 
 export const router = Router();
 
-const members = Deps.get<GuildMembers>(GuildMembers);
-const guilds = Deps.get<Guilds>(Guilds);
-const users = Deps.get<Users>(Users);
-const ws = Deps.get<WebSocket>(WebSocket);
+const members = deps.guildMembers;
+const guilds = deps.guilds;
+const users = deps.users;
+const ws = deps.webSocket;
 
 router.get('/', updateUser, validateUser, async (req, res) => {
   const guilds = await Guild.find({ _id: { $in: res.locals.guildIds } });

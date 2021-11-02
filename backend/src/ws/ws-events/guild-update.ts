@@ -11,8 +11,8 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
   on = 'GUILD_UPDATE' as const;
 
   constructor(
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private guilds = Deps.get<Guilds>(Guilds),
+    private guard = deps.wsCooldowns,
+    private guilds = deps.guilds,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { guildId, name, iconURL }: WS.Params.GuildUpdate) { 

@@ -8,8 +8,8 @@ import { WSGuard } from '../../ws/modules/ws-guard';
 
 export const router = Router();
 
-const users = Deps.get<Users>(Users);
-const guard = Deps.get<WSGuard>(WSGuard);
+const users = deps.users;
+const guard = deps.wsCooldowns;
 
 router.get('/apps', async (req, res) => {
   const start = parseInt(req.query.start as string);

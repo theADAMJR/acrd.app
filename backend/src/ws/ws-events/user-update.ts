@@ -11,9 +11,9 @@ export default class implements WSEvent<'USER_UPDATE'> {
   on = 'USER_UPDATE' as const;
 
   constructor(
-    private users = Deps.get<Users>(Users),
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private sendEmail = Deps.get<EmailFunctions>(EmailFunctions),
+    private users = deps.users,
+    private guard = deps.wsCooldowns,
+    private sendEmail = deps.emailFunctions,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { token, username, avatarURL, ignored, email }: WS.Params.UserUpdate) {

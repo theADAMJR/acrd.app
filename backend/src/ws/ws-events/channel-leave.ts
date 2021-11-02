@@ -14,9 +14,9 @@ export default class implements WSEvent<'CHANNEL_LEAVE'> {
   on = 'CHANNEL_LEAVE' as const;
 
   constructor(
-    private channels = Deps.get<Channels>(Channels),
-    private voice = Deps.get<VoiceService>(VoiceService),
-    private users = Deps.get<Users>(Users),
+    private channels = deps.channels,
+    private voice = deps.voiceService,
+    private users = deps.users,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket) {

@@ -14,10 +14,10 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
   on = 'CHANNEL_JOIN' as const;
 
   constructor(
-    private channels = Deps.get<Channels>(Channels),
-    private voice = Deps.get<VoiceService>(VoiceService),
-    private users = Deps.get<Users>(Users),
-    private leaveEvent = Deps.get<ChannelLeave>(ChannelLeave),
+    private channels = deps.channels,
+    private voice = deps.voiceService,
+    private users = deps.users,
+    private leaveEvent = deps.channelLeave,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelJoin) {

@@ -11,12 +11,12 @@ import { PermissionTypes, getPermString } from '../../types/permission-types';
 
 export class WSGuard {
   constructor(
-    private channels = Deps.get<Channels>(Channels),
-    private guilds = Deps.get<Guilds>(Guilds),
-    private members = Deps.get<GuildMembers>(GuildMembers),
-    private roles = Deps.get<Roles>(Roles),
-    private users = Deps.get<Users>(Users),
-    private ws = Deps.get<WebSocket>(WebSocket),
+    private channels = deps.channels,
+    private guilds = deps.guilds,
+    private members = deps.guildMembers,
+    private roles = deps.roles,
+    private users = deps.users,
+    private ws = deps.webSocket,
   ) {}
 
   public userId(client: Socket) {

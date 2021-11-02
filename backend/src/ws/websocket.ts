@@ -17,7 +17,7 @@ export class WebSocket {
     return Array.from(this.sessions.values());
   }
 
-  constructor(private cooldowns = Deps.get<WSCooldowns>(WSCooldowns)) {}
+  constructor(private cooldowns = deps.wsCooldowns) {}
 
   public async init(server: Server) {
     this.io = new SocketServer(server, {

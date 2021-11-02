@@ -12,8 +12,8 @@ export default class implements WSEvent<'disconnect'> {
   on = 'disconnect' as const;
 
   constructor(
-    private channelLeaveEvent = Deps.get<ChannelLeave>(ChannelLeave),
-    private users = Deps.get<Users>(Users),
+    private channelLeaveEvent = deps.channelLeave,
+    private users = deps.users,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket) {   

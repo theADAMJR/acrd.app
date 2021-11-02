@@ -11,7 +11,7 @@ import { Channel } from '../../data/models/channel';
 
 export const router = Router();
 
-const users = Deps.get<Users>(Users);
+const users = deps.users;
 
 router.get('/', updateUser, validateUser, async (req, res) => {
   const knownUsers = await users.getKnown(res.locals.user.id);

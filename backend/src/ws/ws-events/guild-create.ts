@@ -11,9 +11,9 @@ export default class implements WSEvent<'GUILD_CREATE'> {
   on = 'GUILD_CREATE' as const;
 
   constructor(
-    private guilds = Deps.get<Guilds>(Guilds),
-    private rooms = Deps.get<WSRooms>(WSRooms),
-    private users = Deps.get<Users>(Users),
+    private guilds = deps.guilds,
+    private rooms = deps.wsRooms,
+    private users = deps.users,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { name }: WS.Params.GuildCreate) {

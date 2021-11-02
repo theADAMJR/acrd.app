@@ -12,11 +12,11 @@ import { APIError } from '../modules/api-error';
 
 export const router = Router();
 
-const channels = Deps.get<Channels>(Channels);
-const messages = Deps.get<Messages>(Messages);
-const pings = Deps.get<Pings>(Pings);
-const ws = Deps.get<WebSocket>(WebSocket);
-const guard = Deps.get<WSGuard>(WSGuard);
+const channels = deps.channels;
+const messages = deps.messages;
+const pings = deps.pings;
+const ws = deps.webSocket;
+const guard = deps.wsCooldowns;
 
 router.get('/:channelId/messages', updateUser, validateUser, async (req, res) => {
   const channelId = req.params.channelId;

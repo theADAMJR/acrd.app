@@ -11,8 +11,8 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
   on = 'CHANNEL_UPDATE' as const;
 
   constructor(
-    private channels = Deps.get<Channels>(Channels),
-    private guard = Deps.get<WSGuard>(WSGuard),
+    private channels = deps.channels,
+    private guard = deps.wsCooldowns,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { name, summary, overrides, channelId }: WS.Params.ChannelUpdate) {

@@ -12,10 +12,10 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
   on = 'GUILD_ROLE_UPDATE' as const;
 
   constructor(
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private guilds = Deps.get<Guilds>(Guilds),
-    private members = Deps.get<GuildMembers>(GuildMembers),
-    private roles = Deps.get<Roles>(Roles),
+    private guard = deps.wsCooldowns,
+    private guilds = deps.guilds,
+    private members = deps.guildMembers,
+    private roles = deps.roles,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { roleId, guildId, name, color, permissions, hoisted }: WS.Params.GuildRoleUpdate) {

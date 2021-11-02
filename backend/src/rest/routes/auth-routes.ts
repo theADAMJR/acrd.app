@@ -11,9 +11,9 @@ import { extraRateLimit } from '../modules/rate-limiter';
 
 export const router = Router();
 
-const sendEmail = Deps.get<EmailFunctions>(EmailFunctions);
-const users = Deps.get<Users>(Users);
-const verification = Deps.get<Verification>(Verification);
+const sendEmail = deps.emailFunctions;
+const users = deps.users;
+const verification = deps.verification;
 
 router.post('/login', extraRateLimit(25), (req, res, next) => {
   req['flash'] = (_: string, message: string) => res.status(400).json({ message });

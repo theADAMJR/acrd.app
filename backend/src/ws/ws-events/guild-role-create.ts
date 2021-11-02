@@ -14,8 +14,8 @@ export default class implements WSEvent<'GUILD_ROLE_CREATE'> {
   on = 'GUILD_ROLE_CREATE' as const;
 
   constructor(
-    private roles = Deps.get<Roles>(Roles),
-    private guard = Deps.get<WSGuard>(WSGuard),
+    private roles = deps.roles,
+    private guard = deps.wsCooldowns,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { guildId }: WS.Params.GuildRoleCreate) {

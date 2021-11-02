@@ -16,7 +16,7 @@ export default class implements WSEvent<'GUILD_DELETE'> {
   on = 'GUILD_DELETE' as const;
 
   constructor(
-    private guard = Deps.get<WSGuard>(WSGuard),
+    private guard = deps.wsCooldowns,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { guildId }: WS.Params.GuildDelete) {

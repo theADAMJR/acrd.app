@@ -12,8 +12,8 @@ export default class implements WSEvent<'MESSAGE_UPDATE'> {
   on = 'MESSAGE_UPDATE' as const;
 
   constructor(
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private messages = Deps.get<Messages>(Messages),
+    private guard = deps.wsCooldowns,
+    private messages = deps.messages,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { messageId, content, embed }: WS.Params.MessageUpdate) {

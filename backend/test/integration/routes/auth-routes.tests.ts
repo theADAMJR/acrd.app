@@ -21,8 +21,8 @@ describe.skip('auth-routes', () => {
   beforeEach(async () => {    
     email = Deps.add(Email, new EmailMock());
 
-    app = Deps.get<REST>(REST).app;
-    users = Deps.get<Users>(Users);
+    app = deps.rest.app;
+    users = deps.users;
 
     credentials = {
       email: 'testing123@example.com',

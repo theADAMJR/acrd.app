@@ -14,11 +14,11 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
   on = 'GUILD_MEMBER_ADD' as const;
 
   constructor(
-    private guilds = Deps.get<Guilds>(Guilds),
-    private members = Deps.get<GuildMembers>(GuildMembers),
-    private invites = Deps.get<Invites>(Invites),
-    private rooms = Deps.get<WSRooms>(WSRooms),
-    private users = Deps.get<Users>(Users),
+    private guilds = deps.guilds,
+    private members = deps.guildMembers,
+    private invites = deps.invites,
+    private rooms = deps.wsRooms,
+    private users = deps.users,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { inviteCode }: WS.Params.GuildMemberAdd) {

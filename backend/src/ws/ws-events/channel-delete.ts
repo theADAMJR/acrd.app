@@ -12,9 +12,9 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
   on = 'CHANNEL_DELETE' as const;
 
   constructor(
-    private channels = Deps.get<Channels>(Channels),
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private channelLeaveEvent = Deps.get<ChannelLeave>(ChannelLeave),
+    private channels = deps.channels,
+    private guard = deps.wsCooldowns,
+    private channelLeaveEvent = deps.channelLeave,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelDelete) {

@@ -18,8 +18,8 @@ describe('invite-routes', () => {
   let guild: GuildDocument;
 
   beforeEach(async () => {
-    app = Deps.get<API>(API).app;
-    users = Deps.get<Users>(Users);
+    app = deps.rest.app;
+    users = deps.users;
 
     guild = await Mock.guild();
     user = await users.get(guild.ownerId);

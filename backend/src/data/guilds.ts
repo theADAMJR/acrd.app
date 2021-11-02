@@ -15,10 +15,10 @@ import Users from './users';
 
 export default class Guilds extends DBWrapper<string, GuildDocument> {
   constructor(
-    private channels = Deps.get<Channels>(Channels),
-    private members = Deps.get<GuildMembers>(GuildMembers),
-    private roles = Deps.get<Roles>(Roles),
-    private users = Deps.get<Users>(Users),
+    private channels = deps.channels,
+    private members = deps.guildMembers,
+    private roles = deps.roles,
+    private users = deps.users,
   ) { super(); }
 
   public async get(id: string | undefined) {

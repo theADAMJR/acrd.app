@@ -7,7 +7,7 @@ import applyRoutes from './functions/apply-routes';
 import applyErrorHandling from './functions/apply-error-handling';
 
 export class REST {
-  constructor(private ws = Deps.get<WebSocket>(WebSocket)) {
+  constructor(private ws = deps.webSocket) {
     const app = express();
     const prefix = `/v2`;
     

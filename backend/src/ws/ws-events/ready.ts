@@ -15,10 +15,10 @@ export default class implements WSEvent<'READY'> {
   public cooldown = 5;
 
   constructor(
-    private channelJoinEvent = Deps.get<ChannelJoin>(ChannelJoin),
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private rooms = Deps.get<WSRooms>(WSRooms),
-    private users = Deps.get<Users>(Users),
+    private channelJoinEvent = deps.channelJoin,
+    private guard = deps.wsCooldowns,
+    private rooms = deps.wsRooms,
+    private users = deps.users,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { token }: WS.Params.Ready) {

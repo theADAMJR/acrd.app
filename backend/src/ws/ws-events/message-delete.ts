@@ -13,9 +13,9 @@ export default class implements WSEvent<'MESSAGE_DELETE'> {
   on = 'MESSAGE_DELETE' as const;
 
   constructor(
-    private channels = Deps.get<Channels>(Channels),
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private messages = Deps.get<Messages>(Messages),
+    private channels = deps.channels,
+    private guard = deps.wsCooldowns,
+    private messages = deps.messages,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { messageId }: WS.Params.MessageDelete) {

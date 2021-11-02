@@ -11,8 +11,8 @@ export default class implements WSEvent<'USER_DELETE'> {
   public on = 'USER_DELETE' as const;
 
   constructor(
-    private users = Deps.get<Users>(Users),
-    private guard = Deps.get<WSGuard>(WSGuard),
+    private users = deps.users,
+    private guard = deps.wsCooldowns,
   ) { }
 
   public async invoke(ws: WebSocket, client: Socket, { token }: WS.Params.UserDelete) {

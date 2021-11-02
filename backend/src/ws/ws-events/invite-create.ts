@@ -11,8 +11,8 @@ export default class implements WSEvent<'INVITE_CREATE'> {
   on = 'INVITE_CREATE' as const;
 
   constructor(
-    private guard = Deps.get<WSGuard>(WSGuard),
-    private invites = Deps.get<Invites>(Invites),
+    private guard = deps.wsCooldowns,
+    private invites = deps.invites,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, params: WS.Params.InviteCreate) {
