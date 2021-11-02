@@ -1,10 +1,14 @@
+import Users from '../data/users';
 import { REST } from '../rest/server';
 
-interface Deps {
+export interface Deps {
   rest: REST;
+  users: Users;
 }
 
-export const deps: Deps = {
+const deps: Deps = {
   rest: new REST(),
+  users: new Users(),
 };
-export default deps;
+
+global['deps'] = deps;
