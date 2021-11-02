@@ -11,7 +11,7 @@ import Messages from '../../src/data/messages';
 import Invites from '../../src/data/invites';
 import { App } from '../../src/data/models/app';
 import { WebSocket } from '../../src/ws/websocket';
-import Deps from '../../src/utils/deps';
+
 import Guilds from '../../src/data/guilds';
 import GuildMembers from '../../src/data/guild-members';
 import Channels from '../../src/data/channels';

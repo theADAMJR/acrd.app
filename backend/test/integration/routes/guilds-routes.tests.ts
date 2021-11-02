@@ -1,5 +1,5 @@
 import { Mock } from '../../mock/mock';
-import Deps from '../../../src/utils/deps';
+
 import { API } from '../../../src/api/server';
 import request from 'supertest';
 import Users from '../../../src/data/users';

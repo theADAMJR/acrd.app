@@ -4,7 +4,7 @@ import Messages from '../../data/messages';
 import { SelfUserDocument } from '../../data/models/user';
 import Pings from '../../data/pings';
 import { WS } from '../../types/ws';
-import Deps from '../../utils/deps';
+
 import { WebSocket } from '../../ws/websocket';
 import { WSGuard } from '../../ws/modules/ws-guard';
 import { APIError } from '../modules/api-error';

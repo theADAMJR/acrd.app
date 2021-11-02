@@ -1,4 +1,4 @@
-import Deps from '../../../src/utils/deps';
+
 import Ready from '../../../src/ws/ws-events/ready';
 import Disconnect from '../../../src/ws/ws-events/disconnect';
 import { User, UserDocument } from '../../../src/data/models/user';

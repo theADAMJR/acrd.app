@@ -3,7 +3,7 @@ import Channels from '../../data/channels';
 import { SelfUserDocument, UserDocument } from '../../data/models/user';
 import Users from '../../data/users';
 import { WS } from '../../types/ws';
-import Deps from '../../utils/deps';
+
 import { WebSocket } from '../websocket';
 import ChannelLeave from './channel-leave';
 import { WSEvent } from './ws-event';

@@ -1,7 +1,7 @@
 import { Mock } from '../../mock/mock';
 import { EmailMock } from '../../mock/email-mock';
 import { assert, expect, spy } from 'chai';
-import Deps from '../../../src/utils/deps';
+
 import request from 'supertest';
 import Users from '../../../src/data/users';
 import { User, SelfUserDocument } from '../../../src/data/models/user';

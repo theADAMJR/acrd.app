@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { User } from '../../data/models/user';
 import Users from '../../data/users';
-import Deps from '../../utils/deps';
+
 import generateInvite from '../../data/utils/generate-invite';
 import { Guild } from '../../data/models/guild';
 import { Role } from '../../data/models/role';

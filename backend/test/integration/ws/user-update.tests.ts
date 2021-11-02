@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import{ Mock } from '../../mock/mock';
 import{ SelfUserDocument, User } from '../../../src/data/models/user';
 import { expect } from 'chai';
-import Deps from '../../../src/utils/deps';
+
 import Users from '../../../src/data/users';
 
 describe.only('user-update', () => {

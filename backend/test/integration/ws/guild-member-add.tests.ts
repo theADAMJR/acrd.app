@@ -1,6 +1,6 @@
 import GuildMemberAdd from '../../../src/ws/ws-events/guild-member-add';
 import { WebSocket } from '../../../src/ws/websocket';
-import Deps from '../../../src/utils/deps';
+
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { UserDocument } from '../../../src/data/models/user';

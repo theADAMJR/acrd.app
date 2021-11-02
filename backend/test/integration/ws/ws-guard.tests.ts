@@ -1,4 +1,4 @@
-import Deps from '../../../src/utils/deps';
+
 import io from 'socket.io-client';
 import { Mock } from '../../mock/mock';
 import { GuildDocument } from '../../../src/data/models/guild';

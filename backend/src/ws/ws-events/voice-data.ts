@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
 import { WS } from '../../types/ws';
-import Deps from '../../utils/deps';
+
 import { VoiceService } from '../../voice/voice-service';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';

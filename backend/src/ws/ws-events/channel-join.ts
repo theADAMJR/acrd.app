@@ -1,6 +1,6 @@
 import Channels from '../../data/channels';
 import { WS } from '../../types/ws';
-import Deps from '../../utils/deps';
+
 import { WSEvent } from './ws-event';
 import { WebSocket } from '../websocket';
 import { Socket } from 'socket.io';

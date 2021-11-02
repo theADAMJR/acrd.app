@@ -1,17 +1,12 @@
 import { Guild, GuildDocument } from './models/guild';
 import DBWrapper from './db-wrapper';
 import { generateSnowflake } from './snowflake-entity';
-import Deps from '../utils/deps';
-import Channels from './channels';
-import GuildMembers from './guild-members';
-import Roles from './roles';
-import { SelfUserDocument, User, UserDocument } from './models/user';
+import { SelfUserDocument, User } from './models/user';
 import { Invite } from './models/invite';
 import { APIError } from '../rest/modules/api-error';
 import { Channel } from './models/channel';
 import { Role } from './models/role';
 import { GuildMember } from './models/guild-member';
-import Users from './users';
 
 export default class Guilds extends DBWrapper<string, GuildDocument> {
   public async get(id: string | undefined) {

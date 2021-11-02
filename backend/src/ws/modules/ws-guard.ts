@@ -1,5 +1,5 @@
 import { Guild } from '../../data/models/guild';
-import Deps from '../../utils/deps';
+
 import { WebSocket } from '../websocket';
 import { Socket } from 'socket.io';
 import Channels from '../../data/channels';

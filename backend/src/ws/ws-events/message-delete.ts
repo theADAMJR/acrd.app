@@ -4,7 +4,7 @@ import Messages from '../../data/messages';
 import { Message } from '../../data/models/message';
 import { PermissionTypes } from '../../types/permission-types';
 import { WS } from '../../types/ws';
-import Deps from '../../utils/deps';
+
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';

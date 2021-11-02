@@ -4,7 +4,7 @@ import { WSEvent } from './ws-events/ws-event';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
 import { WSCooldowns } from './modules/ws-cooldowns';
-import Deps from '../utils/deps';
+
 import { SessionManager } from './modules/session-manager';
 import { WS } from '../types/ws';
 

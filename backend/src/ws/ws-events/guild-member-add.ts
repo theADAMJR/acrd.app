@@ -5,7 +5,7 @@ import Invites from '../../data/invites';
 import { InviteDocument } from '../../data/models/invite';
 import Users from '../../data/users';
 import { WS } from '../../types/ws';
-import Deps from '../../utils/deps';
+
 import { WSRooms } from '../modules/ws-rooms';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';

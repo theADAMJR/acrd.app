@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import Deps from '../../utils/deps';
+
 import Users from '../../data/users';
 import Guilds from '../../data/guilds';
 import { WebSocket } from '../../ws/websocket';

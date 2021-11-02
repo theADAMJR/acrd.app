@@ -17,11 +17,16 @@ Custom Frontend and Backend that is similar to Discord.
    From app folder:
    ```
    mkdir -p backend/keys
-     && ssh-keygen -t rsa -b 2048 -m PEM -f backend/keys/jwt
-     && openssl rand -rand /dev/urandom 256 > backend/keys/message
+   ssh-keygen -t rsa -b 2048 -m PEM -f backend/keys/jwt
    ```
 3. Install npm packages.
-   From app folder: `cd frontend && npm i && cd ../backend && npm i`
+   From app folder:
+   ```
+   cd frontend
+   npm i
+   cd ../backend
+   npm i
+   ```
 
 ---
 

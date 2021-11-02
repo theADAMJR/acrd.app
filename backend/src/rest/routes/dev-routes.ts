@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { App } from '../../data/models/app';
 import Users from '../../data/users';
 import generateInvite from '../../data/utils/generate-invite';
-import Deps from '../../utils/deps';
+
 import { updateUser, validateUser } from '../modules/middleware';
 import { WSGuard } from '../../ws/modules/ws-guard';
 

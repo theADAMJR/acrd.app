@@ -3,7 +3,7 @@ import Channels from '../../data/channels';
 import { SelfUserDocument } from '../../data/models/user';
 import Users from '../../data/users';
 import { WS } from '../../types/ws';
-import Deps from '../../utils/deps';
+
 import { WSGuard } from '../modules/ws-guard';
 import { WSRooms } from '../modules/ws-rooms';
 import { WebSocket } from '../websocket';

@@ -3,7 +3,7 @@ import { PermissionTypes } from '../../types/permission-types';
 import { Guild } from '../../data/models/guild';
 import { Role } from '../../data/models/role';
 import { generateSnowflake } from '../../data/snowflake-entity';
-import Deps from '../../utils/deps';
+
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';

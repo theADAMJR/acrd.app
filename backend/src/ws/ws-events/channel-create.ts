@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import Channels from '../../data/channels';
 import { Guild } from '../../data/models/guild';
 import { WS } from '../../types/ws';
-import Deps from '../../utils/deps';
+
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';

@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import { Channel } from '../../data/models/channel';
 import { SelfUserDocument } from '../../data/models/user';
-import Deps from '../../utils/deps';
+
 import { WSGuard } from './ws-guard';
 
 export class WSRooms {

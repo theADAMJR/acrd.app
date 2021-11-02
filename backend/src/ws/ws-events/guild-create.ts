@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import Guilds from '../../data/guilds';
 import Users from '../../data/users';
 import { WS } from '../../types/ws';
-import Deps from '../../utils/deps';
+
 import { WSRooms } from '../modules/ws-rooms';
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';

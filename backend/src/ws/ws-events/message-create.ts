@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
-import Deps from '../../utils/deps';
+
 import { WSGuard } from '../modules/ws-guard';
 import Messages from '../../data/messages';
 import Users from '../../data/users';
