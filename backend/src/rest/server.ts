@@ -2,7 +2,6 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 
 import bodyParser from 'body-parser';
-import Log from '../utils/log';
 import { Strategy as LocalStrategy } from 'passport-local';
 import passport from 'passport';
 import { router as apiRoutes } from './routes/api-routes';

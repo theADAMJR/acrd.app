@@ -1,6 +1,5 @@
 import { Server } from 'http';
 import { Server as SocketServer } from 'socket.io';
-import Log from '../utils/log';
 import { WSEvent } from './ws-events/ws-event';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
