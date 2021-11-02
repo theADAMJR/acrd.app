@@ -50,7 +50,7 @@ const HomePage: React.FunctionComponent = () => {
           <div className="lead font-light mt-2 max-w-xl">
             All-in-one text and voice chat, just like Discord.
             Stop paying for Discord boosts and hassling with Zoom. 
-            {userCount && (
+            {Boolean(userCount) && (
               <span className="pl-1">
                 Join <NumberFormat
                 value={userCount}
