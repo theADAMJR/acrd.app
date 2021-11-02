@@ -17,7 +17,7 @@ use(chaiThings);
 use(should);
 
 const space = (length = 54) => new Array(length).join(' ');
-log.info(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
+console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
 
 (async() => {
   try {
@@ -27,9 +27,9 @@ log.info(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
       useFindAndModify: false,
       useCreateIndex: true,
     });
-    log.info(`Connected to ${process.env.MONGO_URI}`);    
+    console.log(`Connected to ${process.env.MONGO_URI}`);    
   } catch {
-    log.info(`Failed to connect to ${process.env.MONGO_URI}`);  
+    console.log(`Failed to connect to ${process.env.MONGO_URI}`);  
   }
 
   try {

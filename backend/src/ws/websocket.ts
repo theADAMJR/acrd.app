@@ -43,7 +43,7 @@ export class WebSocket {
       } catch {}
     }
 
-    log.info(`Loaded ${this.events.size} handlers`, 'ws');
+    log.verbose(`Loaded ${this.events.size} handlers`, 'ws');
 
     this.io.on('connection', (client) => {
       for (const event of this.events.values())

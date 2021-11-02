@@ -1,7 +1,6 @@
 import { createTransport } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
 import { pugEngine } from 'nodemailer-pug-engine';
-import Log from '../utils/log';
 
 export class Email {
   private email: Mail;
@@ -18,8 +17,8 @@ export class Email {
     });
 
     this.email.verify((error) => (error)
-      ? log.error(error, 'email')
-      : log.info('Logged in to email service', 'email'));
+      ? log.error(error)
+      : log.info('Logged in to email service'));
     
     this.email.use('compile', pugEngine({
       templateDir: this.templateDir,

@@ -23,3 +23,325 @@ undefined
 undefined
 undefined
 undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+[32m2021-11-02T11:46:37.598Z - [INFO   ]: API is running on port 3000[39m
+[32m2021-11-02T11:46:37.612Z - [INFO   ]: Loaded 25 handlers[39m
+[32m2021-11-02T11:46:37.612Z - [INFO   ]: Started WebSocket[39m
+[32m2021-11-02T11:46:37.640Z - [INFO   ]: Connected to database.[39m
+[32m2021-11-02T11:46:38.152Z - [INFO   ]: Logged in to email service[39m
+[32m21-11-02 11:11:11 - [INFO   ]: API is running on port 3000[39m
+[32m21-11-02 11:11:12 - [INFO   ]: Loaded 25 handlers[39m
+[32m21-11-02 11:11:12 - [INFO   ]: Started WebSocket[39m
+[32m21-11-02 11:11:15 - [INFO   ]: Connected to database.[39m
+[32m21-11-02 11:11:67 - [INFO   ]: Logged in to email service[39m
+ undefined  21-11-02 11:11:31  [32minfo[39m : [32mAPI is running on port 3000[39m
+ undefined  21-11-02 11:11:32  [32minfo[39m : [32mLoaded 25 handlers[39m
+ undefined  21-11-02 11:11:32  [32minfo[39m : [32mStarted WebSocket[39m
+ undefined  21-11-02 11:11:35  [32minfo[39m : [32mConnected to database.[39m
+ undefined  21-11-02 11:11:79  [32minfo[39m : [32mLogged in to email service[39m
+ undefined  21-11-02 11:11:52  [32minfo[39m : [32mAPI is running on port 3000[39m
+ undefined  21-11-02 11:11:54  [32minfo[39m : [32mLoaded 25 handlers[39m
+ undefined  21-11-02 11:11:54  [32minfo[39m : [32mStarted WebSocket[39m
+ undefined  21-11-02 11:11:56  [32minfo[39m : [32mConnected to database.[39m
+ undefined  21-11-02 11:11:09  [32minfo[39m : [32mLogged in to email service[39m
+ undefined  21-11-02 11:11:04  info : API is running on port 3000
+ undefined  21-11-02 11:11:05  info : Loaded 25 handlers
+ undefined  21-11-02 11:11:05  info : Started WebSocket
+ undefined  21-11-02 11:11:08  info : Connected to database.
+ undefined  21-11-02 11:11:59  info : Logged in to email service
+ undefined  21-11-02 11:11:44  [32minfo[39m : API is running on port 3000
+ undefined  21-11-02 11:11:46  [32minfo[39m : Loaded 25 handlers
+ undefined  21-11-02 11:11:46  [32minfo[39m : Started WebSocket
+ undefined  21-11-02 11:11:48  [32minfo[39m : Connected to database.
+ undefined  21-11-02 11:11:87  [32minfo[39m : Logged in to email service
+ [LOGGER]  21-11-02 11:11:04  [32minfo[39m : API is running on port 3000
+ [LOGGER]  21-11-02 11:11:05  [32minfo[39m : Loaded 25 handlers
+ [LOGGER]  21-11-02 11:11:05  [32minfo[39m : Started WebSocket
+ [LOGGER]  21-11-02 11:11:08  [32minfo[39m : Connected to database.
+ [LOGGER]  21-11-02 11:11:57  [32minfo[39m : Logged in to email service
+ [LOGGER]  21-11-02 11:11:78  [32minfo[39m : API is running on port 3000
+ [LOGGER]  21-11-02 11:11:79  [32minfo[39m : Loaded 25 handlers
+ [LOGGER]  21-11-02 11:11:79  [32minfo[39m : Started WebSocket
+ [LOGGER]  21-11-02 11:11:82  [32minfo[39m : Connected to database.
+ [LOGGER]  21-11-02 11:11:23  [32minfo[39m : Logged in to email service
+ [LOGGER]  21-11-02 11:11:52  [32minfo[39m : API is running on port 3000
+ [LOGGER]  21-11-02 11:11:53  [32minfo[39m : Loaded 25 handlers
+ [LOGGER]  21-11-02 11:11:53  [32minfo[39m : Started WebSocket
+ [LOGGER]  21-11-02 11:11:56  [32minfo[39m : Connected to database.
+ [LOGGER]  21-11-02 11:11:95  [32minfo[39m : Logged in to email service
+21-11-02 11:11:09 [32minfo[39m: API is running on port 3000
+21-11-02 11:11:10 [32minfo[39m: Loaded 25 handlers
+21-11-02 11:11:10 [32minfo[39m: Started WebSocket
+21-11-02 11:11:12 [32minfo[39m: Connected to database.
+21-11-02 11:11:63 [32minfo[39m: Logged in to email service
+21-11-02 11:11:60 [32minfo[39m: API is running on port 3000
+21-11-02 11:11:61 [32minfo[39m: Loaded 25 handlers
+21-11-02 11:11:61 [32minfo[39m: Started WebSocket
+21-11-02 11:11:64 [32minfo[39m: Connected to database.
+21-11-02 11:11:11 [32minfo[39m: Logged in to email service
+21-11-02 11:11:07 [32minfo[39m: API is running on port 3000
+21-11-02 11:11:09 [32minfo[39m: Loaded 25 handlers
+21-11-02 11:11:09 [32minfo[39m: Started WebSocket
+21-11-02 11:11:11 [32minfo[39m: Connected to database.
+21-11-02 11:11:48 [32minfo[39m: Logged in to email service
+21-11-02 11:11:54 [32minfo[39m: API is running on port 3000
+21-11-02 11:11:55 [32minfo[39m: Loaded 25 handlers
+21-11-02 11:11:55 [32minfo[39m: Started WebSocket
+21-11-02 11:11:58 [32minfo[39m: Connected to database.
+21-11-02 11:11:08 [32minfo[39m: Logged in to email service
+21-11-02 11:11:49 [32minfo[39m: API is running on port 3000
+21-11-02 11:11:50 [32minfo[39m: Loaded 25 handlers
+21-11-02 11:11:50 [32minfo[39m: Started WebSocket
+21-11-02 11:11:53 [32minfo[39m: Connected to database.
+21-11-02 11:11:02 [32minfo[39m: Logged in to email service
+undefined
+undefined
+undefined
+undefined
+undefined
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+21-11-02 11:11:88 [32minfo[39m: API is running on port 3000
+21-11-02 11:11:89 [32minfo[39m: Loaded 25 handlers
+21-11-02 11:11:89 [32minfo[39m: Started WebSocket
+21-11-02 11:11:91 [32minfo[39m: Connected to database.
+21-11-02 11:11:37 [32minfo[39m: Logged in to email service
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+21-11-02 11:11:17 [32minfo[39m: API is running on port 3000
+21-11-02 11:11:19 [32minfo[39m: Loaded 25 handlers
+21-11-02 11:11:19 [32minfo[39m: Started WebSocket
+21-11-02 11:11:22 [32minfo[39m: Connected to database.
+21-11-02 11:11:70 [32minfo[39m: Logged in to email service
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+11:11:46 [34m[1minfo[22m[39m: API is running on port 3000
+11:11:47 [34m[1minfo[22m[39m: Loaded 25 handlers
+11:11:47 [34m[1minfo[22m[39m: Started WebSocket
+11:11:50 [34m[1minfo[22m[39m: Connected to database.
+11:11:93 [34m[1minfo[22m[39m: Logged in to email service
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"silly","message":"testing123"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"silly","message":"testing123"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"silly","message":"testing123"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"silly","message":"testing123"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"silly","message":"testing123"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"silly","message":"testing123"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"silly","message":"testing123"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"info","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database."}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}
+{"level":"info","message":"API is running on port 3000"}
+{"level":"verbose","message":"Loaded 25 handlers"}
+{"level":"info","message":"Started WebSocket"}
+{"level":"info","message":"Connected to database.","uri":"mongodb://localhost/accord"}
+{"level":"info","message":"Logged in to email service"}

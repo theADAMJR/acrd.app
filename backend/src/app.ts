@@ -14,7 +14,7 @@ connect(process.env.MONGO_URI, {
   serverSelectionTimeoutMS: 0,
 }, (error) => (error)
   ? log.error(error.message, 'db')
-  : log.info(`Connected to database.`)
+  : log.info('Connected to database.', {uri:process.env.MONGO_URI})
 );
 
 Deps.get<REST>(REST);
