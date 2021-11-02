@@ -72,7 +72,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
     return jwt.sign(
       { id: user.id },
       key,
-      { algorithm: 'RS256', expiresIn: (expire) ? '7d' : undefined },
+      { algorithm: 'RS512', expiresIn: (expire) ? '7d' : undefined },
     );
   }
   public async idFromToken(auth: string | undefined): Promise<string> {
@@ -82,7 +82,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
   public async verifyToken(token: string | undefined): Promise<string> {
     // too insecure to keep in memory
     const key = await readFileAsync('./keys/jwt', { encoding: 'utf-8' });  
-    const decoded = jwt.verify(token as string, key, { algorithms: ['RS256'] }) as UserToken;    
+    const decoded = jwt.verify(token as string, key, { algorithms: ['RS512'] }) as UserToken;    
     return decoded?.id;
   }
 

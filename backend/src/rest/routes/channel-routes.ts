@@ -1,12 +1,7 @@
 import { Router } from 'express';
-import Channels from '../../data/channels';
-import Messages from '../../data/messages';
 import { SelfUserDocument } from '../../data/models/user';
-import Pings from '../../data/pings';
 import { WS } from '../../types/ws';
 
-import { WebSocket } from '../../ws/websocket';
-import { WSGuard } from '../../ws/modules/ws-guard';
 import { APIError } from '../modules/api-error';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';
@@ -21,8 +16,8 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
   if (!canAccess)
     throw new APIError(403, 'Insufficient permissions');
 
-  const channelMsgs = (await messages
-    .getChannelMessages(channelId) ?? await messages
+  const channelMsgs = (await deps.messages
+    .getChannelMessages(channelId) ?? await deps.messages
     .getDMChannelMessages(channelId, res.locals.user.id));  
 
   const batchSize = 25;
@@ -35,8 +30,8 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
   const index = slicedMsgs.length - 1;
   const lastMessage = slicedMsgs[index];
   if (lastMessage) {
-    await pings.markAsRead(user, lastMessage);
-    ws.io
+    await deps.pings.markAsRead(user, lastMessage);
+    deps.webSocket.io
       .to(user.id)
       .emit('USER_UPDATE', {
         userId: user.id,
@@ -50,7 +45,7 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
 });
 
 router.get('/:id', updateUser, validateUser, async (req, res) => {
-  const channel = await channels.get(req.params.id);
+  const channel = await deps.channels.get(req.params.id);
   res.json(channel);
 });
 

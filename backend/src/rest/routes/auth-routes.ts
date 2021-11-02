@@ -18,43 +18,43 @@ router.post('/login', extraRateLimit(25), (req, res, next) => {
   failureFlash: 'Invalid email or password',
 }),
   async (req, res) => {
-    const user = await users.getByEmail(req.body.email);
+    const user = await deps.users.getByEmail(req.body.email);
     if (!user)
       throw new APIError(400, 'Invalid credentials');
     else if (user.locked)
       throw new APIError(403, 'This account is locked');
     else if (user.verified) {
-      await sendEmail.verifyCode(user as any);
+      await deps.emailFunctions.verifyCode(user as any);
       return res.status(200).json({
         message: 'Check your email for a verification code',
       });
     }
-    res.status(201).json({ token: await users.createToken(user) });
+    res.status(201).json({ token: await deps.users.createToken(user) });
   });
 
 router.post('/register', extraRateLimit(5), async (req, res) => {
-  const user = await users.create({
+  const user = await deps.users.create({
     email: req.body.email,
     password: req.body.password,
     username: req.body.username,
   }) as any as SelfUserDocument;
 
-  await sendEmail.verifyEmail(user.email, user);
+  await deps.emailFunctions.verifyEmail(user.email, user);
 
-  res.status(201).json(await users.createToken(user));
+  res.status(201).json(await deps.users.createToken(user));
 });
 
 router.get('/verify', extraRateLimit(25), async (req, res) => {
-  const email = verification.getEmailFromCode(req.query.code as string);
+  const email = deps.verification.getEmailFromCode(req.query.code as string);
   const user = await User.findOne({ email }) as any;  
   if (!email || !user)
     throw new APIError(400, 'Invalid code');
 
-  const code = verification.get(email);
+  const code = deps.verification.get(email);
   if (!code)
     throw new APIError(400, 'Invalid code');
 
-  verification.delete(email);
+  deps.verification.delete(email);
 
   if (code.type === 'FORGOT_PASSWORD') {
     await user.setPassword(code.value);
@@ -65,7 +65,7 @@ router.get('/verify', extraRateLimit(25), async (req, res) => {
     await user.save();
     res.json({ message: 'Email verified' });
   } else if (code.type === 'LOGIN')
-    res.json({ token: await users.createToken(user) });
+    res.json({ token: await deps.users.createToken(user) });
 });
 
 router.get('/email/forgot-password', extraRateLimit(10), async (req, res) => {
@@ -77,8 +77,8 @@ router.get('/email/forgot-password', extraRateLimit(10), async (req, res) => {
     throw new APIError(400, 'Email is not in a valid format');
 
   try {
-    const user = await users.getByEmail(email);
-    await sendEmail.forgotPassword(email, user);
+    const user = await deps.users.getByEmail(email);
+    await deps.emailFunctions.forgotPassword(email, user);
   } finally {
     return res.status(200).json({ message: 'Email sent' });
   }
@@ -98,6 +98,6 @@ router.post('/change-password', extraRateLimit(5), async (req, res) => {
 
   return res.status(200).json({
     message: 'Password changed',
-    token: await users.createToken(user),
+    token: await deps.users.createToken(user),
   } as REST.From.Post['/auth/change-password']);
 });
