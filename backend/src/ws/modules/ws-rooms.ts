@@ -5,10 +5,6 @@ import Deps from '../../utils/deps';
 import { WSGuard } from './ws-guard';
 
 export class WSRooms {
-  constructor(
-    private guard = deps.wsCooldowns,
-  ) {}
-
   public async join(client: Socket, user: SelfUserDocument) {
     const alreadyJoinedRooms = client.rooms.size > 1;
     if (alreadyJoinedRooms) return;
@@ -33,7 +29,7 @@ export class WSRooms {
         // TODO: TESTME
         if (channel.type === 'VOICE') continue;
         
-        await this.guard.validateCanInChannel(client, channel.id, 'READ_MESSAGES');
+        await deps.wsGuard.validateCanInChannel(client, channel.id, 'READ_MESSAGES');
         ids.push(channel.id);
       } catch {}    
     return ids;

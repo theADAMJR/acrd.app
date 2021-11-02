@@ -1,13 +1,11 @@
 import express from 'express';
 import 'express-async-errors';
-import Deps from '../utils/deps';
-import { WebSocket } from '../ws/websocket';
 import applyMiddleware from './functions/apply-middleware';
 import applyRoutes from './functions/apply-routes';
 import applyErrorHandling from './functions/apply-error-handling';
 
 export class REST {
-  constructor(private ws = deps.webSocket) {
+  constructor() {
     const app = express();
     const prefix = `/v2`;
     
@@ -18,7 +16,7 @@ export class REST {
     const port = process.env.PORT || 8080;
     const server = app.listen(port, async () => {
       log.info(`API is running on port ${port}`);
-      await this.ws.init(server);
+      await deps.webSocket.init(server);
     });
   }
 }

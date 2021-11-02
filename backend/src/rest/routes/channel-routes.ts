@@ -5,24 +5,19 @@ import { SelfUserDocument } from '../../data/models/user';
 import Pings from '../../data/pings';
 import { WS } from '../../types/ws';
 import Deps from '../../utils/deps';
-import { updateUser, validateUser } from '../modules/middleware';
 import { WebSocket } from '../../ws/websocket';
 import { WSGuard } from '../../ws/modules/ws-guard';
 import { APIError } from '../modules/api-error';
+import updateUser from '../middleware/update-user';
+import validateUser from '../middleware/validate-user';
 
 export const router = Router();
-
-const channels = deps.channels;
-const messages = deps.messages;
-const pings = deps.pings;
-const ws = deps.webSocket;
-const guard = deps.wsCooldowns;
 
 router.get('/:channelId/messages', updateUser, validateUser, async (req, res) => {
   const channelId = req.params.channelId;
   const user: SelfUserDocument = res.locals.user;
 
-  const canAccess = guard.canInChannel('READ_MESSAGES', channelId, user.id);
+  const canAccess = deps.wsGuard.canInChannel('READ_MESSAGES', channelId, user.id);
   if (!canAccess)
     throw new APIError(403, 'Insufficient permissions');
 

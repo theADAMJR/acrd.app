@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { SelfUserDocument, User } from '../../data/models/user';
 import passport from 'passport';
-import Deps from '../../utils/deps';
 import Users from '../../data/users';
 import { Verification } from '../../email/verification';
 import { EmailFunctions } from '../../email/email-functions';
@@ -10,10 +9,6 @@ import patterns from '../../types/patterns';
 import { extraRateLimit } from '../modules/rate-limiter';
 
 export const router = Router();
-
-const sendEmail = deps.emailFunctions;
-const users = deps.users;
-const verification = deps.verification;
 
 router.post('/login', extraRateLimit(25), (req, res, next) => {
   req['flash'] = (_: string, message: string) => res.status(400).json({ message });

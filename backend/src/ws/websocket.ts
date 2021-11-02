@@ -17,8 +17,6 @@ export class WebSocket {
     return Array.from(this.sessions.values());
   }
 
-  constructor(private cooldowns = deps.wsCooldowns) {}
-
   public async init(server: Server) {
     this.io = new SocketServer(server, {
       cors: {
@@ -54,7 +52,7 @@ export class WebSocket {
           } finally {
             try {
               const userId = this.sessions.userId(client);
-              this.cooldowns.handle(userId, event.on);
+              deps.wsCooldowns.handle(userId, event.on);
             } catch {}
           }
         });

@@ -12,7 +12,7 @@ export default class implements WSEvent<'MESSAGE_UPDATE'> {
   on = 'MESSAGE_UPDATE' as const;
 
   constructor(
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
     private messages = deps.messages,
   ) {}
 

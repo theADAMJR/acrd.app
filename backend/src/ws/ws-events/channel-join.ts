@@ -13,35 +13,28 @@ import VoiceData from './voice-data';
 export default class implements WSEvent<'CHANNEL_JOIN'> {
   on = 'CHANNEL_JOIN' as const;
 
-  constructor(
-    private channels = deps.channels,
-    private voice = deps.voiceService,
-    private users = deps.users,
-    private leaveEvent = deps.channelLeave,
-  ) {}
-
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelJoin) {
-    const channel = await this.channels.get(channelId);
+    const channel = await deps.channels.get(channelId);
     if (channel.type !== 'VOICE')
       throw new TypeError('You cannot join a non-voice channel');
 
     const userId = ws.sessions.get(client.id);
-    const user = await this.users.getSelf(userId);
+    const user = await deps.users.getSelf(userId);
     const movedChannel = user.voice.channelId !== channelId;
   
     if (user.voice.channelId && movedChannel)
-      await this.leaveEvent.invoke(ws, client);
+      await deps.channelLeave.invoke(ws, client);
     
     const doesExist = channel.userIds.includes(userId); 
     if (doesExist)
       throw new TypeError('User already connected to voice');
 
     // TODO: perms - validate can join 
-    this.voice.add(channelId, { userId });
+    deps.voiceService.add(channelId, { userId });
     
     await Promise.all([
       client.join(channelId),
-      this.channels.joinVC(channel, userId),
+      deps.channels.joinVC(channel, userId),
       this.updateVoiceState(user, channelId),
     ]);
 

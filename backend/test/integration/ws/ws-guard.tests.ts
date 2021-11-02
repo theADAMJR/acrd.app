@@ -25,7 +25,7 @@ describe.only('ws-guard', () => {
   beforeEach(async () => {
     ({ ws, guild, ownerUser, everyoneRole, textChannel } = await Mock.defaultSetup(client));
 
-    guard = deps.wsCooldowns; 
+    guard = deps.wsGuard; 
   });
 
   afterEach(async () => await Mock.afterEach(ws));

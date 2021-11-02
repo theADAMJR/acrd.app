@@ -17,7 +17,7 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
 
   constructor(
     private guilds = deps.guilds,
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
     private users = deps.users,
   ) {}
 

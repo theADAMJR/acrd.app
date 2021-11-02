@@ -13,17 +13,11 @@ import { ChannelDocument } from '../../data/models/channel';
 export default class implements WSEvent<'CHANNEL_LEAVE'> {
   on = 'CHANNEL_LEAVE' as const;
 
-  constructor(
-    private channels = deps.channels,
-    private voice = deps.voiceService,
-    private users = deps.users,
-  ) {}
-
   public async invoke(ws: WebSocket, client: Socket) {
     const userId = ws.sessions.get(client.id);
-    const user = await this.users.getSelf(userId);
+    const user = await deps.users.getSelf(userId);
     
-    const oldChannel = await this.channels.getSafely(user.voice.channelId);
+    const oldChannel = await deps.channels.getSafely(user.voice.channelId);
     if (oldChannel)
       await this.handleExistingVC(oldChannel, userId, ws, client);
 
@@ -45,8 +39,8 @@ export default class implements WSEvent<'CHANNEL_LEAVE'> {
       throw new TypeError('User not connected to voice');
 
     // leave voice server
-    this.voice.remove(oldChannel.id, userId);
-    await this.channels.leaveVC(oldChannel, userId);
+    deps.voiceService.remove(oldChannel.id, userId);
+    await deps.channels.leaveVC(oldChannel, userId);
 
     ws.io
       .to(oldChannel.guildId)

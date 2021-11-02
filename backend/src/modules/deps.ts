@@ -45,11 +45,14 @@ export interface Deps {
 
 const deps: Deps = {
   channels: new Channels(),
+  channelJoin: new ChannelJoin(),
   channelLeave: new ChannelLeave(),
+  email: new Email(),
   emailFunctions: new EmailFunctions(),
   guilds: new Guilds(),
   guildMembers: new GuildMembers(),
   invites: new Invites(),
+  messages: new Messages(),
   pings: new Pings(),
   rest: new REST(),
   roles: new Roles(),
@@ -58,6 +61,7 @@ const deps: Deps = {
   wsGuard: new WSGuard(),
   wsRooms: new WSRooms(),
   webSocket: new WebSocket(),
+  verification: new Verification(),
   voiceService: new VoiceService(),
 };
 

@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import Deps from '../../utils/deps';
-import { updateGuild, updateUser, validateHasPermission, validateUser } from '../modules/middleware';
 import Users from '../../data/users';
 import Guilds from '../../data/guilds';
 import { WebSocket } from '../../ws/websocket';
@@ -8,13 +7,12 @@ import GuildMembers from '../../data/guild-members';
 import { PermissionTypes } from '../../types/permission-types';
 import { WS } from '../../types/ws';
 import { Guild } from '../../data/models/guild';
+import updateUser from '../middleware/update-user';
+import validateUser from '../middleware/validate-user';
+import updateGuild from '../middleware/update-guild';
+import validateHasPermission from '../middleware/validate-has-permission';
 
 export const router = Router();
-
-const members = deps.guildMembers;
-const guilds = deps.guilds;
-const users = deps.users;
-const ws = deps.webSocket;
 
 router.get('/', updateUser, validateUser, async (req, res) => {
   const guilds = await Guild.find({ _id: { $in: res.locals.guildIds } });
@@ -26,8 +24,8 @@ router.get('/:id/authorize/:botId',
   validateHasPermission(PermissionTypes.General.MANAGE_GUILD),
   async (req, res) => {
     const guild = res.locals.guild;
-    const bot = await users.getSelf(req.params.botId);
-    const member = await members.create(guild.id, bot);
+    const bot = await deps.users.getSelf(req.params.botId);
+    const member = await deps.members.create(guild.id, bot);
 
     ws.io
       .to(guild.id)
@@ -43,7 +41,7 @@ router.get('/:id/channels',
   updateUser, validateUser, updateGuild,
   validateHasPermission(PermissionTypes.General.VIEW_CHANNELS),
   async (req, res) => {
-    const channels = await guilds.getChannels(req.params.id);
+    const channels = await deps.guilds.getChannels(req.params.id);
     res.json(channels);
 });
 
@@ -51,18 +49,18 @@ router.get('/:id/invites',
   updateUser, validateUser, updateGuild,
   validateHasPermission(PermissionTypes.General.MANAGE_GUILD),
   async (req, res) => {
-    const invites = await guilds.getInvites(req.params.id);
+    const invites = await deps.guilds.getInvites(req.params.id);
     res.json(invites);
 });
 
 router.get('/:id/members', updateUser, validateUser, updateGuild,
   async (req, res) => {
-    const members = await guilds.getMembers(req.params.id);
+    const members = await deps.guilds.getMembers(req.params.id);
     res.json(members);
 });
 
 router.get('/:id/roles', updateUser, validateUser, updateGuild,
   async (req, res) => {
-    const roles = await guilds.getRoles(req.params.id);
+    const roles = await deps.guilds.getRoles(req.params.id);
     res.json(roles);
 });

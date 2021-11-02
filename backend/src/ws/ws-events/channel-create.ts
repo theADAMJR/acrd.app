@@ -12,7 +12,7 @@ export default class implements WSEvent<'CHANNEL_CREATE'> {
 
   constructor(
     private channels = deps.channels,
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
   ) {}
 
   public async invoke(ws: WebSocket, client: Socket, { name, guildId, type }: WS.Params.ChannelCreate) {

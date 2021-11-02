@@ -16,7 +16,7 @@ export default class implements WSEvent<'READY'> {
 
   constructor(
     private channelJoinEvent = deps.channelJoin,
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
     private rooms = deps.wsRooms,
     private users = deps.users,
   ) {}

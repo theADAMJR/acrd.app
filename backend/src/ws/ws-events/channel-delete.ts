@@ -13,7 +13,7 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
 
   constructor(
     private channels = deps.channels,
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
     private channelLeaveEvent = deps.channelLeave,
   ) {}
 

@@ -10,17 +10,8 @@ import GuildMembers from '../../data/guild-members';
 import { PermissionTypes, getPermString } from '../../types/permission-types';
 
 export class WSGuard {
-  constructor(
-    private channels = deps.channels,
-    private guilds = deps.guilds,
-    private members = deps.guildMembers,
-    private roles = deps.roles,
-    private users = deps.users,
-    private ws = deps.webSocket,
-  ) {}
-
   public userId(client: Socket) {
-    return this.ws.sessions.get(client.id) ?? '';
+    return deps.webSocket.sessions.get(client.id) ?? '';
   }
 
   public validateIsUser(client: Socket, userId: string) {    
@@ -48,16 +39,16 @@ export class WSGuard {
   }
 
   private async can(permission: PermissionTypes.PermissionString, guildId: string, userId: string) {
-    const guild = await this.guilds.get(guildId);    
-    const member = await this.members.getInGuild(guildId, userId);  
+    const guild = await deps.guilds.get(guildId);    
+    const member = await deps.guildMembers.getInGuild(guildId, userId);  
 
     return (guild.ownerId === member.userId)
-        || this.roles.hasPermission(guild, member, PermissionTypes.All[permission]);
+        || deps.roles.hasPermission(guild, member, PermissionTypes.All[permission]);
   }
 
   public async canInChannel(permission: PermissionTypes.PermissionString, channelId: string, userId: string) {
-    const channel = await this.channels.get(channelId);    
-    const member = await this.members.getInGuild(channel.guildId, userId);
+    const channel = await deps.channels.get(channelId);    
+    const member = await deps.guildMembers.getInGuild(channel.guildId, userId);
 
     const overrides = channel.overrides?.filter(o => member.roleIds.includes(o.roleId)) ?? [];
     const cumulativeAllowPerms = overrides.reduce((prev, curr) => prev | curr.allow, 0);
@@ -76,6 +67,6 @@ export class WSGuard {
   }
 
   public async decodeKey(token: string) {
-    return { id: await this.users.verifyToken(token) };      
+    return { id: await deps.users.verifyToken(token) };      
   }
 }

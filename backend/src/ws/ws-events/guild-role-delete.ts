@@ -13,7 +13,7 @@ export default class implements WSEvent<'GUILD_ROLE_DELETE'> {
   on = 'GUILD_ROLE_DELETE' as const;
 
   constructor(
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
     private roles = deps.roles,
   ) {}
 

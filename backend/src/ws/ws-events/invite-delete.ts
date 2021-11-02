@@ -11,7 +11,7 @@ export default class implements WSEvent<'INVITE_DELETE'> {
   on = 'INVITE_DELETE' as const;
 
   constructor(
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
     private invites = deps.invites,
   ) {}
 

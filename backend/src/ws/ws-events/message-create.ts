@@ -13,7 +13,7 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
 
   constructor(
     private messages = deps.messages,
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
     private users = deps.users,
   ) {}
 

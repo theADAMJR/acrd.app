@@ -14,13 +14,6 @@ import { GuildMember } from './models/guild-member';
 import Users from './users';
 
 export default class Guilds extends DBWrapper<string, GuildDocument> {
-  constructor(
-    private channels = deps.channels,
-    private members = deps.guildMembers,
-    private roles = deps.roles,
-    private users = deps.users,
-  ) { super(); }
-
   public async get(id: string | undefined) {
     const guild = await Guild.findById(id);
     if (!guild)
@@ -36,12 +29,12 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
     const guildId = generateSnowflake();
 
     const [_, __, ___, guild] = await Promise.all([
-      this.roles.create(guildId, { name: '@everyone' }),
-      this.channels.createText(guildId),
-      this.channels.createVoice(guildId),
+      deps.roles.create(guildId, { name: '@everyone' }),
+      deps.channels.createText(guildId),
+      deps.channels.createVoice(guildId),
       Guild.create({ _id: guildId, name, ownerId: owner.id }),
     ]);
-    await this.members.create(guildId, owner);
+    await deps.guildMembers.create(guildId, owner);
     
     return guild;
   }
@@ -60,7 +53,7 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
   }
   public async getUsers(guildId: string) {
     const users = await User.find({ guildIds: guildId });
-    return users.map(u => this.users.secure(u));
+    return users.map(u => deps.users.secure(u));
   }
 
   public async getEntities(guildId: string) {

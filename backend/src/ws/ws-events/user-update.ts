@@ -12,7 +12,7 @@ export default class implements WSEvent<'USER_UPDATE'> {
 
   constructor(
     private users = deps.users,
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
     private sendEmail = deps.emailFunctions,
   ) {}
 

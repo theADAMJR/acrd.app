@@ -2,19 +2,20 @@ import { Router } from 'express';
 import { User } from '../../data/models/user';
 import Users from '../../data/users';
 import Deps from '../../utils/deps';
-import { updateUser, validateUser } from '../modules/middleware';
 import generateInvite from '../../data/utils/generate-invite';
 import { Guild } from '../../data/models/guild';
 import { Role } from '../../data/models/role';
 import { GuildMember } from '../../data/models/guild-member';
 import { Channel } from '../../data/models/channel';
+import updateUser from '../middleware/update-user';
+import validateUser from '../middleware/validate-user';
+import updateGuild from '../middleware/update-guild';
+import validateHasPermission from '../middleware/validate-has-permission';
 
 export const router = Router();
 
-const users = deps.users;
-
 router.get('/', updateUser, validateUser, async (req, res) => {
-  const knownUsers = await users.getKnown(res.locals.user.id);
+  const knownUsers = await deps.users.getKnown(res.locals.user.id);
   res.json(knownUsers);
 });
 
@@ -64,12 +65,12 @@ router.get('/entities', updateUser, validateUser, async (req, res) => {
     User.find({ guildIds: { $in } }),
   ]);
 
-  const secureUsers = unsecureUsers.map((u: any) => users.secure(u));
+  const secureUsers = unsecureUsers.map((u: any) => deps.users.secure(u));
 
   res.json({ channels, guilds, members, roles, users: secureUsers } as REST.From.Get['/users/entities']);
 });
 
 router.get('/:id', async (req, res) => {
-  const user = await users.get(req.params.id);
+  const user = await deps.users.get(req.params.id);
   res.json(user);
 });

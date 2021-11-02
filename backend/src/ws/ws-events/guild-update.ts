@@ -11,7 +11,7 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
   on = 'GUILD_UPDATE' as const;
 
   constructor(
-    private guard = deps.wsCooldowns,
+    private guard = deps.wsGuard,
     private guilds = deps.guilds,
   ) {}
 
