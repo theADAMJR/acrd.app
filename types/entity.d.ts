@@ -43,6 +43,7 @@ declare namespace Entity {
   }
   export interface Message {
     id: string;
+    attachments: MessageTypes.Attachment[];
     authorId: string;
     channelId: string;
     content: string;
@@ -110,6 +111,12 @@ declare namespace InviteTypes {
 }
 
 declare namespace MessageTypes {
+  export interface Attachment {
+    id: string;
+    name: string;
+    size: number;
+    url: string;
+  }
   export interface Embed {
     description: string;
     imageURL: string;

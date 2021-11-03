@@ -2,9 +2,6 @@ import { Document, model, Schema } from 'mongoose';
 import patterns from '../../types/patterns';
 import { createdAtToDate, useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
-import AES from 'crypto-js/aes';
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
 
 export interface MessageDocument extends Document, Entity.Message {
   _id: string | never;
@@ -16,6 +13,9 @@ export const Message = model<MessageDocument>('message', new Schema({
   _id: {
     type: String,
     default: generateSnowflake,
+  },
+  attachments: {
+    type: [Object],
   },
   authorId: {
     type: String,

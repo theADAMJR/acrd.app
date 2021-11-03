@@ -1,10 +1,12 @@
+import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import usePerms from '../../hooks/use-perms';
-import { createMessage, updateMessage } from '../../store/messages';
+import { createMessage, updateMessage, uploadFileAsMessage } from '../../store/messages';
 import { getTypersInChannel, startTyping } from '../../store/typing';
 import { actions as ui } from '../../store/ui';
 import { getUser } from '../../store/users';
@@ -64,8 +66,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
 
   const handleEscape = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key !== 'Escape') return;
-    if (props.editingMessageId)
-      esc();
+    if (props.editingMessageId) esc();
   }
 
   const user = (userId: string) => getUser(userId)(store.getState());
@@ -85,23 +86,49 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     if (!canSend) return `Insufficient perms.`;
     if (!props.editingMessageId) return `Message #${channel.name}`;
   }
+
+  const MessageBoxLeftSide = () => {
+    const onChange: any = (e: Event) => {
+      const input = e.target as HTMLInputElement;
+      console.log(input.files);      
+      dispatch(uploadFileAsMessage(input.files![0]));    
+    }
+
+    return (!props.editingMessageId) ? (
+      <div className="px-4">
+        <div className="relative">
+          {/* TODO: add multiple file support */}
+          <input
+            className="absolute opacity-0 w-full"
+            type="file"
+            name="file"
+            accept="image/*"
+            onChange={onChange} />
+          <FontAwesomeIcon icon={faUpload} />
+        </div>
+      </div>
+    ) : null;
+  } 
   
   return (
     <div className={`${props.editingMessageId ? 'mt-2' : 'px-4'}`}>
-      <TextareaAutosize
-        id="messageBox"
-        onChange={e => setContent(e.target.value)}
-        onKeyDown={onKeyDown}
-        value={content}
-        rows={1}
-        placeholder={getPlaceholder()}
-        className={classNames(
-          'resize-none normal appearance-none rounded-lg leading-tight',
-          'focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4',
-          { 'cursor-not-allowed': !canSend },
-        )}
-        disabled={!canSend}
-        autoFocus />
+      <div className="rounded-lg bg-bg-secondary flex items-center">
+        <MessageBoxLeftSide />
+        <TextareaAutosize
+          id="messageBox"
+          onChange={e => setContent(e.target.value)}
+          onKeyDown={onKeyDown}
+          value={content}
+          rows={1}
+          className={classNames(
+            'resize-none normal rounded-lg appearance-none leading-tight',
+            'focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4',
+            { 'cursor-not-allowed': !canSend },
+          )}
+          placeholder={getPlaceholder()}
+          disabled={!canSend}
+          autoFocus />
+      </div>
       {(props.editingMessageId)
         ? <span className="text-xs py-2">
             escape to <Link to="#" onClick={esc}>cancel</Link> • 

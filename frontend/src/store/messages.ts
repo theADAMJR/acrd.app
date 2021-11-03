@@ -55,6 +55,19 @@ export const createMessage = (channelId: string, payload: Partial<Entity.Message
   }));
 }
 
+// each file is uploaded individually as a separate API call
+export const uploadFileAsMessage = (file: File) => (dispatch) => {
+  const formData = new FormData();
+  formData.append('file', file, file.name);
+  
+  dispatch(api.restCallBegan({
+    method: 'post',
+    url: '/upload',
+    data: formData,
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }));
+}
+
 export const updateMessage = (id: string, payload: Partial<Entity.Message>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'MESSAGE_UPDATE',
