@@ -13,6 +13,9 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
 
   public async invoke(ws: WebSocket, client: Socket, { attachmentURLs, channelId, content, embed }: WS.Params.MessageCreate) {
     const authorId = ws.sessions.userId(client);
+
+    console.log(attachmentURLs);
+    
     
     const [_, message, author] = await Promise.all([
       deps.wsGuard.validateCanInChannel(client, channelId, 'SEND_MESSAGES'), 

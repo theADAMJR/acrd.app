@@ -12,8 +12,6 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
   }
 
   public async create(authorId: string, channelId: string, { attachmentURLs, content }: Partial<Entity.Message>) {
-    if (!content)
-      throw new TypeError('Content must be provided');
     // TODO: TESTME
     if (!content && !attachmentURLs?.length)
       throw new TypeError('Empty messages are not valid');

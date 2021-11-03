@@ -6,37 +6,38 @@ import cors from 'cors';
 import { User } from '../../data/models/user';
 import rateLimiter from '../modules/rate-limiter';
 import multer from 'multer';
-import { generateSnowflake } from '../../data/snowflake-entity';
-import path, { extname, resolve } from 'path';  
-import { promisify } from 'util';
-import { APIError } from '../modules/api-error';
+import { extname, resolve } from 'path';  
+import validateImage from '../middleware/validate-image';
 import crypto from 'crypto';
-import getStream from 'get-stream';
+import { promisify } from 'util';
+import { readFile, rename } from 'fs';
+
+const renameAsync = promisify(rename); 
+const readFileAsync = promisify(readFile); 
 
 function setupMulter(app: Application) {
+  const uploadDir = resolve('./assets/upload');
+
   const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, resolve('./assets/upload')),
-    filename: async (req, file, cb) => {
-      if (!file.mimetype.includes('image'))
-        throw new APIError(400, 'Only images can be uploaded at this time');
-
-      const buffer = await getStream(file.stream);
-      const hash = crypto
-        .createHash('md5')
-        .update(buffer)
-        .digest('hex');
-      console.log(hash);     
-
-      file['newName'] = hash + extname(file.originalname);
-      cb(null, file['newName']);
-    },
+    destination: (req, file, cb) => cb(null, uploadDir),
+    filename: async (req, file, cb) => cb(null, Date.now() + extname(file.originalname)),
   });
   const upload = multer({ storage });
 
   // TODO: validate is logged in, etc.
-  app.post('/v2/upload', upload.single('file'), (req, res) => {
-    const fileName = req.file!['newName'];
-    res.status(201).json({ url: `${process.env.ROOT_ENDPOINT}/assets/upload/${fileName}` });
+  app.post('/v2/upload', upload.single('file'), validateImage, async (req, res) => {
+    const file = req.file!;
+  
+    const buffer = await readFileAsync(file.path);
+    const hash = crypto
+      .createHash('md5')
+      .update(buffer)
+      .digest('hex'); 
+
+    const newFileName = hash + extname(file.originalname);
+    await renameAsync(file.path, `${uploadDir}/${newFileName}`);
+    
+    res.status(201).json({ url: `${process.env.ROOT_ENDPOINT}/assets/upload/${newFileName}` });
   });
 }
 function setupPassport(app: Application) {
