@@ -1,9 +1,6 @@
 import { Router } from 'express';
 import { SelfUserDocument, User } from '../../data/models/user';
 import passport from 'passport';
-import Users from '../../data/users';
-import { Verification } from '../../email/verification';
-import { EmailFunctions } from '../../email/email-functions';
 import { APIError } from '../modules/api-error';
 import patterns from '../../types/patterns';
 import { extraRateLimit } from '../modules/rate-limiter';

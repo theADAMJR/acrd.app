@@ -65,7 +65,7 @@ export const uploadFileAsMessage = (channelId: string, payload: Partial<Entity.M
     url: '/upload',
     data: formData,
     headers: { 'Content-Type': 'multipart/form-data' },
-    callback: async ({ url }: { url: string }) =>
+    callback: async ({ url }: { url: string, hash: string }) =>
       dispatch(createMessage(channelId, payload, [url])),
   }));
 }

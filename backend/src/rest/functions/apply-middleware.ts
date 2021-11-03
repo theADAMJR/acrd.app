@@ -4,7 +4,7 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import passport from 'passport';
 import cors from 'cors';
 import { User } from '../../data/models/user';
-import rateLimiter from '../modules/rate-limiter';
+import rateLimiter, { extraRateLimit } from '../modules/rate-limiter';
 import multer from 'multer';
 import { extname, resolve } from 'path';  
 import validateImage from '../middleware/validate-image';
@@ -26,7 +26,7 @@ function setupMulter(app: Application) {
   const upload = multer({ storage });
 
   // TODO: validate is logged in, etc.
-  app.post('/v2/upload', upload.single('file'), validateImage, async (req, res) => {
+  app.post('/v2/upload', extraRateLimit(10), upload.single('file'), validateImage, async (req, res) => {
     const file = req.file!;
   
     const buffer = await readFileAsync(file.path);
@@ -39,7 +39,8 @@ function setupMulter(app: Application) {
     await renameAsync(file.path, `${uploadDir}/${newFileName}`);
     log.silly(`Uploaded ${newFileName}`);
     
-    res.status(201).json({ url: `${process.env.ROOT_ENDPOINT}/assets/upload/${newFileName}` });
+    const url = `/assets/upload/${newFileName}`;
+    res.status(201).json({ hash, url });
   });
 }
 function setupPassport(app: Application) {

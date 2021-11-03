@@ -2,7 +2,7 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -55,6 +55,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     saveEdit();
   }
 
+  const esc = () => dispatch(ui.stoppedEditingMessage());
   const saveEdit = () => {
     (props.editingMessageId)
       ? dispatch(updateMessage(props.editingMessageId, { content }))
@@ -63,17 +64,15 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     setContent('');
     esc();
   }
-  const esc = () => dispatch(ui.stoppedEditingMessage());
-
   const handleEscape = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key !== 'Escape') return;
     if (props.editingMessageId) esc();
   }
 
-  const user = (userId: string) => getUser(userId)(store.getState());
-
   const typingMessage = () => {
     if (!typers.length) return;
+    
+    const user = (userId: string) => getUser(userId)(store.getState());
   
     const maxTypers = 3;
     const typingUsers = typers.map(t => user(t.userId)!.username).join(', ');

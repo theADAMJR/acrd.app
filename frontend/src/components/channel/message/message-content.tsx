@@ -44,10 +44,12 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
     .replace(defaultPatterns.url, '<a href="$1" target="_blank">$1</div>');
 
   // TODO: get metadata via fetch request, before rendering image
+  console.log();
+  
   const messageHTML =
     `${message.content && format(striptags(message.content))}` +
-    `${message.attachmentURLs?.map(hash =>
-      `<img src="${process.env.REACT_APP_CDN_URL}/uploads/${hash}"`)
+    `${message.attachmentURLs?.map(url =>
+      `<img src="${process.env.REACT_APP_CDN_URL}/${url}"`)
     }`;
   
   return (editingMessageId === message.id)

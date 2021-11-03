@@ -5,14 +5,14 @@ const windowMs = 10 * 60 * 1000;
 
 // additional layer rate limits
 export const extraRateLimit = (maxRequests: number) => rateLimit({
-  max: windowMs / 2,
+  max: maxRequests,
   message: JSON.stringify({ message: 'You are being rate limited' }),
   store: new RateLimitStore({
     uri: process.env.MONGO_URI,
     collectionName: 'extraRateLimits',
     expireTimeMs: windowMs,
   }),
-  windowMs,
+  windowMs: windowMs / 2,
 });
 
 // default layer rate limits
