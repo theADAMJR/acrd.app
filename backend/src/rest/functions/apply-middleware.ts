@@ -9,17 +9,19 @@ import multer from 'multer';
 import { generateSnowflake } from '../../data/snowflake-entity';
 import { imageHash } from 'image-hash';
 import path, { extname, resolve } from 'path';  
+import { promisify } from 'util';
 
 function setupMulter(app: Application) {
   const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, resolve('./assets/upload')),
-    filename: (req, file, cb) => {
-      // imageHash({ ext: file.mimetype, data: file.buffer }, 8, true, (error, data) => {
-      //   if (error) return log.error(error);
-      //   log.debug(data);        
-      // });
-      console.log(file);
-      cb(null, Date.now() + extname(file.originalname));
+    destination: (req, fileMeta, cb) => cb(null, resolve('./assets/upload')),
+    filename: async (req, fileMeta, cb) => {      
+      // const hash = promisify(imageHash);
+      // const hashObj = await hash(file.buffer, 16, true) as object;      
+        
+      // console.log(hashObj);        
+      // console.log(file);
+
+      cb(null, Date.now() + extname(fileMeta.originalname));
     },
   });
   const upload = multer({ storage });

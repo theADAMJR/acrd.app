@@ -1,23 +1,14 @@
 import { Socket } from 'socket.io';
-import Invites from '../../data/invites';
-import { Guild } from '../../data/models/guild';
-import { PermissionTypes } from '../../types/permission-types';
-
-import { WSGuard } from '../modules/ws-guard';
+import { WS } from '../../types/ws';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 
 export default class implements WSEvent<'INVITE_DELETE'> {
   on = 'INVITE_DELETE' as const;
 
-  constructor(
-    private guard = deps.wsGuard,
-    private invites = deps.invites,
-  ) {}
-
   public async invoke(ws: WebSocket, client: Socket, { inviteCode }: WS.Params.InviteDelete) {
-    const invite = await this.invites.get(inviteCode);
-    await this.guard.validateCan(client, invite.guildId, 'MANAGE_GUILD');
+    const invite = await deps.invites.get(inviteCode);
+    await deps.wsGuard.validateCan(client, invite.guildId, 'MANAGE_GUILD');
 
     await invite.deleteOne();
 

@@ -14,7 +14,6 @@ export default (app: Application, prefix: string) => {
   
   app.use(`${prefix}/auth`, authRoutes);
   app.use(`${prefix}/invites`, invitesRoutes);
-  // app.use(`${prefix}/dev`, devRoutes);
   app.use(`${prefix}/channels`, channelsRoutes);
   app.use(`${prefix}/guilds`, guildsRoutes);
   app.use(`${prefix}/users`, usersRoutes);

@@ -73,12 +73,12 @@ const HomePage: React.FunctionComponent = () => {
       </section>
 
       <section
-        title="Description may be true for incoming features."
+        title="*Description may represent unreleased features.*"
         className="absolute top-50 w-1/2 inset-x-1/4 flex justify-between">
         <ImageCard src={Chat} title="Chat w/ Friends" />
         <ImageCard src={Devices} title="On Mobile or Desktop" />
-        <ImageCard src={Friends} title="Join or Manage Guilds" />
-        <ImageCard src={Secure} title="Safe and Secure" />
+        <ImageCard src={Friends} title="Join and Manage Guilds" />
+        <ImageCard src={Secure} title="Super Secure" />
       </section>
     </PageWrapper>
   );
