@@ -39,7 +39,7 @@ function setupMulter(app: Application) {
     await renameAsync(file.path, `${uploadDir}/${newFileName}`);
     log.silly(`Uploaded ${newFileName}`);
     
-    const url = `/assets/upload/${newFileName}`;
+    const url = `/upload/${newFileName}`;
     res.status(201).json({ hash, url });
   });
 }
