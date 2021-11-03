@@ -30,7 +30,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
 
   useEffect(() => {
     const messageBox = document.querySelector('#messageBox') as HTMLTextAreaElement;
-    messageBox.value = props.cachedContent?.[channel.id] ?? '';
+    messageBox.value = props.cachedContent?.[channel.id] ?? content;
   }, [channel.id]);
 
   useEffect(() => {
