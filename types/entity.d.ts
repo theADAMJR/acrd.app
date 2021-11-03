@@ -43,7 +43,7 @@ declare namespace Entity {
   }
   export interface Message {
     id: string;
-    attachments?: MessageTypes.Attachment[];
+    attachmentIds?: string[];
     authorId: string;
     channelId: string;
     content?: string;

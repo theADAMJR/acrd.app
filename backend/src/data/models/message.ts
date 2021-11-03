@@ -14,9 +14,7 @@ export const Message = model<MessageDocument>('message', new Schema({
     type: String,
     default: generateSnowflake,
   },
-  attachments: {
-    type: [Object],
-  },
+  attachmentIds: [String],
   authorId: {
     type: String,
     required: [true, 'Author ID is required'],

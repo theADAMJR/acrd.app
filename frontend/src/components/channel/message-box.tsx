@@ -91,7 +91,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     const onChange: any = (e: Event) => {
       const input = e.target as HTMLInputElement;
       console.log(input.files);      
-      dispatch(uploadFileAsMessage(input.files![0]));    
+      dispatch(uploadFileAsMessage(channel.id, { content }, input.files![0]));    
     }
 
     return (!props.editingMessageId) ? (

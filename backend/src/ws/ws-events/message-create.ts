@@ -1,12 +1,13 @@
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
-
 import { WSGuard } from '../modules/ws-guard';
-import Messages from '../../data/messages';
-import Users from '../../data/users';
-import { Channel } from '../../data/models/channel';
 import { WS } from '../../types/ws';
+import { promisify } from 'util';
+import { stat } from 'fs';
+import { resolve } from 'path';
+
+const statAsync = promisify(stat);
 
 export default class implements WSEvent<'MESSAGE_CREATE'> {
   on = 'MESSAGE_CREATE' as const;
@@ -17,12 +18,12 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
     private users = deps.users,
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { attachments, channelId, content, embed }: WS.Params.MessageCreate) {
+  public async invoke(ws: WebSocket, client: Socket, { attachmentIds, channelId, content, embed }: WS.Params.MessageCreate) {
     const authorId = ws.sessions.userId(client);
     
     const [_, message, author] = await Promise.all([
       this.guard.validateCanInChannel(client, channelId, 'SEND_MESSAGES'), 
-      this.messages.create(authorId, channelId, { attachments, content, embed }),
+      this.messages.create(authorId, channelId, { attachmentIds, content, embed }),
       this.users.getSelf(authorId),
     ]);
 
