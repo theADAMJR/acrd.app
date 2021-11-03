@@ -43,9 +43,12 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
     .replace(patterns.blockQuoteMultiline, '<div class="blockquote pl-1">$1</div>')
     .replace(defaultPatterns.url, '<a href="$1" target="_blank">$1</div>');
 
+  // TODO: get metadata via fetch request, before rendering image
   const messageHTML =
     `${message.content && format(striptags(message.content))}` +
-    `${message.attachments?.map(a => `<img src=${a.url} alt=${a.name} title=${a.name} />`)}`;
+    `${message.attachmentURLs?.map(hash =>
+      `<img src="${process.env.REACT_APP_CDN_URL}/uploads/${hash}"`)
+    }`;
   
   return (editingMessageId === message.id)
     ? <MessageBox

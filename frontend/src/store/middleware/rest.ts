@@ -2,7 +2,7 @@ import axios from 'axios';
 import { actions, APIArgs } from '../api';
 import { openDialog } from '../ui';
 
-export default store => next => async action => {
+export default (store) => (next) => async (action) => {
   if (action.type !== actions.restCallBegan.type)
     return next(action);
 
@@ -25,7 +25,7 @@ export default store => next => async action => {
         store.dispatch({ type, payload });
 
     // called after dispatch events
-    callback && callback(payload);
+    callback && await callback(payload);
   } catch (error) {
     const response = (error as any).response;
     store.dispatch(actions.restCallFailed({ url, response }));

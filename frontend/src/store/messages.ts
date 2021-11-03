@@ -48,28 +48,26 @@ export const fetchMessages = (channelId: string) => (dispatch, getState: () => S
   }));
 }
 
-export const createMessage = (channelId: string, payload: Partial<Entity.Message>, file?: File) => (dispatch) => {
+export const createMessage = (channelId: string, payload: Partial<Entity.Message>, attachmentURLs?: string[]) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'MESSAGE_CREATE',
-    data: { ...payload, channelId, attachmentIds: [
-      
-    ]  } as WS.Params.MessageCreate,
+    data: { ...payload, channelId, attachmentURLs } as WS.Params.MessageCreate,
   }));
 }
 
 // each file is uploaded individually as a separate API call
 export const uploadFileAsMessage = (channelId: string, payload: Partial<Entity.Message>, file: File) => (dispatch) => {
   const formData = new FormData();
-  formData.append('file', file, file.name);
+  formData.append('file', file);
   
   dispatch(api.restCallBegan({
     method: 'post',
     url: '/upload',
     data: formData,
     headers: { 'Content-Type': 'multipart/form-data' },
+    callback: async (resPayload: string[]) =>
+      dispatch(createMessage(channelId, payload, resPayload)),
   }));
-
-  dispatch(createMessage(channelId, payload, file));
 }
 
 export const updateMessage = (id: string, payload: Partial<Entity.Message>) => (dispatch) => {

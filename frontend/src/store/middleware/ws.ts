@@ -1,7 +1,7 @@
 import { actions } from '../api';
 import ws from '../../services/ws-service';
 
-export default store => next => async action => {
+export default (store) => (next) => async (action) => {
   if (action.type !== actions.wsCallBegan.type)
     return next(action);
   

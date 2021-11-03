@@ -7,32 +7,36 @@ import { User } from '../../data/models/user';
 import rateLimiter from '../modules/rate-limiter';
 import multer from 'multer';
 import { generateSnowflake } from '../../data/snowflake-entity';
-import { imageHash } from 'image-hash';
 import path, { extname, resolve } from 'path';  
 import { promisify } from 'util';
 import { APIError } from '../modules/api-error';
+import crypto from 'crypto';
+import getStream from 'get-stream';
 
 function setupMulter(app: Application) {
   const storage = multer.diskStorage({
-    destination: (req, fileMeta, cb) => cb(null, resolve('./assets/upload')),
-    filename: async (req, fileMeta, cb) => {
-      if (!fileMeta.mimetype.includes('image'))
+    destination: (req, file, cb) => cb(null, resolve('./assets/upload')),
+    filename: async (req, file, cb) => {
+      if (!file.mimetype.includes('image'))
         throw new APIError(400, 'Only images can be uploaded at this time');
-      
-      // const hash = promisify(imageHash);
-      // const hashObj = await hash(file.buffer, 16, true) as object;      
-        
-      // console.log(hashObj);        
-      // console.log(file);
 
-      cb(null, Date.now() + extname(fileMeta.originalname));
+      const buffer = await getStream(file.stream);
+      const hash = crypto
+        .createHash('md5')
+        .update(buffer)
+        .digest('hex');
+      console.log(hash);     
+
+      file['newName'] = hash + extname(file.originalname);
+      cb(null, file['newName']);
     },
   });
   const upload = multer({ storage });
 
   // TODO: validate is logged in, etc.
   app.post('/v2/upload', upload.single('file'), (req, res) => {
-    res.status(201).json({ message: 'Files uploaded' });
+    const fileName = req.file!['newName'];
+    res.status(201).json({ url: `${process.env.ROOT_ENDPOINT}/assets/upload/${fileName}` });
   });
 }
 function setupPassport(app: Application) {

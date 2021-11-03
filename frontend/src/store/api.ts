@@ -17,7 +17,7 @@ export interface APIArgs {
   onSuccess?: string[];
   url: string;
   /** Callback to handle side effects. */
-  callback?: (payload: any) => any;
+  callback?: (payload: any) => any | Promise<any>;
 }
 export interface WSArgs {
   data?: object;
