@@ -27,7 +27,6 @@ export const Message = model<MessageDocument>('message', new Schema({
   },
   content: {
     type: String,
-    minlength: [1, 'Content too short'],
     maxlength: [3000, 'Content too long'],
   },
   createdAt: {

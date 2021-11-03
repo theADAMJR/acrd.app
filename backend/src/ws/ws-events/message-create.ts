@@ -3,10 +3,8 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { WS } from '../../types/ws';
 import { promisify } from 'util';
-import { stat } from 'fs';
 import { Channel } from '../../data/models/channel';
 
-const statAsync = promisify(stat);
 
 export default class implements WSEvent<'MESSAGE_CREATE'> {
   on = 'MESSAGE_CREATE' as const;
@@ -14,6 +12,8 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
   public async invoke(ws: WebSocket, client: Socket, { attachmentURLs, channelId, content, embed }: WS.Params.MessageCreate) {
     const authorId = ws.sessions.userId(client);
 
+    console.log('message create');
+    
     console.log(attachmentURLs);
     
     
