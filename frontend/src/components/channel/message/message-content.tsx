@@ -42,22 +42,26 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
     .replace(patterns.blockQuoteLine, '<span class="blockquote pl-1">$1</span>')
     .replace(patterns.blockQuoteMultiline, '<div class="blockquote pl-1">$1</div>')
     .replace(defaultPatterns.url, '<a href="$1" target="_blank">$1</div>');
+
+  const messageHTML =
+    `${message.content && format(striptags(message.content))}` +
+    `${message.attachments?.map(a => `<img src=${a.url} alt=${a.name} title=${a.name} />`)}`;
   
   return (editingMessageId === message.id)
-  ? <MessageBox
-      content={message.content}
-      editingMessageId={message.id} />
-  : <div className="relative">
-      <div
-        style={{maxWidth: '963px'}}
-        className="normal whitespace-pre-wrap">
+    ? <MessageBox
+        content={message.content}
+        editingMessageId={message.id} />
+    : <div className="relative">
         <div
-          dangerouslySetInnerHTML={{ __html: `${format(striptags(message.content))}` }}
-          className="float-left overflow-auto"
-          style={{ maxWidth: '100%' }} />
-        {message.updatedAt && <span className="select-none muted edited text-xs ml-1">(edited)</span>}
-      </div>
-    </div>;
+          style={{maxWidth: '963px'}}
+          className="normal whitespace-pre-wrap">
+          <div
+            dangerouslySetInnerHTML={{ __html: messageHTML }}
+            className="float-left overflow-auto"
+            style={{ maxWidth: '100%' }} />
+          {message.updatedAt && <span className="select-none muted edited text-xs ml-1">(edited)</span>}
+        </div>
+      </div>;
 }
 
 export default MessageContent;

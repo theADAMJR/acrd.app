@@ -10,11 +10,15 @@ import { generateSnowflake } from '../../data/snowflake-entity';
 import { imageHash } from 'image-hash';
 import path, { extname, resolve } from 'path';  
 import { promisify } from 'util';
+import { APIError } from '../modules/api-error';
 
 function setupMulter(app: Application) {
   const storage = multer.diskStorage({
     destination: (req, fileMeta, cb) => cb(null, resolve('./assets/upload')),
-    filename: async (req, fileMeta, cb) => {      
+    filename: async (req, fileMeta, cb) => {
+      if (!fileMeta.mimetype.includes('image'))
+        throw new APIError(400, 'Only images can be uploaded at this time');
+      
       // const hash = promisify(imageHash);
       // const hashObj = await hash(file.buffer, 16, true) as object;      
         

@@ -11,12 +11,16 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
     return message;
   }
 
-  public async create(authorId: string, channelId: string, { content }: Partial<Entity.Message>) {
+  public async create(authorId: string, channelId: string, { attachments, content }: Partial<Entity.Message>) {
     if (!content)
       throw new TypeError('Content must be provided');
+    // TODO: TESTME
+    if (!content && !attachments?.length)
+      throw new TypeError('Empty messages are not valid');
     
     return await Message.create({
       _id: generateSnowflake(),
+      attachments,
       authorId,
       channelId,
       content,

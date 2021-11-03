@@ -193,7 +193,8 @@ declare namespace WS {
     }
     export interface MessageCreate {
       channelId: string;
-      content: string;
+      content?: string;
+      attachments?: MessageTypes.Attachment[];
       embed?: MessageTypes.Embed;
     }
     export interface MessageDelete {
