@@ -4,7 +4,7 @@ import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { getMember, kickMember } from '../../../store/members';
-import { actions as ui } from '../../../store/ui';
+import { actions as ui, openUserProfile } from '../../../store/ui';
 import { toggleBlockUser } from '../../../store/users';
 import UserProfile from '../../modals/user-profile';
 import Category from '../../utils/category';
@@ -41,10 +41,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
       id={user.id}
       className="bg-bg-tertiary p-2 rounded shadow">
       <MenuItem
-        onClick={() => {
-          dispatch(ui.focusedUser(user));
-          dispatch(ui.openedModal('UserProfile'));
-        }}
+        onClick={() => dispatch(openUserProfile(user))}
         className="flex items-center justify-between cursor-pointer">
         <span>View Profile</span>
         <FontAwesomeIcon icon={faUser} />

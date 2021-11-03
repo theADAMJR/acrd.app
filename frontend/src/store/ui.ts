@@ -62,6 +62,11 @@ export const angrySaveChanges = () => {
   saveChanges.style.backgroundColor = 'var(--danger)';
 }
 
+export const openUserProfile = (user: Entity.User) => (dispatch) => {
+  dispatch(actions.focusedUser(user));
+  dispatch(actions.openedModal('UserProfile'));
+}
+
 export const openDialog = (dialog: Dialog) => () => events.emit('dialog', dialog);
 
 export interface Dialog {

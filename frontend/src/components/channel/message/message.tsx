@@ -2,7 +2,7 @@ import './message.scoped.css';
 import './message.global.css';
 
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
 import { getUser } from '../../../store/users';
 import MessageToolbar from './message-toolbar';
@@ -12,6 +12,8 @@ import classNames from 'classnames';
 import Image from '../../utils/image';
 import MessageContent from './message-content';
 import MessageHeader from './message-header';
+import { openUserProfile } from '../../../store/ui';
+import React from 'react';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -35,20 +37,25 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   }
   const isActuallyExtra = isExtra();
 
-  const leftSide = () => (isActuallyExtra)
-    ? <span className="timestamp text-xs select-none">
-        {moment(createdAt).format('HH:mm')}
-      </span>
-    : <Image
-        className="rounded-full cursor-pointer w-10 h-10"
-        src={`${process.env.REACT_APP_CDN_URL}${author.avatarURL}`}
-        onError={e => e.currentTarget.src = `${process.env.REACT_APP_CDN_URL}/avatars/unknown.png`}
-        alt={author.username} />;
+  const LeftSide: React.FunctionComponent = () => {
+    const dispatch = useDispatch();
+
+    return (isActuallyExtra)
+      ? <span className="timestamp text-xs select-none">
+          {moment(createdAt).format('HH:mm')}
+        </span>
+      : <Image
+          className="rounded-full cursor-pointer w-10 h-10"
+          src={`${process.env.REACT_APP_CDN_URL}${author.avatarURL}`}
+          onError={e => e.currentTarget.src = `${process.env.REACT_APP_CDN_URL}/avatars/unknown.png`}
+          onClick={() => dispatch(openUserProfile(author))}
+          alt={author.username} />;
+  }
 
   return (
     <ContextMenuTrigger key={message.id} id={message.id}>
       <div className={classNames('message flex', { 'mt-4': !isActuallyExtra })}>
-        <div className="flex-shrink-0 left-side text-xs w-16 mr-2 pl-5 pt-1">{leftSide()}</div>
+        <div className="flex-shrink-0 left-side text-xs w-16 mr-2 pl-5 pt-1"><LeftSide /></div>
         <div className="relative flex-grow px-2">
           <div className="absolute toolbar right-0 -mt-3 z-10">
             <MessageToolbar message={message} />
