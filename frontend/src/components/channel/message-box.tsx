@@ -1,7 +1,8 @@
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
+import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -87,7 +88,9 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     if (!props.editingMessageId) return `Message #${channel.name}`;
   }
 
+  // TODO: refactor
   const MessageBoxLeftSide = () => {
+    const uploadInput = React.createRef<HTMLInputElement>();
     const onChange: any = (e: Event) => {
       const input = e.target as HTMLInputElement;
       console.log(input.files);      
@@ -99,12 +102,16 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
         <div className="relative">
           {/* TODO: add multiple file support */}
           <input
-            className="absolute opacity-0 w-full"
+            ref={uploadInput}
             type="file"
             name="file"
             accept="image/*"
-            onChange={onChange} />
-          <FontAwesomeIcon icon={faUpload} />
+            onChange={onChange}
+            hidden />
+          <FontAwesomeIcon
+            icon={faUpload}
+            onClick={() => uploadInput.current?.click()}
+            className="cursor-pointer z-1" />
         </div>
       </div>
     ) : null;
