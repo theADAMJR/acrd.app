@@ -13,6 +13,9 @@ const slice = createSlice({
       delete state.editingMessageId;
     },
     // only 1 invite is created -> to save data, and stop spam
+    focusedResource: (state, { payload }) => {
+      state.activeResource = payload;
+    },
     focusedInvite: (state, { payload }) => {
       state.activeInvite = payload;
     },
@@ -65,6 +68,10 @@ export const angrySaveChanges = () => {
 export const openUserProfile = (user: Entity.User) => (dispatch) => {
   dispatch(actions.focusedUser(user));
   dispatch(actions.openedModal('UserProfile'));
+}
+export const previewImage = (url: string) => (dispatch) => {
+  dispatch(actions.focusedResource(url));
+  dispatch(actions.openedModal('ImagePreview'));
 }
 
 export const openDialog = (dialog: Dialog) => () => events.emit('dialog', dialog);

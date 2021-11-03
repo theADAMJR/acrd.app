@@ -1,14 +1,16 @@
 import MessageBox from '../message-box';
 import defaultPatterns from '../../../types/patterns';
 import { FunctionComponent } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import striptags from 'striptags';
+import { previewImage } from '../../../store/ui';
 
 interface MessageContentProps {
   message: Entity.Message;
 }
 
 const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => {
+  const dispatch = useDispatch();
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
 
   const patterns = {
@@ -48,13 +50,23 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
     `<img src="${process.env.REACT_APP_CDN_URL}${imageURL}"`).join(''));
 
   const messageHTML =
-    `${message.content && format(striptags(message.content))}` +
-    `${message.attachmentURLs?.map(imageURL =>
-      `<img
-        style="max-width: 512px"
-        class="my-2 cursor-pointer"
-        src="${process.env.REACT_APP_CDN_URL}${imageURL}" />`).join('')
-    }`;
+    ((message.content) ? format(striptags(message.content)) : '') +
+    ((message.updatedAt && message.content) ?
+      `<span
+        class="select-none muted edited text-xs ml-1"
+        title="${message.updatedAt}">(edited)</span>` : '');
+
+  const Attachments = () => (
+    <>
+      {message.attachmentURLs?.map(imageURL =>
+        <img
+          key={imageURL}
+          style={{ maxWidth: '512px' }}
+          className="my-2 cursor-pointer"
+          onClick={() => dispatch(previewImage(imageURL))}
+          src={process.env.REACT_APP_CDN_URL + imageURL} />)}
+    </>
+  );
   
   return (editingMessageId === message.id)
     ? <MessageBox
@@ -66,9 +78,9 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
           className="normal whitespace-pre-wrap">
           <div
             dangerouslySetInnerHTML={{ __html: messageHTML }}
-            className="float-left overflow-auto"
+            className="overflow-auto"
             style={{ maxWidth: '100%' }} />
-          {message.updatedAt && <span className="select-none muted edited text-xs ml-1">(edited)</span>}
+          <Attachments />
         </div>
       </div>;
 }

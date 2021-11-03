@@ -28,7 +28,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, typeName, size,
       className={classNames(
         `bg-bg-primary overflow-auto fixed outline-none`,
         className,
-        sizeClass[size ?? 'sm']
+        sizeClass[size ?? 'sm'],
       )}
       appElement={document.querySelector('#root')!}
       isOpen={openModal === typeName}

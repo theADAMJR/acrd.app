@@ -39,6 +39,7 @@ declare namespace Store {
       openDropdown?: string;
       openModal?: string;
       activeChannel?: Entity.Channel;
+      activeResource?: string;
       activeGuild?: Entity.Guild;
       activeInvite?: Entity.Invite;
       activeUser?: Entity.User;
