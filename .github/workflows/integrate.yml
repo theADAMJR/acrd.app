@@ -26,10 +26,10 @@ jobs:
 
       - name: Install packages for test
         run: npm ci
-        working-directory: ./app
+        working-directory: ./backend
       - name: Test Backend
         run: npm test
-        working-directory: ./app
+        working-directory: ./backend
         env:
           API_URL: http://localhost:3001/api
           EMAIL_ADDRESS: example@gmail.com
