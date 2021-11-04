@@ -12,6 +12,8 @@ Custom Frontend and Backend that is similar to Discord.
 
 ## Setup
 
+These setup instructions are in a primitive state, and may be improved in the future.
+
 1. Clone the repo.
 2. Generate SSH keys.
    From app folder:
@@ -27,6 +29,7 @@ Custom Frontend and Backend that is similar to Discord.
    cd ../backend
    npm i
    ```
+4. Configure `backend/.env.example` and rename it to `.env`
 
 ---
 
