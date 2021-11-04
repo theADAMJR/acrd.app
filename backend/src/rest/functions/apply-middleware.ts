@@ -23,7 +23,7 @@ function setupMulter(app: Application) {
   // uses storage rather than memory - 2 file operations per file upload
   const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, uploadDir),
-    filename: (req, file, cb) => file.originalname,
+    filename: (req, file, cb) => cb(null, file.originalname),
   });
   const upload = multer({ storage });
 
