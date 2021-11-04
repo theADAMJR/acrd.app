@@ -6,6 +6,7 @@ import CreateChannel from '../modals/create-channel';
 import CreateGuild from '../modals/create-guild';
 import CreateInvite from '../modals/create-invite';
 import GuildSettings from '../modals/guild-settings/guild-settings';
+import ImagePreview from '../modals/image-preview';
 import UserProfile from '../modals/user-profile';
 import UserSettings from '../modals/user-settings/user-settings';
 import { filterProps } from '../utils/react/react-shush-error';
@@ -46,6 +47,7 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
       <CreateInvite />
       <ChannelSettings />
       <GuildSettings />
+      <ImagePreview />
       <UserSettings />
       <UserProfile />
     </div>

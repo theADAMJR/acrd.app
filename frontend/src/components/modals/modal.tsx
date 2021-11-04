@@ -15,6 +15,7 @@ const sizeClass = {
   'sm': 'rounded-lg 2xl:w-1/4 2xl:inset-x-1/3 2xl:inset-y-1/3   md:w-1/3 md:inset-x-1/3 md:inset-y-1/4',
   'md': 'rounded-lg 2xl:w-1/3 2xl:inset-x-1/3 2xl:inset-y-1/4   md:w-1/4 md:inset-x-1/3 md:inset-y-1/3',
   'lg': 'rounded-lg 2xl:w-1/3 2xl:inset-x-1/3 2xl:top-1/4       md:w-1/3 md:inset-x-1/3 md:top-20',
+  'xl': 'rounded-lg 2xl:w-1/2 2xl:inset-x-1/4 2xl:top-1/4       md:w-1/3 md:inset-x-1/3 md:top-20',
   'full': 'h-full w-full',
 };
  
