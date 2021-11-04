@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import { filterProps } from '../react/react-shush-error';
@@ -30,7 +31,10 @@ const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLIn
         disabled={disabled}
         {...filterProps(props)}
         {...register(name, { ...options })}
-        className="block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2" />
+        className={classNames(
+          'block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2',
+          { 'h-12': type === 'file' },
+        )} />
     </div>
   );
 }

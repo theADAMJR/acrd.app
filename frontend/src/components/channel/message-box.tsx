@@ -91,8 +91,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const MessageBoxLeftSide = () => {
     const uploadInput = React.createRef<HTMLInputElement>();
     const onChange: any = (e: Event) => {
-      const input = e.target as HTMLInputElement;
-      console.log(input.files);      
+      const input = e.target as HTMLInputElement;   
       dispatch(uploadFileAsMessage(channel.id, { content }, input.files![0]));    
     }
 

@@ -29,7 +29,6 @@ const UserSettings: React.FunctionComponent = () => {
                 { name: 'Overview', id: 'overview' },
                 { name: 'Security', id: 'security' },
               ]} />
-
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
 
             <Link

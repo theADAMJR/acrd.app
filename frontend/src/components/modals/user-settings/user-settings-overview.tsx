@@ -15,7 +15,6 @@ const UserSettingsOverview: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.auth.user)!;
   const { register, handleSubmit, setValue } = useForm();
   const devMode = useSelector((s: Store.AppState) => s.config.devMode);
-  const { enqueueSnackbar } = useSnackbar();
 
   const onSave = (e) => {
     const onUpdate = (payload) => dispatch(updateSelf(payload));
@@ -52,7 +51,9 @@ const UserSettingsOverview: React.FunctionComponent = () => {
 
           <div className="pt-5">
             <Input
-              label="Avatar URL"
+              type="file"
+              accept="image/*"
+              label="Avatar Image"
               name="avatarURL"
               register={register}
               options={{ value: user.avatarURL }} />
