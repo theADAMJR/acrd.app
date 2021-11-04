@@ -7,7 +7,6 @@ import { User } from '../../data/models/user';
 import rateLimiter, { extraRateLimit } from '../modules/rate-limiter';
 import multer from 'multer';
 import { extname, resolve } from 'path';  
-import validateImage from '../middleware/validate-image';
 import crypto from 'crypto';
 import { promisify } from 'util';
 import { readFile, rename } from 'fs';
@@ -19,14 +18,20 @@ const readFileAsync = promisify(readFile);
 
 function setupMulter(app: Application) {
   const uploadDir = resolve('./assets/upload');
-
   console.log('uploadDir:', uploadDir);
   
-
   // uses storage rather than memory - 2 file operations per file upload
   const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, uploadDir),
-    filename: (req, file, cb) => cb(null, Date.now() + extname(file.originalname)),
+    destination: (req, file, cb) => {
+      log.info('multer -> ds -> destination', file);
+
+      cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+      log.info('multer -> ds -> filename', file);
+      
+      cb(null, Date.now() + extname(file.originalname));
+    }
   });
   const upload = multer({ storage });
 
