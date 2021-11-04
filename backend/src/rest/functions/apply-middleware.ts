@@ -24,13 +24,13 @@ function setupMulter(app: Application) {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       log.info('multer -> ds -> destination', file);
-      log.info('destination:', uploadDir);
+      log.info('destination:', {uploadDir});
 
       cb(null, uploadDir);
     },
     filename: (req, file, cb) => {
       log.info('multer -> ds -> filename', file);
-      log.info('prenamed file name:', Date.now() + extname(file.originalname));      
+      log.info('prenamed file name:', {name: Date.now() + extname(file.originalname)});      
       
       cb(null, Date.now() + extname(file.originalname));
     }
