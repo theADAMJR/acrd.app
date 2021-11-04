@@ -2,14 +2,41 @@ import { Chance } from 'chance';
 const chance = new Chance();
 
 describe('testing', () => {
-  const email = chance.email();
-  const password = chance.string({ length: 16 });
-
   beforeEach(() => {
     cy.visit('http://localhost:4200');
+    cy.viewport(1920, 1080);
   });
 
-  it('', () => {
+  const email = chance.email();
+  const username = chance.name();
+  const password = chance.string({ length: 16 });
+
+  it('register user, redirects to app', () => {
+    cy.get('a[href*="/login"]')
+      .first()
+      .should('be.visible')
+      .click();
+    cy.contains('Register')
+      .should('be.visible')
+      .click();
+
+    cy.get('input[name=email]')
+      .should('be.visible')
+      .type(email);
+    cy.get('input[name=username]')
+      .should('be.visible')
+      .type(username);
+    cy.get('input[name=password]')
+      .should('be.visible')
+      .type(password);
+    cy.get('button').click();
+
+    cy.location()
+      .its('href')
+      .should('equal', 'http://localhost:4200/channels/@me');
+  });
+
+  it('logout user, redirects to home page', () => {
     
   });
 });

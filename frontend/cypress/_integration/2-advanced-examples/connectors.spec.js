@@ -18,7 +18,7 @@ context('Connectors', () => {
     cy.get('.connectors-its-ul>li')
       // calls the 'length' property yielding that value
       .its('length')
-      .should('be.gt', 2)
+      .should('bg.gt', 2)
   })
 
   it('.invoke() - invoke a function on the current subject', () => {
