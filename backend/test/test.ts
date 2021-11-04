@@ -16,9 +16,6 @@ use(chaiSpies);
 use(chaiThings);
 use(should);
 
-const space = (length = 54) => new Array(length).join(' ');
-console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
-
 (async() => {
   try {
     await mongoose.connect(process.env.MONGO_URI, { 
@@ -33,7 +30,6 @@ console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
   }
 
   try {
-    // remove glitched test processes
     execSync(`kill -9 $(lsof -i :${process.env.PORT} | tail -n 1 | cut -d ' ' -f5) 2>> /dev/null`);
   } catch {}
 
