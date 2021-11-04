@@ -21,9 +21,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "types": ["cypress"]
   },
   "include": [
     "src",
     "src/env/.prod.env",
+    "**/*.ts"
   ]
 }
