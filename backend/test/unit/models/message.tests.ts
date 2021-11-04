@@ -11,7 +11,7 @@ test(createMessage, () => {
   given({ channelId: '' }).expect('Channel ID is required');
   given({ channelId: '123' }).expect('Invalid Snowflake ID');
   given({ channelId: generateSnowflake() }).expect(true);
-  given({ content: '' }).expect('Content too short');
+  given({ content: '' }).expect(true);
   given({ content: longString(3001) }).expect('Content too long');
   given({ content: 'hi' }).expect(true);
   given({ embed: null }).expect(true);

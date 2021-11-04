@@ -75,5 +75,4 @@ console.log(`${space(48 * 3)}TESTS${space(54 * 2)}`.bgWhite.black);
 
 // needs to be here, or tests won't run
 describe('oh', () => it('frick', () => expect(true).to.be.true));
-describe('oh', () => it('no', () => expect(false).to.be.true));
 // after(() => process.exit(0));

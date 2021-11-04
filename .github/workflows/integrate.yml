@@ -1,6 +1,6 @@
 name: Run tests
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -27,6 +27,7 @@ jobs:
       - name: Install packages for test
         run: npm ci
         working-directory: ./backend
+
       - name: Test Backend
         run: npm test
         working-directory: ./backend
