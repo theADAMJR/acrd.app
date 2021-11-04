@@ -3,7 +3,6 @@ const chance = new Chance();
 
 describe('testing', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:4200');
     cy.viewport(1920, 1080);
   });
 
@@ -12,6 +11,8 @@ describe('testing', () => {
   const password = chance.string({ length: 16 });
 
   it('register user, redirects to app', () => {
+    cy.visit('http://localhost:4200');
+
     cy.get('a[href*="/login"]')
       .first()
       .should('be.visible')
@@ -31,12 +32,17 @@ describe('testing', () => {
       .type(password);
     cy.get('button').click();
 
+    cy.wait(2000).as('register');
+
     cy.location()
       .its('href')
       .should('equal', 'http://localhost:4200/channels/@me');
   });
 
   it('logout user, redirects to home page', () => {
-    
+    cy.get('#userSettingsButton').click();
+    cy.contains('Logout')
+      .should('be.visible')
+      .click();
   });
 });

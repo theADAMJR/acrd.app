@@ -21,7 +21,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["cypress"]
+    "types": ["cypress", "dom-mediacapture-record"]
   },
   "include": [
     "src",

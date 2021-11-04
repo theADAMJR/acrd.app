@@ -54,6 +54,7 @@ const SidebarFooter: React.FunctionComponent = () => {
           <Username user={user} />
         </div>
         <FontAwesomeIcon
+          id="userSettingsButton"
           onClick={() => dispatch(ui.openedModal('UserSettings'))}
           className="float-right cursor-pointer absolute right-4"
           icon={faCog} />
