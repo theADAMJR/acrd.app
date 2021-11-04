@@ -24,9 +24,12 @@ jobs:
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
-      - run: cd backend
-      - run: npm ci
-      - run: npm test
+      - name: Install packages for test
+        run: npm ci
+        working-directory: ./app
+      - name: Test Backend
+        run: npm test
+        working-directory: ./app
         env:
           API_URL: http://localhost:3001/api
           EMAIL_ADDRESS: example@gmail.com
