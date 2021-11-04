@@ -28,11 +28,8 @@ function setupMulter(app: Application) {
   });
   const upload = multer({ storage });
 
-  // TODO: validate is logged in, etc.
   app.post('/v2/upload', updateUser, validateUser, extraRateLimit(10), upload.single('file'), async (req, res) => {
-    const file = req.file!;
-
-    console.log(file);    
+    const file = req.file!;   
   
     const buffer = await readFileAsync(file.path);
     const hash = crypto
