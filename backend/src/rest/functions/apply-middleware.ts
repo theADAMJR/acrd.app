@@ -26,7 +26,17 @@ function setupMulter(app: Application) {
     destination: (req, file, cb) => cb(null, uploadDir),
     filename: (req, file, cb) => cb(null, Date.now() + extname(file.originalname)),
   });
-  const upload = multer({ storage });
+  const upload = multer({
+    storage,
+    fileFilter: (req, file, callback) => {
+      const ext = extname(file.originalname);
+      if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg')
+        return callback(new Error('Only images are allowed'));
+
+      callback(null, true);
+    },
+    limits: { fileSize: 1024 * 1024 },
+  });
 
   app.post('/v2/upload', updateUser, validateUser, extraRateLimit(10), upload.single('file'), async (req, res) => {
     const file = req.file!;   
