@@ -12,18 +12,19 @@ import { promisify } from 'util';
 import { readFile, rename } from 'fs';
 import validateUser from '../middleware/validate-user';
 import updateUser from '../middleware/update-user';
+import { execSync } from 'child_process';
 
 const renameAsync = promisify(rename); 
 const readFileAsync = promisify(readFile); 
 
 function setupMulter(app: Application) {
   const uploadDir = resolve('./assets/upload');
-  console.log('uploadDir:', uploadDir);
+  execSync(`mkdir -p ${uploadDir}`);
   
   // uses storage rather than memory - 2 file operations per file upload
   const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, uploadDir),
-    filename: (req, file, cb) => cb(null, file.originalname),
+    filename: (req, file, cb) => cb(null, Date.now() + extname(file.originalname)),
   });
   const upload = multer({ storage });
 

@@ -57,10 +57,14 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
       {message.attachmentURLs?.map(imageURL =>
         <img
           key={imageURL}
-          style={{ maxWidth: '512px' }}
+          style={{ maxWidth: '384px' }}
           className="my-2 cursor-pointer"
           onClick={() => dispatch(previewImage(imageURL))}
-          src={process.env.REACT_APP_CDN_URL + imageURL} />)}
+          src={process.env.REACT_APP_CDN_URL + imageURL}
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = `${process.env.REACT_APP_CDN_URL}/images/image-not-found.png`;
+          }} />)}
     </>
   );
   
