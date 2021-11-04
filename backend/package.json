@@ -7,7 +7,7 @@
     "start": "DEV=true ts-node-transpile-only src/app.ts",
     "dev": "ts-node-dev --transpile-only src/app.ts",
     "debug": "nodemon --exec 'node --inspect=0.0.0.0:9229 --require ts-node/register src/app.ts' --ext 'ts,yml'",
-    "test": "ts-mocha test/test.ts"
+    "test": "ts-mocha --exit test/test.ts"
   },
   "keywords": [],
   "author": "ADAMJR",
