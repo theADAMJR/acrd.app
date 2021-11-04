@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleDevMode } from '../../../store/config';
 import { openSaveChanges } from '../../../store/ui';
-import { updateSelf, deleteSelf } from '../../../store/users';
+import { updateSelf, deleteSelf, uploadUserAvatar } from '../../../store/users';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Input from '../../utils/input/input';
@@ -33,31 +33,30 @@ const UserSettingsOverview: React.FunctionComponent = () => {
         </header>
 
         <section className="w-1/2">
-          <div className="pt-5">
-            <Input
-              label="Username"
-              name="username"
-              register={register}
-              options={{ value: user.username }} />
-          </div>
-
-          <div className="pt-5">
-            <Input
-              label="Email"
-              name="email"
-              register={register}
-              options={{ value: user.email }} />
-          </div>
-
-          <div className="pt-5">
-            <Input
-              type="file"
-              accept="image/*"
-              label="Avatar Image"
-              name="avatarURL"
-              register={register}
-              options={{ value: user.avatarURL }} />
-          </div>
+          <Input
+            label="Username"
+            name="username"
+            register={register}
+            options={{ value: user.username }}
+            className="pt-5" />
+          <Input
+            label="Email"
+            name="email"
+            register={register}
+            options={{ value: user.email }}
+            className="pt-5" />
+          <Input
+            type="file"
+            accept="image/*"
+            label="Avatar Image"
+            className="pt-5"
+            name="avatarURL"
+            register={(): any => {}}
+            options={{ value: user.avatarURL }}
+            onChange={(e) => {
+              const file = e.currentTarget?.files?.[0];
+              if (file) dispatch(uploadUserAvatar(file));
+            }} />
         </section>
 
         <SaveChanges

@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteGuild, updateGuild } from '../../../store/guilds';
+import { deleteGuild, updateGuild, uploadGuildIcon } from '../../../store/guilds';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
@@ -37,11 +38,17 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
           options={{ value: guild.name }}
           className="pt-5" />
         <Input
-          label="Icon URL"
+          type="file"
+          accept="image/*"
+          label="Icon Image"
           name="iconURL"
-          register={register}
+          className="pt-5"
+          register={(): any => {}}
           options={{ value: guild.iconURL }}
-          className="pt-5" />
+          onChange={(e) => {
+            const file = e.currentTarget?.files?.[0];
+            if (file) dispatch(uploadGuildIcon(guild.id, file));
+          }} />
       </section>
 
       <Category

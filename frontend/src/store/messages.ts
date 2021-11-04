@@ -1,6 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
-import { actions as api } from './api';
+import { actions as api, uploadFile } from './api';
 import { unique } from './utils/filter';
 import { headers } from './utils/rest-headers';
 
@@ -57,17 +57,9 @@ export const createMessage = (channelId: string, payload: Partial<Entity.Message
 
 // each file is uploaded individually as a separate API call
 export const uploadFileAsMessage = (channelId: string, payload: Partial<Entity.Message>, file: File) => (dispatch) => {
-  const formData = new FormData();
-  formData.append('file', file);
-  
-  dispatch(api.restCallBegan({
-    method: 'post',
-    url: '/upload',
-    data: formData,
-    headers: { 'Content-Type': 'multipart/form-data' },
-    callback: async ({ url }: { url: string, hash: string }) =>
-      dispatch(createMessage(channelId, payload, [url])),
-  }));
+  const uploadCallback = async ({ url }: REST.From.Post['/upload']) =>
+    dispatch(createMessage(channelId, payload, [url]));
+  dispatch(uploadFile(file, uploadCallback));
 }
 
 export const updateMessage = (id: string, payload: Partial<Entity.Message>) => (dispatch) => {

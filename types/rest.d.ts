@@ -36,10 +36,8 @@ declare namespace REST {
       }
     }
     export interface Post {
-      '/auth/change-password': {
-        message: string;
-        token: string;
-      }
+      '/upload': { url: string, hash: string };
+      '/auth/change-password': { message: string, token: string }
     }
   }
 }

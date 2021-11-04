@@ -1,6 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
-import { actions as api } from './api';
+import { actions as api, uploadFile } from './api';
 import { actions as meta } from './meta';
 import { unique } from './utils/filter';
 import { token } from './utils/rest-headers';
@@ -66,12 +66,18 @@ export const countUsers = () => (dispatch) => {
   }));
 }
 
+export const uploadUserAvatar = (file: File) => (dispatch) => {
+  const uploadCallback = async ({ url }: REST.From.Post['/upload']) =>
+    dispatch(updateSelf({ avatarURL: url }));
+  dispatch(uploadFile(file, uploadCallback));
+}
+
 export const getUser = (id: string) =>
   createSelector<Store.AppState, Entity.User[], Entity.User>(
     state => state.entities.users,
     users => users.find(u => u.id === id) ?? {
+      avatarURL: '/avatars/unknown.png',
       discriminator: 0,
       username: 'Unknown',
-      avatarURL: '/avatars/unknown.png',
     } as Entity.User,
   );

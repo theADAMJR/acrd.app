@@ -23,3 +23,16 @@ export interface WSArgs {
   data?: object;
   event: keyof WS.To;
 }
+
+export const uploadFile = (file: File, callback?: (args: REST.From.Post['/upload']) => any) => (dispatch) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  
+  dispatch(actions.restCallBegan({
+    method: 'post',
+    url: '/upload',
+    data: formData,
+    headers: { 'Content-Type': 'multipart/form-data' },
+    callback,
+  }));
+}

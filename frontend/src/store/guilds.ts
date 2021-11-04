@@ -1,6 +1,6 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
-import { actions as api } from './api';
+import { actions as api, uploadFile } from './api';
 import { unique } from './utils/filter';
 
 const slice = createSlice({
@@ -39,6 +39,12 @@ export const updateGuild = (guildId: string, payload: Partial<Entity.Guild>) => 
     event: 'GUILD_UPDATE',
     data: { guildId, ...payload } as WS.Params.GuildUpdate,
   }));
+}
+
+export const uploadGuildIcon = (guildId: string, file: File) => (dispatch) => {
+  const uploadCallback = async ({ url }: REST.From.Post['/upload']) =>
+    dispatch(updateGuild(guildId, { iconURL: url }));
+  dispatch(uploadFile(file, uploadCallback));
 }
 
 export const deleteGuild = (guildId: string) => (dispatch) => {
