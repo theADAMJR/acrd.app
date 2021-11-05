@@ -46,7 +46,6 @@ jobs:
 
       - name: Test Frontend
         uses: cypress-io/github-action@v2
-        working-directory: ./frontend
 
       - name: Build Frontend
         run: npm run build:prod
