@@ -70,8 +70,7 @@ jobs:
           folder: frontend/build
 
       - name: Push to v2-stable
-          if: steps.git-check.outputs.modified == 'true'
-          run: |
-            git config --global user.name 'Your Name' 
-            git config --global user.email 'Your Email for GitHub'
-            git push origin v2-stable
+        run: |
+          git config --global user.name 'Your Name' 
+          git config --global user.email 'Your Email for GitHub'
+          git push origin HEAD:v2-stable
