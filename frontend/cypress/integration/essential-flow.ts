@@ -2,15 +2,16 @@ import { Chance } from 'chance';
 const chance = new Chance();
 
 describe('essential navigation flow', () => {
-  beforeEach(() => {
-    cy.viewport(1920, 1080);
-  });
-
+  const url = `http://localhost:${process.env.PORT}`;
   const email = chance.email();
   const username = chance.name();
   const password = chance.string({ length: 16 });
 
-  before(() => cy.visit('http://localhost:4200'));
+  before(() => cy.visit(url));
+ 
+  beforeEach(() => {
+    cy.viewport(1920, 1080);
+  });
 
   it('register user, redirects to app', () => {
     cy.get('a[href*="/login"]').first().click();
@@ -21,7 +22,7 @@ describe('essential navigation flow', () => {
     cy.contains('Register').click();
     cy.wait(2000);
 
-    cy.url().should('equal', 'http://localhost:4200/channels/@me');
+    cy.url().should('equal', `${url}/channels/@me`);
   });
 
   it('update username, username appears different in sidebar', () => {
@@ -37,7 +38,7 @@ describe('essential navigation flow', () => {
 
   it('logout user, redirects to home page', () => {
     cy.contains('Logout').click();
-    cy.url().should('equal', 'http://localhost:4200/');
+    cy.url().should('equal', `${url}/`);
   });
 
   it('login user, redirects to home page', () => {
@@ -47,7 +48,7 @@ describe('essential navigation flow', () => {
     cy.contains('Login').click();
     cy.wait(2000);
 
-    cy.url().should('equal', 'http://localhost:4200/channels/@me');
+    cy.url().should('equal', `${url}/channels/@me`);
   });
 
   it('create guild, redirects to guild', () => {
@@ -57,7 +58,7 @@ describe('essential navigation flow', () => {
     cy.get('button').contains('Create').click();
     cy.wait(1000);
 
-    cy.url().should('not.equal', 'http://localhost:4200/channels/@me');
+    cy.url().should('not.equal', `${url}/channels/@me`);
   });
 
   it('update guild, guild name appears different in sidebar', () => {
@@ -98,6 +99,7 @@ describe('essential navigation flow', () => {
       .trigger('mouseenter');
     cy.get('.message [data-icon="times"]').click();
     cy.wait(500);
+
     cy.get('.message').should('not.exist');
   });
 
@@ -106,7 +108,8 @@ describe('essential navigation flow', () => {
     cy.contains('Delete').click();
     cy.on('window:confirm', () => true);
     cy.wait(1000);
-    cy.url().should('equal', 'http://localhost:4200/');
+
+    cy.url().should('equal', `${url}/`);
   });
 });
 

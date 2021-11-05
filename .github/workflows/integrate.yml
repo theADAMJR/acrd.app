@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [16.x, 17.x]
         mongodb-version: ['4.2', '4.4']
 
     steps:
@@ -44,11 +44,17 @@ jobs:
         run: npm i -f
         working-directory: ./frontend
 
+      - name: Start Backend for Frontend e2e
+        run: npm start
+        working-directory: ./backend
+
       - name: Test Frontend
         uses: cypress-io/github-action@v2
         with:
+          browser: chrome
           working-directory: ./frontend
+          start: npm start
 
-      - name: Build Frontend
+      - name: Build and Deploy Frontend
         run: npm run build:prod
         working-directory: ./frontend
