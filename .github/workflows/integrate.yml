@@ -1,15 +1,13 @@
-name: Run tests
-
+name: Test and deploy
 on: [push, pull_request]
-
 jobs:
-  build:
+  test-backend:
+    name: Test Backend
     runs-on: ubuntu-20.04
     strategy:
       matrix:
         node-version: [16.x, 17.x]
-        mongodb-version: ['4.2', '4.4']
-
+        mongodb-version: ['4.4']
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
@@ -37,25 +35,47 @@ jobs:
           PORT: 3001
           WEBSITE_URL: http://localhost:4200
 
+  test-frontend:
+    name: Test Frontend
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [16.x, 17.x]
+        mongodb-version: ['4.4']
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
       - name: Install Frontend Packages
         run: npm i -f
         working-directory: ./frontend
 
-      # - name: Start Backend for Frontend e2e
-      #   run: npm start &
-      #   working-directory: ./backend
-      #   env:
-      #     MONGO_URI: mongodb://localhost/accord
-      #     NODE_ENV: dev
-      #     PORT: 3000
-      #     WEBSITE_URL: http://localhost:4200
+      - name: Start Backend for Frontend e2e
+        run: npm start &
+        working-directory: ./backend
+        env:
+          MONGO_URI: mongodb://localhost/accord
+          NODE_ENV: dev
+          PORT: 3000
+          WEBSITE_URL: http://localhost:4200
 
-      # - name: Test Frontend
-      #   uses: cypress-io/github-action@v2
-      #   with:
-      #     browser: chrome
-      #     working-directory: ./frontend
-      #     start: npm start
+      - name: Test Frontend
+        uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+          working-directory: ./frontend
+          start: npm start
+
+  deploy-frontend:
+    name: Deploy Frontend
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Install Frontend Packages
+        run: npm i -f
+        working-directory: ./frontend
 
       - name: Build Frontend
         run: npm run build:prod
@@ -63,12 +83,16 @@ jobs:
         env:
           REACT_APP_VERSION: ${{ github.sha }}
 
-      - name: Build and Deploy Frontend
+      - name: Deploy Frontend
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           branch: gh-pages
           folder: frontend/build
 
+  push-to-stable:
+    name: Push to Stable
+    runs-on: ubuntu-20.04
+    steps:
       - name: Push to v2-stable
         run: |
           git config --global user.name 'Your Name' 
