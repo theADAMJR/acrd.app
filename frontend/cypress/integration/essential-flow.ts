@@ -27,9 +27,10 @@ describe('essential navigation flow', () => {
   it('update username, username appears different in sidebar', () => {
     cy.get('#userSettingsButton').click();
     const newUsername = chance.name();
-    cy.get('input[name=username]')
-      .type(newUsername)
-      .trigger('keydown', { keyCode: KeyCode.Esc });
+    cy.get('input[name=username]').clear().type(newUsername);
+    cy.contains('Save').click();
+    cy.wait(1000);
+    cy.get('form').trigger('keydown', { keyCode: KeyCode.Esc });
 
     cy.contains(newUsername);
   });
@@ -63,7 +64,7 @@ describe('essential navigation flow', () => {
     cy.get('#sidebarHeader').click();
     cy.contains('Guild settings').click();
     const newGuildName = chance.tv();
-    cy.get('input[name=name]').type(newGuildName);
+    cy.get('input[name=name]').clear().type(newGuildName);
     cy.contains('Save').click();
     cy.wait(1000);
     cy.get('form').trigger('keydown', { keyCode: KeyCode.Esc });
@@ -85,7 +86,7 @@ describe('essential navigation flow', () => {
     cy.get('.message').first().trigger('mouseenter');
     cy.get('.message [data-icon="pencil-alt"]').click();
     const newContent = chance.string({ length: 6 });
-    cy.get('#messageBox').first().type(newContent);
+    cy.get('#messageBox').first().clear().type(newContent);
     cy.contains('save').click();
 
     cy.contains(newContent).should('be.visible');
