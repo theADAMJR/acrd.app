@@ -69,6 +69,7 @@ jobs:
   deploy-frontend:
     name: Deploy Frontend
     runs-on: ubuntu-20.04
+    needs: [test-backend, test-frontend]
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
@@ -92,6 +93,7 @@ jobs:
   push-to-stable:
     name: Push to Stable
     runs-on: ubuntu-20.04
+    needs: [test-backend, test-frontend]
     steps:
       - name: Push to v2-stable
         run: |
