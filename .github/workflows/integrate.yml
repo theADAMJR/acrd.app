@@ -32,12 +32,9 @@ jobs:
         run: npm test
         working-directory: ./backend
         env:
-          API_URL: http://localhost:3001/api
-          EMAIL_ADDRESS: example@gmail.com
-          EMAIL_PASSWORD: google_account_password
           MONGO_URI: mongodb://localhost/accord-test
+          NODE_ENV: dev
           PORT: 3001
-          ROOT_ENDPOINT: http://localhost:3001
           WEBSITE_URL: http://localhost:4200
 
       - name: Install Frontend Packages
@@ -47,6 +44,11 @@ jobs:
       - name: Start Backend for Frontend e2e
         run: npm start
         working-directory: ./backend
+        env:
+          MONGO_URI: mongodb://localhost/accord
+          NODE_ENV: dev
+          PORT: 3000
+          WEBSITE_URL: http://localhost:4200
 
       - name: Test Frontend
         uses: cypress-io/github-action@v2
