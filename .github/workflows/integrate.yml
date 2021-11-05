@@ -41,7 +41,7 @@ jobs:
           WEBSITE_URL: http://localhost:4200
 
       - name: Install Frontend Packages
-        run: npm i
+        run: npm i -f
         working-directory: ./frontend
 
       - name: Test Frontend
