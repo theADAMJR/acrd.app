@@ -12,10 +12,12 @@ test(createMessage, () => {
   given({ channelId: '123' }).expect('Invalid Snowflake ID');
   given({ channelId: generateSnowflake() }).expect(true);
   given({ content: '' }).expect(true);
-  given({ content: longString(3001) }).expect('Content too long');
   given({ content: 'hi' }).expect(true);
+  given({ content: longString(3001) }).expect('Content too long');
   given({ embed: null }).expect(true);
   given({ embed: createEmbed() }).expect(true);
+  given({ attachmentURLs: [] }).expect(true);
+  given({ attachmentURLs: ['/images/image-not-found.png'] }).expect(true);
 });
 
 function createMessage(message: any) {
