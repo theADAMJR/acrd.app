@@ -10,10 +10,3 @@ echo $CNAME > CNAME
 BIN_PATH="../../bin/build"
 REDIRECT_SCRIPT=$(cat $BIN_PATH/redirect-script.html)
 cp $BIN_PATH/404.html .
-
-git init
-git remote add origin https://github.com/accord-dot-app/accord-dot-app.github.io
-git pull origin master --allow-unrelated-histories
-git add .
-git commit -m "Website Update"
-git push origin --force HEAD:master

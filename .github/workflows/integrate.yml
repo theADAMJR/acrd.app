@@ -57,6 +57,10 @@ jobs:
       #     working-directory: ./frontend
       #     start: npm start
 
+      - name: Build Frontend
+        run: npm run build:prod
+        working-directory: ./frontend
+
       - name: Build and Deploy Frontend
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
