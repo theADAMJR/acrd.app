@@ -78,6 +78,14 @@ const HomePage: React.FunctionComponent = () => {
         <ImageCard src={Friends} title="Join and Manage Guilds" />
         <ImageCard src={Secure} title="Super Secure" />
       </section>
+
+      <footer className="fixed bottom-0 w-full">
+        {process.env.REACT_APP_VERSION && (
+          <a className="float-right normal mr-2"
+            href={`${process.env.REACT_APP_REPO}/commit/${process.env.REACT_APP_VERSION}`}
+            target="_blank">v{process.env.REACT_APP_VERSION.slice(0, 7)}</a>
+        )}
+      </footer>
     </PageWrapper>
   );
 }
