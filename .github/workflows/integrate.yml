@@ -50,12 +50,12 @@ jobs:
           PORT: 3000
           WEBSITE_URL: http://localhost:4200
 
-      - name: Test Frontend
-        uses: cypress-io/github-action@v2
-        with:
-          browser: chrome
-          working-directory: ./frontend
-          start: npm start
+      # - name: Test Frontend
+      #   uses: cypress-io/github-action@v2
+      #   with:
+      #     browser: chrome
+      #     working-directory: ./frontend
+      #     start: npm start
 
       - name: Build and Deploy Frontend
         run: npm run build:prod
