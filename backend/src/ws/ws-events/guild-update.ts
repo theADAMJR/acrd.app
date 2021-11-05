@@ -3,8 +3,6 @@ import { Socket } from 'socket.io';
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
-import Guilds from '../../data/guilds';
-import { PermissionTypes } from '../../types/permission-types';
 import { WS } from '../../types/ws';
 
 export default class implements WSEvent<'GUILD_UPDATE'> {

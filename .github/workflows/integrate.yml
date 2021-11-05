@@ -24,7 +24,7 @@ jobs:
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
 
-      - name: Install packages for test
+      - name: Install Backend Packages
         run: npm ci
         working-directory: ./backend
 
@@ -39,3 +39,16 @@ jobs:
           PORT: 3001
           ROOT_ENDPOINT: http://localhost:3001
           WEBSITE_URL: http://localhost:4200
+
+      - name: Install Frontend Packages
+        run: npm ci
+        working-directory: ./frontend
+
+      - name: Test Frontend
+        uses: cypress-io/github-action@v2
+        run: npm run e2e
+        working-directory: ./frontend
+
+      - name: Build Frontend
+        run: npm run build:prod
+        working-directory: ./frontend

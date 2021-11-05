@@ -37,7 +37,7 @@ const SidebarIcon: React.FunctionComponent<SidebarIconProps> = (props) => {
 
   return (
     <div
-      className={classNames(`wrapper`, { 'active': isActive })}
+      className={classNames('wrapper sidebar-icon', { 'active': isActive })}
       title={name}>
       <div className="selected rounded bg-white absolute -left-1 h-0 w-2" />
       <div className={classNames(

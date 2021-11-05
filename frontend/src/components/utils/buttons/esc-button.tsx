@@ -1,10 +1,11 @@
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSnackbar } from 'notistack';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../store/ui';
 
-const EscButton = () => {
+const EscButton: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { closeSnackbar } = useSnackbar();
 
@@ -15,6 +16,7 @@ const EscButton = () => {
   
   return (
     <div
+      id="escButton"
       className="rounded-full ring ring-gray-500 cursor-pointer border-white rounded-full px-2 w-16 mt-14"
       onClick={onClick}>
       <FontAwesomeIcon icon={faTimes} color="var(--muted)" />

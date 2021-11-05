@@ -16,4 +16,11 @@
  * @type {Cypress.PluginConfig}
  */
 export default (on, config) => {
+  on('before:browser:launch', (browser = {}, args) => {
+    if (browser['name'] === 'chrome') {
+      args.push('--load-extension=~/.config/google-chrome/Default/Extensions/lmhkpmbekcpmknklioeibfkpmmfibljd/2.17.2_0');
+      return args;
+    }
+    return null;
+  });
 }
