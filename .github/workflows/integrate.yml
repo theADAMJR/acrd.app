@@ -41,14 +41,14 @@ jobs:
         run: npm i -f
         working-directory: ./frontend
 
-      - name: Start Backend for Frontend e2e
-        run: npm start &
-        working-directory: ./backend
-        env:
-          MONGO_URI: mongodb://localhost/accord
-          NODE_ENV: dev
-          PORT: 3000
-          WEBSITE_URL: http://localhost:4200
+      # - name: Start Backend for Frontend e2e
+      #   run: npm start &
+      #   working-directory: ./backend
+      #   env:
+      #     MONGO_URI: mongodb://localhost/accord
+      #     NODE_ENV: dev
+      #     PORT: 3000
+      #     WEBSITE_URL: http://localhost:4200
 
       # - name: Test Frontend
       #   uses: cypress-io/github-action@v2
@@ -58,5 +58,7 @@ jobs:
       #     start: npm start
 
       - name: Build and Deploy Frontend
-        run: npm run build:prod
-        working-directory: ./frontend
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: frontend/build # The folder the action should deploy.
