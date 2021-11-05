@@ -81,6 +81,7 @@ const UserSettingsOverview: React.FunctionComponent = () => {
       </div>
 
       <NormalButton
+        id="deleteUserButton"
         role="button"
         onClick={handleSubmit(onDelete)}
         className="bg-danger">Delete</NormalButton>

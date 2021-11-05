@@ -2,15 +2,16 @@ import { Chance } from 'chance';
 const chance = new Chance();
 
 describe('essential navigation flow', () => {
-  const url = `http://localhost:${process.env.PORT}`;
+  let token: string;
+  const url = `http://localhost:${Cypress.env('PORT')}`;
   const email = chance.email();
   const username = chance.name();
   const password = chance.string({ length: 16 });
 
   before(() => cy.visit(url));
- 
   beforeEach(() => {
     cy.viewport(1920, 1080);
+    localStorage.setItem('token', token);
   });
 
   it('register user, redirects to app', () => {
@@ -22,7 +23,9 @@ describe('essential navigation flow', () => {
     cy.contains('Register').click();
     cy.wait(2000);
 
-    cy.url().should('equal', `${url}/channels/@me`);
+    cy.url()
+      .should('equal', `${url}/channels/@me`)
+      .then(() => token = localStorage.getItem('token')!);
   });
 
   it('update username, username appears different in sidebar', () => {
@@ -33,11 +36,13 @@ describe('essential navigation flow', () => {
     cy.wait(1000);
     cy.get('form').trigger('keydown', { keyCode: KeyCode.Esc });
 
-    cy.contains(newUsername);
+    cy.contains(newUsername).should('be.visible');
   });
 
   it('logout user, redirects to home page', () => {
+    cy.get('#userSettingsButton').click();
     cy.contains('Logout').click();
+
     cy.url().should('equal', `${url}/`);
   });
 
@@ -48,7 +53,9 @@ describe('essential navigation flow', () => {
     cy.contains('Login').click();
     cy.wait(2000);
 
-    cy.url().should('equal', `${url}/channels/@me`);
+    cy.url()
+      .should('equal', `${url}/channels/@me`)
+      .then(() => token = localStorage.getItem('token')!);
   });
 
   it('create guild, redirects to guild', () => {
@@ -105,7 +112,7 @@ describe('essential navigation flow', () => {
 
   it('delete user, redirects to home page', () => {
     cy.get('#userSettingsButton').click();
-    cy.contains('Delete').click();
+    cy.get('#deleteUserButton').click();
     cy.on('window:confirm', () => true);
     cy.wait(1000);
 

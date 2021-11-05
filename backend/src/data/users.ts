@@ -75,7 +75,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
       { algorithm: 'RS512', expiresIn: (expire) ? '7d' : undefined },
     );
   }
-  public async idFromToken(auth: string | undefined): Promise<string> {
+  public async idFromBearerToken(auth: string | undefined): Promise<string> {
     const token = auth?.slice('Bearer '.length);
     return await this.verifyToken(token);
   }
