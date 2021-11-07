@@ -50,21 +50,21 @@ jobs:
         run: npm i -f
         working-directory: ./frontend
 
-      - name: Start Backend for Frontend e2e
-        run: npm start &
-        working-directory: ./backend
-        env:
-          MONGO_URI: mongodb://localhost/accord
-          NODE_ENV: dev
-          PORT: 3000
-          WEBSITE_URL: http://localhost:4200
+      # - name: Start Backend for Frontend e2e
+      #   run: npm start &
+      #   working-directory: ./backend
+      #   env:
+      #     MONGO_URI: mongodb://localhost/accord
+      #     NODE_ENV: dev
+      #     PORT: 3000
+      #     WEBSITE_URL: http://localhost:4200
 
-      - name: Test Frontend
-        uses: cypress-io/github-action@v2
-        with:
-          browser: chrome
-          working-directory: ./frontend
-          start: npm start
+      # - name: Test Frontend
+      #   uses: cypress-io/github-action@v2
+      #   with:
+      #     browser: chrome
+      #     working-directory: ./frontend
+      #     start: npm start
 
   deploy-frontend:
     name: Deploy Frontend
