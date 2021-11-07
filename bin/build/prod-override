@@ -12,8 +12,9 @@ REDIRECT_SCRIPT=$(cat $BIN_PATH/redirect-script.html)
 cp $BIN_PATH/404.html .
 
 git init
-git remote add origin https://github.com/accord-dot-app/accord-dot-app.github.io
-git pull origin master --allow-unrelated-histories
+git branch gh-pages
+git remote add origin https://github.com/accord-dot-app/app
+git pull origin gh-pages 
 git add .
-git commit -m "Website Update"
-git push origin --force HEAD:master
+git commit -m "Override: Website Update"
+git push origin HEAD:gh-pages --force
