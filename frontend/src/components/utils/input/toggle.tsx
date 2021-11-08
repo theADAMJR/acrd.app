@@ -1,5 +1,4 @@
 import './toggle.scoped.css';
-
 import classNames from 'classnames';
 
 export type ToggleProps = React.DetailedHTMLProps<

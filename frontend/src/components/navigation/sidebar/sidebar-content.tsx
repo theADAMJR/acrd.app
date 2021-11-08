@@ -14,7 +14,7 @@ const SidebarContent: React.FunctionComponent = () => {
         onClick={() => dispatch(ui.toggleDropdown(GuildDropdown))}>
         <GuildDropdown />
       </div>
-      <nav className="flex-grow px-2 pt-4">
+      <nav className="sidebar-tabs flex-grow px-2 pt-4">
         <ChannelTabs />
       </nav>
       <SidebarFooter />
