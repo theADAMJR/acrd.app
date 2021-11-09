@@ -50,6 +50,7 @@ jobs:
         run: npm i -f
         working-directory: ./frontend
 
+      # assumes this stays in background
       - name: Start Backend for Frontend e2e
         run: npm start &
         working-directory: ./backend
