@@ -47,8 +47,8 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Backend Packages
-        run: npm i -f
-        working-directory: ./frontend
+        run: npm ci
+        working-directory: ./backend
 
       # assumes this stays in background
       - name: Start Backend for Frontend e2e

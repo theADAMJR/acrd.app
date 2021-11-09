@@ -5,6 +5,7 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import Channels from '../../data/channels';
 import { WS } from '../../types/ws';
+import { Channel } from '../../data/models/channel';
 
 // TODO: int. test
 export default class implements WSEvent<'CHANNEL_UPDATE'> {
@@ -15,7 +16,7 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
     private guard = deps.wsGuard,
   ) {}
 
-  public async invoke(ws: WebSocket, client: Socket, { name, summary, overrides, channelId }: WS.Params.ChannelUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { position, name, summary, overrides, channelId }: WS.Params.ChannelUpdate) {
     const channel = await this.channels.get(channelId);
     await this.guard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
     
@@ -23,6 +24,14 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
     if (name) partialChannel.name = name;
     if (overrides) partialChannel.overrides = overrides;
     if (summary) partialChannel.summary = summary;
+    // TODO: testme
+    if (position) {
+      partialChannel.position = position;
+      await Channel.updateMany({
+        guildId: channel.guildId,
+        position: { $gt: position },
+      }, {});
+    }
 
     Object.assign(channel, partialChannel);
     await channel.save();

@@ -136,6 +136,7 @@ declare namespace WS {
       summary?: string;
       name?: string;
       overrides?: ChannelTypes.Override[];
+      position?: number;
     }
     export interface ChannelJoin {
       /** ID of the channel to join. */
