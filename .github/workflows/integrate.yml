@@ -35,16 +35,6 @@ jobs:
           PORT: 3001
           WEBSITE_URL: http://localhost:4200
 
-      # assumes this stays in background
-      - name: Start Backend for Frontend e2e
-        run: npm start &
-        working-directory: ./backend
-        env:
-          MONGO_URI: mongodb://localhost/accord
-          NODE_ENV: dev
-          PORT: 3000
-          WEBSITE_URL: http://localhost:4200
-
   test-frontend:
     name: Test Frontend
     runs-on: ubuntu-20.04
@@ -56,19 +46,19 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v2
 
-      # - name: Install Backend Packages
-      #   run: npm i -f
-      #   working-directory: ./frontend
+      - name: Install Backend Packages
+        run: npm i -f
+        working-directory: ./frontend
 
-      # # assumes this stays in background
-      # - name: Start Backend for Frontend e2e
-      #   run: npm start &
-      #   working-directory: ./backend
-      #   env:
-      #     MONGO_URI: mongodb://localhost/accord
-      #     NODE_ENV: dev
-      #     PORT: 3000
-      #     WEBSITE_URL: http://localhost:4200
+      # assumes this stays in background
+      - name: Start Backend for Frontend e2e
+        run: npm start &
+        working-directory: ./backend
+        env:
+          MONGO_URI: mongodb://localhost/accord
+          NODE_ENV: dev
+          PORT: 3000
+          WEBSITE_URL: http://localhost:4200
 
       - name: Install Frontend Packages
         run: npm i -f
