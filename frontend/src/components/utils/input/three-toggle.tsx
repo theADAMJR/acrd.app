@@ -1,21 +1,25 @@
 import './three-toggle.scoped.css';
 import classNames from 'classnames';
-import { useEffect, useState } from 'react';
-import { filterProps } from '../react/react-shush-error';
+import { FormEvent, useState } from 'react';
 
 export type ThreeToggleProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLInputElement>,
   HTMLInputElement> & {
   id: string;
   defaultValue: 'on' | 'n/a' | 'off';
+  onChange: (e: FormEvent<HTMLInputElement>) => any;
 }
  
 const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {
-  const onClick = ({ currentTarget }) => currentTarget.value = {
-    'on': 'n/a',
-    'n/a': 'off',
-    'off': 'on',
-  }[currentTarget.value];
+  console.log('render', ThreeToggle.name);
+  
+  const [value, setValue] = useState(props.defaultValue);
+  
+  const onClick = ({ currentTarget }) => setValue({
+    'on': 'off',
+    'n/a': 'on',
+    'off': 'n/a',
+  }[currentTarget.value]);
   
   return (
     <div className={classNames(`flex`, props.className)}>
@@ -24,10 +28,10 @@ const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {
         className="flex items-center cursor-pointer">
         <div className="relative">
           <input
-            {...filterProps(props)}
             id={props.id}
-            defaultValue={props.defaultValue}
+            onChange={props.onChange}
             onClick={onClick}
+            value={value}
             type="checkbox"
             className="sr-only" />
           <div className="block bg-gray-600 w-14 h-8 rounded-full" />

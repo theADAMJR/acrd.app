@@ -39,20 +39,22 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   }
 
   const RoleDetails = () => {    
-    return (activeOverride) ? (
+    const memo = useMemo(() => (
       <>
-        <PermOverrides
-          setOverride={setOverride}
-          activeOverride={activeOverride} />
+        <PermOverrides activeOverride={activeOverride} />
         <NormalButton
           onClick={deleteActiveOverride}
           className="bg-danger float-right"
           type="button">Delete</NormalButton>
       </>
-    ) : null;
+    ), [activeOverride]);
+
+    return (activeOverride) ? memo : null;
   }
 
   const onSave = (e) => {
+    console.log(e);
+    
     const overrides = JSON.parse(JSON.stringify(channel.overrides)) ?? [];
     if (activeOverride && activeOverride.allow + activeOverride.deny > 0)
       overrides.push(activeOverride);
@@ -92,7 +94,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
         </nav>
       </div>
       <div className="lg:col-span-9 col-span-12">
-        {useMemo(() => <RoleDetails />, [])}
+        <RoleDetails />
       </div>
 
       <SaveChanges

@@ -1,77 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { PermissionTypes } from '../../../services/perm-service';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
-import ThreeToggle from '../../utils/input/three-toggle';
+import PermToggle from './perm-toggle';
 
 export interface PermOverrides {
-  setOverride: React.Dispatch<React.SetStateAction<ChannelTypes.Override | undefined>>;
   activeOverride: ChannelTypes.Override | undefined;
 }
  
-const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, activeOverride }) => {
+const PermOverrides: React.FunctionComponent<PermOverrides> = ({ activeOverride }) => {
+  const form = useForm<ChannelTypes.Override>();
   const dispatch = useDispatch();
   const { description } = usePerms();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
-  const [allow, setAllow] = useState(activeOverride?.allow ?? 0);
-  const [deny, setDeny] = useState(activeOverride?.deny ?? 0);
+  
+  useEffect(() => {
+    if (!activeOverride) return;
+
+    form.setValue('roleId', activeOverride.roleId);
+    form.setValue('allow', activeOverride.allow ?? 0);
+    form.setValue('deny', activeOverride.deny ?? 0);
+  }, [activeOverride]);
 
   const category = channel.type.toLowerCase();  
   // TODO: implement voice perms
   if (!activeOverride || channel.type === 'VOICE') return null;
-  
-  const togglePerm = (name: string, state: string) => {
-    if (state === 'n/a') {
-      setAllow(allow & ~PermissionTypes.All[name]);
-      setDeny(deny & ~PermissionTypes.All[name]);
-    } else if (state === 'on') {
-      setAllow(allow | PermissionTypes.All[name]);
-      setDeny(deny & ~PermissionTypes.All[name]);
-    } else {
-      setAllow(allow & ~PermissionTypes.All[name]);
-      setDeny(deny | PermissionTypes.All[name]);
-    }
-    updateOverrides();
-  }
-  const updateOverrides = () => {
-    activeOverride.allow = allow;
-    activeOverride.deny = deny;
-    
-    setOverride(activeOverride);
-    // FIXME: this is rerendering the toggles, which messes up their state
-    dispatch(openSaveChanges(true));
-  };
-
-  const isAllowed = (name: string) => Boolean(allow & PermissionTypes.All[name]);
-  const isDenied = (name: string) => Boolean(deny & PermissionTypes.All[name]);;
-
-  const PermToggle = ({ permName }) => {    
-    const getValue = () => {
-      if (isAllowed(permName)) return 'on';
-      else if (isDenied(permName)) return 'off';
-      return 'n/a';
-    };
-    
-    return (
-      <div className="flex items-center justify-between mb-2">
-        <span>{description[category][permName]}</span>
-        <ThreeToggle
-          id={permName}
-          onChange={e => togglePerm(permName, e.currentTarget.value)}
-          className="float-right"
-          defaultValue={getValue()} />
-      </div>
-    );
-  }
 
   const clearOverrides = () => {
-    setAllow(0);
-    setDeny(0);
-    updateOverrides();
+    form.setValue('allow', 0);
+    form.setValue('deny', 0);
+    dispatch(openSaveChanges(true));
   };
 
   return (
@@ -83,9 +46,7 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, ac
               <strong
                 title={PermissionTypes.All[permName]}
                 className="secondary">{permName}</strong>
-              <PermToggle
-                key={permName}
-                permName={permName} />
+              <PermToggle form={form} permName={permName} />
             </div>
           ))}
       </div>
@@ -97,5 +58,4 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, ac
   );
 }
  
-// we don't want to rerender component if save changes is updated
-export default React.memo(PermOverrides);
+export default PermOverrides;

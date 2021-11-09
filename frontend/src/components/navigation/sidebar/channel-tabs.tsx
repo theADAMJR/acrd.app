@@ -1,3 +1,4 @@
+import './channel-tabs.scoped.css';
 import { faHashtag, faVolumeUp, faCog } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -10,8 +11,8 @@ import { getGuild, getGuildChannels } from '../../../store/guilds';
 import { actions as ui } from '../../../store/ui';
 import ChannelMenu from '../../ctx-menus/channel-menu';
 import Username from '../../user/username';
-
-import './channel-tabs.scoped.css';
+import Draggable from 'react-draggable';
+import React from 'react';
 
 const ChannelTabs: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -33,9 +34,8 @@ const ChannelTabs: React.FunctionComponent = () => {
       dispatch(joinVoiceChannel(channel.id));
     };
 
-    const VCMembers = () => {
+    const VCMembers: React.FunctionComponent = () => {
       const users = useSelector(getChannelUsers(channel.id));
-
       if (channel.type !== 'VOICE' || !users.length) return null;
 
       return <div className="p-2 pl-3">{users.map(u =>
@@ -47,45 +47,55 @@ const ChannelTabs: React.FunctionComponent = () => {
       )}</div>;
     };
 
+    const ChannelTabContent: React.FunctionComponent = () => (
+      <span className="tab flex-grow flex justify-between">
+        <span>{channel.name}</span>
+        <span
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            dispatch(ui.pageSwitched({ channel, guild: activeGuild }));
+            dispatch(ui.openedModal('ChannelSettings'));
+          }}
+          className="cursor-pointer opacity-100">
+          {perms.can('MANAGE_CHANNELS', activeGuild.id)
+            && <FontAwesomeIcon className="settings" icon={faCog} />}
+        </span>
+      </span>
+    );
+
     return (
       <>
         <ContextMenuTrigger key={channel.id} id={channel.id}>
-          <Link
-            onClick={onClick}
-            to={link}
-            className={classNames(
-              `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
-              { active: channel.id === activeChannel?.id },
-            )}>
-            <FontAwesomeIcon
+          {/* <Draggable> */}
+            <Link
+              onClick={onClick}
+              to={link}
               className={classNames(
-                `float-left scale-150 muted fill-current`,
-                (channel.type === 'VOICE') ? 'mr-2' : 'mr-3',
-              )}
-              icon={icon} />
-            <span className="tab flex-grow flex justify-between">
-              <span>{channel.name}</span>
-              <span
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  
-                  dispatch(ui.pageSwitched({ channel, guild: activeGuild }));
-                  dispatch(ui.openedModal('ChannelSettings'));
-                }}
-                className="cursor-pointer opacity-100">
-                {perms.can('MANAGE_CHANNELS', activeGuild.id)
-                  && <FontAwesomeIcon className="settings" icon={faCog} />}
-              </span>
-            </span>
-            <ChannelMenu channel={channel} />
-          </Link>
+                `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
+                { active: channel.id === activeChannel?.id },
+              )}>
+              <FontAwesomeIcon
+                className={classNames(
+                  `float-left scale-150 muted fill-current`,
+                  (channel.type === 'VOICE') ? 'mr-2' : 'mr-3',
+                )}
+                icon={icon} />
+              <ChannelTabContent />
+              <ChannelMenu channel={channel} />
+            </Link>
+          {/* </Draggable> */}
         </ContextMenuTrigger>
         <VCMembers />
       </>
     );
   }
 
-  return <>{guildChannels.map(c => <ChannelTab key={c.id} channel={c} />)}</>
+  return (
+    <div className="channel-tabs">
+      {guildChannels.map(c => <ChannelTab key={c.id} channel={c} />)}
+    </div>
+  );
 };
 export default ChannelTabs;

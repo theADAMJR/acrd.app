@@ -5,7 +5,7 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import Channels from '../../data/channels';
 import { WS } from '../../types/ws';
-import { Channel } from '../../data/models/channel';
+import { Channel, ChannelDocument } from '../../data/models/channel';
 
 // TODO: int. test
 export default class implements WSEvent<'CHANNEL_UPDATE'> {
@@ -27,10 +27,7 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
     // TODO: testme
     if (position) {
       partialChannel.position = position;
-      await Channel.updateMany({
-        guildId: channel.guildId,
-        position: { $gt: position },
-      }, {});
+      await this.raiseHigherChannels(position, channel);
     }
 
     Object.assign(channel, partialChannel);
@@ -39,5 +36,16 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
     ws.io
       .to(channel.guildId)
       .emit('CHANNEL_UPDATE', { channelId: channel.id, partialChannel } as WS.Args.ChannelUpdate);
+  }
+  
+  private async raiseHigherChannels(position: number, channel: ChannelDocument) {
+    const channels = await Channel.find({
+      guildId: channel.guildId,
+      position: { $gt: position },
+    });
+    for (const channel of channels) {
+      channel.position++;
+      await channel.save();
+    }
   }
 }
