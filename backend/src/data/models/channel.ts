@@ -43,6 +43,10 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
     type: String,
     maxlength: [128, 'Summary too long'],
   },
+  position: {
+    type: Number,
+    min: [0, 'Position must be greater than 0'],
+  },
   type: {
     type: String,
     required: [true, 'Type is required'],

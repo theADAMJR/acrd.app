@@ -65,6 +65,7 @@ jobs:
           browser: chrome
           working-directory: ./frontend
           start: npm start
+          wait-on: http://localhost:3000, http://localhost:4200
 
   deploy-frontend:
     name: Deploy Frontend
