@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { PermissionTypes } from '../../../services/perm-service';
@@ -7,19 +5,20 @@ import { openSaveChanges } from '../../../store/ui';
 import ThreeToggle from '../../utils/input/three-toggle';
 
 interface PermToggleProps {
-  form: UseFormReturn<ChannelTypes.Override>;
   permName: string;
+  allowState: [number, React.Dispatch<React.SetStateAction<number>>];
+  denyState: [number, React.Dispatch<React.SetStateAction<number>>];
 }
 
-const PermToggle: React.FunctionComponent<PermToggleProps> = ({ form, permName }) => {
+const PermToggle: React.FunctionComponent<PermToggleProps> = ({ allowState, denyState, permName }) => {
   const { description } = usePerms();
   const category = useSelector((s: Store.AppState) => s.ui.activeChannel)!.type.toLowerCase();
   const dispatch = useDispatch();
+  const [allow, setAllow] = allowState;
+  const [deny, setDeny] = denyState;
 
-  const getAllow = (): number => form.getValues('allow');
-  const getDeny = (): number => form.getValues('allow');
-  const isAllowed = (name: string) => Boolean(getAllow() & PermissionTypes.All[name]);
-  const isDenied = (name: string) => Boolean(getDeny() & PermissionTypes.All[name]);
+  const isAllowed = (name: string) => Boolean(allow & PermissionTypes.All[name]);
+  const isDenied = (name: string) => Boolean(deny & PermissionTypes.All[name]);
   
   const getDefaultValue = () => {
     if (isAllowed(permName)) return 'on';
@@ -28,31 +27,27 @@ const PermToggle: React.FunctionComponent<PermToggleProps> = ({ form, permName }
   };
   
   const togglePerm = (name: string, state: string) => {   
-    console.log(name, state); 
     if (state === 'n/a') {
-      form.setValue('allow', getAllow() & ~PermissionTypes.All[name]);
-      form.setValue('deny', getDeny() & ~PermissionTypes.All[name]);
+      setAllow(allow & ~PermissionTypes.All[name]);
+      setDeny(deny & ~PermissionTypes.All[name]);
     } else if (state === 'on') {
-      form.setValue('allow', getAllow() | PermissionTypes.All[name]);
-      form.setValue('deny', getDeny() & ~PermissionTypes.All[name]);
+      setAllow(allow | PermissionTypes.All[name]);
+      setDeny(deny & ~PermissionTypes.All[name]);
     } else {
-      form.setValue('allow', getAllow() & ~PermissionTypes.All[name]);
-      form.setValue('deny', getDeny() | PermissionTypes.All[name]);
+      setAllow(allow & ~PermissionTypes.All[name]);
+      setDeny(deny | PermissionTypes.All[name]);
     }
-    console.log(form.getValues());
-    dispatch(openSaveChanges(true));
+    // dispatch(openSaveChanges(true));
   }  
   
   return (
     <div className="flex items-center justify-between mb-2">
       <span>{description[category][permName]}</span>
-      {useMemo(() => (
-        <ThreeToggle
-          id={permName}
-          onChange={e => togglePerm(permName, e.currentTarget.value)}
-          className="float-right"
-          defaultValue={getDefaultValue()} />
-      ), [permName])}
+      <ThreeToggle
+        id={permName}
+        onChange={e => togglePerm(permName, e.currentTarget.value)}
+        className="float-right"
+        defaultValue={getDefaultValue()} />
     </div>
   );
 }

@@ -10,9 +10,7 @@ export type ThreeToggleProps = React.DetailedHTMLProps<
   onChange: (e: FormEvent<HTMLInputElement>) => any;
 }
  
-const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {
-  console.log('render', ThreeToggle.name);
-  
+const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {  
   const [value, setValue] = useState(props.defaultValue);
   
   const onClick = ({ currentTarget }) => setValue({

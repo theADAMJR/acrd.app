@@ -2,6 +2,7 @@ input ~ .dot {
   transition: 0.3s ease-in-out !important;
 }
 
+/* compensation for save changes rerendering channel-settings-perms */
 input[value='on'] ~ .dot {
   transform: translateX(100%);
   background-color: var(--success);

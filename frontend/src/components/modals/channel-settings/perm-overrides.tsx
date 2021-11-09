@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { PermissionTypes } from '../../../services/perm-service';
@@ -10,31 +8,31 @@ import Category from '../../utils/category';
 import PermToggle from './perm-toggle';
 
 export interface PermOverrides {
-  activeOverride: ChannelTypes.Override | undefined;
+  allowState: [number, React.Dispatch<React.SetStateAction<number>>];
+  denyState: [number, React.Dispatch<React.SetStateAction<number>>];
 }
  
-const PermOverrides: React.FunctionComponent<PermOverrides> = ({ activeOverride }) => {
-  const form = useForm<ChannelTypes.Override>();
+const PermOverrides: React.FunctionComponent<PermOverrides> = ({ allowState, denyState }) => {
   const dispatch = useDispatch();
   const { description } = usePerms();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
+  const [allow, setAllow] = allowState;
+  const [deny, setDeny] = denyState;
   
   useEffect(() => {
-    if (!activeOverride) return;
-
-    form.setValue('roleId', activeOverride.roleId);
-    form.setValue('allow', activeOverride.allow ?? 0);
-    form.setValue('deny', activeOverride.deny ?? 0);
-  }, [activeOverride]);
+    console.log(allow, deny);
+    setAllow(allow ?? 0);
+    setDeny(deny ?? 0);
+  }, [allow, deny]);
 
   const category = channel.type.toLowerCase();  
   // TODO: implement voice perms
-  if (!activeOverride || channel.type === 'VOICE') return null;
+  if (channel.type === 'VOICE') return null;
 
   const clearOverrides = () => {
-    form.setValue('allow', 0);
-    form.setValue('deny', 0);
-    dispatch(openSaveChanges(true));
+    setAllow(0);
+    setDeny(0);
+    // dispatch(openSaveChanges(true));
   };
 
   return (
@@ -46,7 +44,10 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ activeOverride 
               <strong
                 title={PermissionTypes.All[permName]}
                 className="secondary">{permName}</strong>
-              <PermToggle form={form} permName={permName} />
+              <PermToggle
+                allowState={allowState}
+                denyState={denyState}
+                permName={permName} />
             </div>
           ))}
       </div>
