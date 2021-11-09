@@ -1,7 +1,7 @@
 import { Chance } from 'chance';
 const chance = new Chance();
 
-const url = `http://localhost:${Cypress.env('PORT')}`;
+const url = `http://10.1.0.73:${Cypress.env('PORT')}`;
 let token: string;
 
 Cypress.Commands.add('register', (email = chance.email(), password = chance.string()) => {

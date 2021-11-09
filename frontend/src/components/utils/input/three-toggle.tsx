@@ -1,21 +1,21 @@
 import './three-toggle.scoped.css';
-
 import classNames from 'classnames';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { filterProps } from '../react/react-shush-error';
 
 export type ThreeToggleProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLInputElement>,
   HTMLInputElement> & {
   id: string;
-  initialValue: 'on' | 'off' | 'indeterminate';
+  defaultValue: 'on' | 'n/a' | 'off';
 }
  
 const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {
-  useEffect(() => {
-    const checkbox = document.querySelector(`#${props.id}`)!;
-    checkbox.setAttribute('value', props.initialValue);
-  }, []);
+  const onClick = ({ currentTarget }) => currentTarget.value = {
+    'on': 'n/a',
+    'n/a': 'off',
+    'off': 'on',
+  }[currentTarget.value];
   
   return (
     <div className={classNames(`flex`, props.className)}>
@@ -26,13 +26,8 @@ const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {
           <input
             {...filterProps(props)}
             id={props.id}
-            onClick={({ currentTarget: checkbox }) => {
-              if (checkbox.value === 'on')
-                checkbox.setAttribute('value', 'indeterminate');
-              else if (checkbox.value === 'off')
-                checkbox.setAttribute('value', 'on');
-              else checkbox.setAttribute('value', 'off');
-            }}
+            defaultValue={props.defaultValue}
+            onClick={onClick}
             type="checkbox"
             className="sr-only" />
           <div className="block bg-gray-600 w-14 h-8 rounded-full" />

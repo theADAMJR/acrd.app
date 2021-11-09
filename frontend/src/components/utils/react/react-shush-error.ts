@@ -2,6 +2,8 @@
 export const filterProps = (props: object) => {
   return {
     ...props,
+    setTab: undefined,
+    register: undefined,
     titleName: undefined,
     initialValue: undefined,
   }

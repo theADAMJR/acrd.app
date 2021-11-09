@@ -10,7 +10,7 @@ input[value='off'] ~ .dot {
   transform: translateX(0%);
   background-color: var(--danger);
 }
-input[value='indeterminate'] ~ .dot {
+input[value='n/a'] ~ .dot {
   background-color: #ccc;
   transform: translateX(50%);
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -39,7 +39,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   }
 
   const RoleDetails = () => {    
-    return (
+    return (activeOverride) ? (
       <>
         <PermOverrides
           setOverride={setOverride}
@@ -49,7 +49,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
           className="bg-danger float-right"
           type="button">Delete</NormalButton>
       </>
-    );
+    ) : null;
   }
 
   const onSave = (e) => {
@@ -92,7 +92,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
         </nav>
       </div>
       <div className="lg:col-span-9 col-span-12">
-        {activeOverride && <RoleDetails />}
+        {useMemo(() => <RoleDetails />, [])}
       </div>
 
       <SaveChanges

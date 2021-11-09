@@ -1,5 +1,6 @@
+import React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { PermissionTypes } from '../../../services/perm-service';
 import { openSaveChanges } from '../../../store/ui';
@@ -15,18 +16,16 @@ export interface PermOverrides {
 const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, activeOverride }) => {
   const dispatch = useDispatch();
   const { description } = usePerms();
+  const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const [allow, setAllow] = useState(activeOverride?.allow ?? 0);
   const [deny, setDeny] = useState(activeOverride?.deny ?? 0);
+
+  const category = channel.type.toLowerCase();  
+  // TODO: implement voice perms
+  if (!activeOverride || channel.type === 'VOICE') return null;
   
-  if (!activeOverride) return null;
-  
-  const category = 'text';
-  
-  const togglePerm = (name: string, state: string) => {    
-    // FIXME: initial state twice (off), then other states
-    // console.log(state);
-    
-    if (state === 'indeterminate') {
+  const togglePerm = (name: string, state: string) => {
+    if (state === 'n/a') {
       setAllow(allow & ~PermissionTypes.All[name]);
       setDeny(deny & ~PermissionTypes.All[name]);
     } else if (state === 'on') {
@@ -36,9 +35,6 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, ac
       setAllow(allow & ~PermissionTypes.All[name]);
       setDeny(deny | PermissionTypes.All[name]);
     }
-    // console.log('allow', allow);
-    // console.log('deny', deny);
-    
     updateOverrides();
   }
   const updateOverrides = () => {
@@ -53,11 +49,11 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, ac
   const isAllowed = (name: string) => Boolean(allow & PermissionTypes.All[name]);
   const isDenied = (name: string) => Boolean(deny & PermissionTypes.All[name]);;
 
-  const PermToggle = ({ permName }) => {
+  const PermToggle = ({ permName }) => {    
     const getValue = () => {
       if (isAllowed(permName)) return 'on';
       else if (isDenied(permName)) return 'off';
-      return 'indeterminate';
+      return 'n/a';
     };
     
     return (
@@ -67,7 +63,7 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, ac
           id={permName}
           onChange={e => togglePerm(permName, e.currentTarget.value)}
           className="float-right"
-          initialValue={getValue()} />
+          defaultValue={getValue()} />
       </div>
     );
   }
@@ -101,4 +97,5 @@ const PermOverrides: React.FunctionComponent<PermOverrides> = ({ setOverride, ac
   );
 }
  
-export default PermOverrides;
+// we don't want to rerender component if save changes is updated
+export default React.memo(PermOverrides);

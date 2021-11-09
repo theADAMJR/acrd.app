@@ -18,5 +18,15 @@ describe('channel-settings', () => {
 
       cy.contains('unsaved changes').should('be.visible');
     });
+
+    it('save changes, changes are loaded', () => {
+      cy.contains('Save').click();
+      cy.contains('Overview').click();
+      cy.contains('Perms').click();
+      cy.contains('Add role...').click();
+      cy.get('[class*="option"]').contains('@everyone').click();
+
+      cy.get('#SEND_MESSAGES[value=off]').should('exist');
+    });
   });
 });
