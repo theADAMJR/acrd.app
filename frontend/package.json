@@ -88,5 +88,8 @@
     "cypress": "^8.7.0",
     "dotenv-cli": "^4.0.0",
     "tsparticles": "^1.33.2"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }
