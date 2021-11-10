@@ -90,6 +90,7 @@
     "tsparticles": "^1.33.2"
   },
   "optionalDependencies": {
+    "@material-ui/core": "^4.12.3",
     "fsevents": "^2.3.2"
   }
 }
