@@ -1,14 +1,14 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
-import { unique } from './utils/filter';
+import { notInArray } from './utils/filter';
 
 const slice = createSlice({
   name: 'members',
   initialState: [] as Store.AppState['entities']['members'],
   reducers: {
     fetched: (members, { payload }: Store.Action<Entity.GuildMember[]>) => {
-      members.push(...payload.filter(unique(members)));
+      members.push(...payload.filter(notInArray(members)));
     },
     added: (members, { payload }: Store.Action<WS.Args.GuildMemberAdd>) => {
       members.push(payload.member);

@@ -1,5 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { unique } from './utils/filter';
+import { notInArray } from './utils/filter';
 import { actions as api } from './api';
 import { WS } from '../types/ws';
 import { byMax } from './utils/reduce';
@@ -9,7 +9,7 @@ const slice = createSlice({
   initialState: [] as Store.AppState['entities']['roles'],
   reducers: {
     fetched: (roles, { payload }: Store.Action<Entity.Role[]>) => {
-      roles.push(...payload.filter(unique(roles)));
+      roles.push(...payload.filter(notInArray(roles)));
     },
     created: (roles, { payload }: Store.Action<WS.Args.GuildRoleCreate>) => {
       roles.push(payload.role);

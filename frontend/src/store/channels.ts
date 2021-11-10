@@ -1,14 +1,14 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api } from './api';
-import { unique } from './utils/filter';
+import { notInArray } from './utils/filter';
 
 const slice = createSlice({
   name: 'channels',
   initialState: [] as Store.AppState['entities']['channels'],
   reducers: {
     fetched: (channels, { payload }: Store.Action<Entity.Channel[]>) => { 
-      channels.push(...payload.filter(unique(channels)));
+      channels.push(...payload.filter(notInArray(channels)));
     },
     created: (channels, { payload }: Store.Action<WS.Args.ChannelCreate>) => {
       channels.push(payload.channel);

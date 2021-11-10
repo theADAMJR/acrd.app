@@ -2,7 +2,7 @@ import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { WS } from '../types/ws';
 import { actions as api, uploadFile } from './api';
 import { actions as meta } from './meta';
-import { unique } from './utils/filter';
+import { notInArray } from './utils/filter';
 import { token } from './utils/rest-headers';
 
 const slice = createSlice({
@@ -10,7 +10,7 @@ const slice = createSlice({
   initialState: [] as Store.AppState['entities']['users'],
   reducers: {
     fetched: (users, { payload }: Store.Action<Entity.User[]>) => {
-      users.push(...payload.filter(unique(users)));
+      users.push(...payload.filter(notInArray(users)));
     },
     updated: (users, { payload }: Store.Action<WS.Args.UserUpdate>) => {
       const user = users.find(u => u.id === payload.userId);

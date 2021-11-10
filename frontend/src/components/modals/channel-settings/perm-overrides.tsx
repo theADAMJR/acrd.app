@@ -8,45 +8,38 @@ import Category from '../../utils/category';
 import PermToggle from './perm-toggle';
 
 export interface PermOverrides {
-  allowState: [number, React.Dispatch<React.SetStateAction<number>>];
-  denyState: [number, React.Dispatch<React.SetStateAction<number>>];
+  overrideState: [ChannelTypes.Override, React.Dispatch<React.SetStateAction<ChannelTypes.Override>>];
 }
  
-const PermOverrides: React.FunctionComponent<PermOverrides> = ({ allowState, denyState }) => {
+const PermOverrides: React.FunctionComponent<PermOverrides> = ({ overrideState }) => {
   const dispatch = useDispatch();
   const { description } = usePerms();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
-  const [allow, setAllow] = allowState;
-  const [deny, setDeny] = denyState;
-  
-  useEffect(() => {
-    console.log(allow, deny);
-    setAllow(allow ?? 0);
-    setDeny(deny ?? 0);
-  }, [allow, deny]);
+  const [override, setOverride] = overrideState;
 
   const category = channel.type.toLowerCase();  
-  // TODO: implement voice perms
   if (channel.type === 'VOICE') return null;
 
   const clearOverrides = () => {
-    setAllow(0);
-    setDeny(0);
-    // dispatch(openSaveChanges(true));
+    setOverride({ ...override!, allow: 0, deny: 0 });
+    dispatch(openSaveChanges(true));
   };
 
   return (
     <>
       <div className="mb-5">
-        <Category className="muted pb-1.5 mt-5" title={category} />
-          {Object.keys(description[category]).map(permName => (
+        <Category
+          className="muted pb-1.5 mt-5"
+          title={category} />
+          {Object
+            .keys(description[category])
+            .map(permName => (
             <div key={permName}>
               <strong
                 title={PermissionTypes.All[permName]}
                 className="secondary">{permName}</strong>
               <PermToggle
-                allowState={allowState}
-                denyState={denyState}
+                overrideState={overrideState}
                 permName={permName} />
             </div>
           ))}

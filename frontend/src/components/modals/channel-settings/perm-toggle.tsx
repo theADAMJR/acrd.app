@@ -6,19 +6,17 @@ import ThreeToggle from '../../utils/input/three-toggle';
 
 interface PermToggleProps {
   permName: string;
-  allowState: [number, React.Dispatch<React.SetStateAction<number>>];
-  denyState: [number, React.Dispatch<React.SetStateAction<number>>];
+  overrideState: [ChannelTypes.Override, React.Dispatch<React.SetStateAction<ChannelTypes.Override>>];
 }
 
-const PermToggle: React.FunctionComponent<PermToggleProps> = ({ allowState, denyState, permName }) => {
+const PermToggle: React.FunctionComponent<PermToggleProps> = ({ overrideState, permName }) => {
   const { description } = usePerms();
   const category = useSelector((s: Store.AppState) => s.ui.activeChannel)!.type.toLowerCase();
   const dispatch = useDispatch();
-  const [allow, setAllow] = allowState;
-  const [deny, setDeny] = denyState;
+  const [override, setOverride] = overrideState;
 
-  const isAllowed = (name: string) => Boolean(allow & PermissionTypes.All[name]);
-  const isDenied = (name: string) => Boolean(deny & PermissionTypes.All[name]);
+  const isAllowed = (name: string) => Boolean(override.allow & PermissionTypes.All[name]);
+  const isDenied = (name: string) => Boolean(override.deny & PermissionTypes.All[name]);
   
   const getDefaultValue = () => {
     if (isAllowed(permName)) return 'on';
@@ -28,16 +26,17 @@ const PermToggle: React.FunctionComponent<PermToggleProps> = ({ allowState, deny
   
   const togglePerm = (name: string, state: string) => {   
     if (state === 'n/a') {
-      setAllow(allow & ~PermissionTypes.All[name]);
-      setDeny(deny & ~PermissionTypes.All[name]);
+      override.allow &= ~PermissionTypes.All[name];
+      override.deny &= ~PermissionTypes.All[name];
     } else if (state === 'on') {
-      setAllow(allow | PermissionTypes.All[name]);
-      setDeny(deny & ~PermissionTypes.All[name]);
+      override.allow |= PermissionTypes.All[name];
+      override.deny &= ~PermissionTypes.All[name];
     } else {
-      setAllow(allow & ~PermissionTypes.All[name]);
-      setDeny(deny | PermissionTypes.All[name]);
+      override.allow &= ~PermissionTypes.All[name];
+      override.deny |= PermissionTypes.All[name];
     }
-    // dispatch(openSaveChanges(true));
+    setOverride(override);
+    dispatch(openSaveChanges(true));
   }  
   
   return (

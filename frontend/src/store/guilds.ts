@@ -1,14 +1,15 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { byAscending } from '../components/utils/vanilla/sort';
 import { WS } from '../types/ws';
 import { actions as api, uploadFile } from './api';
-import { unique } from './utils/filter';
+import { notInArray } from './utils/filter';
 
 const slice = createSlice({
   name: 'guilds',
   initialState: [] as Store.AppState['entities']['guilds'],
   reducers: {
     fetched: (guilds, { payload }: Store.Action<Entity.Guild[]>) => {
-      guilds.push(...payload.filter(unique(guilds)));
+      guilds.push(...payload.filter(notInArray(guilds)));
     },
     created: (guilds, { payload }: Store.Action<WS.Args.GuildCreate>) => {
       guilds.push(payload.guild);
@@ -81,7 +82,9 @@ createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember[]>(
 export const getGuildRoles = (guildId: string | undefined) =>
 createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
   state => state.entities.roles,
-  role => role.filter(r => r.guildId === guildId),
+  role => role
+    .filter(r => r.guildId === guildId)
+    .sort(byAscending('position')),
 );
 
 export const getGuildUsers = (guildId: string | undefined) =>

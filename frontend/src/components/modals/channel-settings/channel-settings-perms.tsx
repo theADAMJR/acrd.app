@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -13,70 +13,62 @@ import TabLink from '../../utils/tab-link';
 import PermOverrides from './perm-overrides';
 import ScarceSelect from './scarce-select';
 import clone from 'clone';
+import { uniqueBy } from '../../../store/utils/filter';
  
-const ChannelSettingsPerms: React.FunctionComponent = () => {  
-  const { guildId }: any = useParams();
-  const dispatch = useDispatch();
+const ChannelSettingsPerms: React.FunctionComponent = () => { 
+  const { guildId }: any = useParams(); 
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
-  const allowState = useState(0);
-  const denyState = useState(0);
-  const [override, setOverride] = useState(
-    (channel.overrides?.length) ? clone(channel.overrides[0]) : null
-  );
+  const roles = useSelector(getGuildRoles(guildId));  
+  const dispatch = useDispatch();
+  const [override, setOverride] = useState(clone(channel.overrides?.[0]) ?? {
+    allow: 0,
+    deny: 0,
+    roleId: roles[0].id,
+  });
+  const [roleId, setRoleId] = useState(override.roleId);
 
-  const byPosition = (a, b) => (a.position > b.position) ? 1 : -1;
-  const allRoles = useSelector(getGuildRoles(guildId)).sort(byPosition);
-  const [allow, setAllow] = allowState;
-  const [deny, setDeny] = denyState;
-
-  useEffect(() => {
-    if (!override) return;
-    
-    setAllow(override.allow);
-    setDeny(override.deny);
-  }, [override]);
-
-  
-  const unaddedRoles = allRoles.filter(r => !channel.overrides?.some(o => o.roleId === r.id));
-  const overrideRoles = allRoles.filter(r => channel.overrides?.some(o => o.roleId === r.id));
-  const [activeRoleId, setActiveRoleId] = useState(overrideRoles[0]?.id ?? '');
+  const unaddedRoles = roles.filter(r => !channel.overrides?.some(o => o.roleId === r.id));
+  const overrideRoles = roles.filter(r => channel.overrides?.some(o => o.roleId === r.id));
 
   const deleteActiveOverride = () => {
-    setOverride({ allow: 0, deny: 0, roleId: activeRoleId });
-    setActiveRoleId('');
-    // dispatch(openSaveChanges(true));
+    setOverride({ ...override!, allow: 0, deny: 0 });
+    dispatch(openSaveChanges(true));
   }
 
-  const RoleDetails = () => {    
-    const memo = useMemo(() => (
-      <>
-        <PermOverrides
-          allowState={allowState}
-          denyState={denyState} />
-        <NormalButton
-          onClick={deleteActiveOverride}
-          className="bg-danger float-right"
-          type="button">Delete</NormalButton>
-      </>
-    ), [override]);
-
-    return (override) ? memo : null;
-  }
+  const RoleDetails: React.FunctionComponent = () => (
+    <>
+      <PermOverrides overrideState={[override, setOverride]} />
+      <NormalButton
+        onClick={deleteActiveOverride}
+        className="bg-danger float-right"
+        type="button">Delete</NormalButton>
+      <SaveChanges
+        onSave={onSave}
+        obj={{ overrides: override }} />  
+    </>
+  );
 
   const onSave = (e) => {
-    let overrides: ChannelTypes.Override[] = JSON.parse(JSON.stringify(
-      channel.overrides ?? [override]
-    ));
-    overrides = overrides.filter(c => c.allow + c.deny > 0);
+    const cloned: ChannelTypes.Override[] = clone(channel.overrides) ?? [override!];
+    
+    const filtered = cloned
+      .filter(c => c.allow + c.deny > 0)
+      .filter(uniqueBy('roleId'));
+    
+    const index = filtered.findIndex(o => o.roleId === roleId);
+    (index < 0)
+      ? filtered.push(override)
+      : filtered[index] = override!;
+    
+    console.log(channel.overrides);
+    console.log(cloned);
+    console.log(filtered);
 
-    const index = overrides.findIndex(o => o.roleId === activeRoleId);
-    overrides[index] = override!;
-
-    dispatch(updateChannel(channel.id, { overrides }));
+    dispatch(updateChannel(channel.id, { overrides: filtered }));
   };
 
-  const role = allRoles.find(r => r.id === activeRoleId);
-  const alreadyActive = channel.overrides?.some(o => o.roleId === activeRoleId);
+  const role = roles.find(r => r.id === roleId);
+  const alreadyActive = channel.overrides?.some(o => o.roleId === roleId);
   if (override && role && !alreadyActive)
     overrideRoles.push(role);
 
@@ -84,12 +76,12 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
     <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <div className="lg:col-span-3 col-span-12">
         <nav className="pr-10">
-          {overrideRoles.sort(byPosition).map(r => (
+          {overrideRoles.map(r => (
             <ContextMenuTrigger id={r.id} key={r.id}>
               <TabLink
                 style={{ color: r.color }}
-                tab={activeRoleId}
-                setTab={setActiveRoleId}
+                tab={roleId}
+                setTab={setRoleId}
                 id={r.id}>{r.name}</TabLink>
               <RoleMenu role={r} />
             </ContextMenuTrigger>
@@ -101,7 +93,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
             onChange={select => {
               const roleId = select.value;
               setOverride({ allow: 0, deny: 0, roleId });
-              setActiveRoleId(roleId);
+              setRoleId(roleId);
             }}
             unadded={unaddedRoles} />
         </nav>
@@ -109,10 +101,6 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
       <div className="lg:col-span-9 col-span-12">
         <RoleDetails />
       </div>
-
-      <SaveChanges
-        onSave={onSave}
-        obj={{ overrides: override }} />  
     </div>
   );
 }
