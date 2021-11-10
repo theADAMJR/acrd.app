@@ -20,11 +20,12 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const roles = useSelector(getGuildRoles(guildId));  
   const dispatch = useDispatch();
-  const [override, setOverride] = useState(clone(channel.overrides?.[0]) ?? {
+  const defaultOverride = clone(channel.overrides?.[0]) ?? {
     allow: 0,
     deny: 0,
     roleId: roles[0].id,
-  });
+  };
+  const [override, setOverride] = useState(defaultOverride);
   const [roleId, setRoleId] = useState(override.roleId);
 
   const unaddedRoles = roles.filter(r => !channel.overrides?.some(o => o.roleId === r.id));
@@ -35,36 +36,35 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
     dispatch(openSaveChanges(true));
   }
 
-  const RoleDetails: React.FunctionComponent = () => (
-    <>
-      <PermOverrides overrideState={[override, setOverride]} />
-      <NormalButton
-        onClick={deleteActiveOverride}
-        className="bg-danger float-right"
-        type="button">Delete</NormalButton>
-      <SaveChanges
-        onSave={onSave}
-        obj={{ overrides: override }} />  
-    </>
-  );
+  const RoleDetails: React.FunctionComponent = () => {
+    const onSave = (e) => {
+      const cloned: ChannelTypes.Override[] = clone(channel.overrides) ?? [override!];
+      const filtered = cloned
+        .filter(c => c.allow + c.deny > 0)
+        .filter(uniqueBy('roleId'));
+      
+      const index = filtered.findIndex(o => o.roleId === roleId);
+      (index < 0)
+        ? filtered.push(override)
+        : filtered[index] = override!;
+  
+      dispatch(updateChannel(channel.id, { overrides: filtered }));
+    }
+    const onReset = () => setOverride(defaultOverride);
 
-  const onSave = (e) => {
-    const cloned: ChannelTypes.Override[] = clone(channel.overrides) ?? [override!];
-    
-    const filtered = cloned
-      .filter(c => c.allow + c.deny > 0)
-      .filter(uniqueBy('roleId'));
-    
-    const index = filtered.findIndex(o => o.roleId === roleId);
-    (index < 0)
-      ? filtered.push(override)
-      : filtered[index] = override!;
-    
-    console.log(channel.overrides);
-    console.log(cloned);
-    console.log(filtered);
-
-    dispatch(updateChannel(channel.id, { overrides: filtered }));
+    return (
+      <>
+        <PermOverrides overrideState={[override, setOverride]} />
+        <NormalButton
+          onClick={deleteActiveOverride}
+          className="bg-danger float-right"
+          type="button">Delete</NormalButton>
+        <SaveChanges
+          onSave={onSave}
+          onReset={onReset}
+          obj={override} />  
+      </>
+    );
   };
 
   const role = roles.find(r => r.id === roleId);

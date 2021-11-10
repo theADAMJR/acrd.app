@@ -8,6 +8,8 @@ import NormalButton from './buttons/normal-button';
 
 export interface SaveChangesProps {
   onSave: (e) => any;
+  onReset?: (e) => any;
+  /** @deprecated */
   setValue?: UseFormSetValue<FieldValues>;
   obj: object;
 }
@@ -33,10 +35,11 @@ const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
     props.onSave(e);
     dispatch(openSaveChanges(false));
   };
-  const onClickReset = () => {
+  const onClickReset = (e) => {
     closeSnackbar('saveChanges');
     for (const key in props.obj)
       props.setValue?.(key, props.obj[key]);
+    props.onReset?.(e);
     dispatch(openSaveChanges(false));
   };
   const SaveChanges = () => (
