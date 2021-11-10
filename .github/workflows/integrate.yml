@@ -68,9 +68,10 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
-          working-directory: ./frontend
+          headless: true
           start: npm start
           wait-on: http://localhost:3000, http://localhost:4200
+          working-directory: ./frontend
 
   deploy-frontend:
     name: Deploy Frontend
@@ -94,7 +95,7 @@ jobs:
         id: check-files
         uses: andstor/file-existence-action@v1
         with:
-          files: 'index.html'
+          files: index.html
 
       - name: Deploy Frontend
         if: steps.check-files.outputs.files-exists == 'true'
