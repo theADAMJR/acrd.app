@@ -1,2 +1,0 @@
-#!/bin/sh
-git push origin HEAD:v2-dev

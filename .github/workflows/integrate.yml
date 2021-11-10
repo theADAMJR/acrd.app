@@ -103,6 +103,11 @@ jobs:
         with:
           branch: gh-pages
           folder: frontend/build
+          clean: true
+          clean-exclude: |
+            CNAME
+            404.html
+            redirect-script.html
 
   push-to-stable:
     name: Push to Stable
