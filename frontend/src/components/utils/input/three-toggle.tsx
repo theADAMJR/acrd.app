@@ -1,6 +1,6 @@
 import './three-toggle.scoped.css';
 import classNames from 'classnames';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 export type ThreeToggleProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLInputElement>,
@@ -11,8 +11,9 @@ export type ThreeToggleProps = React.DetailedHTMLProps<
 }
  
 const ThreeToggle: React.FunctionComponent<ThreeToggleProps> = (props) => {  
+  // default value and current value is one behind
   const [value, setValue] = useState(props.defaultValue);
-  
+
   const onClick = ({ currentTarget }) => setValue({
     'on': 'off',
     'n/a': 'on',

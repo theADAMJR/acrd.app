@@ -97,7 +97,7 @@ export class PermService {
     const guild = this.getGuild(guildId);    
     const member = this.getSelfMember(guildId);
 
-    return guild.ownerId === member.userId
+    return (guild.ownerId === member.userId)
       || this.hasPerm(
           this.getTotalPerms(member, guildId),
           PermissionTypes.All[permission] as number,

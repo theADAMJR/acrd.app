@@ -25,13 +25,13 @@ const PermToggle: React.FunctionComponent<PermToggleProps> = ({ overrideState, p
   };
   
   const togglePerm = (name: string, state: string) => {   
-    if (state === 'n/a') {
+    if (state === 'off') {
       override.allow &= ~PermissionTypes.All[name];
       override.deny &= ~PermissionTypes.All[name];
-    } else if (state === 'on') {
+    } else if (state === 'n/a') {
       override.allow |= PermissionTypes.All[name];
       override.deny &= ~PermissionTypes.All[name];
-    } else {
+    } else if(state === 'on') {
       override.allow &= ~PermissionTypes.All[name];
       override.deny |= PermissionTypes.All[name];
     }
