@@ -9,8 +9,9 @@ import { resolve } from 'path';
 import express from 'express';
 
 export default (app: Application, prefix: string) => {
+  app.get('/', (req, res) => res.redirect(prefix));
   app.use(`/assets`, express.static(resolve('./assets')));
-  app.use(`${prefix}`, apiRoutes);
+  app.use(prefix, apiRoutes);
   
   app.use(`${prefix}/auth`, authRoutes);
   app.use(`${prefix}/invites`, invitesRoutes);
