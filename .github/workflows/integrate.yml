@@ -82,7 +82,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Frontend Packages
-        run: npm ci -f
+        run: npm ci
         working-directory: ./frontend
 
       - name: Build Frontend
