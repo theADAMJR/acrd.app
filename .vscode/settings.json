@@ -3,4 +3,7 @@
   "prettier.singleQuote": true,
   "typescript.preferences.quoteStyle": "single",
   "editor.tabSize": 2,
+  "material-icon-theme.files.associations": {
+    "*.tests.ts": "test-ts"
+  },
 }
