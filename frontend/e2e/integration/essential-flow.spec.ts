@@ -3,7 +3,7 @@ const chance = new Chance();
 
 describe('essential navigation flow', () => {
   let token: string;
-  const url = `${Cypress.env('URL')}:${Cypress.env('PORT')}`;
+  const url = Cypress.env('baseUrl');
   const email = chance.email();
   const username = chance.name();
   const password = chance.string({ length: 16 });

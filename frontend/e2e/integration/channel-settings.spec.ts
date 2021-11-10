@@ -27,3 +27,5 @@ describe('channel-settings', () => {
     });
   });
 });
+
+export {}

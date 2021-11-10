@@ -1,8 +1,5 @@
 {
-  "env": {
-    "PORT": 4200,
-    "URL": "http://localhost"
-  },
+  "baseUrl": "http://localhost:4200",
   "fixturesFolder": "e2e/fixtures",
   "integrationFolder": "e2e/integration",
   "pluginsFile": "e2e/plugins/index.ts",
