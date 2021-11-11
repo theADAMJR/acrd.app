@@ -7,21 +7,22 @@ import { headers } from './utils/rest-headers';
 const slice = createSlice({
   name: 'messages',
   initialState: {
-    fetched: {},
-    list: [] as Entity.Message[],
+    total: {},
+    list: [],
   } as Store.AppState['entities']['messages'],
   reducers: {
-    fetched: ({ list, fetched }, { payload }: Store.Action<Entity.Message[]>) => {
-      list.push(...payload.filter(notInArray(list)));
-      if (payload.length)
-        fetched[payload[0].channelId] = 'testing';
+    fetched: ({ list, total }, { payload }: Store.Action<REST.From.Get['/channels/:channelId/messages']>) => {
+      list.unshift(...payload.list.filter(notInArray(list)));
+      total[payload.channelId] = payload.total;
     },
-    created: ({ list }, { payload }: Store.Action<WS.Args.MessageCreate>) => {
+    created: ({ list, total }, { payload }: Store.Action<WS.Args.MessageCreate>) => {
       list.push(payload.message);
+      total[payload.message.channelId]++;
     },
-    deleted: ({ list }, { payload }: Store.Action<WS.Args.MessageDelete>) => {
+    deleted: ({ list, total }, { payload }: Store.Action<WS.Args.MessageDelete>) => {
       const index = list.findIndex(m => m.id === payload.messageId);
       list.splice(index, 1);
+      total[payload.channelId]--;
     },
     updated: ({ list }, { payload }: Store.Action<WS.Args.MessageUpdate>) => {
       const message = list.find(m => m.id === payload.message.id);
@@ -36,14 +37,13 @@ export const getChannelMessages = (channelId: string) =>
     messages => messages.filter(m => m.channelId === channelId),
   );
 
-// TODO: add lazy message loading
-export const fetchMessages = (channelId: string) => (dispatch, getState: () => Store.AppState) => {
-  const isCached = getState().entities.messages.list.some(c => c.channelId === channelId);
-  if (isCached) return;
+export const fetchMessages = (channelId: string, back = 25) => (dispatch, getState: () => Store.AppState) => {
+  const { messages } = getState().entities;
+  if (messages.list.length === messages.total[channelId]) return;
 
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
-    url: `/channels/${channelId}/messages?back=100`,
+    url: `/channels/${channelId}/messages?back=${back}`,
     headers: headers(),
   }));
 }

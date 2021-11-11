@@ -22,6 +22,9 @@ test(createChannel, () => {
   given({ type: 'TEXT' }).expect(true);
   given({ type: 'VOICE' }).expect(true);
   given({ type: 'DM' }).expect(true);
+  given({ firstMessageId: generateSnowflake() }).expect(true);
+  given({ firstMessageId: '' }).expect(true);
+  given({ firstMessageId: '123' }).expect('Invalid Snowflake ID');
   given({ lastMessageId: generateSnowflake() }).expect(true);
   given({ lastMessageId: '' }).expect(true);
   given({ lastMessageId: '123' }).expect('Invalid Snowflake ID');

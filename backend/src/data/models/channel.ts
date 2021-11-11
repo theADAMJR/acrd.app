@@ -35,6 +35,10 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
     maxlength: [32, 'Name too long'],
     validate: [validators.textChannelName, 'Invalid name'],
   },
+  firstMessageId: {
+    type: String,
+    validate: [validators.optionalSnowflake, 'Invalid Snowflake ID'],
+  },
   lastMessageId: {
     type: String,
     validate: [validators.optionalSnowflake, 'Invalid Snowflake ID'],

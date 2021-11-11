@@ -16,11 +16,11 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
       deps.users.getSelf(authorId),
     ]);
 
+    await Channel.updateOne({ _id: channelId }, { lastMessageId: message.id });
+
     author.lastReadMessageIds ??= {};
     author.lastReadMessageIds[channelId] = message.id;
     await author.save();
-
-    await Channel.updateOne({ _id: channelId }, { lastMessageId: message.id }),
 
     ws.io
       .to(channelId)

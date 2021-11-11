@@ -20,6 +20,11 @@ declare namespace REST {
 
   export namespace From {
     export interface Get {
+      '/channels/:channelId/messages': {
+        channelId: string;
+        list: Entity.Message[];
+        total: number;
+      }
       '/users/entities': {
         channels: Entity.Channel[];
         guilds: Entity.Guild[];

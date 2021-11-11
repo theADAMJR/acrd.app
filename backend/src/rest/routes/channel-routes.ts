@@ -16,9 +16,10 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
   if (!canAccess)
     throw new APIError(403, 'Insufficient permissions');
 
-  const channelMsgs = (await deps.messages
-    .getChannelMessages(channelId) ?? await deps.messages
-    .getDMChannelMessages(channelId, res.locals.user.id));  
+  const channelMsgs = (
+    await deps.messages.getChannelMessages(channelId)
+    ?? await deps.messages.getDMChannelMessages(channelId, res.locals.user.id)
+  );  
 
   const batchSize = 25;
   const back = Math.max(channelMsgs.length - +(req.query.back || batchSize), 0);
@@ -41,7 +42,11 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
       } as WS.Args.UserUpdate);
   }
   
-  res.json(slicedMsgs);
+  res.json({
+    channelId,
+    total: channelMsgs.length,
+    list: slicedMsgs,
+  } as REST.From.Get['/channels/:channelId/messages']);
 });
 
 router.get('/:id', updateUser, validateUser, async (req, res) => {

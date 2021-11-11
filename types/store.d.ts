@@ -22,12 +22,10 @@ declare namespace Store {
         fetched: string[];
         list: Entity.Invite[];
       };
-      // sequential - loaded when needed
       messages: {
-        /** Set of channel Ids that messages have been initially fetched in. */
-        fetched: string[];
+        total: { [channelId: string]: number; }
         list: Entity.Message[];
-      }
+      };
     };
     meta: {
       fetchedEntities: boolean;

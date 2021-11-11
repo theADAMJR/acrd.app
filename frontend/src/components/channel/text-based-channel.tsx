@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchMessages, getChannelMessages } from '../../store/messages';
 import Message from './message/message';
 import MessageBox from './message-box';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import TextChannelHeader from './text-channel-header';
 import usePerms from '../../hooks/use-perms';
 import SkeletonMessage from '../skeleton/skeleton-message';
@@ -13,30 +13,55 @@ const TextBasedChannel: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const messages = useSelector(getChannelMessages(channel.id));
   const perms = usePerms();
-  const [cachedContent, setCachedContent] = useState<Util.Dictionary>({});  
+  const [cachedContent, setCachedContent] = useState<Util.Dictionary>({});
+  const messagesRef = useRef<HTMLDivElement>(null);
+  const [firstLoaded] = useState(new Date());
+  const msgCount = useSelector((s: Store.AppState) => s.entities.messages.total[channel.id]);
+  
+  const batchSize = 25;
+  const lastMessage = messages[messages.length - 1];
+  const loadedAllMessages = msgCount === messages.length;
 
   useEffect(() => {
-    dispatch(fetchMessages(channel.id));
-
-    const element = document.querySelector('#messages')!;
-    element.scrollTop = element.scrollHeight;
-  }, [messages.length]); // only fetches channel messages when not cached
+    messagesRef.current!.scroll({
+      top: messagesRef.current?.scrollHeight,
+    });
+  }, [new Date(lastMessage?.createdAt).getTime() < firstLoaded.getTime()]);
 
   useEffect(() => {
     const messageBox = document.querySelector('#messageBox') as HTMLTextAreaElement;
     messageBox.focus();
+    
+    dispatch(fetchMessages(channel.id, batchSize));
   }, [channel.id]);
 
-  const loaded = channel.lastMessageId === messages[messages.length]?.id;
+  const onScroll = (e) => {
+    if (messagesRef.current!.scrollTop > 0 || loadedAllMessages) return;
+
+    const back = messages.length + batchSize;
+    dispatch(fetchMessages(channel.id, back));
+  }
+
   const canRead = perms.canInChannel('READ_MESSAGES', guild.id, channel.id);
+
+  const LoadingIndicator: React.FunctionComponent = () => (
+    <>
+      {!(canRead && loadedAllMessages) &&
+        new Array(!canRead ? 6 : 2)
+          .fill(0)
+          .map((_, i) => <SkeletonMessage key={i} />)}
+    </>
+  );
 
   return (
     <div className="h-full flex flex-col flex-grow">
       <div
         id="messages"
-        className="overflow-auto mb-5 mr-1 mt-1 flex-grow">
+        ref={messagesRef}
+        className="overflow-auto mb-5 mr-1 mt-1 flex-grow"
+        onScroll={onScroll}>
         <TextChannelHeader canRead={canRead} />
-        {!(canRead || loaded) && new Array(6).fill(0).map((_, i) => <SkeletonMessage key={i} />)}
+        <LoadingIndicator />
         {canRead && messages.map(m => <Message key={m.id} message={m} />)}
       </div>
       <MessageBox

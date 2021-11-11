@@ -75,9 +75,9 @@ export const User = model<UserDocument>('user', new Schema({
     guildIds: { type: [String], default: [] },
     userIds: { type: [String], default: [] },
   },
-  lastReadMessageIds: {
+  lastReadMessages: {
     type: Object,
-    default: {}
+    default: {},
   },
   locked: Boolean,
   status: {
