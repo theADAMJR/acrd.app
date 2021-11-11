@@ -1,13 +1,12 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteGuild, getGuildChannels, updateGuild, uploadGuildIcon } from '../../../store/guilds';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
-import Input from '../../utils/input/input';
 import SaveChanges from '../../utils/save-changes';
-import Select from 'react-select';
+import Input from '../../inputs/input';
+import ChannelSelect from '../../inputs/channel-select';
  
 const GuildSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -45,17 +44,19 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
           label="Icon Image"
           name="iconURL"
           className="pt-5"
-          register={(): any => {}}
           options={{ value: guild.iconURL }}
           onChange={(e) => {
             const file = e.currentTarget?.files?.[0];
             if (file) dispatch(uploadGuildIcon(guild.id, file));
           }} />
-        {/* TODO: move to channel-select */}
-        <Select
-          options={channels
-            .filter(c => c.type === 'TEXT')
-            .map(c => ({ label: `#${c.name}`, value: c.id }))} />
+        <ChannelSelect
+          // onChange={() => dispatch(openSaveChanges(true))}
+          className="pt-5"
+          label="System Channel"
+          name="systemChannelId"
+          channels={channels}
+          register={register}
+          options={{ value: guild.systemChannelId }} />
       </section>
 
       <Category

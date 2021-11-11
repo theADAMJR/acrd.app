@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from '../../../store/auth';
 import NormalButton from '../../utils/buttons/normal-button';
 import PageWrapper from '../page-wrapper';
-import Input from '../../utils/input/input';
+import Input from '../../inputs/input';
 import { useState } from 'react';
 
 const RegisterPage: React.FunctionComponent = () => {

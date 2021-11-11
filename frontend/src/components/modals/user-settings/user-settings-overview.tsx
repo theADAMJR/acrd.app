@@ -1,4 +1,3 @@
-import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleDevMode } from '../../../store/config';
@@ -6,8 +5,8 @@ import { openSaveChanges } from '../../../store/ui';
 import { updateSelf, deleteSelf, uploadUserAvatar } from '../../../store/users';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
-import Input from '../../utils/input/input';
-import Toggle from '../../utils/input/toggle';
+import Input from '../../inputs/input';
+import Toggle from '../../inputs/toggle';
 import SaveChanges from '../../utils/save-changes';
 
 const UserSettingsOverview: React.FunctionComponent = () => {

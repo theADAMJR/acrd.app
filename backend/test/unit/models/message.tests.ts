@@ -5,7 +5,7 @@ import { Message } from '../../../src/data/models/message';
 
 test(createMessage, () => {
   given().expect(true);
-  given({ authorId: '' }).expect('Author ID is required');
+  given({ authorId: '' }).expect(true);
   given({ authorId: '123' }).expect('Invalid Snowflake ID');
   given({ authorId: generateSnowflake() }).expect(true);
   given({ channelId: '' }).expect('Channel ID is required');

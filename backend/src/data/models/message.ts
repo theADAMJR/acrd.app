@@ -17,7 +17,6 @@ export const Message = model<MessageDocument>('message', new Schema({
   attachmentURLs: [String],
   authorId: {
     type: String,
-    required: [true, 'Author ID is required'],
     validate: [patterns.snowflake, 'Invalid Snowflake ID'],
   },
   channelId: {

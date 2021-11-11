@@ -5,7 +5,7 @@ import { PermissionTypes } from '../../../services/perm-service';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
-import Toggle from '../../utils/input/toggle';
+import Toggle from '../../inputs/toggle';
 
 export interface RolePermissionsProps {
   setRoleValue: UseFormSetValue<FieldValues>;

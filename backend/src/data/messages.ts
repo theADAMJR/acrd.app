@@ -27,6 +27,8 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
 
   public async createSystem(guildId: string, content: string) {    
     const { systemChannelId: channelId } = await deps.guilds.get(guildId);
+    if (!channelId)
+      throw new TypeError('No system channel configured');
     
     return await Message.create({
       _id: generateSnowflake(),

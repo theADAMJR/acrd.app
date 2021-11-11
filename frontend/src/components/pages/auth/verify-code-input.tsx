@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import Input from '../../utils/input/input';
+import Input from '../../inputs/input';
 import NormalButton from '../../utils/buttons/normal-button';
 import { sendVerifyCode } from '../../../store/auth';
 

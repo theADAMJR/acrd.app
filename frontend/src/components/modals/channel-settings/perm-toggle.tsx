@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { PermissionTypes } from '../../../services/perm-service';
 import { openSaveChanges } from '../../../store/ui';
-import ThreeToggle from '../../utils/input/three-toggle';
+import ThreeToggle from '../../inputs/three-toggle';
 
 interface PermToggleProps {
   permName: string;

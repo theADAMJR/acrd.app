@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePassword } from '../../../store/auth';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
-import Input from '../../utils/input/input';
+import Input from '../../inputs/input';
 
 const UserSettingsSecurity: React.FunctionComponent = () => {
   const dispatch = useDispatch();

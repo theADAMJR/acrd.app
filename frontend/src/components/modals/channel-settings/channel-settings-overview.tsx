@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteChannel, updateChannel } from '../../../store/channels';
 import { openSaveChanges } from '../../../store/ui';
+import Input from '../../inputs/input';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
-import Input from '../../utils/input/input';
 import SaveChanges from '../../utils/save-changes';
  
 const ChannelSettingsOverview: React.FunctionComponent = () => {

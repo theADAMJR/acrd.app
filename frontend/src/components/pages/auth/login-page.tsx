@@ -5,7 +5,7 @@ import Particles from 'react-particles-js';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import PageWrapper from '../page-wrapper';
-import Input from '../../utils/input/input';
+import Input from '../../inputs/input';
 import NormalButton from '../../utils/buttons/normal-button';
 import { loginUser, forgotPasswordEmail, sendVerifyCode } from '../../../store/auth';
 import { useState } from 'react';
