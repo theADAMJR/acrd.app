@@ -34,6 +34,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
       _id: generateSnowflake(),
       channelId,
       content,
+      system: true,
     });
   }
 

@@ -1,8 +1,7 @@
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import Select from 'react-select';
-import { filterProps } from '../utils/react/react-shush-error';
 
-interface ChannelSelectProps extends React.AllHTMLAttributes<HTMLInputElement> {
+interface ChannelSelectProps {
   className?: string;
   channels: Entity.Channel[];
   label?: string;
@@ -11,7 +10,7 @@ interface ChannelSelectProps extends React.AllHTMLAttributes<HTMLInputElement> {
   options?: any;
 };
  
-const ChannelSelect: React.FunctionComponent<ChannelSelectProps> = (props) => {
+const ChannelSelect: React.FunctionComponent<any> = (props) => {
   const channelOptions: any[] = props.channels
     .filter(c => c.type === 'TEXT')
     .map(c => ({ label: `#${c.name}`, value: c.id }));
@@ -57,7 +56,7 @@ const ChannelSelect: React.FunctionComponent<ChannelSelectProps> = (props) => {
           htmlFor={id}
           className="uppercase text-xs font-semibold">{props.label}</label>}
       <Select
-        {...filterProps(props)}
+        className="pt-2"
         placeholder="Select channel..."
         id={id}
         styles={styles}

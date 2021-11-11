@@ -10,15 +10,10 @@ import { WSEvent, } from './ws-event';
 export default class implements WSEvent<'INVITE_CREATE'> {
   on = 'INVITE_CREATE' as const;
 
-  constructor(
-    private guard = deps.wsGuard,
-    private invites = deps.invites,
-  ) {}
-
   public async invoke(ws: WebSocket, client: Socket, params: WS.Params.InviteCreate) {
-    await this.guard.validateCan(client, params.guildId, 'CREATE_INVITE');
+    await deps.wsGuard.validateCan(client, params.guildId, 'CREATE_INVITE');
 
-    const invite = await this.invites.create(params, ws.sessions.userId(client));
+    const invite = await deps.invites.create(params, ws.sessions.userId(client));
 
     ws.io
       .to(params.guildId)

@@ -25,6 +25,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
   
   return (
     <form
+      id="formt"
       onChange={() => dispatch(openSaveChanges(true))}
       className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <header>
@@ -56,7 +57,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
           name="systemChannelId"
           channels={channels}
           register={register}
-          options={{ value: guild.systemChannelId }} />
+          options={{ setValueAs: guild.systemChannelId }} />
       </section>
 
       <Category

@@ -45,14 +45,17 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
     .replace(patterns.blockQuoteMultiline, '<div class="blockquote pl-1">$1</div>')
     .replace(defaultPatterns.url, '<a href="$1" target="_blank">$1</div>');
 
+  const mentions = (content: string) => content
+    .replace(new RegExp(`/[<@](${defaultPatterns.snowflake})[>]/`, 'g'), `$1`);
+
   const messageHTML =
-    ((message.content) ? format(striptags(message.content)) : '') +
+    ((message.content) ? format(striptags(mentions(message.content))) : '') +
     ((message.updatedAt && message.content) ?
       `<span
         class="select-none muted edited text-xs ml-1"
         title="${message.updatedAt}">(edited)</span>` : '');
 
-  const Attachments = () => (
+  const Attachments: React.FunctionComponent = () => (
     <>
       {message.attachmentURLs?.map(imageURL =>
         <img

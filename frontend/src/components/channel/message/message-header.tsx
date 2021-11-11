@@ -7,15 +7,15 @@ import { getMemberHighestRole } from '../../../store/roles';
 
 interface MessageHeaderProps {
   message: Entity.Message;
-  author: Entity.User;
-  isExtra: boolean;
+  author?: Entity.User;
+  isExtra?: boolean;
 }
  
-const MessageHeader: FunctionComponent<MessageHeaderProps> = ({ author, message, isExtra }) => {
+const MessageHeader: FunctionComponent<MessageHeaderProps> = ({ author, message, isExtra = false }) => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const member = useSelector(getMember(guild.id, message.authorId));
   const highestRole = useSelector(getMemberHighestRole(guild.id, member?.userId ?? ''));
-  if (isExtra || !member) return null;  
+  if (isExtra) return null;  
   
   const toDays = (date: Date) => date.getTime() / 1000 / 60 / 60 / 24; 
 
@@ -30,7 +30,7 @@ const MessageHeader: FunctionComponent<MessageHeaderProps> = ({ author, message,
     return 'DD/MM/YYYY';
   };
 
-  return (
+  return (!message.system && author) ? (
     <div>
       <ContextMenuTrigger id={author.id}>
         <span
@@ -39,6 +39,8 @@ const MessageHeader: FunctionComponent<MessageHeaderProps> = ({ author, message,
       </ContextMenuTrigger>
       <span className="text-xs">{moment(createdAt).format(getTimestamp())}</span>
     </div>
+  ) : (
+    <span className="text-xs muted">{moment(createdAt).format(getTimestamp())}</span>    
   );
 }
  

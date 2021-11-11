@@ -13,6 +13,8 @@ import MessageContent from './message-content';
 import MessageHeader from './message-header';
 import { openUserProfile } from '../../../store/ui';
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -39,6 +41,13 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   const LeftSide: React.FunctionComponent = () => {
     const dispatch = useDispatch();
 
+    if (message.system) return (
+      <FontAwesomeIcon
+        className="ml-8 mt-1.5"
+        color="var(--success)"
+        icon={faArrowRight} />
+    ); 
+
     return (isActuallyExtra)
       ? <span className="timestamp text-xs select-none">
           {moment(createdAt).format('HH:mm')}
@@ -59,9 +68,13 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
           <div className="absolute toolbar right-0 -mt-3 z-10">
             <MessageToolbar message={message} />
           </div>
-          {message.system
-            ? (<div>{'->'} {message.content}</div>)
-            : (
+          {(message.system)
+            ? (
+              <div className="my-1">
+                <span className="mr-2">{message.content}</span>
+                <MessageHeader message={message} />
+              </div>
+            ) : (
               <>
                 <MessageHeader
                   author={author}

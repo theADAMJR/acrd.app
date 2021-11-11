@@ -23,12 +23,12 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
   public async create(name: string, owner: SelfUserDocument): Promise<GuildDocument> {    
     const guildId = generateSnowflake();
 
-    const [_, systemChannel, ___] = await Promise.all([
+    const [_, systemChannel, __] = await Promise.all([
       deps.roles.create(guildId, { name: '@everyone' }),
       deps.channels.createText(guildId),
       deps.channels.createVoice(guildId),
     ]);
-    const [ownerMember, guild] = await Promise.all([
+    const [guild, ___] = await Promise.all([
       Guild.create({
         _id: guildId,
         name,
