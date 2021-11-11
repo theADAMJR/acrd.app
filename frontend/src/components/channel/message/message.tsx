@@ -1,6 +1,5 @@
 import './message.scoped.css';
 import './message.global.css';
-
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
@@ -60,11 +59,17 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
           <div className="absolute toolbar right-0 -mt-3 z-10">
             <MessageToolbar message={message} />
           </div>
-          <MessageHeader
-            author={author}
-            message={message}
-            isExtra={isActuallyExtra} />
-          <MessageContent message={message} />
+          {message.system
+            ? (<div>{'->'} {message.content}</div>)
+            : (
+              <>
+                <MessageHeader
+                  author={author}
+                  message={message}
+                  isExtra={isActuallyExtra} />
+                <MessageContent message={message} />
+              </>
+          )}
           {/* <MessageEmbed embed={{
             title: 'Never Gonna Give You Up',
             description: 'Never going to let you down',

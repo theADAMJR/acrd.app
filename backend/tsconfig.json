@@ -18,5 +18,9 @@
     "skipLibCheck": true,
     "watch": true,
   },
-  "include": ["src", "env"]
+  "include": [
+    "src", 
+    "env",
+    "**/*.ts"
+  ]
 }

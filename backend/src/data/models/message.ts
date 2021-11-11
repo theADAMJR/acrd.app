@@ -39,6 +39,7 @@ export const Message = model<MessageDocument>('message', new Schema({
     title: String,
     url: String,
   }),
+  system: Boolean,
   updatedAt: Date,
 }, { toJSON: { getters: true } })
 .method('toClient', useId));

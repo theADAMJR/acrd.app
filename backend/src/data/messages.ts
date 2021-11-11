@@ -25,6 +25,16 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
     });
   }
 
+  public async createSystem(guildId: string, content: string) {    
+    const { systemChannelId: channelId } = await deps.guilds.get(guildId);
+    
+    return await Message.create({
+      _id: generateSnowflake(),
+      channelId,
+      content,
+    });
+  }
+
   public async getChannelMessages(channelId: string) {
     return await Message.find({ channelId });
   }

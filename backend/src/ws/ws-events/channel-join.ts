@@ -1,14 +1,8 @@
-import Channels from '../../data/channels';
 import { WS } from '../../types/ws';
-
 import { WSEvent } from './ws-event';
 import { WebSocket } from '../websocket';
 import { Socket } from 'socket.io';
-import { VoiceService } from '../../voice/voice-service';
-import Users from '../../data/users';
 import { SelfUserDocument } from '../../data/models/user';
-import ChannelLeave from './channel-leave';
-import VoiceData from './voice-data';
 
 export default class implements WSEvent<'CHANNEL_JOIN'> {
   on = 'CHANNEL_JOIN' as const;

@@ -184,6 +184,7 @@ declare namespace WS {
       guildId: string;
       name?: string;
       iconURL?: string;
+      systemChannelId?: string;
     }
     export interface InviteCreate {
       guildId: string;

@@ -8,7 +8,7 @@ import { WS } from '../../types/ws';
 export default class implements WSEvent<'GUILD_UPDATE'> {
   on = 'GUILD_UPDATE' as const;
 
-  public async invoke(ws: WebSocket, client: Socket, { guildId, name, iconURL }: WS.Params.GuildUpdate) { 
+  public async invoke(ws: WebSocket, client: Socket, { guildId, name, iconURL, systemChannelId }: WS.Params.GuildUpdate) { 
     await deps.wsGuard.validateCan(client, guildId, 'MANAGE_GUILD');
 
     const guild = await deps.guilds.get(guildId);
@@ -17,6 +17,7 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
 
     if (hasChanged('iconURL', iconURL)) partial.iconURL = iconURL;
     if (hasChanged('name', name)) partial.name = name!;
+    if (hasChanged('systemChannelId', systemChannelId)) partial.systemChannelId = systemChannelId!;
 
     Object.assign(guild, partial);
     await guild.save();

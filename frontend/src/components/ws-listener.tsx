@@ -110,6 +110,7 @@ const WSListener: React.FunctionComponent = () => {
       dispatch(invites.created(args));
       dispatch(uiActions.focusedInvite(args.invite));
     });
+    ws.on('INVITE_DELETE', (args) => dispatch(invites.deleted(args)));
     ws.on('MESSAGE_CREATE', (args) => {
       const selfUser = state().auth.user!;
       const isBlocked = selfUser.ignored?.userIds.includes(args.message.authorId);

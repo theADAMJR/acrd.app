@@ -25,6 +25,7 @@ declare namespace Entity {
     createdAt: Date;
     iconURL?: string;
     ownerId: string;
+    systemChannelId?: string;
   }
   export interface GuildMember {
     /** @deprecated Not the same as user ID. */
@@ -51,6 +52,7 @@ declare namespace Entity {
     createdAt: Date;
     embed?: MessageTypes.Embed;
     updatedAt?: Date;
+    system?: boolean;
   }
   export interface Role {
     id: string;

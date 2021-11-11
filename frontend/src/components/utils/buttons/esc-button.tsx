@@ -17,7 +17,7 @@ const EscButton: React.FunctionComponent = () => {
   return (
     <div
       id="escButton"
-      className="rounded-full ring ring-gray-500 cursor-pointer border-white rounded-full px-2 w-16 mt-14"
+      className="rounded-full border-2 border-gray-500 cursor-pointer border-white rounded-full px-2 w-16 mt-14"
       onClick={onClick}>
       <FontAwesomeIcon icon={faTimes} color="var(--muted)" />
       <span className="pl-1.5 muted">ESC</span>

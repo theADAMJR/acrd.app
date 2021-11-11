@@ -18,6 +18,10 @@ const slice = createSlice({
     created: ({ list }, { payload }: Store.Action<WS.Args.InviteCreate>) => {
       list.push(payload.invite);
     },
+    deleted: ({ list }, { payload }: Store.Action<WS.Args.InviteDelete>) => {
+      const index = list.findIndex(i => i.id === payload.inviteCode);
+      list.splice(index, 1);
+    },
   },
 });
 

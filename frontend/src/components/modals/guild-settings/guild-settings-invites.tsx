@@ -18,7 +18,7 @@ const GuildSettingsInvites: React.FunctionComponent = () => {
           <span className="float-right">
             <button
               type="button"
-              className="danger rounded-full ring ring-red-500 px-2"
+              className="danger rounded-full border-2 border-red-500 px-2"
               onClick={() => dispatch(deleteInvite(i.id))}>x</button>
           </span>
         </div>

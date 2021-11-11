@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteGuild, updateGuild, uploadGuildIcon } from '../../../store/guilds';
+import { deleteGuild, getGuildChannels, updateGuild, uploadGuildIcon } from '../../../store/guilds';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Input from '../../utils/input/input';
 import SaveChanges from '../../utils/save-changes';
+import Select from 'react-select';
  
 const GuildSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
+  const channels = useSelector(getGuildChannels(guild.id));
   const { register, handleSubmit, setValue } = useForm();
 
   const onSave = (e) => {
@@ -49,6 +51,11 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
             const file = e.currentTarget?.files?.[0];
             if (file) dispatch(uploadGuildIcon(guild.id, file));
           }} />
+        {/* TODO: move to channel-select */}
+        <Select
+          options={channels
+            .filter(c => c.type === 'TEXT')
+            .map(c => ({ label: `#${c.name}`, value: c.id }))} />
       </section>
 
       <Category

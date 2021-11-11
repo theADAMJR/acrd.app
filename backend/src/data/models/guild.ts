@@ -1,6 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 import patterns from '../../types/patterns';
 import { createdAtToDate, useId } from '../../utils/utils';
+import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
 
 // properties we don't need to define when creating a guild
@@ -29,6 +30,10 @@ export const Guild = model<GuildDocument>('guild', new Schema({
     required: true,
     validate: [patterns.snowflake, 'Invalid Snowflake ID'],
   },
+  systemChannelId: {
+    type: String,
+    validate: [validators.optionalSnowflake, 'Invalid Snowflake ID'],
+  }
 },
 { toJSON: { getters: true } })
 .method('toClient', useId));
