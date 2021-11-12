@@ -1,8 +1,10 @@
 # Accord - Like Discord but cooler.
 
-Custom Frontend and Backend that is similar to Discord.
+> Built with React, Redux, and Node.js.
 
-> Built with React TS, Redux, and Node.js.
+Accord is an app, similar to Discord, but cooler.
+
+**Please star this repo to support development.**
 
 <a href="https://ibb.co/kgndDwd"><img src="https://i.ibb.co/N6h4NJ4/Screenshot-from-2021-08-31-16-09-41.png" alt="Screenshot-from-2021-08-31-16-09-41" border="0" /></a>
 <a href="https://ibb.co/st2q2B0"><img src="https://i.ibb.co/fQ2H2ch/Screenshot-from-2021-08-30-11-55-01.png" alt="Screenshot-from-2021-08-30-11-55-01" border="0" /></a>

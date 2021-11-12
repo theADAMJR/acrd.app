@@ -33,6 +33,11 @@ export const getRole = (id: string) => createSelector<Store.AppState, Entity.Rol
   roles => roles.find(r => r.id === id),
 );
 
+export const getRoleByName = (guildId: string, name: string) => createSelector<Store.AppState, Entity.Role[], Entity.Role | undefined>(
+  state => state.entities.roles,
+  roles => roles.find(r => r.guildId === guildId && r.name === name),
+);
+
 export const getRoles = (ids: string[]) => createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
   state => state.entities.roles,
   roles => roles.filter(r => ids.includes(r.id)),

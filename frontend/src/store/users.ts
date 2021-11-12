@@ -83,14 +83,10 @@ export const getUser = (id: string) =>
   );
 
 export const getUserByTag = (tag: string) =>
-  createSelector<Store.AppState, Entity.User[], Entity.User>(
+  createSelector<Store.AppState, Entity.User[], Entity.User | undefined>(
     state => state.entities.users,
     users => {
       const [username, discrim] = tag.split('#');
-      return users.find(u => u.username === username && u.discriminator === +discrim) ?? {
-        avatarURL: '/avatars/unknown.png',
-        discriminator: 0,
-        username: 'Unknown',
-      } as Entity.User;
+      return users.find(u => u.username === username && u.discriminator === +discrim);
     }
   );

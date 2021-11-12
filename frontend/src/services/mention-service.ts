@@ -1,7 +1,6 @@
 import { getChannel, getChannelByName } from '../store/channels';
-import { getGuildUsers } from '../store/guilds';
+import { getRole, getRoleByName } from '../store/roles';
 import { getUser, getUserByTag } from '../store/users';
-import patterns from '../types/patterns';
 
 export class MentionService {
   public readonly tags = ['mention'];
@@ -14,57 +13,55 @@ export class MentionService {
   private readonly patterns = {
     formatted: {
       channel: /<#(\d{18})>/gm,
-      role: /<&(\d{18})>/gm,
       user: /<@(\d{18})>/gm,
     },
     original: {
       channel: /#([A-Za-z\-\d]{2,32})/gm,
-      role: /@((.*){2,32})/gm,
       user: /@([A-Za-z\d\-\_ ]{2,32}#\d{4})/gm,
     },
-    tag: /<mention type="(user|everyone|someone|here)" id="(\d{18})" \/>/,
+    tag: /<mention type="(channel|role|user)" id="(\d{18})" \/>/,
   };
 
   constructor(private state: Store.AppState) {}
 
+  // messageBox.onInput -> formatted mentions appear fancy in message box 
   public formatOriginal(content: string) {    
+    const guildId = this.state.ui.activeGuild!.id;
     return content
-      // .replace(this.patterns.original.role, (_, tag) => {        
-      //   const user = getUserByTag(tag)(this.state);
-      //   return `<@${user.id}>`;
-      // })
-      .replace(this.patterns.original.user, (_, tag) => {        
-        const user = getUserByTag(tag)(this.state);
-        return (user) ? `<@${user.id}>` : '';
+      .replace(this.patterns.original.channel, (og, name) => {        
+        const channel = getChannelByName(guildId, name)(this.state);
+        return (channel) ? `<#${channel?.id}>` : og;
       })
-      .replace(this.patterns.original.channel, (_, name) => {        
-        const channel = getChannelByName(this.state.ui.activeGuild!.id, name)(this.state);
-        return (channel) ? `<#${channel?.id}>` : '';
-      });
+      .replace(this.patterns.original.user, (og, tag) => {        
+        const user = getUserByTag(tag)(this.state);
+        return (user) ? `<@${user.id}>` : og;
+      })
   }
-  // public stripFormat(content: string) {
-  //   return content
-  //     .replace(this.patterns.formatted.user, `<mention type="user" id="$1" />`)
-  // }
-  // public tagsToHTML(content: string) {
-  //   return content.replace(this.patterns., (_, type, id) => {
-  //     const tag = {
-  //       user: {
-  //         onClick: `events.emit('openUserProfile', '${id}')`,
-  //         text: `@${this.getUserTag(id)}`,
-  //       }
-  //     };
+  public stripFormat(content: string) {
+    return content
+      .replace(this.patterns.formatted.channel, `<mention type="channel" id="$1" />`)
+      .replace(this.patterns.formatted.user, `<mention type="user" id="$1" />`);
+  }
 
-  //     return `<a
-  //       data-id="${id}"
-  //       class="font-extrabold cursor-pointer"
-  //       onclick="${tag[type].onClick}">${tag[type].text}</a>`;
-  //   });
-  // }
+  public tagsToHTML(content: string) {
+    return content.replace(this.patterns.tag, (_, type, id) => {
+      const guildId = this.state.ui.activeGuild!.id;
+      const tag = {
+        channel: {
+          onClick: `window.location.href = '/channels/${guildId}/${id}'`,
+          text: `#${getChannel(id)(this.state)?.name}`,
+        },
+        user: {
+          onClick: `events.emit('openUserProfile', '${id}')`,
+          text: `@${this.tag(getUser(id)(this.state))}`,
+        },
+      };
 
-  private getUserTag(userId: string) {
-    const user = getUser(userId)(this.state);
-    return this.tag(user);
+      return `<a
+        data-id="${id}"
+        class="font-extrabold cursor-pointer hover:underline"
+        onclick="${tag[type].onClick}">${tag[type].text}</a>`;
+    });
   }
 
   private tag(user: Entity.User) {
