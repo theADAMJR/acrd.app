@@ -72,21 +72,19 @@ export const uploadUserAvatar = (file: File) => (dispatch) => {
   dispatch(uploadFile(file, uploadCallback));
 }
 
-export const getUser = (id: string) =>
-  createSelector<Store.AppState, Entity.User[], Entity.User>(
-    state => state.entities.users,
-    users => users.find(u => u.id === id) ?? {
-      avatarURL: '/avatars/unknown.png',
-      discriminator: 0,
-      username: 'Unknown',
-    } as Entity.User,
-  );
+export const getUser = (id: string) => createSelector(
+  state => state.entities.users,
+  users => users.find(u => u.id === id) ?? {
+    avatarURL: '/avatars/unknown.png',
+    discriminator: 0,
+    username: 'Unknown',
+  } as Entity.User,
+);
 
-export const getUserByTag = (tag: string) =>
-  createSelector<Store.AppState, Entity.User[], Entity.User | undefined>(
-    state => state.entities.users,
-    users => {
-      const [username, discrim] = tag.split('#');
-      return users.find(u => u.username === username && u.discriminator === +discrim);
-    }
-  );
+export const getUserByTag = (tag: string) => createSelector(
+  state => state.entities.users,
+  users => {
+    const [username, discrim] = tag.split('#');
+    return users.find(u => u.username === username && u.discriminator === +discrim);
+  }
+);

@@ -57,20 +57,17 @@ export const updateMember = (memberId: string, options: Partial<Entity.GuildMemb
   }));
 }
 
-export const getMember = (guildId: string, userId: string) =>
-createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember | undefined>(
+export const getMember = (guildId: string, userId: string) => createSelector(
   state => state.entities.members,
   members => members.find(m => m.guildId === guildId && m.userId === userId),
 );
 
-export const getSelfMember = (guildId: string | undefined) =>
-createSelector<Store.AppState, any, Entity.GuildMember | undefined>(
+export const getSelfMember = (guildId: string | undefined) => createSelector(
   state => ({ user: state.auth.user, members: state.entities.members }),
   ({ user, members }) => members.find(m => m.guildId === guildId && m.userId === user.id),
 );
 
-export const filterByRole = (roleId: string) => 
-createSelector<Store.AppState, Entity.GuildMember[], Entity.GuildMember[]>(
+export const filterByRole = (roleId: string) => createSelector(
   state => state.entities.members,
   members => members.filter(m => m.roleIds.includes(roleId)),
 );

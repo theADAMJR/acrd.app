@@ -28,27 +28,27 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const getRole = (id: string) => createSelector<Store.AppState, Entity.Role[], Entity.Role | undefined>(
+export const getRole = (id: string) => createSelector(
   state => state.entities.roles,
   roles => roles.find(r => r.id === id),
 );
 
-export const getRoleByName = (guildId: string, name: string) => createSelector<Store.AppState, Entity.Role[], Entity.Role | undefined>(
+export const getRoleByName = (guildId: string, name: string) => createSelector(
   state => state.entities.roles,
   roles => roles.find(r => r.guildId === guildId && r.name === name),
 );
 
-export const getRoles = (ids: string[]) => createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
+export const getRoles = (ids: string[]) => createSelector(
   state => state.entities.roles,
   roles => roles.filter(r => ids.includes(r.id)),
 );
 
-export const filterHoistedRoles = (guildId: string) => createSelector<Store.AppState, Entity.Role[], Entity.Role[]>(
+export const filterHoistedRoles = (guildId: string) => createSelector(
   state => state.entities.roles,
   roles => roles.filter(r => r.guildId === guildId && r.hoisted),
 );
 
-export const getMemberHighestRole = (guildId: string | undefined, userId: string) => createSelector<Store.AppState, any, Entity.Role>(
+export const getMemberHighestRole = (guildId: string | undefined, userId: string) => createSelector(
   state => ({ members: state.entities.members, roles: state.entities.roles }),
   ({ members, roles }) => {
     const member = members.find(m => m.guildId === guildId && m.userId === userId);

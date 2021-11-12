@@ -62,25 +62,22 @@ export const leaveVoiceChannel = () => (dispatch) => {
   dispatch(api.wsCallBegan({ event: 'CHANNEL_LEAVE' }));
 }
 
-export const getChannel = (id: string) =>
-  createSelector<Store.AppState, Entity.Channel[], Entity.Channel | undefined>(
-    state => state.entities.channels,
-    channels => channels.find(c => c.id === id),
-  );
+export const getChannel = (id: string) => createSelector(
+  state => state.entities.channels,
+  channels => channels.find(c => c.id === id),
+);
 
-export const getChannelByName = (guildId: string, name: string) => 
-  createSelector<Store.AppState, Entity.Channel[], Entity.Channel | undefined>(
-    state => state.entities.channels,
-    channels => {
-      return channels.find(c => c.guildId === guildId && c.name == name)
-    },
-  );
+export const getChannelByName = (guildId: string, name: string) => createSelector(
+  state => state.entities.channels,
+  channels => {
+    return channels.find(c => c.guildId === guildId && c.name == name)
+  },
+);
 
-export const getChannelUsers = (channelId: string) =>
-  createSelector<Store.AppState, { channels, users }, Entity.User[]>(
-    state => ({ channels: state.entities.channels, users: state.entities.users }),
-    ({ channels, users }) => {
-      const vc = channels.find(c => c.id === channelId) as ChannelTypes.Voice;
-      return vc.userIds.map(id => users.find(u => u.id === id))
-    },
-  );
+export const getChannelUsers = (channelId: string) => createSelector(
+  state => ({ channels: state.entities.channels, users: state.entities.users }),
+  ({ channels, users }) => {
+    const vc = channels.find(c => c.id === channelId) as ChannelTypes.Voice;
+    return vc.userIds.map(id => users.find(u => u.id === id))
+  },
+);

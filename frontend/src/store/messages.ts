@@ -31,11 +31,10 @@ const slice = createSlice({
   },
 });
 
-export const getChannelMessages = (channelId: string) =>
-  createSelector<Store.AppState, Entity.Message[], Entity.Message[]>(
-    state => state.entities.messages.list,
-    messages => messages.filter(m => m.channelId === channelId),
-  );
+export const getChannelMessages = (channelId: string) => createSelector(
+  state => state.entities.messages.list,
+  messages => messages.filter(m => m.channelId === channelId),
+);
 
 export const fetchMessages = (channelId: string, back = 25) => (dispatch, getState: () => Store.AppState) => {
   const { messages } = getState().entities;

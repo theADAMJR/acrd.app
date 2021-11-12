@@ -1,31 +1,25 @@
 import MessageBox from '../message-box';
-import defaultPatterns from '../../../types/patterns';
 import { FunctionComponent } from 'react';
-import { useDispatch, useSelector, useStore } from 'react-redux';
-import striptags from 'striptags';
+import { useDispatch, useSelector } from 'react-redux';
 import { previewImage } from '../../../store/ui';
-import { getUser } from '../../../store/users';
 import useMentions from '../../../hooks/use-mentions';
+import useFormat from '../../../hooks/use-format';
 
 interface MessageContentProps {
   message: Entity.Message;
 }
 
 const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => {
-  const store = useStore();
   const dispatch = useDispatch();
   const mentions = useMentions();
+  const format = useFormat();
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
-
-  
 
   // TODO: refactor to useMentions -> mention-service
 
   const messageHTML =
-    ((message.content)
-      ? format(mentions.toHTML(message.content))
-      : ''
-    ) + ((message.updatedAt && message.content)
+    ((message.content) ? format(message.content) : '')
+    + ((message.updatedAt && message.content)
       ? `<span
           class="select-none muted edited text-xs ml-1"
           title="${message.updatedAt}">(edited)</span>`

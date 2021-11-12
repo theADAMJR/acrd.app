@@ -31,7 +31,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, typeName, size,
         className,
         sizeClass[size ?? 'sm'],
       )}
-      appElement={document.querySelector('#root')!}
+      appElement={document.querySelector('#root') as any}
       isOpen={openModal === typeName}
       onRequestClose={() => {
         dispatch(closeModal);

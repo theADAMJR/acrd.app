@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { PermissionTypes } from '../../../services/perm-service';

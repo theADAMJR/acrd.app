@@ -44,11 +44,11 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const dropdownIsOpen = (type: React.FunctionComponent) => createSelector<Store.AppState, string | undefined, boolean>(
+export const dropdownIsOpen = (type: React.FunctionComponent) => createSelector(
   state => state.ui.openDropdown,
   name => name === type.name,
 );
-export const modalIsOpen = (type: React.FunctionComponent) => createSelector<Store.AppState, string | undefined, boolean>(
+export const modalIsOpen = (type: React.FunctionComponent) => createSelector(
   state => state.ui.openModal,
   name => name === type.name,
 );

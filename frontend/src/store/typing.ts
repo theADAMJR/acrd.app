@@ -25,10 +25,10 @@ const getIndex = (typing: any[], userId: string, channelId: string) => {
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const getTypersInChannel = (channelId: string) => createSelector<any, any, any>(
+export const getTypersInChannel = (channelId: string) => createSelector(
   state => state.entities.typing,
   typing => typing.filter(t => t.channelId === channelId),
-) as (channelId: string) => Store.AppState['entities']['typing'];
+);
 
 let lastTypedAt: Date;
 
