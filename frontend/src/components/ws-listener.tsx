@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { actions as users, getUser } from '../store/users';
 import { actions as meta } from '../store/meta';
-import { actions as uiActions, Dialog } from '../store/ui';
+import { actions as uiActions, Dialog, openUserProfile } from '../store/ui';
 import { actions as invites } from '../store/invites';
 import { actions as members, getSelfMember } from '../store/members';
 import { actions as roles } from '../store/roles';
@@ -43,6 +43,10 @@ const WSListener: React.FunctionComponent = () => {
       content: error.data?.message ?? error.message,
     }));
     events.on('dialog', handleDialog);
+    events.on('openUserProfile', (userId: string) => {
+      const user = getUser(userId)(store.getState());
+      dispatch(openUserProfile(user));
+    });
 
     // add channel to guilds.channels
     ws.on('CHANNEL_CREATE', (args) => {

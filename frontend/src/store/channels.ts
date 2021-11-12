@@ -68,6 +68,14 @@ export const getChannel = (id: string) =>
     channels => channels.find(c => c.id === id),
   );
 
+export const getChannelByName = (guildId: string, name: string) => 
+  createSelector<Store.AppState, Entity.Channel[], Entity.Channel | undefined>(
+    state => state.entities.channels,
+    channels => {
+      return channels.find(c => c.guildId === guildId && c.name == name)
+    },
+  );
+
 export const getChannelUsers = (channelId: string) =>
   createSelector<Store.AppState, { channels, users }, Entity.User[]>(
     state => ({ channels: state.entities.channels, users: state.entities.users }),

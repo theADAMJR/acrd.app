@@ -74,12 +74,12 @@ export const previewImage = (url: string) => (dispatch) => {
   dispatch(actions.openedModal('ImagePreview'));
 }
 
-export const openDialog = (dialog: Dialog) => () => events.emit('dialog', dialog);
-
 export interface Dialog {
   content: string | JSX.Element;
   variant: 'default' | 'info' | 'error' | 'success' | 'warning';
 }
+export const openDialog = (dialog: Dialog) => () => events.emit('dialog', dialog);
+
 
 export const closeModal = (dispatch) => {
   dispatch(actions.closedModal());

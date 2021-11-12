@@ -92,12 +92,14 @@ const UserProfile: FunctionComponent = () => {
           className="mb-2" />
         <div className="mx-2">
           {mutualGuilds.map(guild => (guild)
-            ? <div className="w-12 -ml-2 float-left scale-200">
+            ? <div
+                className="w-12 -ml-2 float-left scale-200"
+                key={guild.id}>
                 <SidebarIcon
                   imageURL={guild.iconURL}
                   name={guild.name} />
               </div>
-            : null,
+            : null
           )}
         </div>
       </div>

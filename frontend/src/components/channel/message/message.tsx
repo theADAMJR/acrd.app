@@ -71,7 +71,7 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
           {(message.system)
             ? (
               <div className="my-1">
-                <span className="mr-2">{message.content}</span>
+                <MessageContent message={message} />
                 <MessageHeader message={message} />
               </div>
             ) : (

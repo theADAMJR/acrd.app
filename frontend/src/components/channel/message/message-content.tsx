@@ -1,16 +1,20 @@
 import MessageBox from '../message-box';
 import defaultPatterns from '../../../types/patterns';
 import { FunctionComponent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import striptags from 'striptags';
 import { previewImage } from '../../../store/ui';
+import { getUser } from '../../../store/users';
+import useMentions from '../../../hooks/use-mentions';
 
 interface MessageContentProps {
   message: Entity.Message;
 }
 
 const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => {
+  const store = useStore();
   const dispatch = useDispatch();
+  const mentions = useMentions();
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
 
   const patterns = {
@@ -45,15 +49,21 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
     .replace(patterns.blockQuoteMultiline, '<div class="blockquote pl-1">$1</div>')
     .replace(defaultPatterns.url, '<a href="$1" target="_blank">$1</div>');
 
-  const mentions = (content: string) => content
-    .replace(new RegExp(`/[<@](${defaultPatterns.snowflake})[>]/`, 'g'), `$1`);
+  // TODO: refactor to useMentions -> mention-service
 
   const messageHTML =
-    ((message.content) ? format(striptags(mentions(message.content))) : '') +
-    ((message.updatedAt && message.content) ?
-      `<span
-        class="select-none muted edited text-xs ml-1"
-        title="${message.updatedAt}">(edited)</span>` : '');
+    ((message.content)
+      ? format(mentions
+        .tagsToHTML(
+        striptags(mentions
+        .stripFormat(message.content), mentions.tags)))
+      : ''
+    ) + ((message.updatedAt && message.content)
+      ? `<span
+          class="select-none muted edited text-xs ml-1"
+          title="${message.updatedAt}">(edited)</span>`
+      : ''
+    );
 
   const Attachments: React.FunctionComponent = () => (
     <>

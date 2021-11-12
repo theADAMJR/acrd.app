@@ -21,9 +21,6 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
     author.lastReadMessageIds ??= {};
     author.lastReadMessageIds[channelId] = message.id;
     await author.save();
-    
-    const { guildId } = await deps.channels.get(channelId);
-    await deps.messages.createSystem(guildId, `<@${authorId}> sent a message.`);
 
     ws.io
       .to(channelId)
