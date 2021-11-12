@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
+import useMentions from '../../hooks/use-mentions';
 import usePerms from '../../hooks/use-perms';
 import { createMessage, updateMessage, uploadFileAsMessage } from '../../store/messages';
 import { getTypersInChannel, startTyping } from '../../store/typing';
@@ -27,6 +28,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const typers = useSelector(getTypersInChannel(channel.id));
   const perms = usePerms();
+  const mentions = useMentions();
 
   useEffect(() => {
     const messageBox = document.querySelector('#messageBox') as HTMLTextAreaElement;
@@ -87,18 +89,17 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     if (!props.editingMessageId) return `Message #${channel.name}`;
   }
 
-  // TODO: refactor
+  // TODO: move message-box-left-side
   const MessageBoxLeftSide = () => {
     const uploadInput = React.createRef<HTMLInputElement>();
     const onChange: any = (e: Event) => {
-      const input = e.target as HTMLInputElement;   
+      const input = e.target as HTMLInputElement;
       dispatch(uploadFileAsMessage(channel.id, { content }, input.files![0]));    
     }
 
     return (!props.editingMessageId) ? (
       <div className="px-4">
         <div className="relative">
-          {/* TODO: add multiple file support */}
           <input
             ref={uploadInput}
             type="file"
@@ -116,12 +117,16 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   } 
   
   return (
-    <div className={`${props.editingMessageId ? 'mt-2' : 'px-4'}`}>
+    <div className={(props.editingMessageId) ? 'mt-2' : 'px-4'}>
       <div className="rounded-lg bg-bg-secondary flex items-center">
         <MessageBoxLeftSide />
+        <div dangerouslySetInnerHTML={{ __html: mentions.toHTML(content) }} />
         <TextareaAutosize
           id="messageBox"
-          onChange={e => setContent(e.target.value)}
+          onChange={e => {
+            const content = mentions.formatOriginal(e.target.value);
+            setContent(content);
+          }}
           onKeyDown={onKeyDown}
           value={content}
           rows={1}

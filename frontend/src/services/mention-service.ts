@@ -1,15 +1,9 @@
 import { getChannel, getChannelByName } from '../store/channels';
-import { getRole, getRoleByName } from '../store/roles';
 import { getUser, getUserByTag } from '../store/users';
 
 export class MentionService {
-  public readonly tags = ['mention'];
+  public readonly tags = ['@245538070684827648', '#\d{18}'];
 
-  /**
-   * @adam123#0001          :   <@1298172981211212>
-   * #general               :   <#1212129018921892>    
-   * @everyone              :   <@12121821821121212>    
-   */
   private readonly patterns = {
     formatted: {
       channel: /<#(\d{18})>/gm,
@@ -19,7 +13,6 @@ export class MentionService {
       channel: /#([A-Za-z\-\d]{2,32})/gm,
       user: /@([A-Za-z\d\-\_ ]{2,32}#\d{4})/gm,
     },
-    tag: /<mention type="(channel|role|user)" id="(\d{18})" \/>/,
   };
 
   constructor(private state: Store.AppState) {}
@@ -37,31 +30,32 @@ export class MentionService {
         return (user) ? `<@${user.id}>` : og;
       })
   }
-  public stripFormat(content: string) {
+
+  public toHTML(content: string) {
     return content
-      .replace(this.patterns.formatted.channel, `<mention type="channel" id="$1" />`)
-      .replace(this.patterns.formatted.user, `<mention type="user" id="$1" />`);
+      .replace(this.patterns.formatted.channel, (_, id) => this.mentionAnchorTag('channel', id))
+      .replace(this.patterns.formatted.user, (_, id) => this.mentionAnchorTag('user', id));
   }
 
-  public tagsToHTML(content: string) {
-    return content.replace(this.patterns.tag, (_, type, id) => {
-      const guildId = this.state.ui.activeGuild!.id;
-      const tag = {
-        channel: {
-          onClick: `window.location.href = '/channels/${guildId}/${id}'`,
-          text: `#${getChannel(id)(this.state)?.name}`,
-        },
-        user: {
-          onClick: `events.emit('openUserProfile', '${id}')`,
-          text: `@${this.tag(getUser(id)(this.state))}`,
-        },
-      };
+  private mentionAnchorTag(type: 'channel' | 'user', id: string) {
+    const selfUserId = this.state.auth.user!.id;
+    const guildId = this.state.ui.activeGuild!.id;
+    const tag = {
+      channel: {
+        onClick: `window.location.href = '/channels/${guildId}/${id}'`,
+        text: `#${getChannel(id)(this.state)?.name}`,
+      },
+      user: {
+        onClick: `events.emit('openUserProfile', '${id}')`,
+        text: `@${this.tag(getUser(id)(this.state))}`,
+      },
+    };
 
-      return `<a
-        data-id="${id}"
-        class="font-extrabold cursor-pointer hover:underline"
-        onclick="${tag[type].onClick}">${tag[type].text}</a>`;
-    });
+    const mentioned = (id === selfUserId) ? 'bg-tertiary rounded px-1' : '';
+    return `<a
+      data-id="${id}"
+      class="font-extrabold cursor-pointer hover:underline ${mentioned}"
+      onclick="${tag[type].onClick}">${tag[type].text}</a>`;
   }
 
   private tag(user: Entity.User) {

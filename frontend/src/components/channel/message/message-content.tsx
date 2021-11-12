@@ -53,7 +53,7 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
 
   const messageHTML =
     ((message.content)
-      ? format(mentions.tagsToHTML(striptags(mentions.stripFormat(message.content), mentions.tags)))
+      ? format(mentions.toHTML(message.content))
       : ''
     ) + ((message.updatedAt && message.content)
       ? `<span

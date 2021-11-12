@@ -6,14 +6,19 @@ describe('mention-service', () => {
   let state: Store.AppState;
   
   const fn = <K extends keyof typeof service>(key: K): (typeof service)[K] => {
+    const channel = { id: '246688207138279430', name: 'general', guildId: '246688207148279429' };
+    const guild = { id: '246688207148279429' };
+    const role = { id: '246688207138279435', name: '@everyone', guildId: '246688207148279429' };
+    const user = { id: '246688207138279428', username: 'Adam', discriminator: 1 };
+    
     state = {
-      ui: {
-        activeGuild: { id: '246688207148279429' },
-      },
+      auth: { user },
+      ui: { activeGuild: guild },
       entities: {
-        channels: [{ id: '246688207138279430', name: 'general', guildId: '246688207148279429' }],
-        roles: [{ id: '246688207138279435', name: '@everyone', guildId: '246688207148279429' }],
-        users: [{ id: '246688207138279428', username: 'Adam', discriminator: 1 }],
+        channels: [channel],
+        guilds: [guild],
+        roles: [role],
+        users: [user],
       }
     } as any;
     service = new MentionService(state);
@@ -32,6 +37,11 @@ describe('mention-service', () => {
     given('let\'s talk in #general').expect('let\'s talk in <#246688207138279430>');
     given('#general #general').expect('<#246688207138279430> <#246688207138279430>');
     given('#general#general').expect('<#246688207138279430><#246688207138279430>');
+  });
+
+  test(fn('toHTML'), () => {
+    given('<@246688207138279428>').assert('', (val) => expect(val).toContainHTML('data-id="246688207138279428"'));
+    given('<#246688207138279430>').assert('', (val) => expect(val).toContain('data-id="246688207138279430"'));
   });
 });
 
