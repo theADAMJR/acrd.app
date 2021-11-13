@@ -12,7 +12,7 @@ const useFormat = () => {
     breaks:       false,        // Convert '\n' in paragraphs into <br>
     langPrefix:   'language-',  // CSS language prefix for fenced blocks. Can be
                                 // useful for external highlighters.
-    linkify:      false,        // Autoconvert URL-like text to links
+    linkify:      true,        // Autoconvert URL-like text to links
 
     // Enable some language-neutral replacement + quotes beautification
     // For the full list of replacements, see https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/replacements.js

@@ -1,4 +1,4 @@
-import MessageBox from '../message-box';
+import MessageBox from '../message-box/message-box';
 import { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { previewImage } from '../../../store/ui';
@@ -11,7 +11,6 @@ interface MessageContentProps {
 
 const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => {
   const dispatch = useDispatch();
-  const mentions = useMentions();
   const format = useFormat();
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
 
@@ -43,9 +42,7 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
   );
   
   return (editingMessageId === message.id)
-    ? <MessageBox
-        content={message.content}
-        editingMessageId={message.id} />
+    ? <MessageBox content={message.content} />
     : <div className="relative">
         <div
           style={{maxWidth: '963px'}}

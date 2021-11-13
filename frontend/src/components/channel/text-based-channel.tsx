@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMessages, getChannelMessages } from '../../store/messages';
 import Message from './message/message';
-import MessageBox from './message-box';
+import MessageBox from './message-box/message-box';
 import { useEffect, useRef, useState } from 'react';
 import TextChannelHeader from './text-channel-header';
 import usePerms from '../../hooks/use-perms';
@@ -29,7 +29,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   }, [new Date(lastMessage?.createdAt).getTime() < firstLoaded.getTime()]);
 
   useEffect(() => {
-    const messageBox = document.querySelector('#messageBox') as HTMLTextAreaElement;
+    const messageBox = document.querySelector('#messageBox') as HTMLDivElement;
     messageBox.focus();
     
     dispatch(fetchMessages(channel.id, batchSize));
