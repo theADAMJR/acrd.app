@@ -17,6 +17,7 @@ import { actions as pings, addPing } from '../store/pings';
 import { useSnackbar } from 'notistack';
 import events from '../services/event-service';
 import { startVoiceFeedback, stopVoiceFeedback } from '../services/voice-service';
+import fetchEntities from '../store/actions/fetch-entities';
 
 const WSListener: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -132,6 +133,7 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('PRESENCE_UPDATE', ({ userId, status }) =>
       dispatch(users.updated({ userId, partialUser: { status } })));
     ws.on('READY', (args) => {
+      dispatch(fetchEntities());
       dispatch(auth.ready(args));
       dispatch(users.fetched([args.user]));
     });

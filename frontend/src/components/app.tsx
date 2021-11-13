@@ -19,7 +19,6 @@ export default function App() {
   
   useEffect(() => {
     dispatch(ready());
-    dispatch(fetchEntities());
     dispatch(initPings());
   }, []);
   

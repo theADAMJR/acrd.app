@@ -16,7 +16,7 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
 
   // TODO: refactor to useMentions -> mention-service
-
+  // FIXME: add striptags
   const messageHTML =
     ((message.content) ? format(message.content) : '')
     + ((message.updatedAt && message.content)

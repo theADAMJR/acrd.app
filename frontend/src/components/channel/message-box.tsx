@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
+import useFormat from '../../hooks/use-format';
 import useMentions from '../../hooks/use-mentions';
 import usePerms from '../../hooks/use-perms';
 import { createMessage, updateMessage, uploadFileAsMessage } from '../../store/messages';
@@ -29,6 +30,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const typers = useSelector(getTypersInChannel(channel.id));
   const perms = usePerms();
   const mentions = useMentions();
+  const format = useFormat();
 
   useEffect(() => {
     const messageBox = document.querySelector('#messageBox') as HTMLTextAreaElement;
@@ -42,7 +44,10 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     }
   }, [content]);
   
-  const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const content = mentions.formatOriginal(event.currentTarget.innerText);
+    setContent(content);
+
     handleEscape(event);
     dispatch(startTyping(channel.id));
     
@@ -66,7 +71,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     setContent('');
     esc();
   }
-  const handleEscape = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleEscape = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Escape') return;
     if (props.editingMessageId) esc();
   }
@@ -120,24 +125,28 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     <div className={(props.editingMessageId) ? 'mt-2' : 'px-4'}>
       <div className="rounded-lg bg-bg-secondary flex items-center">
         <MessageBoxLeftSide />
-        <div dangerouslySetInnerHTML={{ __html: mentions.toHTML(content) }} />
-        <TextareaAutosize
-          id="messageBox"
-          onChange={e => {
-            const content = mentions.formatOriginal(e.target.value);
-            setContent(content);
-          }}
-          onKeyDown={onKeyDown}
-          value={content}
-          rows={1}
+        <div
+          id="messageBoxParser"
           className={classNames(
             'resize-none normal rounded-lg appearance-none leading-tight',
             'focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4',
             { 'cursor-not-allowed': !canSend },
           )}
+          style={{
+            WebkitUserModify: 'read-write-plaintext-only',
+          }}
+          dangerouslySetInnerHTML={{ __html: format(content) }}
+          onKeyDown={onKeyDown}
+          onInput={setCaret}
+          contentEditable />
+        <TextareaAutosize
+          id="messageBox"
+          value={content}
+          rows={1}
           placeholder={getPlaceholder()}
           disabled={!canSend}
-          autoFocus />
+          autoFocus
+          hidden />
       </div>
       {(props.editingMessageId)
         ? <span className="text-xs py-2">
@@ -148,5 +157,25 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     </div>
   );
 }
- 
+
+function setCaret() {
+  var el = document.querySelector('#messageBoxParser')!;
+  var range = document.createRange()!
+  var sel = window.getSelection()!
+
+  try {
+    console.log(el.childNodes);
+
+    for (const node of el.childNodes) {
+      range.setStart(node, node.textContent?.length ?? 0);
+      range.collapse(true);
+    }
+    
+    sel.removeAllRanges();
+    sel.addRange(range);
+  } catch  (e){
+    // console.log(e);
+  }
+}
+
 export default MessageBox;
