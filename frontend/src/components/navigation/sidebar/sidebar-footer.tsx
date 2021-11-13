@@ -21,7 +21,7 @@ const SidebarFooter: React.FunctionComponent = () => {
     if (!channel || !guild) return null;
     
     return (
-      <>
+      <div id="sidebarFooter">
         <div className="justify-between flex items-center p-3 pr-4">
           <div title={ping ? `Ping ${ping}ms` : 'Pinging server...'}>
             <FontAwesomeIcon
@@ -42,7 +42,7 @@ const SidebarFooter: React.FunctionComponent = () => {
             icon={faPhoneSlash} />
         </div>
         <hr className="border-bg-primary" />
-      </>
+      </div>
     );
   }
   

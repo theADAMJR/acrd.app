@@ -58,6 +58,10 @@ describe('essential navigation flow', () => {
       .then(() => token = localStorage.getItem('token')!);
   });
 
+  it('after login, user should appear online', () => {
+    cy.get('#sidebarFooter .avatar .bg-success').first().should('be.visible');
+  });
+
   it('create guild, redirects to guild', () => {
     cy.get('#escButton').click();
     cy.get('#createGuildButton').click();
