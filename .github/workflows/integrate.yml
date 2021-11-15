@@ -89,7 +89,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Build Frontend
-        run: npm run build:prod
+        run: npm build
         working-directory: ./frontend
         env:
           REACT_APP_VERSION: ${{ github.sha }}

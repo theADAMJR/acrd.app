@@ -1,6 +1,6 @@
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from 'sazerac';
-import { longArray, longString, mongooseError } from '../../test-utils';
+import { longString, mongooseError } from '../../test-utils';
 import { Guild } from '../../../src/data/models/guild';
 
 test(createGuild, () => {
