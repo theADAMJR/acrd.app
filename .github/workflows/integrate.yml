@@ -63,7 +63,11 @@ jobs:
         run: npm ci
         working-directory: ./frontend
 
-      - name: Test Frontend
+      - name: Test Frontend (Unit)
+        run: npm start && sleep 20 && npm run test:unit
+        working-directory: ./frontend
+
+      - name: Test Frontend (e2e)
         uses: cypress-io/github-action@v2
         with:
           browser: chrome
@@ -75,7 +79,7 @@ jobs:
   deploy-frontend:
     name: Deploy Frontend
     runs-on: ubuntu-latest
-    needs: [test-backend, test-frontend]
+    needs: [test-backend]
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
@@ -111,7 +115,7 @@ jobs:
   push-to-stable:
     name: Push to Stable
     runs-on: ubuntu-latest
-    needs: [test-backend, test-frontend]
+    needs: [test-backend]
     steps:
       - name: Git checkout
         uses: actions/checkout@v2

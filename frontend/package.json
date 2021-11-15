@@ -53,7 +53,8 @@
     "build:dev": "dotenv -e src/env/.env.dev craco build",
     "build:prod": "sh ../bin/build/prod",
     "test": "craco test",
-    "e2e": "cypress open",
+    "test:unit": "craco test --watchAll=false",
+    "test:e2e": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
