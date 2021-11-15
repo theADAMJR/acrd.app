@@ -15,18 +15,16 @@ const TextBasedChannel: React.FunctionComponent = () => {
   const perms = usePerms();
   const [cachedContent, setCachedContent] = useState<Util.Dictionary>({});
   const messagesRef = useRef<HTMLDivElement>(null);
-  const [firstLoaded] = useState(new Date());
   const msgCount = useSelector((s: Store.AppState) => s.entities.messages.total[channel.id]);
   
   const batchSize = 25;
-  const lastMessage = messages[messages.length - 1];
   const loadedAllMessages = msgCount === messages.length;
 
   useEffect(() => {
     messagesRef.current!.scroll({
       top: messagesRef.current?.scrollHeight,
     });
-  }, [new Date(lastMessage?.createdAt).getTime() < firstLoaded.getTime()]);
+  }, [messages[messages.length - 1]]);
 
   useEffect(() => {
     const messageBox = document.querySelector('#messageBox') as HTMLDivElement;

@@ -1,5 +1,7 @@
 import classNames from 'classnames';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import striptags from 'striptags';
 import useFormat from '../../../hooks/use-format';
 import useMentions from '../../../hooks/use-mentions';
 import usePerms from '../../../hooks/use-perms';
@@ -15,16 +17,13 @@ const MessageBoxInput: React.FunctionComponent<MessageBoxInputProps> = (props) =
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const dispatch = useDispatch();
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
-  const format = useFormat();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
-  const mentions = useMentions();
   const perms = usePerms();
-
+  const messageBoxRef = useRef<HTMLDivElement>(null);
   const [content, setContent] = props.contentState;
-  
-  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const content = mentions.formatOriginal(event.currentTarget.innerText);
-    setContent(content);
+
+  const onKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {    
+    setContent(striptags(event.currentTarget!.innerText));
 
     handleEscape(event);
     dispatch(startTyping(channel.id));
@@ -38,6 +37,9 @@ const MessageBoxInput: React.FunctionComponent<MessageBoxInputProps> = (props) =
       || !emptyMessage) return;
     
     props.saveEdit();
+
+    setContent('');
+    messageBoxRef.current!.innerText = '';
   }
   const handleEscape = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Escape') return;
@@ -53,36 +55,21 @@ const MessageBoxInput: React.FunctionComponent<MessageBoxInputProps> = (props) =
 
   return (
     <div
-      id="messageBox"
       className={classNames(
         'resize-none normal rounded-lg appearance-none leading-tight',
         'focus:outline-none w-full right-5 left-5 max-h-96 py-3 px-4',
         { 'cursor-not-allowed': !canSend },
-      )}
-      dangerouslySetInnerHTML={{ __html: format(content) }}
-      onKeyDown={onKeyDown}
-      onInput={setCaret}
-      contentEditable={canSend}
-      placeholder={getPlaceholder()} />
+      )}>
+      <div
+        id="messageBox"
+        className="focus:outline-none"
+        ref={messageBoxRef}
+        onKeyUp={onKeyUp}
+        contentEditable={canSend}
+        defaultValue={content}
+        placeholder={getPlaceholder()} />
+    </div>
   );
-}
- 
-function setCaret() {
-  const el = document.querySelector('#messageBox')!;
-  const range = document.createRange()!
-  const sel = window.getSelection()!
-
-  try {
-    console.log(el.childNodes);
-
-    range.setStart(el.childNodes[0], 3);
-    range.collapse(true);
-    
-    sel.removeAllRanges();
-    sel.addRange(range);
-  } catch  (e){
-    // console.log(e);
-  }
 }
 
 export default MessageBoxInput;
