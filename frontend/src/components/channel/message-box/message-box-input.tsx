@@ -23,7 +23,7 @@ const MessageBoxInput: React.FunctionComponent<MessageBoxInputProps> = (props) =
   const [content, setContent] = props.contentState;
 
   const onKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {    
-    setContent(striptags(event.currentTarget!.innerText));
+    setContent(event.currentTarget!.innerText);
 
     handleEscape(event);
     dispatch(startTyping(channel.id));

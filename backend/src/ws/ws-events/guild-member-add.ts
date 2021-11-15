@@ -1,11 +1,8 @@
 import { Socket } from 'socket.io';
-import GuildMembers from '../../data/guild-members';
-import Guilds from '../../data/guilds';
-import Invites from '../../data/invites';
+import { GuildDocument } from '../../data/models/guild';
 import { InviteDocument } from '../../data/models/invite';
-import Users from '../../data/users';
+import { SelfUserDocument } from '../../data/models/user';
 import { WS } from '../../types/ws';
-import { WSRooms } from '../modules/ws-rooms';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 
@@ -44,7 +41,17 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
 
     await client.join(guild.id);
     
-    await deps.messages.createSystem(guild.id, `<@${selfUser.id}> joined the guild.`);
+    await this.joinGuildMessage(guild, selfUser, ws);
+  }
+  
+  private async joinGuildMessage(guild: GuildDocument, selfUser: SelfUserDocument, ws: WebSocket) {
+    try {
+      const sysMessage = await deps.messages.createSystem(guild.id, `<@${selfUser.id}> joined the guild.`, 'GUILD_MEMBER_JOIN');
+  
+      ws.io
+        .to(guild.systemChannelId!)
+        .emit('MESSAGE_CREATE', { message: sysMessage } as WS.Args.MessageCreate);
+    } catch {}
   }
 
   private async handleInvite(invite: InviteDocument) {

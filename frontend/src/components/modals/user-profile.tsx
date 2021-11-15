@@ -1,5 +1,6 @@
 import { faBug, faGavel, faRocket, faSun, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames';
 import moment from 'moment';
 import { FunctionComponent, useState } from 'react';
 import { useSelector, useStore } from 'react-redux';
@@ -16,7 +17,12 @@ const UserProfile: FunctionComponent = () => {
   const [tab, setTab] = useState('info');
 
   type BadgeIcon = {
-    [k in UserTypes.Badge]: { color: string, icon: any, title: string }
+    [k in UserTypes.Badge]: {
+      color: string,
+      icon: any,
+      title: string,
+      styles?: React.CSSProperties,
+    };
   };
   const badgeIcons: BadgeIcon = {
     'BUG_1': {
@@ -57,14 +63,15 @@ const UserProfile: FunctionComponent = () => {
   };
 
   const UserBadges = () => (user) ? (
-    <div className="px-3 pt-2">
-      {user.badges.map(b => {
-        const { color, icon, title } = badgeIcons[b];
+    <div className="float-right -mt-16">
+      {user.badges.map((b, i) => {
+        const { color, icon, title, styles } = badgeIcons[b];
         return (
           <FontAwesomeIcon
+            key={i}
             title={title}
-            className="pr-3"
-            style={{ color }}
+            className={classNames('pr-3')}
+            style={{ ...styles, color }}
             size="2x"
             icon={icon} />
         );

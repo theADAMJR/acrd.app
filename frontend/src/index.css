@@ -54,8 +54,3 @@ body {
 nav[role='menu'] {
   z-index: 10;
 }
-
-/* messages */
-.message p {
-  display: inline;
-}

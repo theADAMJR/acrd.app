@@ -25,7 +25,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
     });
   }
 
-  public async createSystem(guildId: string, content: string) {    
+  public async createSystem(guildId: string, content: string, type?: MessageTypes.Type) {    
     const { systemChannelId: channelId } = await deps.guilds.get(guildId);
     if (!channelId)
       throw new TypeError('No system channel configured');
@@ -35,6 +35,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
       channelId,
       content,
       system: true,
+      type,
     });
   }
 

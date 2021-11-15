@@ -19,7 +19,9 @@ export default class implements WSEvent<'USER_DELETE'> {
     await user.updateOne(partialUser);
 
     client.emit('USER_DELETE');
-    ws.io.emit('USER_UPDATE', { userId: user.id, partialUser } as WS.Args.UserUpdate);
+    ws.io
+      .to(userId)
+      .emit('USER_UPDATE', { userId: user.id, partialUser } as WS.Args.UserUpdate);
     client.disconnect();
   }
 }

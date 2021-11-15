@@ -51,6 +51,7 @@ declare namespace Entity {
     content?: string;
     createdAt: Date;
     embed?: MessageTypes.Embed;
+    type?: MessageTypes.Type;
     updatedAt?: Date;
     system?: boolean;
   }
@@ -128,6 +129,9 @@ declare namespace MessageTypes {
     title: string;
     url: string;
   }
+  export type Type = undefined
+    | 'GUILD_MEMBER_JOIN'
+    | 'GUILD_MEMBER_LEAVE';
 }
 
 declare namespace UserTypes {

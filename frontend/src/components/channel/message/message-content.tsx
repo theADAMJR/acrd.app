@@ -2,8 +2,8 @@ import MessageBox from '../message-box/message-box';
 import { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { previewImage } from '../../../store/ui';
-import useMentions from '../../../hooks/use-mentions';
 import useFormat from '../../../hooks/use-format';
+import striptags from 'striptags';
 
 interface MessageContentProps {
   message: Entity.Message;
@@ -14,10 +14,8 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
   const format = useFormat();
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
 
-  // TODO: refactor to useMentions -> mention-service
-  // FIXME: add striptags
   const messageHTML =
-    ((message.content) ? format(message.content) : '')
+    ((message.content) ? striptags(format(message.content), 'a') : '')
     + ((message.updatedAt && message.content)
       ? `<span
           class="select-none muted edited text-xs ml-1"

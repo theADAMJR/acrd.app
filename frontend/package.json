@@ -8,6 +8,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@paypal/react-paypal-js": "^7.4.2",
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import ws from '../services/ws-service';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { actions as users, getUser } from '../store/users';
 import { actions as meta } from '../store/meta';
@@ -46,6 +46,8 @@ const WSListener: React.FunctionComponent = () => {
     events.on('dialog', handleDialog);
     events.on('openUserProfile', (userId: string) => {
       const user = getUser(userId)(store.getState());
+      if (!user.discriminator) return;
+
       dispatch(openUserProfile(user));
     });
 

@@ -3,6 +3,7 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { WS } from '../../types/ws';
 import { Channel } from '../../data/models/channel';
+import striptags from 'striptags';
 
 export default class implements WSEvent<'MESSAGE_CREATE'> {
   on = 'MESSAGE_CREATE' as const;
@@ -12,7 +13,11 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
     
     const [_, message, author] = await Promise.all([
       deps.wsGuard.validateCanInChannel(client, channelId, 'SEND_MESSAGES'), 
-      deps.messages.create(authorId, channelId, { attachmentURLs, content, embed }),
+      deps.messages.create(authorId, channelId, {
+        attachmentURLs,
+        content: (content) ? striptags(content) : '',
+        embed,
+      }),
       deps.users.getSelf(authorId),
     ]);
 

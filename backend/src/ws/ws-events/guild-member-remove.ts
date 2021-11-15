@@ -3,7 +3,7 @@ import Guilds from '../../data/guilds';
 import { Channel } from '../../data/models/channel';
 import { Guild, GuildDocument } from '../../data/models/guild';
 import { GuildMember } from '../../data/models/guild-member';
-import { User } from '../../data/models/user';
+import { SelfUserDocument, User } from '../../data/models/user';
 import Users from '../../data/users';
 import { PermissionTypes } from '../../types/permission-types';
 import { WS } from '../../types/ws';
@@ -52,8 +52,18 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
     const userClient = ws.io.sockets.sockets.get(userId);
     if (userClient)
       await this.leaveGuildRooms(userClient, guild);
-    
-    await deps.messages.createSystem(guildId, `<@${member.userId}> left the guild.`);
+
+    await this.leaveGuildMessage(guild, user, ws);    
+  }
+  
+  private async leaveGuildMessage(guild: GuildDocument, user: SelfUserDocument, ws: WebSocket) {
+    try {
+      const sysMessage = await deps.messages.createSystem(guild.id, `<@${user.id}> left the guild.`, 'GUILD_MEMBER_LEAVE');
+  
+      ws.io
+        .to(guild.systemChannelId!)
+        .emit('MESSAGE_CREATE', { message: sysMessage } as WS.Args.MessageCreate);
+    } catch {}
   }
 
   private async leaveGuildRooms(client: Socket, guild: GuildDocument) {
