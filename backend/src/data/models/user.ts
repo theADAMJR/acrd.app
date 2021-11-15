@@ -80,6 +80,8 @@ export const User = model<UserDocument>('user', new Schema({
     default: {},
   },
   locked: Boolean,
+  premium: Boolean,
+  premiumExpiration: Date,
   status: {
     type: String,
     required: [true, 'Status is required'],

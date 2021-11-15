@@ -73,6 +73,8 @@ declare namespace Entity {
     createdAt: Date;
     discriminator: number;
     guildIds: string[];
+    premium: boolean;
+    premiumExpiration: Date;
     status: UserTypes.StatusType;
     username: string;
     voice: UserTypes.VoiceState;
