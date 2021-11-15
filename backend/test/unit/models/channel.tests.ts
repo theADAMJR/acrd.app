@@ -21,9 +21,6 @@ test(createChannel, () => {
   given({ name: 'channel name', type: 'DM' }).expect(true);
   given({ summary: longString(129) }).expect('Summary too long');
   given({ summary: 'cool channel' }).expect(true);
-  given({ systemChannelId: generateSnowflake() }).expect(true);
-  given({ systemChannelId: '' }).expect(true);
-  given({ systemChannelId: '123' }).expect('Invalid Snowflake ID');
   given({ type: 'A' }).expect('Invalid type');
   given({ type: 'TEXT' }).expect(true);
   given({ type: 'VOICE' }).expect(true);

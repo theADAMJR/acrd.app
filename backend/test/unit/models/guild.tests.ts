@@ -10,6 +10,9 @@ test(createGuild, () => {
   given({ name: longString(33) }).expect('Name is too long');
   given({ ownerId: '123' }).expect('Invalid Snowflake ID');
   given({ ownerId: generateSnowflake() }).expect(true);
+  given({ systemChannelId: generateSnowflake() }).expect(true);
+  given({ systemChannelId: undefined }).expect(true);
+  given({ systemChannelId: '123' }).expect('Invalid Snowflake ID');
 });
 
 function createGuild(guild: any) {
