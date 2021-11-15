@@ -29,7 +29,7 @@ router.post('/login', extraRateLimit(25), (req, res, next) => {
     res.status(201).json({ token: await deps.users.createToken(user) });
   });
 
-router.post('/register', extraRateLimit(5), async (req, res) => {
+router.post('/register', extraRateLimit(10), async (req, res) => {
   const user = await deps.users.create({
     email: req.body.email,
     password: req.body.password,
@@ -81,7 +81,7 @@ router.get('/email/forgot-password', extraRateLimit(10), async (req, res) => {
   }
 });
 
-router.post('/change-password', extraRateLimit(5), async (req, res) => {
+router.post('/change-password', extraRateLimit(10), async (req, res) => {
   const { email, oldPassword, newPassword }: REST.To.Post['/auth/change-password'] = req.body;
 
   const user = await User.findOne({ email }) as any as SelfUserDocument;
