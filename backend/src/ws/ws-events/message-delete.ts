@@ -1,5 +1,4 @@
 import { Socket } from 'socket.io';
-import { Channel } from '../../data/models/channel';
 import { Message } from '../../data/models/message';
 import { WS } from '../../types/ws';
 import { WebSocket } from '../websocket';
