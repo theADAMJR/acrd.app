@@ -14,7 +14,7 @@ import MessageHeader from './message-header';
 import { openUserProfile } from '../../../store/ui';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -41,11 +41,23 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
   const LeftSide: React.FunctionComponent = () => {
     const dispatch = useDispatch();
 
-    if (message.system) return (
+    if (message.system && message.type === 'GUILD_MEMBER_JOIN') return (
       <FontAwesomeIcon
         className="ml-8 mt-1.5"
         color="var(--success)"
         icon={faArrowRight} />
+    ); 
+    if (message.system && message.type === 'GUILD_MEMBER_LEAVE') return (
+      <FontAwesomeIcon
+        className="ml-8 mt-1.5"
+        color="var(--danger)"
+        icon={faArrowLeft} />
+    ); 
+    if (message.system) return (
+      <FontAwesomeIcon
+        className="ml-8 mt-2"
+        color="var(--tertiary)"
+        icon={faInfoCircle} />
     ); 
 
     return (isActuallyExtra)
@@ -83,12 +95,6 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
                 <MessageContent message={message} />
               </>
           )}
-          {/* <MessageEmbed embed={{
-            title: 'Never Gonna Give You Up',
-            description: 'Never going to let you down',
-            imageURL: 'https://discord.club/img/preview.480aa21a.png',
-            url: 'https://discord.club/img/preview.480aa21a.png',
-          }} /> */}
         </div>
         <div className="right-side w-12" />
       </div>

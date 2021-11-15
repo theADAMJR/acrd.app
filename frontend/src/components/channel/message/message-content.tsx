@@ -15,8 +15,10 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
 
   const messageHTML =
-    ((message.content) ? striptags(format(message.content), 'a') : '')
-    + ((message.updatedAt && message.content)
+    ((message.content)
+      ? striptags(format(message.content), 'a')
+      : ''
+    ) + ((message.updatedAt && message.content)
       ? `<span
           class="select-none muted edited text-xs ml-1"
           title="${message.updatedAt}">(edited)</span>`
@@ -43,7 +45,7 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
     ? <MessageBox content={message.content} />
     : <div className="relative">
         <div
-          style={{maxWidth: '963px'}}
+          style={{ maxWidth: '963px' }}
           className="normal whitespace-pre-wrap">
           <div
             dangerouslySetInnerHTML={{ __html: messageHTML }}
