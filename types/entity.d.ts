@@ -135,6 +135,7 @@ declare namespace UserTypes {
     | 'BUG_1'
     | 'BUG_2'
     | 'BUG_3'
+    | 'PREMIUM'
     | 'OG'
     | 'VIEWER'
     | 'STAFF';

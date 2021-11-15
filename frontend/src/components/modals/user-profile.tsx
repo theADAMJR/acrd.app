@@ -1,4 +1,4 @@
-import { faBug, faGavel, faSun, faVideo } from '@fortawesome/free-solid-svg-icons';
+import { faBug, faGavel, faRocket, faSun, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 import { FunctionComponent, useState } from 'react';
@@ -33,6 +33,11 @@ const UserProfile: FunctionComponent = () => {
       color: 'gold',
       icon: faBug,
       title: 'Are there any bugs left?'
+    },
+    'PREMIUM': {
+      color: 'var(--heading)',
+      icon: faRocket,
+      title: 'This user has transcended the realm of epicness.',
     },
     'OG': {
       color: 'orange',
