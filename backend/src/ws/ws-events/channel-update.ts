@@ -4,7 +4,6 @@ import { WSEvent, } from './ws-event';
 import { Channel, ChannelDocument } from '../../data/models/channel';
 import { WS } from '../../types/ws';
 
-// TODO: int. test
 export default class implements WSEvent<'CHANNEL_UPDATE'> {
   on = 'CHANNEL_UPDATE' as const;
 
@@ -16,7 +15,6 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
     if (name) partialChannel.name = name;
     if (overrides) partialChannel.overrides = overrides;
     if (summary) partialChannel.summary = summary;
-    // TODO: TESTME
     if (position) {
       partialChannel.position = position;
       await this.raiseHigherChannels(position, channel);

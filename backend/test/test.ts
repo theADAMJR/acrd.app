@@ -42,7 +42,7 @@ use(should);
   import('./unit/models/role.tests');
   import('./unit/models/user.tests');
   import('./unit/snowflake-entity.tests');
-  import('./unit/ws/ws-cooldowns.tests');
+  import('./unit/other/ws-cooldowns.tests');
 })();
 
 // needs to be here, or tests won't run
