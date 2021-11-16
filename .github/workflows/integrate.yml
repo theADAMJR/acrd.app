@@ -85,7 +85,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Frontend Packages
-        run: npm ci
+        run: npm ci && npm cache clean --force
         working-directory: ./frontend
 
       - name: Build Frontend
