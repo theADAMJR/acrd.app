@@ -1,5 +1,9 @@
 name: Test and deploy
-on: [push, pull_request]
+on:
+  push:
+    branches: [v2-dev]
+  pull_request:
+    branches: [v2-dev]
 jobs:
   test-backend:
     name: Test Backend
@@ -63,9 +67,10 @@ jobs:
         run: npm ci
         working-directory: ./frontend
 
-      - name: Test Frontend (Unit)
-        run: npm start && sleep 20 && npm run test:unit
-        working-directory: ./frontend
+      # FIXME:
+      # - name: Test Frontend (Unit)
+      #   run: npm start && sleep 20 && npm run test:unit
+      #   working-directory: ./frontend
 
       - name: Test Frontend (e2e)
         uses: cypress-io/github-action@v2
