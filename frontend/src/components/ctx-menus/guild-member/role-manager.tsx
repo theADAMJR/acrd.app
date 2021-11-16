@@ -10,7 +10,7 @@ export interface RoleManagerProps {
 }
 
 const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
-  const removeEveryone = (arr: any[]) => arr.slice(1);
+  const removeEveryone = (arr: any[]) => arr.filter(r => r.name !== '@everyone');
   const slicedRoleIds = removeEveryone(member.roleIds);
 
   const perms = usePerms();
