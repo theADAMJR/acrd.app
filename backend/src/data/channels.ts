@@ -6,7 +6,7 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
   public async get(id: string | undefined) {
     const channel = await Channel.findById(id);
     if (!channel)
-      throw new TypeError('Channel Not Found');
+      throw new TypeError('Channel not found');
     return channel;
   }
 

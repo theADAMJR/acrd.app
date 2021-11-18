@@ -1,5 +1,5 @@
 import { MentionService } from './mention-service';
-import { test, given } from 'sazerac';
+import { test, given } from '@accord/ion';
 
 describe.skip('mention-service', () => {
   let service: MentionService;

@@ -4,6 +4,7 @@ export class WSCooldowns {
   public readonly active = new Map<string, EventLog[]>();
 
   // TODO: handle(userId, eventName, guildId)
+  // required for bots
   public handle(userId: string, eventName: keyof WS.To) {
     this.prune(userId);
     this.add(userId, eventName);
@@ -14,16 +15,16 @@ export class WSCooldowns {
       throw new TypeError('You are doing too many things at once!');
   }
 
-  private get(clientId: string) {
-    return this.active.get(clientId)
+  private get(userId: string) {
+    return this.active.get(userId)
       ?? this.active
-        .set(clientId, [])
-        .get(clientId) as EventLog[];
+        .set(userId, [])
+        .get(userId) as EventLog[];
   }
 
-  private add(clientId: string, eventName: keyof WS.To) {
+  private add(userId: string, eventName: keyof WS.To) {
     this
-      .get(clientId)
+      .get(userId)
       .push({ eventName, timestamp: new Date().getTime() });
   }
 

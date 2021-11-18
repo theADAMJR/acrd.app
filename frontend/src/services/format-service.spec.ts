@@ -1,4 +1,4 @@
-import { given, test } from 'sazerac';
+import { given, test } from '@accord/ion';
 import { FormatService } from './format-service';
 
 describe('format-service', () => {

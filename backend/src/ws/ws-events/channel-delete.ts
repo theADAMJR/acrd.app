@@ -12,7 +12,6 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
     const channel = await deps.channels.getText(channelId);
     await deps.wsGuard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
     
-    // clean up the message
     await User.updateMany(
       { voice: { channelId } },
       { voice: {} },

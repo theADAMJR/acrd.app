@@ -1,6 +1,6 @@
 import { Channel } from '../../../src/data/models/channel';
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
-import { test, given } from 'sazerac';
+import { test, given } from '@accord/ion';
 import { longString, mongooseError } from '../../test-utils';
 
 test(createChannel, () => {

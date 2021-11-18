@@ -8,6 +8,7 @@
     "lib": ["ES2020", "ES2019"],
     "module": "CommonJS",
     "noImplicitAny": false,
+    "declaration": true,
     "outDir": "lib",
     "removeComments": true,
     "resolveJsonModule": true,
@@ -22,5 +23,6 @@
     "src", 
     "env",
     "**/*.ts"
-  ]
+  ],
+  "exclude": ["test"]
 }
