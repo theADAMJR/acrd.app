@@ -27,7 +27,7 @@ use(should);
     execSync(`kill -9 $(lsof -i :${process.env.PORT} | tail -n 1 | cut -d ' ' -f5) 2>> /dev/null`);
   } catch {}
 
-  await import('./int/ws/channel-delete.tests');
+  await import('./ws/channel-delete.tests');
 })();
 
 /**

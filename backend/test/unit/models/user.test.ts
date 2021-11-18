@@ -1,8 +1,7 @@
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from '@accord/ion';
-import { longArray, mongooseError } from '../../test-utils';
+import { mongooseError } from '../../test-utils';
 import { User } from '../../../src/data/models/user';
-import { Mock } from '../../mock/mock';
 import { expect } from 'chai';
 
 test(createUser, () => {
@@ -33,19 +32,6 @@ test(createUser, () => {
   given({ username: 'ADAM JR' }).expect(true);
   given({ username: 'a' }).expect('Invalid username');
   given({ username: 'ADAM-JR' }).expect(true);
-
-  it('email is taken, rejected', async () => {
-    const user = await Mock.self();
-    user.email = 'adam@d-cl.one';
-    await user.save();
-
-    const user2 = await Mock.self();
-    user2.email = 'adam@d-cl.one';
-
-    await expect(user2.validate()).to.be.rejectedWith('expected `email` to be unique');
-  });
-
-  after(() => Mock.cleanDB());
 });
 
 function createUser(user: any) {
