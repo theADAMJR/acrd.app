@@ -6,7 +6,7 @@ import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { GuildMember } from '../../data/models/guild-member';
-import { WS } from '../../types/ws';
+
 import Roles from '../../data/roles';
 
 export default class implements WSEvent<'GUILD_ROLE_DELETE'> {

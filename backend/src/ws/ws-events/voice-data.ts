@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { WS } from '../../types/ws';
+
 
 import { VoiceService } from '../../voice/voice-service';
 import { WebSocket } from '../websocket';

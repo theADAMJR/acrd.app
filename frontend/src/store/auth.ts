@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { WS } from '../types/ws';
 import { actions as api } from './api';
 import { openDialog } from './ui';
 import { headers, token } from './utils/rest-headers';

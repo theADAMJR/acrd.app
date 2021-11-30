@@ -1,7 +1,6 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { notInArray } from './utils/filter';
 import { actions as api } from './api';
-import { WS } from '../types/ws';
 import { byMax } from './utils/reduce';
 
 const slice = createSlice({

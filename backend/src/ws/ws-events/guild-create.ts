@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { WS } from '../../types/ws';
+
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
 

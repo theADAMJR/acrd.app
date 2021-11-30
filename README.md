@@ -61,3 +61,31 @@ These setup instructions are in a primitive state, and may be improved in the fu
 
 > Want a more basic version, that's more like Discord?
 > https://github.com/codea-live/dclone
+
+---
+
+`backend/.env`
+(dev with Docker)
+
+```
+EMAIL_ADDRESS="...@gmail.com"
+EMAIL_PASSWORD="..."
+MONGO_URI="mongodb://database/accord"
+NODE_ENV="dev"
+PORT=3000
+WEBSITE_URL="http://localhost:4200"
+```
+
+`backend/test/.env`
+(test without Docker)
+
+```
+API_URL="http://localhost:3001/api"
+EMAIL_ADDRESS="...@gmail.com"
+EMAIL_PASSWORD="..."
+MONGO_URI="mongodb://localhost/accord-test"
+NODE_ENV="dev"
+PORT=3001
+ROOT_ENDPOINT="http://localhost:3001"
+WEBSITE_URL="http://localhost:4200"
+```

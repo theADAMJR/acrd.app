@@ -1,4 +1,3 @@
-import { WS } from '../../types/ws';
 import { WSEvent } from './ws-event';
 import { WebSocket } from '../websocket';
 import { Socket } from 'socket.io';

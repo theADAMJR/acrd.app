@@ -1,5 +1,3 @@
-import { WS } from '../../types/ws';
-
 export class WSCooldowns {
   public readonly active = new Map<string, EventLog[]>();
 

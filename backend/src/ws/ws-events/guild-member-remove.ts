@@ -6,7 +6,7 @@ import { GuildMember } from '../../data/models/guild-member';
 import { SelfUserDocument, User } from '../../data/models/user';
 import Users from '../../data/users';
 import { PermissionTypes } from '../../types/permission-types';
-import { WS } from '../../types/ws';
+
 
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';

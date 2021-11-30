@@ -3,10 +3,7 @@ import { Server as SocketServer } from 'socket.io';
 import { WSEvent } from './ws-events/ws-event';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
-import { WSCooldowns } from './modules/ws-cooldowns';
-
 import { SessionManager } from './modules/session-manager';
-import { WS } from '../types/ws';
 
 export class WebSocket {
   public events = new Map<keyof WS.To, WSEvent<keyof WS.To>>();

@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import { GuildDocument } from '../../data/models/guild';
 import { InviteDocument } from '../../data/models/invite';
 import { SelfUserDocument } from '../../data/models/user';
-import { WS } from '../../types/ws';
+
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 

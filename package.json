@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dc:up": "sudo docker-compose -f docker-compose.dev.yml up -d",
+    "dc:down": "sudo docker-compose -f docker-compose.dev.yml down",
+    "dc:ps": "sudo docker-compose -f docker-compose.dev.yml ps",
+    "dc:build": "sudo docker-compose -f docker-compose.prod.yml build",
+    "log:f": "sudo docker-compose -f docker-compose.dev.yml logs backend",
+    "log:b": "sudo docker-compose -f docker-compose.dev.yml logs frontend"
+  }
+}

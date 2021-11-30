@@ -15,7 +15,7 @@ describe('snowflake-entity', () => {
   });
 
   test(snowflakeToDate, () => {
-    given(generateSnowflake())
-      .assert(d => d.toString() === new Date().toString());
+    given(generateSnowflake()).assert(d => d.toString() === new Date().toString());
+    given('invalid snowflake').throw('Invalid snowflake provided');
   });
 });

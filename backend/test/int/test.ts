@@ -22,16 +22,6 @@ use(should);
     useFindAndModify: false,
     useCreateIndex: true,
   });
-
-  try {
-    execSync(`kill -9 $(lsof -i :${process.env.PORT} | tail -n 1 | cut -d ' ' -f5) 2>> /dev/null`);
-  } catch {}
-
-  await import('./ws/channel-delete.tests');
 })();
 
-/**
- * e2e: testing the final product (i.e. app)  
- * integration: testing full unit with dependencies
- * unit: testing one unit (i.e. one class, function etc.) - mocks dependencies
- */
+import('./ws/channel-delete.test');

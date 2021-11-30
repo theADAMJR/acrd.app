@@ -1,12 +1,6 @@
-import Channels from '../../data/channels';
-import { WS } from '../../types/ws';
-
-import { WSGuard } from '../modules/ws-guard';
 import { WSEvent } from './ws-event';
 import { WebSocket } from '../websocket';
 import { Socket } from 'socket.io';
-import { VoiceService } from '../../voice/voice-service';
-import Users from '../../data/users';
 import { SelfUserDocument } from '../../data/models/user';
 import { ChannelDocument } from '../../data/models/channel';
 

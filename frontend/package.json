@@ -48,10 +48,11 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "dotenv -e src/env/.env.dev craco start",
-    "start:prod": "dotenv -e src/env/.env.prod craco start",
-    "build:dev": "dotenv -e src/env/.env.dev craco build",
-    "build:prod": "dotenv -e src/env/.env.prod craco build",
+    "start": "npm run start:dev",
+    "start:dev": "craco start",
+    "start:prod": "craco start",
+    "build:dev": "dotenv -e env/.env.dev craco build",
+    "build:prod": "dotenv -e env/.env.prod craco build",
     "test": "craco test",
     "test:unit": "craco test --watchAll=false",
     "test:e2e": "cypress open",

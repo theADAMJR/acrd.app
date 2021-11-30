@@ -1,5 +1,4 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-import { WS } from '../types/ws';
 import { actions as api, uploadFile } from './api';
 import { actions as meta } from './meta';
 import { notInArray } from './utils/filter';

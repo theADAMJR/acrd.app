@@ -1,7 +1,6 @@
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
-import { WS } from '../../types/ws';
 import { User } from '../../data/models/user';
 import { Channel, ChannelDocument } from '../../data/models/channel';
 
@@ -16,13 +15,15 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
       { voice: { channelId } },
       { voice: {} },
     );
-    ws.io.sockets.in(channelId).socketsLeave(channelId);
+    ws.io.sockets
+      .in(channelId)
+      .socketsLeave(channelId);
 
     await channel.deleteOne();
     await this.lowerHigherChannels(channel);
 
     return [{
-      emit: 'CHANNEL_DELETE',
+      emit: this.on,
       to: [channel.guildId],
       send: { channelId, guildId: channel.guildId },
     }];

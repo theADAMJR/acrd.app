@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
-import { WS } from '../../types/ws';
+
 import { Channel } from '../../data/models/channel';
 import striptags from 'striptags';
 

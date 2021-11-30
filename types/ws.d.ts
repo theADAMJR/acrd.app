@@ -377,13 +377,3 @@ declare namespace WS {
     }
   }
 }
-
-/** @deprecated In process of being replaced with Partial. */
-// FIXME: Removing this breaks react.
-export namespace PartialEntity {
-  export type Guild = Partial<Entity.Guild>;
-  export type GuildMember = Partial<Entity.GuildMember>;
-  export type Message = Partial<Entity.Message>;
-  export type Role = Partial<Entity.Role>;
-  export type User = Partial<UserTypes.Self>;
-}

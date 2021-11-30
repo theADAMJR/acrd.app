@@ -1,5 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { WS } from '../types/ws';
 import { headers } from './utils/rest-headers';
 
 export const actions = {

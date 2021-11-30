@@ -1,7 +1,5 @@
 import { APIError } from '../rest/modules/api-error';
-import { WS } from '../types/ws';
 import DBWrapper from './db-wrapper';
-import { Guild } from './models/guild';
 import { Invite, InviteDocument } from './models/invite';
 import generateInvite from './utils/generate-invite';
 

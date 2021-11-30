@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  database:
+    image: mongo:4.4-focal
+    ports: [27017:27017]
+    volumes: [accord:/data/db]
+  types:
+    build: ./types
+  backend:
+    depends_on: [database]
+    build: ./backend
+    ports: [3000:3000]
+    env_file: [./backend/.env]
+    volumes: [./backend:/app]
+volumes:
+  accord:

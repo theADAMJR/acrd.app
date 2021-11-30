@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import Users from '../../data/users';
 import { EmailFunctions } from '../../email/email-functions';
-import { WS } from '../../types/ws';
+
 
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';

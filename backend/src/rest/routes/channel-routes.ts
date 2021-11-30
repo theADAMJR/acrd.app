@@ -1,7 +1,5 @@
 import { Router } from 'express';
 import { SelfUserDocument } from '../../data/models/user';
-import { WS } from '../../types/ws';
-
 import { APIError } from '../modules/api-error';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';

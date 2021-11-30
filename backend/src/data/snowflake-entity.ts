@@ -1,4 +1,5 @@
 import cluster from 'cluster';
+import patterns from '../types/patterns';
 
 let inc = 0;
 let lastSnowflake: string;
@@ -36,6 +37,9 @@ function binary64(val: string) {
 // what this method does
 // -> https://discord.com/developers/docs/reference#convert-snowflake-to-datetime
 export function snowflakeToDate(snowflake: string) {
+  if (!patterns.snowflake.test(snowflake))
+    throw new TypeError('Invalid snowflake provided');
+
   const sinceEpochMs = Number(
     binary64(snowflake).slice(0, 42 + 2)
   );  

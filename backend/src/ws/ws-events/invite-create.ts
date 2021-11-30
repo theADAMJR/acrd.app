@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import Invites from '../../data/invites';
 import { PermissionTypes } from '../../types/permission-types';
-import { WS } from '../../types/ws';
+
 
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';

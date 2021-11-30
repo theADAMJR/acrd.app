@@ -6,7 +6,7 @@ import { Invite } from '../../data/models/invite';
 import { Message } from '../../data/models/message';
 import { Role } from '../../data/models/role';
 import { User } from '../../data/models/user';
-import { WS } from '../../types/ws';
+
 
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';

@@ -3,7 +3,7 @@ import { Socket } from 'socket.io';
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
-import { WS } from '../../types/ws';
+
 import Roles from '../../data/roles';
 import Guilds from '../../data/guilds';
 import GuildMembers from '../../data/guild-members';

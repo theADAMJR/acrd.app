@@ -1,6 +1,5 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { byAscending } from '../components/utils/vanilla/sort';
-import { WS } from '../types/ws';
 import { actions as api, uploadFile } from './api';
 import { notInArray } from './utils/filter';
 

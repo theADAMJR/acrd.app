@@ -8,7 +8,7 @@ import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import Roles from '../../data/roles';
-import { WS } from '../../types/ws';
+
 
 export default class implements WSEvent<'GUILD_ROLE_CREATE'> {
   on = 'GUILD_ROLE_CREATE' as const;

@@ -3,7 +3,7 @@ import { Socket } from 'socket.io';
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
-import { WS } from '../../types/ws';
+
 
 export default class implements WSEvent<'GUILD_UPDATE'> {
   on = 'GUILD_UPDATE' as const;

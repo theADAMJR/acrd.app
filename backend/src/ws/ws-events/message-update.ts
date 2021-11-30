@@ -6,7 +6,7 @@ import got from 'got';
 
 import { WSGuard } from '../modules/ws-guard';
 import Messages from '../../data/messages';
-import { WS } from '../../types/ws';
+
 
 export default class implements WSEvent<'MESSAGE_UPDATE'> {
   on = 'MESSAGE_UPDATE' as const;

@@ -1,5 +1,4 @@
 import io from 'socket.io-client';
-import { WS } from '../types/ws';
 
 const ws = (io as any).connect(process.env.REACT_APP_ROOT_API_URL, {
   secure: true,

@@ -1,6 +1,12 @@
 .env
+
+keys/
+node_modules/
+lib/
+logs/
+upload/
+
 .DS_STORE
-node_modules
 scripts/flow/*/.flowconfig
 .flowconfig
 *~

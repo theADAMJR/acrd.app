@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import GuildMembers from '../../data/guild-members';
 import Guilds from '../../data/guilds';
 import Roles from '../../data/roles';
-import { WS } from '../../types/ws';
+
 
 import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';

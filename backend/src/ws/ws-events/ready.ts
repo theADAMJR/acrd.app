@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import Channels from '../../data/channels';
 import { SelfUserDocument } from '../../data/models/user';
 import Users from '../../data/users';
-import { WS } from '../../types/ws';
+
 
 import { WSGuard } from '../modules/ws-guard';
 import { WSRooms } from '../modules/ws-rooms';

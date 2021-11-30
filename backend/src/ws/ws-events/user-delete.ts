@@ -1,7 +1,7 @@
 import { WSEvent } from './ws-event';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
-import { WS } from '../../types/ws';
+
 import generateInvite from '../../data/utils/generate-invite';
 
 export default class implements WSEvent<'USER_DELETE'> {
