@@ -43,11 +43,7 @@ export class WebSocket {
       for (const event of this.events.values())
         client.on(event.on, async (data: any) => {
           try {
-            const instructions = await event.invoke.call(event, this, client, data);
-            for (const { emit, send, to } of instructions)
-              this.io
-                .to(to)
-                .emit(emit, send);
+            await event.invoke.call(event, this, client, data);
           } catch (error) {
             client.emit('error', { message: (error as Error).message });
           } finally {
