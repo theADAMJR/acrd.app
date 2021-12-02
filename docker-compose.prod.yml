@@ -14,7 +14,10 @@ services:
     build: ./backend
     ports: [3000:3000]
     env_file: [./backend/.env]
-    volumes: [./backend:/app]
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/assets:/app/assets
+      - ./backend/logs:/app/logs
     entrypoint: npm run start:prod
     restart: unless-stopped
 volumes:
