@@ -3,7 +3,7 @@ services:
   database:
     container_name: accord_database
     image: mongo:4.4-bionic
-    ports: [27017:27017]
+    ports: [27018:27017]
     volumes: [/var/lib/mongodb:/data/db]
     restart: unless-stopped
   types:
