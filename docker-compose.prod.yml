@@ -18,6 +18,7 @@ services:
       - ./backend/src:/app/src
       - ./backend/assets:/app/assets
       - ./backend/logs:/app/logs
+      - ./backend/keys:/app/keys
     entrypoint: npm run start:prod
     restart: unless-stopped
 volumes:
