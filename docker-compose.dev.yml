@@ -23,9 +23,6 @@ services:
     build: ./frontend
     ports: [4200:4200]
     env_file: [./frontend/env/.env.dev]
-    environment:
-      REACT_APP_API_URL: "backend/v2"
-      REACT_APP_CDN_URL: "backend/assets"
     volumes:
       - ./frontend/src:/app/src
 volumes:

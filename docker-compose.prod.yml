@@ -5,6 +5,7 @@ services:
     image: mongo:4.4-bionic
     ports: [27017:27017]
     volumes: [/var/lib/mongodb:/data/db]
+    restart: unless-stopped
   types:
     build: ./types
   backend:
@@ -15,13 +16,6 @@ services:
     env_file: [./backend/.env]
     volumes: [./backend:/app]
     entrypoint: npm run start:prod
-  frontend:
-    container_name: accord_frontend
-    depends_on: [types, database]
-    build: ./frontend
-    ports: [4200:4200]
-    env_file: [./frontend/env/.env.dev]
-    volumes: [./frontend:/app]
-    entrypoint: npm run start:prod
+    restart: unless-stopped
 volumes:
   accord:
