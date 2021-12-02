@@ -10,6 +10,7 @@
     "dc:ps": "sudo docker-compose -f docker-compose.dev.yml ps",
     "dc:build:prod": "sudo docker-compose -f docker-compose.prod.yml build",
     "dc:up:prod": "sudo docker-compose -f docker-compose.prod.yml up -d --build",
+    "dc:down:prod": "sudo docker-compose -f docker-compose.prod.yml down",
     "dc:logs:prod": "sudo docker-compose -f docker-compose.prod.yml logs",
     "dc:ps:prod": "sudo docker-compose -f docker-compose.dev.yml ps"
   }
