@@ -9,5 +9,5 @@ RUN unlink /app/src/types
 COPY --chown=app:app --from=accord_types:latest /app /app/src/types
 
 EXPOSE 3000
-USER app
+# USER app
 CMD npm run start:dev

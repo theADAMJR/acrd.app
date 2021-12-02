@@ -12,5 +12,6 @@ services:
     ports: [3000:3000]
     env_file: [./backend/.env]
     volumes: [./backend:/app]
+    entrypoint: npm run start:prod
 volumes:
   accord:
