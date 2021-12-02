@@ -4,7 +4,7 @@ import { createdAtToDate, useId } from '../../utils/utils';
 import uniqueValidator from 'mongoose-unique-validator';
 import { generateSnowflake } from '../snowflake-entity';
 import validators from '../../utils/validators';
-import patterns from '../../types/patterns';
+import patterns from '@accord/types/patterns';
 
 export interface UserDocument extends Document, Entity.User {
   _id: string | never;

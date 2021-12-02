@@ -1,26 +1,32 @@
 version: '3.8'
 services:  
   database:
+    container_name: accord_database
     image: mongo:4.4-bionic
     ports: [27018:27017]
     volumes: [accord:/data/db]
   types:
     build: ./types
   backend:
+    container_name: accord_backend
     depends_on: [types, database]
     build: ./backend
     ports: [3000:3000]
     env_file: [./backend/.env]
     volumes:
+      - ./backend/src:/app/src
       - ./backend/assets:/app/assets
       - ./backend/logs:/app/logs
   frontend:
+    container_name: accord_frontend
     depends_on: [types, database]
     build: ./frontend
     ports: [4200:4200]
     env_file: [./frontend/env/.env.dev]
+    environment:
+      REACT_APP_API_URL: "backend/v2"
+      REACT_APP_CDN_URL: "backend/assets"
     volumes:
-      - ./frontend:/app
-      - /app/src/types
+      - ./frontend/src:/app/src
 volumes:
   accord:

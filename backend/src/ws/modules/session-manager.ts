@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import patterns from '../../types/patterns';
+import patterns from '@accord/types/patterns';
 
 export class SessionManager extends Map<string, string> {
   public get(clientId: string): string {

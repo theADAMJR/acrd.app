@@ -1,6 +1,6 @@
 import { Document, model, Schema } from 'mongoose';
-import patterns from '../../types/patterns';
-import { PermissionTypes } from '../../types/permission-types';
+import patterns from '@accord/types/patterns';
+import { PermissionTypes } from '@accord/types/permission-types';
 import {  createdAtToDate, useId } from '../../utils/utils';
 import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';

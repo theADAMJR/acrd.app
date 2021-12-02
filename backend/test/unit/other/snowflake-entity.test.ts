@@ -1,6 +1,6 @@
 import { test, given } from '@accord/ion';
 import { generateSnowflake, snowflakeToDate } from '../../../src/data/snowflake-entity';
-import patterns from '../../../src/types/patterns';
+import patterns from '@accord/types/patterns';
 
 describe('snowflake-entity', () => {
   test(generateSnowflake, () => {

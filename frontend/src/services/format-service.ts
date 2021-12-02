@@ -1,4 +1,4 @@
-import defaultPatterns from '../types/patterns';
+import defaultPatterns from '@accord/types/patterns';
 
 export class FormatService {
   private readonly patterns = {

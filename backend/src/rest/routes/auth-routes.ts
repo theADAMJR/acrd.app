@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { SelfUserDocument, User } from '../../data/models/user';
 import passport from 'passport';
 import { APIError } from '../modules/api-error';
-import patterns from '../../types/patterns';
+import patterns from '@accord/types/patterns';
 import { extraRateLimit } from '../modules/rate-limiter';
 
 export const router = Router();
