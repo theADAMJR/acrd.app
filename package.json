@@ -1,12 +1,13 @@
 {
   "scripts": {
     "dc:run": "sudo docker-compose -f docker-compose.dev.yml run database --service-ports",
-    "dc:up": "sudo docker-compose -f docker-compose.dev.yml up -d",
+    "dc:up": "sudo docker-compose -f docker-compose.dev.yml up -d --build",
     "dc:down": "sudo docker-compose -f docker-compose.dev.yml down",
     "dc:ps": "sudo docker-compose -f docker-compose.dev.yml ps",
     "dc:build": "sudo docker-compose -f docker-compose.prod.yml build",
     "dc:logs": "sudo docker-compose -f docker-compose.dev.yml logs -t",
-    "dc:logs:b": "npm run dc:logs | grep backend",
-    "dc:logs:f": "npm run dc:logs | grep frontend"
+    "dc:logs:db": "sudo npm run dc:logs | grep database",
+    "dc:logs:b": "sudo npm run dc:logs | grep backend",
+    "dc:logs:f": "sudo npm run dc:logs | grep frontend"
   }
 }

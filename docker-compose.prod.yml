@@ -3,7 +3,7 @@ services:
   database:
     image: mongo:4.4-focal
     ports: [27017:27017]
-    volumes: [accord:/data/db]
+    volumes: [/var/lib/mongodb:/data/db]
   types:
     build: ./types
   backend:
@@ -13,5 +13,3 @@ services:
     env_file: [./backend/.env]
     volumes: [./backend:/app]
     entrypoint: npm run start:prod
-volumes:
-  accord:
