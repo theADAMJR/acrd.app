@@ -2,7 +2,7 @@ version: '3.8'
 services:  
   database:
     container_name: accord_database
-    image: mongo:4.4-bionic
+    image: mongo:5-focal
     ports: [27017:27017]
     volumes: [accord:/data/db]
     restart: unless-stopped
