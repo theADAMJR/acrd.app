@@ -20,7 +20,10 @@ services:
   frontend:
     container_name: accord_frontend
     depends_on: [types, database]
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_API_URL: ${backend}/v2
     ports: [4200:4200]
     env_file: [./frontend/env/.env.dev]
     volumes:

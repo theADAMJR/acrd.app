@@ -1,5 +1,4 @@
 import { config } from 'dotenv';
-import { execSync } from 'child_process';
 import { should, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import chaiSpies from 'chai-spies';
