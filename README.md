@@ -1,4 +1,4 @@
-# Accord - Like Discord but cooler.
+# Accord - Like Discord but cooler 😎.
 
 > Built with React, Redux, and Node.js.
 
@@ -10,13 +10,11 @@ Accord is an app, similar to Discord, but cooler.
 <a href="https://ibb.co/st2q2B0"><img src="https://i.ibb.co/fQ2H2ch/Screenshot-from-2021-08-30-11-55-01.png" alt="Screenshot-from-2021-08-30-11-55-01" border="0" /></a>
 <a href="https://ibb.co/SydPgTY"><img src="https://i.ibb.co/qjWd8Gq/Screenshot-from-2021-08-30-13-30-43.png" alt="Screenshot-from-2021-08-30-13-30-43" border="0" /></a>
 
-> Looking for a full Discord API Clone? Then check out [fosscord](https://github.com/fosscord/fosscord).
+> Want more stable commits? [Use the stable branch](/tree/v2-stable).
 
 ---
 
 ## Setup
-
-These setup instructions are in a primitive state, and may be improved in the future.
 
 1. Clone the repo.
 2. Generate SSH keys.
@@ -89,3 +87,9 @@ PORT=3001
 ROOT_ENDPOINT="http://localhost:3001"
 WEBSITE_URL="http://localhost:4200"
 ```
+
+---
+
+### Further Info
+
+- Looking for a full Discord API Clone? Check out [fosscord](https://github.com/fosscord/fosscord).
