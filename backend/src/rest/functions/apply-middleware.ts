@@ -19,7 +19,9 @@ const readFileAsync = promisify(readFile);
 
 function setupMulter(app: Application) {
   const uploadDir = resolve('./assets/upload');
-  execSync(`mkdir -p ${uploadDir}`);
+  try {
+    execSync(`mkdir -p ${uploadDir} 2>> /dev/null`);
+  } catch {}
   
   // uses storage rather than memory - 2 file operations per file upload
   const storage = multer.diskStorage({

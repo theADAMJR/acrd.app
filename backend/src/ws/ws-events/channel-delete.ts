@@ -22,10 +22,11 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
     await channel.deleteOne();
     await this.lowerHigherChannels(channel);
 
-    /** @deprecated */
-    ws
-      .to(channel.guildId)
-      .emit(this.on, { channelId, guildId: channel.guildId });
+    return [{
+      emit: this.on,
+      to: channel.guildId,
+      send: { channelId, guildId: channel.guildId },
+    }];
   }
 
   private async lowerHigherChannels(channel: ChannelDocument) {

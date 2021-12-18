@@ -1,8 +1,6 @@
 {
-  "name": "accord-backend",
+  "name": "@accord/backend",
   "version": "0.0.0",
-  "description": "",
-  "main": "src/app.ts",
   "scripts": {
     "start": "npm run start:dev",
     "start:dev": "ts-node-dev --transpile-only src/app.ts",
@@ -15,7 +13,9 @@
   "keywords": [],
   "author": "github.com/theadamjr",
   "dependencies": {
-    "@accord/types": "file:./types",
+    "@accord/backend": "file:../src",
+    "@accord/ion": "github:accord-dot-app/ion",
+    "@accord/types": "file:../types",
     "body-parser": "^1.19.0",
     "chai-things": "^0.2.0",
     "colors": "^1.4.0",
@@ -50,7 +50,6 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@accord/ion": "github:accord-dot-app/ion",
     "@types/chai": "^4.2.14",
     "@types/chai-as-promised": "^7.1.3",
     "@types/chai-spies": "^1.0.3",

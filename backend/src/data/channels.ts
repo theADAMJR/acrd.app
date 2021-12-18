@@ -21,7 +21,6 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
     return Channel.create({
       _id: generateSnowflake(),
       name: 'chat',
-      // TODO: testme
       position: await Channel.countDocuments({ guildId: options.guildId }),
       type: 'TEXT',
       ...options as any,

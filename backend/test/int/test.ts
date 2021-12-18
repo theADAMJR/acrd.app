@@ -23,4 +23,6 @@ use(should);
   });
 })();
 
+import('../../src/app');
+
 import('./ws/channel-delete.test');

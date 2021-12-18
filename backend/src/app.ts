@@ -1,3 +1,4 @@
+import '@accord/types';
 import { connect } from 'mongoose';
 import { config } from 'dotenv';
 config();
@@ -11,7 +12,6 @@ connect(process.env.MONGO_URI, {
   useFindAndModify: false,
   useCreateIndex: true,
   serverSelectionTimeoutMS: 0,
-}, (error) => (error)
-  ? log.error(error.message, { uri: process.env.MONGO_URI })
-  : log.info('Connected to database.', { uri: process.env.MONGO_URI })
-)
+})
+.catch(error => log.error(error.message, { uri: process.env.MONGO_URI }))
+.then(con => log.info(`Connected to database on PORT ${con.port}.`, { uri: process.env.MONGO_URI }));

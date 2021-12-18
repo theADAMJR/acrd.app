@@ -1,11 +1,3 @@
-import Channels from '../data/channels';
-import GuildMembers from '../data/guild-members';
-import Guilds from '../data/guilds';
-import Invites from '../data/invites';
-import Messages from '../data/messages';
-import Pings from '../data/pings';
-import Roles from '../data/roles';
-import Users from '../data/users';
 import { Email } from '../email/email';
 import { EmailFunctions } from '../email/email-functions';
 import { Verification } from '../email/verification';
@@ -15,33 +7,17 @@ import { WSCooldowns } from '../ws/modules/ws-cooldowns';
 import { WSGuard } from '../ws/modules/ws-guard';
 import { WSRooms } from '../ws/modules/ws-rooms';
 import { WebSocket } from '../ws/websocket';
+import Channels from '../data/channels';
+import GuildMembers from '../data/guild-members';
+import Guilds from '../data/guilds';
+import Invites from '../data/invites';
+import Messages from '../data/messages';
+import Pings from '../data/pings';
+import Roles from '../data/roles';
+import Users from '../data/users';
 import ChannelJoin from '../ws/ws-events/channel-join';
 import ChannelLeave from '../ws/ws-events/channel-leave';
-
-export interface Deps {
-  channels: Channels;
-  /** @deprecated */
-  channelJoin: ChannelJoin;
-  /** @deprecated */
-  channelLeave: ChannelLeave;
-  email: Email;
-  emailFunctions: EmailFunctions;
-  guilds: Guilds;
-  guildMembers: GuildMembers;
-  invites: Invites;
-  messages: Messages;
-  /** @deprecated */
-  pings: Pings;
-  rest: REST;
-  roles: Roles;
-  users: Users;
-  wsCooldowns: WSCooldowns;
-  wsGuard: WSGuard;
-  wsRooms: WSRooms;
-  webSocket: WebSocket;
-  verification: Verification;
-  voiceService: VoiceService;
-}
+import Deps from '@accord/types/deps';
 
 const deps: Deps = {
   channels: new Channels(),

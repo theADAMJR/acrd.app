@@ -1,0 +1,7 @@
+{
+  "name":"@accord/types",
+  "main":"main.ts",
+  "dependencies": {
+    "@accord/backend": "file:../backend"
+  }
+}
