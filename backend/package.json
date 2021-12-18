@@ -13,7 +13,7 @@
   "keywords": [],
   "author": "github.com/theadamjr",
   "dependencies": {
-    "@accord/backend": "file:../src",
+    "@accord/backend": "file:./src",
     "@accord/ion": "github:accord-dot-app/ion",
     "@accord/types": "file:../types",
     "body-parser": "^1.19.0",
