@@ -91,7 +91,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
     return await Guild.find({ _id: { $in: user.guildIds } });
   }
 
-  public async create({ email, username, password }: Auth.Credentials, bot = false): Promise<UserDocument> {
+  public async create({ email, username, password }: Auth.Credentials, bot = false): Promise<SelfUserDocument> {
     return (User as any).register({
       _id: generateSnowflake(),
       username,

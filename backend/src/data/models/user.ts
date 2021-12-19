@@ -101,5 +101,18 @@ export const User = model<UserDocument>('user', new Schema({
   },
 }, { toJSON: { getters: true } })
   .plugin(uniqueValidator)
-  .plugin(passportLocalMongoose, { usernameField: 'email' })
+  .plugin(passportLocalMongoose, {
+    usernameField: 'email',
+    message: 'UserExistsError',
+    errorMessages: {
+      MissingPasswordError: 'No password was given',
+      AttemptTooSoonError: 'Account is currently locked. Try again later',
+      TooManyAttemptsError: 'Account locked due to too many failed login attempts',
+      NoSaltValueStoredError: 'Authentication not possible. No salt value stored',
+      IncorrectPasswordError: 'Password or username are incorrect',
+      IncorrectUsernameError: 'Password or username are incorrect',
+      MissingUsernameError: 'No username was given',
+      UserExistsError: 'Email is in use'
+    }
+  })
   .method('toClient', useId));

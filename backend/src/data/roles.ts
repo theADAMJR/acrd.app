@@ -1,5 +1,5 @@
 import { UpdateQuery } from 'mongoose';
-import { PermissionTypes } from '@accord/types/permission-types';
+import { PermissionTypes } from '@accord/types/permission.types';
 import DBWrapper from './db-wrapper';
 import { hasPermission, Role, RoleDocument } from './models/role';
 import { generateSnowflake } from './snowflake-entity';

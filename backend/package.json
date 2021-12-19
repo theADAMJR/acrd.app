@@ -8,7 +8,7 @@
     "start:prod": "ts-node-transpile-only src/app.ts",
     "test": "npm run test:int test:unit",
     "test:int": "ts-mocha --exit test/int/test.ts",
-    "test:unit": "ts-mocha --exit test/**/**.test.ts"
+    "test:unit": "ts-mocha --exit test/unit/**/**.test.ts"
   },
   "keywords": [],
   "author": "github.com/theadamjr",

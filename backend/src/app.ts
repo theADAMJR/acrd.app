@@ -13,5 +13,5 @@ connect(process.env.MONGO_URI, {
   useCreateIndex: true,
   serverSelectionTimeoutMS: 0,
 })
-.catch(error => log.error(error.message, { uri: process.env.MONGO_URI }))
-.then(con => log.info(`Connected to database on PORT ${con.port}.`, { uri: process.env.MONGO_URI }));
+.catch(error => log.error(error.message ?? 'Unable to connect to db', { uri: process.env.MONGO_URI }))
+.then(con => log.info(`Connected to database on PORT ${con['port']}.`, { uri: process.env.MONGO_URI }));

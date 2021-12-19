@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { PermissionTypes } from '@accord/types/permission-types';
+import { PermissionTypes } from '@accord/types/permission.types';
 import { Role } from '../../data/models/role';
 
 import { WSGuard } from '../modules/ws-guard';

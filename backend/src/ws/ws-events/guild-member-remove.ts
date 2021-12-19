@@ -5,7 +5,7 @@ import { Guild, GuildDocument } from '../../data/models/guild';
 import { GuildMember } from '../../data/models/guild-member';
 import { SelfUserDocument, User } from '../../data/models/user';
 import Users from '../../data/users';
-import { PermissionTypes } from '@accord/types/permission-types';
+import { PermissionTypes } from '@accord/types/permission.types';
 
 
 import { WSGuard } from '../modules/ws-guard';

@@ -24,7 +24,7 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
 
     return [{
       emit: this.on,
-      to: channel.guildId,
+      to: [channel.guildId],
       send: { channelId, guildId: channel.guildId },
     }];
   }

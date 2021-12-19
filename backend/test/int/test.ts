@@ -1,12 +1,12 @@
 import { config } from 'dotenv';
+config({ path: 'test/.env' });
+
 import { should, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import chaiSpies from 'chai-spies';
 import chaiThings from 'chai-things';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-
-config({ path: 'test/.env' });
 
 use(chaiAsPromised);
 use(chaiSpies);
@@ -21,8 +21,8 @@ use(should);
     useFindAndModify: false,
     useCreateIndex: true,
   });
+  console.log('Connected to db');
+  
 })();
-
-import('../../src/app');
 
 import('./ws/channel-delete.test');
