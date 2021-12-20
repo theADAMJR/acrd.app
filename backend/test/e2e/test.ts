@@ -1,12 +1,14 @@
 import { config } from 'dotenv';
 config({ path: 'test/.env' });
 
+import '@accord/types/testing';
 import { should, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import chaiSpies from 'chai-spies';
 import chaiThings from 'chai-things';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import setupSocket from './util/setup-socket';
 
 use(chaiAsPromised);
 use(chaiSpies);
@@ -15,6 +17,8 @@ use(should);
 
 import('@accord/backend/modules/deps');
 import('@accord/backend/modules/logger');
+
+global['socket'] = setupSocket();
 
 (async() => {
   const mongod = await MongoMemoryServer.create();

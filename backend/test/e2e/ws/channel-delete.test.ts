@@ -1,17 +1,10 @@
 import '@accord/types';
 import { given, test } from '@accord/ion';
-import { Channel } from '@accord/backend/data/models/channel';
-import { Guild } from '@accord/backend/data/models/guild';
-import { SelfUserDocument, User } from '@accord/backend/data/models/user';
+import { SelfUserDocument } from '@accord/backend/data/models/user';
 import { generateSnowflake } from '@accord/backend/data/snowflake-entity';
-import io from 'socket.io-client';
-
-const socket = (io as any).connect(process.env.ROOT_ENDPOINT, {
-  secure: true,
-  path: `/ws`,
-  transports: ['websocket', 'polling', 'flashsocket'],
-});
-socket.io.on('open', () => console.log('Connected to WS Server'));
+import clearDB from '../util/clear-db';
+import emitReady from '../util/emit-ready';
+import emitAsync from '../util/emit-async';
 
 test(channelDelete, () => {
   const channelId = generateSnowflake();
@@ -21,12 +14,8 @@ test(channelDelete, () => {
   let guild: Entity.Guild;
   let ownerUser: SelfUserDocument;
 
-  beforeEach(async function () {
-    await Promise.all([
-      Channel.deleteMany(),
-      Guild.deleteMany(),
-      User.deleteMany(),
-    ]);  
+  beforeEach(async () => {
+    await clearDB();
 
     ownerUser = await deps.users.create({
       email: 'user1@example.com',
@@ -40,8 +29,7 @@ test(channelDelete, () => {
     });
     channel = await deps.channels.create({ id: channelId, guildId });
 
-    const token = await deps.users.createToken(ownerUser);
-    socket.emit('READY', { token });
+    await emitReady(ownerUser);
   });
 
   // @accord/ion: before tests must go above
@@ -66,15 +54,10 @@ test(channelDelete, () => {
       username: 'Test User 2',
       password: 'doesnotmatter',
     });
-    const token = await deps.users.createToken(randomUser);
-    socket.emit('READY', { token });
+    await emitReady(randomUser);
   }
 });
 
 function channelDelete(args: WS.To['CHANNEL_DELETE']) {
-  return new Promise((resolve, reject) => {
-    socket.on('CHANNEL_DELETE', (res) => resolve(res));
-    socket.on('error', (error) => reject(error));
-    socket.emit('CHANNEL_DELETE', args);
-  });
+  return emitAsync('CHANNEL_DELETE', args);
 }
