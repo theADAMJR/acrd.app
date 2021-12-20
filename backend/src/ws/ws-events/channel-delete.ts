@@ -8,6 +8,9 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
   on = 'CHANNEL_DELETE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.ChannelDelete) {
+    if (!channelId)
+      throw new TypeError('Not enough options were provided');
+
     const channel = await deps.channels.getText(channelId);
     await deps.wsGuard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
     

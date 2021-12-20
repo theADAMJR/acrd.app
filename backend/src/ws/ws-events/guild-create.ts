@@ -1,5 +1,4 @@
 import { Socket } from 'socket.io';
-
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
 
