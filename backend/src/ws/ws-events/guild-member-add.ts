@@ -26,7 +26,7 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     const [_, __, member] = await Promise.all([
       this.handleInvite(invite),
       deps.wsRooms.joinGuildRooms(selfUser, client),
-      deps.guildMembers.create(guild.id, selfUser),,
+      deps.guildMembers.create({ guildId: guild.id, userId: selfUser.id }),
     ]);
     const entities = await deps.guilds.getEntities(guild.id);
     client.emit('GUILD_CREATE', { guild, ...entities } as WS.Args.GuildCreate);

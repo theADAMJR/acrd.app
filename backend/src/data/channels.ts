@@ -19,7 +19,7 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
 
   public async create(options: Partial<Entity.Channel>): Promise<ChannelDocument> {
     return Channel.create({
-      _id: generateSnowflake(),
+      _id: options.id ?? generateSnowflake(),
       name: 'chat',
       position: await Channel.countDocuments({ guildId: options.guildId }),
       type: 'TEXT',

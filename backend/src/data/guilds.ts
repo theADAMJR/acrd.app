@@ -12,7 +12,7 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
   public async get(id: string | undefined) {
     const guild = await Guild.findById(id);
     if (!guild)
-      throw new APIError(404, 'Guild Not Found');
+      throw new APIError(404, 'Guild not found');
     return guild;
   }
 
@@ -20,8 +20,8 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
     return await Guild.findOne({ channels: { $in: id } as any });
   }
 
-  public async create(name: string, owner: SelfUserDocument): Promise<GuildDocument> {    
-    const guildId = generateSnowflake();
+  public async create(options: Partial<Entity.Guild>): Promise<GuildDocument> {    
+    const guildId = options.id ?? generateSnowflake();
 
     const [_, systemChannel, __] = await Promise.all([
       deps.roles.create(guildId, { name: '@everyone' }),
@@ -31,11 +31,12 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
     const [guild, ___] = await Promise.all([
       Guild.create({
         _id: guildId,
-        name,
-        ownerId: owner.id,
+        name: 'Unnamed Guild',
+        ownerId: options.ownerId,
         systemChannelId: systemChannel.id,
+        ...options,
       }),
-      deps.guildMembers.create(guildId, owner),
+      deps.guildMembers.create({ guildId, userId: options.ownerId }),
     ]);
     
     return guild;

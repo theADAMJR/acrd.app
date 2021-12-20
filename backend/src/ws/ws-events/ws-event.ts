@@ -7,7 +7,6 @@ type OnWS = WS.To & WS.On;
 export interface WSEvent<K extends keyof OnWS> {
   on: K;
   cooldown?: number;
-
   invoke: (ws: WebSocket, client: Socket, params: OnWS[K]) => Promise<WSAction<keyof WS.From>[]>;
 }
 

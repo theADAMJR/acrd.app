@@ -3,39 +3,36 @@ import DBWrapper from './db-wrapper';
 import { GuildDocument } from './models/guild';
 import { GuildMember, GuildMemberDocument } from './models/guild-member';
 import { Role } from './models/role';
-import { SelfUserDocument, UserDocument } from './models/user';
+import { SelfUserDocument, User, UserDocument } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
 
 export default class GuildMembers extends DBWrapper<string, GuildMemberDocument> {
   public async get(id: string | undefined) {
     const member = await GuildMember.findById(id);
     if (!member)
-      throw new TypeError('Guild Member Not Found');
+      throw new TypeError('Guild member not found');
     return member;
   }
 
   public async getInGuild(guildId: string | undefined, userId: string | undefined) {
     const member = await GuildMember.findOne({ guildId, userId });
     if (!member)
-      throw new TypeError('Guild Member Not Found');
+      throw new TypeError('Guild member not found');
     return member;
   }
 
-  public async create(guildId: string, user: SelfUserDocument) {    
+  public async create(options: Partial<Entity.GuildMember>) {    
     const member = await GuildMember.create({
-      _id: generateSnowflake(),
-      guildId,
-      userId: user.id,
-      roleIds: [await this.getEveryoneRoleId(guildId)], 
+      _id: options.id ?? generateSnowflake(),
+      roleIds: [await this.getEveryoneRoleId(options.guildId!)],
+      ...options,
     });    
-    await this.addToUser(user, guildId);
-
+    await this.addGuildToUser(options.userId!, options.guildId!);
     return member;
   }
 
-  private async addToUser(user: SelfUserDocument, guildId: string) {
-    user.guildIds.push(guildId);
-    await user.save();
+  private async addGuildToUser(userId: string, guildId: string) {
+    await User.updateOne({ _id: userId }, { $push: { guildIds: guildId } });
   }
 
   private async getEveryoneRoleId(guildId: string) {

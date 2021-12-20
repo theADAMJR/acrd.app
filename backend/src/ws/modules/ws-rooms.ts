@@ -1,7 +1,6 @@
 import { Socket } from 'socket.io';
 import { Channel } from '../../data/models/channel';
 import { SelfUserDocument } from '../../data/models/user';
-
 import { WSGuard } from './ws-guard';
 
 export class WSRooms {
@@ -26,7 +25,6 @@ export class WSRooms {
     
     for (const channel of channels)
       try {
-        // TODO: TESTME
         if (channel.type === 'VOICE') continue;
         
         await deps.wsGuard.validateCanInChannel(client, channel.id, 'READ_MESSAGES');

@@ -9,7 +9,6 @@ import PrivateRoute from './routing/private-route';
 import NotFoundPage from './pages/not-found-page';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import fetchEntities from '../store/actions/fetch-entities';
 import { ready } from '../store/auth';
 import { initPings } from '../store/pings';
 import VerifyPage from './pages/auth/verify-page';

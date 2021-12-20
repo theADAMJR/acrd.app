@@ -129,6 +129,8 @@ declare namespace WS {
     export interface ChannelDelete {
       /** ID of the channel to delete. */
       channelId: string;
+      /** ID of the guild that the channel was in. */
+      guildId: string;
     }
     export interface ChannelUpdate {
       /** ID of the channel to update. */
