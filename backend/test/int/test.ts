@@ -13,16 +13,20 @@ use(chaiSpies);
 use(chaiThings);
 use(should);
 
+import('@accord/backend/modules/deps');
+import('@accord/backend/modules/logger');
+
 (async() => {
   const mongod = await MongoMemoryServer.create();
-  await mongoose.connect(mongod.getUri('accord-test'), { 
+  process.env.MONGO_URI = mongod.getUri('accord-test');
+  
+  await mongoose.connect(process.env.MONGO_URI, { 
     useUnifiedTopology: true, 
     useNewUrlParser: true, 
     useFindAndModify: false,
     useCreateIndex: true,
   });
-  console.log('Connected to db');
-  
+  log.debug(`Connected to db: ${process.env.MONGO_URI}`);
 })();
 
 import('./ws/channel-delete.test');
