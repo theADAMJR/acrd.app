@@ -1,5 +1,4 @@
 import { Socket } from 'socket.io';
-import { Guild } from '../../data/models/guild';
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
 

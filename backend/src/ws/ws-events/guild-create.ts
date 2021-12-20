@@ -7,14 +7,20 @@ export default class implements WSEvent<'GUILD_CREATE'> {
   on = 'GUILD_CREATE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { name }: WS.Params.GuildCreate) {
-    const userId = ws.sessions.userId(client);
+    if (!name)
+      throw new TypeError('Not enough options were provided');
     
+    const userId = ws.sessions.userId(client);
     const user = await deps.users.getSelf(userId);    
     const guild = await deps.guilds.create({ name, ownerId: user.id });    
     const entities = await deps.guilds.getEntities(guild.id);
 
     await deps.wsRooms.joinGuildRooms(user, client);
-
-    client.emit('GUILD_CREATE', { guild, ...entities } as WS.Args.GuildCreate);
+  
+    return [{
+      emit: this.on,
+      to: [client.id],
+      send: { guild, ...entities },
+    }]
   }
 }

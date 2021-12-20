@@ -35,3 +35,4 @@ global['socket'] = setupSocket();
 
 import('./ws/channel-create.test');
 import('./ws/channel-delete.test');
+import('./ws/guild-create.test');

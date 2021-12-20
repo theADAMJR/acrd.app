@@ -9,10 +9,8 @@ import emitAsync from '../util/emit-async';
 import { Channel } from '@accord/backend/data/models/channel';
 
 test(channelCreate, () => {
-  const channelId = generateSnowflake();
   const guildId = generateSnowflake();
 
-  let channel: Entity.Channel;
   let guild: Entity.Guild;
   let ownerUser: SelfUserDocument;
 
@@ -29,7 +27,6 @@ test(channelCreate, () => {
       name: 'Test Guild',
       ownerId: ownerUser.id,
     });
-    channel = await deps.channels.create({ id: channelId, guildId });
 
     await emitReady(ownerUser);
   });
