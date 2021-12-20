@@ -26,11 +26,11 @@ export default class implements WSEvent<'READY'> {
     await deps.wsRooms.join(client, user);
 
     return [{
-      emit: 'PRESENCE_UPDATE',
+      emit: 'PRESENCE_UPDATE' as const,
       to: user.guildIds,
       send: { userId: user.id, status: user.status },
     }, {
-      emit: 'READY',
+      emit: this.on,
       to: [client.id],
       send: { user },
     }];

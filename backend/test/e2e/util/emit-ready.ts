@@ -1,6 +1,7 @@
 import { SelfUserDocument } from '@accord/backend/data/models/user';
+import emitAsync from './emit-async';
 
 export default async (user: SelfUserDocument) => {
   const token = await deps.users.createToken(user);
-  socket.emit('READY', { token });
+  return emitAsync('READY', { token });
 }

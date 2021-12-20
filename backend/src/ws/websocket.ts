@@ -48,8 +48,8 @@ export class WebSocket {
               this.io
                 .to(action.to)
                 .emit(action.emit, action.send);
-          } catch (error) {
-            client.emit('error', { message: (error as Error).message });
+          } catch (error: any) {
+            client.emit('error', { message: error.message });
           } finally {
             try {
               const userId = this.sessions.userId(client);

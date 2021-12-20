@@ -33,4 +33,5 @@ global['socket'] = setupSocket();
   log.debug(`Connected to db: ${process.env.MONGO_URI}`);
 })();
 
+import('./ws/channel-create.test');
 import('./ws/channel-delete.test');
