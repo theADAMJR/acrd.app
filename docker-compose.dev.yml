@@ -5,28 +5,18 @@ services:
     image: mongo:5-focal
     ports: [27018:27017]
     volumes: [accord:/data/db]
-  types:
-    build: ./types
-  backend:
-    container_name: accord_backend
-    depends_on: [types, database]
-    build: ./backend
-    ports: [3000:3000]
-    env_file: [./backend/.env]
+  app:
+    container_name: accord_app
+    depends_on: [database]
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    ports: [3000:3000, 4200:4200]
+    env_file: [./backend/.env, ./frontend/env/.env.dev]
     volumes:
       - ./backend/src:/app/src
       - ./backend/assets:/app/assets
       - ./backend/logs:/app/logs
-  frontend:
-    container_name: accord_frontend
-    depends_on: [types, database]
-    build:
-      context: ./frontend
-      args:
-        REACT_APP_API_URL: ${backend}/v2
-    ports: [4200:4200]
-    env_file: [./frontend/env/.env.dev]
-    volumes:
       - ./frontend/src:/app/src
 volumes:
   accord:

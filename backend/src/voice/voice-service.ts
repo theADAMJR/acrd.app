@@ -6,15 +6,15 @@ export class VoiceService {
   }
   public getForUser(channelId: string, userId: string) {
     // check if user is already connected
-    const connections = this.getOrCreate(channelId);
-    const isConnected = connections.some(u => u.userId === userId);
+    const cons = this.getOrCreate(channelId);
+    const isConnected = cons.some(u => u.userId === userId);
     if (!isConnected)
       throw new TypeError('You are not connected to the voice service');
 
     // we don't want to give user their own audio back
     // TODO: store and filter muted connections here?
     // - 'isMuted' as part of ChannelTypes.VoiceConnection?
-    return connections.filter(c => c.userId !== userId);
+    return cons.filter(c => c.userId !== userId);
   }
   private getOrCreate(channelId: string) {
     return this.connections.get(channelId)
@@ -24,26 +24,26 @@ export class VoiceService {
   }
 
   public add(channelId: string, data: ChannelTypes.VoiceConnection) {
-    const channelConnections = this.getOrCreate(channelId);
-    channelConnections.push(data);
-    this.connections.set(channelId, channelConnections);
+    const cons = this.getOrCreate(channelId);
+    cons.push(data);
+    this.connections.set(channelId, cons);
   }
 
   public setForUser(channelId: string, data: ChannelTypes.VoiceConnection) {
-    const channelConnections = this.getOrCreate(channelId);
-    const index = channelConnections.findIndex(c => c.userId === data.userId);
+    const cons = this.getOrCreate(channelId);
+    const index = cons.findIndex(c => c.userId === data.userId);
 
-    channelConnections[index] = data;
-    this.connections.set(channelId, channelConnections);
+    cons[index] = data;
+    this.connections.set(channelId, cons);
     
     return this.getForUser(channelId, data.userId);
   }
 
   public remove(channelId: string, userId: string) {
-    const channelConnections = this.getOrCreate(channelId);
-    const index = channelConnections.findIndex(c => c.userId === userId);
+    const cons = this.getOrCreate(channelId);
+    const index = cons.findIndex(c => c.userId === userId);
 
-    channelConnections.splice(index, 1);
-    this.connections.set(channelId, channelConnections);
+    cons.splice(index, 1);
+    this.connections.set(channelId, cons);
   }
 }
