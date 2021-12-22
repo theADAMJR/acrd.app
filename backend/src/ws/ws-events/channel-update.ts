@@ -2,9 +2,10 @@ import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { Channel, ChannelDocument } from '../../data/models/channel';
+import { Entity, WS } from '@accord/types';
 
 export default class implements WSEvent<'CHANNEL_UPDATE'> {
-  on = 'CHANNEL_UPDATE' as const;
+  public on = 'CHANNEL_UPDATE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { position, name, summary, overrides, channelId }: WS.Params.ChannelUpdate) {
     const channel = await deps.channels.get(channelId);
@@ -22,9 +23,11 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
     Object.assign(channel, partialChannel);
     await channel.save();
 
-    ws.io
-      .to(channel.guildId)
-      .emit('CHANNEL_UPDATE', { channelId: channel.id, partialChannel } as WS.Args.ChannelUpdate);
+    return [{
+      emit: this.on,
+      to: [channel.guildId],
+      send: { channelId: channel.id, partialChannel },
+    }];
   }
   
   private async raiseHigherChannels(position: number, channel: ChannelDocument) {

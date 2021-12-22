@@ -1,3 +1,5 @@
+import { WS } from '@accord/types';
+
 export class WSCooldowns {
   public readonly active = new Map<string, EventLog[]>();
 

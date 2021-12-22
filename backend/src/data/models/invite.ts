@@ -2,6 +2,7 @@ import { Document, model, Schema } from 'mongoose';
 import patterns from '@accord/types/patterns';
 import { useId } from '../../utils/utils';
 import generateInvite from '../utils/generate-invite';
+import { Entity, InviteTypes } from '@accord/types';
 
 export interface InviteDocument extends Document, Entity.Invite {
   _id: string | never;

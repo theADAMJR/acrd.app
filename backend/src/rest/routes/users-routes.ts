@@ -1,7 +1,6 @@
+import { REST } from '@accord/types';
 import { Router } from 'express';
 import { User } from '../../data/models/user';
-import Users from '../../data/users';
-
 import generateInvite from '../../data/utils/generate-invite';
 import { Guild } from '../../data/models/guild';
 import { Role } from '../../data/models/role';
@@ -9,8 +8,6 @@ import { GuildMember } from '../../data/models/guild-member';
 import { Channel } from '../../data/models/channel';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';
-import updateGuild from '../middleware/update-guild';
-import validateHasPermission from '../middleware/validate-has-permission';
 
 export const router = Router();
 

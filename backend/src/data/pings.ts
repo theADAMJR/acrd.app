@@ -1,3 +1,4 @@
+import { Entity } from '@accord/types';
 import { SelfUserDocument } from './models/user';
 
 export default class Pings {

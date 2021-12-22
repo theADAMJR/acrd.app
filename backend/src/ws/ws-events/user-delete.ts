@@ -2,6 +2,7 @@ import { WSEvent } from './ws-event';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import generateInvite from '../../data/utils/generate-invite';
+import { WS } from '@accord/types';
 
 export default class implements WSEvent<'USER_DELETE'> {
   public on = 'USER_DELETE' as const;
@@ -18,9 +19,11 @@ export default class implements WSEvent<'USER_DELETE'> {
     await user.updateOne(partialUser);
 
     client.emit('USER_DELETE');
-    ws.io
-      .to(userId)
-      .emit('USER_UPDATE', { userId: user.id, partialUser } as WS.Args.UserUpdate);
-    client.disconnect();
+
+    return [{
+      emit: this.on,
+      to: [userId],
+      send: { userId: user.id, partialUser },
+    }];
   }
 }

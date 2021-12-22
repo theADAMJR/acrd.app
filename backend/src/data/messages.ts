@@ -1,3 +1,4 @@
+import { Entity, MessageTypes } from '@accord/types';
 import DBWrapper from './db-wrapper';
 import { Channel } from './models/channel';
 import { Message, MessageDocument } from './models/message';

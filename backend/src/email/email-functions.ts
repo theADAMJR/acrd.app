@@ -1,3 +1,5 @@
+import { UserTypes } from '@accord/types';
+
 export class EmailFunctions {  
   public async verifyCode(user: UserTypes.Self) {
     try {

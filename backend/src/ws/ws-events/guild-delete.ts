@@ -1,3 +1,4 @@
+import { WS } from '@accord/types';
 import { Socket } from 'socket.io';
 import { Channel } from '../../data/models/channel';
 import { Guild } from '../../data/models/guild';
@@ -10,7 +11,7 @@ import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'GUILD_DELETE'> {
-  on = 'GUILD_DELETE' as const;
+  public on = 'GUILD_DELETE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { guildId }: WS.Params.GuildDelete) {
     if (!guildId)

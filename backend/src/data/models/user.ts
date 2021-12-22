@@ -5,6 +5,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 import { generateSnowflake } from '../snowflake-entity';
 import validators from '../../utils/validators';
 import patterns from '@accord/types/patterns';
+import { Entity, UserTypes } from '@accord/types';
 
 export interface UserDocument extends Document, Entity.User {
   _id: string | never;

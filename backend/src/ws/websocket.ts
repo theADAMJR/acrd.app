@@ -4,6 +4,7 @@ import { WSEvent } from './ws-events/ws-event';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
 import { SessionManager } from './modules/session-manager';
+import { WS } from '@accord/types';
 
 export class WebSocket {
   public events = new Map<keyof WS.To, WSEvent<keyof WS.To>>();
@@ -44,10 +45,12 @@ export class WebSocket {
         client.on(event.on, async (data: any) => {
           try {
             const actions = await event.invoke.call(event, this, client, data);
-            for (const action of actions)
+            for (const action of actions) {
+              if (!action) continue;
               this.io
                 .to(action.to)
                 .emit(action.emit, action.send);
+            }
           } catch (error: any) {
             client.emit('error', { message: error.message });
           } finally {

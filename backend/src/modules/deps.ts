@@ -17,7 +17,31 @@ import Roles from '../data/roles';
 import Users from '../data/users';
 import ChannelJoin from '../ws/ws-events/channel-join';
 import ChannelLeave from '../ws/ws-events/channel-leave';
-import Deps from '@accord/types/deps';
+
+export interface Deps {
+  channels: Channels;
+  /** @deprecated */
+  channelJoin: ChannelJoin;
+  /** @deprecated */
+  channelLeave: ChannelLeave;
+  email: Email;
+  emailFunctions: EmailFunctions;
+  guilds: Guilds;
+  guildMembers: GuildMembers;
+  invites: Invites;
+  messages: Messages;
+  /** @deprecated */
+  pings: Pings;
+  rest: REST;
+  roles: Roles;
+  users: Users;
+  wsCooldowns: WSCooldowns;
+  wsGuard: WSGuard;
+  wsRooms: WSRooms;
+  webSocket: WebSocket;
+  verification: Verification;
+  voiceService: VoiceService;
+};
 
 const deps: Deps = {
   channels: new Channels(),

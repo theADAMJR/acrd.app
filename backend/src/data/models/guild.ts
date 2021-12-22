@@ -3,6 +3,7 @@ import patterns from '@accord/types/patterns';
 import { createdAtToDate, useId } from '../../utils/utils';
 import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
+import { Entity } from '@accord/types';
 
 // properties we don't need to define when creating a guild
 export interface GuildDocument extends Document, Entity.Guild {

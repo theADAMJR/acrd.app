@@ -2,6 +2,7 @@ import { Document, model, Schema } from 'mongoose';
 import patterns from '@accord/types/patterns';
 import { createdAtToDate, useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
+import { Entity, MessageTypes } from '@accord/types';
 
 export interface MessageDocument extends Document, Entity.Message {
   _id: string | never;

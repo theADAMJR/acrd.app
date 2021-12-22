@@ -1,4 +1,3 @@
-import '@accord/types';
 import { given, test } from '@accord/ion';
 import { SelfUserDocument } from '@accord/backend/data/models/user';
 import clearDB from '../util/clear-db';

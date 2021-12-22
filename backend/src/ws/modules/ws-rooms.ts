@@ -1,7 +1,6 @@
 import { Socket } from 'socket.io';
 import { Channel } from '../../data/models/channel';
 import { SelfUserDocument } from '../../data/models/user';
-import { WSGuard } from './ws-guard';
 
 export class WSRooms {
   public async join(client: Socket, user: SelfUserDocument) {

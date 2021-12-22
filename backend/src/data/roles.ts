@@ -3,6 +3,7 @@ import { PermissionTypes } from '@accord/types/permissions';
 import DBWrapper from './db-wrapper';
 import { hasPermission, Role, RoleDocument } from './models/role';
 import { generateSnowflake } from './snowflake-entity';
+import { Entity } from '@accord/types';
 
 export default class Roles extends DBWrapper<string, RoleDocument> {
   public async get(id: string | undefined) {

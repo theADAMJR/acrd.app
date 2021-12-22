@@ -1,3 +1,4 @@
+import { WS } from '@accord/types';
 import { APIError } from '../rest/modules/api-error';
 import DBWrapper from './db-wrapper';
 import { Invite, InviteDocument } from './models/invite';

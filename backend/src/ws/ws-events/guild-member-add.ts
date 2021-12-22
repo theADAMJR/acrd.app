@@ -1,13 +1,13 @@
+import { WS } from '@accord/types';
 import { Socket } from 'socket.io';
 import { GuildDocument } from '../../data/models/guild';
 import { InviteDocument } from '../../data/models/invite';
 import { SelfUserDocument } from '../../data/models/user';
-
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 
 export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
-  on = 'GUILD_MEMBER_ADD' as const;
+  public on = 'GUILD_MEMBER_ADD' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { inviteCode }: WS.Params.GuildMemberAdd) {
     const invite = await deps.invites.get(inviteCode);
@@ -31,26 +31,28 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
     const entities = await deps.guilds.getEntities(guild.id);
     client.emit('GUILD_CREATE', { guild, ...entities } as WS.Args.GuildCreate);
 
-    ws.io
-      .to(guild.id)
-      .emit('GUILD_MEMBER_ADD', {
+    await client.join(guild.id);
+
+    return [await this.joinGuildMessage(guild, selfUser, ws), {
+      emit: this.on,
+      to: [guild.id],
+      send: {
         guildId: guild.id,
         member,
         user: selfUser,
-      } as WS.Args.GuildMemberAdd);
-
-    await client.join(guild.id);
-    
-    await this.joinGuildMessage(guild, selfUser, ws);
+      },
+    }];
   }
   
   private async joinGuildMessage(guild: GuildDocument, selfUser: SelfUserDocument, ws: WebSocket) {
     try {
       const sysMessage = await deps.messages.createSystem(guild.id, `<@${selfUser.id}> joined the guild.`, 'GUILD_MEMBER_JOIN');
   
-      ws.io
-        .to(guild.systemChannelId!)
-        .emit('MESSAGE_CREATE', { message: sysMessage } as WS.Args.MessageCreate);
+      return {
+        emit: 'MESSAGE_CREATE' as const,
+        to: [guild.systemChannelId!],
+        send: { message: sysMessage },
+      };
     } catch {}
   }
 

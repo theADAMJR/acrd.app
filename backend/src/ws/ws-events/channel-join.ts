@@ -2,6 +2,7 @@ import { WSEvent } from './ws-event';
 import { WebSocket } from '../websocket';
 import { Socket } from 'socket.io';
 import { SelfUserDocument } from '../../data/models/user';
+import { WS } from '@accord/types';
 
 export default class implements WSEvent<'CHANNEL_JOIN'> {
   on = 'CHANNEL_JOIN' as const;
@@ -31,19 +32,18 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
       this.updateVoiceState(user, channelId),
     ]);
 
-    ws.io
-      .to(channel.guildId)
-      .emit('CHANNEL_UPDATE', {
+    return [{
+      emit: 'CHANNEL_UPDATE' as const,
+      to: [channel.guildId],
+      send: {
         channelId: channel.id,
         partialChannel: { userIds: channel.userIds },
-      } as WS.Args.ChannelUpdate);
-
-    ws.io
-      .to(channel.id)
-      .emit('VOICE_STATE_UPDATE', {
-        userId: user.id,
-        voice: user.voice,
-      } as WS.Args.VoiceStateUpdate);
+      },
+    }, {
+      emit: 'VOICE_STATE_UPDATE' as const,
+      to: [channel.id],
+      send: { userId: user.id, voice: user.voice },
+    }];
   }
 
   private async updateVoiceState(user: SelfUserDocument, channelId: string) {

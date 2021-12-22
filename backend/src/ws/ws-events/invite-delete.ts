@@ -1,5 +1,5 @@
+import { WS } from '@accord/types';
 import { Socket } from 'socket.io';
-
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 
@@ -12,11 +12,10 @@ export default class implements WSEvent<'INVITE_DELETE'> {
 
     await invite.deleteOne();
 
-    ws.io
-      .to(invite.guildId)
-      .emit('INVITE_DELETE', {
-        guildId: invite.guildId,
-        inviteCode,
-      } as WS.Args.InviteDelete);
+    return [{
+      emit: this.on,
+      to: [invite.guildId],
+      send: { guildId: invite.guildId, inviteCode },
+    }];
   }
 }

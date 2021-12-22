@@ -1,3 +1,4 @@
+import { ChannelTypes } from '@accord/types';
 import { Document, model, Schema } from 'mongoose';
 import { createdAtToDate, useId } from '../../utils/utils';
 import validators from '../../utils/validators';

@@ -1,12 +1,10 @@
+import { WS, Entity } from '@accord/types';
 import { Socket } from 'socket.io';
-
-import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
-import { WSEvent, } from './ws-event';
-
+import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'GUILD_UPDATE'> {
-  on = 'GUILD_UPDATE' as const;
+  public on = 'GUILD_UPDATE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { guildId, name, iconURL, systemChannelId }: WS.Params.GuildUpdate) { 
     await deps.wsGuard.validateCan(client, guildId, 'MANAGE_GUILD');
@@ -22,8 +20,10 @@ export default class implements WSEvent<'GUILD_UPDATE'> {
     Object.assign(guild, partial);
     await guild.save();
 
-    ws.io
-      .to(guildId)
-      .emit('GUILD_UPDATE', { guildId, partialGuild: partial } as WS.Args.GuildUpdate);
+    return [{
+      emit: this.on,
+      to: [guildId],
+      send: { guildId, partialGuild: partial },
+    }];
   }
 }

@@ -1,6 +1,7 @@
 import { createTransport } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
 import { pugEngine } from 'nodemailer-pug-engine';
+import { UserTypes } from '@accord/types';
 
 export class Email {
   private email: Mail;

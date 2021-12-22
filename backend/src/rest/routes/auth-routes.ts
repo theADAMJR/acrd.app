@@ -4,6 +4,7 @@ import passport from 'passport';
 import { APIError } from '../modules/api-error';
 import patterns from '@accord/types/patterns';
 import { extraRateLimit } from '../modules/rate-limiter';
+import { REST } from '@accord/types';
 
 export const router = Router();
 

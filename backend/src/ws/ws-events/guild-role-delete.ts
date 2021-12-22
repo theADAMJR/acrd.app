@@ -2,9 +2,10 @@ import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { GuildMember } from '../../data/models/guild-member';
+import { WS } from '@accord/types';
 
 export default class implements WSEvent<'GUILD_ROLE_DELETE'> {
-  on = 'GUILD_ROLE_DELETE' as const;
+  public on = 'GUILD_ROLE_DELETE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { guildId, roleId }: WS.Params.GuildRoleDelete) {
     const role = await deps.roles.get(roleId);

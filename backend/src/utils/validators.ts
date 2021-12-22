@@ -1,5 +1,4 @@
 import { ChannelDocument } from '../data/models/channel';
-import { RoleDocument } from '../data/models/role';
 import patterns from '@accord/types/patterns';
 
 export default {

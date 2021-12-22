@@ -3,6 +3,7 @@ import patterns from '@accord/types/patterns';
 import { useId } from '../../utils/utils';
 import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
+import { Entity } from '@accord/types';
 
 export interface GuildMemberDocument extends Document, Entity.GuildMember {
   _id: string | never;

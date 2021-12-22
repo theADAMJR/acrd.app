@@ -1,34 +1,22 @@
+import { WS } from '@accord/types';
 import { Socket } from 'socket.io';
-
-import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 
-import Roles from '../../data/roles';
-import Guilds from '../../data/guilds';
-import GuildMembers from '../../data/guild-members';
-
 export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
-  on = 'GUILD_ROLE_UPDATE' as const;
-
-  constructor(
-    private guard = deps.wsGuard,
-    private guilds = deps.guilds,
-    private members = deps.guildMembers,
-    private roles = deps.roles,
-  ) {}
+  public on = 'GUILD_ROLE_UPDATE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { roleId, guildId, name, color, permissions, hoisted }: WS.Params.GuildRoleUpdate) {
-    await this.guard.validateCan(client, guildId, 'MANAGE_ROLES');
+    await deps.wsGuard.validateCan(client, guildId, 'MANAGE_ROLES');
     
     const userId = ws.sessions.get(client.id);
-    const guild = await this.guilds.get(guildId);
-    const selfMember = await this.members.getInGuild(guildId, userId);
-    const isHigher = await this.roles.memberIsHigher(guild, selfMember, [roleId]);
+    const guild = await deps.guilds.get(guildId);
+    const selfMember = await deps.members.getInGuild(guildId, userId);
+    const isHigher = await deps.roles.memberIsHigher(guild, selfMember, [roleId]);
     if (!isHigher)
       throw new TypeError('You cannot manage this role');
 
-    const everyoneRole = await this.roles.getEveryone(guildId);
+    const everyoneRole = await deps.roles.getEveryone(guildId);
     if (everyoneRole.id === roleId && name !== everyoneRole.name)
       throw new TypeError('You cannot change @everyone role name');
     if (everyoneRole.id === roleId && color !== everyoneRole.color)
@@ -38,10 +26,12 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
     
     // TODO: implement position 
     const partialRole = { name, color, permissions, hoisted };
-    await this.roles.update(roleId, partialRole);
+    await deps.roles.update(roleId, partialRole);
 
-    ws.io
-      .to(guildId)
-      .emit('GUILD_ROLE_UPDATE', { guildId, roleId, partialRole } as WS.Args.GuildRoleUpdate);
+    return [{
+      emit: this.on,
+      to: [guildId],
+      send: { guildId, roleId, partialRole },
+    }];
   }
 }

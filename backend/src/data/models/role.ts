@@ -4,6 +4,7 @@ import { PermissionTypes } from '@accord/types/permissions';
 import { createdAtToDate, useId } from '../../utils/utils';
 import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
+import { Entity } from '@accord/types';
 
 export function hasPermission(current: number, required: number) {  
   return Boolean(current & required)

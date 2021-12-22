@@ -1,6 +1,6 @@
+import { WS } from '@accord/types';
 import { Socket } from 'socket.io';
 import { Message } from '../../data/models/message';
-
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
 
@@ -25,11 +25,10 @@ export default class implements WSEvent<'MESSAGE_DELETE'> {
       await channel.save();
     }
 
-    ws.io
-      .to(message.channelId)
-      .emit('MESSAGE_DELETE', {
-        channelId: message.channelId,
-        messageId: messageId,
-      } as WS.Args.MessageDelete);
+    return [{
+      emit: this.on,
+      to: [message.channelId],
+      send: { channelId: message.channelId, messageId },
+    }];
   }
 }

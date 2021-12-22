@@ -1,19 +1,13 @@
+import { WS } from '@accord/types';
 import { Socket } from 'socket.io';
-import Guilds from '../../data/guilds';
-import { Channel } from '../../data/models/channel';
-import { Guild, GuildDocument } from '../../data/models/guild';
+import { GuildDocument } from '../../data/models/guild';
 import { GuildMember } from '../../data/models/guild-member';
-import { SelfUserDocument, User } from '../../data/models/user';
-import Users from '../../data/users';
-import { PermissionTypes } from '@accord/types/permissions';
-
-
-import { WSGuard } from '../modules/ws-guard';
+import { SelfUserDocument } from '../../data/models/user';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 
 export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
-  on = 'GUILD_MEMBER_REMOVE' as const;
+  public on = 'GUILD_MEMBER_REMOVE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { guildId, userId }: WS.Params.GuildMemberRemove) {
     const guild = await deps.guilds.get(guildId);
@@ -44,25 +38,29 @@ export default class implements WSEvent<'GUILD_MEMBER_REMOVE'> {
       memberClient?.emit('GUILD_DELETE', { guildId } as WS.Args.GuildDelete);
       await client.leave(guildId);
     }
+    
+    await this.leaveGuildRooms(client, guild);
 
-    ws.io
-      .to(guildId)
-      .emit('GUILD_MEMBER_REMOVE', { memberId: member.id } as WS.Args.GuildMemberRemove);
-
-    const userClient = ws.io.sockets.sockets.get(userId);
-    if (userClient)
-      await this.leaveGuildRooms(userClient, guild);
-
-    await this.leaveGuildMessage(guild, user, ws);    
+    return [await this.leaveGuildMessage(guild, user), {
+      emit: this.on,
+      to: [guildId],
+      send: { memberId: member.id },
+    }, {
+      emit: 'GUILD_DELETE' as const,
+      to: [userId],
+      send: { guildId },
+    }];
   }
   
-  private async leaveGuildMessage(guild: GuildDocument, user: SelfUserDocument, ws: WebSocket) {
+  private async leaveGuildMessage(guild: GuildDocument, user: SelfUserDocument) {
     try {
       const sysMessage = await deps.messages.createSystem(guild.id, `<@${user.id}> left the guild.`, 'GUILD_MEMBER_LEAVE');
   
-      ws.io
-        .to(guild.systemChannelId!)
-        .emit('MESSAGE_CREATE', { message: sysMessage } as WS.Args.MessageCreate);
+      return {
+        emit: 'MESSAGE_CREATE' as const,
+        to: [guild.systemChannelId!],
+        send: { message: sysMessage },
+      };
     } catch {}
   }
 

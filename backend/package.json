@@ -4,7 +4,7 @@
   "scripts": {
     "start": "npm run start:dev",
     "start:dev": "set NODE_ENV=DEV && ts-node-dev --transpile-only src/app.ts",
-    "start:debug": "nodemon --exec 'node --inspect=0.0.0.0:9229 --require ts-node/register src/app.ts' --ext 'ts,yml'",
+    "start:debug": "nodemon --exec node --inspect=0.0.0.0:9229 --require ts-node/register src/app.ts --ext '.ts,.yml'",
     "start:prod": "ts-node-transpile-only src/app.ts",
     "test": "npm run test:unit && npm run test:int",
     "test:int": "ts-mocha --exit test/e2e/test.ts",

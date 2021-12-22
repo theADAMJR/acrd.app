@@ -1,9 +1,10 @@
+import { WS } from '@accord/types';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'GUILD_CREATE'> {
-  on = 'GUILD_CREATE' as const;
+  public on = 'GUILD_CREATE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { name }: WS.Params.GuildCreate) {
     if (!name)
@@ -20,6 +21,6 @@ export default class implements WSEvent<'GUILD_CREATE'> {
       emit: this.on,
       to: [client.id],
       send: { guild, ...entities },
-    }]
+    }];
   }
 }

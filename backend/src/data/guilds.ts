@@ -7,6 +7,7 @@ import { APIError } from '../rest/modules/api-error';
 import { Channel } from './models/channel';
 import { Role } from './models/role';
 import { GuildMember } from './models/guild-member';
+import { Entity } from '@accord/types';
 
 export default class Guilds extends DBWrapper<string, GuildDocument> {
   public async get(id: string | undefined) {

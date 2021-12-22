@@ -1,9 +1,9 @@
+import { Entity } from '@accord/types';
 import { UpdateQuery } from 'mongoose';
 import DBWrapper from './db-wrapper';
-import { GuildDocument } from './models/guild';
 import { GuildMember, GuildMemberDocument } from './models/guild-member';
 import { Role } from './models/role';
-import { SelfUserDocument, User, UserDocument } from './models/user';
+import { User } from './models/user';
 import { generateSnowflake } from './snowflake-entity';
 
 export default class GuildMembers extends DBWrapper<string, GuildMemberDocument> {
