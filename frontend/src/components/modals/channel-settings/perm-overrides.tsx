@@ -1,4 +1,5 @@
-import { PermissionTypes } from '@accord/types/permission.types';
+import { ChannelTypes } from '@accord/types';
+import { PermissionTypes } from '@accord/types/permissions';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';

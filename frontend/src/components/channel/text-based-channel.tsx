@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import TextChannelHeader from './text-channel-header';
 import usePerms from '../../hooks/use-perms';
 import SkeletonMessage from '../skeleton/skeleton-message';
+import { Util } from '@accord/types';
  
 const TextBasedChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();

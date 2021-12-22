@@ -1,5 +1,6 @@
 import './message.scoped.css';
 import './message.global.css';
+
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChannelMessages } from '../../../store/messages';
@@ -15,6 +16,7 @@ import { openUserProfile } from '../../../store/ui';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { Entity } from '@accord/types';
 
 export interface MessageProps {
   message: Entity.Message;

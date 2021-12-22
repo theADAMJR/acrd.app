@@ -1,3 +1,4 @@
+import { Entity } from '@accord/types';
 import { ContextMenu } from 'react-contextmenu';
 import { useSelector } from 'react-redux';
 import DevModeMenuSection from './dev-mode-menu-section';

@@ -1,3 +1,4 @@
+import { REST, WS, Entity } from '@accord/types';
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api, uploadFile } from './api';
 import { notInArray } from './utils/filter';

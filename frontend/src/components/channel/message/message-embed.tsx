@@ -1,3 +1,4 @@
+import { MessageTypes } from '@accord/types';
 import { FunctionComponent } from 'react';
 import Image from '../../utils/image';
 

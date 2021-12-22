@@ -1,3 +1,4 @@
+import { Entity } from '@accord/types';
 import { faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ContextMenu, MenuItem } from 'react-contextmenu';

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { Entity } from '@accord/types';
 import { FunctionComponent } from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { useSelector } from 'react-redux';

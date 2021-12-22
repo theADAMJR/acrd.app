@@ -1,3 +1,4 @@
+import { Entity } from '@accord/types';
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import Select from 'react-select';
 
@@ -10,7 +11,7 @@ interface ChannelSelectProps {
   options?: any;
 };
  
-const ChannelSelect: React.FunctionComponent<any> = (props) => {
+const ChannelSelect: React.FunctionComponent<ChannelSelectProps> = (props) => {
   const channelOptions: any[] = props.channels
     .filter(c => c.type === 'TEXT')
     .map(c => ({ label: `#${c.name}`, value: c.id }));

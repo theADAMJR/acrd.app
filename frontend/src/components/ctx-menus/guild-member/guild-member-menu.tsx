@@ -1,4 +1,5 @@
-import { faBan, faIdCard, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Entity } from '@accord/types';
+import { faBan, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +7,6 @@ import usePerms from '../../../hooks/use-perms';
 import { getMember, kickMember } from '../../../store/members';
 import { actions as ui, openUserProfile } from '../../../store/ui';
 import { toggleBlockUser } from '../../../store/users';
-import UserProfile from '../../modals/user-profile';
 import Category from '../../utils/category';
 import DevModeMenuSection from '../dev-mode-menu-section';
 import RoleManager from './role-manager';

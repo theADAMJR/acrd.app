@@ -1,7 +1,8 @@
+import { REST, WS } from '@accord/types';
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { openDialog } from './ui';
-import { headers, token } from './utils/rest-headers';
+import { token } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'auth',

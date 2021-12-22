@@ -4,6 +4,7 @@ import { getMemberHighestRole } from '../../store/roles';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import Image from '../utils/image';
+import { Entity } from '@accord/types';
 
 export interface UsernameProps {
   user: Entity.User;

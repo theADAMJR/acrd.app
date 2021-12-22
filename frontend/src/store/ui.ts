@@ -1,6 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import events from '../services/event-service';
 import React from 'react';
+import { Entity } from '@accord/types';
 
 const slice = createSlice({
   name: 'ui',

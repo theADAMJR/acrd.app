@@ -1,6 +1,3 @@
-import { Entity, UserTypes } from '@accord/types/entity';
-import { WS } from '@accord/types/ws';
-
 declare namespace Store {
   export interface AppState {
     auth: {

@@ -1,3 +1,4 @@
+import { Entity, WS, ChannelTypes } from '@accord/types';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { notInArray } from './utils/filter';

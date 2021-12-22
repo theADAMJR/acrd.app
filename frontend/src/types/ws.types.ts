@@ -1,6 +1,6 @@
-import { Entity, ChannelTypes, InviteTypes, MessageTypes, UserTypes } from './entity';
+import { Entity, ChannelTypes, InviteTypes, MessageTypes, UserTypes } from './entity.types';
 
-export namespace WS {
+export declare namespace WS {
   export interface To {
     /** Create a channel in a guild. */
     'CHANNEL_CREATE': Params.ChannelCreate;

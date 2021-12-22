@@ -1,3 +1,4 @@
+import { Entity, WS, REST } from '@accord/types';
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api, uploadFile } from './api';
 import { actions as meta } from './meta';

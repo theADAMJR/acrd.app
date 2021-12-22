@@ -1,4 +1,5 @@
 import '@accord/types';
+import { WS } from '@accord/types';
 import io from 'socket.io-client';
 
 const ws = (io as any).connect(process.env.REACT_APP_ROOT_API_URL, {
