@@ -1,9 +1,6 @@
 import classNames from 'classnames';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import striptags from 'striptags';
-import useFormat from '../../../hooks/use-format';
-import useMentions from '../../../hooks/use-mentions';
 import usePerms from '../../../hooks/use-perms';
 import { startTyping } from '../../../store/typing';
 import { actions as ui } from '../../../store/ui';

@@ -1,7 +1,7 @@
-import { Entity, UserTypes } from './entity.types';
-import { WS } from './ws.types';
+import { Entity, UserTypes } from '@accord/types/entity';
+import { WS } from '@accord/types/ws';
 
-export namespace Store {
+declare namespace Store {
   export interface AppState {
     auth: {
       attemptedLogin: boolean;

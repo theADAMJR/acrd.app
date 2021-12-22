@@ -1,4 +1,4 @@
-import { WS } from './ws.types';
+import { WS } from './ws';
 
 declare global {
   const socket: {

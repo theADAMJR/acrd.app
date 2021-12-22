@@ -1,4 +1,4 @@
-import { Entity } from './entity.types';
+import { Entity } from './entity';
 
 export namespace REST {
   export namespace To {

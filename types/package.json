@@ -1,8 +1,0 @@
-{
-  "name": "@accord/types",
-  "main": "main.ts",
-  "dependencies": {
-    "@accord/backend": "file:../backend/src",
-    "@types/winston": "^2.4.4"
-  }
-}

@@ -1,4 +1,3 @@
-import '@accord/types';
 import { connect } from 'mongoose';
 import { config } from 'dotenv';
 config();

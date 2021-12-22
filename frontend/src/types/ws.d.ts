@@ -1,4 +1,4 @@
-import { Entity, ChannelTypes, InviteTypes, MessageTypes, UserTypes } from './entity.types';
+import { Entity, ChannelTypes, InviteTypes, MessageTypes, UserTypes } from './entity';
 
 export namespace WS {
   export interface To {
