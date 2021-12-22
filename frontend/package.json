@@ -2,7 +2,6 @@
   "name": "accord-frontend",
   "version": "0.0.0",
   "private": true,
-  "homepage": "https://accord.app",
   "dependencies": {
     "@accord/types": "file:../types",
     "@craco/craco": "^5.9.0",
@@ -51,7 +50,7 @@
   },
   "scripts": {
     "start": "npm run start:dev",
-    "start:dev": "craco start",
+    "start:dev": "set PORT=4200 && craco start",
     "start:prod": "craco start",
     "build:dev": "dotenv -e env/.env.dev craco build",
     "build:prod": "dotenv -e env/.env.prod craco build",

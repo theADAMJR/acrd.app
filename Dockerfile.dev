@@ -1,6 +1,6 @@
 FROM node:16-alpine3.14
 RUN addgroup app && adduser -SG app app
-RUN mkdir /app && chown app:app /app 
+RUN mkdir /app && chown app:app /app `
 USER app
 
 WORKDIR /app/backend

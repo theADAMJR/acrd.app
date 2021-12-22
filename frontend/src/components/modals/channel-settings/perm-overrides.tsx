@@ -1,7 +1,7 @@
+import { PermissionTypes } from '@accord/types/permission.types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
-import { PermissionTypes } from '../../../services/perm-service';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';

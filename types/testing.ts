@@ -1,3 +1,5 @@
+import { WS } from './ws.types';
+
 declare global {
   const socket: {
     emit: <K extends keyof WS.To>(event: K, args: WS.To[K]) => any;

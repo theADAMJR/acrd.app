@@ -1,9 +1,4 @@
 import { Socket } from 'socket.io';
-import Invites from '../../data/invites';
-import { PermissionTypes } from '@accord/types/permission.types';
-
-
-import { WSGuard } from '../modules/ws-guard';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 

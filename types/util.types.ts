@@ -1,3 +1,3 @@
-declare module Util {
+export module Util {
   export interface Dictionary { [k: string]: string };
 }

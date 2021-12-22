@@ -1,4 +1,6 @@
-declare namespace REST {
+import { Entity } from './entity.types';
+
+export namespace REST {
   export namespace To {
     export interface Post {
       '/auth/login': {

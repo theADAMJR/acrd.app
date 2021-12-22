@@ -18,7 +18,7 @@ import Users from '@accord/backend/data/users';
 import ChannelJoin from '@accord/backend/ws/ws-events/channel-join';
 import ChannelLeave from '@accord/backend/ws/ws-events/channel-leave';
 
-declare interface Deps {
+export interface Deps {
   channels: Channels;
   /** @deprecated */
   channelJoin: ChannelJoin;

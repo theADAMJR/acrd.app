@@ -1,11 +1,11 @@
 import { UseFormSetValue, FieldValues } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
-import { PermissionTypes } from '../../../services/perm-service';
 import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Toggle from '../../inputs/toggle';
+import { PermissionTypes } from '@accord/types/permission.types';
 
 export interface RolePermissionsProps {
   setRoleValue: UseFormSetValue<FieldValues>;

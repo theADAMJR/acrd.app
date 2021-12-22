@@ -1,4 +1,4 @@
-declare namespace Entity {
+export namespace Entity {
   export interface App {
     id: string;
     createdAt: Date;
@@ -82,7 +82,7 @@ declare namespace Entity {
   }
 }
 
-declare namespace ChannelTypes {
+export namespace ChannelTypes {
   export type Type = 'TEXT' | 'VOICE';
 
   export interface Text extends Entity.Channel {
@@ -103,20 +103,20 @@ declare namespace ChannelTypes {
   }
 }
 
-declare namespace GeneralTypes {
+export namespace GeneralTypes {
   export interface SnowflakeEntity {
     id: string;
   }
 }
 
-declare namespace InviteTypes {
+export namespace InviteTypes {
   export interface Options {
     expiresAt?: Date;
     maxUses?: number;
   }
 }
 
-declare namespace MessageTypes {
+export namespace MessageTypes {
   export interface Attachment {
     id: string;
     name: string;
@@ -134,7 +134,7 @@ declare namespace MessageTypes {
     | 'GUILD_MEMBER_LEAVE';
 }
 
-declare namespace UserTypes {
+export namespace UserTypes {
   export type Badge =
     | 'BUG_1'
     | 'BUG_2'

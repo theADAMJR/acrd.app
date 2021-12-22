@@ -1,4 +1,7 @@
-declare namespace Store {
+import { Entity, UserTypes } from './entity.types';
+import { WS } from './ws.types';
+
+export namespace Store {
   export interface AppState {
     auth: {
       attemptedLogin: boolean;
@@ -46,7 +49,7 @@ declare namespace Store {
     };
   }
 
-  export interface Action<P extends WS.Params> {
+  export interface Action<P extends WS.To> {
     type: string;
     payload: P;
   }
