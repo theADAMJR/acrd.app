@@ -50,8 +50,8 @@
   },
   "scripts": {
     "start": "npm run start:dev",
-    "start:dev": "set PORT=4200 && craco start",
-    "start:prod": "craco start",
+    "start:dev": "dotenv -e env/.env.dev craco start",
+    "start:prod": "dotenv -e env/.env.prod craco start",
     "build:dev": "dotenv -e env/.env.dev craco build",
     "build:prod": "dotenv -e env/.env.prod craco build",
     "test": "craco test",
