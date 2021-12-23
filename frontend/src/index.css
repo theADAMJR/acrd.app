@@ -54,3 +54,11 @@ body {
 nav[role='menu'] {
   z-index: 10;
 }
+
+/* fix div[content-editable] placeholder */
+[contenteditable='true']:empty:before {
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block; /* For Firefox */
+  color: var(--muted);
+}
