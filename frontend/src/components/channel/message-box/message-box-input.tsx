@@ -19,14 +19,15 @@ const MessageBoxInput: React.FunctionComponent<MessageBoxInputProps> = (props) =
   const messageBoxRef = useRef<HTMLDivElement>(null);
   const [content, setContent] = props.contentState;
 
-  const onKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {    
-    setContent(event.currentTarget!.innerText);
+  const onKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {   
+    if (event.key === 'Enter' && !event.shiftKey)      
+      event.preventDefault();
+    
+    const text = event.currentTarget!.innerText.trim();
+    setContent(text);
 
     handleEscape(event);
     dispatch(startTyping(channel.id));
-    
-    if (event.key === 'Enter' && !event.shiftKey)
-      event.preventDefault();
 
     const emptyMessage = content.replaceAll('\n', '');
     if (event.key !== 'Enter'
@@ -39,7 +40,8 @@ const MessageBoxInput: React.FunctionComponent<MessageBoxInputProps> = (props) =
     messageBoxRef.current!.innerText = '';
   }
   const handleEscape = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== 'Escape') return;
+    if (event.key !== 'Escape')
+      return ;
     if (editingMessageId)
       dispatch(ui.stoppedEditingMessage());
   }

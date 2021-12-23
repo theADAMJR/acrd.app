@@ -4,7 +4,7 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 
 export default class implements WSEvent<'TYPING_START'> {
-  on = 'TYPING_START' as const;
+  public on = 'TYPING_START' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { channelId }: WS.Params.TypingStart) {    
     if (!client.rooms.has(channelId))

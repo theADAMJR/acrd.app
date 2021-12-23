@@ -35,9 +35,7 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
       .to(user.id)
       .emit('USER_UPDATE', {
         userId: user.id,
-        partialUser: {
-          lastReadMessageIds: user.lastReadMessageIds
-        },
+        partialUser: { lastReadMessageIds: user.lastReadMessageIds },
       } as WS.Args.UserUpdate);
   }
   

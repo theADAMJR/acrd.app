@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { getTypersInChannel } from '../../../store/typing';
 import { getUser } from '../../../store/users';
@@ -6,6 +7,7 @@ const TypingUsers: React.FunctionComponent = () => {
   const store = useStore();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const typers = useSelector(getTypersInChannel(channel.id));
+  const [dots, setDots] = useState('.');
 
   if (!typers.length) return null;
   
@@ -16,11 +18,17 @@ const TypingUsers: React.FunctionComponent = () => {
     .map(t => user(t.userId)!.username)
     .join(', ');
 
+  setTimeout(() => {
+    (dots.length >= 3)
+      ? setDots('.')
+      : setDots(dots + '.');
+  }, 500);
+
   return (
-    <span>
+    <span className="pl-2">
       {(typers.length > maxTypers)
-        ? 'Many users are typing...'
-        : `${typingUsers} is typing...`}
+        ? `Many users are typing${dots}`
+        : `${typingUsers} is typing${dots}`}
     </span>
   );
 }

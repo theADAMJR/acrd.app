@@ -91,7 +91,7 @@ describe('essential navigation flow', () => {
       .trigger('keydown', { keyCode: KeyCode.Enter });
     cy.wait(500);
 
-    cy.contains(content).should('be.visible');
+    cy.get('#messages').contains(content).should('be.visible');
   });
 
   it('update message, message is updated in chat', () => {
