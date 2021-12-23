@@ -345,8 +345,10 @@ export declare namespace WS {
       messageId: string;
     }
     export interface MessageUpdate {
-      /** Full object of the message that was updated. */
-      message: Entity.Message;
+      /** ID of the message that was updated. */
+      messageId: string;
+      /** Objects with updated properties from the updated message. */
+      partialMessage: Entity.Message;
     }
     export interface Ping {
       channelId: string;

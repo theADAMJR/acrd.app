@@ -1,5 +1,5 @@
 declare global {
   const log: import('winston').Logger;
-  const deps: import('./deps').Deps;
+  const deps: import('../src/modules/deps').Deps;
 }
 export {}

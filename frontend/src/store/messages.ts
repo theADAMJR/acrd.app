@@ -25,8 +25,8 @@ const slice = createSlice({
       total[payload.channelId]--;
     },
     updated: ({ list }, { payload }: Store.Action<WS.Args.MessageUpdate>) => {
-      const message = list.find(m => m.id === payload.message.id);
-      Object.assign(message, payload.message);
+      const message = list.find(m => m.id === payload.messageId);
+      Object.assign(message, payload.partialMessage);
     },
   },
 });
