@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions as ui } from '../../store/ui';
 import ChannelSettings from '../modals/channel-settings/channel-settings';
@@ -21,6 +21,7 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
   const dispatch = useDispatch();
   const dropdown = useSelector((s: Store.AppState) => s.ui.openDropdown);
   const devMode = useSelector((s: Store.AppState) => s.config.devMode);
+  const [hasAnnoyedUser, setHasAnnoyedUser] = useState(false); 
   
   useEffect(() => {
     document.title = props.pageTitle ?? 'accord.app';
@@ -28,7 +29,8 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
 
   const onClick = () => dropdown && dispatch(ui.toggleDropdown({}));
 
-  if (!devMode) {
+  if (!devMode && !hasAnnoyedUser) {
+    setHasAnnoyedUser(true);
     console.log(`%cAttention!`, `color: red; font-size: 32px; font-weight: 900;`);
     console.log(
       `%cIf someone told you to paste something in this console, it's probably against the TOS and could steal your account.`,

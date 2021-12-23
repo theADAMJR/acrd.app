@@ -20,7 +20,7 @@ const LoadingPage: React.FunctionComponent = () => {
     'May work on a Tesla',
     'Please subscribe.',
     'Hi YouTube!',
-    'accord.includes(\'VOICE_CHANNEL\') === false',
+    'accord.includes(\'VOICE_CHANNEL\') === true',
     'This message is officially dumb.',
     'This message is funny.',
     'Dear Bill Gates please buy my app okthxbye.',

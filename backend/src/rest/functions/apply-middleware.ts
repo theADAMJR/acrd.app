@@ -32,8 +32,9 @@ function setupMulter(app: Application) {
     storage,
     fileFilter: (req, file, callback) => {
       const ext = extname(file.originalname);
-      if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg')
-        return callback(new Error('Only images are allowed'));
+      const allowedTypes = ['.png', '.jpg', '.gif', '.jpeg', '.webp', '.svg'];
+      if (!allowedTypes.includes(ext))
+        return callback(new Error('This image file type is not allowed'));
 
       callback(null, true);
     },

@@ -10,6 +10,9 @@ export default class implements WSEvent<'GUILD_MEMBER_ADD'> {
   public on = 'GUILD_MEMBER_ADD' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { inviteCode }: WS.Params.GuildMemberAdd) {
+    if (!inviteCode)
+      throw new TypeError('Not enough options were provided');
+    
     const invite = await deps.invites.get(inviteCode);
     const guild = await deps.guilds.get(invite.guildId);
     const userId = ws.sessions.userId(client);
