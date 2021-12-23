@@ -11,7 +11,7 @@ export default class implements WSEvent<'disconnect'> {
     const user = await deps.users.getSelf(userId);
     
     try {
-      await deps.channelLeaveEvent.invoke(ws, client);
+      await deps.channelLeave.invoke(ws, client);
     } catch {}
     
     ws.sessions.delete(client.id);

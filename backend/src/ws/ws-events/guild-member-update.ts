@@ -4,13 +4,13 @@ import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
 
 export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
-  on = 'GUILD_MEMBER_UPDATE' as const;
+  public on = 'GUILD_MEMBER_UPDATE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { memberId, roleIds }: WS.Params.GuildMemberUpdate) {
-    const managedMember = await deps.members.get(memberId);
+    const managedMember = await deps.guildMembers.get(memberId);
 
     const selfUserId = ws.sessions.userId(client);
-    const selfMember = await deps.members.getInGuild(managedMember.guildId, selfUserId);
+    const selfMember = await deps.guildMembers.getInGuild(managedMember.guildId, selfUserId);
 
     await deps.wsGuard.validateCan(client, selfMember.guildId, 'MANAGE_ROLES');
 
@@ -26,7 +26,7 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
     const partialMember = {
       roleIds: [everyoneRole.id].concat(roleIds ?? []),
     };
-    await deps.members.update(managedMember.id, partialMember);
+    await deps.guildMembers.update(managedMember.id, partialMember);
     
     return [{
       emit: this.on,
