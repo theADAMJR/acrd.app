@@ -1,8 +1,7 @@
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from '@accord/ion';
-import { mongooseError } from '../../test-utils';
+import { longString, mongooseError } from '../../test-utils';
 import { User } from '../../../src/data/models/user';
-import { expect } from 'chai';
 
 test(createUser, () => {
   given().expect(true);
@@ -28,9 +27,10 @@ test(createUser, () => {
   given({ ignored: { userIds: [] } }).expect(true);
   given({ _id: '123', ignored: { userIds: ['123'] } }).expect('Cannot block self');
   given({ username: '' }).expect('Username is required');
+  given({ username: 'a' }).expect('Invalid username');
+  given({ username: longString(33) }).expect('Invalid username');
   given({ username: 'ADAMJR' }).expect(true);
   given({ username: 'ADAM JR' }).expect(true);
-  given({ username: 'a' }).expect('Invalid username');
   given({ username: 'ADAM-JR' }).expect(true);
 });
 

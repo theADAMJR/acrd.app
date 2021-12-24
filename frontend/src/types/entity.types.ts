@@ -66,6 +66,15 @@ export namespace Entity {
     permissions: number;
     position: number;
   }
+  export interface Theme {
+    id: string;
+    createdAt: Date;
+    creatorId: string;
+    iconURL?: string;
+    styles: string;
+    name: string;
+    updatedAt?: Date;
+  }
   export interface User {
     id: string;
     avatarURL: string;

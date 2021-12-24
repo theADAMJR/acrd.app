@@ -5,7 +5,6 @@ import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
 import { Entity } from '@accord/types';
 
-// properties we don't need to define when creating a guild
 export interface GuildDocument extends Document, Entity.Guild {
   id: string;
   createdAt: never;
