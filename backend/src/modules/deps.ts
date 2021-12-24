@@ -17,6 +17,7 @@ import Roles from '../data/roles';
 import Users from '../data/users';
 import ChannelJoin from '../ws/ws-events/channel-join';
 import ChannelLeave from '../ws/ws-events/channel-leave';
+import Themes from '../data/themes';
 
 export interface Deps {
   channels: Channels;
@@ -34,6 +35,7 @@ export interface Deps {
   pings: Pings;
   rest: REST;
   roles: Roles;
+  themes: Themes;
   users: Users;
   wsCooldowns: WSCooldowns;
   wsGuard: WSGuard;
@@ -56,6 +58,7 @@ const deps: Deps = {
   pings: new Pings(),
   rest: new REST(),
   roles: new Roles(),
+  themes: new Themes(),
   users: new Users(),
   wsCooldowns: new WSCooldowns(),
   wsGuard: new WSGuard(),

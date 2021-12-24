@@ -1,7 +1,6 @@
 import { config } from 'dotenv';
 config({ path: 'test/.env' });
 
-import '@accord/types/testing';
 import { should, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import chaiSpies from 'chai-spies';
@@ -33,6 +32,7 @@ global['socket'] = setupSocket();
   log.debug(`Connected to db: ${process.env.MONGO_URI}`);
 })();
 
+import('./rest/theme-routes.test');
 import('./ws/channel-create.test');
 import('./ws/channel-delete.test');
 import('./ws/guild-create.test');

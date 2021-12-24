@@ -4,9 +4,10 @@ import applyMiddleware from './functions/apply-middleware';
 import applyRoutes from './functions/apply-routes';
 import applyErrorHandling from './functions/apply-error-handling';
 
+export const app = express();
+
 export class REST {
   constructor() {
-    const app = express();
     const prefix = `/v2`;
     
     applyMiddleware(app);
