@@ -1,6 +1,6 @@
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from '@accord/ion';
-import { longString, mongooseError } from '../../test-utils';
+import { longArray, longString, mongooseError } from '../../test-utils';
 import { User } from '../../../src/data/models/user';
 
 test(createUser, () => {
@@ -32,6 +32,8 @@ test(createUser, () => {
   given({ username: 'ADAMJR' }).expect(true);
   given({ username: 'ADAM JR' }).expect(true);
   given({ username: 'ADAM-JR' }).expect(true);
+  given({ themes: { unlockedIds: longArray(51) } }).expect('Theme limit reached');
+  given({ themes: { unlockedIds: longArray(49) } }).expect(true);
 });
 
 function createUser(user: any) {

@@ -87,6 +87,10 @@ export namespace Entity {
     premiumExpiration: Date;
     status: UserTypes.StatusType;
     username: string;
+    theme: {
+      activeId: string;
+      unlockedIds: string[];
+    };
     voice: UserTypes.VoiceState;
   }
 }

@@ -6,7 +6,7 @@ import validateUser from '../middleware/validate-user';
 export const router = Router();
 
 router.get('/', async (req, res) => {
-  const themes = await Theme.find();
+  const themes = await Theme.find({ featured: true });
   res.json(themes);
 });
 

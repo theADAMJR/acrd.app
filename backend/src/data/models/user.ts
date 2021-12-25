@@ -89,6 +89,13 @@ export const User = model<UserDocument>('user', new Schema({
     validate: [patterns.status, 'Invalid status'],
     default: 'OFFLINE',
   },
+  themes: {
+    activeId: String,
+    unlockedIds: {
+      type: [String],
+      validate: [validators.maxLength(50), 'Theme limit reached'],
+    },
+  },
   username: {
     type: String,
     required: [true, 'Username is required'],

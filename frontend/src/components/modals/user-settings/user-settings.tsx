@@ -7,6 +7,7 @@ import NavTabs from '../../utils/nav-tabs';
 import Modal from '../modal';
 import UserSettingsOverview from './user-settings-overview';
 import UserSettingsSecurity from './user-settings-security';
+import UserSettingsThemes from './user-settings-themes';
 
 const UserSettings: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.auth.user);
@@ -28,6 +29,7 @@ const UserSettings: React.FunctionComponent = () => {
               tabs={[
                 { name: 'Overview', id: 'overview' },
                 { name: 'Security', id: 'security' },
+                { name: 'Themes', id: 'themes' },
               ]} />
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
 
@@ -39,6 +41,7 @@ const UserSettings: React.FunctionComponent = () => {
 
         <div className="col-span-6 h-full">
           {tab === 'overview' && <UserSettingsOverview />}
+          {tab === 'themes' && <UserSettingsThemes />}
           {tab === 'security' && <UserSettingsSecurity />}
         </div>
 
