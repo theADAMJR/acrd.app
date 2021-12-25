@@ -32,6 +32,7 @@ export const User = model<UserDocument>('user', new Schema({
     type: String,
     default: generateSnowflake,
   },
+  activeThemeId: String,
   avatarURL: {
     type: String,
     required: [true, 'Avatar URL is required'],
@@ -89,12 +90,9 @@ export const User = model<UserDocument>('user', new Schema({
     validate: [patterns.status, 'Invalid status'],
     default: 'OFFLINE',
   },
-  themes: {
-    activeId: String,
-    unlockedIds: {
-      type: [String],
-      validate: [validators.maxLength(50), 'Theme limit reached'],
-    },
+  unlockedThemeIds: {
+    type: [String],
+    validate: [validators.maxLength(50), 'Theme limit reached'],
   },
   username: {
     type: String,

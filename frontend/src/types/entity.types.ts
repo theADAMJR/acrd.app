@@ -74,6 +74,7 @@ export namespace Entity {
     styles: string;
     name: string;
     updatedAt?: Date;
+    isFeatured?: boolean;
   }
   export interface User {
     id: string;
@@ -87,10 +88,8 @@ export namespace Entity {
     premiumExpiration: Date;
     status: UserTypes.StatusType;
     username: string;
-    theme: {
-      activeId: string;
-      unlockedIds: string[];
-    };
+    activeThemeId: string;
+    unlockedThemeIds: string[];
     voice: UserTypes.VoiceState;
   }
 }

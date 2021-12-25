@@ -27,7 +27,7 @@ export const Theme = model<ThemeDocument>('theme', new Schema({
     required: [true, 'Styles are required'],
     maxlength: [10000, 'Max supported style length reached: 10k characters'],
   },
-  featured: Boolean,
+  isFeatured: Boolean,
   iconURL: String,
   updatedAt: Date,
 }, { toJSON: { getters: true } })

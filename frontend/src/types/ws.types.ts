@@ -227,11 +227,13 @@ export declare namespace WS {
       token: string;
     }
     export interface UserUpdate {
+      /** Token granted on login. Required to update user. */
+      activeThemeId?: string;
       avatarURL?: string;
-      username?: string;
-      ignored?: UserTypes.Self['ignored'];
       email?: string;
+      ignored?: UserTypes.Self['ignored'];
       token: string;
+      username?: string;
     }
     export interface VoiceData {
       channelId: string;

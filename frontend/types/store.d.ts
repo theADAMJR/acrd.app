@@ -1,4 +1,6 @@
 declare namespace Store {
+  import { UserTypes } from '@accord/types';
+
   export interface AppState {
     auth: {
       attemptedLogin: boolean;
@@ -17,6 +19,7 @@ declare namespace Store {
       pings: { [guildId: string]: string[] };
       roles: Entity.Role[];
       users: Entity.User[];
+      themes: Entity.Theme[];
       // sequential - loaded when needed
       invites: {
         fetched: string[];

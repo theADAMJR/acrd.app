@@ -15,6 +15,7 @@ import invites from './invites';
 import roles from './roles';
 import typing from './typing';
 import pings from './pings';
+import themes from './themes';
 
 export default () => configureStore<Store.AppState>({
   middleware: [
@@ -32,8 +33,9 @@ export default () => configureStore<Store.AppState>({
       members,
       messages,
       pings,
-      typing,
       roles,
+      themes,
+      typing,
       users,
     }),
     meta,

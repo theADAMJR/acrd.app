@@ -1,18 +1,18 @@
+import './sidebar-icon.scoped.css';
 import classNames from 'classnames';
 import { useLocation } from 'react-router-dom';
 import Image from '../../utils/image';
-
-import './sidebar-icon.scoped.css';
 
 export interface SidebarIconProps {
   imageURL?: string;
   name: string;
   to?: string;
-  classes?: string;
+  childClasses?: string;
+  disableHoverEffect?: boolean;
 }
 
 const SidebarIcon: React.FunctionComponent<SidebarIconProps> = (props) => {
-  let { to, imageURL, name, classes = 'font' } = props;
+  let { to, imageURL, name, childClasses = 'bg-bg-primary font', disableHoverEffect } = props;
   const location = useLocation();
   if (imageURL)
     imageURL = `${process.env.REACT_APP_CDN_URL}${imageURL}`;
@@ -33,19 +33,21 @@ const SidebarIcon: React.FunctionComponent<SidebarIconProps> = (props) => {
   const isActive = to && location.pathname.startsWith(to);
   const activeClasses = (isActive)
     ? 'rounded-xl bg-primary'
-    : 'rounded-full bg-bg-primary';
+    : 'rounded-full';
 
   return (
     <div
       className={classNames('wrapper sidebar-icon', { 'active': isActive })}
       title={name}>
-      <div className="selected rounded bg-white absolute -left-1 h-0 w-2" />
+      <div className={classNames({
+        'selected rounded absolute bg-white -left-1 h-0 w-2': !disableHoverEffect,
+        'hidden': disableHoverEffect,
+      })} />
       <div className={classNames(
-          `cursor-pointer guild-icon flex justify-center mb-2`,
-          activeClasses, classes,
-        )}>
-        <Icon />
-      </div>
+        `cursor-pointer guild-icon flex justify-center mb-2`,
+        activeClasses,
+        childClasses,
+      )}><Icon /></div>
     </div>
   );
 }
