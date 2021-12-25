@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTheme } from '../../../store/themes';
 import { actions as ui } from '../../../store/ui';
 import { updateSelf } from '../../../store/users';
+import PlusIcon from '../../navigation/sidebar/plus-icon';
 import SidebarIcon from '../../navigation/sidebar/sidebar-icon';
 import Category from '../../utils/category';
 
@@ -53,10 +54,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
         <div
           className="w-12 float-left"
           onClick={() => dispatch(ui.openedModal('CreateTheme'))}>
-          <SidebarIcon
-            childClasses="bg-success dark font-black"
-            name="+"
-            disableHoverEffect />
+          <PlusIcon disableHoverEffect />
         </div>
       </section>
     </div>

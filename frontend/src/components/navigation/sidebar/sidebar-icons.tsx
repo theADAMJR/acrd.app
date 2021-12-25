@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actions as ui } from '../../../store/ui';
 import SidebarIcon from './sidebar-icon';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import GuildMenu from '../../ctx-menus/guild-menu';
+import PlusIcon from './plus-icon';
  
 const SidebarIcons: React.FunctionComponent = () => {
-  const dispatch = useDispatch();
   const user = useSelector((s: Store.AppState) => s.auth.user)!;  
   const guilds = useSelector((s: Store.AppState) => s.entities.guilds)!;
 
@@ -18,19 +17,9 @@ const SidebarIcons: React.FunctionComponent = () => {
           imageURL={g.iconURL}
           name={g.name} />
       </Link>
-
       <GuildMenu guild={g} />
     </ContextMenuTrigger>
   ));
-
-  const PlusIcon = () => (
-    <div
-      id="createGuildButton"
-      onClick={() => dispatch(ui.openedModal('CreateGuild'))}
-      className="success text-3xl">
-      <SidebarIcon name="+" childClasses="success" />
-    </div>
-  );
   
   return (
     <div className="overflow-auto min-h-screen float-left p-3 flex flex-col bg-bg-tertiary">
@@ -44,7 +33,7 @@ const SidebarIcons: React.FunctionComponent = () => {
         <div className="h-0.5 w-8 rounded-sm bg-bg-modifier-accent mb-1" />
       </div>
       {guildIcons}
-      <PlusIcon />
+      <PlusIcon id="createGuildButton" />
     </div>
   );
 }

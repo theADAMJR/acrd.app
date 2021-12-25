@@ -11,7 +11,6 @@ import { getGuild, getGuildChannels } from '../../../store/guilds';
 import { actions as ui } from '../../../store/ui';
 import ChannelMenu from '../../ctx-menus/channel-menu';
 import Username from '../../user/username';
-import Draggable from 'react-draggable';
 import React from 'react';
 import { Entity } from '@accord/types';
 

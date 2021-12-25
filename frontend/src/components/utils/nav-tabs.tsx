@@ -4,12 +4,12 @@ import TabLink from './tab-link';
 type Tab = { name: string, id: string, perm?: string };
 
 interface NavTabsProps {
+  activeLinkStyle?: CSSProperties;
   className?: string;
   tabs: Tab[];
   tab: string;
-  setTab: React.Dispatch<React.SetStateAction<string>>;
   linkStyle?: CSSProperties;
-  activeLinkStyle?: CSSProperties;
+  setTab: React.Dispatch<React.SetStateAction<string>>;
   predicate?: (t: Tab) => boolean;
 }
  
