@@ -1,7 +1,10 @@
+import { Entity } from '@accord/types';
 import { Router } from 'express';
 import { Theme } from '../../data/models/theme';
+import { SelfUserDocument } from '../../data/models/user';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';
+import { APIError } from '../modules/api-error';
 
 export const router = Router();
 
@@ -26,6 +29,9 @@ router.get('/:id', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
   const theme = await deps.themes.get(req.params.id);
+  if (res.locals.user.id !== theme.creatorId)
+    throw new APIError(403, 'You cannot manage this theme');
+
   await theme.updateOne({
     name: req.body.name,
     styles: req.body.styles,
@@ -34,9 +40,21 @@ router.patch('/:id', async (req, res) => {
   res.status(201).json(theme);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', updateUser, validateUser, async (req, res) => {
   const theme = await deps.themes.get(req.params.id);
+  if (res.locals.user.id !== theme.creatorId)
+    throw new APIError(403, 'You cannot manage this theme');
+
   await theme.deleteOne();
 
   res.status(201).json({ message: 'Deleted' });
+});
+
+router.get('/unlock/:id', updateUser, validateUser, async (req, res) => {
+  const theme = await deps.themes.get(req.params.id);
+  const user: SelfUserDocument = res.locals.user;
+  user.unlockedThemeIds.push(theme.id);
+  await user.save();
+
+  res.json(user.unlockedThemeIds);
 });
