@@ -15,7 +15,7 @@ const ChannelSettings: React.FunctionComponent = () => {
   const perms = usePerms();
 
   const tabs = [{ perm: 'MANAGE_CHANNELS', name: 'Overview', id: 'overview' }];
-  if (channel.type !== 'VOICE')
+  if (channel?.type !== 'VOICE')
     tabs.push({ perm: 'MANAGE_CHANNELS', name: 'Perms', id: 'perms' });
 
   return (channel) ? (

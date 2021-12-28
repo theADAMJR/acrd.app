@@ -85,3 +85,8 @@ export const createTheme = (name: string, styles = themeTemplate, iconURL?: stri
 export const unlockTheme = (id: string) => (dispatch) => {
   dispatch(api.restCallBegan({ url: `/themes/unlock/${id}`, headers: getHeaders() }));
 }
+
+export const applyTheme = (styles = accordTheme) => {
+  const themeWrapper = document.querySelector('#themeWrapper')!;
+  themeWrapper.innerHTML = `<style>${styles}</style>`;
+}

@@ -7,6 +7,7 @@ import { updateSelf } from '../../../store/users';
 import Input from '../../inputs/input';
 import SidebarIcon from '../../navigation/sidebar/sidebar-icon';
 import CircleButton from '../../utils/buttons/circle-button';
+import NormalButton from '../../utils/buttons/normal-button';
 
 const UserSettingsThemes: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -20,8 +21,6 @@ const UserSettingsThemes: React.FunctionComponent = () => {
     const theme = getTheme(themeId, themes)!;
     themeWrapper.innerHTML = `<style>${theme.styles}</style>`;
   }, [themeId]);
-  
-  const applyTheme = (id: string) => dispatch(updateSelf({ activeThemeId: id }));
 
   const SideIcons = () => (
     <div className="flex items-center flex-col">
@@ -50,9 +49,12 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   const ThemeDetails = () => {
     const { register } = useForm();
     const theme = themes.find(t => t.id === tab);
+  
+    const applyTheme = () => dispatch(updateSelf({ activeThemeId: tab }));
     
     return (tab) ? (
       <div className="px-5">
+        <h1></h1>
         <Input
           tooltip="kek"
           className="w-1/2"
@@ -60,12 +62,16 @@ const UserSettingsThemes: React.FunctionComponent = () => {
           name="code"
           register={register}
           options={{ value: theme.code }} />
+
+        <NormalButton
+          className="bg-success dark mt-5"
+          onClick={applyTheme}>Apply</NormalButton>
       </div>
     ) : null;
   }
 
   return (
-    <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1 gap-8">
+    <div className="grid grid-cols-12 flex-col pt-14 px-10 pb-20 h-full mt-1 gap-8">
       <div className="col-span-1"><SideIcons /></div>
       <div className="col-span-11"><ThemeDetails /></div>
     </div>

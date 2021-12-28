@@ -5,6 +5,7 @@ import { UseFormRegister, FieldValues } from 'react-hook-form';
 import { filterProps } from '../utils/react/react-shush-error';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import ReactTooltip from 'react-tooltip';
 
 export interface InputProps {
   name: string;
@@ -28,12 +29,18 @@ const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLIn
         <label
           htmlFor={id}
           className="uppercase text-xs font-semibold">{label}</label>
-        {tooltip && <FontAwesomeIcon
-          title="kek"
-          size="sm"
-          style={{ color: "var(--muted)" }}
-          className="cursor-pointer ml-2"
-          icon={faQuestionCircle} />}
+        {tooltip && (<>
+          <FontAwesomeIcon
+            data-tip
+            data-for={id + 'Tooltip'}
+            size="sm"
+            style={{ color: "var(--muted)" }}
+            className="cursor-pointer ml-2"
+            icon={faQuestionCircle} />
+          <ReactTooltip id={id + 'Tooltip'} effect="solid" backgroundColor="var(--bg-tertiary)">
+            <span>{tooltip}</span>
+          </ReactTooltip>
+        </>)}
       </>)}
       <input
         id={id}

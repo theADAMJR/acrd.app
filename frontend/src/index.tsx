@@ -7,10 +7,9 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import configureStore from './store/configure-store';
 import { SnackbarProvider } from 'notistack';
-import accordTheme from '!!raw-loader!./styles/accord-theme.css';
+import { applyTheme } from './store/themes';
 
-const themeWrapper = document.querySelector('#themeWrapper')!;
-themeWrapper.innerHTML = `<style>${accordTheme}</style>`;
+applyTheme();
 
 ReactDOM.render(
   <SnackbarProvider maxSnack={1}>
