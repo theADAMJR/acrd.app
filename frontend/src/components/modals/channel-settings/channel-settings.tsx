@@ -14,6 +14,10 @@ const ChannelSettings: React.FunctionComponent = () => {
   const [tab, setTab] = useState('overview');
   const perms = usePerms();
 
+  const tabs = [{ perm: 'MANAGE_CHANNELS', name: 'Overview', id: 'overview' }];
+  if (channel.type !== 'VOICE')
+    tabs.push({ perm: 'MANAGE_CHANNELS', name: 'Perms', id: 'perms' });
+
   return (channel) ? (
     <Modal typeName={'ChannelSettings'} size="full">
       <div className="grid grid-cols-12 h-full">
@@ -23,10 +27,7 @@ const ChannelSettings: React.FunctionComponent = () => {
               className="muted px-2.5 pb-1.5"
               title={`#${channel.name}`} />
           <NavTabs
-            tabs={[
-              { perm: 'MANAGE_CHANNELS', name: 'Overview', id: 'overview' },
-              { perm: 'MANAGE_CHANNELS', name: 'Perms', id: 'perms' },
-            ]}
+            tabs={tabs}
             tab={tab}
             setTab={setTab}
             predicate={t => perms.can(t.perm as any, guild.id)} />
