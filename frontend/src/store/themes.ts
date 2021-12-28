@@ -29,6 +29,10 @@ const slice = createSlice({
     styles: discordTheme,
   }] as Store.AppState['entities']['themes'],
   reducers: {
+    deleted: (themes, { payload }: Store.Action<string>) => {
+      const index = themes.findIndex(t => t.id === payload);
+      themes.splice(index, 1);
+    },
     fetched: (themes, { payload }: Store.Action<Entity.Theme[]>) => {
       themes.push(...payload.filter(notInArray(themes)));
     },
@@ -84,6 +88,24 @@ export const createTheme = (name: string, styles = themeTemplate, iconURL?: stri
 
 export const unlockTheme = (id: string) => (dispatch) => {
   dispatch(api.restCallBegan({ url: `/themes/unlock/${id}`, headers: getHeaders() }));
+}
+
+export const updateTheme = (id: string, data: Partial<Entity.Theme>) => (dispatch) => {
+  dispatch(api.restCallBegan({
+    data,
+    headers: getHeaders(),
+    method: 'patch',
+    url: `/themes/${id}`,
+  }));
+}
+
+export const deleteTheme = (id: string) => (dispatch) => {
+  dispatch(api.restCallBegan({
+    headers: getHeaders(),
+    method: 'delete',
+    url: `/themes/${id}`,
+    callback: () => dispatch(actions.deleted(id)), 
+  }));
 }
 
 export const applyTheme = (styles = accordTheme) => {

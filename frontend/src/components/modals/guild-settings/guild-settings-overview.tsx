@@ -20,12 +20,11 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
   };
   const onDelete = () => {
     const confirmation = window.confirm('Are you sure you want to delete this guild?');
-    confirmation && dispatch(deleteGuild(guild.id));
+    if (confirmation) dispatch(deleteGuild(guild.id));
   }
   
   return (
     <form
-      id="formt"
       onChange={() => dispatch(openSaveChanges(true))}
       className="flex flex-col pt-14 px-10 pb-20 h-full mt-1">
       <header>

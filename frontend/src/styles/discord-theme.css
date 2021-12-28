@@ -27,6 +27,9 @@
     0 2px 0 rgba(4, 4, 5, 0.05);
 
   --font-primary: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --light: #fdf0ed;
+  --dark: #16161c;
 }
 
 * {
@@ -63,6 +66,12 @@ nav a.active {
 }
 
 /* Util */
+.dark {
+  color: var(--dark);
+}
+.font {
+  color: var(--font);
+}
 .success {
   color: var(--success);
 }
@@ -74,6 +83,9 @@ nav a.active {
 }
 .danger {
   color: var(--danger);
+}
+.warning {
+  color: var(--warning);
 }
 .heading {
   color: var(--heading);
@@ -96,6 +108,9 @@ nav a.active {
 }
 .bg-tertiary {
   background-color: var(--tertiary);
+}
+.bg-warning {
+  background-color: var(--warning);
 }
 .bg-danger {
   background-color: var(--danger);

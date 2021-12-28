@@ -1,0 +1,143 @@
+/* Rules */
+* {
+  font-family: var(--font-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--heading);
+  font-family: var(--font-primary);
+}
+
+body {
+  color: var(--font);
+  background-color: var(--bg-tertiary);
+}
+
+textarea {
+  background-color: var(--bg-textarea);
+}
+
+:not(nav a)[href] {
+  color: var(--link);
+}
+nav a {
+  color: var(--channel);
+}
+nav a.active {
+  background-color: var(--bg-modifier-selected);
+  color: var(--heading);
+}
+
+/* Util */
+.dark {
+  color: var(--dark);
+}
+.font {
+  color: var(--font);
+}
+.success {
+  color: var(--success);
+}
+.normal {
+  color: var(--normal);
+}
+.muted {
+  color: var(--muted);
+}
+.danger {
+  color: var(--danger);
+}
+.warning {
+  color: var(--warning);
+}
+.heading {
+  color: var(--heading);
+}
+.primary {
+  color: var(--primary);
+}
+.secondary {
+  color: var(--secondary);
+}
+.tertiary {
+  color: var(--tertiary);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-secondary {
+  background-color: var(--secondary);
+}
+.bg-tertiary {
+  background-color: var(--tertiary);
+}
+.bg-warning {
+  background-color: var(--warning);
+}
+.bg-danger {
+  background-color: var(--danger);
+}
+.bg-success {
+  background-color: var(--success);
+}
+.bg-bg-primary {
+  background-color: var(--bg-primary);
+}
+.bg-bg-secondary {
+  background-color: var(--bg-secondary);
+}
+.bg-bg-secondary-alt {
+  background-color: var(--bg-secondary-alt);
+}
+.bg-bg-tertiary {
+  background-color: var(--bg-tertiary);
+}
+
+/* \/ should be replaced with tag name selector */
+.bg-bg-modifier-accent {
+  background-color: var(--bg-modifier-accent);
+  color: var(--heading);
+}
+.bg-bg-floating {
+  background-color: var(--bg-floating);
+}
+.shadow-elevation {
+  box-shadow: var(--elevation);
+}
+.font-primary {
+  font-family: var(--font-primary);
+}
+
+/* borders */
+.border-primary {
+  border-color: var(--primary);
+}
+.border-secondary {
+  border-color: var(--secondary);
+}
+.border-tertiary {
+  border-color: var(--tertiary);
+}
+.border-danger {
+  border-color: var(--danger);
+}
+.border-success {
+  border-color: var(--success);
+}
+.border-bg-primary {
+  border-color: var(--bg-primary);
+}
+.border-bg-secondary {
+  border-color: var(--bg-secondary);
+}
+.border-bg-secondary-alt {
+  border-color: var(--bg-secondary-alt);
+}
+.border-bg-tertiary {
+  border-color: var(--bg-tertiary);
+}

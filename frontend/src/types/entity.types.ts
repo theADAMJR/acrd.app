@@ -68,6 +68,7 @@ export namespace Entity {
   }
   export interface Theme {
     id: string;
+    code: string;
     createdAt: Date;
     creatorId: string;
     iconURL?: string;
