@@ -29,14 +29,11 @@ const UserSettingsThemes: React.FunctionComponent = () => {
         <div
           key={t.id}
           className="w-12"
-          onClick={() => {
-            setTab(t.id);
-            applyTheme(t.id);
-          }}
+          onClick={() => setTab(t.id)}
           title={t.name}>
           <SidebarIcon
             childClasses={classNames('bg-bg-secondary', {
-              'border-2 border-primary h-[3.1rem]': t.id === user.activeThemeId,
+              'border-2 border-primary h-[3.1rem]': t.id === tab,
             })}
             imageURL={t.iconURL}
             name={t.name}

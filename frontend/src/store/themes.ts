@@ -13,6 +13,7 @@ const slice = createSlice({
   name: 'themes',
   initialState: [{
     id: 'default',
+    code: 'default',
     createdAt: new Date('05/02/2021'),
     creatorId: '177127942839676928',
     name: 'Horizon (default)',
@@ -20,6 +21,7 @@ const slice = createSlice({
     styles: accordTheme,
   }, {
     id: 'discord',
+    code: 'discord',
     createdAt: new Date('05/02/2021'),
     creatorId: '177127942839676928',
     name: 'Discord (experimental)',

@@ -12,7 +12,14 @@ export interface ThemeDocument extends Document, Entity.Theme {
 
 export const Theme = model<ThemeDocument>('theme', new Schema({
   _id: { type: String, default: generateSnowflake },
-  code: { type: String, default: generateInvite, unique: true },
+  code: {
+    type: String,
+    default: generateInvite,
+    unique: [true, 'Code should be unique'],
+    dropDups: true,
+    validate: [/(?<!discord|accord|default)$/, 'This code is reserved'],
+    maxlength: [32, 'Code is too long'],
+  },
   createdAt: { type: Date, default: new Date() },
   creatorId: {
     type: String,
