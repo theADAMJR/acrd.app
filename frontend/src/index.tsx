@@ -1,3 +1,4 @@
+/* eslint import/no-webpack-loader-syntax: off */
 import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -6,6 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import configureStore from './store/configure-store';
 import { SnackbarProvider } from 'notistack';
+import accordTheme from '!!raw-loader!./styles/accord-theme.css';
+
+const themeWrapper = document.querySelector('#themeWrapper')!;
+themeWrapper.innerHTML = `<style>${accordTheme}</style>`;
 
 ReactDOM.render(
   <SnackbarProvider maxSnack={1}>

@@ -18,10 +18,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   useEffect(() => {
     const themeWrapper = document.querySelector('#themeWrapper')!;
     const theme = getTheme(themeId, themes)!;
-    
-    themeWrapper.innerHTML = (!themeId || themeId === 'default')
-    ? `<style></style>`
-    : `<style>${theme.styles}</style>`;
+    themeWrapper.innerHTML = `<style>${theme.styles}</style>`;
   }, [themeId]);
   
   const applyTheme = (id: string) => dispatch(updateSelf({ activeThemeId: id }));

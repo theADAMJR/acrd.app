@@ -1,8 +1,13 @@
+/* eslint import/no-webpack-loader-syntax: off */
 import { Entity, REST } from '@accord/types';
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { notInArray } from './utils/filter';
 import { getHeaders } from './utils/rest-headers';
+import accordTheme from '!!raw-loader!../styles/accord-theme.css';
+import discordTheme from '!!raw-loader!../styles/discord-theme.css';
+
+console.log(accordTheme);
 
 const slice = createSlice({
   name: 'themes',
@@ -12,13 +17,20 @@ const slice = createSlice({
     creatorId: '177127942839676928',
     name: 'Horizon (default)',
     isFeatured: true,
-    styles: '',
+    styles: accordTheme,
+  }, {
+    id: 'discord',
+    createdAt: new Date('05/02/2021'),
+    creatorId: '177127942839676928',
+    name: 'Discord (experimental)',
+    isFeatured: true,
+    styles: discordTheme,
   }] as Store.AppState['entities']['themes'],
   reducers: {
     fetched: (themes, { payload }: Store.Action<Entity.Theme[]>) => {
       themes.push(...payload.filter(notInArray(themes)));
     },
-  }
+  },
 });
 export const actions = slice.actions;
 export default slice.reducer;

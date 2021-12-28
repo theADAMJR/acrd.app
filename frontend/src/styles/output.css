@@ -1116,12 +1116,6 @@ video {
 .fill-current {
 	fill: currentColor;
 }
-.fill-\[var\(--muted\)\] {
-	fill: var(--muted);
-}
-.fill-\[var\(--red\)\] {
-	fill: var(--red);
-}
 .p-2 {
 	padding: 0.5rem;
 }
