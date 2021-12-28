@@ -25,7 +25,7 @@ export default (store) => (next) => async (action) => {
         store.dispatch({ type, payload });
 
     // called after dispatch events
-    callback && await callback(payload);
+    if (callback) await callback(payload);
   } catch (error) {
     const response = (error as any).response;
     store.dispatch(actions.restCallFailed({ url, response }));

@@ -1,17 +1,19 @@
 import { Entity } from '@accord/types';
 import patterns from '@accord/types/patterns';
 import { Document, model, Schema } from 'mongoose';
-import { createdAtToDate, useId } from '../../utils/utils';
+import { useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
+import generateInvite from '../utils/generate-invite';
 
-export interface ThemeDocument extends Document, Entity.Guild {
+export interface ThemeDocument extends Document, Entity.Theme {
   id: string;
   createdAt: never;
 }
 
 export const Theme = model<ThemeDocument>('theme', new Schema({
   _id: { type: String, default: generateSnowflake },
-  createdAt: { type: Date, get: createdAtToDate },
+  code: { type: String, default: generateInvite, unique: true },
+  createdAt: { type: Date, default: new Date() },
   creatorId: {
     type: String,
     required: [true, 'Creator ID is required'],

@@ -1,11 +1,10 @@
+import patterns from '@accord/types/patterns';
+import { Entity, UserTypes } from '@accord/types';
 import { Document, model, Schema } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
 import { createdAtToDate, useId } from '../../utils/utils';
-import uniqueValidator from 'mongoose-unique-validator';
 import { generateSnowflake } from '../snowflake-entity';
 import validators from '../../utils/validators';
-import patterns from '@accord/types/patterns';
-import { Entity, UserTypes } from '@accord/types';
 
 export interface UserDocument extends Document, Entity.User {
   _id: string | never;
@@ -57,6 +56,7 @@ export const User = model<UserDocument>('user', new Schema({
   email: {
     type: String,
     unique: [true, 'Email is already in use'],
+    dropDups: true,
     uniqueCaseInsensitive: true,
     validate: [validators.optionalPattern('email'), 'Invalid email address'],
   },
@@ -106,7 +106,6 @@ export const User = model<UserDocument>('user', new Schema({
     default: {} as UserTypes.VoiceState,
   },
 }, { toJSON: { getters: true } })
-  .plugin(uniqueValidator)
   .plugin(passportLocalMongoose, {
     usernameField: 'email',
     message: 'UserExistsError',
@@ -118,7 +117,7 @@ export const User = model<UserDocument>('user', new Schema({
       IncorrectPasswordError: 'Password or username are incorrect',
       IncorrectUsernameError: 'Password or username are incorrect',
       MissingUsernameError: 'No username was given',
-      UserExistsError: 'Email is in use'
+      UserExistsError: 'Email is already in use',
     }
   })
   .method('toClient', useId));

@@ -85,11 +85,8 @@ export namespace Entity {
     discriminator: number;
     guildIds: string[];
     premium: boolean;
-    premiumExpiration: Date;
     status: UserTypes.StatusType;
     username: string;
-    activeThemeId: string;
-    unlockedThemeIds: string[];
     voice: UserTypes.VoiceState;
   }
 }
@@ -162,17 +159,18 @@ export namespace UserTypes {
   }
   export type StatusType = 'ONLINE' | 'OFFLINE';
   export interface Self extends Entity.User {
+    activeThemeId: string;
     email: string;
-    verified: true;
-    lastReadMessageIds: {
-      [k: string]: string
-    };
-    locked: boolean;
     ignored?: {
       channelIds: string[];
       guildIds: string[];
       userIds: string[];
     };
+    lastReadMessageIds: { [k: string]: string };
+    locked: boolean;
+    premiumExpiration: Date;
+    unlockedThemeIds: string[];
+    verified: true;
   }
   export interface VoiceState {
     channelId?: string;

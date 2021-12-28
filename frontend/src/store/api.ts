@@ -1,6 +1,6 @@
 import { REST, WS } from '@accord/types';
 import { createAction } from '@reduxjs/toolkit';
-import { headers } from './utils/rest-headers';
+import { getHeaders } from './utils/rest-headers';
 
 export const actions = {
   restCallBegan: createAction<APIArgs>('api/restCallBegan'),
@@ -34,7 +34,7 @@ export const uploadFile = (file: File, callback?: (args: REST.From.Post['/upload
     url: '/upload',
     data: formData,
     headers: {
-      ...headers(),
+      ...getHeaders(),
       'Content-Type': 'multipart/form-data',
     },
     callback,

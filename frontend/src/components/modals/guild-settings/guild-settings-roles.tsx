@@ -39,7 +39,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
     setHoisted(activeRole.hoisted);
   }, [activeRole]);
 
-  const RoleDetails = () => {    
+  const RoleDetails = () => {
     return (
       <form
         className="mb-10"
@@ -81,7 +81,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
           className="bg-danger float-right"
           type="button">Delete</NormalButton>
       </form>
-    )
+    );
   }
 
   const onSave = (e) => {

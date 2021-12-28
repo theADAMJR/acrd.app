@@ -21,7 +21,7 @@ const slice = createSlice({
       config.memberListToggled = value;
     },
   }
-})
+});
 const actions = slice.actions;
 export default slice.reducer;
 

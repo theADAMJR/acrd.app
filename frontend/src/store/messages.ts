@@ -2,7 +2,7 @@ import { REST, WS, Entity } from '@accord/types';
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api, uploadFile } from './api';
 import { notInArray } from './utils/filter';
-import { headers } from './utils/rest-headers';
+import { getHeaders } from './utils/rest-headers';
 
 const slice = createSlice({
   name: 'messages',
@@ -43,7 +43,7 @@ export const fetchMessages = (channelId: string, back = 25) => (dispatch, getSta
   dispatch(api.restCallBegan({
     onSuccess: [actions.fetched.type],
     url: `/channels/${channelId}/messages?back=${back}`,
-    headers: headers(),
+    headers: getHeaders(),
   }));
 }
 

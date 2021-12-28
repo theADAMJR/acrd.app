@@ -22,8 +22,7 @@ const slice = createSlice({
       pings[payload.guildId] = [];
     },
   },
-})
-
+});
 export const actions = slice.actions;
 export default slice.reducer; 
 

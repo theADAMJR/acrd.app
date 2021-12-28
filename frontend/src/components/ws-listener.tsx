@@ -14,6 +14,7 @@ import { actions as messages } from '../store/messages';
 import { actions as channels } from '../store/channels';
 import { actions as auth, logoutUser } from '../store/auth';
 import { actions as pings, addPing } from '../store/pings';
+import { actions as themes } from '../store/themes';
 import { useSnackbar } from 'notistack';
 import events from '../services/event-service';
 import { startVoiceFeedback, stopVoiceFeedback } from '../services/voice-service';

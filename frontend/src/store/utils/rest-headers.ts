@@ -1,4 +1,4 @@
-export const headers = () => ({
+export const getHeaders = () => ({
   'Authorization': `Bearer ${token()}`,
 });
 

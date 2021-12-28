@@ -1,4 +1,4 @@
-import { Entity, WS, REST } from '@accord/types';
+import { Entity, WS, REST, UserTypes } from '@accord/types';
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api, uploadFile } from './api';
 import { actions as meta } from './meta';
@@ -26,7 +26,7 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const updateSelf = (payload: Partial<Entity.User>) => (dispatch) => {
+export const updateSelf = (payload: Partial<UserTypes.Self>) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'USER_UPDATE',
     data: { ...payload, token: token() } as WS.Params.UserUpdate,

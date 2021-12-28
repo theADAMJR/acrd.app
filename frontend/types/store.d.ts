@@ -1,5 +1,5 @@
 declare namespace Store {
-  import { UserTypes } from '@accord/types';
+  import { Entity, UserTypes } from '@accord/types';
 
   export interface AppState {
     auth: {

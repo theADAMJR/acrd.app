@@ -1,4 +1,4 @@
-import { REST } from '@accord/types';
+import { Entity, REST, UserTypes } from '@accord/types';
 import { Router } from 'express';
 import { User } from '../../data/models/user';
 import generateInvite from '../../data/utils/generate-invite';
@@ -8,6 +8,7 @@ import { GuildMember } from '../../data/models/guild-member';
 import { Channel } from '../../data/models/channel';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';
+import { Theme } from '../../data/models/theme';
 
 export const router = Router();
 
@@ -52,19 +53,28 @@ router.get('/check-email', async (req, res) => {
 router.get('/self', updateUser, validateUser, async (req, res) => res.json(res.locals.user));
 
 router.get('/entities', updateUser, validateUser, async (req, res) => {
-  const $in = res.locals.user.guildIds;
-
-  const [channels, guilds, members, roles, unsecureUsers] = await Promise.all([
+  const user: UserTypes.Self = res.locals.user;
+  const $in = user.guildIds;
+  
+  const [channels, guilds, members, roles, themes, unsecureUsers] = await Promise.all([
     Channel.find({ guildId: { $in } }),
     Guild.find({ _id: { $in } }),
     GuildMember.find({ guildId: { $in } }),
     Role.find({ guildId: { $in } }),
+    Theme.find({ _id: { $in: user.unlockedThemeIds } }),
     User.find({ guildIds: { $in } }),
   ]);
 
   const secureUsers = unsecureUsers.map((u: any) => deps.users.secure(u));
 
-  res.json({ channels, guilds, members, roles, users: secureUsers } as REST.From.Get['/users/entities']);
+  res.json({
+    channels,
+    guilds,
+    members,
+    roles,
+    themes,
+    users: secureUsers,
+  } as REST.From.Get['/users/entities']);
 });
 
 router.get('/:id', async (req, res) => {

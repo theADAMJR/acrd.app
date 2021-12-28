@@ -37,7 +37,7 @@ const CreateGuild: React.FunctionComponent = () => {
         <NormalButton className="bg-tertiary w-full h-11 mt-8">Join</NormalButton>
       </form>
 
-      <h3 className="uppercase font-bold mt-10">Make Your Own</h3>
+      <h3 className="uppercase font-bold mt-10">Create Your Own</h3>
 
       <form onSubmit={handleSubmit2(submitCreate)}>
         <Input

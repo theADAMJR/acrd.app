@@ -1,6 +1,6 @@
 import { Server } from 'http';
 import { Server as SocketServer } from 'socket.io';
-import { WSEvent } from './ws-events/ws-event';
+import { WSAction, WSEvent } from './ws-events/ws-event';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
 import { SessionManager } from './modules/session-manager';
@@ -45,12 +45,8 @@ export class WebSocket {
         client.on(event.on, async (data: any) => {
           try {
             const actions = await event.invoke.call(event, this, client, data);
-            for (const action of actions) {
-              if (!action) continue;
-              this.io
-                .to(action.to)
-                .emit(action.emit, action.send);
-            }
+            for (const action of actions)
+              if (action) this.handle(action);
           } catch (error: any) {
             client.emit('error', { message: error.message });
           } finally {
@@ -63,6 +59,12 @@ export class WebSocket {
     });
 
     log.info('Started WebSocket', 'ws');
+  }
+
+  public handle(action: WSAction<keyof WS.From>) {
+    this.io
+      .to(action.to)
+      .emit(action.emit, action.send);
   }
 
   public to(...rooms: string[]) {

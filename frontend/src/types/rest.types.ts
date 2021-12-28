@@ -17,6 +17,7 @@ export namespace REST {
         oldPassword: string;
         newPassword: string;
       }
+      '/themes': Entity.Theme;
     }
   }
 
@@ -32,6 +33,7 @@ export namespace REST {
         guilds: Entity.Guild[];
         members: Entity.GuildMember[];
         roles: Entity.Role[];
+        themes: Entity.Theme[];
         users: Entity.User[];
       }
       '/auth/email/verify-email': {

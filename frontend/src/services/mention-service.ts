@@ -29,7 +29,7 @@ export class MentionService {
       .replace(this.patterns.original.user, (og, tag) => {        
         const user = getUserByTag(tag)(this.state);
         return (user) ? `<@${user.id}>` : og;
-      })
+      });
   }
 
   public toHTML(content: string) {
