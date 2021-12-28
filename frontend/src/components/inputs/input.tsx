@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import React from 'react';
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import { filterProps } from '../utils/react/react-shush-error';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 
 export interface InputProps {
   name: string;
@@ -13,18 +15,26 @@ export interface InputProps {
   type?: string;
   className?: string;
   disabled?: boolean;
+  tooltip?: string;
 }
  
 const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLInputElement>> = (props) => {
-  const { label, name, register, options, type, autoFocus, className, disabled } = props;
+  const { label, name, register, options, type, autoFocus, className, disabled, tooltip } = props;
   const id = name + 'Input';
 
   return (
     <div className={className}>
-      {label &&
+      {label && (<>
         <label
           htmlFor={id}
-          className="uppercase text-xs font-semibold">{label}</label>}
+          className="uppercase text-xs font-semibold">{label}</label>
+        {tooltip && <FontAwesomeIcon
+          title="kek"
+          size="sm"
+          style={{ color: "var(--muted)" }}
+          className="cursor-pointer ml-2"
+          icon={faQuestionCircle} />}
+      </>)}
       <input
         id={id}
         type={type ?? 'text'}

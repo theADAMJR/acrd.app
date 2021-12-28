@@ -15,6 +15,7 @@ router.get('/', async (req, res) => {
 router.post('/', updateUser, validateUser, async (req, res) => {
   const user: SelfUserDocument = res.locals.user;
   const theme = await deps.themes.create({
+    code: req.body.code,
     creatorId: user.id,
     name: req.body.name,
     styles: req.body.styles,
