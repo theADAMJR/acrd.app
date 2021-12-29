@@ -13,6 +13,11 @@ router.get('/', updateUser, validateUser, async (req, res) => {
   res.json(guilds);
 });
 
+router.get('/:id', updateUser, validateUser, async (req, res) => {
+  const guild = await deps.guilds.get(req.params.id);
+  res.json(guild);
+});
+
 router.get('/:id/channels',
   updateUser, validateUser, updateGuild,
   validateHasPermission(PermissionTypes.General.VIEW_CHANNELS),

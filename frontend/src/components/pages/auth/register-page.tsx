@@ -1,8 +1,6 @@
 import Particles from 'react-particles-js';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-
-import './register-page.scoped.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from '../../../store/auth';
 import NormalButton from '../../utils/buttons/normal-button';
@@ -23,8 +21,8 @@ const RegisterPage: React.FunctionComponent = () => {
     ? <Redirect to="/channels/@me" />
     : (
       <PageWrapper>
-        <div className="flex items-center justify-center absolute h-screen">
-          <form className="rounded-md shadow bg-bg-primary p-8"
+        <div className="flex items-center justify-center absolute h-screen left-[35%]">
+          <form className="rounded-md shadow bg-bg-primary p-8 w-[480px]"
             onSubmit={handleSubmit(onSubmit)}>
             <h1 className="text-2xl font-bold mb-8 text-center">Create an account</h1>
 

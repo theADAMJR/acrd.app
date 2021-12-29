@@ -1,5 +1,3 @@
-import './login-page.scoped.css';
-
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import { useForm } from 'react-hook-form';
@@ -7,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PageWrapper from '../page-wrapper';
 import Input from '../../inputs/input';
 import NormalButton from '../../utils/buttons/normal-button';
-import { loginUser, forgotPasswordEmail, sendVerifyCode } from '../../../store/auth';
+import { loginUser, forgotPasswordEmail } from '../../../store/auth';
 import { useState } from 'react';
 import VerifyCodeInput from './verify-code-input';
 
@@ -26,9 +24,9 @@ const LoginPage: React.FunctionComponent = () => {
     ? <Redirect to="/channels/@me" />
     : (
       <PageWrapper pageTitle="accord.app | Login">
-        <div className="flex items-center absolute justify-center h-screen">
+        <div className="flex items-center absolute justify-center h-screen left-[35%]">
           <form
-            className="rounded-md shadow bg-bg-primary p-8"
+            className="rounded-md shadow bg-bg-primary p-8 w-[478px]"
             onSubmit={handleSubmit(onLogin)}>
             <h1 className="text-3xl font-bold">Welcome back!</h1>
             <p className="lead">We're so excited to see you again!</p>

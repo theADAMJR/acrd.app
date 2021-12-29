@@ -3,7 +3,6 @@ import { useParams } from 'react-router';
 import { getGuildInvites } from '../../../store/guilds';
 import { deleteInvite } from '../../../store/invites';
 import { openSaveChanges } from '../../../store/ui';
-import CircleButton from '../../utils/buttons/circle-button';
 
 const GuildSettingsInvites: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -18,7 +17,7 @@ const GuildSettingsInvites: React.FunctionComponent = () => {
           <span className="float-right">
             <button
               type="button"
-              className="danger rounded-full border-2 border-red-500 px-2"
+              className="danger rounded-full border-2 border-danger px-2"
               onClick={() => dispatch(deleteInvite(i.id))}>x</button>
           </span>
         </div>

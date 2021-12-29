@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { ready } from '../store/auth';
 import { initPings } from '../store/pings';
 import VerifyPage from './pages/auth/verify-page';
+import InvitePage from './pages/invite-page';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ export default function App() {
         <Route exact path="/logout" component={LogoutPage} />
         <Route exact path="/verify" component={VerifyPage} />
 
+        <PrivateRoute exact path="/invite/:inviteId" component={InvitePage} />
         <PrivateRoute exact path="/channels/@me" component={OverviewPage} />
         <PrivateRoute exact path="/channels/:guildId/:channelId?" component={GuildPage} />
 
