@@ -19,7 +19,7 @@ export default (store) => (next) => async (action) => {
       headers,
     });
 
-    store.dispatch(actions.restCallSucceded(payload));
+    store.dispatch(actions.restCallSucceded({ url, response: payload }));
     if (onSuccess)
       for (const type of onSuccess)
         store.dispatch({ type, payload });

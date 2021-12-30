@@ -1,4 +1,4 @@
-@import './styles/theme-util.css';
+@import './styles/theme/theme-util.css';
 @import './styles/output.css';
 @import '~@fortawesome/fontawesome-svg-core/styles.css';
 

@@ -32,14 +32,17 @@ router.get('/:id', async (req, res) => {
 });
 
 router.patch('/:id', updateUser, validateUser, async (req, res) => {
-  const { name, styles } = req.body;
+  const { name, styles, iconURL } = req.body;
   deps.themes.parse(styles);
 
   const theme = await deps.themes.get(req.params.id);
   if (res.locals.user.id !== theme.creatorId)
     throw new APIError(403, 'You cannot manage this theme');
 
-  await theme.updateOne({ name, styles }, { runValidators: true });
+  if (name) theme.name = name;
+  if (styles) theme.styles = styles;
+  if (iconURL) theme.name = name;
+  await theme.save();
 
   res.status(201).json(theme);
 });

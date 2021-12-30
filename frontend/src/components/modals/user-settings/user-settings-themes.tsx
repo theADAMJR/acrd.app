@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadFile } from '../../../store/api';
-import { createTheme, deleteTheme, getTheme, updateTheme } from '../../../store/themes';
+import { createTheme, deleteTheme, getTheme, unlockTheme, updateTheme } from '../../../store/themes';
 import { openSaveChanges } from '../../../store/ui';
 import { updateSelf } from '../../../store/users';
 import FileInput from '../../inputs/file-input';
@@ -69,6 +69,8 @@ const UserSettingsThemes: React.FunctionComponent = () => {
     };
 
     const AddTheme: React.FunctionComponent = () => {
+      const [code, setCode] = useState('');
+
       return (
         <div className="px-5 ml-4">
           <header className="mb-5">
@@ -82,11 +84,13 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               label="Code"
               name="code"
               register={register}
-              placeholder="discord" />
+              placeholder="discord"
+              onInput={e => setCode(e.currentTarget.value)} />
             <NormalButton
               className="bg-primary mt-8"
               onClick={() => {
                 enableAddMode(false);
+                dispatch(unlockTheme(code, (theme) => setTab(theme.id)));
               }}>Add</NormalButton>
           </div>
 

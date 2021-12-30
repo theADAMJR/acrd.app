@@ -1,0 +1,30 @@
+:root {
+  --primary: #7289da;
+  --secondary: #99aab5;
+  --tertiary: #43b582;
+
+  --heading: white;
+  --font: #99aab5;
+  --normal: #dcddde;
+  --muted: #72767d;
+  --link: hsl(197, calc(var(--saturation-factor, 1) * 100%), 47.8%);
+  --channel: #8e9297;
+
+  --saturation-factor: 1;
+  --success: hsl(139, calc(var(--saturation-factor, 1) * 47.3%), 43.9%);
+  --danger: hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%);
+
+  --bg-primary: #36393f;
+  --bg-secondary: #2f3136;
+  --bg-secondary-alt: #292b2f;
+  --bg-tertiary: #202225;
+  --bg-textarea: #40444b;
+  --bg-modifier-accent: hsla(0, 0%, 100%, 0.06);
+  --bg-modifier-selected: rgba(79, 84, 92, 0.32);
+  --bg-floating: #18191c;
+
+  --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05),
+    0 2px 0 rgba(4, 4, 5, 0.05);
+
+  --font-primary: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
