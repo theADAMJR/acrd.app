@@ -862,6 +862,12 @@ video {
 .ml-4 {
 	margin-left: 1rem;
 }
+.mt-9 {
+	margin-top: 2.25rem;
+}
+.mt-7 {
+	margin-top: 1.75rem;
+}
 .block {
 	display: block;
 }

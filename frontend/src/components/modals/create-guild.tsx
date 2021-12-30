@@ -27,7 +27,7 @@ const CreateGuild: React.FunctionComponent = () => {
         </p>
       </header>
 
-      <h3 className="uppercase font-bold mt-10">Join One</h3>
+      <h3 className="uppercase font-bold mt-10">Join Guild</h3>
 
       <form onSubmit={handleSubmit(submitJoin)}>
         <Input

@@ -19,6 +19,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   const selfUser = useSelector((s: Store.AppState) => s.auth.user);
   const themes = useSelector((s: Store.AppState) => s.entities.themes);
   const [themeId, setTab] = useState(selfUser.activeThemeId);
+  const [addMode, enableAddMode] = useState(false);
   
   useEffect(() => {
     const theme = getTheme(themeId, themes);
@@ -31,7 +32,10 @@ const UserSettingsThemes: React.FunctionComponent = () => {
         <div
           key={t.id}
           className="w-12"
-          onClick={() => setTab(t.id)}
+          onClick={() => {
+            enableAddMode(false);
+            setTab(t.id);
+          }}
           title={t.name}>
           <SidebarIcon
             childClasses={classNames('bg-bg-secondary', {
@@ -44,7 +48,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
       ))}
       <CircleButton
         className="m-2"
-        onClick={() => dispatch(createTheme('New Theme'))}
+        onClick={() => enableAddMode(true)}
         style={{ color: 'var(--success)' }}>+</CircleButton>
     </div>
   );
@@ -63,6 +67,43 @@ const UserSettingsThemes: React.FunctionComponent = () => {
       const onUpdate = (payload) => dispatch(updateTheme(themeId, payload));
       handleSubmit(onUpdate)(e);
     };
+
+    const AddTheme: React.FunctionComponent = () => {
+      return (
+        <div className="px-5 ml-4">
+          <header className="mb-5">
+            <h1 className="text-3xl font-bold inline">Add Theme</h1>
+            <p className="secondary">Add an existing theme with a shareable code.</p>
+          </header>
+          
+          <div className="mb-10">
+            <Input
+              className="float-left w-1/3 mr-3"
+              label="Code"
+              name="code"
+              register={register}
+              placeholder="discord" />
+            <NormalButton
+              className="bg-primary mt-8"
+              onClick={() => {
+                enableAddMode(false);
+              }}>Add</NormalButton>
+          </div>
+
+          <h2 className="text-3xl font-bold">Create Theme</h2>
+          <p className="secondary mb-2">Create your own theme.</p>
+
+          <NormalButton
+            className="bg-success dark"
+            onClick={() => {
+              enableAddMode(false);
+              dispatch(createTheme({ name: 'New Theme' }, (theme) => setTab(theme.id)));
+            }}>Create</NormalButton>
+        </div>
+      );
+    };
+
+    if (addMode) return <AddTheme />;
     
     return (themeId) ? (
       <div className="px-5 ml-4">
@@ -70,7 +111,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
           onChange={() => dispatch(openSaveChanges(true))}
           className="flex flex-col h-full mt-1 mb-5">
           <header className="mb-5">
-            <h1 className="text-xl font-bold inline">{theme.name}</h1>
+            <h1 className="text-3xl font-bold inline">{theme.name}</h1>
           </header>
 
           <div className="flex">
@@ -91,6 +132,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               className="w-1/3"
               name="iconURL"
               options={{ value: theme.iconURL }}
+              tooltip="An optional icon for your theme."
               onChange={(e) => {
                 const file = e.currentTarget?.files?.[0];
                 if (!file) return;

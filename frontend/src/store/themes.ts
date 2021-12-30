@@ -86,13 +86,16 @@ const themeTemplate = `:root {
   --font-primary: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }`;
 
-export const createTheme = (name: string, styles = themeTemplate, iconURL?: string) => (dispatch) => {
+export const createTheme = (theme: Partial<Entity.Theme>, callback?: (theme: Entity.Theme) => any) => (dispatch) => {
   dispatch(api.restCallBegan({
     url: '/themes',
     method: 'post',
     headers: getHeaders(),
-    data: { name, styles, iconURL } as REST.To.Post['/themes'],
-    callback: (theme: Entity.Theme) => dispatch(actions.fetched([theme])), 
+    data: { styles: themeTemplate, ...theme } as REST.To.Post['/themes'],
+    callback: (theme: Entity.Theme) => {
+      dispatch(actions.fetched([theme]));
+      callback?.(theme);
+    }, 
   }));
 }
 
