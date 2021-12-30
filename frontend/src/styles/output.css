@@ -654,6 +654,18 @@ video {
 .left-\[35\%\] {
 	left: 35%;
 }
+.top-\[35\%\] {
+	top: 35%;
+}
+.top-\[25\%\] {
+	top: 25%;
+}
+.top-\[30\%\] {
+	top: 30%;
+}
+.left-\[40\%\] {
+	left: 40%;
+}
 .z-10 {
 	z-index: 10;
 }
@@ -1026,6 +1038,9 @@ video {
 }
 .resize-none {
 	resize: none;
+}
+.resize {
+	resize: both;
 }
 .appearance-none {
 	-webkit-appearance: none;

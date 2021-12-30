@@ -1,5 +1,4 @@
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import Particles from 'react-particles-js';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import PageWrapper from '../page-wrapper';
@@ -8,6 +7,7 @@ import NormalButton from '../../utils/buttons/normal-button';
 import { loginUser, forgotPasswordEmail } from '../../../store/auth';
 import { useState } from 'react';
 import VerifyCodeInput from './verify-code-input';
+import FullParticles from '../../utils/full-particles';
 
 const LoginPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const LoginPage: React.FunctionComponent = () => {
     ? <Redirect to="/channels/@me" />
     : (
       <PageWrapper pageTitle="accord.app | Login">
-        <div className="flex items-center absolute justify-center h-screen left-[35%]">
+        <div className="flex items-center absolute justify-center top-[30%] left-[35%]">
           <form
             className="rounded-md shadow bg-bg-primary p-8 w-[478px]"
             onSubmit={handleSubmit(onLogin)}>
@@ -54,7 +54,7 @@ const LoginPage: React.FunctionComponent = () => {
             <p className="mt-2">Need an account? <Link to={`/register${email && `?email=${email}`}`}>Register</Link></p>
           </form>
         </div>
-        <Particles width="100%" height="100%" />
+        <FullParticles />
       </PageWrapper>
     );
 }

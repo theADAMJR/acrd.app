@@ -1,4 +1,6 @@
 import { Entity } from '@accord/types';
+import { faSearch, faSearchDollar, faSearchLocation } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
 import Particles from 'react-particles-js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,44 +31,62 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
     if (invite) dispatch(fetchEntities([invite.guildId]));
   }, []);
 
-  if (!invite) return <div>Invalid Invite: Invite not found</div>;
-  if (!guild) return <div>Invalid Invite: Guild not found</div>;
-
-  return (
-    <PageWrapper pageTitle={`accord.app | Invite to '${guild.name}'`}>
+  const Wrapper: React.FunctionComponent = ({ children }) => (
+    <PageWrapper pageTitle={`accord.app | Invite to '${guild?.name}'`}>
       <div className="flex items-center absolute justify-center h-screen left-[35%]">
         <section className="rounded-md shadow bg-bg-primary p-8 w-[478px]">
-          <h1 className="text-3xl font-bold">You have been invited to {guild.name}!</h1>
-          <div className="flex mt-5">
-            <SidebarIcon
-              name={guild.name}
-              imageURL={guild.iconURL}
-              childClasses="bg-bg-tertiary w-24 h-24 pt-6 text-xl"
-              disableHoverEffect />
-            <div className="flex justify-around w-full mx-5">
-              <span>
-                <strong className="heading">Members</strong>: <code className="muted">{members.length}</code>
-              </span>
-              <span>
-                <strong className="heading">Owner</strong>: <code className="muted">{getTag(ownerUser)}</code>
-              </span>
-            </div>
-          </div>
-          <div className="flex justify-center gap-5 mx-5 mt-5">
-            <NormalButton
-              onClick={() => {
-                dispatch(joinGuild(inviteId));
-                history.push(`/channels/${invite.guildId}`);
-              }}
-              className="bg-success light">Join :D</NormalButton>
-            <Link to="/">
-              <NormalButton className="bg-danger light">Nope :(</NormalButton>
-            </Link>
-          </div>
+          {children}
         </section>
       </div>
-      <Particles width="100%" height="100%" />
     </PageWrapper>
+  );
+
+  const NotFoundIcon = () => (
+    <FontAwesomeIcon
+      className="float-left mr-2"
+      color="var(--warning)"
+      icon={faSearchLocation}
+      size="2x" />
+  );
+
+  if (!invite || !guild) return (
+    <Wrapper>
+      <NotFoundIcon />
+      <h1 className="text-xl font-bold warning">Invite not found...</h1>
+      <p className="lead">The invite either has expired, or never existed.</p>
+    </Wrapper>
+  );
+
+  return (
+    <Wrapper>
+      <h1 className="text-3xl font-bold">You have been invited to {guild.name}!</h1>
+      <div className="flex mt-5">
+        <SidebarIcon
+          name={guild.name}
+          imageURL={guild.iconURL}
+          childClasses="bg-bg-tertiary w-24 h-24 pt-6 text-xl"
+          disableHoverEffect />
+        <div className="flex justify-around items-center w-full mx-5">
+          <span>
+            <strong className="heading">Members</strong>: <code className="muted">{members.length}</code>
+          </span>
+          <span>
+            <strong className="heading">Owner</strong>: <code className="muted">{getTag(ownerUser)}</code>
+          </span>
+        </div>
+      </div>
+      <div className="flex justify-center gap-5 mx-5 mt-5">
+        <NormalButton
+          onClick={() => {
+            dispatch(joinGuild(inviteId));
+            history.push(`/channels/${invite.guildId}`);
+          }}
+          className="bg-success light">Join :D</NormalButton>
+        <Link to="/">
+          <NormalButton className="bg-danger light">Nope :(</NormalButton>
+        </Link>
+      </div>
+    </Wrapper>
   );
 }
  
