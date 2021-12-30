@@ -62,3 +62,7 @@ nav[role='menu'] {
   display: block; /* For Firefox */
   color: var(--muted);
 }
+
+::file-selector-button {
+  display: none;
+}

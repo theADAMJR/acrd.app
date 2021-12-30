@@ -3,9 +3,11 @@ import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { uploadFile } from '../../../store/api';
 import { createTheme, deleteTheme, getTheme, updateTheme } from '../../../store/themes';
 import { openSaveChanges } from '../../../store/ui';
 import { updateSelf } from '../../../store/users';
+import FileInput from '../../inputs/file-input';
 import Input from '../../inputs/input';
 import SidebarIcon from '../../navigation/sidebar/sidebar-icon';
 import CircleButton from '../../utils/buttons/circle-button';
@@ -14,9 +16,9 @@ import SaveChanges from '../../utils/save-changes';
 
 const UserSettingsThemes: React.FunctionComponent = () => {
   const dispatch = useDispatch();
+  const selfUser = useSelector((s: Store.AppState) => s.auth.user);
   const themes = useSelector((s: Store.AppState) => s.entities.themes);
-  const user = useSelector((s: Store.AppState) => s.auth.user);
-  const [themeId, setTab] = useState(user.activeThemeId);
+  const [themeId, setTab] = useState(selfUser.activeThemeId);
   
   useEffect(() => {
     const theme = getTheme(themeId, themes);
@@ -80,11 +82,21 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               options={{ value: theme.name }} />
             <Input
               tooltip="The code that is used to share themes."
-              className="w-1/3"
+              className="w-1/3 mr-5"
               label="Code"
               name="code"
               register={register}
               options={{ value: theme.code }} />
+            <FileInput
+              className="w-1/3"
+              name="iconURL"
+              options={{ value: theme.iconURL }}
+              onChange={(e) => {
+                const file = e.currentTarget?.files?.[0];
+                if (!file) return;
+                
+                dispatch(uploadFile(file, ({ url }) => setValue('iconURL', url)));
+              }} />
           </div>
 
           <textarea
@@ -101,9 +113,11 @@ const UserSettingsThemes: React.FunctionComponent = () => {
         <NormalButton
           className="bg-success dark mt-5"
           onClick={onApply}>Apply</NormalButton>
-        <NormalButton
-          className="bg-danger dark mt-5 ml-2"
-          onClick={onDelete}>Delete</NormalButton>
+        {(selfUser.id === theme.creatorId) && (
+          <NormalButton
+            className="bg-danger dark mt-5 ml-2"
+            onClick={onDelete}>Delete</NormalButton>
+        )}
       </div>
     ) : null;
   }

@@ -8,6 +8,7 @@ import Category from '../../utils/category';
 import Input from '../../inputs/input';
 import Toggle from '../../inputs/toggle';
 import SaveChanges from '../../utils/save-changes';
+import FileInput from '../../inputs/file-input';
 
 const UserSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -44,13 +45,8 @@ const UserSettingsOverview: React.FunctionComponent = () => {
             register={register}
             options={{ value: user.email }}
             className="pt-5" />
-          <Input
-            type="file"
-            accept="image/*"
-            label="Avatar Image"
-            className="pt-5"
+          <FileInput
             name="avatarURL"
-            register={(): any => {}}
             options={{ value: user.avatarURL }}
             onChange={(e) => {
               const file = e.currentTarget?.files?.[0];

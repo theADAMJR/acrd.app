@@ -1024,6 +1024,9 @@ video {
 .w-\[480px\] {
 	width: 480px;
 }
+.w-1\/4 {
+	width: 25%;
+}
 .max-w-full {
 	max-width: 100%;
 }

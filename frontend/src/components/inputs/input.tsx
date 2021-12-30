@@ -37,7 +37,10 @@ const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLIn
             style={{ color: "var(--muted)" }}
             className="cursor-pointer ml-2"
             icon={faQuestionCircle} />
-          <ReactTooltip id={id + 'Tooltip'} effect="solid" backgroundColor="var(--bg-tertiary)">
+          <ReactTooltip
+            backgroundColor="var(--bg-tertiary)"
+            id={id + 'Tooltip'}
+            effect="solid">
             <span>{tooltip}</span>
           </ReactTooltip>
         </>)}
@@ -49,10 +52,8 @@ const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLIn
         disabled={disabled}
         {...filterProps(props)}
         {...register?.(name, { ...options })}
-        className={classNames(
-          'block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2',
-          { 'h-12': type === 'file' },
-        )} />
+        size={60}
+        className={classNames('block bg-bg-secondary rounded focus:outline-none w-full p-2 h-10 mt-2')} />
     </div>
   );
 }

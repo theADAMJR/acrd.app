@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 
 router.patch('/:id', updateUser, validateUser, async (req, res) => {
   const { name, styles } = req.body;
-  parseCSS(styles);
+  deps.themes.parse(styles);
 
   const theme = await deps.themes.get(req.params.id);
   if (res.locals.user.id !== theme.creatorId)

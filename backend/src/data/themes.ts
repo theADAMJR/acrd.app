@@ -13,7 +13,7 @@ export default class Themes extends DBWrapper<string, ThemeDocument> {
   }
 
   public async create(options: Partial<Entity.Theme>) {
-    parseCSS(options.styles);
+    this.parse(options.styles!);
     return await Theme.create(options);
   }
 
@@ -37,5 +37,12 @@ export default class Themes extends DBWrapper<string, ThemeDocument> {
       to: [user.id],
       send: { unlockedThemeIds: user.unlockedThemeIds },
     });
+  }
+
+  public parse(styles: string) {
+    try { parseCSS(styles) }
+    catch (error: any) {
+      throw new TypeError(`CSS Error: ${styles}`)
+    } 
   }
 }
