@@ -1,6 +1,6 @@
 import { Entity } from '@accord/types';
 import { getChannel, getChannelByName } from '../store/channels';
-import { getUser, getUserByTag } from '../store/users';
+import { getTag, getUser, getUserByTag } from '../store/users';
 
 export class MentionService {
   public readonly tags = ['@245538070684827648', '#\d{18}'];
@@ -48,7 +48,7 @@ export class MentionService {
       },
       user: {
         onClick: `events.emit('openUserProfile', '${id}')`,
-        text: `@${this.tag(getUser(id)(this.state))}`,
+        text: `@${getTag(getUser(id)(this.state))}`,
       },
     };
 
@@ -57,12 +57,5 @@ export class MentionService {
       data-id="${id}"
       class="font-extrabold cursor-pointer hover:underline ${mentioned}"
       onclick="${tag[type].onClick}">${tag[type].text}</a>`;
-  }
-
-  private tag(user: Entity.User) {
-    const tag = (user.discriminator || 0)
-      .toString()
-      .padStart(4, '0');
-    return `${user.username ?? 'Unknown'}#${tag}`;
   }
 }

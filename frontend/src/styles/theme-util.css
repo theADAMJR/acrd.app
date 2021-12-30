@@ -33,6 +33,9 @@ nav a.active {
 }
 
 /* Util */
+.light {
+  color: var(--light);
+}
 .dark {
   color: var(--dark);
 }

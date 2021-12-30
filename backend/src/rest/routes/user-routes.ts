@@ -53,8 +53,11 @@ router.get('/check-email', async (req, res) => {
 router.get('/self', updateUser, validateUser, async (req, res) => res.json(res.locals.user));
 
 router.get('/entities', updateUser, validateUser, async (req, res) => {
+  const guildIds: string[] = req.params.guildIds;
   const user: UserTypes.Self = res.locals.user;
-  const $in = user.guildIds;
+  const $in = (guildIds)
+    ? user.guildIds.concat(guildIds)
+    : user.guildIds;
   
   const [channels, guilds, members, roles, themes, unsecureUsers] = await Promise.all([
     Channel.find({ guildId: { $in } }),

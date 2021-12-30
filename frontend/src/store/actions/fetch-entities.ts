@@ -9,11 +9,11 @@ import { actions as themes } from '../themes';
 import { actions as userActions } from '../users';
 import { getHeaders } from '../utils/rest-headers';
 
-export default () => (dispatch) => {
+export default (guildIds?: string[]) => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [],
     headers: getHeaders(),
-    url: `/users/entities`,
+    url: `/users/entities?guild_ids=${guildIds}`,
     callback: (data: REST.From.Get['/users/entities']) => {
       dispatch(channelActions.fetched(data.channels));
       dispatch(guildActions.fetched(data.guilds));

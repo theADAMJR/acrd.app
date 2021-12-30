@@ -15,7 +15,6 @@ const MemberList: React.FunctionComponent = () => {
   const hoistedRoles = useSelector(filterHoistedRoles(guild.id));
   const members = useSelector(getGuildMembers(guild.id));
 
-  // get users that can view the channel
   const users = useSelector(getGuildUsers(guild.id))
     .filter(u => {
       const member = members.find(m => m.userId === u.id)!;

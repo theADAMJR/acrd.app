@@ -29,17 +29,17 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-export const fetchGuild = (id: string) => (dispatch, getStore: () => Store.AppState) => {
-  const guilds = getStore().entities.guilds;
-  const isCached = guilds.some(g => g.id === id);
-  if (isCached) return;
+// export const fetchGuild = (id: string) => (dispatch, getStore: () => Store.AppState) => {
+//   const guilds = getStore().entities.guilds;
+//   const isCached = guilds.some(g => g.id === id);
+//   if (isCached) return;
 
-  dispatch(api.restCallBegan({
-    url: `/guilds/${id}`,
-    headers: getHeaders(),
-    callback: (guild: Entity.Guild) => dispatch(actions.fetched([guild])),
-  }));
-}
+//   dispatch(api.restCallBegan({
+//     url: `/guilds/${id}`,
+//     headers: getHeaders(),
+//     callback: (guild: Entity.Guild) => dispatch(actions.fetched([guild])),
+//   }));
+// }
 
 export const createGuild = (name: string) => (dispatch) => {
   dispatch(api.wsCallBegan({

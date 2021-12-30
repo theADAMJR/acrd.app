@@ -88,3 +88,10 @@ export const getUserByTag = (tag: string) => createSelector(
     return users.find(u => u.username === username && u.discriminator === +discrim);
   }
 );
+
+export const getTag = ({ discriminator, username }: Entity.User) => {
+  const tag = (discriminator || 0)
+    .toString()
+    .padStart(4, '0');
+  return `${username ?? 'Unknown'}#${tag}`;
+}

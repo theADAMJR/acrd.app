@@ -83,20 +83,16 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
             <MessageToolbar message={message} />
           </div>
           {(message.system)
-            ? (
-              <div className="my-1">
-                <MessageContent message={message} />
-                <MessageHeader message={message} />
-              </div>
-            ) : (
-              <>
-                <MessageHeader
-                  author={author}
-                  message={message}
-                  isExtra={isActuallyExtra} />
-                <MessageContent message={message} />
-              </>
-          )}
+            ? (<div className="my-1">
+              <MessageContent message={message} />
+              <MessageHeader message={message} />
+            </div>) : (<>
+              <MessageHeader
+                author={author}
+                message={message}
+                isExtra={isActuallyExtra} />
+              <MessageContent message={message} />
+            </>)}
         </div>
         <div className="right-side w-12" />
       </div>
