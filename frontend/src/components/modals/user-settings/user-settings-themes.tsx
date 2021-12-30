@@ -63,7 +63,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
     };
     
     return (themeId) ? (
-      <div className="px-5">
+      <div className="px-5 ml-4">
         <form
           onChange={() => dispatch(openSaveChanges(true))}
           className="flex flex-col h-full mt-1 mb-5">
@@ -109,7 +109,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   }
 
   return (
-    <div className="grid grid-cols-12 flex-col pt-14 px-10 pb-20 h-full mt-1 gap-20">
+    <div className="grid grid-cols-12 flex-col pt-14 px-10 pb-20 h-full mt-1 gap-6">
       <div className="col-span-1"><SideIcons /></div>
       <div className="col-span-11"><ThemeDetails /></div>
     </div>

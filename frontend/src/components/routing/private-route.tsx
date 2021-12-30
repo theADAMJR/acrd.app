@@ -16,7 +16,8 @@ const PrivateRoute: React.FunctionComponent<RouteProps> = (props) => {
   else if (!user || !fetchedEntities)
     return <LoadingPage />;
 
-  const theme = themes.find(t => t.id === user.activeThemeId);
+  const theme = themes.find(t => t.id === user.activeThemeId)
+    ?? themes.find(t => t.id === 'default');
   applyTheme(theme.styles);
   
   return (

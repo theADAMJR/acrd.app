@@ -7,9 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import configureStore from './store/configure-store';
 import { SnackbarProvider } from 'notistack';
-import { applyTheme } from './store/themes';
-
-applyTheme();
 
 ReactDOM.render(
   <SnackbarProvider maxSnack={1}>

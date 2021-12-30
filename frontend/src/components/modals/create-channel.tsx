@@ -19,7 +19,7 @@ const CreateChannel: React.FunctionComponent = () => {
   const types: ChannelTypes.Type[] = ['TEXT', 'VOICE'];
   
   return (
-    <Modal typeName={'CreateChannel'} size="lg">
+    <Modal typeName={'CreateChannel'} size="sm">
       <form
         className="flex flex-col h-full"
         onSubmit={handleSubmit(create)}>

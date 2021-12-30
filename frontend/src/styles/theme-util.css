@@ -70,6 +70,12 @@ nav a.active {
   color: var(--tertiary);
 }
 
+.bg-light {
+  background-color: var(--light);
+}
+.bg-dark {
+  background-color: var(--dark);
+}
 .bg-primary {
   background-color: var(--primary);
 }
@@ -117,6 +123,15 @@ nav a.active {
 }
 
 /* borders */
+.border-light {
+  border-color: var(---light);
+}
+.border-dark {
+  border-color: var(--dark);
+}
+.border-muted {
+  border-color: var(--muted);
+}
 .border-primary {
   border-color: var(--primary);
 }

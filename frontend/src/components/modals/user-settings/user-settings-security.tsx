@@ -34,6 +34,8 @@ const UserSettingsSecurity: React.FunctionComponent = () => {
           <span className="ml-1">To change your password, your email must be verified.</span>
         </div>}
 
+        <div className="mt-5" />
+
         <Input
           label="Old Password"
           name="oldPassword"
@@ -64,7 +66,7 @@ const UserSettingsSecurity: React.FunctionComponent = () => {
             </div>
           : <div className="warning">
               <FontAwesomeIcon icon={faExclamationTriangle} className="mr-1" />
-              <span>Your email is unverified which means email 2FA is unavailable.</span>
+              <span>Your email is unverified which means that email 2FA is unavailable.</span>
             </div>}
       </section>
     </div>    

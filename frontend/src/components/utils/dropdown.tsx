@@ -18,7 +18,7 @@ const Dropdown: React.FunctionComponent<DropdownProps> = (props) => {
       </div>
       {
         (dropdown === props.type.name) && 
-        <div className="absolute bg-bg-floating rounded w-56 p-2 mt-5">
+        <div className="absolute bg-bg-floating rounded w-56 p-2 mt-5 z-10">
           {props.children}
         </div>
       }

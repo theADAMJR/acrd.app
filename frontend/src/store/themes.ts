@@ -6,8 +6,7 @@ import { notInArray } from './utils/filter';
 import { getHeaders } from './utils/rest-headers';
 import accordTheme from '!!raw-loader!../styles/accord-theme.css';
 import discordTheme from '!!raw-loader!../styles/discord-theme.css';
-
-console.log(accordTheme);
+import winterTheme from '!!raw-loader!../styles/winter-theme.css';
 
 const slice = createSlice({
   name: 'themes',
@@ -16,17 +15,28 @@ const slice = createSlice({
     code: 'default',
     createdAt: new Date('05/02/2021'),
     creatorId: '177127942839676928',
-    name: 'Horizon (default)',
+    iconURL: '/images/themes/horizon.svg',
     isFeatured: true,
+    name: 'Horizon (default)',
     styles: accordTheme,
   }, {
     id: 'discord',
     code: 'discord',
     createdAt: new Date('05/02/2021'),
     creatorId: '177127942839676928',
-    name: 'Discord (experimental)',
+    iconURL: '/images/themes/discord.svg',
     isFeatured: true,
+    name: 'Discord (experimental)',
     styles: discordTheme,
+  }, {
+    id: 'winter',
+    code: 'winter',
+    createdAt: new Date('30/12/2021'),
+    creatorId: '177127942839676928',
+    iconURL: '/images/themes/winter.svg',
+    isFeatured: true,
+    name: 'Winter (experimental)',
+    styles: winterTheme,
   }] as Store.AppState['entities']['themes'],
   reducers: {
     deleted: (themes, { payload }: Store.Action<string>) => {

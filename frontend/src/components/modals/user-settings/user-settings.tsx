@@ -13,6 +13,8 @@ const UserSettings: React.FunctionComponent = () => {
   const user = useSelector((s: Store.AppState) => s.auth.user);
   const [tab, setTab] = useState('overview');
 
+  const NewBadge = () => <div className="text-xs px-1 bg-yellow-200 text-yellow-800 rounded-full ml-1.5">New</div>;
+
   return (user) ? (
     <Modal
       typeName={'UserSettings'}
@@ -29,7 +31,7 @@ const UserSettings: React.FunctionComponent = () => {
               tabs={[
                 { name: 'Overview', id: 'overview' },
                 { name: 'Security', id: 'security' },
-                { name: 'Themes', id: 'themes' },
+                { name: <>Themes <NewBadge /></>, id: 'themes' },
               ]} />
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
 

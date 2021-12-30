@@ -77,8 +77,9 @@ const ChannelTabs: React.FunctionComponent = () => {
                 { active: channel.id === activeChannel?.id },
               )}>
               <FontAwesomeIcon
+                size="xs"
                 className={classNames(
-                  `float-left scale-150 muted fill-current`,
+                  `float-left scale-150 muted fill-current z-0`,
                   (channel.type === 'VOICE') ? 'mr-2' : 'mr-3',
                 )}
                 icon={icon} />

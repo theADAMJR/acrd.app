@@ -1,7 +1,7 @@
 import { CSSProperties, FunctionComponent } from 'react';
 import TabLink from './tab-link';
 
-type Tab = { name: string, id: string, perm?: string };
+type Tab = { name: JSX.Element | string, id: string, perm?: string };
 
 interface NavTabsProps {
   activeLinkStyle?: CSSProperties;

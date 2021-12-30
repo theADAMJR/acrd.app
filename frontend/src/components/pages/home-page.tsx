@@ -17,7 +17,9 @@ const HomePage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const userCount = useSelector((s: Store.AppState) => s.meta.userCount);
   
-  useEffect(() => { dispatch(countUsers()) }, []);
+  useEffect(() => {
+    dispatch(countUsers());
+  }, []);
 
   const ImageCard = (props: { title: string, src: any }) => (
     <div>
@@ -26,7 +28,7 @@ const HomePage: React.FunctionComponent = () => {
     </div>
   );
 
-  let keys: string[] = [];
+  const keys: string[] = [];
   document.addEventListener('keyup', (e) => {
     keys.push(e.key);
     if (!keys.join('').endsWith('testing123')) return;
