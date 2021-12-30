@@ -83,8 +83,9 @@ const UserProfile: FunctionComponent = () => {
   const UserInfo = () => (user) ? (
     <div className="grid grid-cols-2">
       <div className="col-span-1">
-        <strong>Created: </strong>
-        <span title={user.createdAt.toString()}>{moment(user.createdAt).format('DD/MM/YYYY')}</span>
+        <strong className="primary">Created</strong>
+        <span className="primary">: </span>
+        <span>{moment(user.createdAt).format('MMMM Do YYYY, LT')}</span>
       </div>
     </div>
   ) : null;
@@ -109,8 +110,10 @@ const UserProfile: FunctionComponent = () => {
                 className="w-12 -ml-2 float-left scale-200"
                 key={guild.id}>
                 <SidebarIcon
+                  childClasses="bg-bg-tertiary"
                   imageURL={guild.iconURL}
-                  name={guild.name} />
+                  name={guild.name}
+                  disableHoverEffect />
               </div>
             : null
           )}

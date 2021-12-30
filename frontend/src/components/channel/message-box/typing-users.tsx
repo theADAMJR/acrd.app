@@ -5,8 +5,10 @@ import { getUser } from '../../../store/users';
 
 const TypingUsers: React.FunctionComponent = () => {
   const store = useStore();
+  const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
-  const typers = useSelector(getTypersInChannel(channel.id));
+  const notSelf = (t) => t.userId !== selfUser.id;
+  const typers = useSelector(getTypersInChannel(channel.id)).filter(notSelf);
   const [dots, setDots] = useState('.');
 
   if (!typers.length) return null;

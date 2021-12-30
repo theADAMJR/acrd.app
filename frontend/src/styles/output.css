@@ -934,6 +934,9 @@ video {
 .h-0\.5 {
 	height: 0.125rem;
 }
+.h-16 {
+	height: 4rem;
+}
 .max-h-96 {
 	max-height: 24rem;
 }
@@ -1280,6 +1283,10 @@ video {
 .px-3 {
 	padding-left: 0.75rem;
 	padding-right: 0.75rem;
+}
+.px-12 {
+	padding-left: 3rem;
+	padding-right: 3rem;
 }
 .pl-1 {
 	padding-left: 0.25rem;

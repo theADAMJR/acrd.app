@@ -10,23 +10,25 @@ const TextChannelHeader: React.FunctionComponent<TextChannelHeaderProps> = ({ ca
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   
   return (
-    <div className="m-4 pb-6 border-bottom">
-      <span className="rounded-full">
+    <div className="flex m-4 pb-6 border-bottom justify-center">
+      <div>
+      <span className="flex justify-center rounded-full">
         <FontAwesomeIcon
-          className="muted"
+          className="muted bg-bg-tertiary p-4 rounded-full"
           icon={canRead ? faHashtag : faEyeSlash}
-          size="3x" />
+          size="4x" />
       </span>
-      <h1 className="text-3xl font-bold my-2">
+      <h1 className="text-3xl font-bold my-2 text-center">
         {(canRead)
-          ? `Welcome to #${channel.name}!`
+          ? `This is #${channel.name}`
           : `Message history hidden.`
         }</h1>
       <p className="lead">
         {(canRead)
-          ? `This is the start of the #${channel.name} channel.`
+          ? `You have reached the top.`
           : `Insufficient permissions to view messages in this channel.`
         }</p>
+      </div>
     </div>
   );
 }
