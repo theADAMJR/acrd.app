@@ -21,10 +21,10 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   const [themeId, setTab] = useState(selfUser.activeThemeId);
   const [addMode, enableAddMode] = useState(false);
   
+  const theme = getTheme(themeId, themes);
   useEffect(() => {
-    const theme = getTheme(themeId, themes);
     if (!theme) setTab('default');
-  }, [themeId]);
+  }, [theme, themeId]);
 
   const SideIcons: React.FunctionComponent = () => (
     <div className="flex items-center flex-col">
