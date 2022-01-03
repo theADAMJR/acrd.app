@@ -16,7 +16,7 @@ const GuildPage: React.FunctionComponent = () => {
   const ui = useSelector((s: Store.AppState) => s.ui);
   const guild = useSelector(getGuild(guildId));
   const channel = useSelector(getChannel(channelId));
-  const guildChannels = useSelector(getGuildChannels(guildId));
+  const textChannels = useSelector(getGuildChannels(guildId)).filter(c => c.type === 'TEXT');
 
   useEffect(() => {
     dispatch(uiActions.pageSwitched({ channel, guild }));
@@ -24,8 +24,8 @@ const GuildPage: React.FunctionComponent = () => {
 
   if (!guild) 
     return <Redirect to="/channels/@me" />;
-  else if (guildChannels.length && !channelId) {
-    const systemChannel = guildChannels[0];
+  else if (textChannels.length && !channelId) {
+    const systemChannel = textChannels[0];
     return <Redirect to={`/channels/${guild.id}/${systemChannel.id}`} />;
   }  
 
