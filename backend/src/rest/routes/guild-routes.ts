@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { PermissionTypes } from '@accord/types/permissions';
+import { PermissionTypes } from '@accord/types';
 import { Guild } from '../../data/models/guild';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';

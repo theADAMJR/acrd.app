@@ -1,5 +1,5 @@
 import { ChannelTypes } from '@accord/types';
-import { PermissionTypes } from '@accord/types/permissions';
+import { PermissionTypes } from '@accord/types';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { openSaveChanges } from '../../../store/ui';

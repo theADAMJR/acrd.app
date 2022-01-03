@@ -1,5 +1,5 @@
 import { Document, model, Schema } from 'mongoose';
-import patterns from '@accord/types/patterns';
+import { patterns } from '@accord/types';
 import { createdAtToDate, useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
 import { Entity, MessageTypes } from '@accord/types';

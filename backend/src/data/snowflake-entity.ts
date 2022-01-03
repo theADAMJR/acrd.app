@@ -1,5 +1,5 @@
 import cluster from 'cluster';
-import patterns from '@accord/types/patterns';
+import { patterns } from '@accord/types';
 
 let inc = 0;
 let lastSnowflake: string;

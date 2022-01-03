@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { GuildDocument } from '../../data/models/guild';
-import { PermissionTypes } from '@accord/types/permissions';
+import { PermissionTypes } from '@accord/types';
 import { APIError } from '../modules/api-error';
 
 export default (permission: PermissionTypes.Permission) =>

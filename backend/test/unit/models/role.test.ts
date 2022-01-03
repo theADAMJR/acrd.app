@@ -2,7 +2,7 @@ import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { test, given } from '@accord/ion';
 import { longString, mongooseError } from '../../test-utils';
 import { Role } from '../../../src/data/models/role';
-import { PermissionTypes } from '@accord/types/permissions';
+import { PermissionTypes } from '@accord/types';
 
 test(createRole, () => {
   given().expect(true);

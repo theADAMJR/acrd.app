@@ -1,4 +1,4 @@
-import patterns from '@accord/types/patterns';
+import { patterns } from '@accord/types';
 import { Entity, UserTypes } from '@accord/types';
 import { Document, model, Schema } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
