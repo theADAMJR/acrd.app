@@ -6,8 +6,6 @@ services:
     ports: [27017:27017]
     volumes: [accord:/data/db]
     restart: unless-stopped
-  types:
-    build: ./types
   backend:
     container_name: accord_backend
     depends_on: [types, database]

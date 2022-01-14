@@ -15,6 +15,8 @@ router.get('/', async (req, res) => {
 
 router.post('/', updateUser, validateUser, async (req, res) => {
   const user: SelfUserDocument = res.locals.user;
+  deps.themes.parse(req.body.styles);
+
   const theme = await deps.themes.create({
     code: req.body.code,
     creatorId: user.id,
@@ -33,15 +35,17 @@ router.get('/:id', async (req, res) => {
 
 router.patch('/:id', updateUser, validateUser, async (req, res) => {
   const { name, styles, iconURL } = req.body;
-  deps.themes.parse(styles);
 
   const theme = await deps.themes.get(req.params.id);
   if (res.locals.user.id !== theme.creatorId)
     throw new APIError(403, 'You cannot manage this theme');
 
   if (name) theme.name = name;
-  if (styles) theme.styles = styles;
-  if (iconURL) theme.name = name;
+  if (styles) {
+    deps.themes.parse(styles);
+    theme.styles = styles;
+  }
+  if (iconURL) theme.iconURL = iconURL;
   await theme.save();
 
   res.status(201).json(theme);

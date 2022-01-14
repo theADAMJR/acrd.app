@@ -153,7 +153,9 @@ const UserSettingsThemes: React.FunctionComponent = () => {
                 const file = e.currentTarget?.files?.[0];
                 if (!file) return;
                 
-                dispatch(uploadFile(file, ({ url }) => setValue('iconURL', url)));
+                dispatch(uploadFile(file, ({ url }) => {
+                  dispatch(updateTheme(themeId, { iconURL: url }));
+                }));
               }} />
           </div>
 
