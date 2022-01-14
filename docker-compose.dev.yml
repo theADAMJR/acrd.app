@@ -14,9 +14,9 @@ services:
     ports: [3000:3000, 4200:4200]
     env_file: [./backend/.env, ./frontend/env/.env.dev]
     volumes:
-      - ./backend/src:/app/src
-      - ./backend/assets:/app/assets
-      - ./backend/logs:/app/logs
-      - ./frontend/src:/app/src
+      - ./backend/src:/app/backend/src
+      - ./backend/assets:/app/backend/assets
+      - ./backend/logs:/app/backend/logs
+      - ./frontend/src:/app/frontend/src
 volumes:
   accord:

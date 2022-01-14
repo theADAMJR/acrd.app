@@ -5,6 +5,7 @@
     "dc:down": "docker-compose -f docker-compose.dev.yml down",
     "dc:logs": "docker-compose -f docker-compose.dev.yml logs -t",
     "dc:ps": "docker-compose -f docker-compose.dev.yml ps",
+    "dc:inspect": "docker-compose -f docker-compose.dev.yml ps",
     "dc:build:prod": "docker-compose -f docker-compose.prod.yml build",
     "dc:up:prod": "docker-compose -f docker-compose.prod.yml up -d --build",
     "dc:down:prod": "docker-compose -f docker-compose.prod.yml down",

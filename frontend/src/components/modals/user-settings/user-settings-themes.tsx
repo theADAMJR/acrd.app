@@ -1,4 +1,3 @@
-import { TextareaAutosize } from '@material-ui/core';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,11 +19,19 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   const themes = useSelector((s: Store.AppState) => s.entities.themes);
   const [themeId, setTab] = useState(selfUser.activeThemeId);
   const [addMode, enableAddMode] = useState(false);
+  const [focusedInputId, setFocusedInputId] = useState('');
   
   const theme = getTheme(themeId, themes);
   useEffect(() => {
     if (!theme) setTab('default');
   }, [theme, themeId]);
+  
+  const refreshFocus = () => {
+    if (!focusedInputId) return;
+
+    const input: HTMLInputElement | null = document.querySelector(`#${focusedInputId}`);
+    input?.focus();
+  }
 
   const SideIcons: React.FunctionComponent = () => (
     <div className="flex items-center flex-col">
@@ -80,7 +87,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
           
           <div className="mb-10">
             <Input
-              className="float-left w-1/3 mr-3"
+              className="float-left w-1/3 mr-3 disabled"
               label="Code"
               name="code"
               register={register}
@@ -124,6 +131,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               label="Name"
               name="name"
               register={register}
+              setFocusedInputId={setFocusedInputId}
               options={{ value: theme.name }} />
             <Input
               tooltip="The code that is used to share themes."
@@ -131,12 +139,16 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               label="Code"
               name="code"
               register={register}
-              options={{ value: theme.code }} />
+              options={{ value: theme.code }}
+              setFocusedInputId={setFocusedInputId}
+              disabled />
             <FileInput
               className="w-1/3"
               name="iconURL"
+              label="Icon"
               options={{ value: theme.iconURL }}
               tooltip="An optional icon for your theme."
+              setFocusedInputId={setFocusedInputId}
               onChange={(e) => {
                 const file = e.currentTarget?.files?.[0];
                 if (!file) return;
@@ -148,9 +160,11 @@ const UserSettingsThemes: React.FunctionComponent = () => {
           <textarea
             className="p-2 rounded bg-bg-secondary outline-none border-bg-tertiary hover:border w-1/2 mt-2"
             defaultValue={theme.styles}
+            onFocus={(e) => setFocusedInputId?.(e.currentTarget.id)}
             {...register('styles', { value: theme.styles })} />
 
           <SaveChanges
+            onOpen={refreshFocus}
             setValue={setValue}
             onSave={onSave}
             obj={theme} />

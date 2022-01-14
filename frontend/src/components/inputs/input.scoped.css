@@ -8,3 +8,7 @@ input:hover {
 input:focus {
   border: 1px solid var(--link);
 }
+input:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+}

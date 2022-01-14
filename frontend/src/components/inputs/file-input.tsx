@@ -10,7 +10,7 @@ const FileInput: React.FunctionComponent<FileInputProps> = (props) => {
     <Input
       accept="image/*"
       className="pt-5"
-      label="Avatar Image"
+      label={props.label ?? 'Image'}
       register={(): any => {}}
       type="file"
       {...props}

@@ -17,6 +17,7 @@ export interface InputProps {
   className?: string;
   disabled?: boolean;
   tooltip?: string;
+  setFocusedInputId?: (val: any) => any;
 }
  
 const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLInputElement>> = (props) => {
@@ -50,6 +51,7 @@ const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLIn
         type={type ?? 'text'}
         autoFocus={autoFocus}
         disabled={disabled}
+        onFocus={(e) => props.setFocusedInputId?.(e.currentTarget.id)}
         {...filterProps(props)}
         {...register?.(name, { ...options })}
         size={60}

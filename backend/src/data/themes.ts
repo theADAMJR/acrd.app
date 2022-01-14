@@ -42,7 +42,7 @@ export default class Themes extends DBWrapper<string, ThemeDocument> {
   public parse(styles: string) {
     try { parseCSS(styles) }
     catch (error: any) {
-      throw new TypeError(`CSS Error: ${styles}`)
+      throw new TypeError(`CSS Error: ${error.message}`);
     } 
   }
 }

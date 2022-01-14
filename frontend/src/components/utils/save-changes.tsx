@@ -8,6 +8,7 @@ import NormalButton from './buttons/normal-button';
 
 export interface SaveChangesProps {
   onSave: (e) => any;
+  onOpen?: () => any;
   onReset?: (e) => any;
   /** @deprecated */
   setValue?: UseFormSetValue<FieldValues>;
@@ -28,6 +29,7 @@ const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
       key: 'saveChanges',
       persist: true,
     });
+    props.onOpen?.();
   }, [isOpen]);
 
   const onClickSave = (e) => {
