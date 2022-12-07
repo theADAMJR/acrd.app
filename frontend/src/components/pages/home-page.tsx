@@ -82,11 +82,12 @@ const HomePage: React.FunctionComponent = () => {
       </section>
 
       <footer className="fixed bottom-0 w-full">
-        {process.env.REACT_APP_VERSION && (
+        {process.env.REACT_APP_VERSION}
+        {/* {process.env.REACT_APP_VERSION && (
           <a className="float-right normal mr-2"
             href={`${process.env.REACT_APP_REPO}/commit/${process.env.REACT_APP_VERSION}`}
             target="_blank">v{process.env.REACT_APP_VERSION.slice(0, 7)}</a>
-        )}
+        )} */}
       </footer>
     </PageWrapper>
   );

@@ -6,18 +6,19 @@ services:
     ports: [27017:27017]
     volumes: [accord:/data/db]
     restart: unless-stopped
-  backend:
-    container_name: accord_backend
+  app:
+    container_name: accord_app
     depends_on: [database]
-    build: ./backend
-    ports: [3000:3000]
-    env_file: [./backend/.env]
+    build:
+      context: ./
+      dockerfile: Dockerfile.prod
+    ports: [3000:3000, 4200:4200]
+    env_file: [./backend/.env, ./frontend/env/.env.dev]
     volumes:
-      - ./backend/src:/app/src
-      - ./backend/assets:/app/assets
-      - ./backend/logs:/app/logs
-      - ./backend/keys:/app/keys
-    entrypoint: npm run start:prod
+      - ./backend/src:/app/backend/src
+      - ./backend/assets:/app/backend/assets
+      - ./backend/logs:/app/backend/logs
+      - ./frontend/src:/app/frontend/src
     restart: unless-stopped
 volumes:
   accord:

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const get = (key: keyof Store.AppState['config']) =>
   JSON.parse(localStorage.getItem(`config.${key as string}`) as any);
 const set = (key: keyof Store.AppState['config'], value: any) =>
-  JSON.parse(localStorage.setItem(`config.${key as string}`, value) as any);
+  localStorage.setItem(`config.${key as string}`, value);
 
 const slice = createSlice({
   name: 'config',
