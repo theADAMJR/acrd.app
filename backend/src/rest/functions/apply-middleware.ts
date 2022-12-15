@@ -71,7 +71,6 @@ export default (app: Application) => {
   app.use(cors());
   app.use(bodyParser.json());
   app.use(passport.initialize());
-  app.use(passport.session());
   app.use(rateLimiter);
 
   setupPassport(app);

@@ -59,7 +59,7 @@ export declare namespace WS {
     /** Manually disconnect from the websocket; logout. */
     'disconnect': any;
   }
-  
+
   /** WS Args are what is received from the websocket. */
   export interface From {
     /** Called when a guild channel is created. */
@@ -114,7 +114,7 @@ export declare namespace WS {
     'VOICE_STATE_UPDATE': Args.VoiceStateUpdate;
     'error': object;
   }
-  
+
   export namespace Params {
     export interface AddFriend {
       /** Username of user (case insensitive). */
@@ -146,7 +146,7 @@ export declare namespace WS {
       /** ID of the channel to join. */
       channelId: string;
     }
-    export interface ChannelLeave {}
+    export interface ChannelLeave { }
     export interface GuildCreate {
       /** Name of the guild. */
       name: string;
@@ -237,10 +237,10 @@ export declare namespace WS {
     }
     export interface VoiceData {
       channelId: string;
-      blob?: Blob;
+      blob?: any;
     }
   }
-  
+
   export namespace Args {
     export interface ChannelCreate {
       /** ID of guild that the channel is in. */

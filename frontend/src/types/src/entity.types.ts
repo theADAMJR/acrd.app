@@ -109,7 +109,7 @@ export namespace ChannelTypes {
   }
   export interface VoiceConnection {
     userId: string;
-    blob?: Blob;
+    blob?: any;
   }
 }
 

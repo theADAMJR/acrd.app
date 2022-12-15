@@ -9,11 +9,10 @@
     "inlineSourceMap": true,
     "lib": [
       "ES2020",
-      "ES2019",
+      "ES2019"
     ],
     "module": "CommonJS",
     "noImplicitAny": false,
-    "declaration": true,
     "outDir": "lib",
     "removeComments": true,
     "resolveJsonModule": true,
@@ -24,12 +23,12 @@
     "skipLibCheck": true,
     "watch": true,
   },
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "src",
     "env",
     "**/*.ts"
-  ],
-  "exclude": [
-    "test"
   ]
 }
