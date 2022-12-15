@@ -1,11 +1,16 @@
 {
   "compileOnSave": true,
-  "ts-node": { "files": true },
+  "ts-node": {
+    "files": true
+  },
   "compilerOptions": {
     "downlevelIteration": true,
     "esModuleInterop": true,
     "inlineSourceMap": true,
-    "lib": ["ES2020", "ES2019"],
+    "lib": [
+      "ES2020",
+      "ES2019",
+    ],
     "module": "CommonJS",
     "noImplicitAny": false,
     "declaration": true,
@@ -20,9 +25,11 @@
     "watch": true,
   },
   "include": [
-    "src", 
+    "src",
     "env",
     "**/*.ts"
   ],
-  "exclude": ["test"]
+  "exclude": [
+    "test"
+  ]
 }
