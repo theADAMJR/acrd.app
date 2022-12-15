@@ -4,7 +4,7 @@ import { WSAction, WSEvent } from './ws-events/ws-event';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
 import { SessionManager } from './modules/session-manager';
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export class WebSocket {
   public events = new Map<keyof WS.To, WSEvent<keyof WS.To>>();

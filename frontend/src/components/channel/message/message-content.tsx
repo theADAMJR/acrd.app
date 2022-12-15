@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import MessageBox from '../message-box/message-box';
 import { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

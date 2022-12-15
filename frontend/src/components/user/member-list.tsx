@@ -6,7 +6,7 @@ import GuildMemberMenu from '../ctx-menus/guild-member/guild-member-menu';
 import { getGuildMembers, getGuildUsers } from '../../store/guilds';
 import { filterHoistedRoles } from '../../store/roles';
 import usePerms from '../../hooks/use-perms';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 const MemberList: React.FunctionComponent = () => {
   const perms = usePerms();

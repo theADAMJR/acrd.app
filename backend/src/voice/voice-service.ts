@@ -1,4 +1,4 @@
-import { ChannelTypes } from '@accord/types';
+import { ChannelTypes } from '@acrd/types';
 
 export class VoiceService {
   private connections = new Map<string, ChannelTypes.VoiceConnection[]>();

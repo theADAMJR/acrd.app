@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import moment from 'moment';
 import { FunctionComponent } from 'react';
 

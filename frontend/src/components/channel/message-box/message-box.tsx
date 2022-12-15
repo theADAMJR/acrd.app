@@ -1,4 +1,4 @@
-import { Util } from '@accord/types';
+import { Util } from '@acrd/types';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

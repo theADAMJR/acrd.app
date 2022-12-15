@@ -1,4 +1,4 @@
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 import { Socket } from 'socket.io';
 import { Channel } from '../../data/models/channel';
 import { Guild } from '../../data/models/guild';

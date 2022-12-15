@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { FunctionComponent } from 'react';
 import { ContextMenu } from 'react-contextmenu';
 

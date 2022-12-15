@@ -1,4 +1,4 @@
-import { UserTypes } from '@accord/types';
+import { UserTypes } from '@acrd/types';
 import { faBug, faGavel, faRocket, faSun, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';

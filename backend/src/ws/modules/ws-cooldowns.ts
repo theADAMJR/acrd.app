@@ -1,4 +1,4 @@
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export class WSCooldowns {
   public readonly active = new Map<string, EventLog[]>();

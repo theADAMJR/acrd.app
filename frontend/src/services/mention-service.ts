@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { getChannel, getChannelByName } from '../store/channels';
 import { getTag, getUser, getUserByTag } from '../store/users';
 

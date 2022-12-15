@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import DBWrapper from './db-wrapper';
 import { Channel, ChannelDocument, TextChannelDocument, VoiceChannelDocument } from './models/channel';
 import { generateSnowflake } from './snowflake-entity';

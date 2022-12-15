@@ -1,4 +1,4 @@
-import { Entity, WS, REST, UserTypes } from '@accord/types';
+import { Entity, WS, REST, UserTypes } from '@acrd/types';
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api, uploadFile } from './api';
 import { actions as meta } from './meta';

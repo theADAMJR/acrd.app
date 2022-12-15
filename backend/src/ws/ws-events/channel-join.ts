@@ -2,7 +2,7 @@ import { WSEvent } from './ws-event';
 import { WebSocket } from '../websocket';
 import { Socket } from 'socket.io';
 import { SelfUserDocument } from '../../data/models/user';
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export default class implements WSEvent<'CHANNEL_JOIN'> {
   on = 'CHANNEL_JOIN' as const;

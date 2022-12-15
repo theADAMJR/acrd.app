@@ -1,8 +1,8 @@
 import { Document, model, Schema } from 'mongoose';
-import { patterns } from '@accord/types';
+import { patterns } from '@acrd/types';
 import { createdAtToDate, useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
-import { Entity, MessageTypes } from '@accord/types';
+import { Entity, MessageTypes } from '@acrd/types';
 
 export interface MessageDocument extends Document, Entity.Message {
   _id: string | never;

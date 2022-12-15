@@ -1,5 +1,5 @@
-import { Entity } from '@accord/types';
-import { patterns } from '@accord/types';
+import { Entity } from '@acrd/types';
+import { patterns } from '@acrd/types';
 import { Document, model, Schema } from 'mongoose';
 import { useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';

@@ -1,6 +1,6 @@
 import { Guild } from '../../data/models/guild';
 import { Socket } from 'socket.io';
-import { PermissionTypes, getPermString } from '@accord/types';
+import { PermissionTypes, getPermString } from '@acrd/types';
 
 export class WSGuard {
   public userId(client: Socket) {

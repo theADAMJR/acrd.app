@@ -12,7 +12,7 @@ import { actions as ui } from '../../../store/ui';
 import ChannelMenu from '../../ctx-menus/channel-menu';
 import Username from '../../user/username';
 import React from 'react';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 const ChannelTabs: React.FunctionComponent = () => {
   const dispatch = useDispatch();

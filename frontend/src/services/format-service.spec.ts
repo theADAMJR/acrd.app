@@ -1,15 +1,15 @@
-import { given, test } from '@accord/ion';
+import { given, test } from '@acrd/ion';
 import { FormatService } from './format-service';
 
 describe('format-service', () => {
   let service: FormatService;
-  
+
   const fn = <K extends keyof typeof service>(key: K): (typeof service)[K] => {
     service = new FormatService();
 
     return service[key].bind(service);
   };
-  
+
   test(fn('toHTML'), () => {
     given('***').expect('***');
     given('**').expect('**');

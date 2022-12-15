@@ -4,7 +4,7 @@ import { getGuildRoles } from '../../../store/guilds';
 import { useState } from 'react';
 import { updateMember } from '../../../store/members';
 import usePerms from '../../../hooks/use-perms';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 export interface RoleManagerProps {
   member: Entity.GuildMember;

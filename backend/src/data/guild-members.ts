@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { UpdateQuery } from 'mongoose';
 import DBWrapper from './db-wrapper';
 import { GuildMember, GuildMemberDocument } from './models/guild-member';

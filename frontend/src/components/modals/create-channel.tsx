@@ -4,7 +4,7 @@ import { createChannel } from '../../store/channels';
 import NormalButton from '../utils/buttons/normal-button';
 import Input from '../inputs/input';
 import Modal from './modal';
-import { ChannelTypes } from '@accord/types';
+import { ChannelTypes } from '@acrd/types';
 
 const CreateChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();

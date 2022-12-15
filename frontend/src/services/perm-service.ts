@@ -1,5 +1,5 @@
-import { Entity } from '@accord/types';
-import { PermissionTypes } from '@accord/types';
+import { Entity } from '@acrd/types';
+import { PermissionTypes } from '@acrd/types';
 import { getChannel } from '../store/channels';
 import { getGuild, getGuildRoles } from '../store/guilds';
 import { getMember, getSelfMember } from '../store/members';

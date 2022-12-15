@@ -3,7 +3,7 @@ import { SelfUserDocument } from '../../data/models/user';
 import { APIError } from '../modules/api-error';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';
-import { WS, REST } from '@accord/types';
+import { WS, REST } from '@acrd/types';
 
 export const router = Router();
 

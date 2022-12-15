@@ -8,7 +8,7 @@ import { Guild, GuildDocument } from './models/guild';
 import { UpdateQuery, connection } from 'mongoose';
 import { promisify } from 'util';
 import { readFile } from 'fs';
-import { UserTypes, Auth } from '@accord/types';
+import { UserTypes, Auth } from '@acrd/types';
 
 const readFileAsync = promisify(readFile);
 

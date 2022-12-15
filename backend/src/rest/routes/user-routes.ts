@@ -1,4 +1,4 @@
-import { Entity, REST, UserTypes } from '@accord/types';
+import { Entity, REST, UserTypes } from '@acrd/types';
 import { Router } from 'express';
 import { User } from '../../data/models/user';
 import generateInvite from '../../data/utils/generate-invite';

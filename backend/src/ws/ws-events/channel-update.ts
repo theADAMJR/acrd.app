@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { Channel, ChannelDocument } from '../../data/models/channel';
-import { Entity, WS } from '@accord/types';
+import { Entity, WS } from '@acrd/types';
 
 export default class implements WSEvent<'CHANNEL_UPDATE'> {
   public on = 'CHANNEL_UPDATE' as const;

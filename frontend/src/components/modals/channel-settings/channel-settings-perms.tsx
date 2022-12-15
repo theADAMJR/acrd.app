@@ -14,7 +14,7 @@ import PermOverrides from './perm-overrides';
 import ScarceSelect from './scarce-select';
 import clone from 'clone';
 import { uniqueBy } from '../../../store/utils/filter';
-import { ChannelTypes } from '@accord/types';
+import { ChannelTypes } from '@acrd/types';
  
 const ChannelSettingsPerms: React.FunctionComponent = () => { 
   const { guildId }: any = useParams(); 

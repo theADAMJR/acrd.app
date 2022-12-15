@@ -1,10 +1,10 @@
 import { Document, model, Schema } from 'mongoose';
-import { patterns } from '@accord/types';
-import { PermissionTypes } from '@accord/types';
+import { patterns } from '@acrd/types';
+import { PermissionTypes } from '@acrd/types';
 import { createdAtToDate, useId } from '../../utils/utils';
 import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 export function hasPermission(current: number, required: number) {  
   return Boolean(current & required)

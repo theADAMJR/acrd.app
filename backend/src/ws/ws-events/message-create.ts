@@ -3,7 +3,7 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { Channel } from '../../data/models/channel';
 import striptags from 'striptags';
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export default class implements WSEvent<'MESSAGE_CREATE'> {
   on = 'MESSAGE_CREATE' as const;

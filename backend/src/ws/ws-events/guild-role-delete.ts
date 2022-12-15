@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { GuildMember } from '../../data/models/guild-member';
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export default class implements WSEvent<'GUILD_ROLE_DELETE'> {
   public on = 'GUILD_ROLE_DELETE' as const;

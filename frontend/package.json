@@ -1,9 +1,9 @@
 {
-  "name": "accord-frontend",
+  "name": "@acrd/frontend",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@accord/types": "file:../types",
+    "@acrd/types": "file:../types",
     "@craco/craco": "^5.9.0",
     "@dvhb/craco-extend-scope": "^1.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -80,6 +80,7 @@
     ]
   },
   "devDependencies": {
+    "@acrd/ion": "github:acrdapp/ion",
     "@tailwindcss/jit": "^0.1.10",
     "@testing-library/jest-dom": "^5.15.0",
     "@types/chance": "^1.1.3",

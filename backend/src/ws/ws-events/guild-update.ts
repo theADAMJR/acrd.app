@@ -1,4 +1,4 @@
-import { WS, Entity } from '@accord/types';
+import { WS, Entity } from '@acrd/types';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';

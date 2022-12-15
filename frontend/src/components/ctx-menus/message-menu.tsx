@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { ContextMenu } from 'react-contextmenu';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';

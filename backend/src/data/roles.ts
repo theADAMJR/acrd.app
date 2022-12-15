@@ -1,9 +1,9 @@
 import { UpdateQuery } from 'mongoose';
-import { PermissionTypes } from '@accord/types';
+import { PermissionTypes } from '@acrd/types';
 import DBWrapper from './db-wrapper';
 import { hasPermission, Role, RoleDocument } from './models/role';
 import { generateSnowflake } from './snowflake-entity';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 export default class Roles extends DBWrapper<string, RoleDocument> {
   public async get(id: string | undefined) {

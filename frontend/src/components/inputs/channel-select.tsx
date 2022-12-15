@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import Select from 'react-select';
 

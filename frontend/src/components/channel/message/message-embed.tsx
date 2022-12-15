@@ -1,4 +1,4 @@
-import { MessageTypes } from '@accord/types';
+import { MessageTypes } from '@acrd/types';
 import { FunctionComponent } from 'react';
 import Image from '../../utils/image';
 

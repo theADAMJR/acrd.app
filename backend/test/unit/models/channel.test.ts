@@ -1,8 +1,8 @@
 import { Channel } from '../../../src/data/models/channel';
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
-import { test, given } from '@accord/ion';
+import { test, given } from '@acrd/ion';
 import { longString, mongooseError } from '../../test-utils';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 test(createChannel, () => {
   given().expect(true);

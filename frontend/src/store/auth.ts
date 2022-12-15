@@ -1,4 +1,4 @@
-import { REST, WS } from '@accord/types';
+import { REST, WS } from '@acrd/types';
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { openDialog } from './ui';

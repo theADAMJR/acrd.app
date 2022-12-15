@@ -2,7 +2,7 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { notInArray } from './utils/filter';
 import { actions as api } from './api';
 import { byMax } from './utils/reduce';
-import { Entity, WS } from '@accord/types';
+import { Entity, WS } from '@acrd/types';
 
 const slice = createSlice({
   name: 'roles',

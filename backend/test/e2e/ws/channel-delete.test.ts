@@ -1,7 +1,7 @@
-import '@accord/types';
-import { given, test } from '@accord/ion';
-import { SelfUserDocument } from '@accord/backend/data/models/user';
-import { generateSnowflake } from '@accord/backend/data/snowflake-entity';
+import '@acrd/types';
+import { given, test } from '@acrd/ion';
+import { SelfUserDocument } from '@acrd/backend/data/models/user';
+import { generateSnowflake } from '@acrd/backend/data/snowflake-entity';
 import clearDB from '../util/clear-db';
 import emitReady from '../util/emit-ready';
 import emitAsync from '../util/emit-async';
@@ -33,7 +33,7 @@ test(channelDelete, () => {
     await emitReady(ownerUser);
   });
 
-  // @accord/ion: before tests must go above
+  // @acrd/ion: before tests must go above
   given({ channelId })
     .message('Channel exists, user is not in guild')
     .before(setRandomUser)

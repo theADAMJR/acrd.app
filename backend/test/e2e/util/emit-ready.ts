@@ -1,4 +1,4 @@
-import { SelfUserDocument } from '@accord/backend/data/models/user';
+import { SelfUserDocument } from '@acrd/backend/data/models/user';
 import emitAsync from './emit-async';
 
 export default async (user: SelfUserDocument) => {

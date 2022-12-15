@@ -1,7 +1,7 @@
-import '@accord/types';
+import '@acrd/types';
 import { expect } from 'chai';
-import { given, test } from '@accord/ion';
-import { SelfUserDocument } from '@accord/backend/data/models/user';
+import { given, test } from '@acrd/ion';
+import { SelfUserDocument } from '@acrd/backend/data/models/user';
 import clearDB from '../util/clear-db';
 import emitReady from '../util/emit-ready';
 import emitAsync from '../util/emit-async';

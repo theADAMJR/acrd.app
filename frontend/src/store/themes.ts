@@ -1,5 +1,5 @@
 /* eslint import/no-webpack-loader-syntax: off */
-import { Entity, REST } from '@accord/types';
+import { Entity, REST } from '@acrd/types';
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { notInArray } from './utils/filter';

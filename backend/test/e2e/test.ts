@@ -14,18 +14,18 @@ use(chaiSpies);
 use(chaiThings);
 use(should);
 
-import('@accord/backend/modules/deps');
-import('@accord/backend/modules/logger');
+import('@acrd/backend/modules/deps');
+import('@acrd/backend/modules/logger');
 
 global['socket'] = setupSocket();
 
-(async() => {
+(async () => {
   const mongod = await MongoMemoryServer.create();
   process.env.MONGO_URI = mongod.getUri('accord-test');
-  
-  await mongoose.connect(process.env.MONGO_URI, { 
-    useUnifiedTopology: true, 
-    useNewUrlParser: true, 
+
+  await mongoose.connect(process.env.MONGO_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
     useFindAndModify: false,
     useCreateIndex: true,
   });

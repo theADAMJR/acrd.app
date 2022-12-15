@@ -1,5 +1,5 @@
 import { ChannelDocument } from '../data/models/channel';
-import { patterns } from '@accord/types';
+import { patterns } from '@acrd/types';
 
 export default {
   cannotChangeIfProp: (prop: string, value: any, def?: any) => (val: string) => 

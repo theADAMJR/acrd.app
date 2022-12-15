@@ -1,4 +1,4 @@
-import { Entity, WS } from '@accord/types';
+import { Entity, WS } from '@acrd/types';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { notInArray } from './utils/filter';

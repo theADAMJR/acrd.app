@@ -1,4 +1,4 @@
-import { UserTypes } from '@accord/types';
+import { UserTypes } from '@acrd/types';
 
 export class EmailFunctions {  
   public async verifyCode(user: UserTypes.Self) {

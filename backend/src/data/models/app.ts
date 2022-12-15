@@ -2,7 +2,7 @@ import { Document, model, Schema } from 'mongoose';
 import { generateSnowflake } from '../snowflake-entity';
 
 import { createdAtToDate, generateUsername, useId } from '../../utils/utils';
-import { patterns } from '@accord/types';
+import { patterns } from '@acrd/types';
 
 export interface ApplicationDocument extends Document, Entity.App {
   _id: string | never;

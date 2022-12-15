@@ -1,4 +1,4 @@
-import { Entity, MessageTypes } from '@accord/types';
+import { Entity, MessageTypes } from '@acrd/types';
 import DBWrapper from './db-wrapper';
 import { Channel } from './models/channel';
 import { Message, MessageDocument } from './models/message';

@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import DBWrapper from './db-wrapper';
 import { Theme, ThemeDocument } from './models/theme';
 import parseCSS from 'css-parse';

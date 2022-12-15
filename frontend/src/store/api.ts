@@ -1,4 +1,4 @@
-import { REST, WS } from '@accord/types';
+import { REST, WS } from '@acrd/types';
 import { createAction } from '@reduxjs/toolkit';
 import { getHeaders } from './utils/rest-headers';
 

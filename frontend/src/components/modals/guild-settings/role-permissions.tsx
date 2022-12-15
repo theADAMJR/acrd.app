@@ -5,7 +5,7 @@ import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Toggle from '../../inputs/toggle';
-import { PermissionTypes } from '@accord/types';
+import { PermissionTypes } from '@acrd/types';
 
 export interface RolePermissionsProps {
   setRoleValue: UseFormSetValue<FieldValues>;
