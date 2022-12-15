@@ -16,7 +16,7 @@ import NumberFormat from 'react-number-format';
 const HomePage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const userCount = useSelector((s: Store.AppState) => s.meta.userCount);
-  
+
   useEffect(() => {
     dispatch(countUsers());
   }, []);
@@ -36,7 +36,7 @@ const HomePage: React.FunctionComponent = () => {
     try {
       document.querySelector('h1')!.textContent = 'Easteregg++';
       document.querySelector('.lead')!.textContent = 'Are you happy now?';
-    } catch {}
+    } catch { }
   });
 
   return (
@@ -49,13 +49,13 @@ const HomePage: React.FunctionComponent = () => {
         <div className="flex justify-center">
           <div className="lead font-light mt-2 max-w-xl">
             All-in-one text and voice chat, just like Discord.
-            Stop paying for Discord boosts and hassling with Zoom. 
+            Stop paying for Discord boosts and hassling with Zoom.
             {Boolean(userCount) && (
               <span className="pl-1">
                 Join <NumberFormat
-                value={userCount}
-                displayType={'text'}
-                thousandSeparator={true}/> Accord users that simplified their life.
+                  value={userCount}
+                  displayType={'text'}
+                  thousandSeparator={true} /> Accord users that simplified their life.
               </span>
             )}
           </div>
@@ -82,7 +82,7 @@ const HomePage: React.FunctionComponent = () => {
       </section>
 
       <footer className="fixed bottom-0 w-full">
-        {process.env.REACT_APP_VERSION}
+        <p className="float-right p-1">{process.env.REACT_APP_VERSION}</p>
         {/* {process.env.REACT_APP_VERSION && (
           <a className="float-right normal mr-2"
             href={`${process.env.REACT_APP_REPO}/commit/${process.env.REACT_APP_VERSION}`}
