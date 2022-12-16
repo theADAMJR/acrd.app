@@ -1,5 +1,5 @@
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
-import { test, given } from '@accord/ion';
+import { test, given } from '@acrd/ion';
 import { longArray, longString, mongooseError } from '../../test-utils';
 import { User } from '../../../src/data/models/user';
 

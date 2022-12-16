@@ -1,4 +1,4 @@
-import { test, given } from '@accord/ion';
+import { test, given } from '@acrd/ion';
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import { longString, mongooseError } from '../../test-utils';
 import { Theme } from '../../../src/data/models/theme';

@@ -1,16 +1,16 @@
 import { MentionService } from './mention-service';
-import { test, given } from '@accord/ion';
+import { test, given } from '@acrd/ion';
 
 describe.skip('mention-service', () => {
   let service: MentionService;
   let state: Store.AppState;
-  
+
   const fn = <K extends keyof typeof service>(key: K): (typeof service)[K] => {
     const channel = { id: '246688207138279430', name: 'general', guildId: '246688207148279429' };
     const guild = { id: '246688207148279429' };
     const role = { id: '246688207138279435', name: '@everyone', guildId: '246688207148279429' };
     const user = { id: '246688207138279428', username: 'Adam', discriminator: 1 };
-    
+
     state = {
       auth: { user },
       ui: { activeGuild: guild },
@@ -45,4 +45,4 @@ describe.skip('mention-service', () => {
   });
 });
 
-export {}
+export { }

@@ -1,5 +1,5 @@
 {
-  "name": "accord-frontend",
+  "name": "@acrd/frontend",
   "version": "0.0.0",
   "private": true,
   "dependencies": {

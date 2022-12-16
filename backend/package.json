@@ -1,5 +1,5 @@
 {
-  "name": "@accord/backend",
+  "name": "@acrd/backend",
   "version": "0.0.0",
   "scripts": {
     "start": "npm run start:dev",
@@ -13,7 +13,7 @@
   "keywords": [],
   "author": "github.com/theadamjr",
   "dependencies": {
-    "@accord/ion": "github:accord-dot-app/ion",
+    "@acrd/ion": "github:acrdapp/ion",
     "@accord/types": "file:../types",
     "body-parser": "^1.19.0",
     "chai-things": "^0.2.0",

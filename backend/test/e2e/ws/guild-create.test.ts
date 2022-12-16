@@ -1,6 +1,6 @@
 import '@accord/types';
 import { expect } from 'chai';
-import { given, test } from '@accord/ion';
+import { given, test } from '@acrd/ion';
 import { SelfUserDocument } from '@accord/backend/data/models/user';
 import clearDB from '../util/clear-db';
 import emitReady from '../util/emit-ready';

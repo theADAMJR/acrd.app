@@ -1,6 +1,6 @@
 import '@accord/types';
 import { expect } from 'chai';
-import { given, test } from '@accord/ion';
+import { given, test } from '@acrd/ion';
 import { SelfUserDocument } from '@accord/backend/data/models/user';
 import { generateSnowflake } from '@accord/backend/data/snowflake-entity';
 import { Channel } from '@accord/backend/data/models/channel';
@@ -33,7 +33,7 @@ test(channelCreate, () => {
   });
 
   const args = { name: 'test-channel', guildId, type: 'TEXT' };
-  // @accord/ion: before tests must go above
+  // @acrd/ion: before tests must go above
   given(args)
     .message('User lacks permissions, rejected')
     .before(setNoobMember)

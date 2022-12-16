@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import { WSCooldowns } from '../../../src/ws/modules/ws-cooldowns';
-import { given, test } from '@accord/ion';
+import { given, test } from '@acrd/ion';
 import { generateSnowflake } from '../../../src/data/snowflake-entity';
 import assert from 'assert';
 
 describe('ws-cooldowns', () => {
   let cooldowns = new WSCooldowns();
   let userId = generateSnowflake();
-  
+
   test(cooldowns.handle.bind(cooldowns), () => {
     afterEach(() => {
       cooldowns = new WSCooldowns();

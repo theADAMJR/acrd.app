@@ -1,4 +1,4 @@
-import { given, test } from '@accord/ion';
+import { given, test } from '@acrd/ion';
 import { SelfUserDocument } from '@accord/backend/data/models/user';
 import clearDB from '../util/clear-db';
 import emitReady from '../util/emit-ready';
@@ -10,7 +10,7 @@ import setNoobMember from '../util/set-noob-member';
 
 test(guildCreate, () => {
   const guildId = generateSnowflake();
-  
+
   let ownerUser: SelfUserDocument;
   let guild: GuildDocument;
 
@@ -30,7 +30,7 @@ test(guildCreate, () => {
 
     await emitReady(ownerUser);
   });
-  
+
   given({ guildId })
     .message('Guild exists, is noob member, rejected')
     .before(setNoobMember)
