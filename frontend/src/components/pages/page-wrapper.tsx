@@ -21,10 +21,10 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
   const dispatch = useDispatch();
   const dropdown = useSelector((s: Store.AppState) => s.ui.openDropdown);
   const devMode = useSelector((s: Store.AppState) => s.config.devMode);
-  const [hasAnnoyedUser, setHasAnnoyedUser] = useState(false); 
-  
+  const [hasAnnoyedUser, setHasAnnoyedUser] = useState(false);
+
   useEffect(() => {
-    document.title = props.pageTitle ?? 'accord.app';
+    document.title = props.pageTitle ?? 'acrd.app';
   }, []);
 
   const onClick = () => dropdown && dispatch(ui.toggleDropdown({}));
@@ -55,5 +55,5 @@ const PageWrapper: React.FunctionComponent<PageWrapperProps> = (props) => {
     </div>
   );
 }
- 
+
 export default PageWrapper;

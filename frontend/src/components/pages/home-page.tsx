@@ -16,15 +16,20 @@ import NumberFormat from 'react-number-format';
 const HomePage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const userCount = useSelector((s: Store.AppState) => s.meta.userCount);
-  
+
   useEffect(() => {
     dispatch(countUsers());
   }, []);
 
-  const ImageCard = (props: { title: string, src: any }) => (
-    <div>
-      <h3 className="text-center text-1xl font-black font mb-4">{props.title}</h3>
+  const ImageCard = (props: { title: string, src: string, children?: any }) => (
+    <div className='image-card'>
+      <header className="text-center mb-2">
+        <h3 className="text-white font-bold text-1xl">{props.title}</h3>
+      </header>
       <img className="w-44 inline" src={props.src} alt="Chat" />
+      <footer className='text-center mt-2'>
+        <div className="secondary">{props.children}</div>
+      </footer>
     </div>
   );
 
@@ -36,26 +41,26 @@ const HomePage: React.FunctionComponent = () => {
     try {
       document.querySelector('h1')!.textContent = 'Easteregg++';
       document.querySelector('.lead')!.textContent = 'Are you happy now?';
-    } catch {}
+    } catch { }
   });
 
   return (
     <PageWrapper
       className="z-10 bg-bg-tertiary h-full relative"
-      pageTitle="accord.app | Like Discord but Cooler">
+      pageTitle="acrd.app | Messaging Made Simple">
       <Navbar />
       <section className="z-10 text-center my-4">
         <h1>It's time to ditch Discord and Zoom.</h1>
         <div className="flex justify-center">
           <div className="lead font-light mt-2 max-w-xl">
             All-in-one text and voice chat, just like Discord.
-            Stop paying for Discord boosts and hassling with Zoom. 
+            Stop paying for Discord boosts and hassling with Zoom.
             {Boolean(userCount) && (
               <span className="pl-1">
                 Join <NumberFormat
-                value={userCount}
-                displayType={'text'}
-                thousandSeparator={true}/> Accord users that simplified their life.
+                  value={userCount}
+                  displayType={'text'}
+                  thousandSeparator={true} /> Accord users that simplified their life.
               </span>
             )}
           </div>
@@ -75,19 +80,26 @@ const HomePage: React.FunctionComponent = () => {
       <section
         title="*Description may represent unreleased features.*"
         className="absolute top-50 w-1/2 inset-x-1/4 flex justify-between">
-        <ImageCard src={Chat} title="Chat w/ Friends" />
-        <ImageCard src={Devices} title="On Mobile or Desktop" />
-        <ImageCard src={Friends} title="Join and Manage Guilds" />
-        <ImageCard src={Secure} title="Super Secure" />
+        <ImageCard src={Chat} title="Chat Made Simple">
+          Accord focuses on just the practical features and a simple messaging solution.
+        </ImageCard>
+        <ImageCard src={Devices} title="On Mobile or Desktop">
+          (work in progress)
+        </ImageCard>
+        <ImageCard src={Friends} title="Join and Manage Guilds">
+          Create and customize your own messaging spaces for your friends.
+        </ImageCard>
+        <ImageCard src={Secure} title="Secure Messages">
+          (work in progress)
+        </ImageCard>
       </section>
 
       <footer className="fixed bottom-0 w-full">
-        {process.env.REACT_APP_VERSION}
-        {/* {process.env.REACT_APP_VERSION && (
-          <a className="float-right normal mr-2"
-            href={`${process.env.REACT_APP_REPO}/commit/${process.env.REACT_APP_VERSION}`}
-            target="_blank">v{process.env.REACT_APP_VERSION.slice(0, 7)}</a>
-        )} */}
+        <p className="float-right p-2">
+          <strong className="primary">{process.env.REACT_APP_VERSION_NAME}</strong>
+          <span> </span>
+          <span className="secondary">{process.env.REACT_APP_VERSION_NUMBER}</span>
+        </p>
       </footer>
     </PageWrapper>
   );

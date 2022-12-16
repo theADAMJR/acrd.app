@@ -32,7 +32,7 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
   }, []);
 
   const Wrapper: React.FunctionComponent = ({ children }) => (
-    <PageWrapper pageTitle={`accord.app | Invite to '${guild?.name}'`}>
+    <PageWrapper pageTitle={`acrd.app | Invite to '${guild?.name}'`}>
       <div className="flex items-center absolute justify-center h-screen left-[35%]">
         <section className="rounded-md shadow bg-bg-primary p-8 w-[478px]">
           {children}

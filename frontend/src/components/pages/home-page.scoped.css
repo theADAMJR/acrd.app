@@ -1,8 +1,17 @@
 section {
   padding: 72px 50px 0;
 }
+
 section h1 {
   font-size: 36px;
   font-weight: 700;
   line-height: 44px;
+}
+
+.image-card {
+  max-width: 200px;
+}
+
+.image-card img {
+  height: 125px;
 }
