@@ -1,4 +1,7 @@
 {
   "name": "@acrd/types",
-  "main": "lib/main.js"
+  "main": "lib/main.js",
+  "dependencies": {
+    "typescript": "^4.9.4"
+  }
 }
