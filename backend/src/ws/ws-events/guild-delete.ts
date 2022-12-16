@@ -1,4 +1,4 @@
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 import { Socket } from 'socket.io';
 import { Channel } from '../../data/models/channel';
 import { Guild } from '../../data/models/guild';
@@ -16,7 +16,7 @@ export default class implements WSEvent<'GUILD_DELETE'> {
   public async invoke(ws: WebSocket, client: Socket, { guildId }: WS.Params.GuildDelete) {
     if (!guildId)
       throw new TypeError('Not enough options were provided');
-    
+
     await deps.wsGuard.validateIsOwner(client, guildId);
 
     await User.updateMany(

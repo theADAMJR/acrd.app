@@ -7,7 +7,7 @@ import { APIError } from '../rest/modules/api-error';
 import { Channel } from './models/channel';
 import { Role } from './models/role';
 import { GuildMember } from './models/guild-member';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 export default class Guilds extends DBWrapper<string, GuildDocument> {
   public async get(id: string | undefined) {
@@ -21,7 +21,7 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
     return await Guild.findOne({ channels: { $in: id } as any });
   }
 
-  public async create(options: Partial<Entity.Guild>): Promise<GuildDocument> {    
+  public async create(options: Partial<Entity.Guild>): Promise<GuildDocument> {
     const guildId = options.id ?? generateSnowflake();
 
     const [_, systemChannel, __] = await Promise.all([
@@ -39,7 +39,7 @@ export default class Guilds extends DBWrapper<string, GuildDocument> {
       }),
       deps.guildMembers.create({ guildId, userId: options.ownerId }),
     ]);
-    
+
     return guild;
   }
 

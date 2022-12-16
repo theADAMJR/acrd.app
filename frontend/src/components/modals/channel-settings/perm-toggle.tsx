@@ -1,5 +1,5 @@
-import { ChannelTypes } from '@accord/types';
-import { PermissionTypes } from '@accord/types';
+import { ChannelTypes } from '@acrd/types';
+import { PermissionTypes } from '@acrd/types';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { openSaveChanges } from '../../../store/ui';
@@ -18,28 +18,28 @@ const PermToggle: React.FunctionComponent<PermToggleProps> = ({ overrideState, p
 
   const isAllowed = (name: string) => Boolean(override.allow & PermissionTypes.All[name]);
   const isDenied = (name: string) => Boolean(override.deny & PermissionTypes.All[name]);
-  
+
   const getDefaultValue = () => {
     if (isAllowed(permName)) return 'on';
     else if (isDenied(permName)) return 'off';
     return 'n/a';
   };
-  
-  const togglePerm = (name: string, state: string) => {   
+
+  const togglePerm = (name: string, state: string) => {
     if (state === 'off') {
       override.allow &= ~PermissionTypes.All[name];
       override.deny &= ~PermissionTypes.All[name];
     } else if (state === 'n/a') {
       override.allow |= PermissionTypes.All[name];
       override.deny &= ~PermissionTypes.All[name];
-    } else if(state === 'on') {
+    } else if (state === 'on') {
       override.allow &= ~PermissionTypes.All[name];
       override.deny |= PermissionTypes.All[name];
     }
     setOverride(override);
     dispatch(openSaveChanges(true));
-  }  
-  
+  }
+
   return (
     <div className="flex items-center justify-between mb-2">
       <span>{description[category][permName]}</span>

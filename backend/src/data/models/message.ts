@@ -1,8 +1,8 @@
 import { Document, model, Schema } from 'mongoose';
-import { patterns } from '@accord/types';
+import { patterns } from '@acrd/types';
 import { createdAtToDate, useId } from '../../utils/utils';
 import { generateSnowflake } from '../snowflake-entity';
-import { Entity, MessageTypes } from '@accord/types';
+import { Entity, MessageTypes } from '@acrd/types';
 
 export interface MessageDocument extends Document, Entity.Message {
   _id: string | never;
@@ -23,7 +23,7 @@ export const Message = model<MessageDocument>('message', new Schema({
   channelId: {
     type: String,
     required: [true, 'Channel ID is required'],
-    validate: [patterns.snowflake, 'Invalid Snowflake ID'],    
+    validate: [patterns.snowflake, 'Invalid Snowflake ID'],
   },
   content: {
     type: String,
@@ -43,4 +43,4 @@ export const Message = model<MessageDocument>('message', new Schema({
   type: String,
   updatedAt: Date,
 }, { toJSON: { getters: true } })
-.method('toClient', useId));
+  .method('toClient', useId));

@@ -5,18 +5,18 @@ import { openSaveChanges } from '../../../store/ui';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import Toggle from '../../inputs/toggle';
-import { PermissionTypes } from '@accord/types';
+import { PermissionTypes } from '@acrd/types';
 
 export interface RolePermissionsProps {
   setRoleValue: UseFormSetValue<FieldValues>;
   setPerms: React.Dispatch<React.SetStateAction<number>>;
   perms: number;
 }
- 
+
 const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms, setPerms, setRoleValue: setValue }) => {
   const dispatch = useDispatch();
   const { description } = usePerms();
-  
+
   const fullySetPerms = (perms: number) => {
     setPerms(perms);
     setValue('permissions', perms);
@@ -43,17 +43,17 @@ const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms,
       {Object.keys(description).map(category => (
         <div key={category} className="mb-5">
           <Category className="muted pb-1.5 mt-5" title={category} />
-            {Object.keys(description[category]).map(permName => (
-              <>
-                <strong
-                  title={PermissionTypes.All[permName]}
-                  className="secondary">{permName}</strong>
-                <PermToggle
-                  key={permName}
-                  category={category}
-                  permName={permName} />
-              </>
-            ))}
+          {Object.keys(description[category]).map(permName => (
+            <>
+              <strong
+                title={PermissionTypes.All[permName]}
+                className="secondary">{permName}</strong>
+              <PermToggle
+                key={permName}
+                category={category}
+                permName={permName} />
+            </>
+          ))}
         </div>
       ))}
       <NormalButton
@@ -67,5 +67,5 @@ const RolePermissions: React.FunctionComponent<RolePermissionsProps> = ({ perms,
     </>
   );
 }
- 
+
 export default RolePermissions;

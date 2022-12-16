@@ -1,5 +1,5 @@
-import { Entity } from '@accord/types';
-import { PermissionTypes } from '@accord/types';
+import { Entity } from '@acrd/types';
+import { PermissionTypes } from '@acrd/types';
 import { getChannel } from '../store/channels';
 import { getGuild, getGuildRoles } from '../store/guilds';
 import { getMember, getSelfMember } from '../store/members';
@@ -24,17 +24,17 @@ export class PermService {
     },
   };
 
-  constructor(private state: Store.AppState) {}
+  constructor(private state: Store.AppState) { }
 
   public canMember(permission: PermissionTypes.PermissionString, guild: Entity.Guild, member: Entity.GuildMember) {
     return guild.ownerId === member.userId
       || this.hasPerm(
-          this.getTotalPerms(member, guild.id),
-          PermissionTypes.All[permission] as number,
-        );
+        this.getTotalPerms(member, guild.id),
+        PermissionTypes.All[permission] as number,
+      );
   }
   public canInChannel(permission: PermissionTypes.PermissionString, guildId: string, channelId: string) {
-    const channel = this.getChannel(channelId);    
+    const channel = this.getChannel(channelId);
     const member = this.getSelfMember(guildId);
 
     const overrides = channel.overrides
@@ -52,14 +52,14 @@ export class PermService {
   }
 
   public can(permission: PermissionTypes.PermissionString, guildId: string) {
-    const guild = this.getGuild(guildId);    
+    const guild = this.getGuild(guildId);
     const member = this.getSelfMember(guildId);
 
     return (guild.ownerId === member.userId)
       || this.hasPerm(
-          this.getTotalPerms(member, guildId),
-          PermissionTypes.All[permission] as number,
-        );
+        this.getTotalPerms(member, guildId),
+        PermissionTypes.All[permission] as number,
+      );
   }
   private getTotalPerms(member: Entity.GuildMember, guildId: string) {
     return getGuildRoles(guildId)(this.state)
@@ -68,7 +68,7 @@ export class PermService {
   }
   private hasPerm(totalPerms: number, permission: number) {
     return Boolean(totalPerms & permission)
-        || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR);
+      || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR);
   }
 
   public canManage(prereq: PermissionTypes.PermissionString, guildId: string, managedUserId: string) {
@@ -77,7 +77,7 @@ export class PermService {
 
     return this.can(prereq, guildId)
       && (this.state.auth.user!.id === userMember.userId
-      || (this.memberIsHigher(guildId, userMember.roleIds)));
+        || (this.memberIsHigher(guildId, userMember.roleIds)));
   }
 
   public canPunish(prereq: PermissionTypes.PermissionString, guildId: string, managedUserId: string) {
@@ -89,7 +89,7 @@ export class PermService {
   // TODO: test
   public memberIsHigher(guildId: string, roleIds: string[]) {
     const guild = this.getGuild(guildId);
-    const member = this.getSelfMember(guildId);    
+    const member = this.getSelfMember(guildId);
     const myRoles = getRoles(member.roleIds)(this.state);
     const theirRoles = getRoles(roleIds)(this.state);
 
@@ -98,7 +98,7 @@ export class PermService {
     const theirHighestRole: Entity.Role = theirRoles.reduce(max('position'));
 
     const selfIsOwner = member.userId === guild.ownerId;
-    const selfHasHigherRole = myHighestRole.position > theirHighestRole.position;    
+    const selfHasHigherRole = myHighestRole.position > theirHighestRole.position;
 
     return selfIsOwner || selfHasHigherRole;
   }
@@ -119,7 +119,7 @@ export class PermService {
     if (!guild)
       throw new TypeError('Guild not found');
     return guild;
-  } 
+  }
   private getSelfMember(guildId: string) {
     const member = getSelfMember(guildId)(this.state);
     if (!member)

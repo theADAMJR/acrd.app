@@ -4,14 +4,14 @@ import { getMemberHighestRole } from '../../store/roles';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import Image from '../utils/image';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 export interface UsernameProps {
   user: Entity.User;
   guild?: Entity.Guild;
   size?: 'sm' | 'md' | 'lg';
 }
- 
+
 const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 'md' }) => {
   const highestRole = useSelector(getMemberHighestRole(guild?.id, user.id));
 
@@ -78,5 +78,5 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 
     </div>
   );
 }
- 
+
 export default Username;

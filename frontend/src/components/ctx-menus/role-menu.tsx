@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { ContextMenu } from 'react-contextmenu';
 import { useSelector } from 'react-redux';
 import DevModeMenuSection from './dev-mode-menu-section';
@@ -22,5 +22,5 @@ const RoleMenu: React.FunctionComponent<RoleMenuProps> = ({ role }) => {
     </ContextMenu>
   );
 }
- 
+
 export default RoleMenu;

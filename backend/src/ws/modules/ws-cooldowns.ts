@@ -1,4 +1,4 @@
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export class WSCooldowns {
   public readonly active = new Map<string, EventLog[]>();
@@ -10,7 +10,7 @@ export class WSCooldowns {
     this.add(userId, eventName);
 
     const clientEvents = this.get(userId).length;
-    const maxEvents = 60;        
+    const maxEvents = 60;
     if (clientEvents > maxEvents)
       throw new TypeError('You are doing too many things at once!');
   }

@@ -1,4 +1,4 @@
-import { Entity, WS, REST } from '@accord/types';
+import { Entity, WS, REST } from '@acrd/types';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { byAscending } from '../components/utils/vanilla/sort';
 import { actions as api, uploadFile } from './api';
@@ -103,5 +103,5 @@ export const getGuildUsers = (guildId: string | undefined) => createSelector(
   ({ members, users }) => members
     .filter(m => m.guildId === guildId)
     .map(m => users.find(u => u.id === m.userId)!
-  ),
+    ),
 );

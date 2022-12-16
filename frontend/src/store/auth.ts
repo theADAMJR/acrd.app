@@ -1,4 +1,4 @@
-import { REST, WS } from '@accord/types';
+import { REST, WS } from '@acrd/types';
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { openDialog } from './ui';
@@ -62,7 +62,7 @@ export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
 
 export const forgotPasswordEmail = (email: string) => (dispatch) => {
   if (!email) return;
-  
+
   dispatch(api.restCallBegan({
     callback: () => dispatch(openDialog({
       variant: 'info',
@@ -105,7 +105,7 @@ export const sendVerifyCode = (code: string) => (dispatch) => {
 
 export const changePassword = (oldPassword: string, newPassword: string) => (dispatch, getState: () => Store.AppState) => {
   const user = getState().auth.user!;
-  
+
   dispatch(api.restCallBegan({
     onSuccess: [],
     method: 'post',

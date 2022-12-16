@@ -1,4 +1,4 @@
-import { Entity, WS, REST, UserTypes } from '@accord/types';
+import { Entity, WS, REST, UserTypes } from '@acrd/types';
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { actions as api, uploadFile } from './api';
 import { actions as meta } from './meta';
@@ -32,9 +32,9 @@ export const updateSelf = (payload: Partial<UserTypes.Self>) => (dispatch) => {
     data: { ...payload, token: token() } as WS.Params.UserUpdate,
   }));
 }
-  
+
 export const toggleBlockUser = (userId: string) => (dispatch, getState: () => Store.AppState) => {
-  console.log('hi');  
+  console.log('hi');
   const user = getState().auth.user!;
   const ignored = JSON.parse(JSON.stringify(user.ignored));
   ignored.userIds = ignored.userIds ?? [];
@@ -49,7 +49,7 @@ export const toggleBlockUser = (userId: string) => (dispatch, getState: () => St
   dispatch(api.wsCallBegan({
     event: 'USER_UPDATE',
     data: { token: token(), ignored } as WS.Params.UserUpdate,
-  }));  
+  }));
 }
 
 export const deleteSelf = () => (dispatch) => {

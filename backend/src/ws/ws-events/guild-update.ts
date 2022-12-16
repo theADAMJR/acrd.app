@@ -1,4 +1,4 @@
-import { WS, Entity } from '@accord/types';
+import { WS, Entity } from '@acrd/types';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
@@ -6,7 +6,7 @@ import { WSEvent } from './ws-event';
 export default class implements WSEvent<'GUILD_UPDATE'> {
   public on = 'GUILD_UPDATE' as const;
 
-  public async invoke(ws: WebSocket, client: Socket, { guildId, name, iconURL, systemChannelId }: WS.Params.GuildUpdate) { 
+  public async invoke(ws: WebSocket, client: Socket, { guildId, name, iconURL, systemChannelId }: WS.Params.GuildUpdate) {
     await deps.wsGuard.validateCan(client, guildId, 'MANAGE_GUILD');
 
     const guild = await deps.guilds.get(guildId);

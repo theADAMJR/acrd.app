@@ -1,4 +1,4 @@
-import { REST, WS } from '@accord/types';
+import { REST, WS } from '@acrd/types';
 import { createAction } from '@reduxjs/toolkit';
 import { getHeaders } from './utils/rest-headers';
 
@@ -28,7 +28,7 @@ export interface WSArgs {
 export const uploadFile = (file: File, callback?: (args: REST.From.Post['/upload']) => any) => (dispatch) => {
   const formData = new FormData();
   formData.append('file', file);
-  
+
   dispatch(actions.restCallBegan({
     method: 'post',
     url: '/upload',

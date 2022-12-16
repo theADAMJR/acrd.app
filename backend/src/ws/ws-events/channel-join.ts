@@ -2,7 +2,7 @@ import { WSEvent } from './ws-event';
 import { WebSocket } from '../websocket';
 import { Socket } from 'socket.io';
 import { SelfUserDocument } from '../../data/models/user';
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export default class implements WSEvent<'CHANNEL_JOIN'> {
   on = 'CHANNEL_JOIN' as const;
@@ -15,17 +15,17 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
     const userId = ws.sessions.get(client.id);
     const user = await deps.users.getSelf(userId);
     const movedChannel = user.voice.channelId !== channelId;
-  
+
     if (user.voice.channelId && movedChannel)
       await deps.channelLeave.invoke(ws, client);
-    
-    const doesExist = channel.userIds.includes(userId); 
+
+    const doesExist = channel.userIds.includes(userId);
     if (doesExist)
       throw new TypeError('User already connected to voice');
 
     // TODO: perms - validate can join 
     deps.voiceService.add(channelId, { userId });
-    
+
     await Promise.all([
       client.join(channelId),
       deps.channels.joinVC(channel, userId),

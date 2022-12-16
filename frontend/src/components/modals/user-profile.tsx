@@ -1,4 +1,4 @@
-import { UserTypes } from '@accord/types';
+import { UserTypes } from '@acrd/types';
 import { faBug, faGavel, faRocket, faSun, faVideo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
@@ -94,11 +94,11 @@ const UserProfile: FunctionComponent = () => {
     const store = useStore();
 
     if (!user) return null;
-    
+
     const mutualGuilds = selfUser.guildIds
       .filter(id => user.guildIds.includes(id))
       .map(id => getGuild(id)(store.getState()));
-    
+
     return (
       <div>
         <Category
@@ -107,14 +107,14 @@ const UserProfile: FunctionComponent = () => {
         <div className="mx-2">
           {mutualGuilds.map(guild => (guild)
             ? <div
-                className="w-12 -ml-2 float-left scale-200"
-                key={guild.id}>
-                <SidebarIcon
-                  childClasses="bg-bg-tertiary"
-                  imageURL={guild.iconURL}
-                  name={guild.name}
-                  disableHoverEffect />
-              </div>
+              className="w-12 -ml-2 float-left scale-200"
+              key={guild.id}>
+              <SidebarIcon
+                childClasses="bg-bg-tertiary"
+                imageURL={guild.iconURL}
+                name={guild.name}
+                disableHoverEffect />
+            </div>
             : null
           )}
         </div>
@@ -157,5 +157,5 @@ const UserProfile: FunctionComponent = () => {
     </Modal>
   ) : null;
 }
- 
+
 export default UserProfile;

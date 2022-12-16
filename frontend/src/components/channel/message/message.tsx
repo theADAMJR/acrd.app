@@ -16,7 +16,7 @@ import { openUserProfile } from '../../../store/ui';
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 export interface MessageProps {
   message: Entity.Message;
@@ -32,11 +32,11 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
     const prev = messages[i - 1];
     if (!prev) return false;
 
-    const minsSince = moment(createdAt).diff(prev.createdAt, 'minutes');    
+    const minsSince = moment(createdAt).diff(prev.createdAt, 'minutes');
     const minsToSeparate = 5;
 
     return minsSince <= minsToSeparate
-        && prev.authorId === message.authorId;
+      && prev.authorId === message.authorId;
   }
   const isActuallyExtra = isExtra();
 
@@ -48,30 +48,30 @@ const Message: React.FunctionComponent<MessageProps> = ({ message }: MessageProp
         className="ml-8 mt-1.5"
         color="var(--success)"
         icon={faArrowRight} />
-    ); 
+    );
     if (message.system && message.type === 'GUILD_MEMBER_LEAVE') return (
       <FontAwesomeIcon
         className="ml-8 mt-1.5"
         color="var(--danger)"
         icon={faArrowLeft} />
-    ); 
+    );
     if (message.system) return (
       <FontAwesomeIcon
         className="ml-8 mt-2"
         color="var(--tertiary)"
         icon={faInfoCircle} />
-    ); 
+    );
 
     return (isActuallyExtra)
       ? <span className="timestamp text-xs select-none">
-          {moment(createdAt).format('HH:mm')}
-        </span>
+        {moment(createdAt).format('HH:mm')}
+      </span>
       : <Image
-          className="rounded-full cursor-pointer w-10 h-10"
-          src={`${process.env.REACT_APP_CDN_URL}${author.avatarURL}`}
-          onError={e => e.currentTarget.src = `${process.env.REACT_APP_CDN_URL}/avatars/unknown.png`}
-          onClick={() => dispatch(openUserProfile(author))}
-          alt={author.username} />;
+        className="rounded-full cursor-pointer w-10 h-10"
+        src={`${process.env.REACT_APP_CDN_URL}${author.avatarURL}`}
+        onError={e => e.currentTarget.src = `${process.env.REACT_APP_CDN_URL}/avatars/unknown.png`}
+        onClick={() => dispatch(openUserProfile(author))}
+        alt={author.username} />;
   }
 
   return (

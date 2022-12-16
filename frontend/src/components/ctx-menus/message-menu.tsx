@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { ContextMenu } from 'react-contextmenu';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -7,7 +7,7 @@ import DevModeMenuSection from './dev-mode-menu-section';
 export interface MessageMenuProps {
   message: Entity.Message;
 }
- 
+
 const MessageMenu: React.FunctionComponent<MessageMenuProps> = ({ message }) => {
   const { guildId }: any = useParams();
   const devMode = useSelector((s: Store.AppState) => s.config.devMode);
@@ -26,5 +26,5 @@ const MessageMenu: React.FunctionComponent<MessageMenuProps> = ({ message }) => 
     </ContextMenu>
   ) : null;
 }
- 
+
 export default MessageMenu;

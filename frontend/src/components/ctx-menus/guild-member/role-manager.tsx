@@ -4,7 +4,7 @@ import { getGuildRoles } from '../../../store/guilds';
 import { useState } from 'react';
 import { updateMember } from '../../../store/members';
 import usePerms from '../../../hooks/use-perms';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 export interface RoleManagerProps {
   member: Entity.GuildMember;
@@ -50,7 +50,7 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
       backgroundColor: 'var(--bg-tertiary)',
     }),
   };
-  
+
   const rolesHaveChanged = JSON.stringify(roleIds) !== JSON.stringify(slicedRoleIds);
   const roleOption = (role: Entity.Role) => ({
     label: role.name,
@@ -58,7 +58,7 @@ const RoleManager: React.FunctionComponent<RoleManagerProps> = ({ member }) => {
     color: role.color,
     disabled: !perms.memberIsHigher(guild.id, [role.id]),
   });
-  
+
   return (
     <div onClick={e => e.preventDefault()}>
       <Select

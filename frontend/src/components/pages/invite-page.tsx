@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { faSearch, faSearchDollar, faSearchLocation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
@@ -14,14 +14,14 @@ import SidebarIcon from '../navigation/sidebar/sidebar-icon';
 import NormalButton from '../utils/buttons/normal-button';
 import PageWrapper from './page-wrapper';
 
-interface InvitePageProps {}
- 
+interface InvitePageProps { }
+
 const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { inviteId }: any = useParams();
   const invite: Entity.Invite = useSelector(getInvite(inviteId));
-  const guild: Entity.Guild | undefined = useSelector(getGuild(invite?.guildId)); 
+  const guild: Entity.Guild | undefined = useSelector(getGuild(invite?.guildId));
 
   const members: Entity.GuildMember[] = useSelector(getGuildMembers(invite?.guildId));
   const ownerUser: Entity.User = useSelector(getUser(guild!?.ownerId));
@@ -89,5 +89,5 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
     </Wrapper>
   );
 }
- 
+
 export default InvitePage;

@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { faCross, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
@@ -11,7 +11,7 @@ import DevModeMenuSection from './dev-mode-menu-section';
 export interface ChannelMenusProps {
   channel: Entity.Channel;
 }
- 
+
 const ChannelMenu: React.FunctionComponent<ChannelMenusProps> = ({ channel }) => {
   const dispatch = useDispatch();
   const { guildId }: any = useParams();
@@ -37,5 +37,5 @@ const ChannelMenu: React.FunctionComponent<ChannelMenusProps> = ({ channel }) =>
     </ContextMenu>
   ) : null;
 }
- 
+
 export default ChannelMenu;

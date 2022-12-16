@@ -1,5 +1,5 @@
-import { patterns } from '@accord/types';
-import { Entity, UserTypes } from '@accord/types';
+import { patterns } from '@acrd/types';
+import { Entity, UserTypes } from '@acrd/types';
 import { Document, model, Schema } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
 import { createdAtToDate, useId } from '../../utils/utils';

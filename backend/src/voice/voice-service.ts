@@ -1,4 +1,4 @@
-import { ChannelTypes } from '@accord/types';
+import { ChannelTypes } from '@acrd/types';
 
 export class VoiceService {
   private connections = new Map<string, ChannelTypes.VoiceConnection[]>();
@@ -37,7 +37,7 @@ export class VoiceService {
 
     cons[index] = data;
     this.connections.set(channelId, cons);
-    
+
     return this.getForUser(channelId, data.userId);
   }
 

@@ -1,4 +1,4 @@
-import { Entity, REST, UserTypes } from '@accord/types';
+import { Entity, REST, UserTypes } from '@acrd/types';
 import { Router } from 'express';
 import { User } from '../../data/models/user';
 import generateInvite from '../../data/utils/generate-invite';
@@ -58,7 +58,7 @@ router.get('/entities', updateUser, validateUser, async (req, res) => {
   const $in = (guildIds)
     ? user.guildIds.concat(guildIds)
     : user.guildIds;
-  
+
   const [channels, guilds, members, roles, themes, unsecureUsers] = await Promise.all([
     Channel.find({ guildId: { $in } }),
     Guild.find({ _id: { $in } }),

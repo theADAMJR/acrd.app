@@ -1,9 +1,9 @@
 import { Document, model, Schema } from 'mongoose';
-import { patterns } from '@accord/types';
+import { patterns } from '@acrd/types';
 import { useId } from '../../utils/utils';
 import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 export interface GuildMemberDocument extends Document, Entity.GuildMember {
   _id: string | never;
@@ -33,4 +33,4 @@ export const GuildMember = model<GuildMemberDocument>('guildMember', new Schema(
     validate: [validators.minLength(1), 'At least 1 role is required'],
   },
 }, { toJSON: { getters: true } })
-.method('toClient', useId));
+  .method('toClient', useId));

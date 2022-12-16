@@ -14,7 +14,7 @@
   "author": "github.com/theadamjr",
   "dependencies": {
     "@acrd/ion": "github:acrdapp/ion",
-    "@accord/types": "file:../types",
+    "@acrd/types": "file:../types",
     "body-parser": "^1.19.0",
     "chai-things": "^0.2.0",
     "colors": "^1.4.0",

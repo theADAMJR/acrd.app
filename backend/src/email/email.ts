@@ -1,12 +1,12 @@
 import { createTransport } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
 import { pugEngine } from 'nodemailer-pug-engine';
-import { UserTypes } from '@accord/types';
+import { UserTypes } from '@acrd/types';
 
 export class Email {
   private email: Mail;
 
-  private readonly templateDir = __dirname + '/templates';  
+  private readonly templateDir = __dirname + '/templates';
 
   constructor() {
     this.email = createTransport({
@@ -20,7 +20,7 @@ export class Email {
     this.email.verify((error) => (error)
       ? log.error(error)
       : log.info('Logged in to email service'));
-    
+
     this.email.use('compile', pugEngine({
       templateDir: this.templateDir,
       pretty: true,
@@ -46,7 +46,7 @@ export interface EmailTemplate {
   };
   'verify-email': this['verify'];
   'forgot-password': this['verify'];
-} 
+}
 
 const subjects: { [k in keyof EmailTemplate]: string } = {
   'forgot-password': 'Accord - Forgot Password',

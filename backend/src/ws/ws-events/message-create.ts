@@ -3,16 +3,16 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { Channel } from '../../data/models/channel';
 import striptags from 'striptags';
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export default class implements WSEvent<'MESSAGE_CREATE'> {
   on = 'MESSAGE_CREATE' as const;
 
   public async invoke(ws: WebSocket, client: Socket, { attachmentURLs, channelId, content, embed }: WS.Params.MessageCreate) {
     const authorId = ws.sessions.userId(client);
-    
+
     const [_, message, author] = await Promise.all([
-      deps.wsGuard.validateCanInChannel(client, channelId, 'SEND_MESSAGES'), 
+      deps.wsGuard.validateCanInChannel(client, channelId, 'SEND_MESSAGES'),
       deps.messages.create(authorId, channelId, {
         attachmentURLs,
         content: (content) ? striptags(content) : '',

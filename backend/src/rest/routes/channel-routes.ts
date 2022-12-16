@@ -3,7 +3,7 @@ import { SelfUserDocument } from '../../data/models/user';
 import { APIError } from '../modules/api-error';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';
-import { WS, REST } from '@accord/types';
+import { WS, REST } from '@acrd/types';
 
 export const router = Router();
 
@@ -18,11 +18,11 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
   const channelMsgs = (
     await deps.messages.getChannelMessages(channelId)
     ?? await deps.messages.getDMChannelMessages(channelId, res.locals.user.id)
-  );  
+  );
 
   const batchSize = 25;
   const back = Math.max(channelMsgs.length - +(req.query.back || batchSize), 0);
-  
+
   const slicedMsgs = channelMsgs
     .slice(back)
     .filter(m => !user.ignored?.userIds.includes(m.authorId));
@@ -38,7 +38,7 @@ router.get('/:channelId/messages', updateUser, validateUser, async (req, res) =>
         partialUser: { lastReadMessageIds: user.lastReadMessageIds },
       } as WS.Args.UserUpdate);
   }
-  
+
   res.json({
     channelId,
     total: channelMsgs.length,

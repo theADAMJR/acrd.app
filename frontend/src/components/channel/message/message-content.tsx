@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import MessageBox from '../message-box/message-box';
 import { FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,20 +41,20 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
           }} />)}
     </>
   );
-  
+
   return (editingMessageId === message.id)
     ? <MessageBox content={message.content} />
     : <div className="relative">
+      <div
+        style={{ maxWidth: '963px' }}
+        className="normal whitespace-pre-wrap">
         <div
-          style={{ maxWidth: '963px' }}
-          className="normal whitespace-pre-wrap">
-          <div
-            dangerouslySetInnerHTML={{ __html: messageHTML }}
-            className="overflow-auto"
-            style={{ maxWidth: '100%' }} />
-          <Attachments />
-        </div>
-      </div>;
+          dangerouslySetInnerHTML={{ __html: messageHTML }}
+          className="overflow-auto"
+          style={{ maxWidth: '100%' }} />
+        <Attachments />
+      </div>
+    </div>;
 }
 
 export default MessageContent;

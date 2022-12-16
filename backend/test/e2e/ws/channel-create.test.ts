@@ -1,4 +1,4 @@
-import '@accord/types';
+import '@acrd/types';
 import { expect } from 'chai';
 import { given, test } from '@acrd/ion';
 import { SelfUserDocument } from '@accord/backend/data/models/user';

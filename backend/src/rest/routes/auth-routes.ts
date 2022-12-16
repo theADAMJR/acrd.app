@@ -2,9 +2,9 @@ import { Router } from 'express';
 import { SelfUserDocument, User } from '../../data/models/user';
 import passport from 'passport';
 import { APIError } from '../modules/api-error';
-import { patterns } from '@accord/types';
+import { patterns } from '@acrd/types';
 import { extraRateLimit } from '../modules/rate-limiter';
-import { REST } from '@accord/types';
+import { REST } from '@acrd/types';
 
 export const router = Router();
 
@@ -44,7 +44,7 @@ router.post('/register', extraRateLimit(10), async (req, res) => {
 
 router.get('/verify', extraRateLimit(25), async (req, res) => {
   const email = deps.verification.getEmailFromCode(req.query.code as string);
-  const user = await User.findOne({ email }) as any;  
+  const user = await User.findOne({ email }) as any;
   if (!email || !user)
     throw new APIError(400, 'Invalid code');
 
@@ -90,7 +90,7 @@ router.post('/change-password', extraRateLimit(10), async (req, res) => {
     throw new APIError(400, 'User not found');
   if (!user.verified)
     throw new APIError(400, 'Please verify your account');
-  
+
   await user.changePassword(oldPassword, newPassword);
   await user.save();
 

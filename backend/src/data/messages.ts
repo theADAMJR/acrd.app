@@ -1,4 +1,4 @@
-import { Entity, MessageTypes } from '@accord/types';
+import { Entity, MessageTypes } from '@acrd/types';
 import DBWrapper from './db-wrapper';
 import { Channel } from './models/channel';
 import { Message, MessageDocument } from './models/message';
@@ -16,7 +16,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
     // TODO: TESTME    
     if (!content && !attachmentURLs?.length)
       throw new TypeError('Empty messages are not valid');
-    
+
     return await Message.create({
       _id: generateSnowflake(),
       attachmentURLs,
@@ -26,11 +26,11 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
     });
   }
 
-  public async createSystem(guildId: string, content: string, type?: MessageTypes.Type) {    
+  public async createSystem(guildId: string, content: string, type?: MessageTypes.Type) {
     const { systemChannelId: channelId } = await deps.guilds.get(guildId);
     if (!channelId)
       throw new TypeError('No system channel configured');
-    
+
     return await Message.create({
       _id: generateSnowflake(),
       channelId,

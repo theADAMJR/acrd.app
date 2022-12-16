@@ -6,7 +6,7 @@ import GuildMemberMenu from '../ctx-menus/guild-member/guild-member-menu';
 import { getGuildMembers, getGuildUsers } from '../../store/guilds';
 import { filterHoistedRoles } from '../../store/roles';
 import usePerms from '../../hooks/use-perms';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 const MemberList: React.FunctionComponent = () => {
   const perms = usePerms();
@@ -20,7 +20,7 @@ const MemberList: React.FunctionComponent = () => {
       const member = members.find(m => m.userId === u.id)!;
       return perms.canMember('VIEW_CHANNELS', guild, member);
     });
-   
+
   type UserListFilter = (s: Entity.User, i: number, a: Entity.User[]) => boolean;
   const UserList = ({ category, filter: by }: { category: string, filter: UserListFilter }) => {
     const filtered = users
@@ -63,8 +63,8 @@ const MemberList: React.FunctionComponent = () => {
           category={r.name}
           filter={u => (
             getRoleIds(u.id).includes(r.id)
-              && hoistedRoleIds(u)[0] === r.id
-              && u.status === 'ONLINE')} />
+            && hoistedRoleIds(u)[0] === r.id
+            && u.status === 'ONLINE')} />
       )}
       <UserList
         category="Online"
@@ -75,5 +75,5 @@ const MemberList: React.FunctionComponent = () => {
     </div>
   ) : null;
 }
- 
+
 export default MemberList;

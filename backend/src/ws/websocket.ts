@@ -4,12 +4,12 @@ import { WSAction, WSEvent } from './ws-events/ws-event';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
 import { SessionManager } from './modules/session-manager';
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export class WebSocket {
   public events = new Map<keyof WS.To, WSEvent<keyof WS.To>>();
   public io: SocketServer;
-  public sessions = new SessionManager();  
+  public sessions = new SessionManager();
 
   public get connectedUserIds() {
     return Array.from(this.sessions.values());
@@ -35,7 +35,7 @@ export class WebSocket {
       try {
         const event = new Event();
         this.events.set(event.on, (event));
-      } catch {}
+      } catch { }
     }
 
     log.verbose(`Loaded ${this.events.size} handlers`, 'ws');
@@ -53,7 +53,7 @@ export class WebSocket {
             try {
               const userId = this.sessions.userId(client);
               deps.wsCooldowns.handle(userId, event.on);
-            } catch {}
+            } catch { }
           }
         });
     });
@@ -68,7 +68,7 @@ export class WebSocket {
   }
 
   public to(...rooms: string[]) {
-    return this.io.to(rooms) as  {
+    return this.io.to(rooms) as {
       emit: <K extends keyof WS.From>(name: K, args: WS.From[K]) => any,
     };
   }

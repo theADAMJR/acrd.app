@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@accord/types": "file:../types",
+    "@acrd/types": "file:../types",
     "@craco/craco": "^5.9.0",
     "@dvhb/craco-extend-scope": "^1.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

@@ -1,4 +1,4 @@
-import { Entity, WS } from '@accord/types';
+import { Entity, WS } from '@acrd/types';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { notInArray } from './utils/filter';
@@ -14,7 +14,7 @@ const slice = createSlice({
       members.push(payload.member);
     },
     removed: (members, { payload }: Store.Action<WS.Args.GuildMemberRemove>) => {
-      const index = members.findIndex(m => m.id === payload.memberId);      
+      const index = members.findIndex(m => m.id === payload.memberId);
       members.splice(index, 1);
     },
     updated: (members, { payload }: Store.Action<WS.Args.GuildMemberUpdate>) => {

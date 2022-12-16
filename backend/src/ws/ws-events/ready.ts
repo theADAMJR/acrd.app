@@ -1,4 +1,4 @@
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
@@ -19,7 +19,7 @@ export default class implements WSEvent<'READY'> {
     try {
       if (user.voice.channelId)
         await deps.channelJoin.invoke(ws, client, { channelId: user.voice.channelId });
-    } catch {}
+    } catch { }
 
     user.status = 'ONLINE';
     await user.save();

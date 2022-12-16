@@ -1,4 +1,4 @@
-import '@accord/types';
+import '@acrd/types';
 import { given, test } from '@acrd/ion';
 import { SelfUserDocument } from '@accord/backend/data/models/user';
 import { generateSnowflake } from '@accord/backend/data/snowflake-entity';

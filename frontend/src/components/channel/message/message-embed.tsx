@@ -1,11 +1,11 @@
-import { MessageTypes } from '@accord/types';
+import { MessageTypes } from '@acrd/types';
 import { FunctionComponent } from 'react';
 import Image from '../../utils/image';
 
 interface MessageEmbedProps {
   embed: MessageTypes.Embed;
 }
- 
+
 const MessageEmbed: FunctionComponent<MessageEmbedProps> = ({ embed }) => {
   return (embed) ? (
     <div style={{ borderLeft: '5px solid var(--muted)' }}

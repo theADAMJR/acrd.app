@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { faBan, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
@@ -23,7 +23,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
   const member = useSelector(getMember(guild.id, user.id))!;
   const devMode = useSelector((s: Store.AppState) => s.config.devMode);
 
-  const isSelf = user.id === selfUser.id;  
+  const isSelf = user.id === selfUser.id;
   const userIsBlocked = selfUser.ignored?.userIds.includes(member.userId);
 
   const canKick = perms.can('KICK_MEMBERS', guild.id);
@@ -46,7 +46,7 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
         <span>View Profile</span>
         <FontAwesomeIcon icon={faUser} />
       </MenuItem>
-      
+
       {user.id !== selfUser.id && (<>
         <hr className="my-2 border-bg-primary" />
         <MenuItem className="flex items-center justify-between  cursor-pointer danger">
@@ -82,5 +82,5 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
     </ContextMenu>
   );
 }
- 
+
 export default GuildMemberMenu;

@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import events from '../services/event-service';
 import React from 'react';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 const slice = createSlice({
   name: 'ui',
@@ -27,13 +27,13 @@ const slice = createSlice({
       state.activeChannel = payload.channel;
       state.activeGuild = payload.guild;
     },
-    openedModal: (state, { payload }) => {      
+    openedModal: (state, { payload }) => {
       state.openModal = payload;
     },
     closedModal: (state) => {
       delete state.openModal;
     },
-    toggleDropdown: (state, { payload }) => {      
+    toggleDropdown: (state, { payload }) => {
       state.openDropdown = payload?.name;
     },
     toggleSaveChanges: (state, { payload }) => {

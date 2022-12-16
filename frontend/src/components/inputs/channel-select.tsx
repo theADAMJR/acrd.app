@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import Select from 'react-select';
 
@@ -10,7 +10,7 @@ interface ChannelSelectProps {
   register: UseFormRegister<FieldValues>;
   options?: any;
 };
- 
+
 const ChannelSelect: React.FunctionComponent<ChannelSelectProps> = (props) => {
   const channelOptions: any[] = props.channels
     .filter(c => c.type === 'TEXT')
@@ -20,7 +20,7 @@ const ChannelSelect: React.FunctionComponent<ChannelSelectProps> = (props) => {
     value: '',
     color: 'var(--muted)',
   }].concat(channelOptions);
-  
+
   const styles = {
     singleValue: () => ({ color: 'var(--font)' }),
     control: () => ({
@@ -45,7 +45,7 @@ const ChannelSelect: React.FunctionComponent<ChannelSelectProps> = (props) => {
       ...styles,
       float: 'right',
       marginTop: '-38px',
-    }),            
+    }),
   };
 
   const id = props.name + 'Input';
@@ -66,5 +66,5 @@ const ChannelSelect: React.FunctionComponent<ChannelSelectProps> = (props) => {
     </div>
   );
 }
- 
+
 export default ChannelSelect;

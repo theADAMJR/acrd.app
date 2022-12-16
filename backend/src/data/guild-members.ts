@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { UpdateQuery } from 'mongoose';
 import DBWrapper from './db-wrapper';
 import { GuildMember, GuildMemberDocument } from './models/guild-member';
@@ -21,12 +21,12 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
     return member;
   }
 
-  public async create(options: Partial<Entity.GuildMember>) {    
+  public async create(options: Partial<Entity.GuildMember>) {
     const member = await GuildMember.create({
       _id: options.id ?? generateSnowflake(),
       roleIds: [await this.getEveryoneRoleId(options.guildId!)],
       ...options,
-    });    
+    });
     await this.addGuildToUser(options.userId!, options.guildId!);
     return member;
   }
@@ -36,7 +36,7 @@ export default class GuildMembers extends DBWrapper<string, GuildMemberDocument>
   }
 
   private async getEveryoneRoleId(guildId: string) {
-    const role = await Role.findOne({ guildId, name: '@everyone' });        
+    const role = await Role.findOne({ guildId, name: '@everyone' });
     return role!.id;
   }
 

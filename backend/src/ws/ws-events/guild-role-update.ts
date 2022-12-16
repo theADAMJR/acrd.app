@@ -1,4 +1,4 @@
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
@@ -8,7 +8,7 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
 
   public async invoke(ws: WebSocket, client: Socket, { roleId, guildId, name, color, permissions, hoisted }: WS.Params.GuildRoleUpdate) {
     await deps.wsGuard.validateCan(client, guildId, 'MANAGE_ROLES');
-    
+
     const userId = ws.sessions.get(client.id);
     const guild = await deps.guilds.get(guildId);
     const selfMember = await deps.guildMembers.getInGuild(guildId, userId);
@@ -23,7 +23,7 @@ export default class implements WSEvent<'GUILD_ROLE_UPDATE'> {
       throw new TypeError('You cannot change @everyone role color');
     if (everyoneRole.id === roleId && hoisted)
       throw new TypeError('You cannot hoist @everyone role');
-    
+
     // TODO: implement position 
     const partialRole = { name, color, permissions, hoisted };
     await deps.roles.update(roleId, partialRole);

@@ -6,8 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import TextChannelHeader from './text-channel-header';
 import usePerms from '../../hooks/use-perms';
 import SkeletonMessage from '../skeleton/skeleton-message';
-import { Util } from '@accord/types';
- 
+import { Util } from '@acrd/types';
+
 const TextBasedChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
@@ -17,7 +17,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   const [cachedContent, setCachedContent] = useState<Util.Dictionary>({});
   const messagesRef = useRef<HTMLDivElement>(null);
   const msgCount = useSelector((s: Store.AppState) => s.entities.messages.total[channel.id]);
-  
+
   const batchSize = 25;
   const loadedAllMessages = msgCount === messages.length;
 
@@ -30,7 +30,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
   useEffect(() => {
     const messageBox = document.querySelector('#messageBox') as HTMLDivElement;
     messageBox.focus();
-    
+
     dispatch(fetchMessages(channel.id, batchSize));
   }, [channel.id]);
 

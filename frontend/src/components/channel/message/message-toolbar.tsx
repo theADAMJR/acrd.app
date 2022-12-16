@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import { actions as ui } from '../../../store/ui';
 export interface MessageToolbarProps {
   message: Entity.Message;
 }
- 
+
 const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message }) => {
   const dispatch = useDispatch();
   const selfUser = useSelector((s: Store.AppState) => s.auth.user)!;
@@ -21,7 +21,7 @@ const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message 
   const canManage = perms.canInChannel('MANAGE_MESSAGES', guild.id, message.channelId)
     || guild?.ownerId === selfUser.id
     || isAuthor;
-  
+
   return (!openModal) ? (
     <div className="float-right shadow bg-bg-secondary px-2 rounded cursor-pointer">
       {isAuthor && (
@@ -35,13 +35,13 @@ const MessageToolbar: React.FunctionComponent<MessageToolbarProps> = ({ message 
       {canManage && (
         <div className="inline">
           <FontAwesomeIcon
-          onClick={() => dispatch(deleteMessage(message.id))}
-          className="danger"
-          icon={faTimes} />
+            onClick={() => dispatch(deleteMessage(message.id))}
+            className="danger"
+            icon={faTimes} />
         </div>
       )}
     </div>
   ) : null;
 }
- 
+
 export default MessageToolbar;

@@ -1,6 +1,6 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { Document, model, Schema } from 'mongoose';
-import { patterns } from '@accord/types';
+import { patterns } from '@acrd/types';
 import { createdAtToDate, useId } from '../../utils/utils';
 import validators from '../../utils/validators';
 import { generateSnowflake } from '../snowflake-entity';
@@ -29,5 +29,5 @@ export const Guild = model<GuildDocument>('guild', new Schema({
     validate: [validators.optionalSnowflake, 'Invalid Snowflake ID'],
   },
 },
-{ toJSON: { getters: true } })
-.method('toClient', useId));
+  { toJSON: { getters: true } })
+  .method('toClient', useId));

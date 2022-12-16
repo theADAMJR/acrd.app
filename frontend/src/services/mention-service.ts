@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { getChannel, getChannelByName } from '../store/channels';
 import { getTag, getUser, getUserByTag } from '../store/users';
 
@@ -16,17 +16,17 @@ export class MentionService {
     },
   };
 
-  constructor(private state: Store.AppState) {}
+  constructor(private state: Store.AppState) { }
 
   // messageBox.onInput -> formatted mentions appear fancy in message box 
-  public formatOriginal(content: string) {    
+  public formatOriginal(content: string) {
     const guildId = this.state.ui.activeGuild!.id;
     return content
-      .replace(this.patterns.original.channel, (og, name) => {        
+      .replace(this.patterns.original.channel, (og, name) => {
         const channel = getChannelByName(guildId, name)(this.state);
         return (channel) ? `<#${channel?.id}>` : og;
       })
-      .replace(this.patterns.original.user, (og, tag) => {        
+      .replace(this.patterns.original.user, (og, tag) => {
         const user = getUserByTag(tag)(this.state);
         return (user) ? `<@${user.id}>` : og;
       });

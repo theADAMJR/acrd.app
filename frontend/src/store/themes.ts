@@ -1,5 +1,5 @@
 /* eslint import/no-webpack-loader-syntax: off */
-import { Entity, REST } from '@accord/types';
+import { Entity, REST } from '@acrd/types';
 import { createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { notInArray } from './utils/filter';
@@ -69,7 +69,7 @@ export const createTheme = (theme: Partial<Entity.Theme>, callback?: (theme: Ent
     callback: (theme: Entity.Theme) => {
       dispatch(actions.fetched([theme]));
       callback?.(theme);
-    }, 
+    },
   }));
 }
 
@@ -96,7 +96,7 @@ export const deleteTheme = (id: string) => (dispatch) => {
     headers: getHeaders(),
     method: 'delete',
     url: `/themes/${id}`,
-    callback: () => dispatch(actions.deleted(id)), 
+    callback: () => dispatch(actions.deleted(id)),
   }));
 }
 

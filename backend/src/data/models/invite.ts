@@ -1,8 +1,8 @@
 import { Document, model, Schema } from 'mongoose';
-import { patterns } from '@accord/types';
+import { patterns } from '@acrd/types';
 import { useId } from '../../utils/utils';
 import generateInvite from '../utils/generate-invite';
-import { Entity, InviteTypes } from '@accord/types';
+import { Entity, InviteTypes } from '@acrd/types';
 
 export interface InviteDocument extends Document, Entity.Invite {
   _id: string | never;

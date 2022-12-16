@@ -1,4 +1,4 @@
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent } from './ws-event';
@@ -20,14 +20,14 @@ export default class implements WSEvent<'GUILD_MEMBER_UPDATE'> {
     const isSelf = selfMember.id === memberId;
     const selfIsOwner = selfMember.userId === guild.ownerId;
     if (!isSelf && !selfHasHigherRoles && !selfIsOwner)
-      throw new TypeError('Member has higher roles'); 
-    
+      throw new TypeError('Member has higher roles');
+
     const everyoneRole = await deps.roles.getEveryone(guild.id);
     const partialMember = {
       roleIds: [everyoneRole.id].concat(roleIds ?? []),
     };
     await deps.guildMembers.update(managedMember.id, partialMember);
-    
+
     return [{
       emit: this.on,
       to: [managedMember.guildId],

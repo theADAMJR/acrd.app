@@ -3,7 +3,7 @@ import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
 import { User } from '../../data/models/user';
 import { Channel, ChannelDocument } from '../../data/models/channel';
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export default class implements WSEvent<'CHANNEL_DELETE'> {
   on = 'CHANNEL_DELETE' as const;
@@ -14,7 +14,7 @@ export default class implements WSEvent<'CHANNEL_DELETE'> {
 
     const channel = await deps.channels.getText(channelId);
     await deps.wsGuard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
-    
+
     await User.updateMany(
       { voice: { channelId } },
       { voice: {} },

@@ -1,4 +1,4 @@
-import { ChannelTypes } from '@accord/types';
+import { ChannelTypes } from '@acrd/types';
 import { Document, model, Schema } from 'mongoose';
 import { createdAtToDate, useId } from '../../utils/utils';
 import validators from '../../utils/validators';
@@ -66,4 +66,4 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
     default: [],
   },
 }, { toJSON: { getters: true } })
-.method('toClient', useId));
+  .method('toClient', useId));

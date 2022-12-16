@@ -14,12 +14,12 @@ import PermOverrides from './perm-overrides';
 import ScarceSelect from './scarce-select';
 import clone from 'clone';
 import { uniqueBy } from '../../../store/utils/filter';
-import { ChannelTypes } from '@accord/types';
- 
-const ChannelSettingsPerms: React.FunctionComponent = () => { 
-  const { guildId }: any = useParams(); 
+import { ChannelTypes } from '@acrd/types';
+
+const ChannelSettingsPerms: React.FunctionComponent = () => {
+  const { guildId }: any = useParams();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
-  const roles = useSelector(getGuildRoles(guildId));  
+  const roles = useSelector(getGuildRoles(guildId));
   const dispatch = useDispatch();
   const defaultOverride = clone(channel.overrides?.[0]) ?? {
     allow: 0,
@@ -43,12 +43,12 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
       const filtered = cloned
         .filter(c => c.allow + c.deny > 0)
         .filter(uniqueBy('roleId'));
-      
+
       const index = filtered.findIndex(o => o.roleId === roleId);
       (index < 0)
         ? filtered.push(override)
         : filtered[index] = override!;
-  
+
       dispatch(updateChannel(channel.id, { overrides: filtered }));
     }
     const onReset = () => setOverride(defaultOverride);
@@ -63,7 +63,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
         <SaveChanges
           onSave={onSave}
           onReset={onReset}
-          obj={override} />  
+          obj={override} />
       </>
     );
   };
@@ -105,5 +105,5 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
     </div>
   );
 }
- 
+
 export default ChannelSettingsPerms;

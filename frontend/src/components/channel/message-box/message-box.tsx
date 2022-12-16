@@ -1,4 +1,4 @@
-import { Util } from '@accord/types';
+import { Util } from '@acrd/types';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +14,7 @@ export interface MessageBoxProps {
   cachedContent?: Util.Dictionary;
   setCachedContent?: React.Dispatch<React.SetStateAction<Util.Dictionary>>;
 }
- 
+
 const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState(props.content ?? '');
@@ -38,28 +38,28 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
     (editingMessageId)
       ? dispatch(updateMessage(editingMessageId, { content }))
       : dispatch(createMessage(channel.id, { content }));
-      
+
     setContent('');
     stopEditing();
   }
-  
+
   return (
     <div className={(editingMessageId) ? 'mt-2' : 'px-4'}>
       <div className="rounded-lg bg-bg-secondary flex items-center">
         <MessageBoxLeftSide
           content={content}
-          editingMessageId={editingMessageId}  />
+          editingMessageId={editingMessageId} />
         <MessageBoxInput
           contentState={[content, setContent]}
           saveEdit={saveEdit} />
       </div>
       <div className="text-sm w-full h-6">
-      {(editingMessageId)
-        ? <span className="text-xs py-2">
-            escape to <Link to="#" onClick={stopEditing}>cancel</Link> • 
+        {(editingMessageId)
+          ? <span className="text-xs py-2">
+            escape to <Link to="#" onClick={stopEditing}>cancel</Link> •
             enter to <Link to="#" onClick={saveEdit}> save</Link>
           </span>
-        : <TypingUsers />}
+          : <TypingUsers />}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Entity, WS, ChannelTypes } from '@accord/types';
+import { Entity, WS, ChannelTypes } from '@acrd/types';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { notInArray } from './utils/filter';
@@ -7,7 +7,7 @@ const slice = createSlice({
   name: 'channels',
   initialState: [] as Store.AppState['entities']['channels'],
   reducers: {
-    fetched: (channels, { payload }: Store.Action<Entity.Channel[]>) => { 
+    fetched: (channels, { payload }: Store.Action<Entity.Channel[]>) => {
       channels.push(...payload.filter(notInArray(channels)));
     },
     created: (channels, { payload }: Store.Action<WS.Args.ChannelCreate>) => {
@@ -52,7 +52,7 @@ export const joinVoiceChannel = (channelId: string) => (dispatch, getState: () =
   const channel = getChannel(channelId)(getState()) as ChannelTypes.Voice;
   const selfUser = getState().auth.user!;
   if (channel.userIds.includes(selfUser.id)) return;
-  
+
   dispatch(api.wsCallBegan({
     event: 'CHANNEL_JOIN',
     data: { channelId } as WS.Params.ChannelJoin,

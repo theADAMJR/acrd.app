@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { PermissionTypes } from '@accord/types';
+import { PermissionTypes } from '@acrd/types';
 import { Guild } from '../../data/models/guild';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';
@@ -24,7 +24,7 @@ router.get('/:id/channels',
   async (req, res) => {
     const channels = await deps.guilds.getChannels(req.params.id);
     res.json(channels);
-});
+  });
 
 router.get('/:id/invites',
   updateUser, validateUser, updateGuild,
@@ -32,16 +32,16 @@ router.get('/:id/invites',
   async (req, res) => {
     const invites = await deps.guilds.getInvites(req.params.id);
     res.json(invites);
-});
+  });
 
 router.get('/:id/members', updateUser, validateUser, updateGuild,
   async (req, res) => {
     const members = await deps.guilds.getMembers(req.params.id);
     res.json(members);
-});
+  });
 
 router.get('/:id/roles', updateUser, validateUser, updateGuild,
   async (req, res) => {
     const roles = await deps.guilds.getRoles(req.params.id);
     res.json(roles);
-});
+  });

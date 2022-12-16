@@ -8,7 +8,7 @@ import { Guild, GuildDocument } from './models/guild';
 import { UpdateQuery, connection } from 'mongoose';
 import { promisify } from 'util';
 import { readFile } from 'fs';
-import { UserTypes, Auth } from '@accord/types';
+import { UserTypes, Auth } from '@acrd/types';
 
 const readFileAsync = promisify(readFile);
 
@@ -43,7 +43,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
     const user = await User.findById(id);
     if (!user)
       throw new APIError(404, 'User Not Found');
-    return user as any as SelfUserDocument;  
+    return user as any as SelfUserDocument;
   }
   public async getByEmail(email: string): Promise<SelfUserDocument> {
     const user = await User.findOne({ email }) as any as SelfUserDocument;
@@ -55,7 +55,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
   public async getKnown(userId: string) {
     const user = await this.getSelf(userId);
     return await User.find({ _id: { $in: await this.getKnownIds(user) } });
-  }  
+  }
   public async getKnownIds(user: UserTypes.Self) {
     const members = await GuildMember.find({ guildId: { $in: user.guildIds } });
     const userIds = members.map(m => m.userId);
@@ -82,8 +82,8 @@ export default class Users extends DBWrapper<string, UserDocument> {
   }
   public async verifyToken(token: string | undefined): Promise<string> {
     // too insecure to keep in memory
-    const key = await readFileAsync('./keys/jwt', { encoding: 'utf-8' });  
-    const decoded = jwt.verify(token as string, key, { algorithms: ['RS512'] }) as UserToken;    
+    const key = await readFileAsync('./keys/jwt', { encoding: 'utf-8' });
+    const decoded = jwt.verify(token as string, key, { algorithms: ['RS512'] }) as UserToken;
     return decoded?.id;
   }
 

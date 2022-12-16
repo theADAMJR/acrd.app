@@ -1,6 +1,6 @@
-import { UserTypes } from '@accord/types';
+import { UserTypes } from '@acrd/types';
 
-export class EmailFunctions {  
+export class EmailFunctions {
   public async verifyCode(user: UserTypes.Self) {
     try {
       const expiresIn = 5 * 60 * 1000;
@@ -9,7 +9,7 @@ export class EmailFunctions {
         user,
         code: deps.verification.create(user.email, 'LOGIN', { expiresIn, codeLength: 6 }),
       }, user.email as string);
-    } catch {}
+    } catch { }
   }
   public async verifyEmail(emailAddress: string, user: UserTypes.Self) {
     try {
@@ -19,7 +19,7 @@ export class EmailFunctions {
         user,
         code: deps.verification.create(emailAddress, 'VERIFY_EMAIL', { expiresIn }),
       }, emailAddress);
-    } catch {}
+    } catch { }
   }
   public async forgotPassword(emailAddress: string, user: UserTypes.Self) {
     try {
@@ -29,6 +29,6 @@ export class EmailFunctions {
         user,
         code: deps.verification.create(emailAddress, 'FORGOT_PASSWORD', { expiresIn }),
       }, emailAddress);
-    } catch {}
+    } catch { }
   }
 }

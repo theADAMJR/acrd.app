@@ -12,7 +12,7 @@ import { actions as ui } from '../../../store/ui';
 import ChannelMenu from '../../ctx-menus/channel-menu';
 import Username from '../../user/username';
 import React from 'react';
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 
 const ChannelTabs: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const ChannelTabs: React.FunctionComponent = () => {
 
     const onClick = () => {
       if (channel.type !== 'VOICE') return;
-      
+
       dispatch(joinVoiceChannel(channel.id));
     };
 
@@ -54,7 +54,7 @@ const ChannelTabs: React.FunctionComponent = () => {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            
+
             dispatch(ui.pageSwitched({ channel, guild: activeGuild }));
             dispatch(ui.openedModal('ChannelSettings'));
           }}
@@ -69,23 +69,23 @@ const ChannelTabs: React.FunctionComponent = () => {
       <>
         <ContextMenuTrigger key={channel.id} id={channel.id}>
           {/* <Draggable> */}
-            <Link
-              onClick={onClick}
-              to={link}
+          <Link
+            onClick={onClick}
+            to={link}
+            className={classNames(
+              `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
+              { active: channel.id === activeChannel?.id },
+            )}>
+            <FontAwesomeIcon
+              size="xs"
               className={classNames(
-                `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
-                { active: channel.id === activeChannel?.id },
-              )}>
-              <FontAwesomeIcon
-                size="xs"
-                className={classNames(
-                  `float-left scale-150 muted fill-current z-0`,
-                  (channel.type === 'VOICE') ? 'mr-2' : 'mr-3',
-                )}
-                icon={icon} />
-              <ChannelTabContent />
-              <ChannelMenu channel={channel} />
-            </Link>
+                `float-left scale-150 muted fill-current z-0`,
+                (channel.type === 'VOICE') ? 'mr-2' : 'mr-3',
+              )}
+              icon={icon} />
+            <ChannelTabContent />
+            <ChannelMenu channel={channel} />
+          </Link>
           {/* </Draggable> */}
         </ContextMenuTrigger>
         <VCMembers />

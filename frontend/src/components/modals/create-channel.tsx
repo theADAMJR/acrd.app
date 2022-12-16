@@ -4,7 +4,7 @@ import { createChannel } from '../../store/channels';
 import NormalButton from '../utils/buttons/normal-button';
 import Input from '../inputs/input';
 import Modal from './modal';
-import { ChannelTypes } from '@accord/types';
+import { ChannelTypes } from '@acrd/types';
 
 const CreateChannel: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const CreateChannel: React.FunctionComponent = () => {
   };
 
   const types: ChannelTypes.Type[] = ['TEXT', 'VOICE'];
-  
+
   return (
     <Modal typeName={'CreateChannel'} size="sm">
       <form
@@ -26,26 +26,26 @@ const CreateChannel: React.FunctionComponent = () => {
         <header className="text-center mb-5 p-5">
           <h1 className="text-2xl font-bold inline">Create Channel</h1>
         </header>
-      
+
         <div className="flex-grow p-5">
           <Input
             label="Channel Name"
             name="name"
             register={register} />
         </div>
-      
-      <div className="flex-grow pt-0 p-5">
-        <label
-          htmlFor="channelType"
-          className="uppercase text-xs font-semibold">Channel Type</label>
-        <select
-          id="channelType"
-          className="block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2"
-          defaultValue={types[0]}
-          {...register('type')}>
-          {types.map(type => <option key={type} value={type}>{type}</option>)}
-        </select>
-      </div>
+
+        <div className="flex-grow pt-0 p-5">
+          <label
+            htmlFor="channelType"
+            className="uppercase text-xs font-semibold">Channel Type</label>
+          <select
+            id="channelType"
+            className="block bg-bg-secondary rounded focus:outline-none w-full h-10 p-2 mt-2"
+            defaultValue={types[0]}
+            {...register('type')}>
+            {types.map(type => <option key={type} value={type}>{type}</option>)}
+          </select>
+        </div>
 
         <footer className="bg-bg-secondary">
           <NormalButton
@@ -55,5 +55,5 @@ const CreateChannel: React.FunctionComponent = () => {
     </Modal>
   );
 }
- 
+
 export default CreateChannel;

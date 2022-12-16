@@ -1,18 +1,18 @@
 import { Guild } from '../../data/models/guild';
 import { Socket } from 'socket.io';
-import { PermissionTypes, getPermString } from '@accord/types';
+import { PermissionTypes, getPermString } from '@acrd/types';
 
 export class WSGuard {
   public userId(client: Socket) {
     return deps.webSocket.sessions.get(client.id) ?? '';
   }
 
-  public validateIsUser(client: Socket, userId: string) {    
+  public validateIsUser(client: Socket, userId: string) {
     if (this.userId(client) !== userId)
       throw new TypeError('Unauthorized');
   }
 
-  public async validateIsOwner(client: Socket, guildId: string) {    
+  public async validateIsOwner(client: Socket, guildId: string) {
     const ownerId = this.userId(client);
     const isOwner = await Guild.exists({ _id: guildId, ownerId });
     if (!isOwner)
@@ -32,15 +32,15 @@ export class WSGuard {
   }
 
   private async can(permission: PermissionTypes.PermissionString, guildId: string, userId: string) {
-    const guild = await deps.guilds.get(guildId);    
-    const member = await deps.guildMembers.getInGuild(guildId, userId);  
+    const guild = await deps.guilds.get(guildId);
+    const member = await deps.guildMembers.getInGuild(guildId, userId);
 
     return (guild.ownerId === member.userId)
-        || deps.roles.hasPermission(guild, member, PermissionTypes.All[permission]);
+      || deps.roles.hasPermission(guild, member, PermissionTypes.All[permission]);
   }
 
   public async canInChannel(permission: PermissionTypes.PermissionString, channelId: string, userId: string) {
-    const channel = await deps.channels.get(channelId);    
+    const channel = await deps.channels.get(channelId);
     const member = await deps.guildMembers.getInGuild(channel.guildId, userId);
 
     const overrides = channel.overrides?.filter(o => member.roleIds.includes(o.roleId)) ?? [];
@@ -60,6 +60,6 @@ export class WSGuard {
   }
 
   public async decodeKey(token: string) {
-    return { id: await deps.users.verifyToken(token) };      
+    return { id: await deps.users.verifyToken(token) };
   }
 }

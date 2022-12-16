@@ -1,4 +1,4 @@
-import { Entity } from '@accord/types';
+import { Entity } from '@acrd/types';
 import { FunctionComponent } from 'react';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import { useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ interface MessageHeaderProps {
   author?: Entity.User;
   isExtra?: boolean;
 }
- 
+
 const MessageHeader: FunctionComponent<MessageHeaderProps> = ({ author, message, isExtra = false }) => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const member = useSelector(getMember(guild.id, message.authorId));
@@ -32,8 +32,8 @@ const MessageHeader: FunctionComponent<MessageHeaderProps> = ({ author, message,
   ) : (
     <span className="text-xs muted">
       <MessageTimestamp message={message} />
-    </span>    
+    </span>
   );
 }
- 
+
 export default MessageHeader;

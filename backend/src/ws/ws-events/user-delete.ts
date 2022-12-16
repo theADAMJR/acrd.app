@@ -2,7 +2,7 @@ import { WSEvent } from './ws-event';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import generateInvite from '../../data/utils/generate-invite';
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 
 export default class implements WSEvent<'USER_DELETE'> {
   public on = 'USER_DELETE' as const;

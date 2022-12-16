@@ -1,4 +1,4 @@
-import { WS } from '@accord/types';
+import { WS } from '@acrd/types';
 import { Socket } from 'socket.io';
 import { Message } from '../../data/models/message';
 import { WebSocket } from '../websocket';
