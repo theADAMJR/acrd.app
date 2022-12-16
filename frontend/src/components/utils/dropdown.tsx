@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 export interface DropdownProps {
   title: string;
   type: React.FunctionComponent;
+  children: any;
 }
 
 const Dropdown: React.FunctionComponent<DropdownProps> = (props) => {
@@ -17,7 +18,7 @@ const Dropdown: React.FunctionComponent<DropdownProps> = (props) => {
         <FontAwesomeIcon icon={faChevronDown} />
       </div>
       {
-        (dropdown === props.type.name) && 
+        (dropdown === props.type.name) &&
         <div className="absolute bg-bg-floating rounded w-56 p-2 mt-5 z-10">
           {props.children}
         </div>
@@ -25,5 +26,5 @@ const Dropdown: React.FunctionComponent<DropdownProps> = (props) => {
     </div>
   );
 }
- 
+
 export default Dropdown;

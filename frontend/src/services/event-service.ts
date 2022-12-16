@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 
 const events = new EventEmitter();
-global['events'] = events;
+(global as any)['events'] = events;
 
 export default events;

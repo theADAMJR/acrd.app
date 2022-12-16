@@ -40,8 +40,8 @@ describe.skip('mention-service', () => {
   });
 
   test(fn('toHTML'), () => {
-    given('<@246688207138279428>').assert('', (val) => expect(val).toContainHTML('data-id="246688207138279428"'));
-    given('<#246688207138279430>').assert('', (val) => expect(val).toContain('data-id="246688207138279430"'));
+    given('<@246688207138279428>').assert(async (val) => expect(val).toContainHTML('data-id="246688207138279428"'));
+    given('<#246688207138279430>').assert(async (val) => expect(val).toContain('data-id="246688207138279430"'));
   });
 });
 
