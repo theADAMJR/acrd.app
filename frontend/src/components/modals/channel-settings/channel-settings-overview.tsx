@@ -6,11 +6,10 @@ import Input from '../../inputs/input';
 import NormalButton from '../../utils/buttons/normal-button';
 import Category from '../../utils/category';
 import SaveChanges from '../../utils/save-changes';
- 
+
 const ChannelSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
-  const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
   const { register, handleSubmit, setValue } = useForm();
 
   const onSave = (e) => {
@@ -21,7 +20,7 @@ const ChannelSettingsOverview: React.FunctionComponent = () => {
     const confirmation = window.confirm('Are you sure you want to delete this guild?');
     confirmation && dispatch(deleteChannel(channel.id));
   }
-  
+
   return (
     <form
       onChange={() => dispatch(openSaveChanges(true))}
@@ -29,7 +28,7 @@ const ChannelSettingsOverview: React.FunctionComponent = () => {
       <header>
         <h1 className="text-xl font-bold inline">Channel Overview</h1>
       </header>
-    
+
       <section className="w-1/3">
         <Input
           label="Name"
@@ -42,6 +41,14 @@ const ChannelSettingsOverview: React.FunctionComponent = () => {
           name="summary"
           register={register}
           options={{ value: channel.summary }}
+          className="pt-5" />
+        <Input
+          tooltip='Mask explicit words in messages.'
+          label="Filter Profanity"
+          name="filterProfanity"
+          type="checkbox"
+          register={register}
+          options={{ value: channel.filterProfanity }}
           className="pt-5" />
       </section>
 
@@ -60,8 +67,8 @@ const ChannelSettingsOverview: React.FunctionComponent = () => {
         setValue={setValue}
         onSave={onSave}
         obj={channel} />
-    </form>    
+    </form>
   );
 }
- 
+
 export default ChannelSettingsOverview;

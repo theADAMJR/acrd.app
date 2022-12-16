@@ -13,7 +13,7 @@ export default class Messages extends DBWrapper<string, MessageDocument> {
   }
 
   public async create(authorId: string, channelId: string, { attachmentURLs, content }: Partial<Entity.Message>) {
-    // TODO: TESTME    
+    // TODO: TESTME
     if (!content && !attachmentURLs?.length)
       throw new TypeError('Empty messages are not valid');
 

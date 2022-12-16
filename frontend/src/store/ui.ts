@@ -13,7 +13,6 @@ const slice = createSlice({
     stoppedEditingMessage: (state) => {
       delete state.editingMessageId;
     },
-    // only 1 invite is created -> to save data, and stop spam
     focusedResource: (state, { payload }) => {
       state.activeResource = payload;
     },

@@ -7,7 +7,7 @@ import { Entity, WS } from '@acrd/types';
 export default class implements WSEvent<'CHANNEL_UPDATE'> {
   public on = 'CHANNEL_UPDATE' as const;
 
-  public async invoke(ws: WebSocket, client: Socket, { position, name, summary, overrides, channelId }: WS.Params.ChannelUpdate) {
+  public async invoke(ws: WebSocket, client: Socket, { position, name, summary, filterProfanity, overrides, channelId }: WS.Params.ChannelUpdate) {
     const channel = await deps.channels.get(channelId);
     await deps.wsGuard.validateCan(client, channel.guildId, 'MANAGE_CHANNELS');
 
@@ -19,6 +19,9 @@ export default class implements WSEvent<'CHANNEL_UPDATE'> {
       partialChannel.position = position;
       await this.raiseHigherChannels(position, channel);
     }
+
+    if (filterProfanity != undefined)
+      partialChannel.filterProfanity = filterProfanity;
 
     Object.assign(channel, partialChannel);
     await channel.save();

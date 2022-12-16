@@ -10,11 +10,10 @@ export interface SaveChangesProps {
   onSave: (e) => any;
   onOpen?: () => any;
   onReset?: (e) => any;
-  /** @deprecated */
   setValue?: UseFormSetValue<FieldValues>;
   obj: object;
 }
- 
+
 const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
   const { closeSnackbar, enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
@@ -63,5 +62,5 @@ const SaveChanges: React.FunctionComponent<SaveChangesProps> = (props) => {
 
   return null;
 }
- 
+
 export default SaveChanges;

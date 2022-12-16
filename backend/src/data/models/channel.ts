@@ -14,6 +14,7 @@ export interface VoiceChannelDocument extends Document, ChannelTypes.Voice {
   id: string;
   createdAt: never;
   memberIds: string[];
+  filterProfanity: never;
 }
 export type ChannelDocument = TextChannelDocument | VoiceChannelDocument;
 
@@ -36,6 +37,7 @@ export const Channel = model<ChannelDocument>('channel', new Schema({
     maxlength: [32, 'Name too long'],
     validate: [validators.textChannelName, 'Invalid name'],
   },
+  filterProfanity: { type: Boolean },
   firstMessageId: {
     type: String,
     validate: [validators.optionalSnowflake, 'Invalid Snowflake ID'],

@@ -61,28 +61,28 @@ const UserSettingsOverview: React.FunctionComponent = () => {
       </form>
 
       <Category
-      className="py-2 mt-5"
-      title="Advanced Settings" />
+        className="py-2 mt-5"
+        title="Advanced Settings" />
 
       <section>
-      <div className="w-1/2 pb-5">
-        <label htmlFor="devMode">Dev Mode</label>
-        <Toggle
-          onChange={(e) => e.stopPropagation()}
-          onClick={() => dispatch(toggleDevMode())}
-          checked={devMode}
-          className="float-right"
-          id="devMode" />
-      </div>
+        <div className="w-1/2 pb-5">
+          <label htmlFor="devMode">Dev Mode</label>
+          <Toggle
+            onChange={(e) => e.stopPropagation()}
+            onClick={() => dispatch(toggleDevMode())}
+            checked={devMode}
+            className="float-right"
+            id="devMode" />
+        </div>
 
-      <NormalButton
-        id="deleteUserButton"
-        role="button"
-        onClick={handleSubmit(onDelete)}
-        className="bg-danger">Delete</NormalButton>
+        <NormalButton
+          id="deleteUserButton"
+          role="button"
+          onClick={handleSubmit(onDelete)}
+          className="bg-danger">Delete</NormalButton>
       </section>
     </div>
   );
 }
- 
+
 export default UserSettingsOverview;

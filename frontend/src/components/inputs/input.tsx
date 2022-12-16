@@ -9,17 +9,17 @@ import ReactTooltip from 'react-tooltip';
 
 export interface InputProps {
   name: string;
-  register?: UseFormRegister<FieldValues>;
-  options?: any;
   autoFocus?: boolean;
+  options?: any;
   label?: string;
   type?: string;
   className?: string;
   disabled?: boolean;
   tooltip?: string;
+  register?: UseFormRegister<FieldValues>;
   setFocusedInputId?: (val: any) => any;
 }
- 
+
 const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLInputElement>> = (props) => {
   const { label, name, register, options, type, autoFocus, className, disabled, tooltip } = props;
   const id = name + 'Input';
@@ -59,5 +59,5 @@ const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLIn
     </div>
   );
 }
- 
+
 export default Input;
