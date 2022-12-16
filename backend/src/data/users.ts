@@ -36,7 +36,7 @@ export default class Users extends DBWrapper<string, UserDocument> {
     const user = await users.findOne({ _id: id });
     if (!user)
       throw new TypeError('User not found');
-    return user;
+    return user as any;
   }
 
   public async getSelf(id: string | undefined): Promise<SelfUserDocument> {

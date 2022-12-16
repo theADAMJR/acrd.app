@@ -1,4 +1,4 @@
 {
   "name": "@acrd/types",
-  "main": "main.ts"
+  "main": "lib/main.js"
 }
