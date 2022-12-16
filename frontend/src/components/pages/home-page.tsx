@@ -83,13 +83,14 @@ const HomePage: React.FunctionComponent = () => {
         <ImageCard src={Chat} title="Chat Made Simple">
           Accord focuses on just the practical features and a simple messaging solution.
         </ImageCard>
-        <ImageCard src={Devices} title="On Mobile or Desktop">
+        <ImageCard src={Devices} title="Mobile or Desktop">
           (work in progress)
         </ImageCard>
         <ImageCard src={Friends} title="Join and Manage Guilds">
           Create and customize your own messaging spaces for your friends.
         </ImageCard>
         <ImageCard src={Secure} title="Secure Messages">
+          Accord is also <a href={process.env.REACT_APP_REPO} target="_blank">open-source on GitHub</a>.
           (work in progress)
         </ImageCard>
       </section>

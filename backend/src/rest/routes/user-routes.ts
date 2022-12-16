@@ -1,4 +1,4 @@
-import { Entity, REST, UserTypes } from '@acrd/types';
+import { REST, UserTypes } from '@acrd/types';
 import { Router } from 'express';
 import { User } from '../../data/models/user';
 import generateInvite from '../../data/utils/generate-invite';
@@ -65,7 +65,7 @@ router.get('/entities', updateUser, validateUser, async (req, res) => {
     GuildMember.find({ guildId: { $in } }),
     Role.find({ guildId: { $in } }),
     Theme.find({ _id: { $in: user.unlockedThemeIds } }),
-    User.find({ guildIds: { $in } }),
+    User.find({ guildIds: { $in } })
   ]);
 
   const secureUsers = unsecureUsers.map((u: any) => deps.users.secure(u));
@@ -76,7 +76,7 @@ router.get('/entities', updateUser, validateUser, async (req, res) => {
     members,
     roles,
     themes,
-    users: secureUsers,
+    users: secureUsers
   } as REST.From.Get['/users/entities']);
 });
 

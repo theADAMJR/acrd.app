@@ -32,7 +32,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 
     };
 
     return (
-      <span className="rounded-full absolute flex -right-0.5 -bottom-0.5">
+      <span className="rounded-full absolute inline-flex -right-0.5 -bottom-0.5">
         <span
           style={{ border: '2px solid var(--bg-secondary)' }}
           className={classNames(

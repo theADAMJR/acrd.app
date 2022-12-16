@@ -22,7 +22,7 @@ const MessageHeader: FunctionComponent<MessageHeaderProps> = ({ author, message,
     <div>
       <ContextMenuTrigger id={author.id}>
         <span
-          style={{ color: highestRole?.color }}
+          style={{ color: highestRole?.color ?? 'var(--font)' }}
           className="text-base heading hover:underline cursor-pointer mr-2">{author.username}</span>
       </ContextMenuTrigger>
       <span className="text-xs">

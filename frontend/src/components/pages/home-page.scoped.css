@@ -15,3 +15,7 @@ section h1 {
 .image-card img {
   height: 125px;
 }
+
+a {
+  color: var(--tertiary) !important;
+}

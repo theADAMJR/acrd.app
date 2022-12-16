@@ -1,4 +1,4 @@
-# Accord - Like Discord but cooler 😎.
+# Accord - Messaging Made Simple.
 
 > Built with React, Redux, and Node.js.
 
@@ -90,6 +90,6 @@ WEBSITE_URL="http://localhost:4200"
 
 ---
 
-### Further Info
+### Worth checking out...
 
-- Looking for a full Discord API Clone? Check out [fosscord](https://github.com/fosscord/fosscord).
+- Check out [fosscord](https://github.com/fosscord/fosscord).
