@@ -77,7 +77,10 @@ export const unlockTheme = (id: string, callback?: (theme: Entity.Theme) => any)
   dispatch(api.restCallBegan({
     url: `/themes/${id}/unlock`,
     headers: getHeaders(),
-    callback,
+    callback: (theme: Entity.Theme) => {
+      dispatch(actions.fetched([theme]))
+      callback(theme);
+    },
   }));
 }
 

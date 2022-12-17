@@ -67,5 +67,5 @@ router.get('/:code/unlock', updateUser, validateUser, async (req, res) => {
   const user: SelfUserDocument = res.locals.user;
   await deps.themes.unlock(theme.id, user);
 
-  res.json(user.unlockedThemeIds);
+  res.status(201).json(theme);
 });

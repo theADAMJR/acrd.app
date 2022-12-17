@@ -6,5 +6,6 @@ export const filterProps = (props: object) => {
     register: undefined,
     titleName: undefined,
     initialValue: undefined,
+    setfocusedinputid: undefined,
   }
 }

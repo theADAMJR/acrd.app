@@ -16,8 +16,8 @@ export interface InputProps {
   className?: string;
   disabled?: boolean;
   tooltip?: string;
-  register?: UseFormRegister<FieldValues>;
   setFocusedInputId?: (val: any) => any;
+  register?: UseFormRegister<FieldValues>;
 }
 
 const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLInputElement>> = (props) => {

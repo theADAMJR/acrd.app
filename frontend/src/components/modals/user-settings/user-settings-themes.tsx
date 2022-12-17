@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import fetchEntities from '../../../store/actions/fetch-entities';
 import { uploadFile } from '../../../store/api';
 import { createTheme, deleteTheme, getTheme, unlockTheme, updateTheme } from '../../../store/themes';
 import { openSaveChanges } from '../../../store/ui';
@@ -19,19 +20,11 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   const themes = useSelector((s: Store.AppState) => s.entities.themes);
   const [themeId, setTab] = useState(selfUser.activeThemeId);
   const [addMode, enableAddMode] = useState(false);
-  const [focusedInputId, setFocusedInputId] = useState('');
 
   const theme = getTheme(themeId, themes);
-  useEffect(() => {
-    if (!theme) setTab('default');
-  }, [theme, themeId]);
+  useEffect(() => (!theme) && setTab('default'), [theme, themeId]);
 
-  const refreshFocus = () => {
-    if (!focusedInputId) return;
-
-    const input: HTMLInputElement | null = document.querySelector(`#${focusedInputId}`);
-    input?.focus();
-  }
+  const selfIsManager = (theme && selfUser.id == theme.creatorId);
 
   const SideIcons: React.FunctionComponent = () => (
     <div className="flex items-center flex-col">
@@ -99,6 +92,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               onClick={() => {
                 enableAddMode(false);
                 dispatch(unlockTheme(code, (theme) => setTab(theme.id)));
+                dispatch(fetchEntities());
               }}>Add</NormalButton>
           </div>
 
@@ -122,7 +116,9 @@ const UserSettingsThemes: React.FunctionComponent = () => {
         <header className="mb-5">
           <h1 className="text-3xl font-bold inline">{theme.name}</h1>
         </header>
-        {/* <FileInput
+        <FileInput
+          disabled
+          // disabled={true}!selfIsManager}
           className="w-1/3"
           name="icon"
           label="Icon"
@@ -135,26 +131,28 @@ const UserSettingsThemes: React.FunctionComponent = () => {
             dispatch(uploadFile(file, ({ url }) => {
               dispatch(updateTheme(themeId, { iconURL: url }));
             }));
-          }} /> */}
+          }} />
 
         <form
           onChange={() => dispatch(openSaveChanges(true))}
           className="flex flex-col h-full mt-1 mb-5">
           <div className="flex">
             <Input
+              disabled={!selfIsManager}
               className="w-1/3 mr-5"
               label="Name"
               name="name"
               register={register}
               options={{ value: theme.name }} />
             <Input
+              disabled
+              // disabled={!selfIsManager}
               tooltip="The code that is used to share themes."
               className="w-1/3 mr-5"
               label="Code"
               name="code"
               register={register}
-              options={{ value: theme.code }}
-              disabled />
+              options={{ value: theme.code }} />
           </div>
 
           <div className='mt-2'>
@@ -164,28 +162,27 @@ const UserSettingsThemes: React.FunctionComponent = () => {
 
             <textarea
               id="styles"
+              disabled={!selfIsManager}
               rows={20}
               className="p-2 rounded bg-bg-secondary outline-none  w-full mt-2"
               defaultValue={theme.styles}
-              onFocus={(e) => setFocusedInputId?.(e.currentTarget.id)}
               {...register('styles', { value: theme.styles })} />
           </div>
-
-          <SaveChanges
-            onOpen={refreshFocus}
-            setValue={setValue}
-            onSave={onSave}
-            obj={theme} />
         </form>
 
         <NormalButton
           className="bg-success dark mt-5"
           onClick={onApply}>Apply</NormalButton>
-        {(selfUser.id === theme.creatorId) && (
+        {(selfIsManager) && (
           <NormalButton
             className="bg-danger dark mt-5 ml-2"
             onClick={onDelete}>Delete</NormalButton>
         )}
+
+        <SaveChanges
+          setValue={setValue}
+          onSave={onSave}
+          obj={theme} />
       </div>
     ) : null;
   }
