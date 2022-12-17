@@ -53,7 +53,7 @@ const HomePage: React.FunctionComponent = () => {
         <h1>It's time to ditch Discord and Zoom.</h1>
         <div className="flex justify-center">
           <div className="lead font-light mt-2 max-w-xl">
-            All-in-one text and voice chat, just like Discord.
+            All-in-one easy-to-use text and voice chat.
             Stop paying for Discord boosts and hassling with Zoom.
             {Boolean(userCount) && (
               <span className="pl-1">

@@ -26,3 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Family Friendly Usernames: No profanity in usernames please.
 ![](https://i.ibb.co/KyWBgTn/image.png)
+
+### Changed 
+- New font: Switched from copying Discord's font to using Inter.
+- Added cool snow particles.
