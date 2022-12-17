@@ -2,6 +2,7 @@ import { Entity, WS } from '@acrd/types';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
+import ProfanityFilter from 'bad-words';
 
 export default class implements WSEvent<'USER_UPDATE'> {
   on = 'USER_UPDATE' as const;
@@ -9,6 +10,10 @@ export default class implements WSEvent<'USER_UPDATE'> {
   public async invoke(ws: WebSocket, client: Socket, { token, username, avatarURL, ignored, email, activeThemeId }: WS.Params.UserUpdate) {
     const { id: userId } = await deps.wsGuard.decodeKey(token);
     const user = await deps.users.getSelf(userId);
+
+    var filter = new ProfanityFilter();
+    if (username && filter.isProfane(username))
+      throw new TypeError("No bad words in usernames please");
 
     const partial: Partial<Entity.User> = {};
     const hasChanged = (key: string, value: any) => value && user[key] !== value;

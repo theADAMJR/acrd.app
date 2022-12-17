@@ -16,12 +16,12 @@ import InvitePage from './pages/invite-page';
 
 export default function App() {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(ready());
     dispatch(initPings());
   }, []);
-  
+
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Switch>
@@ -31,7 +31,7 @@ export default function App() {
         <Route exact path="/logout" component={LogoutPage} />
         <Route exact path="/verify" component={VerifyPage} />
 
-        <PrivateRoute exact path="/invite/:inviteId" component={InvitePage} />
+        <PrivateRoute exact path="/join/:inviteId" component={InvitePage} />
         <PrivateRoute exact path="/channels/@me" component={OverviewPage} />
         <PrivateRoute exact path="/channels/:guildId/:channelId?" component={GuildPage} />
 

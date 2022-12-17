@@ -5,6 +5,7 @@ import { deleteInvite } from '../../../store/invites';
 import { openSaveChanges } from '../../../store/ui';
 import Username from '../../user/username';
 import CircleButton from '../../utils/buttons/circle-button';
+import './guild-settings-invites.scoped.css';
 
 const GuildSettingsInvites: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -18,18 +19,18 @@ const GuildSettingsInvites: React.FunctionComponent = () => {
   const Invites = () => (
     <div className="mt-2">
       {invites.map(i => (
-        <div className="w-full mb-3">
-          <strong><code>{i.id}</code></strong>
+        <div className="flex align-center justify-between invite w-full p-2">
+          <code className='font-bold pt-2'>{i.id}</code>
           <span className="ml-4 secondary">
             <span className='ml-4'>Used <code>{i.uses}</code> times</span>
-            <span className='ml-4'>Created by
-              <Username
-                size='sm'
-                user={guildUsers.find(gu => gu.id == i.inviterId)}
-                guild={guild} />
-            </span>
           </span>
-          <span className="float-right">
+          <span className='ml-4'>Created by
+            <Username
+              size='sm'
+              user={guildUsers.find(gu => gu.id == i.inviterId)}
+              guild={guild} />
+          </span>
+          <span className="justify-end">
             <CircleButton
               type="button"
               style={{ borderColor: 'var(--danger)', color: 'var(--danger)' }}

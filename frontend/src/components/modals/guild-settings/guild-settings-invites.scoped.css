@@ -1,0 +1,3 @@
+.invite:nth-child(even) {
+  background-color: var(--bg-secondary);
+}
