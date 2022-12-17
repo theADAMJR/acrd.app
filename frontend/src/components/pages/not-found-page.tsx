@@ -1,4 +1,3 @@
-import Particles from 'react-particles-js';
 import { Link } from 'react-router-dom';
 import CircleButton from '../utils/buttons/circle-button';
 import FullParticles from '../utils/full-particles';

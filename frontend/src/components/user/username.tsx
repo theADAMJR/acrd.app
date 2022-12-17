@@ -10,9 +10,10 @@ export interface UsernameProps {
   user: Entity.User;
   guild?: Entity.Guild;
   size?: 'sm' | 'md' | 'lg';
+  className?: string;
 }
 
-const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 'md' }) => {
+const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, className, size = 'md' }) => {
   const highestRole = useSelector(getMemberHighestRole(guild?.id, user.id));
 
   const userOwnsGuild = guild?.ownerId === user.id;
@@ -50,7 +51,8 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, size = 
 
   return (
     <div className={classNames(
-      `flex items-center px-2`,
+      className,
+      `inline-flex items-center px-2`,
       'cursor-pointer',
       { 'opacity-50': !isOnline })}>
       <div className="relative avatar mr-2">

@@ -16,22 +16,22 @@ Accord is an app, similar to Discord, but cooler.
 
 ## Setup
 
-1. Clone the repo.
-2. Generate SSH keys.
-   From app folder:
+1. Clone the repo (frop GitHub).
+2. Generate SSH keys (secure user logins).
+   From app directory (with Git bash):
    ```
    mkdir -p backend/keys
    ssh-keygen -t rsa -b 2048 -m PEM -f backend/keys/jwt
    ```
 3. Install npm packages.
-   From app folder:
+   From app directory:
    ```
    cd frontend
    npm i
    cd ../backend
    npm i
    ```
-4. Configure `backend/.env.example` and rename it to `.env`
+4. In `backend` directory, configure `.env.example` and rename the file to `.env`
 
 ---
 

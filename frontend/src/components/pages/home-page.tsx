@@ -81,7 +81,7 @@ const HomePage: React.FunctionComponent = () => {
         title="*Description may represent unreleased features.*"
         className="absolute top-50 w-1/2 inset-x-1/4 flex justify-between">
         <ImageCard src={Chat} title="Chat Made Simple">
-          Accord focuses on just the practical features and a simple messaging solution.
+          Accord focuses on just the practical features for a simple messaging solution.
         </ImageCard>
         <ImageCard src={Devices} title="Mobile or Desktop">
           (work in progress)

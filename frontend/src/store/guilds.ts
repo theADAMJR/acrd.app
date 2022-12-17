@@ -4,6 +4,7 @@ import { byAscending } from '../components/utils/vanilla/sort';
 import { actions as api, uploadFile } from './api';
 import { notInArray } from './utils/filter';
 import { getHeaders } from './utils/rest-headers';
+import { actions as inviteActions } from './invites';
 
 const slice = createSlice({
   name: 'guilds',
@@ -29,18 +30,6 @@ const slice = createSlice({
 export const actions = slice.actions;
 export default slice.reducer;
 
-// export const fetchGuild = (id: string) => (dispatch, getStore: () => Store.AppState) => {
-//   const guilds = getStore().entities.guilds;
-//   const isCached = guilds.some(g => g.id === id);
-//   if (isCached) return;
-
-//   dispatch(api.restCallBegan({
-//     url: `/guilds/${id}`,
-//     headers: getHeaders(),
-//     callback: (guild: Entity.Guild) => dispatch(actions.fetched([guild])),
-//   }));
-// }
-
 export const createGuild = (name: string) => (dispatch) => {
   dispatch(api.wsCallBegan({
     event: 'GUILD_CREATE',
@@ -59,6 +48,14 @@ export const uploadGuildIcon = (guildId: string, file: File) => (dispatch) => {
   const uploadCallback = async ({ url }: REST.From.Post['/upload']) =>
     dispatch(updateGuild(guildId, { iconURL: url }));
   dispatch(uploadFile(file, uploadCallback));
+}
+
+export const fetchGuildInvites = (id: string) => (dispatch, getStore: () => Store.AppState) => {
+  dispatch(api.restCallBegan({
+    url: `/guilds/${id}/invites`,
+    headers: getHeaders(),
+    callback: (invites: Entity.Invite[]) => dispatch(inviteActions.fetched(invites)),
+  }));
 }
 
 export const deleteGuild = (guildId: string) => (dispatch) => {

@@ -1,8 +1,7 @@
 import { Entity } from '@acrd/types';
-import { faSearch, faSearchDollar, faSearchLocation } from '@fortawesome/free-solid-svg-icons';
+import { faSearchLocation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
-import Particles from 'react-particles-js';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import fetchEntities from '../../store/actions/fetch-entities';

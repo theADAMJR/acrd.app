@@ -1,11 +1,16 @@
-import Particles from 'react-particles-js'
+import { useCallback } from 'react';
+import Particles from 'react-tsparticles';
+import { loadFull } from 'tsparticles';
 
 const FullParticles: React.FunctionComponent = () => {
+  const particlesInit = useCallback(loadFull, []);
+
   return (
     <Particles
+      init={particlesInit}
       width="100%"
       height="100%"
-      params={{
+      options={{
         "particles": {
           "number": {
             "value": 200,
@@ -113,9 +118,9 @@ const FullParticles: React.FunctionComponent = () => {
             }
           }
         },
-        "retina_detect": true
-      } as any} />
-    );
+        "retina_detect": true,
+      }} />
+  );
 }
- 
+
 export default FullParticles;

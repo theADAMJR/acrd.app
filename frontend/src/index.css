@@ -59,10 +59,18 @@ nav[role='menu'] {
 [contenteditable='true']:empty:before {
   content: attr(placeholder);
   pointer-events: none;
-  display: block; /* For Firefox */
+  display: block;
+  /* For Firefox */
   color: var(--muted);
 }
 
 ::file-selector-button {
   display: none;
+}
+
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }

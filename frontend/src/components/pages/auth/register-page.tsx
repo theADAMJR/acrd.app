@@ -1,4 +1,3 @@
-import Particles from 'react-particles-js';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { getGuild, getGuildInvites, getGuildUsers } from '../../../store/guilds';
+import { fetchGuildInvites, getGuild, getGuildInvites, getGuildUsers } from '../../../store/guilds';
 import { deleteInvite } from '../../../store/invites';
 import { openSaveChanges } from '../../../store/ui';
 import Username from '../../user/username';
@@ -13,6 +13,8 @@ const GuildSettingsInvites: React.FunctionComponent = () => {
   const guild = useSelector(getGuild(guildId));
   const guildUsers = useSelector(getGuildUsers(guildId));
 
+  dispatch(fetchGuildInvites(guildId));
+
   const Invites = () => (
     <div className="mt-2">
       {invites.map(i => (
@@ -20,9 +22,13 @@ const GuildSettingsInvites: React.FunctionComponent = () => {
           <strong><code>{i.id}</code></strong>
           <span className="pl-5 secondary">
             <span>Used <code>{i.uses}</code> times</span>
-            <span>Created by <Username
-              user={guildUsers.find(gu => gu.id == i.inviterId)}
-              guild={guild} /></span>
+            <span>Created by
+              <Username
+                className='pt-2 scale-75'
+                size='sm'
+                user={guildUsers.find(gu => gu.id == i.inviterId)}
+                guild={guild} />
+            </span>
           </span>
           <span className="float-right">
             <CircleButton
