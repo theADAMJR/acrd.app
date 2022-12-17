@@ -27,7 +27,7 @@
   --elevation: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05),
     0 2px 0 rgba(4, 4, 5, 0.05);
 
-  --font-primary: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-primary: Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   --light: #fdf0ed;
   --dark: #16161c;
@@ -58,9 +58,11 @@ textarea {
 :not(nav a)[href] {
   color: var(--link);
 }
+
 nav a {
   color: var(--channel);
 }
+
 nav a.active {
   background-color: var(--bg-modifier-selected);
   color: var(--heading);

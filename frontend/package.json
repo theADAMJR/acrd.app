@@ -2,6 +2,7 @@
   "name": "@acrd/frontend",
   "version": "0.0.0",
   "private": true,
+  "homepage": "https://acrd.app",
   "dependencies": {
     "@acrd/types": "file:../types",
     "@craco/craco": "^5.9.0",
@@ -57,6 +58,8 @@
     "start:prod": "dotenv -e env/.env.prod craco start",
     "build:dev": "dotenv -e env/.env.dev craco build",
     "build:prod": "dotenv -e env/.env.prod craco build",
+    "predeploy": "npm run build:prod",
+    "deploy": "gh-pages -d build",
     "test": "craco test",
     "test:unit": "craco test --watchAll=false",
     "test:e2e": "cypress open",
@@ -99,6 +102,7 @@
     "chance": "^1.1.8",
     "cypress": "^12.1.0",
     "dotenv-cli": "^4.0.0",
+    "gh-pages": "^4.0.0",
     "postcss": "^8.4.5",
     "sazerac": "^2.0.0",
     "tailwindcss": "^3.2.4"

@@ -13,14 +13,14 @@ const EscButton: React.FunctionComponent = () => {
     dispatch(closeModal);
     closeSnackbar('saveChanges');
   };
-  
+
   return (
     <div
       id="escButton"
-      className="rounded-full border-2 border-muted cursor-pointer px-2 w-16 mt-14"
+      className="rounded-full border-2 border-muted cursor-pointer w-20 px-2.5 py-0.75 mt-14"
       onClick={onClick}>
       <FontAwesomeIcon icon={faTimes} color="var(--muted)" />
-      <span className="pl-1.5 muted">ESC</span>
+      <span className="pl-3 muted">ESC</span>
     </div>
   );
 }
