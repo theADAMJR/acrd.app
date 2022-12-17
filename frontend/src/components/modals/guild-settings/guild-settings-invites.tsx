@@ -20,11 +20,10 @@ const GuildSettingsInvites: React.FunctionComponent = () => {
       {invites.map(i => (
         <div className="w-full mb-3">
           <strong><code>{i.id}</code></strong>
-          <span className="pl-5 secondary">
-            <span>Used <code>{i.uses}</code> times</span>
-            <span>Created by
+          <span className="ml-4 secondary">
+            <span className='ml-4'>Used <code>{i.uses}</code> times</span>
+            <span className='ml-4'>Created by
               <Username
-                className='pt-2 scale-75'
                 size='sm'
                 user={guildUsers.find(gu => gu.id == i.inviterId)}
                 guild={guild} />

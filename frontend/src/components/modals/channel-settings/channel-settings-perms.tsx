@@ -74,7 +74,7 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
     overrideRoles.push(role);
 
   return (
-    <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
+    <div className="grid grid-cols-12 flex-col pt-14 px-10 pb-20 h-full mt-1">
       <div className="lg:col-span-3 col-span-12">
         <nav className="pr-10">
           {overrideRoles.map(r => (

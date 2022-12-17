@@ -9,5 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Profanity filter: Text channel option to filter explicit words (disabled by default).
-- Customizable themes: Create, share, and customize UI themes.
+- Family Friendly Usernames: No profanity in usernames please.
+- Send Files Permission: Control who can send files/images in a text channel.
+- Invite Page: Join a server through `acrd.app/invites/<code>`.
+- Advanced Invite Management: View who created roles, and how many uses they have had.
+- Profanity Filter: Text channel option to filter explicit words (disabled by default).
+- Customizable Themes: Create, share, and customize UI themes.

@@ -18,8 +18,8 @@ import Toggle from '../../inputs/toggle';
 import SaveChanges from '../../utils/save-changes';
 import TabLink from '../../utils/tab-link';
 import RolePermissions from './role-permissions';
- 
-const GuildSettingsRoles: React.FunctionComponent = () => {  
+
+const GuildSettingsRoles: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { handleSubmit, register, setValue, getValues } = useForm();
   const { guildId }: any = useParams();
@@ -62,20 +62,20 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
             <span>Separate role on member list</span>
             <Toggle
               id="hoisted"
+              className="float-right"
               checked={hoisted}
               {...register('hoisted')}
               onChange={() => {
                 setHoisted(!hoisted);
                 setValue('hoisted', !hoisted);
-              }}
-              className="float-right" />
+              }} />
           </span>
         </div>
-  
+
         <RolePermissions
           perms={perms}
           setPerms={setPerms}
-          setRoleValue={setValue}  />
+          setRoleValue={setValue} />
         <NormalButton
           onClick={() => dispatch(deleteRole(guildId, activeRole!.id))}
           className="bg-danger float-right"
@@ -87,12 +87,12 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
   const onSave = (e) => {
     const onUpdate = (payload) => dispatch(updateRole(guildId, activeRole!.id, payload));
     handleSubmit(onUpdate)(e);
-  };  
+  };
   const byPosition = (a, b) => (a.position > b.position) ? -1 : 1;
   const selfIsHigher = (r) => permsService.memberIsHigher(guildId, [r.id]);
 
   return (
-    <div className="grid grid-cols-12 flex flex-col pt-14 px-10 pb-20 h-full mt-1">
+    <div className="grid grid-cols-12 flex-col pt-14 px-10 pb-20 h-full mt-1">
       <div className="lg:col-span-3 col-span-12">
         <nav className="pr-10">
           {roles.sort(byPosition).map(r => (
@@ -126,9 +126,9 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
           setHoisted(activeRole!.hoisted);
         }}
         onSave={onSave}
-        obj={getValues()} />  
+        obj={getValues()} />
     </div>
   );
 }
- 
+
 export default GuildSettingsRoles;

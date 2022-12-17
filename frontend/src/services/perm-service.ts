@@ -18,9 +18,10 @@ export class PermService {
       'MANAGE_INVITES': 'Ability to delete invites.',
     },
     text: {
+      'SEND_MESSAGES': 'Ability to send messages in text channels.',
       'MANAGE_MESSAGES': `Ability to manage message other member's messages.`,
       'READ_MESSAGES': `Ability to read messages,`,
-      'SEND_MESSAGES': 'Ability to send messages in text channels.',
+      'SEND_FILES': `Ability to send files or images in messages.`,
     },
   };
 

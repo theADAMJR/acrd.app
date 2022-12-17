@@ -7,7 +7,7 @@ import { getChannel, leaveVoiceChannel } from '../../../store/channels';
 import { getGuild } from '../../../store/guilds';
 import classNames from 'classnames';
 import { useEffect } from 'react';
- 
+
 const SidebarFooter: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const user = useSelector((s: Store.AppState) => s.auth.user)!;
@@ -19,7 +19,7 @@ const SidebarFooter: React.FunctionComponent = () => {
     const ping = useSelector((s: Store.AppState) => s.meta.ping);
 
     if (!channel || !guild) return null;
-    
+
     return (
       <div id="sidebarFooter">
         <div className="justify-between flex items-center p-3 pr-4">
@@ -27,11 +27,11 @@ const SidebarFooter: React.FunctionComponent = () => {
             <FontAwesomeIcon
               icon={faSignal}
               className={classNames({
-                'success': ping && ping < 100,
-                'secondary': ping && ping >= 100 && ping < 200,
-                'warning': ping && ping >= 200 && ping < 300,
-                'danger': ping && ping >= 300,
-                'muted': !ping,
+                // 'success': ping && ping < 100,
+                // 'secondary': ping && ping >= 100 && ping < 200,
+                // 'warning': ping && ping >= 200 && ping < 300,
+                // 'danger': ping && ping >= 300,
+                'success': true,
               })} />
             <strong className="success ml-2">Voice Connected</strong>
             <div className="normal">{channel.name} / {guild.name}</div>
@@ -45,7 +45,7 @@ const SidebarFooter: React.FunctionComponent = () => {
       </div>
     );
   }
-  
+
   return (
     <div className="bg-bg-secondary-alt">
       <VoiceFooter />
@@ -62,5 +62,5 @@ const SidebarFooter: React.FunctionComponent = () => {
     </div>
   );
 }
- 
+
 export default SidebarFooter;

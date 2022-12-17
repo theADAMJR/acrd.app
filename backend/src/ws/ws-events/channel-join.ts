@@ -12,9 +12,11 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
     if (channel.type !== 'VOICE')
       throw new TypeError('You cannot join a non-voice channel');
 
+    await deps.wsGuard.validateCanInChannel(client, channelId, 'CONNECT');
+
     const userId = ws.sessions.get(client.id);
     const user = await deps.users.getSelf(userId);
-    const movedChannel = user.voice.channelId !== channelId;
+    const movedChannel = (user.voice.channelId !== channelId);
 
     if (user.voice.channelId && movedChannel)
       await deps.channelLeave.invoke(ws, client);
@@ -23,7 +25,6 @@ export default class implements WSEvent<'CHANNEL_JOIN'> {
     if (doesExist)
       throw new TypeError('User already connected to voice');
 
-    // TODO: perms - validate can join 
     deps.voiceService.add(channelId, { userId });
 
     await Promise.all([

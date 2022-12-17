@@ -11,6 +11,12 @@ export default class Themes extends DBWrapper<string, ThemeDocument> {
       throw new TypeError('Theme not found');
     return theme;
   }
+  public async getByCode(code: string | undefined) {
+    const theme = await Theme.findOne({ code });
+    if (!theme)
+      throw new TypeError('Theme not found');
+    return theme;
+  }
 
   public async create(options: Partial<Entity.Theme>) {
     this.parse(options.styles!);

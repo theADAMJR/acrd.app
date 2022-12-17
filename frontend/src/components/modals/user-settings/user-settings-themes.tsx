@@ -20,12 +20,12 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   const [themeId, setTab] = useState(selfUser.activeThemeId);
   const [addMode, enableAddMode] = useState(false);
   const [focusedInputId, setFocusedInputId] = useState('');
-  
+
   const theme = getTheme(themeId, themes);
   useEffect(() => {
     if (!theme) setTab('default');
   }, [theme, themeId]);
-  
+
   const refreshFocus = () => {
     if (!focusedInputId) return;
 
@@ -45,8 +45,9 @@ const UserSettingsThemes: React.FunctionComponent = () => {
           }}
           title={t.name}>
           <SidebarIcon
-            childClasses={classNames('bg-bg-secondary', {
-              'border-2 border-primary h-[3.1rem]': t.id === themeId,
+            childClasses={classNames('border-2 h-[3.1rem] bg-bg-secondary', {
+              'border-primary': t.id === themeId,
+              'border-transparent': t.id !== themeId,
             })}
             imageURL={t.iconURL}
             name={t.name}
@@ -64,13 +65,13 @@ const UserSettingsThemes: React.FunctionComponent = () => {
     const { register, setValue, handleSubmit } = useForm();
     const theme = themes.find(t => t.id === themeId);
     if (!theme) return null;
-  
+
     const onApply = () => dispatch(updateSelf({ activeThemeId: themeId }));
     const onDelete = () => {
       const confirmation = window.confirm('Are you sure you want to delete this theme?');
       if (confirmation) dispatch(deleteTheme(theme.id));
     };
-    const onSave = (e) => {      
+    const onSave = (e) => {
       const onUpdate = (payload) => dispatch(updateTheme(themeId, payload));
       handleSubmit(onUpdate)(e);
     };
@@ -84,7 +85,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
             <h1 className="text-3xl font-bold inline">Add Theme</h1>
             <p className="secondary">Add an existing theme with a shareable code.</p>
           </header>
-          
+
           <div className="mb-10">
             <Input
               className="float-left w-1/3 mr-3 disabled"
@@ -115,23 +116,36 @@ const UserSettingsThemes: React.FunctionComponent = () => {
     };
 
     if (addMode) return <AddTheme />;
-    
+
     return (themeId) ? (
       <div className="px-5 ml-4">
+        <header className="mb-5">
+          <h1 className="text-3xl font-bold inline">{theme.name}</h1>
+        </header>
+        {/* <FileInput
+          className="w-1/3"
+          name="icon"
+          label="Icon"
+          options={{ value: theme.iconURL }}
+          tooltip="An optional icon for your theme."
+          onChange={(e) => {
+            const file = e.currentTarget?.files?.[0];
+            if (!file) return;
+
+            dispatch(uploadFile(file, ({ url }) => {
+              dispatch(updateTheme(themeId, { iconURL: url }));
+            }));
+          }} /> */}
+
         <form
           onChange={() => dispatch(openSaveChanges(true))}
           className="flex flex-col h-full mt-1 mb-5">
-          <header className="mb-5">
-            <h1 className="text-3xl font-bold inline">{theme.name}</h1>
-          </header>
-
           <div className="flex">
             <Input
               className="w-1/3 mr-5"
               label="Name"
               name="name"
               register={register}
-              setFocusedInputId={setFocusedInputId}
               options={{ value: theme.name }} />
             <Input
               tooltip="The code that is used to share themes."
@@ -140,30 +154,22 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               name="code"
               register={register}
               options={{ value: theme.code }}
-              setFocusedInputId={setFocusedInputId}
               disabled />
-            <FileInput
-              className="w-1/3"
-              name="iconURL"
-              label="Icon"
-              options={{ value: theme.iconURL }}
-              tooltip="An optional icon for your theme."
-              setFocusedInputId={setFocusedInputId}
-              onChange={(e) => {
-                const file = e.currentTarget?.files?.[0];
-                if (!file) return;
-                
-                dispatch(uploadFile(file, ({ url }) => {
-                  dispatch(updateTheme(themeId, { iconURL: url }));
-                }));
-              }} />
           </div>
 
-          <textarea
-            className="p-2 rounded bg-bg-secondary outline-none border-bg-tertiary hover:border w-1/2 mt-2"
-            defaultValue={theme.styles}
-            onFocus={(e) => setFocusedInputId?.(e.currentTarget.id)}
-            {...register('styles', { value: theme.styles })} />
+          <div className='mt-2'>
+            <label
+              htmlFor="styles"
+              className="uppercase text-xs font-semibold">Styles</label>
+
+            <textarea
+              id="styles"
+              rows={20}
+              className="p-2 rounded bg-bg-secondary outline-none  w-full mt-2"
+              defaultValue={theme.styles}
+              onFocus={(e) => setFocusedInputId?.(e.currentTarget.id)}
+              {...register('styles', { value: theme.styles })} />
+          </div>
 
           <SaveChanges
             onOpen={refreshFocus}
@@ -191,5 +197,5 @@ const UserSettingsThemes: React.FunctionComponent = () => {
     </div>
   );
 }
- 
+
 export default UserSettingsThemes;

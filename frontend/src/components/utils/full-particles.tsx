@@ -66,7 +66,7 @@ const FullParticles: React.FunctionComponent = () => {
           },
           "move": {
             "enable": true,
-            "speed": 6,
+            "speed": 3,
             "direction": "bottom",
             "random": false,
             "straight": false,

@@ -19,10 +19,10 @@ const PrivateRoute: React.FunctionComponent<RouteProps> = (props) => {
   const theme = themes.find(t => t.id === user.activeThemeId)
     ?? themes.find(t => t.id === 'default');
   applyTheme(theme.styles);
-  
+
   return (
     <Route {...props} />
   );
 }
- 
+
 export default PrivateRoute;

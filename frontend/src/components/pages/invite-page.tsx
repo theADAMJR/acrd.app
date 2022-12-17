@@ -10,7 +10,9 @@ import { fetchInvite, getInvite } from '../../store/invites';
 import { joinGuild } from '../../store/members';
 import { getTag, getUser } from '../../store/users';
 import SidebarIcon from '../navigation/sidebar/sidebar-icon';
+import Username from '../user/username';
 import NormalButton from '../utils/buttons/normal-button';
+import FullParticles from '../utils/full-particles';
 import PageWrapper from './page-wrapper';
 
 interface InvitePageProps { }
@@ -48,17 +50,19 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
       size="2x" />
   );
 
-  if (!invite || !guild) return (
-    <Wrapper>
-      <NotFoundIcon />
-      <h1 className="text-xl font-bold warning">Invite not found...</h1>
-      <p className="lead">The invite either has expired, or never existed.</p>
-    </Wrapper>
-  );
+  if (!invite || !guild)
+    return (
+      <Wrapper>
+        <NotFoundIcon />
+        <h1 className="text-xl font-bold warning">Invite not found...</h1>
+        <p className="lead">The invite either has expired, or never existed.</p>
+      </Wrapper>
+    );
 
   return (
     <Wrapper>
-      <h1 className="text-3xl font-bold">You have been invited to {guild.name}!</h1>
+      <FullParticles />
+      <h1 className="text-3xl font-bold text-center">You have been invited to {guild.name}!</h1>
       <div className="flex mt-5">
         <SidebarIcon
           name={guild.name}
@@ -66,11 +70,13 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
           childClasses="bg-bg-tertiary w-24 h-24 pt-6 text-xl"
           disableHoverEffect />
         <div className="flex justify-around items-center w-full mx-5">
-          <span>
-            <strong className="heading">Members</strong>: <code className="muted">{members.length}</code>
+          <span className='text-center'>
+            <div className="heading font-bold text-center">Members</div>
+            <code>{members.length}</code>
           </span>
-          <span>
-            <strong className="heading">Owner</strong>: <code className="muted">{getTag(ownerUser)}</code>
+          <span className='text-center'>
+            <div className="heading font-bold">Owned By</div>
+            <Username user={ownerUser} />
           </span>
         </div>
       </div>
@@ -80,9 +86,9 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
             dispatch(joinGuild(inviteId));
             history.push(`/channels/${invite.guildId}`);
           }}
-          className="bg-success light">Join :D</NormalButton>
+          className="bg-success dark">Join</NormalButton>
         <Link to="/">
-          <NormalButton className="bg-danger light">Nope :(</NormalButton>
+          <NormalButton className="bg-danger light">Cancel</NormalButton>
         </Link>
       </div>
     </Wrapper>

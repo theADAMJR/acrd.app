@@ -18,6 +18,9 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
       deps.users.getSelf(authorId),
     ]);
 
+    if (attachmentURLs && attachmentURLs.length > 0)
+      await deps.wsGuard.validateCanInChannel(client, channelId, 'SEND_FILES');
+
     var message = await deps.messages.create(authorId, channelId, {
       attachmentURLs,
       content: this.filterContent(content, channel.filterProfanity),

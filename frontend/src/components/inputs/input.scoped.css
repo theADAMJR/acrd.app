@@ -8,7 +8,7 @@ input:hover {
 }
 
 input:focus {
-  border: 1px solid var(--link);
+  border: 1px solid var(--primary);
 }
 
 input:disabled {

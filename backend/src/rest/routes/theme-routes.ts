@@ -62,8 +62,8 @@ router.delete('/:id', updateUser, validateUser, async (req, res) => {
   res.status(201).json({ message: 'Deleted' });
 });
 
-router.get('/:id/unlock', updateUser, validateUser, async (req, res) => {
-  const theme = await deps.themes.get(req.params.id);
+router.get('/:code/unlock', updateUser, validateUser, async (req, res) => {
+  const theme = await deps.themes.getByCode(req.params.code);
   const user: SelfUserDocument = res.locals.user;
   await deps.themes.unlock(theme.id, user);
 

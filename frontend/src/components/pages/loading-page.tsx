@@ -6,28 +6,24 @@ import fetchEntities from '../../store/actions/fetch-entities';
 
 const LoadingPage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(ready());
     dispatch(fetchEntities());
   }, []);
 
   const tips = [
-    'Did Discord steal our idea?!?!',
-    'ADAMJR, Stop refactoring code please. okthxbye.',
     'Sample Text.',
-    '!(\'Hello World\')',
     'May work on a Tesla',
     'Please subscribe.',
     'Hi YouTube!',
-    'accord.includes(\'VOICE_CHANNEL\') === true',
+    'Like Discord, but less cringe.',
     'This message is officially dumb.',
     'This message is funny.',
-    'Dear Bill Gates please buy my app okthxbye.',
-    'Is coding the same as programming? :thinking:',
+    'Is coding the same as programming? 🤔',
     'TypeError: There may be bugs.',
     'What is a Discord? :thinking:',
-    'What\'s your Skype? Wait, actually I don\'t want your IP. Cya.',
+    'Does anyone remember Skype?',
     'Started in 2020.',
     'Disclaimer: Not actually a Discord clone.',
   ];
@@ -44,5 +40,5 @@ const LoadingPage: React.FunctionComponent = () => {
     </PageWrapper>
   );
 }
- 
+
 export default LoadingPage;

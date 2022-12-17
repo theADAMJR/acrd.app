@@ -9,6 +9,7 @@ export interface SidebarIconProps {
   to?: string;
   childClasses?: string;
   disableHoverEffect?: boolean;
+  styles?: any;
 }
 
 const SidebarIcon: React.FunctionComponent<SidebarIconProps> = (props) => {
@@ -25,9 +26,9 @@ const SidebarIcon: React.FunctionComponent<SidebarIconProps> = (props) => {
 
   const Icon = () => (imageURL)
     ? <Image
-        className="h-12 w-12"
-        src={imageURL}
-        alt={name} />
+      className="h-12 w-12"
+      src={imageURL}
+      alt={name} />
     : <span className="select-none flex items-center justify-center h-12 w-12">{getAbbr(name)}</span>;
 
   const isActive = to && location.pathname.startsWith(to);

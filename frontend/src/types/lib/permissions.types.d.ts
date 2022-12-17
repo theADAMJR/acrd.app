@@ -10,6 +10,7 @@ export declare namespace PermissionTypes {
         ADMINISTRATOR = 1
     }
     enum Text {
+        SEND_FILES = 16384,
         READ_MESSAGES = 8192,
         MANAGE_MESSAGES = 4096,
         SEND_MESSAGES = 2048
@@ -26,6 +27,7 @@ export declare namespace PermissionTypes {
         MUTE_MEMBERS: Voice;
         SPEAK: Voice;
         CONNECT: Voice;
+        SEND_FILES: Text;
         READ_MESSAGES: Text;
         MANAGE_MESSAGES: Text;
         SEND_MESSAGES: Text;

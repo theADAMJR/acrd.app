@@ -27,7 +27,7 @@ const slice = createSlice({
     creatorId: '177127942839676928',
     iconURL: '/images/themes/discord.svg',
     isFeatured: true,
-    name: 'Discord (experimental)',
+    name: 'Discord (built-in)',
     styles: discordTheme,
   }, {
     id: 'winter',
@@ -36,7 +36,7 @@ const slice = createSlice({
     creatorId: '177127942839676928',
     iconURL: '/images/themes/winter.svg',
     isFeatured: true,
-    name: 'Winter (experimental)',
+    name: 'Winter (built-in)',
     styles: winterTheme,
   }] as Store.AppState['entities']['themes'],
   reducers: {
@@ -75,7 +75,7 @@ export const createTheme = (theme: Partial<Entity.Theme>, callback?: (theme: Ent
 
 export const unlockTheme = (id: string, callback?: (theme: Entity.Theme) => any) => (dispatch) => {
   dispatch(api.restCallBegan({
-    url: `/themes/unlock/${id}`,
+    url: `/themes/${id}/unlock`,
     headers: getHeaders(),
     callback,
   }));

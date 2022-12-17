@@ -11,12 +11,12 @@ export default class implements WSEvent<'CHANNEL_LEAVE'> {
     const userId = ws.sessions.get(client.id);
     const user = await deps.users.getSelf(userId);
 
-    await this.updateVoiceState(user);
     const oldChannel = await deps.channels.getSafely(user.voice.channelId);
-    const channelLeaveAction = (oldChannel)
-      ? await this.handleExistingVC(oldChannel, userId, ws, client)
-      : undefined;
+    if (!oldChannel) return [];
 
+    await this.updateVoiceState(user);
+
+    var channelLeaveAction = await this.handleExistingVC(oldChannel, userId, ws, client);
     return [channelLeaveAction, {
       emit: 'VOICE_STATE_UPDATE' as const,
       to: [client.id],
@@ -34,9 +34,11 @@ export default class implements WSEvent<'CHANNEL_LEAVE'> {
 
     // leave voice server
     deps.voiceService.remove(oldChannel.id, userId);
-    await deps.channels.leaveVC(oldChannel, userId);
 
-    await client.leave(oldChannel.id);
+    await Promise.all([
+      client.leave(oldChannel.id),
+      deps.channels.leaveVC(oldChannel, userId),
+    ]);
 
     return {
       emit: 'CHANNEL_UPDATE' as const,
