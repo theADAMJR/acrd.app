@@ -28,7 +28,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, typeName, size,
   return (
     <ReactModal
       className={classNames(
-        `modal bg-bg-primary overflow-auto fixed outline-none`,
+        `center-v modal bg-bg-primary overflow-auto fixed outline-none`,
         className,
         sizeClass[size ?? 'sm'],
       )}

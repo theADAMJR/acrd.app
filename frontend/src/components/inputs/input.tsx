@@ -25,7 +25,7 @@ const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLIn
   const id = name + 'Input';
 
   return (
-    <div className={className}>
+    <div className={classNames('box', className)}>
       {label && (<>
         <label
           htmlFor={id}
@@ -46,16 +46,18 @@ const Input: React.FunctionComponent<InputProps & React.AllHTMLAttributes<HTMLIn
           </ReactTooltip>
         </>)}
       </>)}
-      <input
-        id={id}
-        type={type ?? 'text'}
-        autoFocus={autoFocus}
-        disabled={disabled}
-        onFocus={(e) => props.setFocusedInputId?.(e.currentTarget.id)}
-        {...filterProps(props)}
-        {...register?.(name, { ...options })}
-        size={60}
-        className={classNames('block bg-bg-secondary rounded focus:outline-none w-full p-2 h-10 mt-2')} />
+      <span className="input-box">
+        <input
+          id={id}
+          type={type ?? 'text'}
+          autoFocus={autoFocus}
+          disabled={disabled}
+          onFocus={(e) => props.setFocusedInputId?.(e.currentTarget.id)}
+          {...filterProps(props)}
+          {...register?.(name, { ...options })}
+          size={60}
+          className={classNames('block bg-bg-secondary rounded focus:outline-none w-full p-2 h-10 mt-2')} />
+      </span>
     </div>
   );
 }

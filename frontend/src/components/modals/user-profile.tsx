@@ -82,7 +82,7 @@ const UserProfile: FunctionComponent = () => {
 
   const UserInfo = () => (user) ? (
     <div className="grid grid-cols-2">
-      <div className="col-span-1">
+      <div className="col-span-2">
         <strong className="primary">Created</strong>
         <span className="primary">: </span>
         <span>{moment(user.createdAt).format('MMMM Do YYYY, LT')}</span>
@@ -150,7 +150,7 @@ const UserProfile: FunctionComponent = () => {
           }}
           activeLinkStyle={{ borderBottom: '3px solid var(--normal)' }} />
       </header>
-      <main className="p-4">
+      <main className="p-4" style={{ height: '200px' }} >
         {(tab === 'info') && <UserInfo />}
         {(tab === 'mutualGuilds') && <UserMutualGuilds />}
       </main>
