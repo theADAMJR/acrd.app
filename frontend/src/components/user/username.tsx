@@ -13,13 +13,23 @@ export interface UsernameProps {
   className?: string;
 }
 
-const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, className, size = 'md' }) => {
-  const highestRole = useSelector(getMemberHighestRole(guild?.id, user?.id));
+export const Username: React.FunctionComponent<UsernameProps> = (props) =>
+  (props.user)
+    ? FoundUsername(props)
+    : FoundUsername({
+      ...props,
+      user: {
+        id: '0',
+        username: 'Unknown User',
+        discriminator: 0,
+      } as Partial<Entity.User>,
+    } as any);
+
+const FoundUsername: React.FunctionComponent<UsernameProps> = ({ guild, user, className, size = 'md' }) => {
+  const highestRole = useSelector(getMemberHighestRole(guild?.id, user.id));
 
   const userOwnsGuild = (guild?.ownerId === user.id);
-  const discrim = user.discriminator
-    .toString()
-    .padStart(4, '0');
+  const discrim = user.discriminator.toString().padStart(4, '0');
   const isOnline = (user.status === 'ONLINE');
 
   const UserPresence = () => {

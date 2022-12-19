@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import usePerms from '../../../hooks/use-perms';
 import { getChannelUsers, joinVoiceChannel } from '../../../store/channels';
-import { getGuild, getGuildChannels } from '../../../store/guilds';
+import { getGuildChannels } from '../../../store/guilds';
 import { actions as ui } from '../../../store/ui';
 import ChannelMenu from '../../ctx-menus/channel-menu';
-import Username from '../../user/username';
+import FoundUsername from '../../user/username';
 import React from 'react';
 import { Entity } from '@acrd/types';
 
@@ -41,7 +41,7 @@ const ChannelTabs: React.FunctionComponent = () => {
       return <div className="p-2 pl-3">{users.map(u =>
         <ContextMenuTrigger key={u.id} id={u.id}>
           <div className="mb-1">
-            <Username user={u} size="sm" guild={activeGuild} />
+            <FoundUsername user={u} size="sm" guild={activeGuild} />
           </div>
         </ContextMenuTrigger>
       )}</div>;

@@ -21,9 +21,9 @@ const CreateInvite: React.FunctionComponent = () => {
   }, [isOpen]);
 
   const copyCode = () => window.navigator.clipboard.writeText(activeInvite!.id);
-  
+
   return (activeInvite) ? (
-    <Modal typeName={'CreateInvite'} className="p-5">
+    <Modal typeName={'CreateInvite'} className="p-5" >
       <header className="mb-3">
         <h1 className="font-bold inline uppercase">Invite Friends to {activeGuild?.name}</h1>
       </header>
@@ -43,5 +43,5 @@ const CreateInvite: React.FunctionComponent = () => {
     </Modal>
   ) : null;
 }
- 
+
 export default CreateInvite;

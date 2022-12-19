@@ -5,6 +5,7 @@ import EscButton from '../../utils/buttons/esc-button';
 import Category from '../../utils/category';
 import NavTabs from '../../utils/nav-tabs';
 import Modal from '../modal';
+import UserSettingsAdvanced from './user-settings-advanced';
 import UserSettingsOverview from './user-settings-overview';
 import UserSettingsSecurity from './user-settings-security';
 import UserSettingsThemes from './user-settings-themes';
@@ -32,6 +33,7 @@ const UserSettings: React.FunctionComponent = () => {
                 { name: 'Overview', id: 'overview' },
                 { name: 'Security', id: 'security' },
                 { name: <>Themes <NewBadge /></>, id: 'themes' },
+                { name: 'Advanced', id: 'advanced' },
               ]} />
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />
 
@@ -45,6 +47,7 @@ const UserSettings: React.FunctionComponent = () => {
           {tab === 'overview' && <UserSettingsOverview />}
           {tab === 'themes' && <UserSettingsThemes />}
           {tab === 'security' && <UserSettingsSecurity />}
+          {tab === 'advanced' && <UserSettingsAdvanced />}
         </div>
 
         <div className="col-span-2 h-full">

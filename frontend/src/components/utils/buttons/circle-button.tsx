@@ -9,5 +9,5 @@ const CircleButton: React.FunctionComponent<any> = (props) => {
         props.className)}>{props.children}</button>
   );
 }
- 
+
 export default CircleButton;

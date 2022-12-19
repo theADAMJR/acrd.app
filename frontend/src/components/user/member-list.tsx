@@ -1,5 +1,5 @@
 import Category from '../utils/category';
-import Username from './username';
+import FoundUsername from './username';
 import { useSelector } from 'react-redux';
 import { ContextMenuTrigger } from 'react-contextmenu';
 import GuildMemberMenu from '../ctx-menus/guild-member/guild-member-menu';
@@ -38,7 +38,7 @@ const MemberList: React.FunctionComponent = () => {
             id={u.id}
             key={u.id}>
             <div className="m-2">
-              <Username guild={guild} user={u} />
+              <FoundUsername guild={guild} user={u} />
             </div>
             <GuildMemberMenu user={u} />
           </ContextMenuTrigger>

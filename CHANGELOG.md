@@ -8,8 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 ### Changed
+- Moved advanced user settings to 'Advanced' tab
+- Moved advanced guild settings to 'Advanced' tab
+
 ### Fixed
+- Emails, and passwords salts/hashes are now forgotten when deleting user is deleted
 
 ## [Winter 0.4.0-alpha] - 2022/12/17
 

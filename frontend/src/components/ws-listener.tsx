@@ -29,17 +29,16 @@ const WSListener: React.FunctionComponent = () => {
 
   const state = () => store.getState() as Store.AppState;
 
-  // TODO: make alphabetical order
   useEffect(() => {
-    if (hasListened) return;    
+    if (hasListened) return;
 
-    const handleDialog = (dialog: Dialog) =>    
+    const handleDialog = (dialog: Dialog) =>
       enqueueSnackbar(`${dialog.content}.`, {
         anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
         variant: dialog.variant,
         autoHideDuration: 5000,
       });
-    
+
     ws.on('error', (error: any) => handleDialog({
       variant: 'error',
       content: error.data?.message ?? error.message,
@@ -56,9 +55,9 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('CHANNEL_CREATE', (args) => {
       // if we created it, we want to navigate there
       // we'd expect the user to exist, as they should be logged in to receive ws events
-      const { auth, ui } = state();      
+      const { auth, ui } = state();
       const selfCreated = args.creatorId === auth.user!.id;
-      
+
       // we cannot go to the channel if not in store 
       dispatch(channels.created(args));
 
@@ -105,7 +104,7 @@ const WSListener: React.FunctionComponent = () => {
     ws.on('GUILD_MEMBER_ADD', (args) => {
       // we not getting other users when joining guild
       dispatch(users.fetched([args.user]));
-      dispatch(members.added(args));      
+      dispatch(members.added(args));
     });
     ws.on('GUILD_MEMBER_UPDATE', (args) => dispatch(members.updated(args)));
     // user may be in mutual guilds, and therefore not removed from global user cache
@@ -125,7 +124,7 @@ const WSListener: React.FunctionComponent = () => {
       if (isBlocked) return;
 
       dispatch(messages.created(args));
-      
+
       const { channelId } = args.message;
       const { activeChannel } = state().ui;
       if (activeChannel && activeChannel.id !== channelId)
@@ -151,7 +150,7 @@ const WSListener: React.FunctionComponent = () => {
       history.push('/');
       dispatch(logoutUser());
     });
-    ws.on('USER_UPDATE', (args) => {      
+    ws.on('USER_UPDATE', (args) => {
       dispatch(auth.updatedUser(args));
       dispatch(users.updated(args));
     });
@@ -170,8 +169,8 @@ const WSListener: React.FunctionComponent = () => {
 
     dispatch(meta.listenedToWS());
   }, [hasListened]);
-  
+
   return null;
 }
- 
+
 export default WSListener;

@@ -22,17 +22,6 @@ router.get('/count', async (req, res) => {
   res.json(count);
 });
 
-router.delete('/:id', updateUser, validateUser, async (req, res) => {
-  const user = res.locals.user;
-  user.username = `deleted-user-${generateInvite(6)}`;
-  user.discriminator = 0;
-  delete user.salt;
-  delete user.hash;
-  await user.save();
-
-  res.status(201).json({ message: 'Modified' });
-});
-
 router.get('/check-username', async (req, res) => {
   const username = req.query.value?.toString().toLowerCase();
   const exists = await User.exists({

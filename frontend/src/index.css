@@ -75,3 +75,12 @@ nav[role='menu'] {
   height: 100%;
   z-index: -1;
 }
+
+.text-center-v {
+  line-height: 225%;
+  height: 100%;
+}
+
+.w-0 {
+  width: 0;
+}

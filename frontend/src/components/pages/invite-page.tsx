@@ -10,7 +10,7 @@ import { fetchInvite, getInvite } from '../../store/invites';
 import { joinGuild } from '../../store/members';
 import { getTag, getUser } from '../../store/users';
 import SidebarIcon from '../navigation/sidebar/sidebar-icon';
-import Username from '../user/username';
+import FoundUsername from '../user/username';
 import NormalButton from '../utils/buttons/normal-button';
 import FullParticles from '../utils/full-particles';
 import PageWrapper from './page-wrapper';
@@ -76,7 +76,7 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
           </span>
           <span className='text-center'>
             <div className="heading font-bold">Owned By</div>
-            <Username user={ownerUser} />
+            <FoundUsername user={ownerUser} />
           </span>
         </div>
       </div>

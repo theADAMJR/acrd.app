@@ -7,7 +7,8 @@ import Category from '../../utils/category';
 import SaveChanges from '../../utils/save-changes';
 import Input from '../../inputs/input';
 import ChannelSelect from '../../inputs/channel-select';
- 
+import CircleButton from '../../utils/buttons/circle-button';
+
 const GuildSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
@@ -22,7 +23,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
     const confirmation = window.confirm('Are you sure you want to delete this guild?');
     if (confirmation) dispatch(deleteGuild(guild.id));
   }
-  
+
   return (
     <form
       onChange={() => dispatch(openSaveChanges(true))}
@@ -30,7 +31,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
       <header>
         <h1 className="text-xl font-bold inline">Guild Overview</h1>
       </header>
-    
+
       <section className="w-1/2">
         <Input
           label="Name"
@@ -64,18 +65,18 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
         title="Advanced Settings" />
 
       <section>
-        <NormalButton
-          type="button"
+        <CircleButton
           onClick={onDelete}
-          className="bg-danger">Delete</NormalButton>
+          style={{ color: 'var(--danger)', borderColor: 'var(--danger)' }}
+          className="border-danger red m-2">Delete</CircleButton>
       </section>
 
       <SaveChanges
         setValue={setValue}
         onSave={onSave}
         obj={guild} />
-    </form>    
+    </form>
   );
 }
- 
+
 export default GuildSettingsOverview;

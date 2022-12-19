@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { fetchGuildInvites, getGuild, getGuildInvites, getGuildUsers } from '../../../store/guilds';
 import { deleteInvite } from '../../../store/invites';
 import { openSaveChanges } from '../../../store/ui';
-import Username from '../../user/username';
+import FoundUsername from '../../user/username';
 import CircleButton from '../../utils/buttons/circle-button';
 import './guild-settings-invites.scoped.css';
 
@@ -17,29 +17,33 @@ const GuildSettingsInvites: React.FunctionComponent = () => {
   dispatch(fetchGuildInvites(guildId));
 
   const Invites = () => (
-    <div className="mt-2">
-      {invites.filter(x => x).map(i => (
-        <div className="flex align-center justify-between invite w-full p-2">
-          <code className='font-bold pt-2'>{i.id}</code>
-          <span className="ml-4 secondary">
-            <span className='ml-4'>Used <code>{i.uses}</code> times</span>
-          </span>
-          <span className='ml-4'>Created by
-            <Username
+    <table className="mt-2">
+      <tr>
+        <th>Code</th>
+        <th>Used</th>
+        <th>Creator</th>
+      </tr>
+      {invites.map(i => (
+        <tr key={i.code} className="invite">
+          <td><code className='font-bold primary'>{i.id}</code></td>
+          <td><code className='tertiary'>{i.uses}</code> times</td>
+          <td>
+            <FoundUsername
               size='sm'
+              className='h-full'
               user={guildUsers.find(gu => gu.id == i.inviterId)}
               guild={guild} />
-          </span>
-          <span className="justify-end">
+          </td>
+          <td className='w-0'>
             <CircleButton
               type="button"
               style={{ borderColor: 'var(--danger)', color: 'var(--danger)' }}
               onClick={() => dispatch(deleteInvite(i.id))}>X</CircleButton>
-          </span>
-        </div>
+          </td>
+        </tr>
       ))}
       {!invites.length && <span>No invites created.</span>}
-    </div>
+    </table>
   );
 
   return (

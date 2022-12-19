@@ -1,4 +1,4 @@
-import Username from '../../user/username';
+import FoundUsername from '../../user/username';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faPhoneSlash, faSignal } from '@fortawesome/free-solid-svg-icons';
@@ -51,7 +51,7 @@ const SidebarFooter: React.FunctionComponent = () => {
       <VoiceFooter />
       <div className="relative flex items-center py-2">
         <div className="select-all">
-          <Username user={user} />
+          <FoundUsername user={user} />
         </div>
         <FontAwesomeIcon
           id="userSettingsButton"

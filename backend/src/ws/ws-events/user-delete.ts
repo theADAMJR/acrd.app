@@ -2,7 +2,7 @@ import { WSEvent } from './ws-event';
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import generateInvite from '../../data/utils/generate-invite';
-import { WS } from '@acrd/types';
+import { Entity, UserTypes, WS } from '@acrd/types';
 
 export default class implements WSEvent<'USER_DELETE'> {
   public on = 'USER_DELETE' as const;
@@ -15,6 +15,9 @@ export default class implements WSEvent<'USER_DELETE'> {
       discriminator: 0,
       locked: true,
       username: `Deleted User ${generateInvite(6)}`,
+      email: generateInvite(16),
+      salt: null,
+      hash: null,
     };
     await user.updateOne(partialUser);
 

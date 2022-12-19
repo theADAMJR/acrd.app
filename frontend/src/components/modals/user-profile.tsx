@@ -7,7 +7,7 @@ import { FunctionComponent, useState } from 'react';
 import { useSelector, useStore } from 'react-redux';
 import { getGuild } from '../../store/guilds';
 import SidebarIcon from '../navigation/sidebar/sidebar-icon';
-import Username from '../user/username';
+import FoundUsername from '../user/username';
 import Category from '../utils/category';
 import NavTabs from '../utils/nav-tabs';
 import Modal from './modal';
@@ -128,7 +128,7 @@ const UserProfile: FunctionComponent = () => {
       size="md">
       <header className="bg-bg-tertiary">
         <div className="p-5">
-          <Username size="lg" user={user} />
+          <FoundUsername size="lg" user={user} />
           <UserBadges />
         </div>
         <hr className="border-bg-primary" />

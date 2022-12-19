@@ -3,6 +3,7 @@ import { useSnackbar } from 'notistack';
 import ReactModal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../store/ui';
+import './modal.scoped.css';
 
 export interface ModalProps {
   typeName: string;
@@ -18,7 +19,7 @@ const sizeClass = {
   'xl': 'rounded-lg 2xl:w-1/2 2xl:inset-x-1/4 2xl:top-1/4       md:w-1/3 md:inset-x-1/3 md:top-20',
   'full': 'h-full w-full',
 };
- 
+
 const Modal: React.FunctionComponent<ModalProps> = ({ className, typeName, size, children }) => {
   const dispatch = useDispatch();
   const openModal = useSelector((s: Store.AppState) => s.ui.openModal);
@@ -27,7 +28,7 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, typeName, size,
   return (
     <ReactModal
       className={classNames(
-        `bg-bg-primary overflow-auto fixed outline-none`,
+        `modal bg-bg-primary overflow-auto fixed outline-none`,
         className,
         sizeClass[size ?? 'sm'],
       )}
@@ -39,5 +40,5 @@ const Modal: React.FunctionComponent<ModalProps> = ({ className, typeName, size,
       }}>{children}</ReactModal>
   );
 }
- 
+
 export default Modal;
