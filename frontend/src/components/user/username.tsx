@@ -14,13 +14,13 @@ export interface UsernameProps {
 }
 
 const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, className, size = 'md' }) => {
-  const highestRole = useSelector(getMemberHighestRole(guild?.id, user.id));
+  const highestRole = useSelector(getMemberHighestRole(guild?.id, user?.id));
 
-  const userOwnsGuild = guild?.ownerId === user.id;
+  const userOwnsGuild = (guild?.ownerId === user.id);
   const discrim = user.discriminator
     .toString()
     .padStart(4, '0');
-  const isOnline = user.status === 'ONLINE';
+  const isOnline = (user.status === 'ONLINE');
 
   const UserPresence = () => {
     const blob = {
@@ -54,7 +54,7 @@ const Username: React.FunctionComponent<UsernameProps> = ({ guild, user, classNa
       className,
       `inline-flex items-center px-2`,
       'cursor-pointer',
-      { 'opacity-50': !isOnline })}>
+      { 'opacity-50': (!isOnline) })}>
       <div className="relative avatar mr-2">
         <UserPresence />
         <Image

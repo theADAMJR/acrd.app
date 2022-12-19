@@ -18,7 +18,7 @@ const GuildSettingsInvites: React.FunctionComponent = () => {
 
   const Invites = () => (
     <div className="mt-2">
-      {invites.map(i => (
+      {invites.filter(x => x).map(i => (
         <div className="flex align-center justify-between invite w-full p-2">
           <code className='font-bold pt-2'>{i.id}</code>
           <span className="ml-4 secondary">
