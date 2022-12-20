@@ -5,7 +5,7 @@ import PageWrapper from '../page-wrapper';
 import Input from '../../inputs/input';
 import NormalButton from '../../utils/buttons/normal-button';
 import { loginUser, forgotPasswordEmail } from '../../../store/auth';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import VerifyCodeInput from './verify-code-input';
 import FullParticles from '../../utils/full-particles';
 
@@ -21,7 +21,7 @@ const LoginPage: React.FunctionComponent = () => {
   const resetPassword = () => dispatch(forgotPasswordEmail(getValues().email));
 
   return (user)
-    ? <Redirect to="/channels/@me" />
+    ? <Redirect to={query.get('redirect') ?? '/channels/@me'} />
     : (
       <PageWrapper pageTitle="acrd.app | Login">
         <div className="flex items-center absolute justify-center top-[30%] left-[35%]">

@@ -36,7 +36,7 @@ const WSListener: React.FunctionComponent = () => {
       enqueueSnackbar(`${dialog.content}.`, {
         anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
         variant: dialog.variant,
-        autoHideDuration: 5000,
+        autoHideDuration: 4000,
       });
 
     ws.on('error', (error: any) => handleDialog({

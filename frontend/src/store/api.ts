@@ -19,6 +19,7 @@ export interface APIArgs {
   url: string;
   /** Callback to handle side effects. */
   callback?: (payload: any) => any | Promise<any>;
+  errorCallback?: (payload: any) => any | Promise<any>;
 }
 export interface WSArgs {
   data?: object;

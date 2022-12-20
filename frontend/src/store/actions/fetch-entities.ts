@@ -1,5 +1,6 @@
 import { REST } from '@acrd/types';
 import { actions as api } from '../api';
+import { actions as auth } from '../auth';
 import { actions as channelActions } from '../channels';
 import { actions as guildActions } from '../guilds';
 import { actions as memberActions } from '../members';
@@ -23,5 +24,6 @@ export default (guildIds?: string[]) => (dispatch) => {
       dispatch(userActions.fetched(data.users));
       dispatch(meta.fetchedEntities());
     },
+    errorCallback: () => dispatch(auth.loggedInAttempted()),
   }));
 }

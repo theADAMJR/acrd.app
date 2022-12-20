@@ -17,7 +17,7 @@ const slice = createSlice({
     updatedUser: (auth, { payload }: Store.Action<WS.Args.UserUpdate>) => {
       Object.assign(auth.user, payload.partialUser);
     },
-    loggedIn: (auth) => { auth.attemptedLogin = true },
+    loggedInAttempted: (auth) => { auth.attemptedLogin = true },
     loggedOut: (auth) => {
       delete auth.user;
       auth.attemptedLogin = false;
@@ -46,8 +46,9 @@ export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
     method: 'post',
     data,
     url: `/auth/login`,
-    // TODO: replace with snackbar
     callback: (payload) => {
+      dispatch(actions.loggedInAttempted());
+
       if (payload.token) {
         localStorage.setItem('token', payload.token);
         dispatch(ready());
@@ -56,7 +57,8 @@ export const loginUser = (data: REST.To.Post['/auth/login']) => (dispatch) => {
         dispatch(actions.shouldVerify());
         dispatch(openDialog({ content: payload.message, variant: 'info' }))
       }
-    }
+    },
+    errorCallback: () => dispatch(actions.loggedInAttempted()),
   }));
 }
 
@@ -79,7 +81,7 @@ export const logoutUser = () => (dispatch) => {
 
 export const registerUser = (data: REST.To.Post['/auth/register']) => (dispatch) => {
   dispatch(api.restCallBegan({
-    onSuccess: [actions.loggedIn.type],
+    onSuccess: [actions.loggedInAttempted.type],
     method: 'post',
     data,
     url: `/auth/register`,

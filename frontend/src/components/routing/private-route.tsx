@@ -11,7 +11,7 @@ const PrivateRoute: React.FunctionComponent<RouteProps> = (props) => {
   const themes = useSelector((s: Store.AppState) => s.entities.themes);
   const location = useLocation();
 
-  if (attemptedLogin && !user)
+  if (!user && attemptedLogin)
     return <Redirect to={`/login?redirect=${location.pathname}`} />;
   else if (!user || !fetchedEntities)
     return <LoadingPage />;

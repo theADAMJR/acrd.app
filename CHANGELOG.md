@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Emails, and passwords salts/hashes are now forgotten when deleting user is deleted.
+- User now redirects correctly when needed to login.
 
 ## [Winter 0.4.0-alpha] - 2022/12/17
 

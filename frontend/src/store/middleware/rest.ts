@@ -6,7 +6,7 @@ export default (store) => (next) => async (action) => {
   if (action.type !== actions.restCallBegan.type)
     return next(action);
 
-  const { url, method, data, onSuccess, headers, callback } = action.payload as APIArgs;
+  const { url, method, data, onSuccess, headers, callback, errorCallback } = action.payload as APIArgs;
 
   next(action);
 
@@ -24,7 +24,6 @@ export default (store) => (next) => async (action) => {
       for (const type of onSuccess)
         store.dispatch({ type, payload });
 
-    // called after dispatch events
     if (callback) await callback(payload);
   } catch (error) {
     const response = (error as any).response;
@@ -33,5 +32,7 @@ export default (store) => (next) => async (action) => {
       content: response?.data?.message ?? 'Unknown Error',
       variant: 'error',
     }));
+
+    if (errorCallback) await errorCallback(response);
   }
 };
