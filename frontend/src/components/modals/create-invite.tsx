@@ -19,9 +19,13 @@ const CreateInvite: React.FunctionComponent = () => {
   }, [isOpen, invites]);
 
   const copyCode = () => {
-    const inviteURL = `${process.env.PUBLIC_URL}/join/${activeInvite?.id}`;
+    const inviteURL = `${process.env.REACT_APP_WEBSITE_URL}/join/${activeInvite?.id}`;
     window.navigator.clipboard.writeText(inviteURL);
   }
+
+  const shortURL = process.env.REACT_APP_WEBSITE_URL
+    .replace('https://', '')
+    .replace('http://', '');
 
   return (activeInvite) ? (
     <Modal typeName={'CreateInvite'} className="p-5">
@@ -35,7 +39,7 @@ const CreateInvite: React.FunctionComponent = () => {
           onClick={copyCode}
           className="float-right py-0">Copy</CircleButton>
         <span className="text-lg">
-          <span className='muted'>{process.env.PUBLIC_URL || 'acrd.app/join/'}</span>
+          <span className='muted'>{shortURL + '/join/'}</span>
           <span className='primary'>{activeInvite?.id}</span>
         </span>
       </div>

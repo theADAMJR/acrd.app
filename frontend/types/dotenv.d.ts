@@ -4,6 +4,7 @@ declare global {
       PORT: number;
       REACT_APP_API_URL: string;
       REACT_APP_CDN_URL: string;
+      REACT_APP_WEBSITE_URL: string;
       REACT_APP_REPO: string;
       REACT_APP_VERSION_NAME: string;
       REACT_APP_VERSION_NUMBER: string;
