@@ -35,8 +35,9 @@ export class PermService {
       );
   }
   public canInChannel(permission: PermissionTypes.PermissionString, guildId: string, channelId: string) {
-    const channel = this.getChannel(channelId);
-    const member = this.getSelfMember(guildId);
+    const channel: Entity.Channel = this.getChannel(channelId);
+    const member: Entity.GuildMember = this.getSelfMember(guildId);
+    const guild: Entity.Guild = this.getGuild(guildId);
 
     const overrides = channel.overrides
       ?.filter(o => member.roleIds.includes(o.roleId)) ?? [];
@@ -49,7 +50,11 @@ export class PermService {
     const isAllowedByOverride = this.hasPerm(cumulativeAllowPerms, permNumber);
     const isDeniedByOverride = this.hasPerm(cumulativeDenyPerms, permNumber);
 
-    return (canInherently && !isDeniedByOverride) || isAllowedByOverride;
+    const totalPerms = this.getTotalPerms(member, guildId);
+    const isAdmin = (member.userId == guild.ownerId
+      || this.hasPerm(totalPerms, PermissionTypes.General.ADMINISTRATOR));
+
+    return (isAdmin || (canInherently && !isDeniedByOverride) || isAllowedByOverride);
   }
 
   public can(permission: PermissionTypes.PermissionString, guildId: string) {
