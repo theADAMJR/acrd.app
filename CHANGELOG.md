@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Create Invite: Copy full invite URL.
 
+![](https://i.ibb.co/VSLgSwd/image.png)
+
 ### Changed
 - Moved advanced user settings to 'Advanced' tab.
 - Moved advanced guild settings to 'Advanced' tab.
