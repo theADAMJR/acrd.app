@@ -60,7 +60,7 @@ const HomePage: React.FunctionComponent = () => {
                 Join <NumberFormat
                   value={userCount}
                   displayType={'text'}
-                  thousandSeparator={true} /> Accord users that have simplified their life.
+                  thousandSeparator={true} /> Accord users that simplified their life.
               </span>
             )}
           </div>
@@ -90,17 +90,19 @@ const HomePage: React.FunctionComponent = () => {
           Create and customize your own messaging spaces for your friends.
         </ImageCard>
         <ImageCard src={Secure} title="Secure Messages">
-          Accord is <a href={process.env.REACT_APP_REPO} target="_blank">open-source on GitHub</a>.
+          Accord is <a href={process.env.REACT_APP_REPO_URL} target="_blank">open-source on GitHub</a>.
           (work in progress)
         </ImageCard>
       </section>
 
       <footer className="fixed bottom-0 w-full">
-        <p className="float-right p-2">
+        <a href={`${process.env.REACT_APP_REPO_URL}/blob/dev/CHANGELOG.md`}
+          className="float-right p-2"
+          target="none">
           <strong className="primary">{process.env.REACT_APP_VERSION_NAME}</strong>
           <span> </span>
           <span className="secondary">{process.env.REACT_APP_VERSION_NUMBER}</span>
-        </p>
+        </a>
       </footer>
     </PageWrapper>
   );

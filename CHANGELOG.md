@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+### Changed
+### Fixed
+
+## [Winter 0.4.1-alpha] - 2023/01/01
+
+### Added
 - Create Invite: Copy full invite URL.
 
 ### Changed
@@ -17,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Emails, and passwords salts/hashes are now forgotten when deleting user is deleted.
 - User now redirects correctly when needed to login.
+- Themes now apply correctly on built app.
 
 ## [Winter 0.4.0-alpha] - 2022/12/17
 
