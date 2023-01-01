@@ -8,6 +8,7 @@ import SaveChanges from '../../utils/save-changes';
 import Input from '../../inputs/input';
 import ChannelSelect from '../../inputs/channel-select';
 import CircleButton from '../../utils/buttons/circle-button';
+import FileInput from '../../inputs/file-input';
 
 const GuildSettingsOverview: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -39,9 +40,7 @@ const GuildSettingsOverview: React.FunctionComponent = () => {
           register={register}
           options={{ value: guild.name }}
           className="pt-5" />
-        <Input
-          type="file"
-          accept="image/*"
+        <FileInput
           label="Icon Image"
           name="iconURL"
           className="pt-5"

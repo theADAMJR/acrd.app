@@ -13,6 +13,7 @@ import { ready } from '../store/auth';
 import { initPings } from '../store/pings';
 import VerifyPage from './pages/auth/verify-page';
 import InvitePage from './pages/invite-page';
+import ThemePage from './pages/theme-page';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export default function App() {
         <Route exact path="/verify" component={VerifyPage} />
 
         <PrivateRoute exact path="/join/:inviteId" component={InvitePage} />
+        <PrivateRoute exact path="/themes/:themeCode" component={ThemePage} />
         <PrivateRoute exact path="/channels/@me" component={OverviewPage} />
         <PrivateRoute exact path="/channels/:guildId/:channelId?" component={GuildPage} />
 

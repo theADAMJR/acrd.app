@@ -1,6 +1,7 @@
 import classNames from 'classnames';
+import { HTMLAttributes } from 'react';
 
-const CircleButton: React.FunctionComponent<any> = (props) => {
+const CircleButton: React.FunctionComponent<HTMLAttributes<HTMLButtonElement>> = (props) => {
   return (
     <button
       {...props}

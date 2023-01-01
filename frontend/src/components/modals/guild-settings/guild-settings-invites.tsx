@@ -36,7 +36,7 @@ const GuildSettingsInvites: React.FunctionComponent = () => {
           </td>
           <td className='w-0'>
             <CircleButton
-              type="button"
+              role="button"
               style={{ borderColor: 'var(--danger)', color: 'var(--danger)' }}
               onClick={() => dispatch(deleteInvite(i.id))}>X</CircleButton>
           </td>

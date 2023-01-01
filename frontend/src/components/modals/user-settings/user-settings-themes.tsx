@@ -69,6 +69,15 @@ const UserSettingsThemes: React.FunctionComponent = () => {
       handleSubmit(onUpdate)(e);
     };
 
+    const copyCode = () => {
+      const inviteURL = `${process.env.REACT_APP_WEBSITE_URL}/themes/${theme?.id}`;
+      window.navigator.clipboard.writeText(inviteURL);
+    }
+
+    const shortURL = process.env.REACT_APP_WEBSITE_URL
+      .replace('https://', '')
+      .replace('http://', '');
+
     const AddTheme: React.FunctionComponent = () => {
       const [code, setCode] = useState('');
 
@@ -116,22 +125,23 @@ const UserSettingsThemes: React.FunctionComponent = () => {
         <header className="mb-5">
           <h1 className="text-3xl font-bold inline">{theme.name}</h1>
         </header>
-        <FileInput
-          disabled
-          // disabled={true}!selfIsManager}
-          className="w-1/3"
-          name="icon"
-          label="Icon"
-          options={{ value: theme.iconURL }}
-          tooltip="An optional icon for your theme."
-          onChange={(e) => {
-            const file = e.currentTarget?.files?.[0];
-            if (!file) return;
+        <div className="w-1/3">
+          <FileInput
+            disabled
+            // disabled={true}!selfIsManager}
+            name="icon"
+            label="Icon"
+            options={{ value: theme.iconURL }}
+            tooltip="An optional icon for your theme."
+            onChange={(e) => {
+              const file = e.currentTarget?.files?.[0];
+              if (!file) return;
 
-            dispatch(uploadFile(file, ({ url }) => {
-              dispatch(updateTheme(themeId, { iconURL: url }));
-            }));
-          }} />
+              dispatch(uploadFile(file, ({ url }) => {
+                dispatch(updateTheme(themeId, { iconURL: url }));
+              }));
+            }} />
+        </div>
 
         <form
           onChange={() => dispatch(openSaveChanges(true))}
@@ -144,7 +154,19 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               name="name"
               register={register}
               options={{ value: theme.name }} />
-            <Input
+
+            <div className="mt-8 bg-bg-secondary w-1/2 h-10 rounded-md p-2">
+              <CircleButton
+                role="button"
+                style={{ color: 'var(--font)', borderColor: 'var(--font)' }}
+                onClick={copyCode}
+                className="float-right py-0">Copy</CircleButton>
+              <span className="text-lg">
+                <span className='muted'>{shortURL + '/join/'}</span>
+                <span className='primary'>{theme?.code}</span>
+              </span>
+            </div>
+            {/* <Input
               disabled
               // disabled={!selfIsManager}
               tooltip="The code that is used to share themes."
@@ -152,7 +174,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               label="Code"
               name="code"
               register={register}
-              options={{ value: theme.code }} />
+              options={{ value: theme.code }} /> */}
           </div>
 
           <div className='mt-2'>

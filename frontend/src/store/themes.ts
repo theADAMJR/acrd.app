@@ -1,6 +1,6 @@
 /* eslint import/no-webpack-loader-syntax: off */
 import { Entity, REST } from '@acrd/types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { actions as api } from './api';
 import { notInArray } from './utils/filter';
 import { getHeaders } from './utils/rest-headers';
@@ -59,6 +59,11 @@ export default slice.reducer;
 export const getTheme = (id: string, themes: Entity.Theme[]) => {
   return themes.find(t => t.id === id);
 }
+
+export const getThemeByCode = (code: string) => createSelector(
+  state => state.entities.themes,
+  themes => themes.find(t => t.code === code)
+);
 
 export const createTheme = (theme: Partial<Entity.Theme>, callback?: (theme: Entity.Theme) => any) => (dispatch) => {
   dispatch(api.restCallBegan({
