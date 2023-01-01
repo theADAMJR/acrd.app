@@ -108,7 +108,7 @@ export const deleteTheme = (id: string) => (dispatch) => {
   }));
 }
 
-export const applyTheme = (styles = accordTheme) => {
+export const applyTheme = (styles: any = accordTheme) => {
   const themeWrapper = document.querySelector('#themeWrapper')!;
   themeWrapper.innerHTML = `<style>${styles}</style>`;
 }

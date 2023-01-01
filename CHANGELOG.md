@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Theme URLs: Easily share themes by their codes.
+- Theme Page: Apply other user themes.
+
 ### Changed
 ### Fixed
 

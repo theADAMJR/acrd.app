@@ -70,7 +70,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
     };
 
     const copyCode = () => {
-      const inviteURL = `${process.env.REACT_APP_WEBSITE_URL}/themes/${theme?.id}`;
+      const inviteURL = `${process.env.REACT_APP_WEBSITE_URL}/themes/${theme?.code}`;
       window.navigator.clipboard.writeText(inviteURL);
     }
 

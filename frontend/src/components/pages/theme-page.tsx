@@ -8,7 +8,7 @@ import fetchEntities from '../../store/actions/fetch-entities';
 import { getGuild, getGuildMembers } from '../../store/guilds';
 import { joinGuild } from '../../store/members';
 import { applyTheme, getThemeByCode, getTheme, unlockTheme } from '../../store/themes';
-import { getUser } from '../../store/users';
+import { getUser, updateSelf } from '../../store/users';
 import SidebarIcon from '../navigation/sidebar/sidebar-icon';
 import FoundUsername from '../user/username';
 import NormalButton from '../utils/buttons/normal-button';
@@ -18,6 +18,7 @@ import PageWrapper from './page-wrapper';
 interface ThemePageProps { }
 
 const ThemePage: React.FunctionComponent<ThemePageProps> = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { themeCode }: any = useParams();
   const theme: Entity.Theme = useSelector(getThemeByCode(themeCode));
@@ -65,12 +66,8 @@ const ThemePage: React.FunctionComponent<ThemePageProps> = () => {
           childClasses="bg-bg-tertiary w-24 h-24 pt-6 text-xl"
           disableHoverEffect />
         <div className="flex justify-around items-center w-full mx-5">
-          {/* <span className='text-center'>
-            <div className="heading font-bold text-center">Members</div>
-            <code>{members.length}</code>
-          </span> */}
           <span className='text-center'>
-            <div className="heading font-bold">Owned By</div>
+            <div className="heading font-bold">Created By</div>
             <FoundUsername user={creatorUser} />
           </span>
         </div>
@@ -78,7 +75,8 @@ const ThemePage: React.FunctionComponent<ThemePageProps> = () => {
       <div className="flex justify-center gap-5 mx-5 mt-5">
         <NormalButton
           onClick={() => {
-            applyTheme(themeCode);
+            dispatch(updateSelf({ activeThemeId: theme.id }));
+            history.push(`/channels/@me`);
           }}
           className="bg-success dark">Apply</NormalButton>
         <Link to="/channels/@me">

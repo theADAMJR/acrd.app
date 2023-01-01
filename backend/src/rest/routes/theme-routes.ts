@@ -4,12 +4,11 @@ import { SelfUserDocument } from '../../data/models/user';
 import updateUser from '../middleware/update-user';
 import validateUser from '../middleware/validate-user';
 import { APIError } from '../modules/api-error';
-import parseCSS from 'css-parse';
 
 export const router = Router();
 
 router.get('/', async (req, res) => {
-  const themes = await Theme.find({ featured: true });
+  const themes = await Theme.find({ isFeatured: true });
   res.json(themes);
 });
 
