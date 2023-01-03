@@ -17,7 +17,8 @@ import { Entity } from '@acrd/types';
 const ChannelTabs: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { activeGuild, activeChannel } = useSelector((s: Store.AppState) => s.ui);
-  const guildChannels = useSelector(getGuildChannels(activeGuild?.id));
+  const guildChannels = useSelector(getGuildChannels(activeGuild?.id))
+    .filter(c => c.type !== 'VOICE');
   const perms = usePerms();
 
   if (!activeGuild || !perms.can('VIEW_CHANNELS', activeGuild.id)) return null;

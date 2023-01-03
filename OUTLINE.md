@@ -11,6 +11,11 @@
 
 # FIXME
 
+[2] unused images should be deleted
+> user avatars
+> guild icons
+> images in messages
+
 # VERIFY
 
 [3] member status: members sometimes remain online, after going offline

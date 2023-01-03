@@ -92,7 +92,10 @@ export declare namespace Entity {
     }
 }
 export declare namespace ChannelTypes {
-    type Type = 'TEXT' | 'VOICE';
+    type Type = 'TEXT' | 'VOICE' | 'DM';
+    interface DM extends Entity.Channel {
+        type: 'DM';
+    }
     interface Text extends Entity.Channel {
         type: 'TEXT';
     }

@@ -8,7 +8,8 @@
     "start:prod": "ts-node-transpile-only src/app.ts",
     "test": "npm run test:unit && npm run test:int",
     "test:e2e": "ts-mocha --exit test/e2e/test.ts",
-    "test:unit": "ts-mocha --exit test/unit/**/**.test.ts"
+    "test:unit": "ts-mocha --exit test/unit/**/**.test.ts",
+    "update:types": "rm -rf ./node_modules/@acrd/types && npm i ../types"
   },
   "keywords": [],
   "author": "github.com/theadamjr",

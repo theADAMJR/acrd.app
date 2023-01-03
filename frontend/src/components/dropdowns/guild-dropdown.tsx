@@ -3,9 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../hooks/use-perms';
 import { actions as ui } from '../../store/ui';
-import CreateChannel from '../modals/create-channel';
-import CreateInvite from '../modals/create-invite';
-import GuildSettings from '../modals/guild-settings/guild-settings';
 import Dropdown from '../utils/dropdown';
 
 const GuildDropdown: React.FunctionComponent = () => {
@@ -40,14 +37,14 @@ const GuildDropdown: React.FunctionComponent = () => {
       {(perms.can('MANAGE_GUILD', guild.id)
         || perms.can('MANAGE_ROLES', guild.id)
         || perms.can('MANAGE_INVITES', guild.id)) && (
-        <a onClick={() => dispatch(ui.openedModal('GuildSettings'))}
-          className="rounded-sm flex items-center justify-between p-2 h-8 text-sm">
-          <span className="font">Guild settings</span>
-          <FontAwesomeIcon
-            className="float-right w-1"
-            icon={faCog} />
-        </a>
-      )}
+          <a onClick={() => dispatch(ui.openedModal('GuildSettings'))}
+            className="rounded-sm flex items-center justify-between p-2 h-8 text-sm">
+            <span className="font">Guild settings</span>
+            <FontAwesomeIcon
+              className="float-right w-1"
+              icon={faCog} />
+          </a>
+        )}
     </Dropdown>
   );
 }

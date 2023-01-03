@@ -93,8 +93,12 @@ export namespace Entity {
 }
 
 export namespace ChannelTypes {
-  export type Type = 'TEXT' | 'VOICE';
+  export type Type = 'TEXT' | 'VOICE' | 'DM';
 
+  export interface DM extends Entity.Channel {
+    type: 'DM';
+    userIds: string[];
+  }
   export interface Text extends Entity.Channel {
     type: 'TEXT';
   }

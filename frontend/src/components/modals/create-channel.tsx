@@ -16,7 +16,7 @@ const CreateChannel: React.FunctionComponent = () => {
     setValue('name', '');
   };
 
-  const types: ChannelTypes.Type[] = ['TEXT', 'VOICE'];
+  const types: ChannelTypes.Type[] = ['TEXT'];
 
   return (
     <Modal typeName={'CreateChannel'} size="sm">

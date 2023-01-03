@@ -15,7 +15,8 @@ const PlusIcon: React.FunctionComponent<PlusIconProps> = (props) => {
       <SidebarIcon
         childClasses="success"
         disableHoverEffect={props.disableHoverEffect}
-        name="+" />
+        name="+"
+        tooltip="Add Guild" />
     </div>
   );
 }

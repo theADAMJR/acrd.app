@@ -3,7 +3,7 @@ import { faHashtag, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMemberList } from '../../store/config';
 import classNames from 'classnames';
- 
+
 const AppNavbar: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel);
@@ -13,6 +13,7 @@ const AppNavbar: React.FunctionComponent = () => {
   return (
     <div className="shadow-elevation flex items-center h-12 px-5">
       {channel && <FontAwesomeIcon
+        color="var(--muted)"
         icon={faHashtag}
         className="scale-150 mr-2" />}
       <h3 className="flex-grow ml-1">
@@ -30,5 +31,5 @@ const AppNavbar: React.FunctionComponent = () => {
     </div>
   );
 }
- 
+
 export default AppNavbar;

@@ -8,11 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Theme URLs: Easily share themes by their codes.
-- Theme Page: Apply other user themes.
+### Changed
+### Removed
+
+## [Winter 0.4.2-alpha] - 2023/01/03
+
+### Added
+- Theme Page: Easily share themes by their codes.
 
 ### Changed
-### Fixed
+- Sidebar: Improved guild icon tooltips.
+- Themes: Replaced theme code with URL.
+
+### Removed
+- Voice channels (until further notice).
 
 ## [Winter 0.4.1-alpha] - 2023/01/01
 

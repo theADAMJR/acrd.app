@@ -11,6 +11,9 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
     return channel;
   }
 
+  public async getDM(id: string | undefined) {
+    return await this.get(id) as DMChannelDocument;
+  }
   public async getText(id: string | undefined) {
     return await this.get(id) as TextChannelDocument;
   }
@@ -28,6 +31,9 @@ export default class Channels extends DBWrapper<string, ChannelDocument> {
     });
   }
 
+  public async createDM(userIds: string[]) {
+    return this.create({ userIds }) as Promise<DMChannelDocument>;
+  }
   public async createText(guildId: string) {
     return this.create({ guildId }) as Promise<TextChannelDocument>;
   }
