@@ -8,7 +8,7 @@ import { REST } from '@acrd/types';
 
 export const router = Router();
 
-router.post('/login', extraRateLimit(25), (req, res, next) => {
+router.post('/login', extraRateLimit(20), (req, res, next) => {
   req['flash'] = (_: string, message: string) => res.status(400).json({ message });
   next();
 }, passport.authenticate('local', {
@@ -42,7 +42,7 @@ router.post('/register', extraRateLimit(10), async (req, res) => {
   res.status(201).json(await deps.users.createToken(user));
 });
 
-router.get('/verify', extraRateLimit(25), async (req, res) => {
+router.get('/verify', extraRateLimit(20), async (req, res) => {
   const email = deps.verification.getEmailFromCode(req.query.code as string);
   const user = await User.findOne({ email }) as any;
   if (!email || !user)
