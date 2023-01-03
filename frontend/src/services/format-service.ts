@@ -31,7 +31,7 @@ export class FormatService {
       .replace(this.patterns.codeLine, '<code>$1</code>')
       .replace(this.patterns.blockQuoteLine, '<span class="blockquote pl-1">$1</span>')
       .replace(this.patterns.blockQuoteMultiline, '<div class="blockquote pl-1">$1</div>')
-      .replace(defaultPatterns.url, '<a href="$1" target="_blank">$1</div>');
+      .replace(defaultPatterns.url, '<a href="$1" target="_blank">$1</a>');
   }
 
   // FIXME:
