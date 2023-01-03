@@ -17,7 +17,7 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
 
   const messageHTML =
     ((message.content)
-      ? striptags(format(message.content), 'a')
+      ? format(striptags(message.content))
       : ''
     ) + ((message.updatedAt && message.content)
       ? `<span

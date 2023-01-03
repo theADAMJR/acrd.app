@@ -1,7 +1,6 @@
 import { Socket } from 'socket.io';
 import { WebSocket } from '../websocket';
 import { WSEvent, } from './ws-event';
-import { Channel } from '../../data/models/channel';
 import striptags from 'striptags';
 import { WS } from '@acrd/types';
 import ProfanityFilter from 'bad-words';
