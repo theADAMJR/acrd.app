@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import useFormat from '../../../hooks/use-format';
+import useMentions from '../../../hooks/use-mentions';
 import usePerms from '../../../hooks/use-perms';
 import { startTyping } from '../../../store/typing';
 import { actions as ui } from '../../../store/ui';
@@ -9,9 +11,10 @@ interface MessageBoxInputProps {
   contentState: [any, any];
   saveEdit: () => any;
 }
- 
+
 const MessageBoxInput: React.FunctionComponent<MessageBoxInputProps> = (props) => {
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
+  const mentions = useMentions();
   const dispatch = useDispatch();
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild)!;
@@ -19,12 +22,12 @@ const MessageBoxInput: React.FunctionComponent<MessageBoxInputProps> = (props) =
   const messageBoxRef = useRef<HTMLDivElement>(null);
   const [content, setContent] = props.contentState;
 
-  const onKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {   
-    if (event.key === 'Enter' && !event.shiftKey)      
+  const onKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' && !event.shiftKey)
       event.preventDefault();
-    
-    const text = event.currentTarget!.innerText.trim();
-    setContent(text);
+
+    const text = event.currentTarget!.innerHTML.trim();
+    setContent(mentions.formatOriginal(text));
 
     handleEscape(event);
     dispatch(startTyping(channel.id));
@@ -33,19 +36,18 @@ const MessageBoxInput: React.FunctionComponent<MessageBoxInputProps> = (props) =
     if (event.key !== 'Enter'
       || event.shiftKey
       || !emptyMessage) return;
-    
+
     props.saveEdit();
 
     setContent('');
     messageBoxRef.current!.innerText = '';
   }
   const handleEscape = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key !== 'Escape')
-      return ;
+    if (event.key !== 'Escape') return;
     if (editingMessageId)
       dispatch(ui.stoppedEditingMessage());
   }
-  
+
   const canSend = perms.canInChannel('SEND_MESSAGES', guild.id, channel.id);
   const getPlaceholder = (): string | undefined => {
     if (!canSend) return `Insufficient perms.`;

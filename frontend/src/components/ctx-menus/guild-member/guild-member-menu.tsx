@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
 import { getMember, kickMember } from '../../../store/members';
 import { actions as ui, openUserProfile } from '../../../store/ui';
-import { toggleBlockUser } from '../../../store/users';
+import { getTag, toggleBlockUser } from '../../../store/users';
 import Category from '../../utils/category';
 import DevModeMenuSection from '../dev-mode-menu-section';
 import RoleManager from './role-manager';
@@ -40,6 +40,9 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
     <ContextMenu
       id={user.id}
       className="bg-bg-tertiary p-2 rounded shadow">
+      <MenuItem className='text-center mb-2'>
+        <strong>{getTag(user)}</strong>
+      </MenuItem>
       <MenuItem
         onClick={() => dispatch(openUserProfile(user))}
         className="flex items-center justify-between cursor-pointer">
@@ -61,16 +64,17 @@ const GuildMemberMenu: React.FunctionComponent<GuildMemberMenuProps> = ({ user }
       {(canKick || canManage) && (
         <div>
           <hr className="my-2 border-bg-primary" />
-          <Category title="Manage Roles" className="pb-2" />
+
+          <Category title="Roles" className="pb-2" />
+          {perms.can('MANAGE_ROLES', guild.id) && <RoleManager member={member} />}
 
           {(!isSelf && perms.can('KICK_MEMBERS', guild.id)) && (
             <MenuItem
-              className="danger cursor-pointer mb-2"
+              className="danger cursor-pointer mt-2 pt-1"
               onClick={onKickMember}>
-              <span>Kick {user.username}</span>
+              <span>Kick {getTag(user)}</span>
             </MenuItem>
           )}
-          {perms.can('MANAGE_ROLES', guild.id) && <RoleManager member={member} />}
         </div>
       )}
 

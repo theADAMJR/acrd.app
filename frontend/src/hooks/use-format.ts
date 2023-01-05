@@ -9,5 +9,5 @@ const useFormat = () => {
     return format.toHTML(mentions.toHTML(content));
   };
 }
- 
+
 export default useFormat;

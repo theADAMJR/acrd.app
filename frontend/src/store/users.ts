@@ -88,6 +88,10 @@ export const getUserByTag = (tag: string) => createSelector(
     return users.find(u => u.username === username && u.discriminator === +discrim);
   }
 );
+export const getUserByUsername = (username: string) => createSelector(
+  state => state.entities.users,
+  users => users.find(u => u.username === username)
+);
 
 export const getTag = ({ discriminator, username }: Entity.User) => {
   const tag = (discriminator || 0)

@@ -1,7 +1,7 @@
 import { MentionService } from './mention-service';
 import { test, given } from '@acrd/ion';
 
-describe.skip('mention-service', () => {
+describe('mention-service', () => {
   let service: MentionService;
   let state: Store.AppState;
 

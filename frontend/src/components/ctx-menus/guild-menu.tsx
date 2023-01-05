@@ -18,7 +18,7 @@ const GuildMenu: React.FunctionComponent<GuildMenuProps> = ({ guild }) => {
     <ContextMenu
       key={guild.id}
       id={guild.id}
-      className="bg-bg-tertiary rounded shadow w-48 p-2">
+      className="bg-bg-tertiary rounded shadow w-56 p-2">
       <MenuItem
         className="flex items-center justify-between danger cursor-pointer"
         onClick={() => dispatch(leaveGuild(guild.id))}>

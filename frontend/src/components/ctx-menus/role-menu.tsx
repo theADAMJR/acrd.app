@@ -14,7 +14,7 @@ const RoleMenu: React.FunctionComponent<RoleMenuProps> = ({ role }) => {
     <ContextMenu
       key={role.id}
       id={role.id}
-      className="bg-bg-tertiary rounded shadow w-48 p-2">
+      className="bg-bg-tertiary rounded shadow w-56 p-2">
       <div style={{ color: role.color }}>{role.name}</div>
       {devMode && <DevModeMenuSection ids={[
         { title: 'Role ID', id: role.id },

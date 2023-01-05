@@ -3,6 +3,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import useMentions from '../../../hooks/use-mentions';
 import { createMessage, updateMessage } from '../../../store/messages';
 import { actions as ui } from '../../../store/ui';
 import MessageBoxInput from './message-box-input';
@@ -20,6 +21,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
   const [content, setContent] = useState(props.content ?? '');
   const channel = useSelector((s: Store.AppState) => s.ui.activeChannel)!;
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
+  const mentions = useMentions();
 
   useEffect(() => {
     const messageBox = document.querySelector('#messageBox') as HTMLDivElement;
@@ -53,7 +55,7 @@ const MessageBox: React.FunctionComponent<MessageBoxProps> = (props) => {
           contentState={[content, setContent]}
           saveEdit={saveEdit} />
       </div>
-      <div className="text-sm w-full h-6">
+      <div className="text-sm h-6 w-full">
         {(editingMessageId)
           ? <span className="text-xs py-2">
             escape to <Link to="#" onClick={stopEditing}>cancel</Link> •

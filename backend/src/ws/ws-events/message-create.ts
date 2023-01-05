@@ -42,10 +42,15 @@ export default class implements WSEvent<'MESSAGE_CREATE'> {
 
   private filterContent(content: string | undefined, filterProfanity: boolean) {
     const badWords = new ProfanityFilter({ placeHolder: '?' });
+
+    // server filters tags, client renders them as is
+    const innerMentionPattern = /.\d{18}/gm;
+    const allowedTags = content?.match(innerMentionPattern) ?? [];
+
     if (content && filterProfanity)
-      return striptags(badWords.clean(content));
+      return badWords.clean(content);
     else if (content)
-      return striptags(content);
+      return content;
     return '';
   }
 }

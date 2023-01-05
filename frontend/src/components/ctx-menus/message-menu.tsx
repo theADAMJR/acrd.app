@@ -16,7 +16,7 @@ const MessageMenu: React.FunctionComponent<MessageMenuProps> = ({ message }) => 
     <ContextMenu
       key={message.id}
       id={message.id}
-      className="bg-bg-tertiary rounded shadow w-48 p-2">
+      className="bg-bg-tertiary rounded shadow w-56 p-2">
       <div className="overflow-hidden">
         <span className="bg-bg-primary p-1 rounded max-w-full">{message.content}</span>
       </div>

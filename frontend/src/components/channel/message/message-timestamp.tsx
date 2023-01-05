@@ -14,9 +14,8 @@ const MessageTimestamp: FunctionComponent<MessageTimestampProps> = ({ message })
   const daysAgo = Math.floor(toDays(midnight) - toDays(createdAt));
 
   function getTimestamp() {
-    const wasToday = midnight.getDate() === createdAt.getDate();
-    if (wasToday) return '[Today at] HH:mm';
-    else if (daysAgo <= 1) return '[Yesterday at] HH:mm';
+    if (daysAgo === -1) return '[Today at] HH:mm';
+    else if (daysAgo === 0) return '[Yesterday at] HH:mm';
     return 'DD/MM/YYYY';
   }
   return <span>{moment(createdAt).format(getTimestamp())}</span>;

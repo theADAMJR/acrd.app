@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { previewImage } from '../../../store/ui';
 import useFormat from '../../../hooks/use-format';
 import striptags from 'striptags';
+import { patterns } from '../../../types/lib/patterns.types';
 
 interface MessageContentProps {
   message: Entity.Message;
@@ -16,15 +17,12 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
   const editingMessageId = useSelector((s: Store.AppState) => s.ui.editingMessageId);
 
   const messageHTML =
-    ((message.content)
-      ? format(striptags(message.content))
-      : ''
-    ) + ((message.updatedAt && message.content)
+    ((message.content) ? format(message.content) : '') +
+    ((message.updatedAt && message.content)
       ? `<span
           class="select-none muted edited text-xs ml-1"
           title="${message.updatedAt}">(edited)</span>`
-      : ''
-    );
+      : '');
 
   const Attachments: React.FunctionComponent = () => (
     <>

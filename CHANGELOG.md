@@ -8,12 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Mentions: Mention channels, and users which selectively highlights associated users/channels.
+
+![](https://i.ibb.co/ZM4SNLw/image.png)
+
 ### Fixed
 - Message formatting does not work.
 - Message dates no longer show 2 days ago as 'Yesterday'.
-
-### Changed
-### Removed
 
 ## [Winter 0.4.2-alpha] - 2023/01/03
 

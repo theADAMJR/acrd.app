@@ -22,15 +22,15 @@ const ChannelSettings: React.FunctionComponent = () => {
     <Modal typeName={'ChannelSettings'} size="full">
       <div className="grid grid-cols-12 h-full">
         <div className="col-span-4 bg-bg-secondary">
-          <nav className="float-right flex-grow py-14 w-48 my-1 mr-4">
+          <nav className="float-right flex-grow py-14 w-1/2 my-1 mr-4">
             <Category
               className="muted px-2.5 pb-1.5"
               title={`#${channel.name}`} />
-          <NavTabs
-            tabs={tabs}
-            tab={tab}
-            setTab={setTab}
-            predicate={t => perms.can(t.perm as any, guild.id)} />
+            <NavTabs
+              tabs={tabs}
+              tab={tab}
+              setTab={setTab}
+              predicate={t => perms.can(t.perm as any, guild.id)} />
           </nav>
         </div>
 
@@ -46,5 +46,5 @@ const ChannelSettings: React.FunctionComponent = () => {
     </Modal>
   ) : null;
 };
- 
+
 export default ChannelSettings;
