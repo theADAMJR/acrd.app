@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 ### Fixed
 - Message formatting does not work.
+- Message dates no longer show 2 days ago as 'Yesterday'.
 
 ### Changed
 ### Removed
