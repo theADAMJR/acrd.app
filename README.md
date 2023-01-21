@@ -90,6 +90,6 @@ WEBSITE_URL="http://localhost:4200"
 
 ---
 
-### Worth checking out...
+### Worth checking out
 
 - Check out [fosscord](https://github.com/fosscord/fosscord).
