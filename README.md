@@ -87,9 +87,3 @@ PORT=3001
 ROOT_ENDPOINT="http://localhost:3001"
 WEBSITE_URL="http://localhost:4200"
 ```
-
----
-
-### Worth checking out
-
-- Check out [fosscord](https://github.com/fosscord/fosscord).
