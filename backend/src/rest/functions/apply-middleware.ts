@@ -42,7 +42,10 @@ function setupMulter(app: Application) {
     limits: { fileSize: 1024 * 1024 },
   });
 
-  app.post('/v2/upload', updateUser, validateUser, extraRateLimit(10), upload.single('file'), async (req, res) => {
+  app.post('/v2/upload', updateUser, validateUser, extraRateLimit(10), async (req, res) => {
+    res.status(400).json({ message: "Image uploads are temporarily disabled." })
+    return;
+
     const file = req.file!;
 
     const buffer = await readFileAsync(file.path);
