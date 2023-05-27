@@ -1,6 +1,6 @@
 # Accord - Messaging Made Simple.
 
-> Built with React, Redux, and Node.js.
+> Built with React, TypeScript, and Node.js.
 
 Accord is an app, similar to Discord, but cooler.
 
