@@ -14,7 +14,7 @@ addColors({
   verbose: 'bold grey',
   silly: 'bold magenta',
 });
- 
+
 const logger = createLogger({
   level: 'silly',
   defaultMeta: {},

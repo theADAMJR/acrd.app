@@ -99,9 +99,9 @@ const HomePage: React.FunctionComponent = () => {
         <a href={`${process.env.REACT_APP_REPO_URL}/blob/dev/CHANGELOG.md`}
           className="float-right p-2"
           target="none">
-          <strong className="primary">{process.env.REACT_APP_VERSION_NAME}</strong>
+          <strong className="heading">{process.env.REACT_APP_VERSION_NAME}</strong>
           <span> </span>
-          <span className="secondary">{process.env.REACT_APP_VERSION_NUMBER}</span>
+          <span className="primary">{process.env.REACT_APP_VERSION_NUMBER}</span>
         </a>
       </footer>
     </PageWrapper>
