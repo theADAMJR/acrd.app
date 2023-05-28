@@ -25,10 +25,12 @@ Built with React, TypeScript, and Node.js.
 3. Install npm packages.
    From app directory:
    ```
-   cd frontend
-   npm i
-   cd ../backend
-   npm i
+   # Install global dependencies
+   npm i -g typescript
+
+   # Install local packages
+   cd frontend && npm i -f
+   cd ../backend && npm i -f
    ```
 4. In `backend` directory, configure `.env.example` and rename the file to `.env`
 

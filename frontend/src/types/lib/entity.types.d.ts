@@ -95,6 +95,7 @@ export declare namespace ChannelTypes {
     type Type = 'TEXT' | 'VOICE' | 'DM';
     interface DM extends Entity.Channel {
         type: 'DM';
+        userIds: string[];
     }
     interface Text extends Entity.Channel {
         type: 'TEXT';

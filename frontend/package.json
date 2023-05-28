@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://acrd.app/",
   "dependencies": {
-    "@acrd/types": "file:../types",
+    "@acrd/types": "file:src/types",
     "@craco/craco": "^5.9.0",
     "@dvhb/craco-extend-scope": "^1.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
