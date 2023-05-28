@@ -1,6 +1,6 @@
 {
   "name": "@acrd/frontend",
-  "version": "0.0.0",
+  "version": "0.6.0-pre-release",
   "private": true,
   "homepage": "https://acrd.app/",
   "dependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@acrd/backend",
-  "version": "0.0.0",
+  "version": "0.6.0-pre-release",
   "scripts": {
     "start": "npm run start:dev",
     "start:dev": "set NODE_ENV=DEV && ts-node-dev --transpile-only src/app.ts",
