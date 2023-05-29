@@ -39,7 +39,7 @@ function setupMulter(app: Application) {
 
       const fileSize = parseInt(req.headers['content-length'] as string);
       if (fileSize > 1024 * 1024)
-        return callback(new Error('File size not supported'));
+        return callback(new Error('File size must be less than 1MB'));
 
       callback(null, true);
     },
