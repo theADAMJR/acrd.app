@@ -15,7 +15,7 @@ Built with React, TypeScript, and Node.js.
 
 ## Setup
 
-1. Clone the repo (frop GitHub).
+1. Clone the repo (from GitHub).
 2. Generate SSH keys (secure user logins).
    From app directory (with Git bash):
    ```
