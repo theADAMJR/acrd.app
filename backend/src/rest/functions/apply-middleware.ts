@@ -37,12 +37,13 @@ function setupMulter(app: Application) {
       if (!allowedTypes.includes(ext))
         return callback(new Error('This image file type is not allowed'));
 
-      const maxSize = 1024 * 1024;
-      if (file.size > maxSize)
+      const fileSize = parseInt(req.headers['content-length'] as string);
+      if (fileSize > 1024 * 1024)
         return callback(new Error('File size not supported'));
 
       callback(null, true);
     },
+    limits: { fileSize: 1024 * 1024 }
   });
 
   app.post('/v2/upload', updateUser, validateUser, extraRateLimit(10), upload.single('file'), async (req, res) => {
