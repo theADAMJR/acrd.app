@@ -7,12 +7,12 @@ const colorsAndTime = format.combine(
 );
 
 addColors({
-  info: 'bold blue',
-  warn: 'bold yellow',
-  error: 'bold red',
-  debug: 'bold green',
-  verbose: 'bold grey',
-  silly: 'bold magenta',
+  info: global.config.logger.info,
+  warn: global.config.logger.warn,
+  error: global.config.logger.error,
+  debug: global.config.logger.debug,
+  verbose: global.config.logger.verbose,
+  silly: global.config.logger.silly,
 });
 
 const logger = createLogger({

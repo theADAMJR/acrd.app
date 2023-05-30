@@ -8,7 +8,8 @@ declare global {
       PORT: string;
       ROOT_ENDPOINT: string;
       WEBSITE_URL: string;
+      SESSION_SECRET: string;
     }
   }
 }
-export {};
+export { };

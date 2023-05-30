@@ -18,7 +18,7 @@ export class Email {
     });
 
     this.email.verify((error) => (error)
-      ? log.error(error)
+      ? log.error(error?.message || 'Failed to login to email service')
       : log.info('Logged in to email service'));
 
     this.email.use('compile', pugEngine({

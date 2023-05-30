@@ -77,7 +77,7 @@ export default (app: Application) => {
   app.use(bodyParser.json());
   app.use(passport.initialize());
   app.use(expressSession({
-    secret: 'keyboard cat',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true }

@@ -73,6 +73,7 @@ MONGO_URI="mongodb://database/accord"
 NODE_ENV="dev"
 PORT=3000
 WEBSITE_URL="http://localhost:4200"
+SESSION_SECRET="Please ⭐ this repository."
 ```
 
 `backend/test/.env`
@@ -87,4 +88,12 @@ NODE_ENV="dev"
 PORT=3001
 ROOT_ENDPOINT="http://localhost:3001"
 WEBSITE_URL="http://localhost:4200"
+SESSION_SECRET="Please ⭐ this repository."
 ```
+
+## Troubleshooting
+
+### App does not connect to MongoDB on Windows?
+- Ensure MongoDB is installed.
+- If localhost does not work, use `mongodb://127.0.0.1:27017/accord`.
+  - https://stackoverflow.com/a/73139137/8304458
