@@ -23,14 +23,14 @@ export declare namespace PermissionTypes {
     }
     const All: {
         [x: number]: string;
-        MOVE_MEMBERS: Voice;
-        MUTE_MEMBERS: Voice;
-        SPEAK: Voice;
-        CONNECT: Voice;
-        SEND_FILES: Text;
-        READ_MESSAGES: Text;
-        MANAGE_MESSAGES: Text;
-        SEND_MESSAGES: Text;
+        MOVE_MEMBERS: Voice.MOVE_MEMBERS;
+        MUTE_MEMBERS: Voice.MUTE_MEMBERS;
+        SPEAK: Voice.SPEAK;
+        CONNECT: Voice.CONNECT;
+        SEND_FILES: Text.SEND_FILES;
+        READ_MESSAGES: Text.READ_MESSAGES;
+        MANAGE_MESSAGES: Text.MANAGE_MESSAGES;
+        SEND_MESSAGES: Text.SEND_MESSAGES;
         VIEW_CHANNELS: General.VIEW_CHANNELS;
         MANAGE_INVITES: General.MANAGE_INVITES;
         CREATE_INVITE: General.CREATE_INVITE;

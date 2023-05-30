@@ -1,9 +1,9 @@
 name: Test and deploy
 on:
   push:
-    branches: [v2-dev]
+    branches: [dev]
   pull_request:
-    branches: [v2-dev]
+    branches: [dev]
 jobs:
   test-backend:
     name: Test Backend
