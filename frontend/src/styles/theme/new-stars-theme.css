@@ -21,7 +21,7 @@
   --bg-primary: transparent;
   --bg-secondary: transparent;
   --bg-secondary-alt: transparent;
-  --bg-tertiary: #050219;
+  --bg-tertiary: transparent;
   --bg-textarea: #40444b;
   --bg-modifier-accent: hsla(0, 0%, 100%, 0.06);
   --bg-modifier-selected: rgba(79, 84, 92, 0.32);
@@ -44,13 +44,44 @@ body {
 .member-list {
   background-image: url("https://newstarsgame.com/public/Purple/Layer%201/Space%20Background%201.png");
 }
+
 .sidebar-tabs {
-  background-image: url("https://newstarsgame.com/public/Purple/Layer%201/Space%20Background%2010.png");  
+  background-image: url("https://newstarsgame.com/public/Purple/Layer%201/Space%20Background%2010.png");
 }
 
-.bg-bg-secondary {
-  /* background-image: url("https://newstarsgame.com/public/Purple/Layer%202/Space%20Background%202.png"); */
+div.ReactModal__Content:not(.w-full),
+.sidebar-icons *,
+.context-menu,
+input,
+textarea,
+label+* {
+  --warning: #f77d26;
+  --normal: #dcddde;
+  --link: hsl(197, calc(var(--saturation-factor, 1) * 100%), 47.8%);
+  --channel: #8e9297;
+  --saturation-factor: 1;
+  --bg-primary: #110E28;
+  --bg-secondary: #110E28;
+  --bg-secondary-alt: #110E28;
+  --bg-tertiary: #050219;
+  --bg-textarea: #40444b;
+  --bg-floating: #050219;
 }
 
-.bg-bg-tertiary {
+.ReactModal__Overlay:hover {
+  animation: fade-in .2s ease-in-out;
+}
+
+div.ReactModal__Overlay {
+  background-image: url("https://newstarsgame.com/public/Purple/Layer%202/Space%20Background%2010.png") !important;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

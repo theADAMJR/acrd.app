@@ -99,7 +99,7 @@ const GuildSettingsRoles: React.FunctionComponent = () => {
             <ContextMenuTrigger id={r.id} key={r.id}>
               <TabLink
                 className={classNames({
-                  'cursor-not-allowed opacity-25': !selfIsHigher(r),
+                  'context-menu cursor-not-allowed opacity-25': !selfIsHigher(r),
                 })}
                 key={r.id}
                 style={{ color: r.color }}

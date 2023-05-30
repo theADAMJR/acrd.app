@@ -41,7 +41,7 @@ const ChannelTabs: React.FunctionComponent = () => {
 
       return <div className="p-2 pl-3">{users.map(u =>
         <ContextMenuTrigger key={u.id} id={u.id}>
-          <div className="mb-1">
+          <div className="context-menu mb-1">
             <FoundUsername user={u} size="sm" guild={activeGuild} />
           </div>
         </ContextMenuTrigger>
@@ -69,25 +69,27 @@ const ChannelTabs: React.FunctionComponent = () => {
     return (
       <>
         <ContextMenuTrigger key={channel.id} id={channel.id}>
-          {/* <Draggable> */}
-          <Link
-            onClick={onClick}
-            to={link}
-            className={classNames(
-              `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
-              { active: channel.id === activeChannel?.id },
-            )}>
-            <FontAwesomeIcon
-              size="xs"
+          <div className='context-menu'>
+            {/* <Draggable> */}
+            <Link
+              onClick={onClick}
+              to={link}
               className={classNames(
-                `float-left scale-150 muted fill-current z-0`,
-                (channel.type === 'VOICE') ? 'mr-2' : 'mr-3',
-              )}
-              icon={icon} />
-            <ChannelTabContent />
-            <ChannelMenu channel={channel} />
-          </Link>
-          {/* </Draggable> */}
+                `cursor-pointer flex items-center rounded h-8 p-2 pl-3`,
+                { active: channel.id === activeChannel?.id },
+              )}>
+              <FontAwesomeIcon
+                size="xs"
+                className={classNames(
+                  `float-left scale-150 muted fill-current z-0`,
+                  (channel.type === 'VOICE') ? 'mr-2' : 'mr-3',
+                )}
+                icon={icon} />
+              <ChannelTabContent />
+              <ChannelMenu channel={channel} />
+            </Link>
+            {/* </Draggable> */}
+          </div>
         </ContextMenuTrigger>
         <VCMembers />
       </>

@@ -6,8 +6,8 @@ import { parse } from 'yaml';
 import fs from 'fs';
 global['config'] = parse(fs.readFileSync('../config.yaml', 'utf-8'));
 
-import './modules/deps';
 import './modules/logger';
+import './modules/deps';
 import { User } from './data/models/user';
 
 connect(process.env.MONGO_URI, {

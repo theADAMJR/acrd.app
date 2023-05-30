@@ -79,12 +79,14 @@ const ChannelSettingsPerms: React.FunctionComponent = () => {
         <nav className="pr-10">
           {overrideRoles.reverse().map(r => (
             <ContextMenuTrigger id={r.id} key={r.id}>
-              <TabLink
-                style={{ color: r.color }}
-                tab={roleId}
-                setTab={setRoleId}
-                id={r.id}>{r.name}</TabLink>
-              <RoleMenu role={r} />
+              <div className="context-menu">
+                <TabLink
+                  style={{ color: r.color }}
+                  tab={roleId}
+                  setTab={setRoleId}
+                  id={r.id}>{r.name}</TabLink>
+                <RoleMenu role={r} />
+              </div>
             </ContextMenuTrigger>
           ))}
 

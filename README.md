@@ -32,7 +32,11 @@ Built with React, TypeScript, and Node.js.
    cd frontend && npm i -f
    cd ../backend && npm i -f
    ```
-4. In `backend` directory, configure `.env.example` and rename the file to `.env`
+4. Add upload folder.
+  ```
+  mkdir -p assets/upload
+  ```
+5. In `backend` directory, configure `.env.example` and rename the file to `.env`
 
 ---
 

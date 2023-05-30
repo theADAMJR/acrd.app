@@ -11,19 +11,21 @@ const SidebarIcons: React.FunctionComponent = () => {
 
   const guildIcons = guilds.map(g => (
     <ContextMenuTrigger key={g.id} id={g.id}>
-      <Link to={`/channels/${g.id}`}>
-        <SidebarIcon
-          to={`/channels/${g.id}`}
-          imageURL={g.iconURL}
-          name={g.name}
-          tooltip={g.name} />
-      </Link>
-      <GuildMenu guild={g} />
+      <div className="context-menu">
+        <Link to={`/channels/${g.id}`}>
+          <SidebarIcon
+            to={`/channels/${g.id}`}
+            imageURL={g.iconURL}
+            name={g.name}
+            tooltip={g.name} />
+        </Link>
+        <GuildMenu guild={g} />
+      </div>
     </ContextMenuTrigger>
   ));
 
   return (
-    <div className="overflow-auto min-h-screen float-left p-3 flex flex-col bg-bg-tertiary">
+    <div className="sidebar-icons overflow-auto min-h-screen float-left p-3 flex flex-col bg-bg-tertiary">
       <Link to="/channels/@me">
         <SidebarIcon
           to="/channels/@me"

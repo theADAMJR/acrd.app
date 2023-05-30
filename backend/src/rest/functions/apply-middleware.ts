@@ -22,7 +22,9 @@ function setupMulter(app: Application) {
   const uploadDir = resolve('./assets/upload');
   try {
     execSync(`mkdir -p ${uploadDir} 2>> /dev/null`);
-  } catch { }
+  } catch {
+    log.error("Upload folder not created. Refer to the setup guide.");
+  }
 
   // uses storage rather than memory - 2 file operations per file upload
   const storage = multer.diskStorage({

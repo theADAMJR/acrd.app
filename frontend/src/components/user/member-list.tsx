@@ -37,10 +37,10 @@ const MemberList: React.FunctionComponent = () => {
           <ContextMenuTrigger
             id={u.id}
             key={u.id}>
-            <div className="m-2">
+            <div className="context-menu">            <div className="m-2">
               <FoundUsername guild={guild} user={u} />
+              <GuildMemberMenu user={u} /></div>
             </div>
-            <GuildMemberMenu user={u} />
           </ContextMenuTrigger>
         ))}
       </div>

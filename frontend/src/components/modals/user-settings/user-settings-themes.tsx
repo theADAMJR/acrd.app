@@ -59,7 +59,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   const ThemeDetails: React.FunctionComponent = () => {
     const { register, setValue, handleSubmit } = useForm();
     const theme = themes.find(t => t.id === themeId);
-    const creatorUser: Entity.User = useSelector(getUser(theme?.creatorId));
+    const creatorUser: Entity.User = useSelector(getUser(theme.creatorId));
     if (!theme) return null;
 
     const onApply = () => dispatch(updateSelf({ activeThemeId: themeId }));
