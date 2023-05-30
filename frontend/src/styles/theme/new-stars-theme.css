@@ -1,4 +1,5 @@
 /* newstarsgame.com */
+/* Icon: Star satellites icon - by Lorc under CC-BY-3.0 - https://game-icons.net */
 :root {
   --primary: yellow;
   --secondary: yellow;
@@ -52,6 +53,7 @@ body {
 div.ReactModal__Content:not(.w-full),
 .sidebar-icons *,
 .context-menu,
+.input,
 input,
 textarea,
 label+* {

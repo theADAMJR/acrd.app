@@ -47,6 +47,10 @@ textarea:focus {
   border: 1px solid var(--primary);
 }
 
+.object-scale-down {
+  object-fit: scale-down;
+}
+
 /* Util */
 .light {
   color: var(--light);

@@ -165,16 +165,19 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               register={register}
               options={{ value: theme.name }} />
 
-            <div className="mt-8 bg-bg-secondary w-1/2 h-10 rounded-md p-2">
-              <CircleButton
-                role="button"
-                style={{ color: 'var(--font)', borderColor: 'var(--font)' }}
-                onClick={copyCode}
-                className="float-right py-0">Copy</CircleButton>
-              <span className="text-lg">
-                <span className='muted'>{shortURL + '/themes/'}</span>
-                <span className='primary'>{theme?.code}</span>
-              </span>
+            <div className="bg-bg-secondary w-1/2 h-10 rounded-md p-2">
+              <label className="uppercase text-xs font-semibold">Share URL</label>
+              <div className='mt-1.5'>
+                <CircleButton
+                  role="button"
+                  style={{ color: 'var(--font)', borderColor: 'var(--font)' }}
+                  onClick={copyCode}
+                  className="float-right py-0">Copy</CircleButton>
+                <span className="text-lg">
+                  <span className='text-base muted'>{shortURL + '/themes/'}</span>
+                  <span className='text-base primary'>{theme?.code}</span>
+                </span>
+              </div>
             </div>
             {/* <Input
               disabled

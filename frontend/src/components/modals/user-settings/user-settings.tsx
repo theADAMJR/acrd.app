@@ -32,7 +32,7 @@ const UserSettings: React.FunctionComponent = () => {
               tabs={[
                 { name: 'Overview', id: 'overview' },
                 { name: 'Security', id: 'security' },
-                { name: <>Themes <NewBadge /></>, id: 'themes' },
+                { name: 'Themes', id: 'themes' },
                 { name: 'Advanced', id: 'advanced' },
               ]} />
             <div className="rounded-sm bg-bg-modifier-accent h-px w-42 my-2 mx-2.5 " />

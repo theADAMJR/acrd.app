@@ -29,7 +29,7 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
       {message.attachmentURLs?.map(imageURL =>
         <img
           key={imageURL}
-          style={{ maxWidth: '384px' }}
+          style={{ maxWidth: '384px', maxHeight: '384px' }}
           className="my-2 cursor-pointer"
           onClick={() => dispatch(previewImage(imageURL))}
           src={process.env.REACT_APP_CDN_URL + imageURL}

@@ -44,7 +44,7 @@ const slice = createSlice({
     code: 'new_stars',
     createdAt: new Date('30/12/2021'),
     creatorId: process.env.REACT_APP_OWNER_USER_ID,
-    iconURL: '/images/themes/.svg',
+    iconURL: '/images/themes/star-satellites.png',
     isFeatured: true,
     name: 'New Stars (built-in)',
     styles: newStarsTheme,
