@@ -7,6 +7,7 @@ import { getHeaders } from './utils/rest-headers';
 import accordTheme from '!!raw-loader!../styles/theme/accord-theme.css';
 import discordTheme from '!!raw-loader!../styles/theme/discord-theme.css';
 import winterTheme from '!!raw-loader!../styles/theme/winter-theme.css';
+import newStarsTheme from '!!raw-loader!../styles/theme/new-stars-theme.css';
 import themeTemplate from '!!raw-loader!../styles/theme/winter-theme.css';
 
 const slice = createSlice({
@@ -33,11 +34,20 @@ const slice = createSlice({
     id: 'winter',
     code: 'winter',
     createdAt: new Date('30/12/2021'),
-    creatorId: '177127942839676928',
+    creatorId: process.env.REACT_APP_OWNER_USER_ID,
     iconURL: '/images/themes/winter.svg',
     isFeatured: true,
     name: 'Winter (built-in)',
     styles: winterTheme,
+  }, {
+    id: 'new_stars',
+    code: 'new_stars',
+    createdAt: new Date('30/12/2021'),
+    creatorId: process.env.REACT_APP_OWNER_USER_ID,
+    iconURL: '/images/themes/.svg',
+    isFeatured: true,
+    name: 'New Stars (built-in)',
+    styles: newStarsTheme,
   }] as Store.AppState['entities']['themes'],
   reducers: {
     deleted: (themes, { payload }: Store.Action<string>) => {

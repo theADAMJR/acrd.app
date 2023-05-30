@@ -11,7 +11,7 @@ const AppNavbar: React.FunctionComponent = () => {
   const memberListToggled = useSelector((s: Store.AppState) => s.config.memberListToggled);
 
   return (
-    <div className="shadow-elevation flex items-center h-12 px-5">
+    <div className="bg-bg-primary shadow-elevation flex items-center h-12 px-5">
       {channel && <FontAwesomeIcon
         color="var(--muted)"
         icon={faHashtag}

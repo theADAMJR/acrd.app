@@ -68,11 +68,9 @@ export default class Users extends DBWrapper<string, UserDocument> {
   }
 
   public async createToken(user: SelfUserDocument, expire = true) {
-    // too insecure to keep in memory
-    const key = await readFileAsync('./keys/jwt', { encoding: 'utf-8' });
     return jwt.sign(
       { id: user.id },
-      key,
+      process.env.SSH_KEY,
       { algorithm: 'RS512', expiresIn: (expire) ? '7d' : undefined },
     );
   }

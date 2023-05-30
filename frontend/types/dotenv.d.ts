@@ -9,6 +9,7 @@ declare global {
       REACT_APP_VERSION_NAME: string;
       REACT_APP_VERSION_NUMBER: string;
       REACT_APP_ROOT_API_URL: string;
+      REACT_APP_OWNER_USER_ID: string;
     }
   }
 }

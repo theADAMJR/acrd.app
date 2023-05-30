@@ -6,13 +6,15 @@ import fetchEntities from '../../../store/actions/fetch-entities';
 import { uploadFile } from '../../../store/api';
 import { createTheme, deleteTheme, getTheme, unlockTheme, updateTheme } from '../../../store/themes';
 import { openSaveChanges } from '../../../store/ui';
-import { updateSelf } from '../../../store/users';
+import { getUser, updateSelf } from '../../../store/users';
 import FileInput from '../../inputs/file-input';
 import Input from '../../inputs/input';
 import SidebarIcon from '../../navigation/sidebar/sidebar-icon';
 import CircleButton from '../../utils/buttons/circle-button';
 import NormalButton from '../../utils/buttons/normal-button';
 import SaveChanges from '../../utils/save-changes';
+import { Entity } from '@acrd/types';
+import FoundUsername from '../../user/username';
 
 const UserSettingsThemes: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -57,6 +59,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   const ThemeDetails: React.FunctionComponent = () => {
     const { register, setValue, handleSubmit } = useForm();
     const theme = themes.find(t => t.id === themeId);
+    const creatorUser: Entity.User = useSelector(getUser(theme?.creatorId));
     if (!theme) return null;
 
     const onApply = () => dispatch(updateSelf({ activeThemeId: themeId }));
@@ -70,8 +73,8 @@ const UserSettingsThemes: React.FunctionComponent = () => {
     };
 
     const copyCode = () => {
-      const inviteURL = `${process.env.REACT_APP_WEBSITE_URL}/themes/${theme?.code}`;
-      window.navigator.clipboard.writeText(inviteURL);
+      const themeURL = `${process.env.REACT_APP_WEBSITE_URL}/themes/${theme?.code}`;
+      window.navigator.clipboard.writeText(themeURL);
     }
 
     const shortURL = process.env.REACT_APP_WEBSITE_URL
@@ -125,22 +128,29 @@ const UserSettingsThemes: React.FunctionComponent = () => {
         <header className="mb-5">
           <h1 className="text-3xl font-bold inline">{theme.name}</h1>
         </header>
-        <div className="w-1/3">
-          <FileInput
-            disabled
-            // disabled={true}!selfIsManager}
-            name="icon"
-            label="Icon"
-            options={{ value: theme.iconURL }}
-            tooltip="An optional icon for your theme."
-            onChange={(e) => {
-              const file = e.currentTarget?.files?.[0];
-              if (!file) return;
+        <div className="flex">
+          <div className="w-1/3">
+            <FileInput
+              disabled={!selfIsManager}
+              name="icon"
+              label="Icon"
+              options={{ value: theme.iconURL }}
+              tooltip="An optional icon for your theme."
+              onChange={(e) => {
+                const file = e.currentTarget?.files?.[0];
+                if (!file) return;
 
-              dispatch(uploadFile(file, ({ url }) => {
-                dispatch(updateTheme(themeId, { iconURL: url }));
-              }));
-            }} />
+                dispatch(uploadFile(file, ({ url }) => {
+                  dispatch(updateTheme(themeId, { iconURL: url }));
+                }));
+              }} />
+          </div>
+          <div style={{ margin: '20px' }}>
+            <span className='text-center'>
+              <div className="font-bold pb-1">Created By</div>
+              <FoundUsername user={creatorUser} />
+            </span>
+          </div>
         </div>
 
         <form
@@ -162,7 +172,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
                 onClick={copyCode}
                 className="float-right py-0">Copy</CircleButton>
               <span className="text-lg">
-                <span className='muted'>{shortURL + '/join/'}</span>
+                <span className='muted'>{shortURL + '/themes/'}</span>
                 <span className='primary'>{theme?.code}</span>
               </span>
             </div>

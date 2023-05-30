@@ -21,3 +21,9 @@ connect(process.env.MONGO_URI, {
     log.info(`Connected to database.`, { uri: process.env.MONGO_URI });
     await User.updateMany({ $set: { status: 'OFFLINE' } })
   });
+
+try {
+  process.env.SSH_KEY = fs.readFileSync('./keys/jwt', { encoding: 'utf-8' });
+  log.info("JWT key initialized.");
+}
+catch { log.error("JWT key not setup correctly. Refer to the setup guide."); }

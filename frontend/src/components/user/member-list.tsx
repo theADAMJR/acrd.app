@@ -56,7 +56,7 @@ const MemberList: React.FunctionComponent = () => {
     .map(r => r!.id);
 
   return (isActive) ? (
-    <div className="overflow-auto bg-bg-secondary w-64">
+    <div className="member-list overflow-auto bg-bg-secondary w-64">
       {hoistedRoles.map(r =>
         <UserList
           key={r.id}

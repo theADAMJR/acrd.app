@@ -57,7 +57,7 @@ const TextBasedChannel: React.FunctionComponent = () => {
       <div
         id="messages"
         ref={messagesRef}
-        className="overflow-auto mb-5 mr-1 mt-1 flex-grow"
+        className="main-content bg-bg-primary overflow-auto mb-5 mr-1 mt-1 flex-grow"
         onScroll={onScroll}>
         <TextChannelHeader canRead={canRead} />
         <LoadingIndicator />

@@ -16,7 +16,7 @@ Built with React, TypeScript, and Node.js.
 ## Setup
 
 1. Clone the repo (from GitHub).
-2. Generate SSH keys (secure user logins).
+2. Generate JWT key (secure user logins).
    From app directory (with Git bash):
    ```
    mkdir -p backend/keys
