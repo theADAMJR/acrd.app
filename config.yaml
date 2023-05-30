@@ -1,9 +1,11 @@
 # This config is public. Use .env for private and secure values.
 # See https://www.npmjs.com/package/winston for custom console log formatting.
-logger:
-  info: 'bold blue'
-  warn: 'bold yellow'
-  error: 'bold red'
-  debug: 'bold green'
-  verbose: 'bold grey'
-  silly: 'bold magenta'
+log:
+  level: 'verbose' 
+  format:
+    info: 'bold blue'
+    warn: 'bold yellow'
+    error: 'bold red'
+    debug: 'bold green'
+    verbose: 'bold grey'
+    silly: 'bold magenta'

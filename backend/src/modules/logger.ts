@@ -7,16 +7,16 @@ const colorsAndTime = format.combine(
 );
 
 addColors({
-  info: global.config.logger.info,
-  warn: global.config.logger.warn,
-  error: global.config.logger.error,
-  debug: global.config.logger.debug,
-  verbose: global.config.logger.verbose,
-  silly: global.config.logger.silly,
+  info: config.log.format.info,
+  warn: config.log.format.warn,
+  error: config.log.format.error,
+  debug: config.log.format.debug,
+  verbose: config.log.format.verbose,
+  silly: config.log.format.silly,
 });
 
 const logger = createLogger({
-  level: 'silly',
+  level: config.log.level,
   defaultMeta: {},
   transports: [
     new transports.Console({ format: colorsAndTime }),
