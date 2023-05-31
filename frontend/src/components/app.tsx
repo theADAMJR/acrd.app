@@ -14,6 +14,7 @@ import { initPings } from '../store/pings';
 import VerifyPage from './pages/auth/verify-page';
 import InvitePage from './pages/invite-page';
 import ThemePage from './pages/theme-page';
+import '../types/src/permissions.types';
 
 export default function App() {
   const dispatch = useDispatch();
