@@ -1,5 +1,5 @@
 import { ChannelTypes } from '@acrd/types';
-import { PermissionTypes } from '@acrd/types';
+import { PermissionTypes } from '@acrd/types/src/permissions.types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import usePerms from '../../../hooks/use-perms';
