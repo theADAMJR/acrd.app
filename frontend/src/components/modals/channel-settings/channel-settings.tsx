@@ -20,7 +20,7 @@ const ChannelSettings: React.FunctionComponent = () => {
 
   return (channel) ? (
     <Modal typeName={'ChannelSettings'} size="full">
-      <div className="grid grid-cols-12 h-full">
+      <div className="overflow-hidden grid grid-cols-12 h-full">
         <div className="col-span-4 bg-bg-secondary">
           <nav className="float-right flex-grow py-14 w-1/2 my-1 mr-4">
             <Category

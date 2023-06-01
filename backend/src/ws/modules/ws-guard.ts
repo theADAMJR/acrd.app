@@ -41,7 +41,9 @@ export class WSGuard {
 
   public async canInChannel(permission: PermissionTypes.PermissionString, channelId: string, userId: string) {
     const channel = await deps.channels.get(channelId);
-    const member = await deps.guildMembers.getInGuild(channel.guildId, userId);
+    const [member, guild] = await Promise.all([
+      deps.guildMembers.getInGuild(channel.guildId, userId),
+      deps.guilds.get(channel.guildId)]);
 
     const overrides = channel.overrides?.filter(o => member.roleIds.includes(o.roleId)) ?? [];
     const cumulativeAllowPerms = overrides.reduce((prev, curr) => prev | curr.allow, 0);
@@ -49,7 +51,8 @@ export class WSGuard {
 
     const has = (totalPerms: number, permission: number) =>
       Boolean(totalPerms & permission)
-      || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR);
+      || Boolean(totalPerms & PermissionTypes.General.ADMINISTRATOR)
+      || (guild.ownerId == userId);
 
     const permInteger = PermissionTypes.All[permission] as any as number;
     const canInherently = await this.can(permission, channel.guildId, userId);

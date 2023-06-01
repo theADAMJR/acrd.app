@@ -34,11 +34,6 @@ function setupMulter(app: Application) {
   const upload = multer({
     storage,
     fileFilter: (req, file, callback) => {
-      const ext = extname(file.originalname);
-      const allowedTypes = ['.png', '.jpg', '.gif', '.jpeg', '.webp', '.svg'];
-      if (!allowedTypes.includes(ext))
-        return callback(new Error('This image file type is not allowed'));
-
       const fileSize = parseInt(req.headers['content-length'] as string);
       if (fileSize > 1024 * 1024)
         return callback(new Error('File size must be less than 1MB'));

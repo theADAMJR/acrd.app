@@ -10,7 +10,7 @@ const SidebarContent: React.FunctionComponent = () => {
   const guild = useSelector((s: Store.AppState) => s.ui.activeGuild);
 
   return (
-    <div className="flex flex-col bg-bg-secondary w-60">
+    <div className="w-60 flex flex-col bg-bg-secondary">
       <div
         id="sidebarHeader"
         className="items-center shadow-elevation cursor-pointer h-12 pl-2.5 pr-4"

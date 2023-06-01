@@ -37,13 +37,13 @@ const UserSettingsThemes: React.FunctionComponent = () => {
           onClick={() => {
             enableAddMode(false);
             setTab(t.id);
-          }}
-          title={t.name}>
+          }}>
           <SidebarIcon
             childClasses={classNames('border-2 h-[3.1rem] bg-bg-secondary', {
               'border-primary': t.id === themeId,
               'border-transparent': t.id !== themeId,
             })}
+            tooltip={t.name}
             imageURL={t.iconURL}
             name={t.name}
             disableHoverEffect />
@@ -59,7 +59,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
   const ThemeDetails: React.FunctionComponent = () => {
     const { register, setValue, handleSubmit } = useForm();
     const theme = themes.find(t => t.id === themeId);
-    const creatorUser: Entity.User = useSelector(getUser(theme.creatorId));
+    const creatorUser: Entity.User = useSelector(getUser(theme?.creatorId));
     if (!theme) return null;
 
     const onApply = () => dispatch(updateSelf({ activeThemeId: themeId }));
@@ -165,7 +165,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               register={register}
               options={{ value: theme.name }} />
 
-            <div className="bg-bg-secondary w-1/2 h-10 rounded-md p-2">
+            <div className="w-1/2 h-10 rounded-md p-2">
               <label className="uppercase text-xs font-semibold">Share URL</label>
               <div className='mt-1.5'>
                 <CircleButton
@@ -199,7 +199,7 @@ const UserSettingsThemes: React.FunctionComponent = () => {
               id="styles"
               disabled={!selfIsManager}
               rows={20}
-              className="p-2 rounded bg-bg-secondary outline-none  w-full mt-2"
+              className="p-2 rounded bg-bg-secondary outline-none w-full mt-2"
               defaultValue={theme.styles}
               {...register('styles', { value: theme.styles })} />
           </div>

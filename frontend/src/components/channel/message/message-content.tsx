@@ -24,21 +24,29 @@ const MessageContent: FunctionComponent<MessageContentProps> = ({ message }) => 
           title="${message.updatedAt}">(edited)</span>`
       : '');
 
-  const Attachments: React.FunctionComponent = () => (
-    <>
-      {message.attachmentURLs?.map(imageURL =>
-        <img
-          key={imageURL}
-          style={{ maxWidth: '384px', maxHeight: '384px' }}
-          className="my-2 cursor-pointer"
-          onClick={() => dispatch(previewImage(imageURL))}
-          src={process.env.REACT_APP_CDN_URL + imageURL}
-          onError={(e) => {
-            e.currentTarget.onerror = null;
-            e.currentTarget.src = `${process.env.REACT_APP_CDN_URL}/images/image-not-found.png`;
-          }} />)}
-    </>
-  );
+  const imageTypes = ['.png', '.jpg', '.gif', '.jpeg', '.webp', '.svg'];
+  const Attachments: React.FunctionComponent = () => 
+    message.attachmentURLs?.some(url => !imageTypes.some(ext => url.endsWith(ext)))
+      ? <>{message.attachmentURLs?.map(fileURL =>
+          <a key={fileURL}
+            target='_blank'
+            href={process.env.REACT_APP_CDN_URL + fileURL}
+            className='rounded-lg bg-bg-tertiary p-1 w-24'>
+              {fileURL.replace(/\/upload\/[0-9A-Za-z]{23,27}/, '')}
+          </a>)}
+        </>
+      : <>{message.attachmentURLs?.map(imageURL =>
+          <img
+            key={imageURL}
+            style={{ maxWidth: '384px', maxHeight: '384px' }}
+            className="my-2 cursor-pointer"
+            onClick={() => dispatch(previewImage(imageURL))}
+            src={process.env.REACT_APP_CDN_URL + imageURL}
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = `${process.env.REACT_APP_CDN_URL}/images/image-not-found.png`;
+            }} />)}
+        </>;
 
   return (editingMessageId === message.id)
     ? <MessageBox content={message.content} />

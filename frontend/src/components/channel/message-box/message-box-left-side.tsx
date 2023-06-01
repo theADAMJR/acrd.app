@@ -32,7 +32,7 @@ const MessageBoxLeftSide: React.FunctionComponent<MessageBoxLeftSideProps> = (pr
           ref={uploadInput}
           type="file"
           name="file"
-          accept="image/*"
+          // accept="image/*"
           onChange={onChange}
           hidden />
         <FontAwesomeIcon

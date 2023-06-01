@@ -35,9 +35,9 @@ const GuildSettings: React.FunctionComponent = () => {
         </div>
 
         <div className="col-span-6 h-full">
-          {tab === 'overview' && <GuildSettingsOverview />}
+          {tab === 'overview' && <div className="overflow-hidden"><GuildSettingsOverview /></div>}
           {tab === 'roles' && <GuildSettingsRoles />}
-          {tab === 'invites' && <GuildSettingsInvites />}
+          {tab === 'invites' && <div className="overflow-hidden"><GuildSettingsInvites /></div>}
         </div>
 
         <div className="col-span-2 h-full">

@@ -87,3 +87,8 @@ div.ReactModal__Overlay {
     opacity: 1;
   }
 }
+
+.react-contextmenu,
+[data-id="tooltip"] {
+  background-color: var(--bg-floating);
+}

@@ -113,6 +113,7 @@ const UserProfile: FunctionComponent = () => {
                 childClasses="bg-bg-tertiary"
                 imageURL={guild.iconURL}
                 name={guild.name}
+                tooltip={guild.name}
                 disableHoverEffect />
             </div>
             : null
