@@ -12,7 +12,7 @@ router.post('/login', extraRateLimit(20), (req, res, next) => {
   req['flash'] = (_: string, message: string) => res.status(400).json({ message });
   next();
 }, passport.authenticate('local', {
-  failWithError: true,
+  failWithError: false,
   failureFlash: 'Invalid email or password',
 }),
   async (req, res) => {
