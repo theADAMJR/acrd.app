@@ -30,7 +30,7 @@ router.post('/login', extraRateLimit(20), (req, res, next) => {
     res.status(201).json({ token: await deps.users.createToken(user) });
   });
 
-router.post('/register', extraRateLimit(10), async (req, res) => {
+router.post('/register', extraRateLimit(1), async (req, res) => {
   const user = await deps.users.create({
     email: req.body.email,
     password: req.body.password,
@@ -42,7 +42,7 @@ router.post('/register', extraRateLimit(10), async (req, res) => {
   res.status(201).json(await deps.users.createToken(user));
 });
 
-router.get('/verify', extraRateLimit(20), async (req, res) => {
+router.get('/verify', extraRateLimit(10), async (req, res) => {
   const email = deps.verification.getEmailFromCode(req.query.code as string);
   const user = await User.findOne({ email }) as any;
   if (!email || !user)
