@@ -9,6 +9,7 @@ import configureStore from './store/configure-store';
 import { SnackbarProvider } from 'notistack';
 import { applyTheme } from './store/themes';
 import accordTheme from '!!raw-loader!./styles/theme/accord-theme.css';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 applyTheme(accordTheme);
 

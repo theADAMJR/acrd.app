@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Recaptcha to prevent API abuse.
+
+### Fixed
+
+## [Winter 0.5.0-alpha] - 2023/01/17
+
+### Added
 - Mentions: Mention channels, and users which selectively highlights associated users/channels.
 
 ![](https://i.ibb.co/ZM4SNLw/image.png)

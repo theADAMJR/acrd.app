@@ -79,12 +79,12 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('token');
 }
 
-export const registerUser = (data: REST.To.Post['/auth/register']) => (dispatch) => {
+export const registerUser = (data: REST.To.Post['/auth/register'], recaptcha: string) => (dispatch) => {
   dispatch(api.restCallBegan({
     onSuccess: [actions.loggedInAttempted.type],
     method: 'post',
     data,
-    url: `/auth/register`,
+    url: `/auth/register?recaptcha=${recaptcha}`,
     callback: (payload) => {
       localStorage.setItem('token', payload);
       dispatch(ready());

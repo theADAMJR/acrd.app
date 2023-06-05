@@ -8,7 +8,7 @@ import { REST } from '@acrd/types';
 
 export const router = Router();
 
-router.post('/login', extraRateLimit(20), (req, res, next) => {
+router.post('/login', extraRateLimit(10), (req, res, next) => {
   req['flash'] = (_: string, message: string) => res.status(400).json({ message });
   next();
 }, passport.authenticate('local', {
@@ -30,7 +30,22 @@ router.post('/login', extraRateLimit(20), (req, res, next) => {
     res.status(201).json({ token: await deps.users.createToken(user) });
   });
 
-router.post('/register', extraRateLimit(1), async (req, res) => {
+router.post('/register', extraRateLimit(10), async (req, res) => {
+  if (process.env.RECAPTCHA_SECRET) {
+    var response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(Object.entries({
+        secret: process.env.RECAPTCHA_SECRET,
+        response: req.query.recaptcha as string,
+      })).toString(),
+    });
+
+    var json = await response.json();
+    if (!json.success)
+      throw new APIError(400, 'Invalid captcha');
+  }
+
   const user = await deps.users.create({
     email: req.body.email,
     password: req.body.password,
@@ -42,7 +57,7 @@ router.post('/register', extraRateLimit(1), async (req, res) => {
   res.status(201).json(await deps.users.createToken(user));
 });
 
-router.get('/verify', extraRateLimit(10), async (req, res) => {
+router.get('/verify', extraRateLimit(5), async (req, res) => {
   const email = deps.verification.getEmailFromCode(req.query.code as string);
   const user = await User.findOne({ email }) as any;
   if (!email || !user)
@@ -66,7 +81,7 @@ router.get('/verify', extraRateLimit(10), async (req, res) => {
     res.json({ token: await deps.users.createToken(user) });
 });
 
-router.get('/email/forgot-password', extraRateLimit(10), async (req, res) => {
+router.get('/email/forgot-password', extraRateLimit(5), async (req, res) => {
   const email = req.query.email?.toString();
   if (!email)
     throw new APIError(400, 'Email not provided');
@@ -82,7 +97,7 @@ router.get('/email/forgot-password', extraRateLimit(10), async (req, res) => {
   }
 });
 
-router.post('/change-password', extraRateLimit(10), async (req, res) => {
+router.post('/change-password', extraRateLimit(5), async (req, res) => {
   const { email, oldPassword, newPassword }: REST.To.Post['/auth/change-password'] = req.body;
 
   const user = await User.findOne({ email }) as any as SelfUserDocument;

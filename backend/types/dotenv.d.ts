@@ -9,6 +9,7 @@ declare global {
       ROOT_ENDPOINT: string;
       WEBSITE_URL: string;
       SESSION_SECRET: string;
+      RECAPTCHA_SECRET: string;
       /** Set during runtime. */
       SSH_KEY: string;
     }
