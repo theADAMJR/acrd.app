@@ -23,6 +23,7 @@ export namespace Entity {
     id: string;
     name: string;
     createdAt: Date;
+    memberCount?: Number;
     iconURL?: string;
     ownerId: string;
     systemChannelId?: string;

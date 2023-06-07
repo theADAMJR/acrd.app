@@ -10,7 +10,11 @@ export const router = Router();
 
 // NOTE: Basic guild metadata is 'unlisted' and can be accessed by anyone with the URL.
 router.get('/:id', async (req, res) => {
-  const guild = await deps.guilds.get(req.params.id);
+  const [guild, members] = await Promise.all([
+    deps.guilds.get(req.params.id),
+    deps.guilds.getMembers(req.params.id),
+  ]);
+  guild.memberCount = members.length;
   res.json(guild);
 });
 

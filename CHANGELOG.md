@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Bug fixes and stability updates to make accord a more smooth experience.
 
 ### Added
-- Recaptcha to prevent API abuse to registration and login form.
+- Recaptcha for register, login, and forgot password to prevent API abuse.
 
 ### Fixed
 - Invite page now loads invite when not in guild.

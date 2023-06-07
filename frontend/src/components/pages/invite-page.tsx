@@ -1,4 +1,4 @@
-import { Entity } from '@acrd/types';
+import { Entity, UserTypes } from '@acrd/types';
 import { faSearchLocation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
@@ -21,11 +21,14 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { inviteId }: any = useParams();
+  const selfUser: UserTypes.Self = useSelector((s: Store.AppState) => s.auth.user);
   const invite: Entity.Invite = useSelector(getInvite(inviteId));
   const guild: Entity.Guild | undefined = useSelector(getGuild(invite?.guildId));
-
-  const members: Entity.GuildMember[] = useSelector(getGuildMembers(invite?.guildId));
   const ownerUser: Entity.User = useSelector(getUser(guild!?.ownerId));
+
+  useEffect(() => {
+    dispatch(fetchEntities());
+  }, [selfUser]);
 
   useEffect(() => {
     dispatch(fetchInvite(inviteId));
@@ -76,7 +79,8 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
         <div className="flex justify-around items-center w-full mx-5">
           <span className='text-center'>
             <div className="heading font-bold text-center">Members</div>
-            <code>{members.length}</code>
+            <code>{guild.memberCount || 'Unknown'}
+            </code>
           </span>
           <span className='text-center'>
             <div className="heading font-bold">Owned By</div>

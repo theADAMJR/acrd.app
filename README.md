@@ -93,6 +93,8 @@ WEBSITE_URL="http://localhost:4200"
 SESSION_SECRET="Please ⭐ this repository."
 ```
 
+---
+
 ## Troubleshooting
 
 ### App does not connect to MongoDB on Windows?
