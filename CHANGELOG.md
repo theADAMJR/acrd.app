@@ -5,14 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+### [Unreleased]
+
+## [Cyan 0.6.0-alpha] - 2023/06/07
 Bug fixes and stability updates to make accord a more smooth experience.
 
 ### Added
-- Recaptcha for register, login, and forgot password to prevent API abuse.
+- Auth: Recaptcha for register, login, and forgot password to prevent API abuse.
 
 ### Fixed
-- Invite page now loads invite when not in guild.
+- Invite Page: Now loads invite when not in guild.
+
+### Changed
+- API: Guild document can be accessed by anyone, if has URL.
 
 ## [Winter 0.5.0-alpha] - 2023/01/17
 
