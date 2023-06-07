@@ -8,14 +8,15 @@ import validateHasPermission from '../middleware/validate-has-permission';
 
 export const router = Router();
 
+// NOTE: Basic guild metadata is 'unlisted' and can be accessed by anyone with the URL.
+router.get('/:id', async (req, res) => {
+  const guild = await deps.guilds.get(req.params.id);
+  res.json(guild);
+});
+
 router.get('/', updateUser, validateUser, async (req, res) => {
   const guilds = await Guild.find({ _id: { $in: res.locals.guildIds } });
   res.json(guilds);
-});
-
-router.get('/:id', updateUser, validateUser, async (req, res) => {
-  const guild = await deps.guilds.get(req.params.id);
-  res.json(guild);
 });
 
 router.get('/:id/channels',

@@ -15,18 +15,13 @@ const RegisterPage: React.FunctionComponent = () => {
   const { register, handleSubmit } = useForm();
   const query = new URLSearchParams(useLocation().search);
   const [email, setEmail] = useState(query.get('email') ?? '');
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(true);
-
-  const doSomething = () => {
-    /* do something like submit a form and then refresh recaptcha */
-    setRefreshReCaptcha(r => !r);
-  }
 
   const onSubmit = async (data) => {
     if (token)
       dispatch(registerUser(data, token));
-    else throw new TypeError("Verify you are not a robot");
+    else throw new TypeError("Beep Boop. If you are reading this, you are probably a robot");
   }
 
   return (user)
@@ -60,7 +55,7 @@ const RegisterPage: React.FunctionComponent = () => {
 
               <GoogleReCaptcha onVerify={(token) => setToken(token)} />
               <NormalButton
-                onClick={doSomething}
+                onClick={() => setRefreshReCaptcha(r => !r)}
                 className="bg-primary font w-full h-11 rounded-md mt-8">Register</NormalButton>
               <p className="mt-2">
                 <Link to={`/login${email && `?email=${email}`}`}>Already have an account?</Link>

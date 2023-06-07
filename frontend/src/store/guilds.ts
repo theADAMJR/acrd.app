@@ -50,11 +50,23 @@ export const uploadGuildIcon = (guildId: string, file: File) => (dispatch) => {
   dispatch(uploadFile(file, uploadCallback));
 }
 
-export const fetchGuildInvites = (id: string) => (dispatch, getStore: () => Store.AppState) => {
+export const fetchGuildInvites = (id: string) => (dispatch) => {
   dispatch(api.restCallBegan({
     url: `/guilds/${id}/invites`,
     headers: getHeaders(),
     callback: (invites: Entity.Invite[]) => dispatch(inviteActions.fetched(invites)),
+  }));
+}
+
+export const fetchGuild = (id: string) => (dispatch, getStore: () => Store.AppState) => {
+  const guilds = getStore().entities.guilds;
+  const isCached = guilds.some(g => g.id === id);
+  if (isCached) return;
+
+  dispatch(api.restCallBegan({
+    url: `/guilds/${id}`,
+    headers: getHeaders(),
+    callback: (guild: Entity.Guild) => dispatch(actions.fetched([guild])),
   }));
 }
 

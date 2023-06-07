@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import fetchEntities from '../../store/actions/fetch-entities';
-import { getGuild, getGuildMembers } from '../../store/guilds';
+import { fetchGuild, getGuild, getGuildMembers } from '../../store/guilds';
 import { fetchInvite, getInvite } from '../../store/invites';
 import { joinGuild } from '../../store/members';
 import { getTag, getUser } from '../../store/users';
@@ -29,8 +29,12 @@ const InvitePage: React.FunctionComponent<InvitePageProps> = () => {
 
   useEffect(() => {
     dispatch(fetchInvite(inviteId));
-    if (invite) dispatch(fetchEntities([invite.guildId]));
   }, []);
+
+  useEffect(() => {
+    if (invite?.guildId)
+      dispatch(fetchGuild(invite?.guildId));
+  }, [invite?.guildId]);
 
   const Wrapper: React.FunctionComponent = ({ children }) => (
     <PageWrapper pageTitle={`acrd.app | Invite to '${guild?.name}'`}>

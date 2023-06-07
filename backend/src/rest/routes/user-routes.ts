@@ -44,9 +44,7 @@ router.get('/self', updateUser, validateUser, async (req, res) => res.json(res.l
 router.get('/entities', updateUser, validateUser, async (req, res) => {
   const guildIds: string[] = req.params.guildIds as any;
   const user: UserTypes.Self = res.locals.user;
-  const $in = (guildIds)
-    ? user.guildIds.concat(guildIds)
-    : user.guildIds;
+  const $in = user.guildIds.concat(guildIds);
 
   const [channels, guilds, members, roles, themes, unsecureUsers] = await Promise.all([
     Channel.find({ guildId: { $in } }),

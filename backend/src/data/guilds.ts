@@ -1,7 +1,7 @@
 import { Guild, GuildDocument } from './models/guild';
 import DBWrapper from './db-wrapper';
 import { generateSnowflake } from './snowflake-entity';
-import { SelfUserDocument, User } from './models/user';
+import { User } from './models/user';
 import { Invite } from './models/invite';
 import { APIError } from '../rest/modules/api-error';
 import { Channel } from './models/channel';
