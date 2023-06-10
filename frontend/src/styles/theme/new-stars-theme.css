@@ -39,15 +39,15 @@
 
 html,
 body {
-  background-image: url("https://newstarsgame.com/public/Purple/Layer%203/Space%20Background%201.png") !important;
+  background-image: url("https://newstarsgame.com/img/Purple/Layer%203/Space%20Background%201.png") !important;
 }
 
 .member-list {
-  background-image: url("https://newstarsgame.com/public/Purple/Layer%201/Space%20Background%201.png");
+  background-image: url("https://newstarsgame.com/img/Purple/Layer%201/Space%20Background%201.png");
 }
 
 .sidebar-tabs {
-  background-image: url("https://newstarsgame.com/public/Purple/Layer%201/Space%20Background%2010.png");
+  background-image: url("https://newstarsgame.com/img/Purple/Layer%201/Space%20Background%2010.png");
 }
 
 div.ReactModal__Content:not(.w-full),
@@ -75,7 +75,7 @@ label+* {
 }
 
 div.ReactModal__Overlay {
-  background-image: url("https://newstarsgame.com/public/Purple/Layer%202/Space%20Background%2010.png") !important;
+  background-image: url("https://newstarsgame.com/img/Purple/Layer%202/Space%20Background%2010.png") !important;
 }
 
 @keyframes fade-in {
